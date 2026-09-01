@@ -13,7 +13,7 @@ import (
 	"entgo.io/ent/examples/fs/ent"
 	"entgo.io/ent/examples/fs/ent/file"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_recursiveTraversal() {

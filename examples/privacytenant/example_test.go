@@ -16,7 +16,7 @@ import (
 	"entgo.io/ent/examples/privacytenant/ent/user"
 	"entgo.io/ent/examples/privacytenant/viewer"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_createTenants() {

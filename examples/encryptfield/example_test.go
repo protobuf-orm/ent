@@ -13,7 +13,7 @@ import (
 	_ "entgo.io/ent/examples/encryptfield/ent/runtime"
 	"entgo.io/ent/examples/encryptfield/ent/user"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"gocloud.dev/secrets/localsecrets"
 )
 

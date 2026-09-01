@@ -10,7 +10,7 @@ require (
 	entgo.io/ent v0.14.6
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.12.0
-	github.com/mattn/go-sqlite3 v1.14.50
+	github.com/ncruces/go-sqlite3 v0.35.3
 	github.com/stretchr/testify v1.12.1
 	gocloud.dev v0.46.0
 )
@@ -29,7 +29,10 @@ require (
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.24.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
+	github.com/mattn/go-sqlite3 v1.14.50 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
+	github.com/ncruces/go-sqlite3-wasm/v3 v3.2.35304 // indirect
+	github.com/ncruces/julianday v1.0.0 // indirect
 	github.com/zclconf/go-cty v1.19.0 // indirect
 	github.com/zclconf/go-cty-yaml v1.2.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect

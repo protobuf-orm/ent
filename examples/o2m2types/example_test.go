@@ -11,7 +11,7 @@ import (
 
 	"entgo.io/ent/examples/o2m2types/ent"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_o2m2Types() {

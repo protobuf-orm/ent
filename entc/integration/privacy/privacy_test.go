@@ -15,7 +15,7 @@ import (
 	"entgo.io/ent/entc/integration/privacy/rule"
 	"entgo.io/ent/entc/integration/privacy/viewer"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
 )
 

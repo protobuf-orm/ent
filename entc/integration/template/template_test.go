@@ -17,7 +17,7 @@ import (
 	"entgo.io/ent/entc/integration/template/ent/pet"
 	"entgo.io/ent/entc/integration/template/ent/user"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
 )
 

@@ -44,7 +44,7 @@ import (
 	"entgo.io/ent/schema/field"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
 )
 
@@ -68,8 +68,8 @@ func TestMySQL(t *testing.T) {
 			V1ToV2(t, drv.Dialect(), clientv1, clientv2)
 			if version == "8" {
 				CheckConstraint(t, clientv2)
-				DefaultExpr(t, drv, "SELECT column_default FROM information_schema.columns WHERE table_schema = 'migrate' AND table_name = 'users' AND column_name = ?", "lower(_utf8mb4\\'hello\\')", "to_base64(_utf8mb4\\'ent\\')")
-				PKDefault(t, drv, "SELECT column_default FROM information_schema.columns WHERE table_schema = 'migrate' AND table_name = 'zoos' AND column_name = ?", "floor((rand() * ~((1 << 31))))")
+				DefaultExpr(t, drv, "SELECT column_default FROM information_schema.columns WHERE table_schema = 'migrate' AND table_name = 'user' AND column_name = ?", "lower(_utf8mb4\\'hello\\')", "to_base64(_utf8mb4\\'ent\\')")
+				PKDefault(t, drv, "SELECT column_default FROM information_schema.columns WHERE table_schema = 'migrate' AND table_name = 'zoo' AND column_name = ?", "floor((rand() * ~((1 << 31))))")
 			}
 			NicknameSearch(t, clientv2)
 			TimePrecision(t, drv, "SELECT datetime_precision FROM information_schema.columns WHERE table_schema = 'migrate' AND table_name = ? AND column_name = ?")
@@ -138,9 +138,9 @@ func TestPostgres(t *testing.T) {
 			CheckConstraint(t, clientv2)
 			TimePrecision(t, drv, "SELECT datetime_precision FROM information_schema.columns WHERE table_name = $1 AND column_name = $2")
 			PartialIndexes(t, drv, "select indexdef from pg_indexes where indexname=$1", "CREATE INDEX user_phone ON public.users USING btree (phone) WHERE (active AND ((phone)::text <> ''::text))")
-			JSONDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'users' AND column_name = $1`)
-			DefaultExpr(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'users' AND column_name = $1`, "lower('hello'::text)", "md5('ent'::text)")
-			PKDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'zoos' AND column_name = $1`, "floor((random() * ((~ (1 << 31)))::double precision))")
+			JSONDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'user' AND column_name = $1`)
+			DefaultExpr(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'user' AND column_name = $1`, "lower('hello'::text)", "md5('ent'::text)")
+			PKDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'zoo' AND column_name = $1`, "floor((random() * ((~ (1 << 31)))::double precision))")
 			IndexOpClass(t, drv)
 			ColumnComments(t, drv, `SELECT column_name as name, col_description(table_name::regclass::oid, ordinal_position) as comment FROM information_schema.columns WHERE table_name = 'media' ORDER BY ordinal_position`)
 			TableComment(t, drv, "SELECT obj_description('media'::regclass::oid)")
@@ -224,10 +224,10 @@ func TestSQLite(t *testing.T) {
 	idRange(t, client.Media.Create().SaveX(ctx).ID, 5<<32-1, 6<<32)
 	idRange(t, client.Pet.Create().SaveX(ctx).ID, 6<<32-1, 7<<32)
 	idRange(t, u.ID, 7<<32-1, 8<<32)
-	PartialIndexes(t, drv, "select sql from sqlite_master where name=?", "CREATE INDEX `user_phone` ON `users` (`phone`) WHERE active AND \"phone\" <> ''")
-	JSONDefault(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('users') WHERE `name` = ?")
-	DefaultExpr(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('users') WHERE `name` = ?", "lower('hello')", "hex('ent')")
-	PKDefault(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('zoos') WHERE `name` = ?", "abs(random())")
+	PartialIndexes(t, drv, "select sql from sqlite_master where name=?", "CREATE INDEX `user_phone` ON `user` (`phone`) WHERE active AND \"phone\" <> ''")
+	JSONDefault(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('user') WHERE `name` = ?")
+	DefaultExpr(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('user') WHERE `name` = ?", "lower('hello')", "hex('ent')")
+	PKDefault(t, drv, "SELECT `dflt_value` FROM `pragma_table_info`('zoo') WHERE `name` = ?", "abs(random())")
 
 	// Override the default behavior of LIKE in SQLite.
 	// https://www.sqlite.org/pragma.html#pragma_case_sensitive_like
@@ -583,7 +583,7 @@ func SanityV2(t *testing.T, dbdialect string, client *entv2.Client) {
 		require.NotEmpty(t, u.NewToken, "old_token column should be renamed to new_token")
 	}
 	if dbdialect != dialect.SQLite {
-		require.True(t, client.User.Query().ExistX(ctx), "table 'users' should contain rows after running the migration")
+		require.True(t, client.User.Query().ExistX(ctx), "table 'user' should contain rows after running the migration")
 		users := client.User.Query().Select(user.FieldCreatedAt).AllX(ctx)
 		for i := range users {
 			require.False(t, users[i].CreatedAt.IsZero(), "default 'CURRENT_TIMESTAMP' should fill previous rows")

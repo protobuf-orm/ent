@@ -14,7 +14,7 @@ import (
 	_ "entgo.io/ent/examples/version/ent/runtime"
 	"entgo.io/ent/examples/version/ent/user"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_optimisticLock() {

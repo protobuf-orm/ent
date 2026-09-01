@@ -44,6 +44,9 @@ jobs:
       - name: Run dialect tests
         run: go test -race ./...
         working-directory: dialect
+      - name: Run schema migration tests against a real engine
+        run: go test -race ./...
+        working-directory: dialect/sql/schema/integration
       - name: Run schema tests
         run: go test -race ./...
         working-directory: schema

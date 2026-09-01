@@ -14,7 +14,7 @@ import (
 	"entgo.io/ent/examples/entcpkg/ent"
 	"entgo.io/ent/examples/entcpkg/ent/hook"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_entcPkg() {

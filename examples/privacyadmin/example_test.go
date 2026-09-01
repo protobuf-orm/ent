@@ -16,7 +16,7 @@ import (
 	"entgo.io/ent/examples/privacyadmin/ent/privacy"
 	_ "entgo.io/ent/examples/privacyadmin/ent/runtime"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_privacyAdmin() {

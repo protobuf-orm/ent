@@ -25,7 +25,7 @@ import (
 	"entgo.io/ent/entql"
 
 	"github.com/google/uuid"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
 )
 
@@ -57,7 +57,8 @@ func TestEdgeSchemaWithID(t *testing.T) {
 
 	err = hub.Update().AddUsers(nat).Exec(ctx)
 	require.True(t, ent.IsConstraintError(err), "duplicate edge error, because edge exists with a different 'joined_at' value")
-	require.EqualError(t, errors.Unwrap(err), "add m2m edge for table user_groups: UNIQUE constraint failed: user_groups.user_id, user_groups.group_id")
+	require.ErrorContains(t, errors.Unwrap(err), "add m2m edge for table user_group: ")
+	require.ErrorContains(t, errors.Unwrap(err), "UNIQUE constraint failed: user_group.user_id, user_group.group_id")
 
 	edges := a8m.QueryJoinedGroups().AllX(ctx)
 	require.Equal(t, a8m.ID, edges[0].UserID)
@@ -234,7 +235,8 @@ func TestEdgeSchemaBidiCompositeID(t *testing.T) {
 
 	err = u1.Update().AddRelatives(u2).Exec(ctx)
 	require.True(t, ent.IsConstraintError(err), "duplicate edge error, because edge may contain a different 'weight' value in the database")
-	require.EqualError(t, errors.Unwrap(err), "add m2m edge for table relationships: UNIQUE constraint failed: relationships.user_id, relationships.relative_id")
+	require.ErrorContains(t, errors.Unwrap(err), "add m2m edge for table relationship: ")
+	require.ErrorContains(t, errors.Unwrap(err), "UNIQUE constraint failed: relationship.user_id, relationship.relatives_id")
 
 	u4u5 := client.User.CreateBulk(
 		client.User.Create().SetName("u4").AddRelatives(u1, u2, u3),
@@ -250,7 +252,8 @@ func TestEdgeSchemaBidiCompositeID(t *testing.T) {
 
 		err := u.Update().AddRelatives(u3).Exec(ctx)
 		require.True(t, ent.IsConstraintError(err), "duplicate edge error, because edge may contain a different 'weight' value in the database")
-		require.EqualError(t, errors.Unwrap(err), "add m2m edge for table relationships: UNIQUE constraint failed: relationships.user_id, relationships.relative_id")
+		require.ErrorContains(t, errors.Unwrap(err), "add m2m edge for table relationship: ")
+		require.ErrorContains(t, errors.Unwrap(err), "UNIQUE constraint failed: relationship.user_id, relationship.relatives_id")
 
 		// Currently, the foreign-key action is configured as "NO ACTION" rather than "CASCADE", because
 		// we do not clear edge-schema records when nodes are deleted, as they are treated as real nodes

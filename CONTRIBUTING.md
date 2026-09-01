@@ -6,6 +6,9 @@ possible.
 
 - `dialect` - Contains the SQL code used by the generated code.
   - `dialect/sql/schema` - Auto migration logic resides there.
+  - `dialect/sql/schema/integration` - A module of its own, holding the migration
+    tests that run against a real database engine so that their driver stays out
+    of the go.mod of ent.
   - `dialect/sql/sqljson` - JSON extension for SQL.
 
 - `schema` - User schema API.

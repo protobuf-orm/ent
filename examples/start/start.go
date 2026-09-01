@@ -15,7 +15,7 @@ import (
 	"entgo.io/ent/examples/start/ent/group"
 	"entgo.io/ent/examples/start/ent/user"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func main() {

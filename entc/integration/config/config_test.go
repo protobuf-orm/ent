@@ -22,7 +22,7 @@ import (
 	"entgo.io/ent/entc/integration/config/ent/schema"
 
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func TestSchemaConfig(t *testing.T) {

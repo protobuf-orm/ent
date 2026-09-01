@@ -12,7 +12,7 @@ import (
 	"entgo.io/ent/examples/o2obidi/ent"
 	"entgo.io/ent/examples/o2obidi/ent/user"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_o2oBidi() {

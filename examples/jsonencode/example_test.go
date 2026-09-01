@@ -11,7 +11,7 @@ import (
 	"log"
 
 	"entgo.io/ent/examples/jsonencode/ent"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 )
 
 func Example_jsonEncode() {

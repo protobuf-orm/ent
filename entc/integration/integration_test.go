@@ -51,7 +51,7 @@ import (
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -1259,11 +1259,11 @@ func Relation(t *testing.T, client *ent.Client) {
 	_, err = client.Group.Query().GroupBy("unknown_field").String(ctx)
 	require.EqualError(err, "ent: invalid field \"unknown_field\" for query")
 	_, err = client.User.Query().Order(ent.Asc("invalid")).Only(ctx)
-	require.EqualError(err, "ent: unknown column \"invalid\" for table \"users\"")
+	require.EqualError(err, "ent: unknown column \"invalid\" for table \"user\"")
 	_, err = client.User.Query().Order(ent.Asc("invalid")).QueryFollowing().Only(ctx)
-	require.EqualError(err, "ent: unknown column \"invalid\" for table \"users\"")
+	require.EqualError(err, "ent: unknown column \"invalid\" for table \"user\"")
 	_, err = client.User.Query().GroupBy("name").Aggregate(ent.Sum("invalid")).String(ctx)
-	require.EqualError(err, "ent: unknown column \"invalid\" for table \"users\"")
+	require.EqualError(err, "ent: unknown column \"invalid\" for table \"user\"")
 
 	t.Log("query using edge-with predicate")
 	require.Len(usr.QueryGroups().Where(group.HasInfoWith(groupinfo.Desc("group info"))).AllX(ctx), 1)
