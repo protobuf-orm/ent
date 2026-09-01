@@ -8,7 +8,7 @@ package info
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
 	"fmt"
 
 	"entgo.io/ent"
@@ -20,8 +20,8 @@ import (
 type Mutation struct {
 	op            ent.Op
 	typ           string
-	content       *json.RawMessage
-	appendcontent json.RawMessage
+	content       *jsontext.Value
+	appendcontent jsontext.Value
 	clearedFields map[string]struct{}
 	user          *int
 	cleareduser   bool
@@ -43,13 +43,13 @@ func (m *Mutation) Predicates() []predicate.Info {
 }
 
 // SetContent sets the "content" field.
-func (m *Mutation) SetContent(jm json.RawMessage) {
-	m.content = &jm
+func (m *Mutation) SetContent(j jsontext.Value) {
+	m.content = &j
 	m.appendcontent = nil
 }
 
 // Content returns the value of the "content" field in the mutation.
-func (m *Mutation) Content() (r json.RawMessage, exists bool) {
+func (m *Mutation) Content() (r jsontext.Value, exists bool) {
 	v := m.content
 	if v == nil {
 		return
@@ -57,13 +57,13 @@ func (m *Mutation) Content() (r json.RawMessage, exists bool) {
 	return *v, true
 }
 
-// AppendContent adds jm to the "content" field.
-func (m *Mutation) AppendContent(jm json.RawMessage) {
-	m.appendcontent = append(m.appendcontent, jm...)
+// AppendContent adds j to the "content" field.
+func (m *Mutation) AppendContent(j jsontext.Value) {
+	m.appendcontent = append(m.appendcontent, j...)
 }
 
 // AppendedContent returns the list of values that were appended to the "content" field in this mutation.
-func (m *Mutation) AppendedContent() (json.RawMessage, bool) {
+func (m *Mutation) AppendedContent() (jsontext.Value, bool) {
 	if len(m.appendcontent) == 0 {
 		return nil, false
 	}
@@ -180,7 +180,7 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldContent:
-		v, ok := value.(json.RawMessage)
+		v, ok := value.(jsontext.Value)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

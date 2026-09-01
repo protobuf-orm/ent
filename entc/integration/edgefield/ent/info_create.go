@@ -8,7 +8,7 @@ package ent
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
 	"errors"
 	"fmt"
 
@@ -26,7 +26,7 @@ type InfoCreate struct {
 }
 
 // SetContent sets the "content" field.
-func (_c *InfoCreate) SetContent(v json.RawMessage) *InfoCreate {
+func (_c *InfoCreate) SetContent(v jsontext.Value) *InfoCreate {
 	_c.mutation.SetContent(v)
 	return _c
 }

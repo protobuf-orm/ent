@@ -302,7 +302,7 @@ func (_q *InfoQuery) WithUser(opts ...func(*UserQuery)) *InfoQuery {
 // Example:
 //
 //	var v []struct {
-//		Content json.RawMessage `json:"content,omitempty"`
+//		Content jsontext.Value `json:"content,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -325,7 +325,7 @@ func (_q *InfoQuery) GroupBy(field string, fields ...string) *InfoGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Content json.RawMessage `json:"content,omitempty"`
+//		Content jsontext.Value `json:"content,omitempty"`
 //	}
 //
 //	client.Info.Query().
