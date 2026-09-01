@@ -5,22 +5,32 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/protobuf-orm/ent/cmd/internal/base"
 
-	"github.com/spf13/cobra"
+	"github.com/lesomnus/xli"
 )
 
 func main() {
 	log.SetFlags(0)
-	cmd := &cobra.Command{Use: "ent"}
-	cmd.AddCommand(
-		base.NewCmd(),
-		base.DescribeCmd(),
-		base.GenerateCmd(),
-		base.InitCmd(),
-		base.SchemaCmd(),
-	)
-	cobra.CheckErr(cmd.Execute())
+	cmd := &xli.Command{
+		Name:    "ent",
+		Brief:   "the ent code generator",
+		Handler: xli.RequireSubcommand(),
+		Commands: xli.Commands{
+			base.NewCmd(),
+			base.DescribeCmd(),
+			base.GenerateCmd(),
+			base.InitCmd(),
+			base.SchemaCmd(),
+		},
+	}
+	if err := cmd.Run(context.Background(), os.Args[1:]); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 }

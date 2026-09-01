@@ -6,6 +6,8 @@ package main
 
 import (
 	"bytes"
+	"context"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,19 +15,26 @@ import (
 	"github.com/protobuf-orm/ent/cmd/internal/base"
 	"github.com/protobuf-orm/ent/entc/gen"
 
-	"github.com/spf13/cobra"
+	"github.com/lesomnus/xli"
 )
 
 func main() {
 	log.SetFlags(0)
-	cmd := &cobra.Command{Use: "entc"}
-	cmd.AddCommand(
-		base.NewCmd(),
-		base.DescribeCmd(),
-		base.GenerateCmd(migrate),
-		base.InitCmd(),
-	)
-	_ = cmd.Execute()
+	cmd := &xli.Command{
+		Name:    "entc",
+		Brief:   "the ent code generator",
+		Handler: xli.RequireSubcommand(),
+		Commands: xli.Commands{
+			base.NewCmd(),
+			base.DescribeCmd(),
+			base.GenerateCmd(migrate),
+			base.InitCmd(),
+		},
+	}
+	if err := cmd.Run(context.Background(), os.Args[1:]); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 }
 
 func migrate(c *gen.Config) {
