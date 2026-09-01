@@ -9,7 +9,6 @@ require (
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/sync v0.22.0
 	golang.org/x/tools v0.49.0
-	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated
 )
 
 require (
@@ -30,6 +29,5 @@ require (
 	github.com/zclconf/go-cty-yaml v1.2.0 // indirect
 	golang.org/x/mod v0.40.0 // indirect
 	golang.org/x/text v0.41.0 // indirect
-	golang.org/x/tools/go/expect v0.1.0-deprecated // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
