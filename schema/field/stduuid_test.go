@@ -47,10 +47,18 @@ func TestUuidTextValueScanner(t *testing.T) {
 	assert.Equal(t, uuid.Nil(), back)
 }
 
-// TestUuidWithoutValueScanner keeps the requirement that a Uuid type without
-// an external ValueScanner must implement the database interfaces itself.
+// TestUuidWithoutValueScanner covers the same type given with no codec at
+// all: one is written by codegen, because the type says what it is as text.
 func TestUuidWithoutValueScanner(t *testing.T) {
 	fd := field.Uuid("id", uuid.UUID{}).Descriptor()
+	require.NoError(t, fd.Err)
+	require.True(t, fd.TextCodec, "codegen should be asked to write the codec")
+	require.Nil(t, fd.ValueScanner, "and the schema should not carry one")
+
+	// A type that can neither speak to a database nor say what it is as text
+	// is still refused, since nothing could be written for it.
+	type opaque [16]byte
+	fd = field.Uuid("id", opaque{}).Descriptor()
 	require.EqualError(t, fd.Err,
 		`GoType must be a "field.ValueScanner" type, ValueScanner or provide an external ValueScanner`)
 }

@@ -1442,6 +1442,14 @@ func (t Type) DeprecatedFields() []*Field {
 	return fs
 }
 
+// HasTextCodec reports whether the codec for this field is one codegen
+// writes, rather than one the schema handed over. It is how a GoType that
+// only marshals to text -- the uuid package of the standard library, say --
+// reaches a column without every field having to say so.
+func (f Field) HasTextCodec() bool {
+	return f.def != nil && f.def.TextCodec
+}
+
 // HasValueScanner indicates if the field has (an external) ValueScanner.
 func (f Field) HasValueScanner() bool {
 	return f.def != nil && f.def.ValueScanner

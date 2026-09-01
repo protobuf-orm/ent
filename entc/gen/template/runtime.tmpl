@@ -167,7 +167,9 @@ func init() {
 			{{- $desc := print $pkg "Desc" $f.StructField }}
 			{{- $idscan := and $n.HasOneFieldId (eq $f.Name $n.Id.Name) }}
 			{{- /* enum default values handled near their declarations (in type package). */}}
-			{{- if or (and $f.Default (not $f.IsEnum)) $f.UpdateDefault $f.Validators (and $f.HasValueScanner (or (not $idscan) (eq $n.Storage.Name "sql"))) }}
+			{{- /* A codec codegen writes needs no descriptor to read it from. */}}
+			{{- $descscan := and $f.HasValueScanner (not $f.HasTextCodec) (or (not $idscan) (eq $n.Storage.Name "sql")) }}
+			{{- if or (and $f.Default (not $f.IsEnum)) $f.UpdateDefault $f.Validators $descscan }}
 				// {{ $desc }} is the schema descriptor for {{ $f.Name }} field.
 				{{- if $f.Position.MixedIn }}
 					{{ $desc }} := {{ print $pkg "MixinFields" $f.Position.MixinIndex }}[{{ $f.Position.Index }}].Descriptor()
@@ -196,7 +198,12 @@ func init() {
 			{{- end }}
 			{{- if and $f.HasValueScanner (or (not $idscan) (eq $n.Storage.Name "sql")) }}
 				{{- $valuescan := print $pkg ".ValueScanner." $f.StructField }}
-				{{ $valuescan }} = {{ $desc }}.ValueScanner.(field.TypeValueScanner[{{ $f.Type }}])
+				{{- if $f.HasTextCodec }}
+					{{- /* The schema gave a type that only marshals to text, so the codec is written here. */}}
+					{{ $valuescan }} = field.TextValueScannerOf[{{ $f.Type }}]()
+				{{- else }}
+					{{ $valuescan }} = {{ $desc }}.ValueScanner.(field.TypeValueScanner[{{ $f.Type }}])
+				{{- end }}
 			{{- end }}
 			{{- with $f.Validators }}
 				{{- $name := print $pkg "." $f.Validator }}

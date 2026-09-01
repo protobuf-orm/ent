@@ -1304,8 +1304,25 @@ func (b *uuidBuilder) Deprecated(reason ...string) *uuidBuilder {
 
 // Descriptor implements the ent.Field interface by returning its descriptor.
 func (b *uuidBuilder) Descriptor() *Descriptor {
+	if b.desc.ValueScanner == nil && b.desc.Info != nil && b.desc.Info.RType != nil && textCodec(b.desc.Info.RType.rtype) {
+		// The type cannot speak to a database itself but can say what it is
+		// as text, which is what the uuid package of the standard library
+		// does. Codegen writes the codec, because only it knows the type
+		// statically and a generic cannot be instantiated by reflection.
+		b.desc.TextCodec = true
+		return b.desc
+	}
 	b.desc.checkGoType(valueScannerType)
 	return b.desc
+}
+
+// textCodec reports whether t marshals to and from text without implementing
+// the database interfaces, so that a codec has to be supplied for it.
+func textCodec(t reflect.Type) bool {
+	if t == nil || t.Implements(valueScannerType) || reflect.PtrTo(t).Implements(valueScannerType) {
+		return false
+	}
+	return reflect.PtrTo(t).Implements(textMarshalerType) && reflect.PtrTo(t).Implements(textUnmarshalerType)
 }
 
 // otherBuilder is the builder for other fields.
@@ -1449,6 +1466,7 @@ type Descriptor struct {
 	Name             string                  // field name.
 	Info             *TypeInfo               // field type info.
 	ValueScanner     any                     // custom field codec.
+	TextCodec        bool                    // the GoType is encoded as text by a codec codegen writes.
 	Unique           bool                    // unique index of field.
 	Nillable         bool                    // nillable struct field.
 	Optional         bool                    // nullable field in database.
@@ -1580,15 +1598,17 @@ func (d *Descriptor) checkDefaultFunc(expectType reflect.Type) {
 }
 
 var (
-	boolType         = reflect.TypeOf(false)
-	bytesType        = reflect.TypeOf([]byte(nil))
-	timeType         = reflect.TypeOf(time.Time{})
-	stringType       = reflect.TypeOf("")
-	valueType        = reflect.TypeOf((*driver.Value)(nil)).Elem()
-	valuerType       = reflect.TypeOf((*driver.Valuer)(nil)).Elem()
-	errorType        = reflect.TypeOf((*error)(nil)).Elem()
-	valueScannerType = reflect.TypeOf((*ValueScanner)(nil)).Elem()
-	validatorType    = reflect.TypeOf((*Validator)(nil)).Elem()
+	boolType            = reflect.TypeOf(false)
+	bytesType           = reflect.TypeOf([]byte(nil))
+	timeType            = reflect.TypeOf(time.Time{})
+	stringType          = reflect.TypeOf("")
+	valueType           = reflect.TypeOf((*driver.Value)(nil)).Elem()
+	valuerType          = reflect.TypeOf((*driver.Valuer)(nil)).Elem()
+	errorType           = reflect.TypeOf((*error)(nil)).Elem()
+	valueScannerType    = reflect.TypeOf((*ValueScanner)(nil)).Elem()
+	textMarshalerType   = reflect.TypeOf((*encoding.TextMarshaler)(nil)).Elem()
+	textUnmarshalerType = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
+	validatorType       = reflect.TypeOf((*Validator)(nil)).Elem()
 )
 
 // ValueScanner is the interface that groups the Value

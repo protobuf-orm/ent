@@ -25,12 +25,10 @@ type User struct {
 func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.Uuid("id", uuid.UUID{}).
-			Default(uuid.New).
-			ValueScanner(field.TextValueScannerOf[uuid.UUID]()),
+			Default(uuid.New),
 		field.String("name"),
 		field.Uuid("ref", uuid.UUID{}).
-			Optional().
-			ValueScanner(field.TextValueScannerOf[uuid.UUID]()),
+			Optional(),
 	}
 }
 

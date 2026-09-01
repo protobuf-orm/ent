@@ -303,9 +303,20 @@ field.UUID("id", uuid.UUID{}).
     ValueScanner(field.TextValueScannerOf[uuid.UUID]())
 ```
 
-This is what makes the standard library UUID usable as a field type: it marshals to text, but implements neither
-`driver.Valuer` nor `sql.Scanner`. Note that a generated package cannot mix it with another package named `uuid`,
-such as `github.com/google/uuid`, because the two imports collide.
+For a UUID field this is not needed at all. A `GoType` that marshals to and from text but implements neither
+`driver.Valuer` nor `sql.Scanner` -- which is what the `uuid` package of the standard library is -- has its codec
+written by codegen, so the field is only:
+
+```go
+field.Uuid("id", uuid.UUID{}).
+    Default(uuid.New)
+```
+
+The codec cannot be installed by `field.Uuid` itself: the generated code asserts a `field.TypeValueScanner[T]`, and a
+generic cannot be instantiated by reflection. Codegen knows the type statically and writes it there instead.
+
+Note that a generated package cannot mix the standard library `uuid` with another package of the same name, such as
+`github.com/google/uuid`, because the two imports collide.
 
 </TabItem>
 <TabItem value="BinaryMarshaller">

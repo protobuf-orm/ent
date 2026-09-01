@@ -21,12 +21,10 @@ import (
 func init() {
 	userFields := schema.User{}.Fields()
 	_ = userFields
-	// userDescRef is the schema descriptor for ref field.
-	userDescRef := userFields[2].Descriptor()
-	user.ValueScanner.Ref = userDescRef.ValueScanner.(field.TypeValueScanner[uuid.UUID])
+	user.ValueScanner.Ref = field.TextValueScannerOf[uuid.UUID]()
 	// userDescId is the schema descriptor for id field.
 	userDescId := userFields[0].Descriptor()
 	// user.DefaultId holds the default value on creation for the id field.
 	user.DefaultId = userDescId.Default.(func() uuid.UUID)
-	user.ValueScanner.Id = userDescId.ValueScanner.(field.TypeValueScanner[uuid.UUID])
+	user.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 }
