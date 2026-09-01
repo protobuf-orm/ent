@@ -1023,8 +1023,6 @@ func (t *Type) checkField(tf *Field, f *load.Field) (err error) {
 		err = fmt.Errorf("GoType %q for field %q must be converted to the basic %q type for validators", tf.Type, f.Name, tf.Type.Type)
 	case ant != nil && ant.Default != "" && (ant.DefaultExpr != "" || ant.DefaultExprs != nil):
 		err = fmt.Errorf("field %q cannot have both default value and default expression annotations", f.Name)
-	case tf.HasValueScanner() && tf.IsJSON():
-		err = fmt.Errorf("json field %q cannot have an external ValueScanner", f.Name)
 	}
 	return err
 }

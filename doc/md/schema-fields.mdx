@@ -259,9 +259,25 @@ interface. Additionally, this option enables users to use `GoType` that does not
 as `*url.URL`.
 
 :::note
-At this stage, this option is available for text, numeric and UUID fields, but it will be extended to other types in
-the future.
+At this stage, this option is available for text, numeric, UUID and JSON fields, but it will be extended to other
+types in the future.
 :::
+
+A JSON column is written through `encoding/json`, so a `ValueScanner` on one has to hand back a value that is already
+encoded. Returning a `json.RawMessage`, a `[]byte` or a `string` all work and are passed through as they are; anything
+else is refused rather than encoded a second time. This is what lets a JSON column hold a type `encoding/json` cannot
+read, such as a protobuf message generated with the opaque API, whose fields only `protojson` can see:
+
+```go
+field.JSON("profile", &Profile{}).
+    ValueScanner(field.ValueScannerFunc[*Profile, *sql.NullString]{
+        V: func(p *Profile) (driver.Value, error) { return protojson.Marshal(p) },
+        S: func(ns *sql.NullString) (*Profile, error) {
+            var p Profile
+            return &p, protojson.Unmarshal([]byte(ns.String), &p)
+        },
+    })
+```
 
 <Tabs>
 <TabItem value="TextMarshaller">

@@ -9,6 +9,7 @@ import (
 	"database/sql/driver"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -1014,4 +1015,24 @@ func TestString_MaxRuneLen(t *testing.T) {
 
 	err = fd.Validators[0].(func(string) error)("")
 	assert.NoError(t, err)
+}
+
+func TestJSONValueScanner(t *testing.T) {
+	// A JSON column is written through encoding/json, so whatever an
+	// external ValueScanner returns has to say it is already encoded.
+	for _, tt := range []struct {
+		in   driver.Value
+		want driver.Value
+	}{
+		{json.RawMessage(`{"a":1}`), json.RawMessage(`{"a":1}`)},
+		{[]byte(`{"a":1}`), json.RawMessage(`{"a":1}`)},
+		{`{"a":1}`, json.RawMessage(`{"a":1}`)},
+		{nil, nil},
+	} {
+		got, err := field.JSONValue(tt.in)
+		require.NoError(t, err)
+		require.Equal(t, tt.want, got)
+	}
+	_, err := field.JSONValue(42)
+	require.ErrorContains(t, err, "must return the encoded value")
 }

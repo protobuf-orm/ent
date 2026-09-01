@@ -8,6 +8,7 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"encoding"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -845,6 +846,18 @@ func (b *jsonBuilder) Sensitive() *jsonBuilder {
 // StructTag sets the struct tag of the field.
 func (b *jsonBuilder) StructTag(s string) *jsonBuilder {
 	b.desc.Tag = s
+	return b
+}
+
+// ValueScanner provides an external value scanner for the given GoType.
+// Using this option allows a JSON column whose Go value is encoded by
+// something other than encoding/json, such as a protobuf message that
+// only protojson can see the fields of.
+//
+//	field.JSON("profile", &Profile{}).
+//		ValueScanner(entpb.ValueScanner[*Profile]{})
+func (b *jsonBuilder) ValueScanner(vs any) *jsonBuilder {
+	b.desc.ValueScanner = vs
 	return b
 }
 
@@ -1767,4 +1780,28 @@ func pkgPath(t reflect.Type) string {
 		return pkgPath(t.Elem())
 	}
 	return pkg
+}
+
+// JSONValue prepares the result of an external ValueScanner for a JSON
+// column. A JSON column is written through encoding/json, which would
+// encode the scanner's own output a second time: a string would arrive
+// quoted and a byte slice base64 encoded. Wrapping it in a
+// json.RawMessage says the value is already encoded and is passed
+// through as it is.
+//
+// It is called by the generated code and is not meant to be called
+// directly.
+func JSONValue(v driver.Value) (driver.Value, error) {
+	switch v := v.(type) {
+	case nil:
+		return nil, nil
+	case json.RawMessage:
+		return v, nil
+	case []byte:
+		return json.RawMessage(v), nil
+	case string:
+		return json.RawMessage(v), nil
+	default:
+		return nil, fmt.Errorf("field: a ValueScanner for a JSON field must return the encoded value as json.RawMessage, []byte or string, got %T", v)
+	}
 }

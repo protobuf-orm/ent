@@ -165,6 +165,7 @@ func GenerateCmd(postRun ...func(*gen.Config)) *xli.Command {
 			cfg.Target, _ = flg.Get[string](cmd, "target")
 			features, _ := flg.Get[[]string](cmd, "feature")
 			templates, _ := flg.Get[[]string](cmd, "template")
+			features, templates = commas(features), commas(templates)
 
 			idtype, err := parseIDType(flg.MustGet[string](cmd, "idtype"))
 			if err != nil {
@@ -235,6 +236,7 @@ func SchemaCmd() *xli.Command {
 			var cfg gen.Config
 			features, _ := flg.Get[[]string](cmd, "feature")
 			buildTags, _ := flg.Get[[]string](cmd, "build-tags")
+			features, buildTags = commas(features), commas(buildTags)
 			for _, o := range []entc.Option{
 				entc.FeatureNames(features...),
 				entc.BuildTags(buildTags...),
@@ -345,6 +347,21 @@ func ({{ . }}) Edges() []ent.Edge {
 }
 `
 )
+
+// commas splits every value on commas, so that a repeatable flag accepts
+// both `--feature a --feature b` and `--feature a,b`. The latter is what
+// the generate directives in the wild are written with.
+func commas(vs []string) []string {
+	out := make([]string, 0, len(vs))
+	for _, v := range vs {
+		for _, p := range strings.Split(v, ",") {
+			if p = strings.TrimSpace(p); p != "" {
+				out = append(out, p)
+			}
+		}
+	}
+	return out
+}
 
 // synop joins the lines of a command description, which the help renders
 // under "Description".

@@ -112,12 +112,15 @@ func Storage(typ string) Option {
 // FeatureNames enables sets of features by their names.
 func FeatureNames(names ...string) Option {
 	return func(cfg *gen.Config) error {
+	names:
 		for _, name := range names {
 			for _, feat := range gen.AllFeatures {
 				if name == feat.Name {
 					cfg.Features = append(cfg.Features, feat)
+					continue names
 				}
 			}
+			return fmt.Errorf("entc: unknown feature %q", name)
 		}
 		return nil
 	}

@@ -105,6 +105,12 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 						if err != nil {
 							return {{ $zero }}, err
 						}
+						{{- if $f.IsJSON }}
+							{{- /* The column is written through encoding/json, which would encode the scanner's output again. */}}
+							if vv, err = field.JSONValue(vv); err != nil {
+								return {{ $zero }}, err
+							}
+						{{- end }}
 						_spec.SetField({{ $.Package }}.{{ $f.Constant }}, field.{{ $f.Type.ConstName }}, vv)
 					{{- else }}
 						_spec.SetField({{ $.Package }}.{{ $f.Constant }}, field.{{ $f.Type.ConstName }}, value)
