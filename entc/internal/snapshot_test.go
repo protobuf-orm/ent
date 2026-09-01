@@ -39,8 +39,12 @@ func TestSnapshot_Restore(t *testing.T) {
 			`,
 		}}
 	require.NoError(t, snap.Restore())
-	err = exec.Command("go", "generate", testPackage).Run()
-	require.NoError(t, err)
+	// The integration suite is a module of its own, so the generator has
+	// to run from its root rather than from the one of this module.
+	cmd := exec.Command("go", "generate", "./privacy/ent")
+	cmd.Dir = "../integration"
+	out, err := cmd.CombinedOutput()
+	require.NoError(t, err, string(out))
 }
 
 // addConflicts adds VCS conflicts to the files that match the given patterns.
@@ -51,7 +55,10 @@ func addConflicts(dir string) error {
 		return err
 	}
 	for _, info := range infos {
-		if info.IsDir() || info.Name() == "generate.go" {
+		// Only generated files are restored from the snapshot, so files
+		// that are part of the schema definition must be left alone. In
+		// particular entc.go, which the generator itself runs.
+		if info.IsDir() || info.Name() == "generate.go" || info.Name() == "entc.go" {
 			continue
 		}
 		path := filepath.Join(dir, info.Name())

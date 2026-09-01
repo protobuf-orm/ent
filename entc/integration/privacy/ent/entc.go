@@ -41,5 +41,3 @@ func main() {
 		log.Fatalf("running ent codegen: %v", err)
 	}
 }
-
-<<<<<<<
