@@ -12,30 +12,30 @@ import (
 )
 
 var (
-	// FriendshipsColumns holds the columns for the "friendships" table.
-	FriendshipsColumns = []*schema.Column{
+	// FriendshipColumns holds the columns for the "friendship" table.
+	FriendshipColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "weight", Type: field.TypeInt, Default: 1},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "friend_id", Type: field.TypeInt},
+		{Name: "friends_id", Type: field.TypeInt},
 	}
-	// FriendshipsTable holds the schema information for the "friendships" table.
-	FriendshipsTable = &schema.Table{
-		Name:       "friendships",
-		Columns:    FriendshipsColumns,
-		PrimaryKey: []*schema.Column{FriendshipsColumns[0]},
+	// FriendshipTable holds the schema information for the "friendship" table.
+	FriendshipTable = &schema.Table{
+		Name:       "friendship",
+		Columns:    FriendshipColumns,
+		PrimaryKey: []*schema.Column{FriendshipColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "friendships_users_user",
-				Columns:    []*schema.Column{FriendshipsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_user",
+				Columns:    []*schema.Column{FriendshipColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "friendships_users_friend",
-				Columns:    []*schema.Column{FriendshipsColumns[4]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_friend",
+				Columns:    []*schema.Column{FriendshipColumns[4]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -43,90 +43,90 @@ var (
 			{
 				Name:    "friendship_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{FriendshipsColumns[2]},
+				Columns: []*schema.Column{FriendshipColumns[2]},
 			},
 			{
-				Name:    "friendship_user_id_friend_id",
+				Name:    "friendship_user_id_friends_id",
 				Unique:  true,
-				Columns: []*schema.Column{FriendshipsColumns[3], FriendshipsColumns[4]},
+				Columns: []*schema.Column{FriendshipColumns[3], FriendshipColumns[4]},
 			},
 		},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 	}
-	// ParentsColumns holds the columns for the "parents" table.
-	ParentsColumns = []*schema.Column{
+	// ParentColumns holds the columns for the "parent" table.
+	ParentColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "by_adoption", Type: field.TypeBool, Default: false},
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "parent_id", Type: field.TypeInt},
+		{Name: "parents_id", Type: field.TypeInt},
 	}
-	// ParentsTable holds the schema information for the "parents" table.
-	ParentsTable = &schema.Table{
-		Name:       "parents",
-		Columns:    ParentsColumns,
-		PrimaryKey: []*schema.Column{ParentsColumns[0]},
+	// ParentTable holds the schema information for the "parent" table.
+	ParentTable = &schema.Table{
+		Name:       "parent",
+		Columns:    ParentColumns,
+		PrimaryKey: []*schema.Column{ParentColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "parents_users_child",
-				Columns:    []*schema.Column{ParentsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "parent_user_child",
+				Columns:    []*schema.Column{ParentColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "parents_users_parent",
-				Columns:    []*schema.Column{ParentsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "parent_user_parent",
+				Columns:    []*schema.Column{ParentColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 		Indexes: []*schema.Index{
 			{
-				Name:    "parent_user_id_parent_id",
+				Name:    "parent_user_id_parents_id",
 				Unique:  true,
-				Columns: []*schema.Column{ParentsColumns[2], ParentsColumns[3]},
+				Columns: []*schema.Column{ParentColumns[2], ParentColumns[3]},
 			},
 		},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pets_users_pets",
-				Columns:    []*schema.Column{PetsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "pet_user_pets",
+				Columns:    []*schema.Column{PetColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// GroupUsersColumns holds the columns for the "group_users" table.
 	GroupUsersColumns = []*schema.Column{
@@ -142,34 +142,34 @@ var (
 			{
 				Symbol:     "group_users_group_id",
 				Columns:    []*schema.Column{GroupUsersColumns[0]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "group_users_user_id",
 				Columns:    []*schema.Column{GroupUsersColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		FriendshipsTable,
-		GroupsTable,
-		ParentsTable,
-		PetsTable,
-		UsersTable,
+		FriendshipTable,
+		GroupTable,
+		ParentTable,
+		PetTable,
+		UserTable,
 		GroupUsersTable,
 	}
 )
 
 func init() {
-	FriendshipsTable.ForeignKeys[0].RefTable = UsersTable
-	FriendshipsTable.ForeignKeys[1].RefTable = UsersTable
-	ParentsTable.ForeignKeys[0].RefTable = UsersTable
-	ParentsTable.ForeignKeys[1].RefTable = UsersTable
-	PetsTable.ForeignKeys[0].RefTable = UsersTable
-	GroupUsersTable.ForeignKeys[0].RefTable = GroupsTable
-	GroupUsersTable.ForeignKeys[1].RefTable = UsersTable
+	FriendshipTable.ForeignKeys[0].RefTable = UserTable
+	FriendshipTable.ForeignKeys[1].RefTable = UserTable
+	ParentTable.ForeignKeys[0].RefTable = UserTable
+	ParentTable.ForeignKeys[1].RefTable = UserTable
+	PetTable.ForeignKeys[0].RefTable = UserTable
+	GroupUsersTable.ForeignKeys[0].RefTable = GroupTable
+	GroupUsersTable.ForeignKeys[1].RefTable = UserTable
 }

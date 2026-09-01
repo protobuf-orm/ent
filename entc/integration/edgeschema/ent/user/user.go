@@ -44,71 +44,71 @@ const (
 	// EdgeRolesUsers holds the string denoting the roles_users edge name in mutations.
 	EdgeRolesUsers = "roles_users"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
-	GroupsTable = "user_groups"
+	GroupsTable = "user_group"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
-	FriendsTable = "friendships"
+	FriendsTable = "friendship"
 	// RelativesTable is the table that holds the relatives relation/edge. The primary key declared below.
-	RelativesTable = "relationships"
+	RelativesTable = "relationship"
 	// LikedTweetsTable is the table that holds the liked_tweets relation/edge. The primary key declared below.
-	LikedTweetsTable = "tweet_likes"
+	LikedTweetsTable = "tweet_like"
 	// LikedTweetsInverseTable is the table name for the Tweet entity.
 	// It exists in this package in order to avoid circular dependency with the "tweet" package.
-	LikedTweetsInverseTable = "tweets"
+	LikedTweetsInverseTable = "tweet"
 	// TweetsTable is the table that holds the tweets relation/edge. The primary key declared below.
-	TweetsTable = "user_tweets"
+	TweetsTable = "user_tweet"
 	// TweetsInverseTable is the table name for the Tweet entity.
 	// It exists in this package in order to avoid circular dependency with the "tweet" package.
-	TweetsInverseTable = "tweets"
+	TweetsInverseTable = "tweet"
 	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
-	RolesTable = "role_users"
+	RolesTable = "role_user"
 	// RolesInverseTable is the table name for the Role entity.
 	// It exists in this package in order to avoid circular dependency with the "role" package.
-	RolesInverseTable = "roles"
+	RolesInverseTable = "role"
 	// JoinedGroupsTable is the table that holds the joined_groups relation/edge.
-	JoinedGroupsTable = "user_groups"
+	JoinedGroupsTable = "user_group"
 	// JoinedGroupsInverseTable is the table name for the UserGroup entity.
 	// It exists in this package in order to avoid circular dependency with the "usergroup" package.
-	JoinedGroupsInverseTable = "user_groups"
+	JoinedGroupsInverseTable = "user_group"
 	// JoinedGroupsColumn is the table column denoting the joined_groups relation/edge.
 	JoinedGroupsColumn = "user_id"
 	// FriendshipsTable is the table that holds the friendships relation/edge.
-	FriendshipsTable = "friendships"
+	FriendshipsTable = "friendship"
 	// FriendshipsInverseTable is the table name for the Friendship entity.
 	// It exists in this package in order to avoid circular dependency with the "friendship" package.
-	FriendshipsInverseTable = "friendships"
+	FriendshipsInverseTable = "friendship"
 	// FriendshipsColumn is the table column denoting the friendships relation/edge.
 	FriendshipsColumn = "user_id"
 	// RelationshipTable is the table that holds the relationship relation/edge.
-	RelationshipTable = "relationships"
+	RelationshipTable = "relationship"
 	// RelationshipInverseTable is the table name for the Relationship entity.
 	// It exists in this package in order to avoid circular dependency with the "relationship" package.
-	RelationshipInverseTable = "relationships"
+	RelationshipInverseTable = "relationship"
 	// RelationshipColumn is the table column denoting the relationship relation/edge.
 	RelationshipColumn = "user_id"
 	// LikesTable is the table that holds the likes relation/edge.
-	LikesTable = "tweet_likes"
+	LikesTable = "tweet_like"
 	// LikesInverseTable is the table name for the TweetLike entity.
 	// It exists in this package in order to avoid circular dependency with the "tweetlike" package.
-	LikesInverseTable = "tweet_likes"
+	LikesInverseTable = "tweet_like"
 	// LikesColumn is the table column denoting the likes relation/edge.
 	LikesColumn = "user_id"
 	// UserTweetsTable is the table that holds the user_tweets relation/edge.
-	UserTweetsTable = "user_tweets"
+	UserTweetsTable = "user_tweet"
 	// UserTweetsInverseTable is the table name for the UserTweet entity.
 	// It exists in this package in order to avoid circular dependency with the "usertweet" package.
-	UserTweetsInverseTable = "user_tweets"
+	UserTweetsInverseTable = "user_tweet"
 	// UserTweetsColumn is the table column denoting the user_tweets relation/edge.
 	UserTweetsColumn = "user_id"
 	// RolesUsersTable is the table that holds the roles_users relation/edge.
-	RolesUsersTable = "role_users"
+	RolesUsersTable = "role_user"
 	// RolesUsersInverseTable is the table name for the RoleUser entity.
 	// It exists in this package in order to avoid circular dependency with the "roleuser" package.
-	RolesUsersInverseTable = "role_users"
+	RolesUsersInverseTable = "role_user"
 	// RolesUsersColumn is the table column denoting the roles_users relation/edge.
 	RolesUsersColumn = "user_id"
 )
@@ -125,10 +125,10 @@ var (
 	GroupsPrimaryKey = []string{"user_id", "group_id"}
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 	// RelativesPrimaryKey and RelativesColumn2 are the table columns denoting the
 	// primary key for the relatives relation (M2M).
-	RelativesPrimaryKey = []string{"user_id", "relative_id"}
+	RelativesPrimaryKey = []string{"user_id", "relatives_id"}
 	// LikedTweetsPrimaryKey and LikedTweetsColumn2 are the table columns denoting the
 	// primary key for the liked_tweets relation (M2M).
 	LikedTweetsPrimaryKey = []string{"user_id", "tweet_id"}

@@ -12,33 +12,33 @@ import (
 )
 
 var (
-	// FilesColumns holds the columns for the "files" table.
-	FilesColumns = []*schema.Column{
+	// FileColumns holds the columns for the "file" table.
+	FileColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "deleted", Type: field.TypeBool, Default: false},
 		{Name: "parent_id", Type: field.TypeInt, Nullable: true},
 	}
-	// FilesTable holds the schema information for the "files" table.
-	FilesTable = &schema.Table{
-		Name:       "files",
-		Columns:    FilesColumns,
-		PrimaryKey: []*schema.Column{FilesColumns[0]},
+	// FileTable holds the schema information for the "file" table.
+	FileTable = &schema.Table{
+		Name:       "file",
+		Columns:    FileColumns,
+		PrimaryKey: []*schema.Column{FileColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "files_files_children",
-				Columns:    []*schema.Column{FilesColumns[3]},
-				RefColumns: []*schema.Column{FilesColumns[0]},
+				Symbol:     "file_file_children",
+				Columns:    []*schema.Column{FileColumns[3]},
+				RefColumns: []*schema.Column{FileColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		FilesTable,
+		FileTable,
 	}
 )
 
 func init() {
-	FilesTable.ForeignKeys[0].RefTable = FilesTable
+	FileTable.ForeignKeys[0].RefTable = FileTable
 }

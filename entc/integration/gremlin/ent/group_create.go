@@ -82,9 +82,9 @@ func (_c *GroupCreate) SetName(v string) *GroupCreate {
 	return _c
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_c *GroupCreate) AddFileIDs(ids ...string) *GroupCreate {
-	_c.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_c *GroupCreate) AddFilesIDs(ids ...string) *GroupCreate {
+	_c.mutation.AddFilesIDs(ids...)
 	return _c
 }
 
@@ -94,7 +94,7 @@ func (_c *GroupCreate) AddFiles(v ...*File) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFileIDs(ids...)
+	return _c.AddFilesIDs(ids...)
 }
 
 // AddBlockedIDs adds the "blocked" edge to the User entity by IDs.
@@ -112,9 +112,9 @@ func (_c *GroupCreate) AddBlocked(v ...*User) *GroupCreate {
 	return _c.AddBlockedIDs(ids...)
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_c *GroupCreate) AddUserIDs(ids ...string) *GroupCreate {
-	_c.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_c *GroupCreate) AddUsersIDs(ids ...string) *GroupCreate {
+	_c.mutation.AddUsersIDs(ids...)
 	return _c
 }
 
@@ -124,7 +124,7 @@ func (_c *GroupCreate) AddUsers(v ...*User) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddUserIDs(ids...)
+	return _c.AddUsersIDs(ids...)
 }
 
 // SetInfoID sets the "info" edge to the GroupInfo entity by ID.

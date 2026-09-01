@@ -91,5 +91,5 @@ func (_m *Goods) String() string {
 	return builder.String()
 }
 
-// GoodsSlice is a parsable slice of Goods.
-type GoodsSlice []*Goods
+// GoodsList is a parsable slice of Goods.
+type GoodsList []*Goods

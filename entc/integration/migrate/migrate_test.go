@@ -330,7 +330,7 @@ func TestSQLite_ForeignKeyTx(t *testing.T) {
 }
 
 func TestStorageKey(t *testing.T) {
-	require.Equal(t, "user_pet_id", migratev2.PetsTable.ForeignKeys[0].Symbol)
+	require.Equal(t, "user_pet_id", migratev2.PetTable.ForeignKeys[0].Symbol)
 	require.Equal(t, "user_friend_id1", migratev2.FriendsTable.ForeignKeys[0].Symbol)
 	require.Equal(t, "user_friend_id2", migratev2.FriendsTable.ForeignKeys[1].Symbol)
 }

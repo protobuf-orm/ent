@@ -307,5 +307,5 @@ func (_m *File) appendNamedField(name string, edges ...*FieldType) {
 	}
 }
 
-// Files is a parsable slice of File.
-type Files []*File
+// FileList is a parsable slice of File.
+type FileList []*File

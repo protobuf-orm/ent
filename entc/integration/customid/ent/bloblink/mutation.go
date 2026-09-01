@@ -83,13 +83,13 @@ func (m *Mutation) ResetBlobID() {
 	m.blob = nil
 }
 
-// SetLinkID sets the "link_id" field.
-func (m *Mutation) SetLinkID(u uuid.UUID) {
+// SetLinksID sets the "links_id" field.
+func (m *Mutation) SetLinksID(u uuid.UUID) {
 	m.link = &u
 }
 
-// LinkID returns the value of the "link_id" field in the mutation.
-func (m *Mutation) LinkID() (r uuid.UUID, exists bool) {
+// LinksID returns the value of the "links_id" field in the mutation.
+func (m *Mutation) LinksID() (r uuid.UUID, exists bool) {
 	v := m.link
 	if v == nil {
 		return
@@ -97,8 +97,8 @@ func (m *Mutation) LinkID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetLinkID resets all changes to the "link_id" field.
-func (m *Mutation) ResetLinkID() {
+// ResetLinksID resets all changes to the "links_id" field.
+func (m *Mutation) ResetLinksID() {
 	m.link = nil
 }
 
@@ -129,15 +129,28 @@ func (m *Mutation) ResetBlob() {
 	m.clearedblob = false
 }
 
+// SetLinkID sets the "link" edge to the Blob entity by id.
+func (m *Mutation) SetLinkID(id uuid.UUID) {
+	m.link = &id
+}
+
 // ClearLink clears the "link" edge to the Blob entity.
 func (m *Mutation) ClearLink() {
 	m.clearedlink = true
-	m.clearedFields[FieldLinkID] = struct{}{}
+	m.clearedFields[FieldLinksID] = struct{}{}
 }
 
 // LinkCleared reports if the "link" edge to the Blob entity was cleared.
 func (m *Mutation) LinkCleared() bool {
 	return m.clearedlink
+}
+
+// LinkID returns the "link" edge ID in the mutation.
+func (m *Mutation) LinkID() (id uuid.UUID, exists bool) {
+	if m.link != nil {
+		return *m.link, true
+	}
+	return
 }
 
 // LinkIDs returns the "link" edge IDs in the mutation.
@@ -198,7 +211,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldBlobID)
 	}
 	if m.link != nil {
-		fields = append(fields, FieldLinkID)
+		fields = append(fields, FieldLinksID)
 	}
 	return fields
 }
@@ -212,8 +225,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.CreatedAt()
 	case FieldBlobID:
 		return m.BlobID()
-	case FieldLinkID:
-		return m.LinkID()
+	case FieldLinksID:
+		return m.LinksID()
 	}
 	return nil, false
 }
@@ -244,12 +257,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetBlobID(v)
 		return nil
-	case FieldLinkID:
+	case FieldLinksID:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetLinkID(v)
+		m.SetLinksID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown BlobLink field %s", name)
@@ -306,8 +319,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldBlobID:
 		m.ResetBlobID()
 		return nil
-	case FieldLinkID:
-		m.ResetLinkID()
+	case FieldLinksID:
+		m.ResetLinksID()
 		return nil
 	}
 	return fmt.Errorf("unknown BlobLink field %s", name)

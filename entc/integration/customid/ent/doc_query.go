@@ -234,7 +234,7 @@ func (_q *DocQuery) OnlyIDX(ctx context.Context) schema.DocID {
 	return id
 }
 
-// All executes the query and returns a list of Docs.
+// All executes the query and returns a list of Doc entities.
 func (_q *DocQuery) All(ctx context.Context) ([]*Doc, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

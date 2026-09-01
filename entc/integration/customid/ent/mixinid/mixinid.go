@@ -21,7 +21,7 @@ const (
 	// FieldMixinField holds the string denoting the mixin_field field in the database.
 	FieldMixinField = "mixin_field"
 	// Table holds the table name of the mixinid in the database.
-	Table = "mixin_ids"
+	Table = "mixin_id"
 )
 
 // Columns holds all SQL columns for mixinid fields.

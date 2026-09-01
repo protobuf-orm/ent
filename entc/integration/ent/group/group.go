@@ -35,31 +35,31 @@ const (
 	// EdgeInfo holds the string denoting the info edge name in mutations.
 	EdgeInfo = "info"
 	// Table holds the table name of the group in the database.
-	Table = "groups"
+	Table = "group"
 	// FilesTable is the table that holds the files relation/edge.
-	FilesTable = "files"
+	FilesTable = "file"
 	// FilesInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
-	FilesInverseTable = "files"
+	FilesInverseTable = "file"
 	// FilesColumn is the table column denoting the files relation/edge.
 	FilesColumn = "group_files"
 	// BlockedTable is the table that holds the blocked relation/edge.
-	BlockedTable = "users"
+	BlockedTable = "user"
 	// BlockedInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	BlockedInverseTable = "users"
+	BlockedInverseTable = "user"
 	// BlockedColumn is the table column denoting the blocked relation/edge.
 	BlockedColumn = "group_blocked"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
 	UsersTable = "user_groups"
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UsersInverseTable = "users"
+	UsersInverseTable = "user"
 	// InfoTable is the table that holds the info relation/edge.
-	InfoTable = "groups"
+	InfoTable = "group"
 	// InfoInverseTable is the table name for the GroupInfo entity.
 	// It exists in this package in order to avoid circular dependency with the "groupinfo" package.
-	InfoInverseTable = "group_infos"
+	InfoInverseTable = "group_info"
 	// InfoColumn is the table column denoting the info relation/edge.
 	InfoColumn = "group_info"
 )
@@ -74,7 +74,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "groups"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "group"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_info",

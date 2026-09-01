@@ -22,12 +22,12 @@ const (
 	// EdgeAccount holds the string denoting the account edge name in mutations.
 	EdgeAccount = "account"
 	// Table holds the table name of the token in the database.
-	Table = "tokens"
+	Table = "token"
 	// AccountTable is the table that holds the account relation/edge.
-	AccountTable = "tokens"
+	AccountTable = "token"
 	// AccountInverseTable is the table name for the Account entity.
 	// It exists in this package in order to avoid circular dependency with the "account" package.
-	AccountInverseTable = "accounts"
+	AccountInverseTable = "account"
 	// AccountColumn is the table column denoting the account relation/edge.
 	AccountColumn = "account_token"
 )
@@ -38,7 +38,7 @@ var Columns = []string{
 	FieldBody,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "tokens"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "token"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"account_token",

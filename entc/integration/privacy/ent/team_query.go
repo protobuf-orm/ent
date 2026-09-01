@@ -212,7 +212,7 @@ func (_q *TeamQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Teams.
+// All executes the query and returns a list of Team entities.
 func (_q *TeamQuery) All(ctx context.Context) ([]*Team, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

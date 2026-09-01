@@ -234,7 +234,7 @@ func (_q *MetadataQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of MetadataSlice.
+// All executes the query and returns a list of Metadata entities.
 func (_q *MetadataQuery) All(ctx context.Context) ([]*Metadata, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

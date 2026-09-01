@@ -27,17 +27,17 @@ const (
 	// EdgeRolesUsers holds the string denoting the roles_users edge name in mutations.
 	EdgeRolesUsers = "roles_users"
 	// Table holds the table name of the role in the database.
-	Table = "roles"
+	Table = "role"
 	// UserTable is the table that holds the user relation/edge. The primary key declared below.
-	UserTable = "role_users"
+	UserTable = "role_user"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// RolesUsersTable is the table that holds the roles_users relation/edge.
-	RolesUsersTable = "role_users"
+	RolesUsersTable = "role_user"
 	// RolesUsersInverseTable is the table name for the RoleUser entity.
 	// It exists in this package in order to avoid circular dependency with the "roleuser" package.
-	RolesUsersInverseTable = "role_users"
+	RolesUsersInverseTable = "role_user"
 	// RolesUsersColumn is the table column denoting the roles_users relation/edge.
 	RolesUsersColumn = "role_id"
 )

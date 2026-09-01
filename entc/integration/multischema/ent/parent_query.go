@@ -217,7 +217,7 @@ func (_q *ParentQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Parents.
+// All executes the query and returns a list of Parent entities.
 func (_q *ParentQuery) All(ctx context.Context) ([]*Parent, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -494,7 +494,7 @@ func (_q *ParentQuery) loadParent(ctx context.Context, query *UserQuery, nodes [
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Parent)
 	for i := range nodes {
-		fk := nodes[i].ParentID
+		fk := nodes[i].ParentsID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -511,7 +511,7 @@ func (_q *ParentQuery) loadParent(ctx context.Context, query *UserQuery, nodes [
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "parent_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "parents_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -554,7 +554,7 @@ func (_q *ParentQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.AddColumnOnce(parent.FieldUserID)
 		}
 		if _q.withParent != nil {
-			_spec.Node.AddColumnOnce(parent.FieldParentID)
+			_spec.Node.AddColumnOnce(parent.FieldParentsID)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

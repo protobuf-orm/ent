@@ -11,6 +11,11 @@ The builtin annotations allow configuring the different storage drivers (like SQ
 
 ## Custom Table Name
 
+By default, the table name is the `snake_case` form of the entity name, with no
+pluralization applied: `User` is stored in `user`, `UserInfo` in `user_info` and
+`HTTPCode` in `http_code`. The name is therefore always derivable from the entity
+name mechanically, without consulting an English inflection dictionary.
+
 A custom table name can be provided for types using the `entsql` annotation as follows:
 
 ```go title="ent/schema/user.go"

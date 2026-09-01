@@ -194,21 +194,21 @@ func (m *FriendshipMutation) OldUserID(ctx context.Context) (v int, err error) {
 	return oldValue.UserID, nil
 }
 
-// OldFriendID returns the old "friend_id" field's value of the Friendship entity.
+// OldFriendsID returns the old "friends_id" field's value of the Friendship entity.
 // If the Friendship object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *FriendshipMutation) OldFriendID(ctx context.Context) (v int, err error) {
+func (m *FriendshipMutation) OldFriendsID(ctx context.Context) (v int, err error) {
 	if !m.Op().Is(OpUpdateOne) {
-		return v, errors.New("OldFriendID is only allowed on UpdateOne operations")
+		return v, errors.New("OldFriendsID is only allowed on UpdateOne operations")
 	}
 	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldFriendID requires an ID field in the mutation")
+		return v, errors.New("OldFriendsID requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldFriendID: %w", err)
+		return v, fmt.Errorf("querying old value for OldFriendsID: %w", err)
 	}
-	return oldValue.FriendID, nil
+	return oldValue.FriendsID, nil
 }
 
 // OldField returns the old value of the field from the database. An error is
@@ -222,8 +222,8 @@ func (m *FriendshipMutation) OldField(ctx context.Context, name string) (ent.Val
 		return m.OldCreatedAt(ctx)
 	case friendship.FieldUserID:
 		return m.OldUserID(ctx)
-	case friendship.FieldFriendID:
-		return m.OldFriendID(ctx)
+	case friendship.FieldFriendsID:
+		return m.OldFriendsID(ctx)
 	}
 	return nil, fmt.Errorf("unknown Friendship field %s", name)
 }
@@ -500,21 +500,21 @@ func (m *ParentMutation) OldUserID(ctx context.Context) (v int, err error) {
 	return oldValue.UserID, nil
 }
 
-// OldParentID returns the old "parent_id" field's value of the Parent entity.
+// OldParentsID returns the old "parents_id" field's value of the Parent entity.
 // If the Parent object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ParentMutation) OldParentID(ctx context.Context) (v int, err error) {
+func (m *ParentMutation) OldParentsID(ctx context.Context) (v int, err error) {
 	if !m.Op().Is(OpUpdateOne) {
-		return v, errors.New("OldParentID is only allowed on UpdateOne operations")
+		return v, errors.New("OldParentsID is only allowed on UpdateOne operations")
 	}
 	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldParentID requires an ID field in the mutation")
+		return v, errors.New("OldParentsID requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldParentID: %w", err)
+		return v, fmt.Errorf("querying old value for OldParentsID: %w", err)
 	}
-	return oldValue.ParentID, nil
+	return oldValue.ParentsID, nil
 }
 
 // OldField returns the old value of the field from the database. An error is
@@ -526,8 +526,8 @@ func (m *ParentMutation) OldField(ctx context.Context, name string) (ent.Value, 
 		return m.OldByAdoption(ctx)
 	case parent.FieldUserID:
 		return m.OldUserID(ctx)
-	case parent.FieldParentID:
-		return m.OldParentID(ctx)
+	case parent.FieldParentsID:
+		return m.OldParentsID(ctx)
 	}
 	return nil, fmt.Errorf("unknown Parent field %s", name)
 }

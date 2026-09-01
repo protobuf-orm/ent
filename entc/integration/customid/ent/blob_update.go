@@ -86,9 +86,9 @@ func (_u *BlobUpdate) SetParent(v *Blob) *BlobUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddLinkIDs adds the "links" edge to the Blob entity by IDs.
-func (_u *BlobUpdate) AddLinkIDs(ids ...uuid.UUID) *BlobUpdate {
-	_u.mutation.AddLinkIDs(ids...)
+// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
+func (_u *BlobUpdate) AddLinksIDs(ids ...uuid.UUID) *BlobUpdate {
+	_u.mutation.AddLinksIDs(ids...)
 	return _u
 }
 
@@ -98,7 +98,7 @@ func (_u *BlobUpdate) AddLinks(v ...*Blob) *BlobUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddLinkIDs(ids...)
+	return _u.AddLinksIDs(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.
@@ -118,9 +118,9 @@ func (_u *BlobUpdate) ClearLinks() *BlobUpdate {
 	return _u
 }
 
-// RemoveLinkIDs removes the "links" edge to Blob entities by IDs.
-func (_u *BlobUpdate) RemoveLinkIDs(ids ...uuid.UUID) *BlobUpdate {
-	_u.mutation.RemoveLinkIDs(ids...)
+// RemoveLinksIDs removes the "links" edge to Blob entities by IDs.
+func (_u *BlobUpdate) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdate {
+	_u.mutation.RemoveLinksIDs(ids...)
 	return _u
 }
 
@@ -130,7 +130,7 @@ func (_u *BlobUpdate) RemoveLinks(v ...*Blob) *BlobUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveLinkIDs(ids...)
+	return _u.RemoveLinksIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -338,9 +338,9 @@ func (_u *BlobUpdateOne) SetParent(v *Blob) *BlobUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddLinkIDs adds the "links" edge to the Blob entity by IDs.
-func (_u *BlobUpdateOne) AddLinkIDs(ids ...uuid.UUID) *BlobUpdateOne {
-	_u.mutation.AddLinkIDs(ids...)
+// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
+func (_u *BlobUpdateOne) AddLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
+	_u.mutation.AddLinksIDs(ids...)
 	return _u
 }
 
@@ -350,7 +350,7 @@ func (_u *BlobUpdateOne) AddLinks(v ...*Blob) *BlobUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddLinkIDs(ids...)
+	return _u.AddLinksIDs(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.
@@ -370,9 +370,9 @@ func (_u *BlobUpdateOne) ClearLinks() *BlobUpdateOne {
 	return _u
 }
 
-// RemoveLinkIDs removes the "links" edge to Blob entities by IDs.
-func (_u *BlobUpdateOne) RemoveLinkIDs(ids ...uuid.UUID) *BlobUpdateOne {
-	_u.mutation.RemoveLinkIDs(ids...)
+// RemoveLinksIDs removes the "links" edge to Blob entities by IDs.
+func (_u *BlobUpdateOne) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
+	_u.mutation.RemoveLinksIDs(ids...)
 	return _u
 }
 
@@ -382,7 +382,7 @@ func (_u *BlobUpdateOne) RemoveLinks(v ...*Blob) *BlobUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveLinkIDs(ids...)
+	return _u.RemoveLinksIDs(ids...)
 }
 
 // Where appends a list predicates to the BlobUpdate builder.

@@ -77,9 +77,9 @@ func (_c *MetadataCreate) SetUser(v *User) *MetadataCreate {
 	return _c.SetUserID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Metadata entity by IDs.
-func (_c *MetadataCreate) AddChildIDs(ids ...int) *MetadataCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Metadata entity by IDs.
+func (_c *MetadataCreate) AddChildrenIDs(ids ...int) *MetadataCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -89,7 +89,7 @@ func (_c *MetadataCreate) AddChildren(v ...*Metadata) *MetadataCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // SetParent sets the "parent" edge to the Metadata entity.

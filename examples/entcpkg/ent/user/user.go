@@ -20,7 +20,7 @@ const (
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 )
 
 // Columns holds all SQL columns for user fields.

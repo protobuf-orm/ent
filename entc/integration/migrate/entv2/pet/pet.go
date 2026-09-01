@@ -23,12 +23,12 @@ const (
 	// UserFieldID holds the string denoting the ID field of the User.
 	UserFieldID = "oid"
 	// Table holds the table name of the pet in the database.
-	Table = "pets"
+	Table = "pet"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "pets"
+	OwnerTable = "pet"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "owner_id"
 )
@@ -39,7 +39,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "pets"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "pet"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"owner_id",

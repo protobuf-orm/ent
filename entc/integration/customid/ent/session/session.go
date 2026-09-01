@@ -20,12 +20,12 @@ const (
 	// EdgeDevice holds the string denoting the device edge name in mutations.
 	EdgeDevice = "device"
 	// Table holds the table name of the session in the database.
-	Table = "sessions"
+	Table = "session"
 	// DeviceTable is the table that holds the device relation/edge.
-	DeviceTable = "sessions"
+	DeviceTable = "session"
 	// DeviceInverseTable is the table name for the Device entity.
 	// It exists in this package in order to avoid circular dependency with the "device" package.
-	DeviceInverseTable = "devices"
+	DeviceInverseTable = "device"
 	// DeviceColumn is the table column denoting the device relation/edge.
 	DeviceColumn = "device_sessions"
 )
@@ -35,7 +35,7 @@ var Columns = []string{
 	FieldID,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "sessions"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "session"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"device_sessions",

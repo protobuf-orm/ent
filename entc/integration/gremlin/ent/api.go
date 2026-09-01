@@ -63,11 +63,11 @@ func (_m *Api) String() string {
 	return builder.String()
 }
 
-// Apis is a parsable slice of Api.
-type Apis []*Api
+// ApiList is a parsable slice of Api.
+type ApiList []*Api
 
-// FromResponse scans the gremlin response data into Apis.
-func (_m *Apis) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into ApiList.
+func (_m *ApiList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

@@ -45,9 +45,9 @@ func (_c *UserCreate) SetNillableName(v *string) *UserCreate {
 	return _c
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -57,12 +57,12 @@ func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIDs(ids...)
 	return _c
 }
 
@@ -72,12 +72,12 @@ func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendIDs(ids...)
+	return _c.AddFriendsIDs(ids...)
 }
 
-// AddRelativeIDs adds the "relatives" edge to the User entity by IDs.
-func (_c *UserCreate) AddRelativeIDs(ids ...int) *UserCreate {
-	_c.mutation.AddRelativeIDs(ids...)
+// AddRelativesIDs adds the "relatives" edge to the User entity by IDs.
+func (_c *UserCreate) AddRelativesIDs(ids ...int) *UserCreate {
+	_c.mutation.AddRelativesIDs(ids...)
 	return _c
 }
 
@@ -87,12 +87,12 @@ func (_c *UserCreate) AddRelatives(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddRelativeIDs(ids...)
+	return _c.AddRelativesIDs(ids...)
 }
 
-// AddLikedTweetIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
-func (_c *UserCreate) AddLikedTweetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddLikedTweetIDs(ids...)
+// AddLikedTweetsIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
+func (_c *UserCreate) AddLikedTweetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddLikedTweetsIDs(ids...)
 	return _c
 }
 
@@ -102,12 +102,12 @@ func (_c *UserCreate) AddLikedTweets(v ...*Tweet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddLikedTweetIDs(ids...)
+	return _c.AddLikedTweetsIDs(ids...)
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_c *UserCreate) AddTweetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_c *UserCreate) AddTweetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddTweetsIDs(ids...)
 	return _c
 }
 
@@ -117,12 +117,12 @@ func (_c *UserCreate) AddTweets(v ...*Tweet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTweetIDs(ids...)
+	return _c.AddTweetsIDs(ids...)
 }
 
-// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
-func (_c *UserCreate) AddRoleIDs(ids ...int) *UserCreate {
-	_c.mutation.AddRoleIDs(ids...)
+// AddRolesIDs adds the "roles" edge to the Role entity by IDs.
+func (_c *UserCreate) AddRolesIDs(ids ...int) *UserCreate {
+	_c.mutation.AddRolesIDs(ids...)
 	return _c
 }
 
@@ -132,12 +132,12 @@ func (_c *UserCreate) AddRoles(v ...*Role) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddRoleIDs(ids...)
+	return _c.AddRolesIDs(ids...)
 }
 
-// AddJoinedGroupIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
-func (_c *UserCreate) AddJoinedGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddJoinedGroupIDs(ids...)
+// AddJoinedGroupsIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
+func (_c *UserCreate) AddJoinedGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddJoinedGroupsIDs(ids...)
 	return _c
 }
 
@@ -147,12 +147,12 @@ func (_c *UserCreate) AddJoinedGroups(v ...*UserGroup) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddJoinedGroupIDs(ids...)
+	return _c.AddJoinedGroupsIDs(ids...)
 }
 
-// AddFriendshipIDs adds the "friendships" edge to the Friendship entity by IDs.
-func (_c *UserCreate) AddFriendshipIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendshipIDs(ids...)
+// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by IDs.
+func (_c *UserCreate) AddFriendshipsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddFriendshipsIDs(ids...)
 	return _c
 }
 
@@ -162,12 +162,12 @@ func (_c *UserCreate) AddFriendships(v ...*Friendship) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendshipIDs(ids...)
+	return _c.AddFriendshipsIDs(ids...)
 }
 
-// AddUserTweetIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
-func (_c *UserCreate) AddUserTweetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddUserTweetIDs(ids...)
+// AddUserTweetsIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
+func (_c *UserCreate) AddUserTweetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddUserTweetsIDs(ids...)
 	return _c
 }
 
@@ -177,7 +177,7 @@ func (_c *UserCreate) AddUserTweets(v ...*UserTweet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddUserTweetIDs(ids...)
+	return _c.AddUserTweetsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

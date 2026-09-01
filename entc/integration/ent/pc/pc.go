@@ -16,7 +16,7 @@ const (
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// Table holds the table name of the pc in the database.
-	Table = "pcs"
+	Table = "pc"
 )
 
 // Columns holds all SQL columns for pc fields.

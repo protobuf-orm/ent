@@ -48,9 +48,9 @@ func (_c *UserCreate) SetTags(v []string) *UserCreate {
 	return _c
 }
 
-// AddCardIDs adds the "cards" edge to the Card entity by IDs.
-func (_c *UserCreate) AddCardIDs(ids ...int) *UserCreate {
-	_c.mutation.AddCardIDs(ids...)
+// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
+func (_c *UserCreate) AddCardsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddCardsIDs(ids...)
 	return _c
 }
 
@@ -60,7 +60,7 @@ func (_c *UserCreate) AddCards(v ...*Card) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddCardIDs(ids...)
+	return _c.AddCardsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

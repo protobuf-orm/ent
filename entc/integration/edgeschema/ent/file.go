@@ -129,5 +129,5 @@ func (_m *File) String() string {
 	return builder.String()
 }
 
-// Files is a parsable slice of File.
-type Files []*File
+// FileList is a parsable slice of File.
+type FileList []*File

@@ -25,9 +25,9 @@ func BlobID(v uuid.UUID) predicate.BlobLink {
 	return predicate.BlobLink(sql.FieldEQ(FieldBlobID, v))
 }
 
-// LinkID applies equality check predicate on the "link_id" field. It's identical to LinkIDEQ.
-func LinkID(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinkID, v))
+// LinksID applies equality check predicate on the "links_id" field. It's identical to LinksIDEQ.
+func LinksID(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksID, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -90,24 +90,24 @@ func BlobIDNotIn(vs ...uuid.UUID) predicate.BlobLink {
 	return predicate.BlobLink(sql.FieldNotIn(FieldBlobID, vs...))
 }
 
-// LinkIDEQ applies the EQ predicate on the "link_id" field.
-func LinkIDEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinkID, v))
+// LinksIDEQ applies the EQ predicate on the "links_id" field.
+func LinksIDEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksID, v))
 }
 
-// LinkIDNEQ applies the NEQ predicate on the "link_id" field.
-func LinkIDNEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNEQ(FieldLinkID, v))
+// LinksIDNEQ applies the NEQ predicate on the "links_id" field.
+func LinksIDNEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNEQ(FieldLinksID, v))
 }
 
-// LinkIDIn applies the In predicate on the "link_id" field.
-func LinkIDIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldIn(FieldLinkID, vs...))
+// LinksIDIn applies the In predicate on the "links_id" field.
+func LinksIDIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldIn(FieldLinksID, vs...))
 }
 
-// LinkIDNotIn applies the NotIn predicate on the "link_id" field.
-func LinkIDNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNotIn(FieldLinkID, vs...))
+// LinksIDNotIn applies the NotIn predicate on the "links_id" field.
+func LinksIDNotIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNotIn(FieldLinksID, vs...))
 }
 
 // HasBlob applies the HasEdge predicate on the "blob" edge.

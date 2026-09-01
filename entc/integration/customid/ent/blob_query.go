@@ -235,7 +235,7 @@ func (_q *BlobQuery) OnlyIDX(ctx context.Context) uuid.UUID {
 	return id
 }
 
-// All executes the query and returns a list of Blobs.
+// All executes the query and returns a list of Blob entities.
 func (_q *BlobQuery) All(ctx context.Context) ([]*Blob, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

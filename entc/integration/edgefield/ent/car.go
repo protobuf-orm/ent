@@ -155,5 +155,5 @@ func (_m *Car) appendNamedRentals(name string, edges ...*Rental) {
 	}
 }
 
-// Cars is a parsable slice of Car.
-type Cars []*Car
+// CarList is a parsable slice of Car.
+type CarList []*Car

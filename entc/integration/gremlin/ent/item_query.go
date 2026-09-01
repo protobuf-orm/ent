@@ -163,7 +163,7 @@ func (_q *ItemQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Items.
+// All executes the query and returns a list of Item entities.
 func (_q *ItemQuery) All(ctx context.Context) ([]*Item, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *ItemQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Ite
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Items
+	var _ms ItemList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

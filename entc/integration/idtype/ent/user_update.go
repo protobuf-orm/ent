@@ -64,9 +64,9 @@ func (_u *UserUpdate) SetSpouse(v *User) *UserUpdate {
 	return _u.SetSpouseID(v.ID)
 }
 
-// AddFollowerIDs adds the "followers" edge to the User entity by IDs.
-func (_u *UserUpdate) AddFollowerIDs(ids ...uint64) *UserUpdate {
-	_u.mutation.AddFollowerIDs(ids...)
+// AddFollowersIDs adds the "followers" edge to the User entity by IDs.
+func (_u *UserUpdate) AddFollowersIDs(ids ...uint64) *UserUpdate {
+	_u.mutation.AddFollowersIDs(ids...)
 	return _u
 }
 
@@ -76,7 +76,7 @@ func (_u *UserUpdate) AddFollowers(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFollowerIDs(ids...)
+	return _u.AddFollowersIDs(ids...)
 }
 
 // AddFollowingIDs adds the "following" edge to the User entity by IDs.
@@ -111,9 +111,9 @@ func (_u *UserUpdate) ClearFollowers() *UserUpdate {
 	return _u
 }
 
-// RemoveFollowerIDs removes the "followers" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveFollowerIDs(ids ...uint64) *UserUpdate {
-	_u.mutation.RemoveFollowerIDs(ids...)
+// RemoveFollowersIDs removes the "followers" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveFollowersIDs(ids ...uint64) *UserUpdate {
+	_u.mutation.RemoveFollowersIDs(ids...)
 	return _u
 }
 
@@ -123,7 +123,7 @@ func (_u *UserUpdate) RemoveFollowers(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFollowerIDs(ids...)
+	return _u.RemoveFollowersIDs(ids...)
 }
 
 // ClearFollowing clears all "following" edges to the User entity.
@@ -358,9 +358,9 @@ func (_u *UserUpdateOne) SetSpouse(v *User) *UserUpdateOne {
 	return _u.SetSpouseID(v.ID)
 }
 
-// AddFollowerIDs adds the "followers" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddFollowerIDs(ids ...uint64) *UserUpdateOne {
-	_u.mutation.AddFollowerIDs(ids...)
+// AddFollowersIDs adds the "followers" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddFollowersIDs(ids ...uint64) *UserUpdateOne {
+	_u.mutation.AddFollowersIDs(ids...)
 	return _u
 }
 
@@ -370,7 +370,7 @@ func (_u *UserUpdateOne) AddFollowers(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFollowerIDs(ids...)
+	return _u.AddFollowersIDs(ids...)
 }
 
 // AddFollowingIDs adds the "following" edge to the User entity by IDs.
@@ -405,9 +405,9 @@ func (_u *UserUpdateOne) ClearFollowers() *UserUpdateOne {
 	return _u
 }
 
-// RemoveFollowerIDs removes the "followers" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveFollowerIDs(ids ...uint64) *UserUpdateOne {
-	_u.mutation.RemoveFollowerIDs(ids...)
+// RemoveFollowersIDs removes the "followers" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveFollowersIDs(ids ...uint64) *UserUpdateOne {
+	_u.mutation.RemoveFollowersIDs(ids...)
 	return _u
 }
 
@@ -417,7 +417,7 @@ func (_u *UserUpdateOne) RemoveFollowers(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFollowerIDs(ids...)
+	return _u.RemoveFollowersIDs(ids...)
 }
 
 // ClearFollowing clears all "following" edges to the User entity.

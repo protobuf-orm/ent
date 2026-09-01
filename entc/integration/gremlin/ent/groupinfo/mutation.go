@@ -101,8 +101,8 @@ func (m *Mutation) ResetMaxUsers() {
 	m.addmax_users = nil
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupIDs(ids ...string) {
+// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIDs(ids ...string) {
 	if m.groups == nil {
 		m.groups = make(map[string]struct{})
 	}
@@ -121,8 +121,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupIDs(ids ...string) {
+// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
+func (m *Mutation) RemoveGroupsIDs(ids ...string) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[string]struct{})
 	}

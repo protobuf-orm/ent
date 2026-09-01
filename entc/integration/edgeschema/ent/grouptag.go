@@ -160,5 +160,5 @@ func (_m *GroupTag) String() string {
 	return builder.String()
 }
 
-// GroupTags is a parsable slice of GroupTag.
-type GroupTags []*GroupTag
+// GroupTagList is a parsable slice of GroupTag.
+type GroupTagList []*GroupTag

@@ -42,7 +42,7 @@ func TestIncrementStartAnnotation(t *testing.T) {
 	// Increments must be a multiple of 1<<32.
 	c.Features = []gen.Feature{gen.FeatureGlobalID}
 	g, err = gen.NewGraph(c, s...)
-	require.EqualError(t, err, "unexpected increment start value 100 for type t1s, expected multiple of 4294967296 (1<<32)")
+	require.EqualError(t, err, "unexpected increment start value 100 for type t1, expected multiple of 4294967296 (1<<32)")
 	require.Nil(t, g)
 	a = &entsql.Annotation{IncrementStart: p(1 << 32)}
 	s[0].Annotations[a.Name()] = must(gen.ToMap(a))
@@ -62,7 +62,7 @@ func TestIncrementStartAnnotation(t *testing.T) {
 	// Respects existing increment starting values loaded from file.
 	s = []*load.Schema{{Name: "A"}, {Name: "B"}, {Name: "C"}}
 	c.Target = t.TempDir()
-	is := gen.IncrementStarts{"bs": 0, "as": 1 << 32, "cs": 2 << 32}
+	is := gen.IncrementStarts{"b": 0, "a": 1 << 32, "c": 2 << 32}
 	require.NoError(t, is.WriteToDisk(c.Target))
 	g, err = gen.NewGraph(c, s...)
 	require.NoError(t, err)
@@ -87,10 +87,10 @@ const IncrementStarts = %s
 >>>>>>> 1234567:globalid.go
 `,
 			// We added the c table which got the range 2<<32
-			marshal(t, gen.IncrementStarts{"bs": 0, "as": 1 << 32, "cs": 2 << 32}),
+			marshal(t, gen.IncrementStarts{"b": 0, "a": 1 << 32, "c": 2 << 32}),
 			// In the meantime someone else added the d table which got the
 			// range 2<<32 as well, and they merged before we did.
-			marshal(t, gen.IncrementStarts{"bs": 0, "as": 1 << 32, "ds": 2 << 32}),
+			marshal(t, gen.IncrementStarts{"b": 0, "a": 1 << 32, "d": 2 << 32}),
 		)
 		p = filepath.Join(c.Target, "internal", "globalid.go")
 	)
@@ -108,7 +108,7 @@ const IncrementStarts = %s
 	// Expect the conflict to be resolved with the remote table d keeping
 	// its range and our newly added table c gets the next one (3<<32).
 	require.Equal(t,
-		gen.IncrementStarts{"bs": 0, "as": 1 << 32, "cs": 3 << 32, "ds": 2 << 32},
+		gen.IncrementStarts{"b": 0, "a": 1 << 32, "c": 3 << 32, "d": 2 << 32},
 		g.Annotations[(&gen.IncrementStarts{}).Name()],
 	)
 }

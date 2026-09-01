@@ -163,7 +163,7 @@ func (_q *CommentQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Comments.
+// All executes the query and returns a list of Comment entities.
 func (_q *CommentQuery) All(ctx context.Context) ([]*Comment, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *CommentQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Comments
+	var _ms CommentList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

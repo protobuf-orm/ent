@@ -32,12 +32,12 @@ const (
 	// EdgeDevice holds the string denoting the device edge name in mutations.
 	EdgeDevice = "device"
 	// Table holds the table name of the session in the database.
-	Table = "sessions"
+	Table = "session"
 	// DeviceTable is the table that holds the device relation/edge.
-	DeviceTable = "sessions"
+	DeviceTable = "session"
 	// DeviceInverseTable is the table name for the SessionDevice entity.
 	// It exists in this package in order to avoid circular dependency with the "sessiondevice" package.
-	DeviceInverseTable = "session_devices"
+	DeviceInverseTable = "session_device"
 	// DeviceColumn is the table column denoting the device relation/edge.
 	DeviceColumn = "device_id"
 )

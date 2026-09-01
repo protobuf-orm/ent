@@ -31,9 +31,9 @@ func (_c *TeamCreate) SetName(v string) *TeamCreate {
 	return _c
 }
 
-// AddTaskIDs adds the "tasks" edge to the Task entity by IDs.
-func (_c *TeamCreate) AddTaskIDs(ids ...int) *TeamCreate {
-	_c.mutation.AddTaskIDs(ids...)
+// AddTasksIDs adds the "tasks" edge to the Task entity by IDs.
+func (_c *TeamCreate) AddTasksIDs(ids ...int) *TeamCreate {
+	_c.mutation.AddTasksIDs(ids...)
 	return _c
 }
 
@@ -43,12 +43,12 @@ func (_c *TeamCreate) AddTasks(v ...*Task) *TeamCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTaskIDs(ids...)
+	return _c.AddTasksIDs(ids...)
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_c *TeamCreate) AddUserIDs(ids ...int) *TeamCreate {
-	_c.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_c *TeamCreate) AddUsersIDs(ids ...int) *TeamCreate {
+	_c.mutation.AddUsersIDs(ids...)
 	return _c
 }
 
@@ -58,7 +58,7 @@ func (_c *TeamCreate) AddUsers(v ...*User) *TeamCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddUserIDs(ids...)
+	return _c.AddUsersIDs(ids...)
 }
 
 // Mutation returns the TeamMutation object of the builder.

@@ -35,9 +35,9 @@ func (_c *UserCreate) SetName(v string) *UserCreate {
 	return _c
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIDs(ids...)
 	return _c
 }
 
@@ -47,7 +47,7 @@ func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendIDs(ids...)
+	return _c.AddFriendsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

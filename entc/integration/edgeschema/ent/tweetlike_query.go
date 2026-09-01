@@ -159,7 +159,7 @@ func (_q *TweetLikeQuery) OnlyX(ctx context.Context) *TweetLike {
 	return node
 }
 
-// All executes the query and returns a list of TweetLikes.
+// All executes the query and returns a list of TweetLike entities.
 func (_q *TweetLikeQuery) All(ctx context.Context) ([]*TweetLike, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

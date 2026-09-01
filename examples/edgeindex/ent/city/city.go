@@ -21,12 +21,12 @@ const (
 	// EdgeStreets holds the string denoting the streets edge name in mutations.
 	EdgeStreets = "streets"
 	// Table holds the table name of the city in the database.
-	Table = "cities"
+	Table = "city"
 	// StreetsTable is the table that holds the streets relation/edge.
-	StreetsTable = "streets"
+	StreetsTable = "street"
 	// StreetsInverseTable is the table name for the Street entity.
 	// It exists in this package in order to avoid circular dependency with the "street" package.
-	StreetsInverseTable = "streets"
+	StreetsInverseTable = "street"
 	// StreetsColumn is the table column denoting the streets relation/edge.
 	StreetsColumn = "city_streets"
 )

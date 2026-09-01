@@ -186,7 +186,7 @@ func (_q *PostQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Posts.
+// All executes the query and returns a list of Post entities.
 func (_q *PostQuery) All(ctx context.Context) ([]*Post, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

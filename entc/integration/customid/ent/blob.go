@@ -185,5 +185,5 @@ func (_m *Blob) String() string {
 	return builder.String()
 }
 
-// Blobs is a parsable slice of Blob.
-type Blobs []*Blob
+// BlobList is a parsable slice of Blob.
+type BlobList []*Blob

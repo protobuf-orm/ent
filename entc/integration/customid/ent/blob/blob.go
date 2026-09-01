@@ -28,18 +28,18 @@ const (
 	// EdgeBlobLinks holds the string denoting the blob_links edge name in mutations.
 	EdgeBlobLinks = "blob_links"
 	// Table holds the table name of the blob in the database.
-	Table = "blobs"
+	Table = "blob"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "blobs"
+	ParentTable = "blob"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "blob_parent"
 	// LinksTable is the table that holds the links relation/edge. The primary key declared below.
-	LinksTable = "blob_links"
+	LinksTable = "blob_link"
 	// BlobLinksTable is the table that holds the blob_links relation/edge.
-	BlobLinksTable = "blob_links"
+	BlobLinksTable = "blob_link"
 	// BlobLinksInverseTable is the table name for the BlobLink entity.
 	// It exists in this package in order to avoid circular dependency with the "bloblink" package.
-	BlobLinksInverseTable = "blob_links"
+	BlobLinksInverseTable = "blob_link"
 	// BlobLinksColumn is the table column denoting the blob_links relation/edge.
 	BlobLinksColumn = "blob_id"
 )
@@ -51,7 +51,7 @@ var Columns = []string{
 	FieldCount,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "blobs"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "blob"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blob_parent",
@@ -60,7 +60,7 @@ var ForeignKeys = []string{
 var (
 	// LinksPrimaryKey and LinksColumn2 are the table columns denoting the
 	// primary key for the links relation (M2M).
-	LinksPrimaryKey = []string{"blob_id", "link_id"}
+	LinksPrimaryKey = []string{"blob_id", "links_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

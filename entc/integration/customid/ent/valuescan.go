@@ -104,5 +104,5 @@ func (_m *ValueScan) String() string {
 	return builder.String()
 }
 
-// ValueScans is a parsable slice of ValueScan.
-type ValueScans []*ValueScan
+// ValueScanList is a parsable slice of ValueScan.
+type ValueScanList []*ValueScan

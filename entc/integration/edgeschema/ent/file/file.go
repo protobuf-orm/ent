@@ -21,12 +21,12 @@ const (
 	// EdgeProcesses holds the string denoting the processes edge name in mutations.
 	EdgeProcesses = "processes"
 	// Table holds the table name of the file in the database.
-	Table = "files"
+	Table = "file"
 	// ProcessesTable is the table that holds the processes relation/edge. The primary key declared below.
-	ProcessesTable = "attached_files"
+	ProcessesTable = "attached_file"
 	// ProcessesInverseTable is the table name for the Process entity.
 	// It exists in this package in order to avoid circular dependency with the "process" package.
-	ProcessesInverseTable = "processes"
+	ProcessesInverseTable = "process"
 )
 
 // Columns holds all SQL columns for file fields.

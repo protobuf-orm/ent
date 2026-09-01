@@ -20,7 +20,7 @@ type Relationship struct {
 
 func (Relationship) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("user_id", "relative_id"),
+		field.ID("user_id", "relatives_id"),
 	}
 }
 
@@ -33,7 +33,7 @@ func (Relationship) Fields() []ent.Field {
 		// Edge fields for the fields that compose this edge.
 		// They also function as the primary key of the table.
 		field.Int("user_id"),
-		field.Int("relative_id"),
+		field.Int("relatives_id"),
 
 		// An edge field to external node that holds
 		// additional information about this edge.
@@ -52,7 +52,7 @@ func (Relationship) Edges() []ent.Edge {
 		edge.To("relative", User.Type).
 			Required().
 			Unique().
-			Field("relative_id"),
+			Field("relatives_id"),
 
 		// An optional edge to an entity that holds
 		// information about this relationship.

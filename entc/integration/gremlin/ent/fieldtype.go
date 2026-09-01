@@ -548,11 +548,11 @@ func (_m *FieldType) String() string {
 	return builder.String()
 }
 
-// FieldTypes is a parsable slice of FieldType.
-type FieldTypes []*FieldType
+// FieldTypeList is a parsable slice of FieldType.
+type FieldTypeList []*FieldType
 
-// FromResponse scans the gremlin response data into FieldTypes.
-func (_m *FieldTypes) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into FieldTypeList.
+func (_m *FieldTypeList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

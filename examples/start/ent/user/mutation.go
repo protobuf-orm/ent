@@ -104,8 +104,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by ids.
-func (m *Mutation) AddCarIDs(ids ...int) {
+// AddCarsIDs adds the "cars" edge to the Car entity by ids.
+func (m *Mutation) AddCarsIDs(ids ...int) {
 	if m.cars == nil {
 		m.cars = make(map[int]struct{})
 	}
@@ -124,8 +124,8 @@ func (m *Mutation) CarsCleared() bool {
 	return m.clearedcars
 }
 
-// RemoveCarIDs removes the "cars" edge to the Car entity by IDs.
-func (m *Mutation) RemoveCarIDs(ids ...int) {
+// RemoveCarsIDs removes the "cars" edge to the Car entity by IDs.
+func (m *Mutation) RemoveCarsIDs(ids ...int) {
 	if m.removedcars == nil {
 		m.removedcars = make(map[int]struct{})
 	}
@@ -158,8 +158,8 @@ func (m *Mutation) ResetCars() {
 	m.removedcars = nil
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupIDs(ids ...int) {
+// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIDs(ids ...int) {
 	if m.groups == nil {
 		m.groups = make(map[int]struct{})
 	}
@@ -178,8 +178,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupIDs(ids ...int) {
+// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
+func (m *Mutation) RemoveGroupsIDs(ids ...int) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[int]struct{})
 	}

@@ -61,9 +61,9 @@ func (_c *DeviceCreate) SetActiveSession(v *Session) *DeviceCreate {
 	return _c.SetActiveSessionID(v.ID)
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by IDs.
-func (_c *DeviceCreate) AddSessionIDs(ids ...schema.ID) *DeviceCreate {
-	_c.mutation.AddSessionIDs(ids...)
+// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
+func (_c *DeviceCreate) AddSessionsIDs(ids ...schema.ID) *DeviceCreate {
+	_c.mutation.AddSessionsIDs(ids...)
 	return _c
 }
 
@@ -73,7 +73,7 @@ func (_c *DeviceCreate) AddSessions(v ...*Session) *DeviceCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddSessionIDs(ids...)
+	return _c.AddSessionsIDs(ids...)
 }
 
 // Mutation returns the DeviceMutation object of the builder.

@@ -27,25 +27,25 @@ const (
 	// UserFieldID holds the string denoting the ID field of the User.
 	UserFieldID = "oid"
 	// Table holds the table name of the pet in the database.
-	Table = "pets"
+	Table = "pet"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "pets"
+	OwnerTable = "pet"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "user_pets"
 	// CarsTable is the table that holds the cars relation/edge.
-	CarsTable = "cars"
+	CarsTable = "car"
 	// CarsInverseTable is the table name for the Car entity.
 	// It exists in this package in order to avoid circular dependency with the "car" package.
-	CarsInverseTable = "cars"
+	CarsInverseTable = "car"
 	// CarsColumn is the table column denoting the cars relation/edge.
 	CarsColumn = "pet_cars"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
 	FriendsTable = "pet_friends"
 	// BestFriendTable is the table that holds the best_friend relation/edge.
-	BestFriendTable = "pets"
+	BestFriendTable = "pet"
 	// BestFriendColumn is the table column denoting the best_friend relation/edge.
 	BestFriendColumn = "pet_best_friend"
 )
@@ -55,7 +55,7 @@ var Columns = []string{
 	FieldID,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "pets"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "pet"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"pet_best_friend",
@@ -65,7 +65,7 @@ var ForeignKeys = []string{
 var (
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"pet_id", "friend_id"}
+	FriendsPrimaryKey = []string{"pet_id", "friends_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

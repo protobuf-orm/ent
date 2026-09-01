@@ -32,19 +32,19 @@ const (
 	// UserFieldID holds the string denoting the ID field of the User.
 	UserFieldID = "id"
 	// Table holds the table name of the tweetlike in the database.
-	Table = "tweet_likes"
+	Table = "tweet_like"
 	// TweetTable is the table that holds the tweet relation/edge.
-	TweetTable = "tweet_likes"
+	TweetTable = "tweet_like"
 	// TweetInverseTable is the table name for the Tweet entity.
 	// It exists in this package in order to avoid circular dependency with the "tweet" package.
-	TweetInverseTable = "tweets"
+	TweetInverseTable = "tweet"
 	// TweetColumn is the table column denoting the tweet relation/edge.
 	TweetColumn = "tweet_id"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "tweet_likes"
+	UserTable = "tweet_like"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 )

@@ -18,7 +18,7 @@ const (
 	// FieldNumber holds the string denoting the number field in the database.
 	FieldNumber = "number"
 	// Table holds the table name of the card in the database.
-	Table = "cards"
+	Table = "card"
 )
 
 // Columns holds all SQL columns for card fields.

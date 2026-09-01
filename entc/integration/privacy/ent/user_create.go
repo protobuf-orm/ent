@@ -45,9 +45,9 @@ func (_c *UserCreate) SetNillableAge(v *uint) *UserCreate {
 	return _c
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by IDs.
-func (_c *UserCreate) AddTeamIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTeamIDs(ids...)
+// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
+func (_c *UserCreate) AddTeamsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddTeamsIDs(ids...)
 	return _c
 }
 
@@ -57,12 +57,12 @@ func (_c *UserCreate) AddTeams(v ...*Team) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTeamIDs(ids...)
+	return _c.AddTeamsIDs(ids...)
 }
 
-// AddTaskIDs adds the "tasks" edge to the Task entity by IDs.
-func (_c *UserCreate) AddTaskIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTaskIDs(ids...)
+// AddTasksIDs adds the "tasks" edge to the Task entity by IDs.
+func (_c *UserCreate) AddTasksIDs(ids ...int) *UserCreate {
+	_c.mutation.AddTasksIDs(ids...)
 	return _c
 }
 
@@ -72,7 +72,7 @@ func (_c *UserCreate) AddTasks(v ...*Task) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTaskIDs(ids...)
+	return _c.AddTasksIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

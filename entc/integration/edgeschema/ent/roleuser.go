@@ -165,5 +165,5 @@ func (_m *RoleUser) String() string {
 	return builder.String()
 }
 
-// RoleUsers is a parsable slice of RoleUser.
-type RoleUsers []*RoleUser
+// RoleUserList is a parsable slice of RoleUser.
+type RoleUserList []*RoleUser

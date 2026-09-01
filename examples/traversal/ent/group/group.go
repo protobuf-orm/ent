@@ -23,17 +23,17 @@ const (
 	// EdgeAdmin holds the string denoting the admin edge name in mutations.
 	EdgeAdmin = "admin"
 	// Table holds the table name of the group in the database.
-	Table = "groups"
+	Table = "group"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
 	UsersTable = "group_users"
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UsersInverseTable = "users"
+	UsersInverseTable = "user"
 	// AdminTable is the table that holds the admin relation/edge.
-	AdminTable = "groups"
+	AdminTable = "group"
 	// AdminInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	AdminInverseTable = "users"
+	AdminInverseTable = "user"
 	// AdminColumn is the table column denoting the admin relation/edge.
 	AdminColumn = "group_admin"
 )
@@ -44,7 +44,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "groups"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "group"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_admin",

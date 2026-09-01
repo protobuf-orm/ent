@@ -25,19 +25,19 @@ const (
 	// EdgeGroup holds the string denoting the group edge name in mutations.
 	EdgeGroup = "group"
 	// Table holds the table name of the grouptag in the database.
-	Table = "group_tags"
+	Table = "group_tag"
 	// TagTable is the table that holds the tag relation/edge.
-	TagTable = "group_tags"
+	TagTable = "group_tag"
 	// TagInverseTable is the table name for the Tag entity.
 	// It exists in this package in order to avoid circular dependency with the "tag" package.
-	TagInverseTable = "tags"
+	TagInverseTable = "tag"
 	// TagColumn is the table column denoting the tag relation/edge.
 	TagColumn = "tag_id"
 	// GroupTable is the table that holds the group relation/edge.
-	GroupTable = "group_tags"
+	GroupTable = "group_tag"
 	// GroupInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupInverseTable = "groups"
+	GroupInverseTable = "group"
 	// GroupColumn is the table column denoting the group relation/edge.
 	GroupColumn = "group_id"
 )

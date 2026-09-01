@@ -164,7 +164,7 @@ func (_q *TaskQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Tasks.
+// All executes the query and returns a list of Task entities.
 func (_q *TaskQuery) All(ctx context.Context) ([]*Task, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -115,9 +115,9 @@ func (_u *CardUpdate) SetOwner(v *User) *CardUpdate {
 	return _u.SetOwnerID(v.ID)
 }
 
-// AddPaymentIDs adds the "payments" edge to the Payment entity by IDs.
-func (_u *CardUpdate) AddPaymentIDs(ids ...int) *CardUpdate {
-	_u.mutation.AddPaymentIDs(ids...)
+// AddPaymentsIDs adds the "payments" edge to the Payment entity by IDs.
+func (_u *CardUpdate) AddPaymentsIDs(ids ...int) *CardUpdate {
+	_u.mutation.AddPaymentsIDs(ids...)
 	return _u
 }
 
@@ -127,7 +127,7 @@ func (_u *CardUpdate) AddPayments(v ...*Payment) *CardUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPaymentIDs(ids...)
+	return _u.AddPaymentsIDs(ids...)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -147,9 +147,9 @@ func (_u *CardUpdate) ClearPayments() *CardUpdate {
 	return _u
 }
 
-// RemovePaymentIDs removes the "payments" edge to Payment entities by IDs.
-func (_u *CardUpdate) RemovePaymentIDs(ids ...int) *CardUpdate {
-	_u.mutation.RemovePaymentIDs(ids...)
+// RemovePaymentsIDs removes the "payments" edge to Payment entities by IDs.
+func (_u *CardUpdate) RemovePaymentsIDs(ids ...int) *CardUpdate {
+	_u.mutation.RemovePaymentsIDs(ids...)
 	return _u
 }
 
@@ -159,7 +159,7 @@ func (_u *CardUpdate) RemovePayments(v ...*Payment) *CardUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePaymentIDs(ids...)
+	return _u.RemovePaymentsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -399,9 +399,9 @@ func (_u *CardUpdateOne) SetOwner(v *User) *CardUpdateOne {
 	return _u.SetOwnerID(v.ID)
 }
 
-// AddPaymentIDs adds the "payments" edge to the Payment entity by IDs.
-func (_u *CardUpdateOne) AddPaymentIDs(ids ...int) *CardUpdateOne {
-	_u.mutation.AddPaymentIDs(ids...)
+// AddPaymentsIDs adds the "payments" edge to the Payment entity by IDs.
+func (_u *CardUpdateOne) AddPaymentsIDs(ids ...int) *CardUpdateOne {
+	_u.mutation.AddPaymentsIDs(ids...)
 	return _u
 }
 
@@ -411,7 +411,7 @@ func (_u *CardUpdateOne) AddPayments(v ...*Payment) *CardUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPaymentIDs(ids...)
+	return _u.AddPaymentsIDs(ids...)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -431,9 +431,9 @@ func (_u *CardUpdateOne) ClearPayments() *CardUpdateOne {
 	return _u
 }
 
-// RemovePaymentIDs removes the "payments" edge to Payment entities by IDs.
-func (_u *CardUpdateOne) RemovePaymentIDs(ids ...int) *CardUpdateOne {
-	_u.mutation.RemovePaymentIDs(ids...)
+// RemovePaymentsIDs removes the "payments" edge to Payment entities by IDs.
+func (_u *CardUpdateOne) RemovePaymentsIDs(ids ...int) *CardUpdateOne {
+	_u.mutation.RemovePaymentsIDs(ids...)
 	return _u
 }
 
@@ -443,7 +443,7 @@ func (_u *CardUpdateOne) RemovePayments(v ...*Payment) *CardUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePaymentIDs(ids...)
+	return _u.RemovePaymentsIDs(ids...)
 }
 
 // Where appends a list predicates to the CardUpdate builder.

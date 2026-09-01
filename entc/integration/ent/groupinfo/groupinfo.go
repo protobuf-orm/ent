@@ -23,12 +23,12 @@ const (
 	// EdgeGroups holds the string denoting the groups edge name in mutations.
 	EdgeGroups = "groups"
 	// Table holds the table name of the groupinfo in the database.
-	Table = "group_infos"
+	Table = "group_info"
 	// GroupsTable is the table that holds the groups relation/edge.
-	GroupsTable = "groups"
+	GroupsTable = "group"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// GroupsColumn is the table column denoting the groups relation/edge.
 	GroupsColumn = "group_info"
 )

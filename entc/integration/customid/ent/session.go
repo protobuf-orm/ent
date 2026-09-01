@@ -131,5 +131,5 @@ func (_m *Session) String() string {
 	return builder.String()
 }
 
-// Sessions is a parsable slice of Session.
-type Sessions []*Session
+// SessionList is a parsable slice of Session.
+type SessionList []*Session

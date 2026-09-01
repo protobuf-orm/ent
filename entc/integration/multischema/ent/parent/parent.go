@@ -20,28 +20,28 @@ const (
 	FieldByAdoption = "by_adoption"
 	// FieldUserID holds the string denoting the user_id field in the database.
 	FieldUserID = "user_id"
-	// FieldParentID holds the string denoting the parent_id field in the database.
-	FieldParentID = "parent_id"
+	// FieldParentsID holds the string denoting the parents_id field in the database.
+	FieldParentsID = "parents_id"
 	// EdgeChild holds the string denoting the child edge name in mutations.
 	EdgeChild = "child"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
 	EdgeParent = "parent"
 	// Table holds the table name of the parent in the database.
-	Table = "parents"
+	Table = "parent"
 	// ChildTable is the table that holds the child relation/edge.
-	ChildTable = "parents"
+	ChildTable = "parent"
 	// ChildInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	ChildInverseTable = "users"
+	ChildInverseTable = "user"
 	// ChildColumn is the table column denoting the child relation/edge.
 	ChildColumn = "user_id"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "parents"
+	ParentTable = "parent"
 	// ParentInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	ParentInverseTable = "users"
+	ParentInverseTable = "user"
 	// ParentColumn is the table column denoting the parent relation/edge.
-	ParentColumn = "parent_id"
+	ParentColumn = "parents_id"
 )
 
 // Columns holds all SQL columns for parent fields.
@@ -49,7 +49,7 @@ var Columns = []string{
 	FieldID,
 	FieldByAdoption,
 	FieldUserID,
-	FieldParentID,
+	FieldParentsID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -85,9 +85,9 @@ func ByUserID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserID, opts...).ToFunc()
 }
 
-// ByParentID orders the results by the parent_id field.
-func ByParentID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldParentID, opts...).ToFunc()
+// ByParentsID orders the results by the parents_id field.
+func ByParentsID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldParentsID, opts...).ToFunc()
 }
 
 // ByChildField orders the results by child field.

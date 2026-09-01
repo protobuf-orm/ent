@@ -163,7 +163,7 @@ func (_q *BuilderQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Builders.
+// All executes the query and returns a list of Builder entities.
 func (_q *BuilderQuery) All(ctx context.Context) ([]*Builder, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -324,7 +324,7 @@ func (_q *BuilderQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Builders
+	var _ms BuilderList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

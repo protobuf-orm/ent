@@ -23,12 +23,12 @@ const (
 	// EdgePost holds the string denoting the post edge name in mutations.
 	EdgePost = "post"
 	// Table holds the table name of the comment in the database.
-	Table = "comments"
+	Table = "comment"
 	// PostTable is the table that holds the post relation/edge.
-	PostTable = "comments"
+	PostTable = "comment"
 	// PostInverseTable is the table name for the Post entity.
 	// It exists in this package in order to avoid circular dependency with the "post" package.
-	PostInverseTable = "posts"
+	PostInverseTable = "post"
 	// PostColumn is the table column denoting the post relation/edge.
 	PostColumn = "post_id"
 )

@@ -134,7 +134,7 @@ func TestEdgeSchemaCompositeID(t *testing.T) {
 		require.Equal(t, like.TweetID, k.TweetID)
 		require.Equal(t, like.LikedAt.Unix(), k.LikedAt.Unix())
 	}
-	nat = nat.Update().AddLikedTweetIDs(like.TweetID).SaveX(ctx)
+	nat = nat.Update().AddLikedTweetsIDs(like.TweetID).SaveX(ctx)
 	require.Equal(t, 2, nat.QueryLikes().CountX(ctx))
 	require.Equal(t, 5, client.TweetLike.Query().CountX(ctx))
 	require.Equal(t, 3, client.TweetLike.Query().Where(tweetlike.HasUserWith(user.Name(a8m.Name))).CountX(ctx))
@@ -216,7 +216,7 @@ func TestEdgeSchemaBidiWithID(t *testing.T) {
 		require.Equal(t, friendship.DefaultWeight, f1.Weight)
 		require.False(t, f1.CreatedAt.IsZero())
 		require.Equal(t, a8m.ID, f1.UserID)
-		require.Equal(t, nat.ID, f1.FriendID)
+		require.Equal(t, nat.ID, f1.FriendsID)
 	}
 	require.Equal(t, 2, client.Friendship.Query().CountX(ctx), "bidirectional edges create 2 records in the join table")
 }
@@ -271,9 +271,9 @@ func TestEdgeSchemaBidiCompositeID(t *testing.T) {
 		v,
 	)
 	for _, r := range []int{
-		u2.QueryRelationship().Where(relationship.RelativeID(u3.ID)).QueryRelative().OnlyIDX(ctx),
-		u1.QueryRelatives().QueryRelationship().Where(relationship.RelativeIDNEQ(u1.ID)).QueryRelative().OnlyIDX(ctx),
-		client.User.Query().Where(user.ID(u1.ID)).QueryRelatives().QueryRelationship().Where(relationship.RelativeIDNEQ(u1.ID)).QueryRelative().OnlyIDX(ctx),
+		u2.QueryRelationship().Where(relationship.RelativesID(u3.ID)).QueryRelative().OnlyIDX(ctx),
+		u1.QueryRelatives().QueryRelationship().Where(relationship.RelativesIDNEQ(u1.ID)).QueryRelative().OnlyIDX(ctx),
+		client.User.Query().Where(user.ID(u1.ID)).QueryRelatives().QueryRelationship().Where(relationship.RelativesIDNEQ(u1.ID)).QueryRelative().OnlyIDX(ctx),
 	} {
 		require.Equal(t, u3.ID, r)
 	}
@@ -283,7 +283,7 @@ func TestEdgeSchemaBidiCompositeID(t *testing.T) {
 	r1.Update().SetInfo(info).ExecX(ctx)
 	r2 := client.User.Query().QueryRelationship().Where(relationship.HasInfo()).WithInfo().OnlyX(ctx)
 	require.Equal(t, r1.UserID, r2.UserID)
-	require.Equal(t, r1.RelativeID, r2.RelativeID)
+	require.Equal(t, r1.RelativesID, r2.RelativesID)
 	require.Equal(t, info.ID, r2.Edges.Info.ID)
 }
 
@@ -367,7 +367,7 @@ func TestEdgeSchemaEntQL(t *testing.T) {
 	q3.Filter().WhereHasInfoWith(relationshipinfo.ID(ri.ID))
 	rl2 := q3.OnlyX(ctx)
 	require.Equal(t, rl1.UserID, rl2.UserID)
-	require.Equal(t, rl1.RelativeID, rl2.RelativeID)
+	require.Equal(t, rl1.RelativesID, rl2.RelativesID)
 	require.Equal(t, rl1.InfoID, rl2.InfoID)
 }
 

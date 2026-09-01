@@ -22,12 +22,12 @@ const (
 	// EdgeToken holds the string denoting the token edge name in mutations.
 	EdgeToken = "token"
 	// Table holds the table name of the account in the database.
-	Table = "accounts"
+	Table = "account"
 	// TokenTable is the table that holds the token relation/edge.
-	TokenTable = "tokens"
+	TokenTable = "token"
 	// TokenInverseTable is the table name for the Token entity.
 	// It exists in this package in order to avoid circular dependency with the "token" package.
-	TokenInverseTable = "tokens"
+	TokenInverseTable = "token"
 	// TokenColumn is the table column denoting the token relation/edge.
 	TokenColumn = "account_token"
 )

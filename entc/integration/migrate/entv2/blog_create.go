@@ -37,9 +37,9 @@ func (_c *BlogCreate) SetID(v int) *BlogCreate {
 	return _c
 }
 
-// AddAdminIDs adds the "admins" edge to the User entity by IDs.
-func (_c *BlogCreate) AddAdminIDs(ids ...int) *BlogCreate {
-	_c.mutation.AddAdminIDs(ids...)
+// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
+func (_c *BlogCreate) AddAdminsIDs(ids ...int) *BlogCreate {
+	_c.mutation.AddAdminsIDs(ids...)
 	return _c
 }
 
@@ -49,7 +49,7 @@ func (_c *BlogCreate) AddAdmins(v ...*User) *BlogCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddAdminIDs(ids...)
+	return _c.AddAdminsIDs(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.

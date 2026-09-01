@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddUserIDs adds the "users" edge to the User entity by ids.
-func (m *Mutation) AddUserIDs(ids ...int) {
+// AddUsersIDs adds the "users" edge to the User entity by ids.
+func (m *Mutation) AddUsersIDs(ids ...int) {
 	if m.users == nil {
 		m.users = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) UsersCleared() bool {
 	return m.clearedusers
 }
 
-// RemoveUserIDs removes the "users" edge to the User entity by IDs.
-func (m *Mutation) RemoveUserIDs(ids ...int) {
+// RemoveUsersIDs removes the "users" edge to the User entity by IDs.
+func (m *Mutation) RemoveUsersIDs(ids ...int) {
 	if m.removedusers == nil {
 		m.removedusers = make(map[int]struct{})
 	}

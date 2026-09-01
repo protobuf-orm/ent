@@ -158,7 +158,7 @@ func (_q *UserAuditLogQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of UserAuditLogs.
+// All executes the query and returns a list of UserAuditLog entities.
 func (_q *UserAuditLogQuery) All(ctx context.Context) ([]*UserAuditLog, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

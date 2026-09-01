@@ -84,8 +84,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupIDs(ids ...int) {
+// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIDs(ids ...int) {
 	if m.groups == nil {
 		m.groups = make(map[int]struct{})
 	}
@@ -104,8 +104,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupIDs(ids ...int) {
+// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
+func (m *Mutation) RemoveGroupsIDs(ids ...int) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[int]struct{})
 	}
@@ -138,8 +138,8 @@ func (m *Mutation) ResetGroups() {
 	m.removedgroups = nil
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by ids.
-func (m *Mutation) AddFriendIDs(ids ...int) {
+// AddFriendsIDs adds the "friends" edge to the User entity by ids.
+func (m *Mutation) AddFriendsIDs(ids ...int) {
 	if m.friends == nil {
 		m.friends = make(map[int]struct{})
 	}
@@ -158,8 +158,8 @@ func (m *Mutation) FriendsCleared() bool {
 	return m.clearedfriends
 }
 
-// RemoveFriendIDs removes the "friends" edge to the User entity by IDs.
-func (m *Mutation) RemoveFriendIDs(ids ...int) {
+// RemoveFriendsIDs removes the "friends" edge to the User entity by IDs.
+func (m *Mutation) RemoveFriendsIDs(ids ...int) {
 	if m.removedfriends == nil {
 		m.removedfriends = make(map[int]struct{})
 	}
@@ -192,8 +192,8 @@ func (m *Mutation) ResetFriends() {
 	m.removedfriends = nil
 }
 
-// AddRelativeIDs adds the "relatives" edge to the User entity by ids.
-func (m *Mutation) AddRelativeIDs(ids ...int) {
+// AddRelativesIDs adds the "relatives" edge to the User entity by ids.
+func (m *Mutation) AddRelativesIDs(ids ...int) {
 	if m.relatives == nil {
 		m.relatives = make(map[int]struct{})
 	}
@@ -212,8 +212,8 @@ func (m *Mutation) RelativesCleared() bool {
 	return m.clearedrelatives
 }
 
-// RemoveRelativeIDs removes the "relatives" edge to the User entity by IDs.
-func (m *Mutation) RemoveRelativeIDs(ids ...int) {
+// RemoveRelativesIDs removes the "relatives" edge to the User entity by IDs.
+func (m *Mutation) RemoveRelativesIDs(ids ...int) {
 	if m.removedrelatives == nil {
 		m.removedrelatives = make(map[int]struct{})
 	}
@@ -246,8 +246,8 @@ func (m *Mutation) ResetRelatives() {
 	m.removedrelatives = nil
 }
 
-// AddLikedTweetIDs adds the "liked_tweets" edge to the Tweet entity by ids.
-func (m *Mutation) AddLikedTweetIDs(ids ...int) {
+// AddLikedTweetsIDs adds the "liked_tweets" edge to the Tweet entity by ids.
+func (m *Mutation) AddLikedTweetsIDs(ids ...int) {
 	if m.liked_tweets == nil {
 		m.liked_tweets = make(map[int]struct{})
 	}
@@ -266,8 +266,8 @@ func (m *Mutation) LikedTweetsCleared() bool {
 	return m.clearedliked_tweets
 }
 
-// RemoveLikedTweetIDs removes the "liked_tweets" edge to the Tweet entity by IDs.
-func (m *Mutation) RemoveLikedTweetIDs(ids ...int) {
+// RemoveLikedTweetsIDs removes the "liked_tweets" edge to the Tweet entity by IDs.
+func (m *Mutation) RemoveLikedTweetsIDs(ids ...int) {
 	if m.removedliked_tweets == nil {
 		m.removedliked_tweets = make(map[int]struct{})
 	}
@@ -300,8 +300,8 @@ func (m *Mutation) ResetLikedTweets() {
 	m.removedliked_tweets = nil
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by ids.
-func (m *Mutation) AddTweetIDs(ids ...int) {
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by ids.
+func (m *Mutation) AddTweetsIDs(ids ...int) {
 	if m.tweets == nil {
 		m.tweets = make(map[int]struct{})
 	}
@@ -320,8 +320,8 @@ func (m *Mutation) TweetsCleared() bool {
 	return m.clearedtweets
 }
 
-// RemoveTweetIDs removes the "tweets" edge to the Tweet entity by IDs.
-func (m *Mutation) RemoveTweetIDs(ids ...int) {
+// RemoveTweetsIDs removes the "tweets" edge to the Tweet entity by IDs.
+func (m *Mutation) RemoveTweetsIDs(ids ...int) {
 	if m.removedtweets == nil {
 		m.removedtweets = make(map[int]struct{})
 	}
@@ -354,8 +354,8 @@ func (m *Mutation) ResetTweets() {
 	m.removedtweets = nil
 }
 
-// AddRoleIDs adds the "roles" edge to the Role entity by ids.
-func (m *Mutation) AddRoleIDs(ids ...int) {
+// AddRolesIDs adds the "roles" edge to the Role entity by ids.
+func (m *Mutation) AddRolesIDs(ids ...int) {
 	if m.roles == nil {
 		m.roles = make(map[int]struct{})
 	}
@@ -374,8 +374,8 @@ func (m *Mutation) RolesCleared() bool {
 	return m.clearedroles
 }
 
-// RemoveRoleIDs removes the "roles" edge to the Role entity by IDs.
-func (m *Mutation) RemoveRoleIDs(ids ...int) {
+// RemoveRolesIDs removes the "roles" edge to the Role entity by IDs.
+func (m *Mutation) RemoveRolesIDs(ids ...int) {
 	if m.removedroles == nil {
 		m.removedroles = make(map[int]struct{})
 	}
@@ -408,8 +408,8 @@ func (m *Mutation) ResetRoles() {
 	m.removedroles = nil
 }
 
-// AddJoinedGroupIDs adds the "joined_groups" edge to the UserGroup entity by ids.
-func (m *Mutation) AddJoinedGroupIDs(ids ...int) {
+// AddJoinedGroupsIDs adds the "joined_groups" edge to the UserGroup entity by ids.
+func (m *Mutation) AddJoinedGroupsIDs(ids ...int) {
 	if m.joined_groups == nil {
 		m.joined_groups = make(map[int]struct{})
 	}
@@ -428,8 +428,8 @@ func (m *Mutation) JoinedGroupsCleared() bool {
 	return m.clearedjoined_groups
 }
 
-// RemoveJoinedGroupIDs removes the "joined_groups" edge to the UserGroup entity by IDs.
-func (m *Mutation) RemoveJoinedGroupIDs(ids ...int) {
+// RemoveJoinedGroupsIDs removes the "joined_groups" edge to the UserGroup entity by IDs.
+func (m *Mutation) RemoveJoinedGroupsIDs(ids ...int) {
 	if m.removedjoined_groups == nil {
 		m.removedjoined_groups = make(map[int]struct{})
 	}
@@ -462,8 +462,8 @@ func (m *Mutation) ResetJoinedGroups() {
 	m.removedjoined_groups = nil
 }
 
-// AddFriendshipIDs adds the "friendships" edge to the Friendship entity by ids.
-func (m *Mutation) AddFriendshipIDs(ids ...int) {
+// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by ids.
+func (m *Mutation) AddFriendshipsIDs(ids ...int) {
 	if m.friendships == nil {
 		m.friendships = make(map[int]struct{})
 	}
@@ -482,8 +482,8 @@ func (m *Mutation) FriendshipsCleared() bool {
 	return m.clearedfriendships
 }
 
-// RemoveFriendshipIDs removes the "friendships" edge to the Friendship entity by IDs.
-func (m *Mutation) RemoveFriendshipIDs(ids ...int) {
+// RemoveFriendshipsIDs removes the "friendships" edge to the Friendship entity by IDs.
+func (m *Mutation) RemoveFriendshipsIDs(ids ...int) {
 	if m.removedfriendships == nil {
 		m.removedfriendships = make(map[int]struct{})
 	}
@@ -516,8 +516,8 @@ func (m *Mutation) ResetFriendships() {
 	m.removedfriendships = nil
 }
 
-// AddUserTweetIDs adds the "user_tweets" edge to the UserTweet entity by ids.
-func (m *Mutation) AddUserTweetIDs(ids ...int) {
+// AddUserTweetsIDs adds the "user_tweets" edge to the UserTweet entity by ids.
+func (m *Mutation) AddUserTweetsIDs(ids ...int) {
 	if m.user_tweets == nil {
 		m.user_tweets = make(map[int]struct{})
 	}
@@ -536,8 +536,8 @@ func (m *Mutation) UserTweetsCleared() bool {
 	return m.cleareduser_tweets
 }
 
-// RemoveUserTweetIDs removes the "user_tweets" edge to the UserTweet entity by IDs.
-func (m *Mutation) RemoveUserTweetIDs(ids ...int) {
+// RemoveUserTweetsIDs removes the "user_tweets" edge to the UserTweet entity by IDs.
+func (m *Mutation) RemoveUserTweetsIDs(ids ...int) {
 	if m.removeduser_tweets == nil {
 		m.removeduser_tweets = make(map[int]struct{})
 	}

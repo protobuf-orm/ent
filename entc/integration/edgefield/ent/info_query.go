@@ -186,7 +186,7 @@ func (_q *InfoQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Infos.
+// All executes the query and returns a list of Info entities.
 func (_q *InfoQuery) All(ctx context.Context) ([]*Info, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

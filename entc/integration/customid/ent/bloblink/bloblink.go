@@ -20,8 +20,8 @@ const (
 	FieldCreatedAt = "created_at"
 	// FieldBlobID holds the string denoting the blob_id field in the database.
 	FieldBlobID = "blob_id"
-	// FieldLinkID holds the string denoting the link_id field in the database.
-	FieldLinkID = "link_id"
+	// FieldLinksID holds the string denoting the links_id field in the database.
+	FieldLinksID = "links_id"
 	// EdgeBlob holds the string denoting the blob edge name in mutations.
 	EdgeBlob = "blob"
 	// EdgeLink holds the string denoting the link edge name in mutations.
@@ -29,28 +29,28 @@ const (
 	// BlobFieldID holds the string denoting the ID field of the Blob.
 	BlobFieldID = "id"
 	// Table holds the table name of the bloblink in the database.
-	Table = "blob_links"
+	Table = "blob_link"
 	// BlobTable is the table that holds the blob relation/edge.
-	BlobTable = "blob_links"
+	BlobTable = "blob_link"
 	// BlobInverseTable is the table name for the Blob entity.
 	// It exists in this package in order to avoid circular dependency with the "blob" package.
-	BlobInverseTable = "blobs"
+	BlobInverseTable = "blob"
 	// BlobColumn is the table column denoting the blob relation/edge.
 	BlobColumn = "blob_id"
 	// LinkTable is the table that holds the link relation/edge.
-	LinkTable = "blob_links"
+	LinkTable = "blob_link"
 	// LinkInverseTable is the table name for the Blob entity.
 	// It exists in this package in order to avoid circular dependency with the "blob" package.
-	LinkInverseTable = "blobs"
+	LinkInverseTable = "blob"
 	// LinkColumn is the table column denoting the link relation/edge.
-	LinkColumn = "link_id"
+	LinkColumn = "links_id"
 )
 
 // Columns holds all SQL columns for bloblink fields.
 var Columns = []string{
 	FieldCreatedAt,
 	FieldBlobID,
-	FieldLinkID,
+	FieldLinksID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -81,9 +81,9 @@ func ByBlobID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldBlobID, opts...).ToFunc()
 }
 
-// ByLinkID orders the results by the link_id field.
-func ByLinkID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldLinkID, opts...).ToFunc()
+// ByLinksID orders the results by the links_id field.
+func ByLinksID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLinksID, opts...).ToFunc()
 }
 
 // ByBlobField orders the results by blob field.

@@ -74,9 +74,9 @@ func (_c *TaskCreate) SetNillableUUID(v *uuid.UUID) *TaskCreate {
 	return _c
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by IDs.
-func (_c *TaskCreate) AddTeamIDs(ids ...int) *TaskCreate {
-	_c.mutation.AddTeamIDs(ids...)
+// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
+func (_c *TaskCreate) AddTeamsIDs(ids ...int) *TaskCreate {
+	_c.mutation.AddTeamsIDs(ids...)
 	return _c
 }
 
@@ -86,7 +86,7 @@ func (_c *TaskCreate) AddTeams(v ...*Team) *TaskCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTeamIDs(ids...)
+	return _c.AddTeamsIDs(ids...)
 }
 
 // SetOwnerID sets the "owner" edge to the User entity by ID.

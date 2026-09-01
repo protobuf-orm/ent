@@ -191,5 +191,5 @@ func (_m *Conversion) String() string {
 	return builder.String()
 }
 
-// Conversions is a parsable slice of Conversion.
-type Conversions []*Conversion
+// ConversionList is a parsable slice of Conversion.
+type ConversionList []*Conversion

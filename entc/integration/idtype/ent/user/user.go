@@ -25,9 +25,9 @@ const (
 	// EdgeFollowing holds the string denoting the following edge name in mutations.
 	EdgeFollowing = "following"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// SpouseTable is the table that holds the spouse relation/edge.
-	SpouseTable = "users"
+	SpouseTable = "user"
 	// SpouseColumn is the table column denoting the spouse relation/edge.
 	SpouseColumn = "user_spouse"
 	// FollowersTable is the table that holds the followers relation/edge. The primary key declared below.
@@ -42,7 +42,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_spouse",
@@ -51,10 +51,10 @@ var ForeignKeys = []string{
 var (
 	// FollowersPrimaryKey and FollowersColumn2 are the table columns denoting the
 	// primary key for the followers relation (M2M).
-	FollowersPrimaryKey = []string{"user_id", "follower_id"}
+	FollowersPrimaryKey = []string{"user_id", "followers_id"}
 	// FollowingPrimaryKey and FollowingColumn2 are the table columns denoting the
 	// primary key for the following relation (M2M).
-	FollowingPrimaryKey = []string{"user_id", "follower_id"}
+	FollowingPrimaryKey = []string{"user_id", "followers_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

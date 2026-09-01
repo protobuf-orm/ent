@@ -46,9 +46,9 @@ func (_u *GroupUpdate) SetNillableName(v *string) *GroupUpdate {
 	return _u
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdate) AddUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -58,7 +58,7 @@ func (_u *GroupUpdate) AddUsers(v ...*User) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
 // SetAdminID sets the "admin" edge to the User entity by ID.
@@ -91,9 +91,9 @@ func (_u *GroupUpdate) ClearUsers() *GroupUpdate {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdate) RemoveUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -103,7 +103,7 @@ func (_u *GroupUpdate) RemoveUsers(v ...*User) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // ClearAdmin clears the "admin" edge to the User entity.
@@ -259,9 +259,9 @@ func (_u *GroupUpdateOne) SetNillableName(v *string) *GroupUpdateOne {
 	return _u
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdateOne) AddUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -271,7 +271,7 @@ func (_u *GroupUpdateOne) AddUsers(v ...*User) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
 // SetAdminID sets the "admin" edge to the User entity by ID.
@@ -304,9 +304,9 @@ func (_u *GroupUpdateOne) ClearUsers() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdateOne) RemoveUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -316,7 +316,7 @@ func (_u *GroupUpdateOne) RemoveUsers(v ...*User) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // ClearAdmin clears the "admin" edge to the User entity.

@@ -91,5 +91,5 @@ func (_m *PC) String() string {
 	return builder.String()
 }
 
-// PCs is a parsable slice of PC.
-type PCs []*PC
+// PCList is a parsable slice of PC.
+type PCList []*PC

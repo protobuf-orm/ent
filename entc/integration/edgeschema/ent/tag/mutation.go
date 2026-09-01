@@ -70,8 +70,8 @@ func (m *Mutation) ResetValue() {
 	m.value = nil
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by ids.
-func (m *Mutation) AddTweetIDs(ids ...int) {
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by ids.
+func (m *Mutation) AddTweetsIDs(ids ...int) {
 	if m.tweets == nil {
 		m.tweets = make(map[int]struct{})
 	}
@@ -90,8 +90,8 @@ func (m *Mutation) TweetsCleared() bool {
 	return m.clearedtweets
 }
 
-// RemoveTweetIDs removes the "tweets" edge to the Tweet entity by IDs.
-func (m *Mutation) RemoveTweetIDs(ids ...int) {
+// RemoveTweetsIDs removes the "tweets" edge to the Tweet entity by IDs.
+func (m *Mutation) RemoveTweetsIDs(ids ...int) {
 	if m.removedtweets == nil {
 		m.removedtweets = make(map[int]struct{})
 	}
@@ -124,8 +124,8 @@ func (m *Mutation) ResetTweets() {
 	m.removedtweets = nil
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupIDs(ids ...int) {
+// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIDs(ids ...int) {
 	if m.groups == nil {
 		m.groups = make(map[int]struct{})
 	}
@@ -144,8 +144,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupIDs(ids ...int) {
+// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
+func (m *Mutation) RemoveGroupsIDs(ids ...int) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[int]struct{})
 	}
@@ -178,8 +178,8 @@ func (m *Mutation) ResetGroups() {
 	m.removedgroups = nil
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by ids.
-func (m *Mutation) AddTweetTagIDs(ids ...uuid.UUID) {
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by ids.
+func (m *Mutation) AddTweetTagsIDs(ids ...uuid.UUID) {
 	if m.tweet_tags == nil {
 		m.tweet_tags = make(map[uuid.UUID]struct{})
 	}
@@ -198,8 +198,8 @@ func (m *Mutation) TweetTagsCleared() bool {
 	return m.clearedtweet_tags
 }
 
-// RemoveTweetTagIDs removes the "tweet_tags" edge to the TweetTag entity by IDs.
-func (m *Mutation) RemoveTweetTagIDs(ids ...uuid.UUID) {
+// RemoveTweetTagsIDs removes the "tweet_tags" edge to the TweetTag entity by IDs.
+func (m *Mutation) RemoveTweetTagsIDs(ids ...uuid.UUID) {
 	if m.removedtweet_tags == nil {
 		m.removedtweet_tags = make(map[uuid.UUID]struct{})
 	}
@@ -232,8 +232,8 @@ func (m *Mutation) ResetTweetTags() {
 	m.removedtweet_tags = nil
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by ids.
-func (m *Mutation) AddGroupTagIDs(ids ...int) {
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by ids.
+func (m *Mutation) AddGroupTagsIDs(ids ...int) {
 	if m.group_tags == nil {
 		m.group_tags = make(map[int]struct{})
 	}
@@ -252,8 +252,8 @@ func (m *Mutation) GroupTagsCleared() bool {
 	return m.clearedgroup_tags
 }
 
-// RemoveGroupTagIDs removes the "group_tags" edge to the GroupTag entity by IDs.
-func (m *Mutation) RemoveGroupTagIDs(ids ...int) {
+// RemoveGroupTagsIDs removes the "group_tags" edge to the GroupTag entity by IDs.
+func (m *Mutation) RemoveGroupTagsIDs(ids ...int) {
 	if m.removedgroup_tags == nil {
 		m.removedgroup_tags = make(map[int]struct{})
 	}

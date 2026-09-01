@@ -146,5 +146,5 @@ func (_m *IntSID) String() string {
 	return builder.String()
 }
 
-// IntSIDs is a parsable slice of IntSID.
-type IntSIDs []*IntSID
+// IntSIDList is a parsable slice of IntSID.
+type IntSIDList []*IntSID

@@ -582,7 +582,7 @@ func O2MSameType(t *testing.T, client *ent.Client) {
 
 	t.Log("add child to parent by updating user (the owner of the edge)")
 	chd = client.User.Create().SetAge(1).SetName("child").SaveX(ctx)
-	prt.Update().AddChildIDs(chd.ID).ExecX(ctx)
+	prt.Update().AddChildrenIDs(chd.ID).ExecX(ctx)
 	require.Equal(prt.Name, chd.QueryParent().OnlyX(ctx).Name)
 	require.Equal(chd.Name, prt.QueryChildren().OnlyX(ctx).Name)
 

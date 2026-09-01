@@ -47,9 +47,9 @@ func (_u *TeamUpdate) SetNillableName(v *string) *TeamUpdate {
 	return _u
 }
 
-// AddTaskIDs adds the "tasks" edge to the Task entity by IDs.
-func (_u *TeamUpdate) AddTaskIDs(ids ...int) *TeamUpdate {
-	_u.mutation.AddTaskIDs(ids...)
+// AddTasksIDs adds the "tasks" edge to the Task entity by IDs.
+func (_u *TeamUpdate) AddTasksIDs(ids ...int) *TeamUpdate {
+	_u.mutation.AddTasksIDs(ids...)
 	return _u
 }
 
@@ -59,12 +59,12 @@ func (_u *TeamUpdate) AddTasks(v ...*Task) *TeamUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTaskIDs(ids...)
+	return _u.AddTasksIDs(ids...)
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *TeamUpdate) AddUserIDs(ids ...int) *TeamUpdate {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *TeamUpdate) AddUsersIDs(ids ...int) *TeamUpdate {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -74,7 +74,7 @@ func (_u *TeamUpdate) AddUsers(v ...*User) *TeamUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
 // Mutation returns the TeamMutation object of the builder.
@@ -88,9 +88,9 @@ func (_u *TeamUpdate) ClearTasks() *TeamUpdate {
 	return _u
 }
 
-// RemoveTaskIDs removes the "tasks" edge to Task entities by IDs.
-func (_u *TeamUpdate) RemoveTaskIDs(ids ...int) *TeamUpdate {
-	_u.mutation.RemoveTaskIDs(ids...)
+// RemoveTasksIDs removes the "tasks" edge to Task entities by IDs.
+func (_u *TeamUpdate) RemoveTasksIDs(ids ...int) *TeamUpdate {
+	_u.mutation.RemoveTasksIDs(ids...)
 	return _u
 }
 
@@ -100,7 +100,7 @@ func (_u *TeamUpdate) RemoveTasks(v ...*Task) *TeamUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTaskIDs(ids...)
+	return _u.RemoveTasksIDs(ids...)
 }
 
 // ClearUsers clears all "users" edges to the User entity.
@@ -109,9 +109,9 @@ func (_u *TeamUpdate) ClearUsers() *TeamUpdate {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *TeamUpdate) RemoveUserIDs(ids ...int) *TeamUpdate {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *TeamUpdate) RemoveUsersIDs(ids ...int) *TeamUpdate {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -121,7 +121,7 @@ func (_u *TeamUpdate) RemoveUsers(v ...*User) *TeamUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -300,9 +300,9 @@ func (_u *TeamUpdateOne) SetNillableName(v *string) *TeamUpdateOne {
 	return _u
 }
 
-// AddTaskIDs adds the "tasks" edge to the Task entity by IDs.
-func (_u *TeamUpdateOne) AddTaskIDs(ids ...int) *TeamUpdateOne {
-	_u.mutation.AddTaskIDs(ids...)
+// AddTasksIDs adds the "tasks" edge to the Task entity by IDs.
+func (_u *TeamUpdateOne) AddTasksIDs(ids ...int) *TeamUpdateOne {
+	_u.mutation.AddTasksIDs(ids...)
 	return _u
 }
 
@@ -312,12 +312,12 @@ func (_u *TeamUpdateOne) AddTasks(v ...*Task) *TeamUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTaskIDs(ids...)
+	return _u.AddTasksIDs(ids...)
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *TeamUpdateOne) AddUserIDs(ids ...int) *TeamUpdateOne {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *TeamUpdateOne) AddUsersIDs(ids ...int) *TeamUpdateOne {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -327,7 +327,7 @@ func (_u *TeamUpdateOne) AddUsers(v ...*User) *TeamUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
 // Mutation returns the TeamMutation object of the builder.
@@ -341,9 +341,9 @@ func (_u *TeamUpdateOne) ClearTasks() *TeamUpdateOne {
 	return _u
 }
 
-// RemoveTaskIDs removes the "tasks" edge to Task entities by IDs.
-func (_u *TeamUpdateOne) RemoveTaskIDs(ids ...int) *TeamUpdateOne {
-	_u.mutation.RemoveTaskIDs(ids...)
+// RemoveTasksIDs removes the "tasks" edge to Task entities by IDs.
+func (_u *TeamUpdateOne) RemoveTasksIDs(ids ...int) *TeamUpdateOne {
+	_u.mutation.RemoveTasksIDs(ids...)
 	return _u
 }
 
@@ -353,7 +353,7 @@ func (_u *TeamUpdateOne) RemoveTasks(v ...*Task) *TeamUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTaskIDs(ids...)
+	return _u.RemoveTasksIDs(ids...)
 }
 
 // ClearUsers clears all "users" edges to the User entity.
@@ -362,9 +362,9 @@ func (_u *TeamUpdateOne) ClearUsers() *TeamUpdateOne {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *TeamUpdateOne) RemoveUserIDs(ids ...int) *TeamUpdateOne {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *TeamUpdateOne) RemoveUsersIDs(ids ...int) *TeamUpdateOne {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -374,7 +374,7 @@ func (_u *TeamUpdateOne) RemoveUsers(v ...*User) *TeamUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // Where appends a list predicates to the TeamUpdate builder.

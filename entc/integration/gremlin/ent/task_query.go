@@ -163,7 +163,7 @@ func (_q *TaskQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Tasks.
+// All executes the query and returns a list of Task entities.
 func (_q *TaskQuery) All(ctx context.Context) ([]*Task, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *TaskQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Tas
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Tasks
+	var _ms TaskList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

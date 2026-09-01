@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddProcessIDs adds the "processes" edge to the Process entity by ids.
-func (m *Mutation) AddProcessIDs(ids ...int) {
+// AddProcessesIDs adds the "processes" edge to the Process entity by ids.
+func (m *Mutation) AddProcessesIDs(ids ...int) {
 	if m.processes == nil {
 		m.processes = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) ProcessesCleared() bool {
 	return m.clearedprocesses
 }
 
-// RemoveProcessIDs removes the "processes" edge to the Process entity by IDs.
-func (m *Mutation) RemoveProcessIDs(ids ...int) {
+// RemoveProcessesIDs removes the "processes" edge to the Process entity by IDs.
+func (m *Mutation) RemoveProcessesIDs(ids ...int) {
 	if m.removedprocesses == nil {
 		m.removedprocesses = make(map[int]struct{})
 	}

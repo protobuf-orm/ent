@@ -142,5 +142,5 @@ func (_m *Street) String() string {
 	return builder.String()
 }
 
-// Streets is a parsable slice of Street.
-type Streets []*Street
+// StreetList is a parsable slice of Street.
+type StreetList []*Street

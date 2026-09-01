@@ -153,7 +153,7 @@ const (
 	// FieldPasswordOther holds the string denoting the password_other field in the database.
 	FieldPasswordOther = "password_other"
 	// Table holds the table name of the fieldtype in the database.
-	Table = "field_types"
+	Table = "field_type"
 )
 
 // Columns holds all SQL columns for fieldtype fields.
@@ -226,7 +226,7 @@ var Columns = []string{
 	FieldPasswordOther,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "field_types"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "field_type"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_field",

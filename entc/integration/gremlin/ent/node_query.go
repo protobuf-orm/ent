@@ -193,7 +193,7 @@ func (_q *NodeQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Nodes.
+// All executes the query and returns a list of Node entities.
 func (_q *NodeQuery) All(ctx context.Context) ([]*Node, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -400,7 +400,7 @@ func (_q *NodeQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Nod
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Nodes
+	var _ms NodeList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

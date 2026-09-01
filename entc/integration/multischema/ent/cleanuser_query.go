@@ -112,7 +112,7 @@ func (_q *CleanUserQuery) OnlyX(ctx context.Context) *CleanUser {
 	return node
 }
 
-// All executes the query and returns a list of CleanUsers.
+// All executes the query and returns a list of CleanUser entities.
 func (_q *CleanUserQuery) All(ctx context.Context) ([]*CleanUser, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

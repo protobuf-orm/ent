@@ -44,9 +44,9 @@ func (_c *ParentCreate) SetUserID(v int) *ParentCreate {
 	return _c
 }
 
-// SetParentID sets the "parent_id" field.
-func (_c *ParentCreate) SetParentID(v int) *ParentCreate {
-	_c.mutation.SetParentID(v)
+// SetParentsID sets the "parents_id" field.
+func (_c *ParentCreate) SetParentsID(v int) *ParentCreate {
+	_c.mutation.SetParentsID(v)
 	return _c
 }
 
@@ -59,6 +59,12 @@ func (_c *ParentCreate) SetChildID(id int) *ParentCreate {
 // SetChild sets the "child" edge to the User entity.
 func (_c *ParentCreate) SetChild(v *User) *ParentCreate {
 	return _c.SetChildID(v.ID)
+}
+
+// SetParentID sets the "parent" edge to the User entity by ID.
+func (_c *ParentCreate) SetParentID(id int) *ParentCreate {
+	_c.mutation.SetParentID(id)
+	return _c
 }
 
 // SetParent sets the "parent" edge to the User entity.
@@ -115,8 +121,8 @@ func (_c *ParentCreate) check() error {
 	if _, ok := _c.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "Parent.user_id"`)}
 	}
-	if _, ok := _c.mutation.ParentID(); !ok {
-		return &ValidationError{Name: "parent_id", err: errors.New(`ent: missing required field "Parent.parent_id"`)}
+	if _, ok := _c.mutation.ParentsID(); !ok {
+		return &ValidationError{Name: "parents_id", err: errors.New(`ent: missing required field "Parent.parents_id"`)}
 	}
 	if len(_c.mutation.ChildIDs()) == 0 {
 		return &ValidationError{Name: "child", err: errors.New(`ent: missing required edge "Parent.child"`)}
@@ -188,7 +194,7 @@ func (_c *ParentCreate) createSpec() (*Parent, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ParentID = nodes[0]
+		_node.ParentsID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

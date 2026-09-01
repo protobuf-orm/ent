@@ -12,30 +12,30 @@ import (
 )
 
 var (
-	// FriendshipsColumns holds the columns for the "friendships" table.
-	FriendshipsColumns = []*schema.Column{
+	// FriendshipColumns holds the columns for the "friendship" table.
+	FriendshipColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "weight", Type: field.TypeInt, Default: 1},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "friend_id", Type: field.TypeInt},
+		{Name: "friends_id", Type: field.TypeInt},
 	}
-	// FriendshipsTable holds the schema information for the "friendships" table.
-	FriendshipsTable = &schema.Table{
-		Name:       "friendships",
-		Columns:    FriendshipsColumns,
-		PrimaryKey: []*schema.Column{FriendshipsColumns[0]},
+	// FriendshipTable holds the schema information for the "friendship" table.
+	FriendshipTable = &schema.Table{
+		Name:       "friendship",
+		Columns:    FriendshipColumns,
+		PrimaryKey: []*schema.Column{FriendshipColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "friendships_users_user",
-				Columns:    []*schema.Column{FriendshipsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_user",
+				Columns:    []*schema.Column{FriendshipColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "friendships_users_friend",
-				Columns:    []*schema.Column{FriendshipsColumns[4]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_friend",
+				Columns:    []*schema.Column{FriendshipColumns[4]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -43,56 +43,56 @@ var (
 			{
 				Name:    "friendship_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{FriendshipsColumns[2]},
+				Columns: []*schema.Column{FriendshipColumns[2]},
 			},
 			{
-				Name:    "friendship_user_id_friend_id",
+				Name:    "friendship_user_id_friends_id",
 				Unique:  true,
-				Columns: []*schema.Column{FriendshipsColumns[3], FriendshipsColumns[4]},
+				Columns: []*schema.Column{FriendshipColumns[3], FriendshipColumns[4]},
 			},
 		},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pets_users_pets",
-				Columns:    []*schema.Column{PetsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "pet_user_pets",
+				Columns:    []*schema.Column{PetColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "unknown"},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// GroupUsersColumns holds the columns for the "group_users" table.
 	GroupUsersColumns = []*schema.Column{
@@ -108,13 +108,13 @@ var (
 			{
 				Symbol:     "group_users_group_id",
 				Columns:    []*schema.Column{GroupUsersColumns[0]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "group_users_user_id",
 				Columns:    []*schema.Column{GroupUsersColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -122,7 +122,7 @@ var (
 	// UserFollowingColumns holds the columns for the "user_following" table.
 	UserFollowingColumns = []*schema.Column{
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "follower_id", Type: field.TypeInt},
+		{Name: "followers_id", Type: field.TypeInt},
 	}
 	// UserFollowingTable holds the schema information for the "user_following" table.
 	UserFollowingTable = &schema.Table{
@@ -133,34 +133,34 @@ var (
 			{
 				Symbol:     "user_following_user_id",
 				Columns:    []*schema.Column{UserFollowingColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "user_following_follower_id",
+				Symbol:     "user_following_followers_id",
 				Columns:    []*schema.Column{UserFollowingColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		FriendshipsTable,
-		GroupsTable,
-		PetsTable,
-		UsersTable,
+		FriendshipTable,
+		GroupTable,
+		PetTable,
+		UserTable,
 		GroupUsersTable,
 		UserFollowingTable,
 	}
 )
 
 func init() {
-	FriendshipsTable.ForeignKeys[0].RefTable = UsersTable
-	FriendshipsTable.ForeignKeys[1].RefTable = UsersTable
-	PetsTable.ForeignKeys[0].RefTable = UsersTable
-	GroupUsersTable.ForeignKeys[0].RefTable = GroupsTable
-	GroupUsersTable.ForeignKeys[1].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[0].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[1].RefTable = UsersTable
+	FriendshipTable.ForeignKeys[0].RefTable = UserTable
+	FriendshipTable.ForeignKeys[1].RefTable = UserTable
+	PetTable.ForeignKeys[0].RefTable = UserTable
+	GroupUsersTable.ForeignKeys[0].RefTable = GroupTable
+	GroupUsersTable.ForeignKeys[1].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[0].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[1].RefTable = UserTable
 }

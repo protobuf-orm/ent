@@ -211,7 +211,7 @@ func (_q *ProcessQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Processes.
+// All executes the query and returns a list of Process entities.
 func (_q *ProcessQuery) All(ctx context.Context) ([]*Process, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -135,5 +135,5 @@ func (_m *Info) String() string {
 	return builder.String()
 }
 
-// Infos is a parsable slice of Info.
-type Infos []*Info
+// InfoList is a parsable slice of Info.
+type InfoList []*Info

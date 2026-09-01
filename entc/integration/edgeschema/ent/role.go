@@ -159,5 +159,5 @@ func (_m *Role) String() string {
 	return builder.String()
 }
 
-// Roles is a parsable slice of Role.
-type Roles []*Role
+// RoleList is a parsable slice of Role.
+type RoleList []*Role

@@ -46,9 +46,9 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// AddPostIDs adds the "posts" edge to the Post entity by IDs.
-func (_u *UserUpdate) AddPostIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddPostIDs(ids...)
+// AddPostsIDs adds the "posts" edge to the Post entity by IDs.
+func (_u *UserUpdate) AddPostsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddPostsIDs(ids...)
 	return _u
 }
 
@@ -58,7 +58,7 @@ func (_u *UserUpdate) AddPosts(v ...*Post) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPostIDs(ids...)
+	return _u.AddPostsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -72,9 +72,9 @@ func (_u *UserUpdate) ClearPosts() *UserUpdate {
 	return _u
 }
 
-// RemovePostIDs removes the "posts" edge to Post entities by IDs.
-func (_u *UserUpdate) RemovePostIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemovePostIDs(ids...)
+// RemovePostsIDs removes the "posts" edge to Post entities by IDs.
+func (_u *UserUpdate) RemovePostsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemovePostsIDs(ids...)
 	return _u
 }
 
@@ -84,7 +84,7 @@ func (_u *UserUpdate) RemovePosts(v ...*Post) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePostIDs(ids...)
+	return _u.RemovePostsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -205,9 +205,9 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// AddPostIDs adds the "posts" edge to the Post entity by IDs.
-func (_u *UserUpdateOne) AddPostIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddPostIDs(ids...)
+// AddPostsIDs adds the "posts" edge to the Post entity by IDs.
+func (_u *UserUpdateOne) AddPostsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddPostsIDs(ids...)
 	return _u
 }
 
@@ -217,7 +217,7 @@ func (_u *UserUpdateOne) AddPosts(v ...*Post) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPostIDs(ids...)
+	return _u.AddPostsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -231,9 +231,9 @@ func (_u *UserUpdateOne) ClearPosts() *UserUpdateOne {
 	return _u
 }
 
-// RemovePostIDs removes the "posts" edge to Post entities by IDs.
-func (_u *UserUpdateOne) RemovePostIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemovePostIDs(ids...)
+// RemovePostsIDs removes the "posts" edge to Post entities by IDs.
+func (_u *UserUpdateOne) RemovePostsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemovePostsIDs(ids...)
 	return _u
 }
 
@@ -243,7 +243,7 @@ func (_u *UserUpdateOne) RemovePosts(v ...*Post) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePostIDs(ids...)
+	return _u.RemovePostsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

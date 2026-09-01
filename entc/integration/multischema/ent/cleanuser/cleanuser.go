@@ -16,7 +16,7 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// Table holds the table name of the cleanuser in the database.
-	Table = "clean_users"
+	Table = "clean_user"
 )
 
 // Columns holds all SQL columns for cleanuser fields.

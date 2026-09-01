@@ -200,5 +200,5 @@ func (_m *Metadata) appendNamedChildren(name string, edges ...*Metadata) {
 	}
 }
 
-// MetadataSlice is a parsable slice of Metadata.
-type MetadataSlice []*Metadata
+// MetadataList is a parsable slice of Metadata.
+type MetadataList []*Metadata

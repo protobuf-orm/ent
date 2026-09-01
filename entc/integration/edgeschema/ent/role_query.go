@@ -211,7 +211,7 @@ func (_q *RoleQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Roles.
+// All executes the query and returns a list of Role entities.
 func (_q *RoleQuery) All(ctx context.Context) ([]*Role, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

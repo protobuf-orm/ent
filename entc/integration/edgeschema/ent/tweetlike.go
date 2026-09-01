@@ -165,5 +165,5 @@ func (_m *TweetLike) String() string {
 	return builder.String()
 }
 
-// TweetLikes is a parsable slice of TweetLike.
-type TweetLikes []*TweetLike
+// TweetLikeList is a parsable slice of TweetLike.
+type TweetLikeList []*TweetLike

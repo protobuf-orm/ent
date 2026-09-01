@@ -12,29 +12,29 @@ import (
 )
 
 var (
-	// AttachedFilesColumns holds the columns for the "attached_files" table.
-	AttachedFilesColumns = []*schema.Column{
+	// AttachedFileColumns holds the columns for the "attached_file" table.
+	AttachedFileColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "attach_time", Type: field.TypeTime},
 		{Name: "f_id", Type: field.TypeInt},
 		{Name: "proc_id", Type: field.TypeInt},
 	}
-	// AttachedFilesTable holds the schema information for the "attached_files" table.
-	AttachedFilesTable = &schema.Table{
-		Name:       "attached_files",
-		Columns:    AttachedFilesColumns,
-		PrimaryKey: []*schema.Column{AttachedFilesColumns[0]},
+	// AttachedFileTable holds the schema information for the "attached_file" table.
+	AttachedFileTable = &schema.Table{
+		Name:       "attached_file",
+		Columns:    AttachedFileColumns,
+		PrimaryKey: []*schema.Column{AttachedFileColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "attached_files_files_fi",
-				Columns:    []*schema.Column{AttachedFilesColumns[2]},
-				RefColumns: []*schema.Column{FilesColumns[0]},
+				Symbol:     "attached_file_file_fi",
+				Columns:    []*schema.Column{AttachedFileColumns[2]},
+				RefColumns: []*schema.Column{FileColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "attached_files_processes_proc",
-				Columns:    []*schema.Column{AttachedFilesColumns[3]},
-				RefColumns: []*schema.Column{ProcessesColumns[0]},
+				Symbol:     "attached_file_process_proc",
+				Columns:    []*schema.Column{AttachedFileColumns[3]},
+				RefColumns: []*schema.Column{ProcessColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -42,45 +42,45 @@ var (
 			{
 				Name:    "attachedfile_proc_id_f_id",
 				Unique:  true,
-				Columns: []*schema.Column{AttachedFilesColumns[3], AttachedFilesColumns[2]},
+				Columns: []*schema.Column{AttachedFileColumns[3], AttachedFileColumns[2]},
 			},
 		},
 	}
-	// FilesColumns holds the columns for the "files" table.
-	FilesColumns = []*schema.Column{
+	// FileColumns holds the columns for the "file" table.
+	FileColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// FilesTable holds the schema information for the "files" table.
-	FilesTable = &schema.Table{
-		Name:       "files",
-		Columns:    FilesColumns,
-		PrimaryKey: []*schema.Column{FilesColumns[0]},
+	// FileTable holds the schema information for the "file" table.
+	FileTable = &schema.Table{
+		Name:       "file",
+		Columns:    FileColumns,
+		PrimaryKey: []*schema.Column{FileColumns[0]},
 	}
-	// FriendshipsColumns holds the columns for the "friendships" table.
-	FriendshipsColumns = []*schema.Column{
+	// FriendshipColumns holds the columns for the "friendship" table.
+	FriendshipColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "weight", Type: field.TypeInt, Default: 1},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "friend_id", Type: field.TypeInt},
+		{Name: "friends_id", Type: field.TypeInt},
 	}
-	// FriendshipsTable holds the schema information for the "friendships" table.
-	FriendshipsTable = &schema.Table{
-		Name:       "friendships",
-		Columns:    FriendshipsColumns,
-		PrimaryKey: []*schema.Column{FriendshipsColumns[0]},
+	// FriendshipTable holds the schema information for the "friendship" table.
+	FriendshipTable = &schema.Table{
+		Name:       "friendship",
+		Columns:    FriendshipColumns,
+		PrimaryKey: []*schema.Column{FriendshipColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "friendships_users_user",
-				Columns:    []*schema.Column{FriendshipsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_user",
+				Columns:    []*schema.Column{FriendshipColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "friendships_users_friend",
-				Columns:    []*schema.Column{FriendshipsColumns[4]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "friendship_user_friend",
+				Columns:    []*schema.Column{FriendshipColumns[4]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -88,48 +88,48 @@ var (
 			{
 				Name:    "friendship_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{FriendshipsColumns[2]},
+				Columns: []*schema.Column{FriendshipColumns[2]},
 			},
 			{
 				Name:    "friendships_edge",
 				Unique:  true,
-				Columns: []*schema.Column{FriendshipsColumns[3], FriendshipsColumns[4]},
+				Columns: []*schema.Column{FriendshipColumns[3], FriendshipColumns[4]},
 			},
 		},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 	}
-	// GroupTagsColumns holds the columns for the "group_tags" table.
-	GroupTagsColumns = []*schema.Column{
+	// GroupTagColumns holds the columns for the "group_tag" table.
+	GroupTagColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "tag_id", Type: field.TypeInt},
 		{Name: "group_id", Type: field.TypeInt},
 	}
-	// GroupTagsTable holds the schema information for the "group_tags" table.
-	GroupTagsTable = &schema.Table{
-		Name:       "group_tags",
-		Columns:    GroupTagsColumns,
-		PrimaryKey: []*schema.Column{GroupTagsColumns[0]},
+	// GroupTagTable holds the schema information for the "group_tag" table.
+	GroupTagTable = &schema.Table{
+		Name:       "group_tag",
+		Columns:    GroupTagColumns,
+		PrimaryKey: []*schema.Column{GroupTagColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "group_tags_tags_tag",
-				Columns:    []*schema.Column{GroupTagsColumns[1]},
-				RefColumns: []*schema.Column{TagsColumns[0]},
+				Symbol:     "group_tag_tag_tag",
+				Columns:    []*schema.Column{GroupTagColumns[1]},
+				RefColumns: []*schema.Column{TagColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "group_tags_groups_group",
-				Columns:    []*schema.Column{GroupTagsColumns[2]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				Symbol:     "group_tag_group_group",
+				Columns:    []*schema.Column{GroupTagColumns[2]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -137,49 +137,49 @@ var (
 			{
 				Name:    "grouptag_tag_id_group_id",
 				Unique:  true,
-				Columns: []*schema.Column{GroupTagsColumns[1], GroupTagsColumns[2]},
+				Columns: []*schema.Column{GroupTagColumns[1], GroupTagColumns[2]},
 			},
 		},
 	}
-	// ProcessesColumns holds the columns for the "processes" table.
-	ProcessesColumns = []*schema.Column{
+	// ProcessColumns holds the columns for the "process" table.
+	ProcessColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// ProcessesTable holds the schema information for the "processes" table.
-	ProcessesTable = &schema.Table{
-		Name:       "processes",
-		Columns:    ProcessesColumns,
-		PrimaryKey: []*schema.Column{ProcessesColumns[0]},
+	// ProcessTable holds the schema information for the "process" table.
+	ProcessTable = &schema.Table{
+		Name:       "process",
+		Columns:    ProcessColumns,
+		PrimaryKey: []*schema.Column{ProcessColumns[0]},
 	}
-	// RelationshipsColumns holds the columns for the "relationships" table.
-	RelationshipsColumns = []*schema.Column{
+	// RelationshipColumns holds the columns for the "relationship" table.
+	RelationshipColumns = []*schema.Column{
 		{Name: "weight", Type: field.TypeInt, Default: 1},
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "relative_id", Type: field.TypeInt},
+		{Name: "relatives_id", Type: field.TypeInt},
 		{Name: "info_id", Type: field.TypeInt, Nullable: true},
 	}
-	// RelationshipsTable holds the schema information for the "relationships" table.
-	RelationshipsTable = &schema.Table{
-		Name:       "relationships",
-		Columns:    RelationshipsColumns,
-		PrimaryKey: []*schema.Column{RelationshipsColumns[1], RelationshipsColumns[2]},
+	// RelationshipTable holds the schema information for the "relationship" table.
+	RelationshipTable = &schema.Table{
+		Name:       "relationship",
+		Columns:    RelationshipColumns,
+		PrimaryKey: []*schema.Column{RelationshipColumns[1], RelationshipColumns[2]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "relationships_users_user",
-				Columns:    []*schema.Column{RelationshipsColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "relationship_user_user",
+				Columns:    []*schema.Column{RelationshipColumns[1]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "relationships_users_relative",
-				Columns:    []*schema.Column{RelationshipsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "relationship_user_relative",
+				Columns:    []*schema.Column{RelationshipColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "relationships_relationship_infos_info",
-				Columns:    []*schema.Column{RelationshipsColumns[3]},
-				RefColumns: []*schema.Column{RelationshipInfosColumns[0]},
+				Symbol:     "relationship_relationship_info_info",
+				Columns:    []*schema.Column{RelationshipColumns[3]},
+				RefColumns: []*schema.Column{RelationshipInfoColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -187,135 +187,135 @@ var (
 			{
 				Name:    "relationship_weight",
 				Unique:  false,
-				Columns: []*schema.Column{RelationshipsColumns[0]},
+				Columns: []*schema.Column{RelationshipColumns[0]},
 			},
 			{
 				Name:    "relationship_info_id",
 				Unique:  true,
-				Columns: []*schema.Column{RelationshipsColumns[3]},
+				Columns: []*schema.Column{RelationshipColumns[3]},
 			},
 		},
 	}
-	// RelationshipInfosColumns holds the columns for the "relationship_infos" table.
-	RelationshipInfosColumns = []*schema.Column{
+	// RelationshipInfoColumns holds the columns for the "relationship_info" table.
+	RelationshipInfoColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString},
 	}
-	// RelationshipInfosTable holds the schema information for the "relationship_infos" table.
-	RelationshipInfosTable = &schema.Table{
-		Name:       "relationship_infos",
-		Columns:    RelationshipInfosColumns,
-		PrimaryKey: []*schema.Column{RelationshipInfosColumns[0]},
+	// RelationshipInfoTable holds the schema information for the "relationship_info" table.
+	RelationshipInfoTable = &schema.Table{
+		Name:       "relationship_info",
+		Columns:    RelationshipInfoColumns,
+		PrimaryKey: []*schema.Column{RelationshipInfoColumns[0]},
 	}
-	// RolesColumns holds the columns for the "roles" table.
-	RolesColumns = []*schema.Column{
+	// RoleColumns holds the columns for the "role" table.
+	RoleColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "created_at", Type: field.TypeTime},
 	}
-	// RolesTable holds the schema information for the "roles" table.
-	RolesTable = &schema.Table{
-		Name:       "roles",
-		Columns:    RolesColumns,
-		PrimaryKey: []*schema.Column{RolesColumns[0]},
+	// RoleTable holds the schema information for the "role" table.
+	RoleTable = &schema.Table{
+		Name:       "role",
+		Columns:    RoleColumns,
+		PrimaryKey: []*schema.Column{RoleColumns[0]},
 	}
-	// RoleUsersColumns holds the columns for the "role_users" table.
-	RoleUsersColumns = []*schema.Column{
+	// RoleUserColumns holds the columns for the "role_user" table.
+	RoleUserColumns = []*schema.Column{
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "role_id", Type: field.TypeInt},
 		{Name: "user_id", Type: field.TypeInt},
 	}
-	// RoleUsersTable holds the schema information for the "role_users" table.
-	RoleUsersTable = &schema.Table{
-		Name:       "role_users",
-		Columns:    RoleUsersColumns,
-		PrimaryKey: []*schema.Column{RoleUsersColumns[2], RoleUsersColumns[1]},
+	// RoleUserTable holds the schema information for the "role_user" table.
+	RoleUserTable = &schema.Table{
+		Name:       "role_user",
+		Columns:    RoleUserColumns,
+		PrimaryKey: []*schema.Column{RoleUserColumns[2], RoleUserColumns[1]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "role_users_roles_role",
-				Columns:    []*schema.Column{RoleUsersColumns[1]},
-				RefColumns: []*schema.Column{RolesColumns[0]},
+				Symbol:     "role_user_role_role",
+				Columns:    []*schema.Column{RoleUserColumns[1]},
+				RefColumns: []*schema.Column{RoleColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "role_users_users_user",
-				Columns:    []*schema.Column{RoleUsersColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "role_user_user_user",
+				Columns:    []*schema.Column{RoleUserColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// TagsColumns holds the columns for the "tags" table.
-	TagsColumns = []*schema.Column{
+	// TagColumns holds the columns for the "tag" table.
+	TagColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "value", Type: field.TypeString},
 	}
-	// TagsTable holds the schema information for the "tags" table.
-	TagsTable = &schema.Table{
-		Name:       "tags",
-		Columns:    TagsColumns,
-		PrimaryKey: []*schema.Column{TagsColumns[0]},
+	// TagTable holds the schema information for the "tag" table.
+	TagTable = &schema.Table{
+		Name:       "tag",
+		Columns:    TagColumns,
+		PrimaryKey: []*schema.Column{TagColumns[0]},
 	}
-	// TweetsColumns holds the columns for the "tweets" table.
-	TweetsColumns = []*schema.Column{
+	// TweetColumns holds the columns for the "tweet" table.
+	TweetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString, Size: 2147483647},
 	}
-	// TweetsTable holds the schema information for the "tweets" table.
-	TweetsTable = &schema.Table{
-		Name:       "tweets",
-		Columns:    TweetsColumns,
-		PrimaryKey: []*schema.Column{TweetsColumns[0]},
+	// TweetTable holds the schema information for the "tweet" table.
+	TweetTable = &schema.Table{
+		Name:       "tweet",
+		Columns:    TweetColumns,
+		PrimaryKey: []*schema.Column{TweetColumns[0]},
 	}
-	// TweetLikesColumns holds the columns for the "tweet_likes" table.
-	TweetLikesColumns = []*schema.Column{
+	// TweetLikeColumns holds the columns for the "tweet_like" table.
+	TweetLikeColumns = []*schema.Column{
 		{Name: "liked_at", Type: field.TypeTime},
 		{Name: "tweet_id", Type: field.TypeInt},
 		{Name: "user_id", Type: field.TypeInt},
 	}
-	// TweetLikesTable holds the schema information for the "tweet_likes" table.
-	TweetLikesTable = &schema.Table{
-		Name:       "tweet_likes",
-		Columns:    TweetLikesColumns,
-		PrimaryKey: []*schema.Column{TweetLikesColumns[2], TweetLikesColumns[1]},
+	// TweetLikeTable holds the schema information for the "tweet_like" table.
+	TweetLikeTable = &schema.Table{
+		Name:       "tweet_like",
+		Columns:    TweetLikeColumns,
+		PrimaryKey: []*schema.Column{TweetLikeColumns[2], TweetLikeColumns[1]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "tweet_likes_tweets_tweet",
-				Columns:    []*schema.Column{TweetLikesColumns[1]},
-				RefColumns: []*schema.Column{TweetsColumns[0]},
+				Symbol:     "tweet_like_tweet_tweet",
+				Columns:    []*schema.Column{TweetLikeColumns[1]},
+				RefColumns: []*schema.Column{TweetColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "tweet_likes_users_user",
-				Columns:    []*schema.Column{TweetLikesColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "tweet_like_user_user",
+				Columns:    []*schema.Column{TweetLikeColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// TweetTagsColumns holds the columns for the "tweet_tags" table.
-	TweetTagsColumns = []*schema.Column{
+	// TweetTagColumns holds the columns for the "tweet_tag" table.
+	TweetTagColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "added_at", Type: field.TypeTime},
 		{Name: "tag_id", Type: field.TypeInt},
 		{Name: "tweet_id", Type: field.TypeInt},
 	}
-	// TweetTagsTable holds the schema information for the "tweet_tags" table.
-	TweetTagsTable = &schema.Table{
-		Name:       "tweet_tags",
-		Columns:    TweetTagsColumns,
-		PrimaryKey: []*schema.Column{TweetTagsColumns[0]},
+	// TweetTagTable holds the schema information for the "tweet_tag" table.
+	TweetTagTable = &schema.Table{
+		Name:       "tweet_tag",
+		Columns:    TweetTagColumns,
+		PrimaryKey: []*schema.Column{TweetTagColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "tweet_tags_tags_tag",
-				Columns:    []*schema.Column{TweetTagsColumns[2]},
-				RefColumns: []*schema.Column{TagsColumns[0]},
+				Symbol:     "tweet_tag_tag_tag",
+				Columns:    []*schema.Column{TweetTagColumns[2]},
+				RefColumns: []*schema.Column{TagColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "tweet_tags_tweets_tweet",
-				Columns:    []*schema.Column{TweetTagsColumns[3]},
-				RefColumns: []*schema.Column{TweetsColumns[0]},
+				Symbol:     "tweet_tag_tweet_tweet",
+				Columns:    []*schema.Column{TweetTagColumns[3]},
+				RefColumns: []*schema.Column{TweetColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -323,44 +323,44 @@ var (
 			{
 				Name:    "tweettag_tag_id_tweet_id",
 				Unique:  true,
-				Columns: []*schema.Column{TweetTagsColumns[2], TweetTagsColumns[3]},
+				Columns: []*schema.Column{TweetTagColumns[2], TweetTagColumns[3]},
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
-	// UserGroupsColumns holds the columns for the "user_groups" table.
-	UserGroupsColumns = []*schema.Column{
+	// UserGroupColumns holds the columns for the "user_group" table.
+	UserGroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "joined_at", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt},
 		{Name: "group_id", Type: field.TypeInt},
 	}
-	// UserGroupsTable holds the schema information for the "user_groups" table.
-	UserGroupsTable = &schema.Table{
-		Name:       "user_groups",
-		Columns:    UserGroupsColumns,
-		PrimaryKey: []*schema.Column{UserGroupsColumns[0]},
+	// UserGroupTable holds the schema information for the "user_group" table.
+	UserGroupTable = &schema.Table{
+		Name:       "user_group",
+		Columns:    UserGroupColumns,
+		PrimaryKey: []*schema.Column{UserGroupColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "user_groups_users_user",
-				Columns:    []*schema.Column{UserGroupsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_group_user_user",
+				Columns:    []*schema.Column{UserGroupColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "user_groups_groups_group",
-				Columns:    []*schema.Column{UserGroupsColumns[3]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				Symbol:     "user_group_group_group",
+				Columns:    []*schema.Column{UserGroupColumns[3]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -368,33 +368,33 @@ var (
 			{
 				Name:    "usergroup_user_id_group_id",
 				Unique:  true,
-				Columns: []*schema.Column{UserGroupsColumns[2], UserGroupsColumns[3]},
+				Columns: []*schema.Column{UserGroupColumns[2], UserGroupColumns[3]},
 			},
 		},
 	}
-	// UserTweetsColumns holds the columns for the "user_tweets" table.
-	UserTweetsColumns = []*schema.Column{
+	// UserTweetColumns holds the columns for the "user_tweet" table.
+	UserTweetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "user_id", Type: field.TypeInt},
 		{Name: "tweet_id", Type: field.TypeInt},
 	}
-	// UserTweetsTable holds the schema information for the "user_tweets" table.
-	UserTweetsTable = &schema.Table{
-		Name:       "user_tweets",
-		Columns:    UserTweetsColumns,
-		PrimaryKey: []*schema.Column{UserTweetsColumns[0]},
+	// UserTweetTable holds the schema information for the "user_tweet" table.
+	UserTweetTable = &schema.Table{
+		Name:       "user_tweet",
+		Columns:    UserTweetColumns,
+		PrimaryKey: []*schema.Column{UserTweetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "user_tweets_users_user",
-				Columns:    []*schema.Column{UserTweetsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_tweet_user_user",
+				Columns:    []*schema.Column{UserTweetColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "user_tweets_tweets_tweet",
-				Columns:    []*schema.Column{UserTweetsColumns[3]},
-				RefColumns: []*schema.Column{TweetsColumns[0]},
+				Symbol:     "user_tweet_tweet_tweet",
+				Columns:    []*schema.Column{UserTweetColumns[3]},
+				RefColumns: []*schema.Column{TweetColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -402,55 +402,55 @@ var (
 			{
 				Name:    "usertweet_tweet_id",
 				Unique:  true,
-				Columns: []*schema.Column{UserTweetsColumns[3]},
+				Columns: []*schema.Column{UserTweetColumns[3]},
 			},
 			{
 				Name:    "usertweet_user_id_tweet_id",
 				Unique:  true,
-				Columns: []*schema.Column{UserTweetsColumns[2], UserTweetsColumns[3]},
+				Columns: []*schema.Column{UserTweetColumns[2], UserTweetColumns[3]},
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		AttachedFilesTable,
-		FilesTable,
-		FriendshipsTable,
-		GroupsTable,
-		GroupTagsTable,
-		ProcessesTable,
-		RelationshipsTable,
-		RelationshipInfosTable,
-		RolesTable,
-		RoleUsersTable,
-		TagsTable,
-		TweetsTable,
-		TweetLikesTable,
-		TweetTagsTable,
-		UsersTable,
-		UserGroupsTable,
-		UserTweetsTable,
+		AttachedFileTable,
+		FileTable,
+		FriendshipTable,
+		GroupTable,
+		GroupTagTable,
+		ProcessTable,
+		RelationshipTable,
+		RelationshipInfoTable,
+		RoleTable,
+		RoleUserTable,
+		TagTable,
+		TweetTable,
+		TweetLikeTable,
+		TweetTagTable,
+		UserTable,
+		UserGroupTable,
+		UserTweetTable,
 	}
 )
 
 func init() {
-	AttachedFilesTable.ForeignKeys[0].RefTable = FilesTable
-	AttachedFilesTable.ForeignKeys[1].RefTable = ProcessesTable
-	FriendshipsTable.ForeignKeys[0].RefTable = UsersTable
-	FriendshipsTable.ForeignKeys[1].RefTable = UsersTable
-	GroupTagsTable.ForeignKeys[0].RefTable = TagsTable
-	GroupTagsTable.ForeignKeys[1].RefTable = GroupsTable
-	RelationshipsTable.ForeignKeys[0].RefTable = UsersTable
-	RelationshipsTable.ForeignKeys[1].RefTable = UsersTable
-	RelationshipsTable.ForeignKeys[2].RefTable = RelationshipInfosTable
-	RoleUsersTable.ForeignKeys[0].RefTable = RolesTable
-	RoleUsersTable.ForeignKeys[1].RefTable = UsersTable
-	TweetLikesTable.ForeignKeys[0].RefTable = TweetsTable
-	TweetLikesTable.ForeignKeys[1].RefTable = UsersTable
-	TweetTagsTable.ForeignKeys[0].RefTable = TagsTable
-	TweetTagsTable.ForeignKeys[1].RefTable = TweetsTable
-	UserGroupsTable.ForeignKeys[0].RefTable = UsersTable
-	UserGroupsTable.ForeignKeys[1].RefTable = GroupsTable
-	UserTweetsTable.ForeignKeys[0].RefTable = UsersTable
-	UserTweetsTable.ForeignKeys[1].RefTable = TweetsTable
+	AttachedFileTable.ForeignKeys[0].RefTable = FileTable
+	AttachedFileTable.ForeignKeys[1].RefTable = ProcessTable
+	FriendshipTable.ForeignKeys[0].RefTable = UserTable
+	FriendshipTable.ForeignKeys[1].RefTable = UserTable
+	GroupTagTable.ForeignKeys[0].RefTable = TagTable
+	GroupTagTable.ForeignKeys[1].RefTable = GroupTable
+	RelationshipTable.ForeignKeys[0].RefTable = UserTable
+	RelationshipTable.ForeignKeys[1].RefTable = UserTable
+	RelationshipTable.ForeignKeys[2].RefTable = RelationshipInfoTable
+	RoleUserTable.ForeignKeys[0].RefTable = RoleTable
+	RoleUserTable.ForeignKeys[1].RefTable = UserTable
+	TweetLikeTable.ForeignKeys[0].RefTable = TweetTable
+	TweetLikeTable.ForeignKeys[1].RefTable = UserTable
+	TweetTagTable.ForeignKeys[0].RefTable = TagTable
+	TweetTagTable.ForeignKeys[1].RefTable = TweetTable
+	UserGroupTable.ForeignKeys[0].RefTable = UserTable
+	UserGroupTable.ForeignKeys[1].RefTable = GroupTable
+	UserTweetTable.ForeignKeys[0].RefTable = UserTable
+	UserTweetTable.ForeignKeys[1].RefTable = TweetTable
 }

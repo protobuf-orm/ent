@@ -142,5 +142,5 @@ func (_m *Spec) appendNamedCard(name string, edges ...*Card) {
 	}
 }
 
-// Specs is a parsable slice of Spec.
-type Specs []*Spec
+// SpecList is a parsable slice of Spec.
+type SpecList []*Spec

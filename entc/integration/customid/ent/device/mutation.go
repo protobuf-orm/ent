@@ -82,8 +82,8 @@ func (m *Mutation) ResetActiveSession() {
 	m.clearedactive_session = false
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by ids.
-func (m *Mutation) AddSessionIDs(ids ...schema.ID) {
+// AddSessionsIDs adds the "sessions" edge to the Session entity by ids.
+func (m *Mutation) AddSessionsIDs(ids ...schema.ID) {
 	if m.sessions == nil {
 		m.sessions = make(map[schema.ID]struct{})
 	}
@@ -102,8 +102,8 @@ func (m *Mutation) SessionsCleared() bool {
 	return m.clearedsessions
 }
 
-// RemoveSessionIDs removes the "sessions" edge to the Session entity by IDs.
-func (m *Mutation) RemoveSessionIDs(ids ...schema.ID) {
+// RemoveSessionsIDs removes the "sessions" edge to the Session entity by IDs.
+func (m *Mutation) RemoveSessionsIDs(ids ...schema.ID) {
 	if m.removedsessions == nil {
 		m.removedsessions = make(map[schema.ID]struct{})
 	}

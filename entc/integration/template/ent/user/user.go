@@ -23,12 +23,12 @@ const (
 	// EdgeFriends holds the string denoting the friends edge name in mutations.
 	EdgeFriends = "friends"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "user_pets"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
@@ -44,7 +44,7 @@ var Columns = []string{
 var (
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

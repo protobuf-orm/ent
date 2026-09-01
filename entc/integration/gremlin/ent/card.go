@@ -145,11 +145,11 @@ func (_m *Card) String() string {
 	return builder.String()
 }
 
-// Cards is a parsable slice of Card.
-type Cards []*Card
+// CardList is a parsable slice of Card.
+type CardList []*Card
 
-// FromResponse scans the gremlin response data into Cards.
-func (_m *Cards) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into CardList.
+func (_m *CardList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

@@ -196,5 +196,5 @@ func (_m *ExValueScan) String() string {
 	return builder.String()
 }
 
-// ExValueScans is a parsable slice of ExValueScan.
-type ExValueScans []*ExValueScan
+// ExValueScanList is a parsable slice of ExValueScan.
+type ExValueScanList []*ExValueScan

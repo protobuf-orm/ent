@@ -23,7 +23,7 @@ const (
 	// EdgeFriends holds the string denoting the friends edge name in mutations.
 	EdgeFriends = "friends"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
 	FriendsTable = "user_friends"
 )
@@ -38,7 +38,7 @@ var Columns = []string{
 var (
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

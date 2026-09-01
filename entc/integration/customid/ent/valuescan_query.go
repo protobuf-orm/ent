@@ -163,7 +163,7 @@ func (_q *ValueScanQuery) OnlyIDX(ctx context.Context) schema.ValueScanID {
 	return id
 }
 
-// All executes the query and returns a list of ValueScans.
+// All executes the query and returns a list of ValueScan entities.
 func (_q *ValueScanQuery) All(ctx context.Context) ([]*ValueScan, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

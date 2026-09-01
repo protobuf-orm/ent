@@ -1820,7 +1820,7 @@ func EagerLoading(t *testing.T, client *ent.Client) {
 	client.Card.Create().SetNumber("102030").SetOwner(a8m).ExecX(ctx)
 
 	inf := client.GroupInfo.Create().SetDesc("desc").SaveX(ctx)
-	files := ent.Files{
+	files := ent.FileList{
 		client.File.Create().SetName("a").SetSize(10).SaveX(ctx),
 		client.File.Create().SetName("b").SetSize(10).SaveX(ctx),
 		client.File.Create().SetName("c").SetSize(10).SaveX(ctx),

@@ -162,7 +162,7 @@ func (_q *UserQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Users.
+// All executes the query and returns a list of User entities.
 func (_q *UserQuery) All(ctx context.Context) ([]*User, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

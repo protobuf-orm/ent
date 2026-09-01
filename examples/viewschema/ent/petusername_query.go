@@ -106,7 +106,7 @@ func (_q *PetUserNameQuery) OnlyX(ctx context.Context) *PetUserName {
 	return node
 }
 
-// All executes the query and returns a list of PetUserNames.
+// All executes the query and returns a list of PetUserName entities.
 func (_q *PetUserNameQuery) All(ctx context.Context) ([]*PetUserName, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

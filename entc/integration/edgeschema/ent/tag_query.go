@@ -259,7 +259,7 @@ func (_q *TagQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Tags.
+// All executes the query and returns a list of Tag entities.
 func (_q *TagQuery) All(ctx context.Context) ([]*Tag, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

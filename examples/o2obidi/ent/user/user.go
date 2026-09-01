@@ -23,9 +23,9 @@ const (
 	// EdgeSpouse holds the string denoting the spouse edge name in mutations.
 	EdgeSpouse = "spouse"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// SpouseTable is the table that holds the spouse relation/edge.
-	SpouseTable = "users"
+	SpouseTable = "user"
 	// SpouseColumn is the table column denoting the spouse relation/edge.
 	SpouseColumn = "user_spouse"
 )
@@ -37,7 +37,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_spouse",

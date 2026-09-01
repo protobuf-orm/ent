@@ -126,5 +126,5 @@ func (_m *User) GoString() string {
 	return string(b)
 }
 
-// Users is a parsable slice of User.
-type Users []*User
+// UserList is a parsable slice of User.
+type UserList []*User

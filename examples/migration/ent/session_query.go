@@ -187,7 +187,7 @@ func (_q *SessionQuery) OnlyIDX(ctx context.Context) uuid.UUID {
 	return id
 }
 
-// All executes the query and returns a list of Sessions.
+// All executes the query and returns a list of Session entities.
 func (_q *SessionQuery) All(ctx context.Context) ([]*Session, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

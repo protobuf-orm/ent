@@ -12,7 +12,7 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// Table holds the table name of the petusername in the database.
-	Table = "pet_user_names"
+	Table = "pet_user_name"
 )
 
 // Columns holds all SQL columns for petusername fields.

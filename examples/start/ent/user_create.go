@@ -45,9 +45,9 @@ func (_c *UserCreate) SetNillableName(v *string) *UserCreate {
 	return _c
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_c *UserCreate) AddCarIDs(ids ...int) *UserCreate {
-	_c.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_c *UserCreate) AddCarsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddCarsIDs(ids...)
 	return _c
 }
 
@@ -57,12 +57,12 @@ func (_c *UserCreate) AddCars(v ...*Car) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddCarIDs(ids...)
+	return _c.AddCarsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -72,7 +72,7 @@ func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

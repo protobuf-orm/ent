@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "t", Type: field.TypeJSON, Nullable: true},
 		{Name: "url", Type: field.TypeJSON, Nullable: true},
@@ -29,15 +29,15 @@ var (
 		{Name: "addr", Type: field.TypeJSON, Nullable: true},
 		{Name: "unknown", Type: field.TypeJSON, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		UsersTable,
+		UserTable,
 	}
 )
 

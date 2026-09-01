@@ -195,5 +195,5 @@ func (_m *Card) String() string {
 	return builder.String()
 }
 
-// Cards is a parsable slice of Card.
-type Cards []*Card
+// CardList is a parsable slice of Card.
+type CardList []*Card

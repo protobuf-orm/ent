@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	// TasksColumns holds the columns for the "tasks" table.
-	TasksColumns = []*schema.Column{
+	// TaskColumns holds the columns for the "task" table.
+	TaskColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "title", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
@@ -22,42 +22,42 @@ var (
 		{Name: "uuid", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_tasks", Type: field.TypeInt, Nullable: true},
 	}
-	// TasksTable holds the schema information for the "tasks" table.
-	TasksTable = &schema.Table{
-		Name:       "tasks",
-		Columns:    TasksColumns,
-		PrimaryKey: []*schema.Column{TasksColumns[0]},
+	// TaskTable holds the schema information for the "task" table.
+	TaskTable = &schema.Table{
+		Name:       "task",
+		Columns:    TaskColumns,
+		PrimaryKey: []*schema.Column{TaskColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "tasks_users_tasks",
-				Columns:    []*schema.Column{TasksColumns[5]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "task_user_tasks",
+				Columns:    []*schema.Column{TaskColumns[5]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// TeamsColumns holds the columns for the "teams" table.
-	TeamsColumns = []*schema.Column{
+	// TeamColumns holds the columns for the "team" table.
+	TeamColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// TeamsTable holds the schema information for the "teams" table.
-	TeamsTable = &schema.Table{
-		Name:       "teams",
-		Columns:    TeamsColumns,
-		PrimaryKey: []*schema.Column{TeamsColumns[0]},
+	// TeamTable holds the schema information for the "team" table.
+	TeamTable = &schema.Table{
+		Name:       "team",
+		Columns:    TeamColumns,
+		PrimaryKey: []*schema.Column{TeamColumns[0]},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "age", Type: field.TypeUint, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// TaskTeamsColumns holds the columns for the "task_teams" table.
 	TaskTeamsColumns = []*schema.Column{
@@ -73,13 +73,13 @@ var (
 			{
 				Symbol:     "task_teams_task_id",
 				Columns:    []*schema.Column{TaskTeamsColumns[0]},
-				RefColumns: []*schema.Column{TasksColumns[0]},
+				RefColumns: []*schema.Column{TaskColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "task_teams_team_id",
 				Columns:    []*schema.Column{TaskTeamsColumns[1]},
-				RefColumns: []*schema.Column{TeamsColumns[0]},
+				RefColumns: []*schema.Column{TeamColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -98,35 +98,35 @@ var (
 			{
 				Symbol:     "user_teams_user_id",
 				Columns:    []*schema.Column{UserTeamsColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "user_teams_team_id",
 				Columns:    []*schema.Column{UserTeamsColumns[1]},
-				RefColumns: []*schema.Column{TeamsColumns[0]},
+				RefColumns: []*schema.Column{TeamColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		TasksTable,
-		TeamsTable,
-		UsersTable,
+		TaskTable,
+		TeamTable,
+		UserTable,
 		TaskTeamsTable,
 		UserTeamsTable,
 	}
 )
 
 func init() {
-	TasksTable.ForeignKeys[0].RefTable = UsersTable
-	UsersTable.Annotation = &entsql.Annotation{}
-	UsersTable.Annotation.Checks = map[string]string{
+	TaskTable.ForeignKeys[0].RefTable = UserTable
+	UserTable.Annotation = &entsql.Annotation{}
+	UserTable.Annotation.Checks = map[string]string{
 		"backticks": "`name` IS NOT NULL",
 	}
-	TaskTeamsTable.ForeignKeys[0].RefTable = TasksTable
-	TaskTeamsTable.ForeignKeys[1].RefTable = TeamsTable
-	UserTeamsTable.ForeignKeys[0].RefTable = UsersTable
-	UserTeamsTable.ForeignKeys[1].RefTable = TeamsTable
+	TaskTeamsTable.ForeignKeys[0].RefTable = TaskTable
+	TaskTeamsTable.ForeignKeys[1].RefTable = TeamTable
+	UserTeamsTable.ForeignKeys[0].RefTable = UserTable
+	UserTeamsTable.ForeignKeys[1].RefTable = TeamTable
 }

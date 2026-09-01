@@ -158,7 +158,7 @@ func (_q *BlobLinkQuery) OnlyX(ctx context.Context) *BlobLink {
 	return node
 }
 
-// All executes the query and returns a list of BlobLinks.
+// All executes the query and returns a list of BlobLink entities.
 func (_q *BlobLinkQuery) All(ctx context.Context) ([]*BlobLink, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -408,7 +408,7 @@ func (_q *BlobLinkQuery) loadLink(ctx context.Context, query *BlobQuery, nodes [
 	ids := make([]uuid.UUID, 0, len(nodes))
 	nodeids := make(map[uuid.UUID][]*BlobLink)
 	for i := range nodes {
-		fk := nodes[i].LinkID
+		fk := nodes[i].LinksID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -425,7 +425,7 @@ func (_q *BlobLinkQuery) loadLink(ctx context.Context, query *BlobQuery, nodes [
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "link_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "links_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -458,7 +458,7 @@ func (_q *BlobLinkQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.AddColumnOnce(bloblink.FieldBlobID)
 		}
 		if _q.withLink != nil {
-			_spec.Node.AddColumnOnce(bloblink.FieldLinkID)
+			_spec.Node.AddColumnOnce(bloblink.FieldLinksID)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

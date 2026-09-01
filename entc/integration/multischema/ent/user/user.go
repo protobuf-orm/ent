@@ -33,37 +33,37 @@ const (
 	// EdgeParentHood holds the string denoting the parent_hood edge name in mutations.
 	EdgeParentHood = "parent_hood"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "owner_id"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
-	FriendsTable = "friendships"
+	FriendsTable = "friendship"
 	// ParentsTable is the table that holds the parents relation/edge. The primary key declared below.
-	ParentsTable = "parents"
+	ParentsTable = "parent"
 	// ChildrenTable is the table that holds the children relation/edge. The primary key declared below.
-	ChildrenTable = "parents"
+	ChildrenTable = "parent"
 	// FriendshipsTable is the table that holds the friendships relation/edge.
-	FriendshipsTable = "friendships"
+	FriendshipsTable = "friendship"
 	// FriendshipsInverseTable is the table name for the Friendship entity.
 	// It exists in this package in order to avoid circular dependency with the "friendship" package.
-	FriendshipsInverseTable = "friendships"
+	FriendshipsInverseTable = "friendship"
 	// FriendshipsColumn is the table column denoting the friendships relation/edge.
 	FriendshipsColumn = "user_id"
 	// ParentHoodTable is the table that holds the parent_hood relation/edge.
-	ParentHoodTable = "parents"
+	ParentHoodTable = "parent"
 	// ParentHoodInverseTable is the table name for the Parent entity.
 	// It exists in this package in order to avoid circular dependency with the "parent" package.
-	ParentHoodInverseTable = "parents"
+	ParentHoodInverseTable = "parent"
 	// ParentHoodColumn is the table column denoting the parent_hood relation/edge.
 	ParentHoodColumn = "user_id"
 )
@@ -80,13 +80,13 @@ var (
 	GroupsPrimaryKey = []string{"group_id", "user_id"}
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 	// ParentsPrimaryKey and ParentsColumn2 are the table columns denoting the
 	// primary key for the parents relation (M2M).
-	ParentsPrimaryKey = []string{"user_id", "parent_id"}
+	ParentsPrimaryKey = []string{"user_id", "parents_id"}
 	// ChildrenPrimaryKey and ChildrenColumn2 are the table columns denoting the
 	// primary key for the children relation (M2M).
-	ChildrenPrimaryKey = []string{"user_id", "parent_id"}
+	ChildrenPrimaryKey = []string{"user_id", "parents_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

@@ -217,8 +217,8 @@ func (m *Mutation) ResetActive() {
 	m.active = nil
 }
 
-// AddCardIDs adds the "cards" edge to the Card entity by ids.
-func (m *Mutation) AddCardIDs(ids ...int) {
+// AddCardsIDs adds the "cards" edge to the Card entity by ids.
+func (m *Mutation) AddCardsIDs(ids ...int) {
 	if m.cards == nil {
 		m.cards = make(map[int]struct{})
 	}
@@ -237,8 +237,8 @@ func (m *Mutation) CardsCleared() bool {
 	return m.clearedcards
 }
 
-// RemoveCardIDs removes the "cards" edge to the Card entity by IDs.
-func (m *Mutation) RemoveCardIDs(ids ...int) {
+// RemoveCardsIDs removes the "cards" edge to the Card entity by IDs.
+func (m *Mutation) RemoveCardsIDs(ids ...int) {
 	if m.removedcards == nil {
 		m.removedcards = make(map[int]struct{})
 	}
@@ -271,8 +271,8 @@ func (m *Mutation) ResetCards() {
 	m.removedcards = nil
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by ids.
-func (m *Mutation) AddPetIDs(ids ...int) {
+// AddPetsIDs adds the "pets" edge to the Pet entity by ids.
+func (m *Mutation) AddPetsIDs(ids ...int) {
 	if m.pets == nil {
 		m.pets = make(map[int]struct{})
 	}
@@ -291,8 +291,8 @@ func (m *Mutation) PetsCleared() bool {
 	return m.clearedpets
 }
 
-// RemovePetIDs removes the "pets" edge to the Pet entity by IDs.
-func (m *Mutation) RemovePetIDs(ids ...int) {
+// RemovePetsIDs removes the "pets" edge to the Pet entity by IDs.
+func (m *Mutation) RemovePetsIDs(ids ...int) {
 	if m.removedpets == nil {
 		m.removedpets = make(map[int]struct{})
 	}
@@ -325,8 +325,8 @@ func (m *Mutation) ResetPets() {
 	m.removedpets = nil
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by ids.
-func (m *Mutation) AddFriendIDs(ids ...int) {
+// AddFriendsIDs adds the "friends" edge to the User entity by ids.
+func (m *Mutation) AddFriendsIDs(ids ...int) {
 	if m.friends == nil {
 		m.friends = make(map[int]struct{})
 	}
@@ -345,8 +345,8 @@ func (m *Mutation) FriendsCleared() bool {
 	return m.clearedfriends
 }
 
-// RemoveFriendIDs removes the "friends" edge to the User entity by IDs.
-func (m *Mutation) RemoveFriendIDs(ids ...int) {
+// RemoveFriendsIDs removes the "friends" edge to the User entity by IDs.
+func (m *Mutation) RemoveFriendsIDs(ids ...int) {
 	if m.removedfriends == nil {
 		m.removedfriends = make(map[int]struct{})
 	}

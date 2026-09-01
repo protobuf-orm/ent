@@ -142,5 +142,5 @@ func (_m *Pet) Unwrap() *Pet {
 
 // custom stringer implementation (in this case none)
 
-// Pets is a parsable slice of Pet.
-type Pets []*Pet
+// PetList is a parsable slice of Pet.
+type PetList []*Pet

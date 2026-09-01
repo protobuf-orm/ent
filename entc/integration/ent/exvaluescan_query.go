@@ -164,7 +164,7 @@ func (_q *ExValueScanQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of ExValueScans.
+// All executes the query and returns a list of ExValueScan entities.
 func (_q *ExValueScanQuery) All(ctx context.Context) ([]*ExValueScan, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

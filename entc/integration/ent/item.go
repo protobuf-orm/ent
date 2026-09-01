@@ -101,5 +101,5 @@ func (_m *Item) String() string {
 	return builder.String()
 }
 
-// Items is a parsable slice of Item.
-type Items []*Item
+// ItemList is a parsable slice of Item.
+type ItemList []*Item

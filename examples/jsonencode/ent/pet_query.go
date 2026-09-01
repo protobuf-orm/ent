@@ -186,7 +186,7 @@ func (_q *PetQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Pets.
+// All executes the query and returns a list of Pet entities.
 func (_q *PetQuery) All(ctx context.Context) ([]*Pet, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

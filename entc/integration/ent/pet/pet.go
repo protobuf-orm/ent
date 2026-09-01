@@ -38,14 +38,14 @@ const (
 	TeamTable = "pet"
 	// TeamInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	TeamInverseTable = "users"
+	TeamInverseTable = "user"
 	// TeamColumn is the table column denoting the team relation/edge.
 	TeamColumn = "user_team"
 	// OwnerTable is the table that holds the owner relation/edge.
 	OwnerTable = "pet"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "user_pets"
 )

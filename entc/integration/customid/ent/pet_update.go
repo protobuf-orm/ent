@@ -52,9 +52,9 @@ func (_u *PetUpdate) SetOwner(v *User) *PetUpdate {
 	return _u.SetOwnerID(v.ID)
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_u *PetUpdate) AddCarIDs(ids ...int) *PetUpdate {
-	_u.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_u *PetUpdate) AddCarsIDs(ids ...int) *PetUpdate {
+	_u.mutation.AddCarsIDs(ids...)
 	return _u
 }
 
@@ -64,12 +64,12 @@ func (_u *PetUpdate) AddCars(v ...*Car) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCarIDs(ids...)
+	return _u.AddCarsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by IDs.
-func (_u *PetUpdate) AddFriendIDs(ids ...string) *PetUpdate {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
+func (_u *PetUpdate) AddFriendsIDs(ids ...string) *PetUpdate {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -79,7 +79,7 @@ func (_u *PetUpdate) AddFriends(v ...*Pet) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // SetBestFriendID sets the "best_friend" edge to the Pet entity by ID.
@@ -118,9 +118,9 @@ func (_u *PetUpdate) ClearCars() *PetUpdate {
 	return _u
 }
 
-// RemoveCarIDs removes the "cars" edge to Car entities by IDs.
-func (_u *PetUpdate) RemoveCarIDs(ids ...int) *PetUpdate {
-	_u.mutation.RemoveCarIDs(ids...)
+// RemoveCarsIDs removes the "cars" edge to Car entities by IDs.
+func (_u *PetUpdate) RemoveCarsIDs(ids ...int) *PetUpdate {
+	_u.mutation.RemoveCarsIDs(ids...)
 	return _u
 }
 
@@ -130,7 +130,7 @@ func (_u *PetUpdate) RemoveCars(v ...*Car) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCarIDs(ids...)
+	return _u.RemoveCarsIDs(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the Pet entity.
@@ -139,9 +139,9 @@ func (_u *PetUpdate) ClearFriends() *PetUpdate {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to Pet entities by IDs.
-func (_u *PetUpdate) RemoveFriendIDs(ids ...string) *PetUpdate {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to Pet entities by IDs.
+func (_u *PetUpdate) RemoveFriendsIDs(ids ...string) *PetUpdate {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -151,7 +151,7 @@ func (_u *PetUpdate) RemoveFriends(v ...*Pet) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearBestFriend clears the "best_friend" edge to the Pet entity.
@@ -383,9 +383,9 @@ func (_u *PetUpdateOne) SetOwner(v *User) *PetUpdateOne {
 	return _u.SetOwnerID(v.ID)
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_u *PetUpdateOne) AddCarIDs(ids ...int) *PetUpdateOne {
-	_u.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_u *PetUpdateOne) AddCarsIDs(ids ...int) *PetUpdateOne {
+	_u.mutation.AddCarsIDs(ids...)
 	return _u
 }
 
@@ -395,12 +395,12 @@ func (_u *PetUpdateOne) AddCars(v ...*Car) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCarIDs(ids...)
+	return _u.AddCarsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by IDs.
-func (_u *PetUpdateOne) AddFriendIDs(ids ...string) *PetUpdateOne {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
+func (_u *PetUpdateOne) AddFriendsIDs(ids ...string) *PetUpdateOne {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -410,7 +410,7 @@ func (_u *PetUpdateOne) AddFriends(v ...*Pet) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // SetBestFriendID sets the "best_friend" edge to the Pet entity by ID.
@@ -449,9 +449,9 @@ func (_u *PetUpdateOne) ClearCars() *PetUpdateOne {
 	return _u
 }
 
-// RemoveCarIDs removes the "cars" edge to Car entities by IDs.
-func (_u *PetUpdateOne) RemoveCarIDs(ids ...int) *PetUpdateOne {
-	_u.mutation.RemoveCarIDs(ids...)
+// RemoveCarsIDs removes the "cars" edge to Car entities by IDs.
+func (_u *PetUpdateOne) RemoveCarsIDs(ids ...int) *PetUpdateOne {
+	_u.mutation.RemoveCarsIDs(ids...)
 	return _u
 }
 
@@ -461,7 +461,7 @@ func (_u *PetUpdateOne) RemoveCars(v ...*Car) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCarIDs(ids...)
+	return _u.RemoveCarsIDs(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the Pet entity.
@@ -470,9 +470,9 @@ func (_u *PetUpdateOne) ClearFriends() *PetUpdateOne {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to Pet entities by IDs.
-func (_u *PetUpdateOne) RemoveFriendIDs(ids ...string) *PetUpdateOne {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to Pet entities by IDs.
+func (_u *PetUpdateOne) RemoveFriendsIDs(ids ...string) *PetUpdateOne {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -482,7 +482,7 @@ func (_u *PetUpdateOne) RemoveFriends(v ...*Pet) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearBestFriend clears the "best_friend" edge to the Pet entity.

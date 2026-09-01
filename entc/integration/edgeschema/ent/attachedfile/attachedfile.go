@@ -29,19 +29,19 @@ const (
 	// EdgeProc holds the string denoting the proc edge name in mutations.
 	EdgeProc = "proc"
 	// Table holds the table name of the attachedfile in the database.
-	Table = "attached_files"
+	Table = "attached_file"
 	// FiTable is the table that holds the fi relation/edge.
-	FiTable = "attached_files"
+	FiTable = "attached_file"
 	// FiInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
-	FiInverseTable = "files"
+	FiInverseTable = "file"
 	// FiColumn is the table column denoting the fi relation/edge.
 	FiColumn = "f_id"
 	// ProcTable is the table that holds the proc relation/edge.
-	ProcTable = "attached_files"
+	ProcTable = "attached_file"
 	// ProcInverseTable is the table name for the Process entity.
 	// It exists in this package in order to avoid circular dependency with the "process" package.
-	ProcInverseTable = "processes"
+	ProcInverseTable = "process"
 	// ProcColumn is the table column denoting the proc relation/edge.
 	ProcColumn = "proc_id"
 )

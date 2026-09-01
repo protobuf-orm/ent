@@ -12,33 +12,33 @@ import (
 )
 
 var (
-	// CarsColumns holds the columns for the "cars" table.
-	CarsColumns = []*schema.Column{
+	// CarColumns holds the columns for the "car" table.
+	CarColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "number", Type: field.TypeString, Nullable: true},
 	}
-	// CarsTable holds the schema information for the "cars" table.
-	CarsTable = &schema.Table{
-		Name:       "cars",
-		Columns:    CarsColumns,
-		PrimaryKey: []*schema.Column{CarsColumns[0]},
+	// CarTable holds the schema information for the "car" table.
+	CarTable = &schema.Table{
+		Name:       "car",
+		Columns:    CarColumns,
+		PrimaryKey: []*schema.Column{CarColumns[0]},
 	}
-	// CardsColumns holds the columns for the "cards" table.
-	CardsColumns = []*schema.Column{
+	// CardColumns holds the columns for the "card" table.
+	CardColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "number", Type: field.TypeString, Nullable: true},
 		{Name: "owner_id", Type: field.TypeInt, Unique: true, Nullable: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
-	// CardsTable holds the schema information for the "cards" table.
-	CardsTable = &schema.Table{
-		Name:       "cards",
-		Columns:    CardsColumns,
-		PrimaryKey: []*schema.Column{CardsColumns[0]},
+	// CardTable holds the schema information for the "card" table.
+	CardTable = &schema.Table{
+		Name:       "card",
+		Columns:    CardColumns,
+		PrimaryKey: []*schema.Column{CardColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "cards_users_card",
-				Columns:    []*schema.Column{CardsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "card_user_card",
+				Columns:    []*schema.Column{CardColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -46,25 +46,25 @@ var (
 			{
 				Name:    "card_number_owner_id",
 				Unique:  false,
-				Columns: []*schema.Column{CardsColumns[1], CardsColumns[2]},
+				Columns: []*schema.Column{CardColumns[1], CardColumns[2]},
 			},
 		},
 	}
-	// InfosColumns holds the columns for the "infos" table.
-	InfosColumns = []*schema.Column{
+	// InfoColumns holds the columns for the "info" table.
+	InfoColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "content", Type: field.TypeJSON},
 	}
-	// InfosTable holds the schema information for the "infos" table.
-	InfosTable = &schema.Table{
-		Name:       "infos",
-		Columns:    InfosColumns,
-		PrimaryKey: []*schema.Column{InfosColumns[0]},
+	// InfoTable holds the schema information for the "info" table.
+	InfoTable = &schema.Table{
+		Name:       "info",
+		Columns:    InfoColumns,
+		PrimaryKey: []*schema.Column{InfoColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "infos_users_user",
-				Columns:    []*schema.Column{InfosColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "info_user_user",
+				Columns:    []*schema.Column{InfoColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -88,68 +88,68 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "metadata_users_metadata",
+				Symbol:     "metadata_user_metadata",
 				Columns:    []*schema.Column{MetadataColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// NodesColumns holds the columns for the "nodes" table.
-	NodesColumns = []*schema.Column{
+	// NodeColumns holds the columns for the "node" table.
+	NodeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "value", Type: field.TypeInt, Default: 0},
 		{Name: "prev_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
-	// NodesTable holds the schema information for the "nodes" table.
-	NodesTable = &schema.Table{
-		Name:       "nodes",
-		Columns:    NodesColumns,
-		PrimaryKey: []*schema.Column{NodesColumns[0]},
+	// NodeTable holds the schema information for the "node" table.
+	NodeTable = &schema.Table{
+		Name:       "node",
+		Columns:    NodeColumns,
+		PrimaryKey: []*schema.Column{NodeColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "nodes_nodes_next",
-				Columns:    []*schema.Column{NodesColumns[2]},
-				RefColumns: []*schema.Column{NodesColumns[0]},
+				Symbol:     "node_node_next",
+				Columns:    []*schema.Column{NodeColumns[2]},
+				RefColumns: []*schema.Column{NodeColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "owner_id", Type: field.TypeInt, Nullable: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pets_users_pets",
-				Columns:    []*schema.Column{PetsColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "pet_user_pets",
+				Columns:    []*schema.Column{PetColumns[1]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// PostsColumns holds the columns for the "posts" table.
-	PostsColumns = []*schema.Column{
+	// PostColumns holds the columns for the "post" table.
+	PostColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString},
 		{Name: "author_id", Type: field.TypeInt, Nullable: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
-	// PostsTable holds the schema information for the "posts" table.
-	PostsTable = &schema.Table{
-		Name:       "posts",
-		Columns:    PostsColumns,
-		PrimaryKey: []*schema.Column{PostsColumns[0]},
+	// PostTable holds the schema information for the "post" table.
+	PostTable = &schema.Table{
+		Name:       "post",
+		Columns:    PostColumns,
+		PrimaryKey: []*schema.Column{PostColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "posts_users_author",
-				Columns:    []*schema.Column{PostsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "post_user_author",
+				Columns:    []*schema.Column{PostColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -157,33 +157,33 @@ var (
 			{
 				Name:    "post_author_id_text",
 				Unique:  false,
-				Columns: []*schema.Column{PostsColumns[2], PostsColumns[1]},
+				Columns: []*schema.Column{PostColumns[2], PostColumns[1]},
 			},
 		},
 	}
-	// RentalsColumns holds the columns for the "rentals" table.
-	RentalsColumns = []*schema.Column{
+	// RentalColumns holds the columns for the "rental" table.
+	RentalColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "date", Type: field.TypeTime},
 		{Name: "car_id", Type: field.TypeUUID},
 		{Name: "user_id", Type: field.TypeInt, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
-	// RentalsTable holds the schema information for the "rentals" table.
-	RentalsTable = &schema.Table{
-		Name:       "rentals",
-		Columns:    RentalsColumns,
-		PrimaryKey: []*schema.Column{RentalsColumns[0]},
+	// RentalTable holds the schema information for the "rental" table.
+	RentalTable = &schema.Table{
+		Name:       "rental",
+		Columns:    RentalColumns,
+		PrimaryKey: []*schema.Column{RentalColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "rentals_cars_rentals",
-				Columns:    []*schema.Column{RentalsColumns[2]},
-				RefColumns: []*schema.Column{CarsColumns[0]},
+				Symbol:     "rental_car_rentals",
+				Columns:    []*schema.Column{RentalColumns[2]},
+				RefColumns: []*schema.Column{CarColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "rentals_users_rentals",
-				Columns:    []*schema.Column{RentalsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "rental_user_rentals",
+				Columns:    []*schema.Column{RentalColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -191,60 +191,60 @@ var (
 			{
 				Name:    "rental_car_id_user_id",
 				Unique:  true,
-				Columns: []*schema.Column{RentalsColumns[2], RentalsColumns[3]},
+				Columns: []*schema.Column{RentalColumns[2], RentalColumns[3]},
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 		{Name: "parent_id", Type: field.TypeInt, Nullable: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 		{Name: "spouse_id", Type: field.TypeInt, Unique: true, Nullable: true, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_users_children",
-				Columns:    []*schema.Column{UsersColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_children",
+				Columns:    []*schema.Column{UserColumns[1]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "users_users_spouse",
-				Columns:    []*schema.Column{UsersColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_spouse",
+				Columns:    []*schema.Column{UserColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		CarsTable,
-		CardsTable,
-		InfosTable,
+		CarTable,
+		CardTable,
+		InfoTable,
 		MetadataTable,
-		NodesTable,
-		PetsTable,
-		PostsTable,
-		RentalsTable,
-		UsersTable,
+		NodeTable,
+		PetTable,
+		PostTable,
+		RentalTable,
+		UserTable,
 	}
 )
 
 func init() {
-	CardsTable.ForeignKeys[0].RefTable = UsersTable
-	InfosTable.ForeignKeys[0].RefTable = UsersTable
+	CardTable.ForeignKeys[0].RefTable = UserTable
+	InfoTable.ForeignKeys[0].RefTable = UserTable
 	MetadataTable.ForeignKeys[0].RefTable = MetadataTable
-	MetadataTable.ForeignKeys[1].RefTable = UsersTable
-	NodesTable.ForeignKeys[0].RefTable = NodesTable
-	PetsTable.ForeignKeys[0].RefTable = UsersTable
-	PostsTable.ForeignKeys[0].RefTable = UsersTable
-	RentalsTable.ForeignKeys[0].RefTable = CarsTable
-	RentalsTable.ForeignKeys[1].RefTable = UsersTable
-	UsersTable.ForeignKeys[0].RefTable = UsersTable
-	UsersTable.ForeignKeys[1].RefTable = UsersTable
+	MetadataTable.ForeignKeys[1].RefTable = UserTable
+	NodeTable.ForeignKeys[0].RefTable = NodeTable
+	PetTable.ForeignKeys[0].RefTable = UserTable
+	PostTable.ForeignKeys[0].RefTable = UserTable
+	RentalTable.ForeignKeys[0].RefTable = CarTable
+	RentalTable.ForeignKeys[1].RefTable = UserTable
+	UserTable.ForeignKeys[0].RefTable = UserTable
+	UserTable.ForeignKeys[1].RefTable = UserTable
 }

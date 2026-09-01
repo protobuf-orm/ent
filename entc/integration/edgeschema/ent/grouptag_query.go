@@ -210,7 +210,7 @@ func (_q *GroupTagQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of GroupTags.
+// All executes the query and returns a list of GroupTag entities.
 func (_q *GroupTagQuery) All(ctx context.Context) ([]*GroupTag, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -164,7 +164,7 @@ func (_q *PCQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of PCs.
+// All executes the query and returns a list of PC entities.
 func (_q *PCQuery) All(ctx context.Context) ([]*PC, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

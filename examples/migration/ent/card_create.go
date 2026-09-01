@@ -85,9 +85,9 @@ func (_c *CardCreate) SetOwner(v *User) *CardCreate {
 	return _c.SetOwnerID(v.ID)
 }
 
-// AddPaymentIDs adds the "payments" edge to the Payment entity by IDs.
-func (_c *CardCreate) AddPaymentIDs(ids ...int) *CardCreate {
-	_c.mutation.AddPaymentIDs(ids...)
+// AddPaymentsIDs adds the "payments" edge to the Payment entity by IDs.
+func (_c *CardCreate) AddPaymentsIDs(ids ...int) *CardCreate {
+	_c.mutation.AddPaymentsIDs(ids...)
 	return _c
 }
 
@@ -97,7 +97,7 @@ func (_c *CardCreate) AddPayments(v ...*Payment) *CardCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPaymentIDs(ids...)
+	return _c.AddPaymentsIDs(ids...)
 }
 
 // Mutation returns the CardMutation object of the builder.

@@ -128,5 +128,5 @@ func (_m *CustomType) String() string {
 	return builder.String()
 }
 
-// CustomTypes is a parsable slice of CustomType.
-type CustomTypes []*CustomType
+// CustomTypeList is a parsable slice of CustomType.
+type CustomTypeList []*CustomType

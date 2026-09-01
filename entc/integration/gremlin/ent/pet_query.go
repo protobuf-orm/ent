@@ -194,7 +194,7 @@ func (_q *PetQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Pets.
+// All executes the query and returns a list of Pet entities.
 func (_q *PetQuery) All(ctx context.Context) ([]*Pet, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -401,7 +401,7 @@ func (_q *PetQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Pet,
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Pets
+	var _ms PetList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

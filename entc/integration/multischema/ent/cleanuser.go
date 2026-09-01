@@ -85,5 +85,5 @@ func (_m *CleanUser) String() string {
 	return builder.String()
 }
 
-// CleanUsers is a parsable slice of CleanUser.
-type CleanUsers []*CleanUser
+// CleanUserList is a parsable slice of CleanUser.
+type CleanUserList []*CleanUser

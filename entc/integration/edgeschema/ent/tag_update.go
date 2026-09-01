@@ -50,9 +50,9 @@ func (_u *TagUpdate) SetNillableValue(v *string) *TagUpdate {
 	return _u
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_u *TagUpdate) AddTweetIDs(ids ...int) *TagUpdate {
-	_u.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_u *TagUpdate) AddTweetsIDs(ids ...int) *TagUpdate {
+	_u.mutation.AddTweetsIDs(ids...)
 	return _u
 }
 
@@ -62,12 +62,12 @@ func (_u *TagUpdate) AddTweets(v ...*Tweet) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetIDs(ids...)
+	return _u.AddTweetsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *TagUpdate) AddGroupIDs(ids ...int) *TagUpdate {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *TagUpdate) AddGroupsIDs(ids ...int) *TagUpdate {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -77,12 +77,12 @@ func (_u *TagUpdate) AddGroups(v ...*Group) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_u *TagUpdate) AddTweetTagIDs(ids ...uuid.UUID) *TagUpdate {
-	_u.mutation.AddTweetTagIDs(ids...)
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
+func (_u *TagUpdate) AddTweetTagsIDs(ids ...uuid.UUID) *TagUpdate {
+	_u.mutation.AddTweetTagsIDs(ids...)
 	return _u
 }
 
@@ -92,12 +92,12 @@ func (_u *TagUpdate) AddTweetTags(v ...*TweetTag) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetTagIDs(ids...)
+	return _u.AddTweetTagsIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_u *TagUpdate) AddGroupTagIDs(ids ...int) *TagUpdate {
-	_u.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_u *TagUpdate) AddGroupTagsIDs(ids ...int) *TagUpdate {
+	_u.mutation.AddGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -107,7 +107,7 @@ func (_u *TagUpdate) AddGroupTags(v ...*GroupTag) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupTagIDs(ids...)
+	return _u.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.
@@ -121,9 +121,9 @@ func (_u *TagUpdate) ClearTweets() *TagUpdate {
 	return _u
 }
 
-// RemoveTweetIDs removes the "tweets" edge to Tweet entities by IDs.
-func (_u *TagUpdate) RemoveTweetIDs(ids ...int) *TagUpdate {
-	_u.mutation.RemoveTweetIDs(ids...)
+// RemoveTweetsIDs removes the "tweets" edge to Tweet entities by IDs.
+func (_u *TagUpdate) RemoveTweetsIDs(ids ...int) *TagUpdate {
+	_u.mutation.RemoveTweetsIDs(ids...)
 	return _u
 }
 
@@ -133,7 +133,7 @@ func (_u *TagUpdate) RemoveTweets(v ...*Tweet) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetIDs(ids...)
+	return _u.RemoveTweetsIDs(ids...)
 }
 
 // ClearGroups clears all "groups" edges to the Group entity.
@@ -142,9 +142,9 @@ func (_u *TagUpdate) ClearGroups() *TagUpdate {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *TagUpdate) RemoveGroupIDs(ids ...int) *TagUpdate {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *TagUpdate) RemoveGroupsIDs(ids ...int) *TagUpdate {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -154,7 +154,7 @@ func (_u *TagUpdate) RemoveGroups(v ...*Group) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // ClearTweetTags clears all "tweet_tags" edges to the TweetTag entity.
@@ -163,9 +163,9 @@ func (_u *TagUpdate) ClearTweetTags() *TagUpdate {
 	return _u
 }
 
-// RemoveTweetTagIDs removes the "tweet_tags" edge to TweetTag entities by IDs.
-func (_u *TagUpdate) RemoveTweetTagIDs(ids ...uuid.UUID) *TagUpdate {
-	_u.mutation.RemoveTweetTagIDs(ids...)
+// RemoveTweetTagsIDs removes the "tweet_tags" edge to TweetTag entities by IDs.
+func (_u *TagUpdate) RemoveTweetTagsIDs(ids ...uuid.UUID) *TagUpdate {
+	_u.mutation.RemoveTweetTagsIDs(ids...)
 	return _u
 }
 
@@ -175,7 +175,7 @@ func (_u *TagUpdate) RemoveTweetTags(v ...*TweetTag) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetTagIDs(ids...)
+	return _u.RemoveTweetTagsIDs(ids...)
 }
 
 // ClearGroupTags clears all "group_tags" edges to the GroupTag entity.
@@ -184,9 +184,9 @@ func (_u *TagUpdate) ClearGroupTags() *TagUpdate {
 	return _u
 }
 
-// RemoveGroupTagIDs removes the "group_tags" edge to GroupTag entities by IDs.
-func (_u *TagUpdate) RemoveGroupTagIDs(ids ...int) *TagUpdate {
-	_u.mutation.RemoveGroupTagIDs(ids...)
+// RemoveGroupTagsIDs removes the "group_tags" edge to GroupTag entities by IDs.
+func (_u *TagUpdate) RemoveGroupTagsIDs(ids ...int) *TagUpdate {
+	_u.mutation.RemoveGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -196,7 +196,7 @@ func (_u *TagUpdate) RemoveGroupTags(v ...*GroupTag) *TagUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupTagIDs(ids...)
+	return _u.RemoveGroupTagsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -473,9 +473,9 @@ func (_u *TagUpdateOne) SetNillableValue(v *string) *TagUpdateOne {
 	return _u
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_u *TagUpdateOne) AddTweetIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_u *TagUpdateOne) AddTweetsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.AddTweetsIDs(ids...)
 	return _u
 }
 
@@ -485,12 +485,12 @@ func (_u *TagUpdateOne) AddTweets(v ...*Tweet) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetIDs(ids...)
+	return _u.AddTweetsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *TagUpdateOne) AddGroupIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *TagUpdateOne) AddGroupsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -500,12 +500,12 @@ func (_u *TagUpdateOne) AddGroups(v ...*Group) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_u *TagUpdateOne) AddTweetTagIDs(ids ...uuid.UUID) *TagUpdateOne {
-	_u.mutation.AddTweetTagIDs(ids...)
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
+func (_u *TagUpdateOne) AddTweetTagsIDs(ids ...uuid.UUID) *TagUpdateOne {
+	_u.mutation.AddTweetTagsIDs(ids...)
 	return _u
 }
 
@@ -515,12 +515,12 @@ func (_u *TagUpdateOne) AddTweetTags(v ...*TweetTag) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetTagIDs(ids...)
+	return _u.AddTweetTagsIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_u *TagUpdateOne) AddGroupTagIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_u *TagUpdateOne) AddGroupTagsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.AddGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -530,7 +530,7 @@ func (_u *TagUpdateOne) AddGroupTags(v ...*GroupTag) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupTagIDs(ids...)
+	return _u.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.
@@ -544,9 +544,9 @@ func (_u *TagUpdateOne) ClearTweets() *TagUpdateOne {
 	return _u
 }
 
-// RemoveTweetIDs removes the "tweets" edge to Tweet entities by IDs.
-func (_u *TagUpdateOne) RemoveTweetIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.RemoveTweetIDs(ids...)
+// RemoveTweetsIDs removes the "tweets" edge to Tweet entities by IDs.
+func (_u *TagUpdateOne) RemoveTweetsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.RemoveTweetsIDs(ids...)
 	return _u
 }
 
@@ -556,7 +556,7 @@ func (_u *TagUpdateOne) RemoveTweets(v ...*Tweet) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetIDs(ids...)
+	return _u.RemoveTweetsIDs(ids...)
 }
 
 // ClearGroups clears all "groups" edges to the Group entity.
@@ -565,9 +565,9 @@ func (_u *TagUpdateOne) ClearGroups() *TagUpdateOne {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *TagUpdateOne) RemoveGroupIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *TagUpdateOne) RemoveGroupsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -577,7 +577,7 @@ func (_u *TagUpdateOne) RemoveGroups(v ...*Group) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // ClearTweetTags clears all "tweet_tags" edges to the TweetTag entity.
@@ -586,9 +586,9 @@ func (_u *TagUpdateOne) ClearTweetTags() *TagUpdateOne {
 	return _u
 }
 
-// RemoveTweetTagIDs removes the "tweet_tags" edge to TweetTag entities by IDs.
-func (_u *TagUpdateOne) RemoveTweetTagIDs(ids ...uuid.UUID) *TagUpdateOne {
-	_u.mutation.RemoveTweetTagIDs(ids...)
+// RemoveTweetTagsIDs removes the "tweet_tags" edge to TweetTag entities by IDs.
+func (_u *TagUpdateOne) RemoveTweetTagsIDs(ids ...uuid.UUID) *TagUpdateOne {
+	_u.mutation.RemoveTweetTagsIDs(ids...)
 	return _u
 }
 
@@ -598,7 +598,7 @@ func (_u *TagUpdateOne) RemoveTweetTags(v ...*TweetTag) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetTagIDs(ids...)
+	return _u.RemoveTweetTagsIDs(ids...)
 }
 
 // ClearGroupTags clears all "group_tags" edges to the GroupTag entity.
@@ -607,9 +607,9 @@ func (_u *TagUpdateOne) ClearGroupTags() *TagUpdateOne {
 	return _u
 }
 
-// RemoveGroupTagIDs removes the "group_tags" edge to GroupTag entities by IDs.
-func (_u *TagUpdateOne) RemoveGroupTagIDs(ids ...int) *TagUpdateOne {
-	_u.mutation.RemoveGroupTagIDs(ids...)
+// RemoveGroupTagsIDs removes the "group_tags" edge to GroupTag entities by IDs.
+func (_u *TagUpdateOne) RemoveGroupTagsIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.RemoveGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -619,7 +619,7 @@ func (_u *TagUpdateOne) RemoveGroupTags(v ...*GroupTag) *TagUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupTagIDs(ids...)
+	return _u.RemoveGroupTagsIDs(ids...)
 }
 
 // Where appends a list predicates to the TagUpdate builder.

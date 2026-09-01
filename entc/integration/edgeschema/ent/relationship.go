@@ -24,8 +24,8 @@ type Relationship struct {
 	Weight int `json:"weight,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID int `json:"user_id,omitempty"`
-	// RelativeID holds the value of the "relative_id" field.
-	RelativeID int `json:"relative_id,omitempty"`
+	// RelativesID holds the value of the "relatives_id" field.
+	RelativesID int `json:"relatives_id,omitempty"`
 	// InfoID holds the value of the "info_id" field.
 	InfoID int `json:"info_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -85,7 +85,7 @@ func (*Relationship) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case relationship.FieldWeight, relationship.FieldUserID, relationship.FieldRelativeID, relationship.FieldInfoID:
+		case relationship.FieldWeight, relationship.FieldUserID, relationship.FieldRelativesID, relationship.FieldInfoID:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -114,11 +114,11 @@ func (_m *Relationship) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.UserID = int(value.Int64)
 			}
-		case relationship.FieldRelativeID:
+		case relationship.FieldRelativesID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field relative_id", values[i])
+				return fmt.Errorf("unexpected type %T for field relatives_id", values[i])
 			} else if value.Valid {
-				_m.RelativeID = int(value.Int64)
+				_m.RelativesID = int(value.Int64)
 			}
 		case relationship.FieldInfoID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -182,8 +182,8 @@ func (_m *Relationship) String() string {
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
 	builder.WriteString(", ")
-	builder.WriteString("relative_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.RelativeID))
+	builder.WriteString("relatives_id=")
+	builder.WriteString(fmt.Sprintf("%v", _m.RelativesID))
 	builder.WriteString(", ")
 	builder.WriteString("info_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.InfoID))
@@ -191,5 +191,5 @@ func (_m *Relationship) String() string {
 	return builder.String()
 }
 
-// Relationships is a parsable slice of Relationship.
-type Relationships []*Relationship
+// RelationshipList is a parsable slice of Relationship.
+type RelationshipList []*Relationship

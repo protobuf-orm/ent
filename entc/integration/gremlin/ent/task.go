@@ -125,11 +125,11 @@ func (_m *Task) String() string {
 	return builder.String()
 }
 
-// Tasks is a parsable slice of Task.
-type Tasks []*Task
+// TaskList is a parsable slice of Task.
+type TaskList []*Task
 
-// FromResponse scans the gremlin response data into Tasks.
-func (_m *Tasks) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into TaskList.
+func (_m *TaskList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

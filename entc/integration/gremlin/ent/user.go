@@ -342,11 +342,11 @@ func (_m *User) String() string {
 	return builder.String()
 }
 
-// Users is a parsable slice of User.
-type Users []*User
+// UserList is a parsable slice of User.
+type UserList []*User
 
-// FromResponse scans the gremlin response data into Users.
-func (_m *Users) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into UserList.
+func (_m *UserList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

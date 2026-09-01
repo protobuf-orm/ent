@@ -12,66 +12,66 @@ import (
 )
 
 var (
-	// CommentsColumns holds the columns for the "comments" table.
-	CommentsColumns = []*schema.Column{
+	// CommentColumns holds the columns for the "comment" table.
+	CommentColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString},
 		{Name: "post_id", Type: field.TypeInt},
 	}
-	// CommentsTable holds the schema information for the "comments" table.
-	CommentsTable = &schema.Table{
-		Name:       "comments",
-		Columns:    CommentsColumns,
-		PrimaryKey: []*schema.Column{CommentsColumns[0]},
+	// CommentTable holds the schema information for the "comment" table.
+	CommentTable = &schema.Table{
+		Name:       "comment",
+		Columns:    CommentColumns,
+		PrimaryKey: []*schema.Column{CommentColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "comments_posts_comments",
-				Columns:    []*schema.Column{CommentsColumns[2]},
-				RefColumns: []*schema.Column{PostsColumns[0]},
+				Symbol:     "comment_post_comments",
+				Columns:    []*schema.Column{CommentColumns[2]},
+				RefColumns: []*schema.Column{PostColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
-	// PostsColumns holds the columns for the "posts" table.
-	PostsColumns = []*schema.Column{
+	// PostColumns holds the columns for the "post" table.
+	PostColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString, Default: "What's on your mind?"},
 		{Name: "author_id", Type: field.TypeInt, Nullable: true},
 	}
-	// PostsTable holds the schema information for the "posts" table.
-	PostsTable = &schema.Table{
-		Name:       "posts",
-		Columns:    PostsColumns,
-		PrimaryKey: []*schema.Column{PostsColumns[0]},
+	// PostTable holds the schema information for the "post" table.
+	PostTable = &schema.Table{
+		Name:       "post",
+		Columns:    PostColumns,
+		PrimaryKey: []*schema.Column{PostColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "posts_users_posts",
-				Columns:    []*schema.Column{PostsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "post_user_posts",
+				Columns:    []*schema.Column{PostColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		CommentsTable,
-		PostsTable,
-		UsersTable,
+		CommentTable,
+		PostTable,
+		UserTable,
 	}
 )
 
 func init() {
-	CommentsTable.ForeignKeys[0].RefTable = PostsTable
-	PostsTable.ForeignKeys[0].RefTable = UsersTable
+	CommentTable.ForeignKeys[0].RefTable = PostTable
+	PostTable.ForeignKeys[0].RefTable = UserTable
 }

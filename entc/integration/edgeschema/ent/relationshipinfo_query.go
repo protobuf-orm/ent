@@ -162,7 +162,7 @@ func (_q *RelationshipInfoQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of RelationshipInfos.
+// All executes the query and returns a list of RelationshipInfo entities.
 func (_q *RelationshipInfoQuery) All(ctx context.Context) ([]*RelationshipInfo, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

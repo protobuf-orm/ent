@@ -122,13 +122,13 @@ func (m *Mutation) ResetUserID() {
 	m.user = nil
 }
 
-// SetFriendID sets the "friend_id" field.
-func (m *Mutation) SetFriendID(i int) {
+// SetFriendsID sets the "friends_id" field.
+func (m *Mutation) SetFriendsID(i int) {
 	m.friend = &i
 }
 
-// FriendID returns the value of the "friend_id" field in the mutation.
-func (m *Mutation) FriendID() (r int, exists bool) {
+// FriendsID returns the value of the "friends_id" field in the mutation.
+func (m *Mutation) FriendsID() (r int, exists bool) {
 	v := m.friend
 	if v == nil {
 		return
@@ -136,8 +136,8 @@ func (m *Mutation) FriendID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetFriendID resets all changes to the "friend_id" field.
-func (m *Mutation) ResetFriendID() {
+// ResetFriendsID resets all changes to the "friends_id" field.
+func (m *Mutation) ResetFriendsID() {
 	m.friend = nil
 }
 
@@ -168,15 +168,28 @@ func (m *Mutation) ResetUser() {
 	m.cleareduser = false
 }
 
+// SetFriendID sets the "friend" edge to the User entity by id.
+func (m *Mutation) SetFriendID(id int) {
+	m.friend = &id
+}
+
 // ClearFriend clears the "friend" edge to the User entity.
 func (m *Mutation) ClearFriend() {
 	m.clearedfriend = true
-	m.clearedFields[FieldFriendID] = struct{}{}
+	m.clearedFields[FieldFriendsID] = struct{}{}
 }
 
 // FriendCleared reports if the "friend" edge to the User entity was cleared.
 func (m *Mutation) FriendCleared() bool {
 	return m.clearedfriend
+}
+
+// FriendID returns the "friend" edge ID in the mutation.
+func (m *Mutation) FriendID() (id int, exists bool) {
+	if m.friend != nil {
+		return *m.friend, true
+	}
+	return
 }
 
 // FriendIDs returns the "friend" edge IDs in the mutation.
@@ -240,7 +253,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldUserID)
 	}
 	if m.friend != nil {
-		fields = append(fields, FieldFriendID)
+		fields = append(fields, FieldFriendsID)
 	}
 	return fields
 }
@@ -256,8 +269,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.CreatedAt()
 	case FieldUserID:
 		return m.UserID()
-	case FieldFriendID:
-		return m.FriendID()
+	case FieldFriendsID:
+		return m.FriendsID()
 	}
 	return nil, false
 }
@@ -295,12 +308,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserID(v)
 		return nil
-	case FieldFriendID:
+	case FieldFriendsID:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetFriendID(v)
+		m.SetFriendsID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Friendship field %s", name)
@@ -375,8 +388,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldUserID:
 		m.ResetUserID()
 		return nil
-	case FieldFriendID:
-		m.ResetFriendID()
+	case FieldFriendsID:
+		m.ResetFriendsID()
 		return nil
 	}
 	return fmt.Errorf("unknown Friendship field %s", name)

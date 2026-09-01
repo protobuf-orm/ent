@@ -27,13 +27,13 @@ const (
 	// EdgeNext holds the string denoting the next edge name in mutations.
 	EdgeNext = "next"
 	// Table holds the table name of the node in the database.
-	Table = "nodes"
+	Table = "node"
 	// PrevTable is the table that holds the prev relation/edge.
-	PrevTable = "nodes"
+	PrevTable = "node"
 	// PrevColumn is the table column denoting the prev relation/edge.
 	PrevColumn = "node_next"
 	// NextTable is the table that holds the next relation/edge.
-	NextTable = "nodes"
+	NextTable = "node"
 	// NextColumn is the table column denoting the next relation/edge.
 	NextColumn = "node_next"
 )
@@ -45,7 +45,7 @@ var Columns = []string{
 	FieldUpdatedAt,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "nodes"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "node"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"node_next",

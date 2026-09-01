@@ -29,19 +29,19 @@ const (
 	// EdgeTweet holds the string denoting the tweet edge name in mutations.
 	EdgeTweet = "tweet"
 	// Table holds the table name of the usertweet in the database.
-	Table = "user_tweets"
+	Table = "user_tweet"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "user_tweets"
+	UserTable = "user_tweet"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 	// TweetTable is the table that holds the tweet relation/edge.
-	TweetTable = "user_tweets"
+	TweetTable = "user_tweet"
 	// TweetInverseTable is the table name for the Tweet entity.
 	// It exists in this package in order to avoid circular dependency with the "tweet" package.
-	TweetInverseTable = "tweets"
+	TweetInverseTable = "tweet"
 	// TweetColumn is the table column denoting the tweet relation/edge.
 	TweetColumn = "tweet_id"
 )

@@ -39,26 +39,26 @@ const (
 	// EdgeField holds the string denoting the field edge name in mutations.
 	EdgeField = "field"
 	// Table holds the table name of the file in the database.
-	Table = "files"
+	Table = "file"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "files"
+	OwnerTable = "file"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "user_files"
 	// TypeTable is the table that holds the type relation/edge.
-	TypeTable = "files"
+	TypeTable = "file"
 	// TypeInverseTable is the table name for the FileType entity.
 	// It exists in this package in order to avoid circular dependency with the "filetype" package.
-	TypeInverseTable = "file_types"
+	TypeInverseTable = "file_type"
 	// TypeColumn is the table column denoting the type relation/edge.
 	TypeColumn = "file_type_files"
 	// FieldTable is the table that holds the field relation/edge.
-	FieldTable = "field_types"
+	FieldTable = "field_type"
 	// FieldInverseTable is the table name for the FieldType entity.
 	// It exists in this package in order to avoid circular dependency with the "fieldtype" package.
-	FieldInverseTable = "field_types"
+	FieldInverseTable = "field_type"
 	// FieldColumn is the table column denoting the field relation/edge.
 	FieldColumn = "file_field"
 )
@@ -76,7 +76,7 @@ var Columns = []string{
 	FieldCreateTime,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "files"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "file"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_type_files",

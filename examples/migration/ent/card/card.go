@@ -31,19 +31,19 @@ const (
 	// EdgePayments holds the string denoting the payments edge name in mutations.
 	EdgePayments = "payments"
 	// Table holds the table name of the card in the database.
-	Table = "cards"
+	Table = "card"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "cards"
+	OwnerTable = "card"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "owner_id"
 	// PaymentsTable is the table that holds the payments relation/edge.
-	PaymentsTable = "payments"
+	PaymentsTable = "payment"
 	// PaymentsInverseTable is the table name for the Payment entity.
 	// It exists in this package in order to avoid circular dependency with the "payment" package.
-	PaymentsInverseTable = "payments"
+	PaymentsInverseTable = "payment"
 	// PaymentsColumn is the table column denoting the payments relation/edge.
 	PaymentsColumn = "card_id"
 )

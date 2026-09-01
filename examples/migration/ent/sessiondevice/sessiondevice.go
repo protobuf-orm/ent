@@ -30,12 +30,12 @@ const (
 	// EdgeSessions holds the string denoting the sessions edge name in mutations.
 	EdgeSessions = "sessions"
 	// Table holds the table name of the sessiondevice in the database.
-	Table = "session_devices"
+	Table = "session_device"
 	// SessionsTable is the table that holds the sessions relation/edge.
-	SessionsTable = "sessions"
+	SessionsTable = "session"
 	// SessionsInverseTable is the table name for the Session entity.
 	// It exists in this package in order to avoid circular dependency with the "session" package.
-	SessionsInverseTable = "sessions"
+	SessionsInverseTable = "session"
 	// SessionsColumn is the table column denoting the sessions relation/edge.
 	SessionsColumn = "device_id"
 )

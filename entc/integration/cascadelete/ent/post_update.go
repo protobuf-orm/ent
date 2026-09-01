@@ -72,9 +72,9 @@ func (_u *PostUpdate) SetAuthor(v *User) *PostUpdate {
 	return _u.SetAuthorID(v.ID)
 }
 
-// AddCommentIDs adds the "comments" edge to the Comment entity by IDs.
-func (_u *PostUpdate) AddCommentIDs(ids ...int) *PostUpdate {
-	_u.mutation.AddCommentIDs(ids...)
+// AddCommentsIDs adds the "comments" edge to the Comment entity by IDs.
+func (_u *PostUpdate) AddCommentsIDs(ids ...int) *PostUpdate {
+	_u.mutation.AddCommentsIDs(ids...)
 	return _u
 }
 
@@ -84,7 +84,7 @@ func (_u *PostUpdate) AddComments(v ...*Comment) *PostUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCommentIDs(ids...)
+	return _u.AddCommentsIDs(ids...)
 }
 
 // Mutation returns the PostMutation object of the builder.
@@ -104,9 +104,9 @@ func (_u *PostUpdate) ClearComments() *PostUpdate {
 	return _u
 }
 
-// RemoveCommentIDs removes the "comments" edge to Comment entities by IDs.
-func (_u *PostUpdate) RemoveCommentIDs(ids ...int) *PostUpdate {
-	_u.mutation.RemoveCommentIDs(ids...)
+// RemoveCommentsIDs removes the "comments" edge to Comment entities by IDs.
+func (_u *PostUpdate) RemoveCommentsIDs(ids ...int) *PostUpdate {
+	_u.mutation.RemoveCommentsIDs(ids...)
 	return _u
 }
 
@@ -116,7 +116,7 @@ func (_u *PostUpdate) RemoveComments(v ...*Comment) *PostUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCommentIDs(ids...)
+	return _u.RemoveCommentsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -291,9 +291,9 @@ func (_u *PostUpdateOne) SetAuthor(v *User) *PostUpdateOne {
 	return _u.SetAuthorID(v.ID)
 }
 
-// AddCommentIDs adds the "comments" edge to the Comment entity by IDs.
-func (_u *PostUpdateOne) AddCommentIDs(ids ...int) *PostUpdateOne {
-	_u.mutation.AddCommentIDs(ids...)
+// AddCommentsIDs adds the "comments" edge to the Comment entity by IDs.
+func (_u *PostUpdateOne) AddCommentsIDs(ids ...int) *PostUpdateOne {
+	_u.mutation.AddCommentsIDs(ids...)
 	return _u
 }
 
@@ -303,7 +303,7 @@ func (_u *PostUpdateOne) AddComments(v ...*Comment) *PostUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCommentIDs(ids...)
+	return _u.AddCommentsIDs(ids...)
 }
 
 // Mutation returns the PostMutation object of the builder.
@@ -323,9 +323,9 @@ func (_u *PostUpdateOne) ClearComments() *PostUpdateOne {
 	return _u
 }
 
-// RemoveCommentIDs removes the "comments" edge to Comment entities by IDs.
-func (_u *PostUpdateOne) RemoveCommentIDs(ids ...int) *PostUpdateOne {
-	_u.mutation.RemoveCommentIDs(ids...)
+// RemoveCommentsIDs removes the "comments" edge to Comment entities by IDs.
+func (_u *PostUpdateOne) RemoveCommentsIDs(ids ...int) *PostUpdateOne {
+	_u.mutation.RemoveCommentsIDs(ids...)
 	return _u
 }
 
@@ -335,7 +335,7 @@ func (_u *PostUpdateOne) RemoveComments(v ...*Comment) *PostUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCommentIDs(ids...)
+	return _u.RemoveCommentsIDs(ids...)
 }
 
 // Where appends a list predicates to the PostUpdate builder.

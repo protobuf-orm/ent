@@ -156,5 +156,5 @@ func (_m *Note) String() string {
 	return builder.String()
 }
 
-// Notes is a parsable slice of Note.
-type Notes []*Note
+// NoteList is a parsable slice of Note.
+type NoteList []*Note

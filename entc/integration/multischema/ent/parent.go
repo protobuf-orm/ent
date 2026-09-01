@@ -25,8 +25,8 @@ type Parent struct {
 	ByAdoption bool `json:"by_adoption,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID int `json:"user_id,omitempty"`
-	// ParentID holds the value of the "parent_id" field.
-	ParentID int `json:"parent_id,omitempty"`
+	// ParentsID holds the value of the "parents_id" field.
+	ParentsID int `json:"parents_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the ParentQuery when eager-loading is set.
 	Edges        ParentEdges `json:"edges"`
@@ -73,7 +73,7 @@ func (*Parent) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case parent.FieldByAdoption:
 			values[i] = new(sql.NullBool)
-		case parent.FieldID, parent.FieldUserID, parent.FieldParentID:
+		case parent.FieldID, parent.FieldUserID, parent.FieldParentsID:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -108,11 +108,11 @@ func (_m *Parent) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.UserID = int(value.Int64)
 			}
-		case parent.FieldParentID:
+		case parent.FieldParentsID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field parent_id", values[i])
+				return fmt.Errorf("unexpected type %T for field parents_id", values[i])
 			} else if value.Valid {
-				_m.ParentID = int(value.Int64)
+				_m.ParentsID = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -166,11 +166,11 @@ func (_m *Parent) String() string {
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
 	builder.WriteString(", ")
-	builder.WriteString("parent_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.ParentID))
+	builder.WriteString("parents_id=")
+	builder.WriteString(fmt.Sprintf("%v", _m.ParentsID))
 	builder.WriteByte(')')
 	return builder.String()
 }
 
-// Parents is a parsable slice of Parent.
-type Parents []*Parent
+// ParentList is a parsable slice of Parent.
+type ParentList []*Parent

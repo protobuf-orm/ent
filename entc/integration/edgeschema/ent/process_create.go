@@ -27,9 +27,9 @@ type ProcessCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_c *ProcessCreate) AddFileIDs(ids ...int) *ProcessCreate {
-	_c.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_c *ProcessCreate) AddFilesIDs(ids ...int) *ProcessCreate {
+	_c.mutation.AddFilesIDs(ids...)
 	return _c
 }
 
@@ -39,12 +39,12 @@ func (_c *ProcessCreate) AddFiles(v ...*File) *ProcessCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFileIDs(ids...)
+	return _c.AddFilesIDs(ids...)
 }
 
-// AddAttachedFileIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
-func (_c *ProcessCreate) AddAttachedFileIDs(ids ...int) *ProcessCreate {
-	_c.mutation.AddAttachedFileIDs(ids...)
+// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
+func (_c *ProcessCreate) AddAttachedFilesIDs(ids ...int) *ProcessCreate {
+	_c.mutation.AddAttachedFilesIDs(ids...)
 	return _c
 }
 
@@ -54,7 +54,7 @@ func (_c *ProcessCreate) AddAttachedFiles(v ...*AttachedFile) *ProcessCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddAttachedFileIDs(ids...)
+	return _c.AddAttachedFilesIDs(ids...)
 }
 
 // Mutation returns the ProcessMutation object of the builder.

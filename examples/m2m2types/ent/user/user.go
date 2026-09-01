@@ -23,12 +23,12 @@ const (
 	// EdgeGroups holds the string denoting the groups edge name in mutations.
 	EdgeGroups = "groups"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 )
 
 // Columns holds all SQL columns for user fields.

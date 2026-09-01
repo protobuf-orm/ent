@@ -201,7 +201,7 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 		return {{ $receiver }}
 	}
 	{{ if not $e.Unique }}
-		{{ $idsFunc := print "Remove" (singular $e.Name | pascal) "IDs" }}
+		{{ $idsFunc := print "Remove" (pascal $e.Name) "IDs" }}
 		// {{ $idsFunc }} removes the "{{ $e.Name }}" edge to {{ $e.Type.Name }} entities by IDs.
 		func ({{ $receiver }} *{{ $builder }}) {{ $idsFunc }}(ids ...{{ $e.Type.ID.Type }}) *{{ $builder }} {
 			{{ $mutation }}.{{ $idsFunc }}(ids...)

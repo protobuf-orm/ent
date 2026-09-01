@@ -35,7 +35,7 @@ const (
 	// FieldOp holds the string denoting the op field in the database.
 	FieldOp = "op"
 	// Table holds the table name of the task in the database.
-	Table = "tasks"
+	Table = "task"
 )
 
 // Columns holds all SQL columns for task fields.

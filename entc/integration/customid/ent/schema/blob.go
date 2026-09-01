@@ -57,7 +57,7 @@ type BlobLink struct {
 // Annotations of the BlobLink.
 func (BlobLink) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("blob_id", "link_id"),
+		field.ID("blob_id", "links_id"),
 	}
 }
 
@@ -67,7 +67,7 @@ func (BlobLink) Fields() []ent.Field {
 		field.Time("created_at").
 			Default(time.Now),
 		field.UUID("blob_id", uuid.UUID{}),
-		field.UUID("link_id", uuid.UUID{}),
+		field.UUID("links_id", uuid.UUID{}),
 	}
 }
 
@@ -79,7 +79,7 @@ func (BlobLink) Edges() []ent.Edge {
 			Required().
 			Unique(),
 		edge.To("link", Blob.Type).
-			Field("link_id").
+			Field("links_id").
 			Required().
 			Unique(),
 	}

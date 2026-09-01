@@ -147,5 +147,5 @@ func (_m *Device) String() string {
 	return builder.String()
 }
 
-// Devices is a parsable slice of Device.
-type Devices []*Device
+// DeviceList is a parsable slice of Device.
+type DeviceList []*Device

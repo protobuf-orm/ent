@@ -308,9 +308,9 @@ func TestFKColumns(t *testing.T) {
 	require.NoError(err)
 	t1 := graph.Nodes[0]
 	for i, r := range []Relation{
-		{Type: O2M, Table: "pets", Columns: []string{"user_pets"}},
-		{Type: M2O, Table: "users", Columns: []string{"user_pet"}},
-		{Type: O2O, Table: "users", Columns: []string{"user_parent"}},
+		{Type: O2M, Table: "pet", Columns: []string{"user_pets"}},
+		{Type: M2O, Table: "user", Columns: []string{"user_pet"}},
+		{Type: O2O, Table: "user", Columns: []string{"user_parent"}},
 	} {
 		require.Equal(r.Type, t1.Edges[i].Rel.Type)
 		require.Equal(r.Table, t1.Edges[i].Rel.Table)
@@ -330,16 +330,16 @@ func TestFKColumns(t *testing.T) {
 	require.NoError(err)
 	t1, t2 := graph.Nodes[0], graph.Nodes[1]
 	for i, r := range []Relation{
-		{Type: O2M, Table: "pets", Columns: []string{"user_pets"}},
-		{Type: M2O, Table: "users", Columns: []string{"user_pet"}},
+		{Type: O2M, Table: "pet", Columns: []string{"user_pets"}},
+		{Type: M2O, Table: "user", Columns: []string{"user_pet"}},
 	} {
 		require.Equal(r.Type, t1.Edges[i].Rel.Type)
 		require.Equal(r.Table, t1.Edges[i].Rel.Table)
 		require.Equal(r.Columns, t1.Edges[i].Rel.Columns)
 	}
 	for i, r := range []Relation{
-		{Type: M2O, Table: "pets", Columns: []string{"user_pets"}},
-		{Type: O2M, Table: "users", Columns: []string{"user_pet"}},
+		{Type: M2O, Table: "pet", Columns: []string{"user_pets"}},
+		{Type: O2M, Table: "user", Columns: []string{"user_pet"}},
 	} {
 		require.Equal(r.Type, t2.Edges[i].Rel.Type)
 		require.Equal(r.Table, t2.Edges[i].Rel.Table)
@@ -378,7 +378,7 @@ func TestAbortDuplicateFK(t *testing.T) {
 	g, err := NewGraph(&Config{Package: "entc/gen", Storage: drivers[0]}, user, pet, car)
 	require.NoError(t, err)
 	_, err = g.Tables()
-	require.EqualError(t, err, `duplicate foreign-key symbol "owner_id" found in tables "cars" and "pets"`)
+	require.EqualError(t, err, `duplicate foreign-key symbol "owner_id" found in tables "car" and "pet"`)
 }
 
 func TestPosition(t *testing.T) {
@@ -546,7 +546,7 @@ func TestGraph_Gen(t *testing.T) {
 	require.NotNil(graph)
 	require.NoError(graph.Gen())
 	// Ensure globalid feature added annotations.
-	a := IncrementStarts{"t1s": 0, "t2s": 1 << 32, "t3s": 2 << 32}
+	a := IncrementStarts{"t1": 0, "t2": 1 << 32, "t3": 2 << 32}
 	require.Equal(a, graph.Annotations[a.Name()])
 	for i, n := range graph.Nodes {
 		require.Equal(i<<32, *n.EntSQL().IncrementStart)
@@ -575,7 +575,7 @@ func TestGraph_Gen(t *testing.T) {
 	require.NoError(err)
 	c, err := os.ReadFile(filepath.Join(target, "internal", "globalid.go"))
 	require.NoError(err)
-	require.Contains(string(c), fmt.Sprintf(`"{\"t1s\":0,\"t2s\":%d,\"t3s\":%d}"`, 1<<32, 2<<32))
+	require.Contains(string(c), fmt.Sprintf(`"{\"t1\":0,\"t2\":%d,\"t3\":%d}"`, 1<<32, 2<<32))
 	// Rerun codegen with only one feature-flag.
 	graph.Features = []Feature{FeatureSnapshot}
 	require.NoError(graph.Gen())
@@ -720,8 +720,8 @@ func TestEdgeFieldCollation(t *testing.T) {
 	require.NoError(t, err)
 
 	// Find the post table
-	idx := slices.IndexFunc(tables, func(t *schema.Table) bool { return t.Name == "posts" })
-	require.NotEqual(t, -1, idx, "posts table should exist")
+	idx := slices.IndexFunc(tables, func(t *schema.Table) bool { return t.Name == "post" })
+	require.NotEqual(t, -1, idx, "post table should exist")
 	postTable := tables[idx]
 
 	// Verify author_id column preserves collation from field annotation

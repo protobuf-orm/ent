@@ -51,9 +51,9 @@ func (_c *IntSIDCreate) SetParent(v *IntSID) *IntSIDCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the IntSID entity by IDs.
-func (_c *IntSIDCreate) AddChildIDs(ids ...sid.ID) *IntSIDCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the IntSID entity by IDs.
+func (_c *IntSIDCreate) AddChildrenIDs(ids ...sid.ID) *IntSIDCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -63,7 +63,7 @@ func (_c *IntSIDCreate) AddChildren(v ...*IntSID) *IntSIDCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the IntSIDMutation object of the builder.

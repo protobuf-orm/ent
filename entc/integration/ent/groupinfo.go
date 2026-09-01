@@ -165,5 +165,5 @@ func (_m *GroupInfo) appendNamedGroups(name string, edges ...*Group) {
 	}
 }
 
-// GroupInfos is a parsable slice of GroupInfo.
-type GroupInfos []*GroupInfo
+// GroupInfoList is a parsable slice of GroupInfo.
+type GroupInfoList []*GroupInfo

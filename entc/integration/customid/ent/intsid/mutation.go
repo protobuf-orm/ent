@@ -82,8 +82,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildIDs adds the "children" edge to the IntSID entity by ids.
-func (m *Mutation) AddChildIDs(ids ...sid.ID) {
+// AddChildrenIDs adds the "children" edge to the IntSID entity by ids.
+func (m *Mutation) AddChildrenIDs(ids ...sid.ID) {
 	if m.children == nil {
 		m.children = make(map[sid.ID]struct{})
 	}
@@ -102,8 +102,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildIDs removes the "children" edge to the IntSID entity by IDs.
-func (m *Mutation) RemoveChildIDs(ids ...sid.ID) {
+// RemoveChildrenIDs removes the "children" edge to the IntSID entity by IDs.
+func (m *Mutation) RemoveChildrenIDs(ids ...sid.ID) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[sid.ID]struct{})
 	}

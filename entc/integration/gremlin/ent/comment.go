@@ -107,11 +107,11 @@ func (_m *Comment) String() string {
 	return builder.String()
 }
 
-// Comments is a parsable slice of Comment.
-type Comments []*Comment
+// CommentList is a parsable slice of Comment.
+type CommentList []*Comment
 
-// FromResponse scans the gremlin response data into Comments.
-func (_m *Comments) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into CommentList.
+func (_m *CommentList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

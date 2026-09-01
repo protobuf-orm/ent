@@ -121,9 +121,9 @@ func CustomID(t *testing.T, client *ent.Client) {
 	links := lnk.QueryBlobLinks().AllX(ctx)
 	require.Len(t, links, 2)
 	require.Equal(t, lnk.ID, links[0].BlobID)
-	require.NotEqual(t, uuid.Nil, links[0].LinkID)
+	require.NotEqual(t, uuid.Nil, links[0].LinksID)
 	require.Equal(t, lnk.ID, links[1].BlobID)
-	require.NotEqual(t, uuid.Nil, links[1].LinkID)
+	require.NotEqual(t, uuid.Nil, links[1].LinksID)
 
 	pedro := client.Pet.Create().SetID("pedro").SetOwner(a8m).SaveX(ctx)
 	require.Equal(t, a8m.ID, pedro.QueryOwner().OnlyIDX(ctx))
@@ -157,7 +157,7 @@ func CustomID(t *testing.T, client *ent.Client) {
 
 	pets = client.Pet.CreateBulk(
 		client.Pet.Create().SetID("luna").SetOwner(a8m).AddFriends(xabi),
-		client.Pet.Create().SetID("layla").SetOwner(a8m).AddFriendIDs(pedro.ID),
+		client.Pet.Create().SetID("layla").SetOwner(a8m).AddFriendsIDs(pedro.ID),
 		client.Pet.Create().AddFriends(pedro, xabi),
 	).SaveX(ctx)
 	require.Equal(t, "luna", pets[0].ID)
@@ -298,7 +298,7 @@ func BytesID(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	s := client.Session.Create().SaveX(ctx)
 	require.NotEmpty(t, s.ID)
-	client.Device.Create().SetActiveSession(s).AddSessionIDs(s.ID).SaveX(ctx)
+	client.Device.Create().SetActiveSession(s).AddSessionsIDs(s.ID).SaveX(ctx)
 	d := client.Device.Query().WithActiveSession().WithSessions().OnlyX(ctx)
 	require.Equal(t, s.ID, d.Edges.ActiveSession.ID)
 	require.Equal(t, s.ID, d.Edges.Sessions[0].ID)

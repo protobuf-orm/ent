@@ -127,5 +127,5 @@ func (_m *Blog) String() string {
 	return builder.String()
 }
 
-// Blogs is a parsable slice of Blog.
-type Blogs []*Blog
+// BlogList is a parsable slice of Blog.
+type BlogList []*Blog

@@ -185,9 +185,9 @@ func (_c *UserCreate) SetParent(v *User) *UserCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -197,7 +197,7 @@ func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // SetSpouseID sets the "spouse" edge to the User entity by ID.

@@ -130,11 +130,11 @@ func TestType_Table(t *testing.T) {
 		name  string
 		label string
 	}{
-		{"User", "users"},
-		{"Device", "devices"},
-		{"UserInfo", "user_infos"},
-		{"PHBOrg", "phb_orgs"},
-		{"HTTPCode", "http_codes"},
+		{"User", "user"},
+		{"Device", "device"},
+		{"UserInfo", "user_info"},
+		{"PHBOrg", "phb_org"},
+		{"HTTPCode", "http_code"},
 	}
 	for _, tt := range tests {
 		typ := &Type{Name: tt.name}

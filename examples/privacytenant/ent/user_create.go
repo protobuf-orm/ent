@@ -56,9 +56,9 @@ func (_c *UserCreate) SetTenant(v *Tenant) *UserCreate {
 	return _c.SetTenantID(v.ID)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -68,7 +68,7 @@ func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

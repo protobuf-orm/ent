@@ -74,9 +74,9 @@ func UserID(v int) predicate.Friendship {
 	return predicate.Friendship(sql.FieldEQ(FieldUserID, v))
 }
 
-// FriendID applies equality check predicate on the "friend_id" field. It's identical to FriendIDEQ.
-func FriendID(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldFriendID, v))
+// FriendsID applies equality check predicate on the "friends_id" field. It's identical to FriendsIDEQ.
+func FriendsID(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldFriendsID, v))
 }
 
 // WeightEQ applies the EQ predicate on the "weight" field.
@@ -179,24 +179,24 @@ func UserIDNotIn(vs ...int) predicate.Friendship {
 	return predicate.Friendship(sql.FieldNotIn(FieldUserID, vs...))
 }
 
-// FriendIDEQ applies the EQ predicate on the "friend_id" field.
-func FriendIDEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldFriendID, v))
+// FriendsIDEQ applies the EQ predicate on the "friends_id" field.
+func FriendsIDEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldFriendsID, v))
 }
 
-// FriendIDNEQ applies the NEQ predicate on the "friend_id" field.
-func FriendIDNEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNEQ(FieldFriendID, v))
+// FriendsIDNEQ applies the NEQ predicate on the "friends_id" field.
+func FriendsIDNEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNEQ(FieldFriendsID, v))
 }
 
-// FriendIDIn applies the In predicate on the "friend_id" field.
-func FriendIDIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldIn(FieldFriendID, vs...))
+// FriendsIDIn applies the In predicate on the "friends_id" field.
+func FriendsIDIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldIn(FieldFriendsID, vs...))
 }
 
-// FriendIDNotIn applies the NotIn predicate on the "friend_id" field.
-func FriendIDNotIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNotIn(FieldFriendID, vs...))
+// FriendsIDNotIn applies the NotIn predicate on the "friends_id" field.
+func FriendsIDNotIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNotIn(FieldFriendsID, vs...))
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.

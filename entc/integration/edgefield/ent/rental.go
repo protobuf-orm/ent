@@ -177,5 +177,5 @@ func (_m *Rental) String() string {
 	return builder.String()
 }
 
-// Rentals is a parsable slice of Rental.
-type Rentals []*Rental
+// RentalList is a parsable slice of Rental.
+type RentalList []*Rental

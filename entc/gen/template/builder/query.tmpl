@@ -194,7 +194,7 @@ func ({{ $receiver }} *{{ $builder }}) OnlyX(ctx context.Context) *{{ $.Name }} 
 	}
 {{ end }}
 
-// All executes the query and returns a list of {{ plural $.Name }}.
+// All executes the query and returns a list of {{ $.Name }} entities.
 func ({{ $receiver }} *{{ $builder }}) All(ctx context.Context) ([]*{{ $.Name }}, error) {
 	ctx = setContextOp(ctx, {{ $receiver }}.ctx, ent.OpQueryAll)
 	if err := {{ $receiver }}.prepareQuery(ctx); err != nil {

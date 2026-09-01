@@ -36,7 +36,7 @@ const (
 	// FieldCustomOptional holds the string denoting the custom_optional field in the database.
 	FieldCustomOptional = "custom_optional"
 	// Table holds the table name of the exvaluescan in the database.
-	Table = "ex_value_scans"
+	Table = "ex_value_scan"
 )
 
 // Columns holds all SQL columns for exvaluescan fields.

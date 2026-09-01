@@ -19,7 +19,7 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// Table holds the table name of the tenant in the database.
-	Table = "tenants"
+	Table = "tenant"
 )
 
 // Columns holds all SQL columns for tenant fields.

@@ -192,5 +192,5 @@ func (_m *Payment) String() string {
 	return builder.String()
 }
 
-// Payments is a parsable slice of Payment.
-type Payments []*Payment
+// PaymentList is a parsable slice of Payment.
+type PaymentList []*Payment

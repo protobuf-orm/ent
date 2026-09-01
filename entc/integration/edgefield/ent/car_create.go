@@ -52,9 +52,9 @@ func (_c *CarCreate) SetNillableID(v *uuid.UUID) *CarCreate {
 	return _c
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_c *CarCreate) AddRentalIDs(ids ...int) *CarCreate {
-	_c.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_c *CarCreate) AddRentalsIDs(ids ...int) *CarCreate {
+	_c.mutation.AddRentalsIDs(ids...)
 	return _c
 }
 
@@ -64,7 +64,7 @@ func (_c *CarCreate) AddRentals(v ...*Rental) *CarCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddRentalIDs(ids...)
+	return _c.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.

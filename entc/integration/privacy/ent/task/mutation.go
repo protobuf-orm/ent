@@ -149,8 +149,8 @@ func (m *Mutation) ResetUUID() {
 	delete(m.clearedFields, FieldUUID)
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by ids.
-func (m *Mutation) AddTeamIDs(ids ...int) {
+// AddTeamsIDs adds the "teams" edge to the Team entity by ids.
+func (m *Mutation) AddTeamsIDs(ids ...int) {
 	if m.teams == nil {
 		m.teams = make(map[int]struct{})
 	}
@@ -169,8 +169,8 @@ func (m *Mutation) TeamsCleared() bool {
 	return m.clearedteams
 }
 
-// RemoveTeamIDs removes the "teams" edge to the Team entity by IDs.
-func (m *Mutation) RemoveTeamIDs(ids ...int) {
+// RemoveTeamsIDs removes the "teams" edge to the Team entity by IDs.
+func (m *Mutation) RemoveTeamsIDs(ids ...int) {
 	if m.removedteams == nil {
 		m.removedteams = make(map[int]struct{})
 	}

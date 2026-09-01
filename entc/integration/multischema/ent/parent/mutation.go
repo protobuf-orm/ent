@@ -80,13 +80,13 @@ func (m *Mutation) ResetUserID() {
 	m.child = nil
 }
 
-// SetParentID sets the "parent_id" field.
-func (m *Mutation) SetParentID(i int) {
+// SetParentsID sets the "parents_id" field.
+func (m *Mutation) SetParentsID(i int) {
 	m.parent = &i
 }
 
-// ParentID returns the value of the "parent_id" field in the mutation.
-func (m *Mutation) ParentID() (r int, exists bool) {
+// ParentsID returns the value of the "parents_id" field in the mutation.
+func (m *Mutation) ParentsID() (r int, exists bool) {
 	v := m.parent
 	if v == nil {
 		return
@@ -94,8 +94,8 @@ func (m *Mutation) ParentID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetParentID resets all changes to the "parent_id" field.
-func (m *Mutation) ResetParentID() {
+// ResetParentsID resets all changes to the "parents_id" field.
+func (m *Mutation) ResetParentsID() {
 	m.parent = nil
 }
 
@@ -139,15 +139,28 @@ func (m *Mutation) ResetChild() {
 	m.clearedchild = false
 }
 
+// SetParentID sets the "parent" edge to the User entity by id.
+func (m *Mutation) SetParentID(id int) {
+	m.parent = &id
+}
+
 // ClearParent clears the "parent" edge to the User entity.
 func (m *Mutation) ClearParent() {
 	m.clearedparent = true
-	m.clearedFields[FieldParentID] = struct{}{}
+	m.clearedFields[FieldParentsID] = struct{}{}
 }
 
 // ParentCleared reports if the "parent" edge to the User entity was cleared.
 func (m *Mutation) ParentCleared() bool {
 	return m.clearedparent
+}
+
+// ParentID returns the "parent" edge ID in the mutation.
+func (m *Mutation) ParentID() (id int, exists bool) {
+	if m.parent != nil {
+		return *m.parent, true
+	}
+	return
 }
 
 // ParentIDs returns the "parent" edge IDs in the mutation.
@@ -208,7 +221,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldUserID)
 	}
 	if m.parent != nil {
-		fields = append(fields, FieldParentID)
+		fields = append(fields, FieldParentsID)
 	}
 	return fields
 }
@@ -222,8 +235,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.ByAdoption()
 	case FieldUserID:
 		return m.UserID()
-	case FieldParentID:
-		return m.ParentID()
+	case FieldParentsID:
+		return m.ParentsID()
 	}
 	return nil, false
 }
@@ -254,12 +267,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserID(v)
 		return nil
-	case FieldParentID:
+	case FieldParentsID:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetParentID(v)
+		m.SetParentsID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Parent field %s", name)
@@ -319,8 +332,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldUserID:
 		m.ResetUserID()
 		return nil
-	case FieldParentID:
-		m.ResetParentID()
+	case FieldParentsID:
+		m.ResetParentsID()
 		return nil
 	}
 	return fmt.Errorf("unknown Parent field %s", name)

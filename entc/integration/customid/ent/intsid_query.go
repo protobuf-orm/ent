@@ -211,7 +211,7 @@ func (_q *IntSIDQuery) OnlyIDX(ctx context.Context) sid.ID {
 	return id
 }
 
-// All executes the query and returns a list of IntSIDs.
+// All executes the query and returns a list of IntSID entities.
 func (_q *IntSIDQuery) All(ctx context.Context) ([]*IntSID, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

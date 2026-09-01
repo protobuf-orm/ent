@@ -162,7 +162,7 @@ func (_q *CustomTypeQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of CustomTypes.
+// All executes the query and returns a list of CustomType entities.
 func (_q *CustomTypeQuery) All(ctx context.Context) ([]*CustomType, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

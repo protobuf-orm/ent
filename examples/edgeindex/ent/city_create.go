@@ -30,9 +30,9 @@ func (_c *CityCreate) SetName(v string) *CityCreate {
 	return _c
 }
 
-// AddStreetIDs adds the "streets" edge to the Street entity by IDs.
-func (_c *CityCreate) AddStreetIDs(ids ...int) *CityCreate {
-	_c.mutation.AddStreetIDs(ids...)
+// AddStreetsIDs adds the "streets" edge to the Street entity by IDs.
+func (_c *CityCreate) AddStreetsIDs(ids ...int) *CityCreate {
+	_c.mutation.AddStreetsIDs(ids...)
 	return _c
 }
 
@@ -42,7 +42,7 @@ func (_c *CityCreate) AddStreets(v ...*Street) *CityCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddStreetIDs(ids...)
+	return _c.AddStreetsIDs(ids...)
 }
 
 // Mutation returns the CityMutation object of the builder.

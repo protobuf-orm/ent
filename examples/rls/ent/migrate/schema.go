@@ -8,33 +8,33 @@ import (
 )
 
 var (
-	// TenantsColumns holds the columns for the "tenants" table.
-	TenantsColumns = []*schema.Column{
+	// TenantColumns holds the columns for the "tenant" table.
+	TenantColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// TenantsTable holds the schema information for the "tenants" table.
-	TenantsTable = &schema.Table{
-		Name:       "tenants",
-		Columns:    TenantsColumns,
-		PrimaryKey: []*schema.Column{TenantsColumns[0]},
+	// TenantTable holds the schema information for the "tenant" table.
+	TenantTable = &schema.Table{
+		Name:       "tenant",
+		Columns:    TenantColumns,
+		PrimaryKey: []*schema.Column{TenantColumns[0]},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		TenantsTable,
-		UsersTable,
+		TenantTable,
+		UserTable,
 	}
 )
 

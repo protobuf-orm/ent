@@ -32,9 +32,9 @@ func (_c *FileCreate) SetName(v string) *FileCreate {
 	return _c
 }
 
-// AddProcessIDs adds the "processes" edge to the Process entity by IDs.
-func (_c *FileCreate) AddProcessIDs(ids ...int) *FileCreate {
-	_c.mutation.AddProcessIDs(ids...)
+// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
+func (_c *FileCreate) AddProcessesIDs(ids ...int) *FileCreate {
+	_c.mutation.AddProcessesIDs(ids...)
 	return _c
 }
 
@@ -44,7 +44,7 @@ func (_c *FileCreate) AddProcesses(v ...*Process) *FileCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddProcessIDs(ids...)
+	return _c.AddProcessesIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.

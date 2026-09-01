@@ -18,7 +18,7 @@ const (
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// Table holds the table name of the relationshipinfo in the database.
-	Table = "relationship_infos"
+	Table = "relationship_info"
 )
 
 // Columns holds all SQL columns for relationshipinfo fields.

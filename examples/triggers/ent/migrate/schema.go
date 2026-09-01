@@ -8,35 +8,35 @@ import (
 )
 
 var (
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
-	// UserAuditLogsColumns holds the columns for the "user_audit_logs" table.
-	UserAuditLogsColumns = []*schema.Column{
+	// UserAuditLogColumns holds the columns for the "user_audit_log" table.
+	UserAuditLogColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "operation_type", Type: field.TypeString},
 		{Name: "operation_time", Type: field.TypeString},
 		{Name: "old_value", Type: field.TypeString, Nullable: true},
 		{Name: "new_value", Type: field.TypeString, Nullable: true},
 	}
-	// UserAuditLogsTable holds the schema information for the "user_audit_logs" table.
-	UserAuditLogsTable = &schema.Table{
-		Name:       "user_audit_logs",
-		Columns:    UserAuditLogsColumns,
-		PrimaryKey: []*schema.Column{UserAuditLogsColumns[0]},
+	// UserAuditLogTable holds the schema information for the "user_audit_log" table.
+	UserAuditLogTable = &schema.Table{
+		Name:       "user_audit_log",
+		Columns:    UserAuditLogColumns,
+		PrimaryKey: []*schema.Column{UserAuditLogColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		UsersTable,
-		UserAuditLogsTable,
+		UserTable,
+		UserAuditLogTable,
 	}
 )
 

@@ -92,5 +92,5 @@ func (_m *Other) String() string {
 	return builder.String()
 }
 
-// Others is a parsable slice of Other.
-type Others []*Other
+// OtherList is a parsable slice of Other.
+type OtherList []*Other

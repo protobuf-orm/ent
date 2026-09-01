@@ -19,12 +19,12 @@ const (
 	// EdgeCard holds the string denoting the card edge name in mutations.
 	EdgeCard = "card"
 	// Table holds the table name of the spec in the database.
-	Table = "specs"
+	Table = "spec"
 	// CardTable is the table that holds the card relation/edge. The primary key declared below.
 	CardTable = "spec_card"
 	// CardInverseTable is the table name for the Card entity.
 	// It exists in this package in order to avoid circular dependency with the "card" package.
-	CardInverseTable = "cards"
+	CardInverseTable = "card"
 )
 
 // Columns holds all SQL columns for spec fields.

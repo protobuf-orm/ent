@@ -38,9 +38,9 @@ func (_c *UserCreate) SetNillableName(v *string) *UserCreate {
 	return _c
 }
 
-// AddPostIDs adds the "posts" edge to the Post entity by IDs.
-func (_c *UserCreate) AddPostIDs(ids ...int) *UserCreate {
-	_c.mutation.AddPostIDs(ids...)
+// AddPostsIDs adds the "posts" edge to the Post entity by IDs.
+func (_c *UserCreate) AddPostsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddPostsIDs(ids...)
 	return _c
 }
 
@@ -50,7 +50,7 @@ func (_c *UserCreate) AddPosts(v ...*Post) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPostIDs(ids...)
+	return _c.AddPostsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

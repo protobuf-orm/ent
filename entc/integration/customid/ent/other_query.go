@@ -163,7 +163,7 @@ func (_q *OtherQuery) OnlyIDX(ctx context.Context) sid.ID {
 	return id
 }
 
-// All executes the query and returns a list of Others.
+// All executes the query and returns a list of Other entities.
 func (_q *OtherQuery) All(ctx context.Context) ([]*Other, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

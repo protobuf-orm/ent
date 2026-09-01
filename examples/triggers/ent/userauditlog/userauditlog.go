@@ -20,7 +20,7 @@ const (
 	// FieldNewValue holds the string denoting the new_value field in the database.
 	FieldNewValue = "new_value"
 	// Table holds the table name of the userauditlog in the database.
-	Table = "user_audit_logs"
+	Table = "user_audit_log"
 )
 
 // Columns holds all SQL columns for userauditlog fields.

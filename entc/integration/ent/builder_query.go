@@ -164,7 +164,7 @@ func (_q *BuilderQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Builders.
+// All executes the query and returns a list of Builder entities.
 func (_q *BuilderQuery) All(ctx context.Context) ([]*Builder, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -92,9 +92,9 @@ func (_u *MetadataUpdate) SetUser(v *User) *MetadataUpdate {
 	return _u.SetUserID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Metadata entity by IDs.
-func (_u *MetadataUpdate) AddChildIDs(ids ...int) *MetadataUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Metadata entity by IDs.
+func (_u *MetadataUpdate) AddChildrenIDs(ids ...int) *MetadataUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -104,7 +104,7 @@ func (_u *MetadataUpdate) AddChildren(v ...*Metadata) *MetadataUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetParent sets the "parent" edge to the Metadata entity.
@@ -129,9 +129,9 @@ func (_u *MetadataUpdate) ClearChildren() *MetadataUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Metadata entities by IDs.
-func (_u *MetadataUpdate) RemoveChildIDs(ids ...int) *MetadataUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Metadata entities by IDs.
+func (_u *MetadataUpdate) RemoveChildrenIDs(ids ...int) *MetadataUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -141,7 +141,7 @@ func (_u *MetadataUpdate) RemoveChildren(v ...*Metadata) *MetadataUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearParent clears the "parent" edge to the Metadata entity.
@@ -375,9 +375,9 @@ func (_u *MetadataUpdateOne) SetUser(v *User) *MetadataUpdateOne {
 	return _u.SetUserID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Metadata entity by IDs.
-func (_u *MetadataUpdateOne) AddChildIDs(ids ...int) *MetadataUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Metadata entity by IDs.
+func (_u *MetadataUpdateOne) AddChildrenIDs(ids ...int) *MetadataUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -387,7 +387,7 @@ func (_u *MetadataUpdateOne) AddChildren(v ...*Metadata) *MetadataUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetParent sets the "parent" edge to the Metadata entity.
@@ -412,9 +412,9 @@ func (_u *MetadataUpdateOne) ClearChildren() *MetadataUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Metadata entities by IDs.
-func (_u *MetadataUpdateOne) RemoveChildIDs(ids ...int) *MetadataUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Metadata entities by IDs.
+func (_u *MetadataUpdateOne) RemoveChildrenIDs(ids ...int) *MetadataUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -424,7 +424,7 @@ func (_u *MetadataUpdateOne) RemoveChildren(v ...*Metadata) *MetadataUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearParent clears the "parent" edge to the Metadata entity.

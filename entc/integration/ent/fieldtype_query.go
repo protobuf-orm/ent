@@ -165,7 +165,7 @@ func (_q *FieldTypeQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of FieldTypes.
+// All executes the query and returns a list of FieldType entities.
 func (_q *FieldTypeQuery) All(ctx context.Context) ([]*FieldType, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -187,7 +187,7 @@ func (_q *CityQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Cities.
+// All executes the query and returns a list of City entities.
 func (_q *CityQuery) All(ctx context.Context) ([]*City, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

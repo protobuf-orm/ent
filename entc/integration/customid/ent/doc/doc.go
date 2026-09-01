@@ -26,13 +26,13 @@ const (
 	// EdgeRelated holds the string denoting the related edge name in mutations.
 	EdgeRelated = "related"
 	// Table holds the table name of the doc in the database.
-	Table = "docs"
+	Table = "doc"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "docs"
+	ParentTable = "doc"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "doc_children"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "docs"
+	ChildrenTable = "doc"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "doc_children"
 	// RelatedTable is the table that holds the related relation/edge. The primary key declared below.
@@ -45,7 +45,7 @@ var Columns = []string{
 	FieldText,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "docs"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "doc"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"doc_children",

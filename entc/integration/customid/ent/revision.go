@@ -91,5 +91,5 @@ func (_m *Revision) String() string {
 	return builder.String()
 }
 
-// Revisions is a parsable slice of Revision.
-type Revisions []*Revision
+// RevisionList is a parsable slice of Revision.
+type RevisionList []*Revision

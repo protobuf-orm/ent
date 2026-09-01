@@ -194,5 +194,5 @@ func (_m *Task) String() string {
 	return builder.String()
 }
 
-// Tasks is a parsable slice of Task.
-type Tasks []*Task
+// TaskList is a parsable slice of Task.
+type TaskList []*Task

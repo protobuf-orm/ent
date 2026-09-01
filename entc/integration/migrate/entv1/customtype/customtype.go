@@ -18,7 +18,7 @@ const (
 	// FieldCustom holds the string denoting the custom field in the database.
 	FieldCustom = "custom"
 	// Table holds the table name of the customtype in the database.
-	Table = "custom_types"
+	Table = "custom_type"
 )
 
 // Columns holds all SQL columns for customtype fields.

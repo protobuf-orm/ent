@@ -62,8 +62,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by ids.
-func (m *Mutation) AddFriendIDs(ids ...int) {
+// AddFriendsIDs adds the "friends" edge to the Pet entity by ids.
+func (m *Mutation) AddFriendsIDs(ids ...int) {
 	if m.friends == nil {
 		m.friends = make(map[int]struct{})
 	}
@@ -82,8 +82,8 @@ func (m *Mutation) FriendsCleared() bool {
 	return m.clearedfriends
 }
 
-// RemoveFriendIDs removes the "friends" edge to the Pet entity by IDs.
-func (m *Mutation) RemoveFriendIDs(ids ...int) {
+// RemoveFriendsIDs removes the "friends" edge to the Pet entity by IDs.
+func (m *Mutation) RemoveFriendsIDs(ids ...int) {
 	if m.removedfriends == nil {
 		m.removedfriends = make(map[int]struct{})
 	}

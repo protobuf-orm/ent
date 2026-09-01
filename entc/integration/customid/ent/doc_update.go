@@ -71,9 +71,9 @@ func (_u *DocUpdate) SetParent(v *Doc) *DocUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Doc entity by IDs.
-func (_u *DocUpdate) AddChildIDs(ids ...schema.DocID) *DocUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Doc entity by IDs.
+func (_u *DocUpdate) AddChildrenIDs(ids ...schema.DocID) *DocUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -83,7 +83,7 @@ func (_u *DocUpdate) AddChildren(v ...*Doc) *DocUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // AddRelatedIDs adds the "related" edge to the Doc entity by IDs.
@@ -118,9 +118,9 @@ func (_u *DocUpdate) ClearChildren() *DocUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Doc entities by IDs.
-func (_u *DocUpdate) RemoveChildIDs(ids ...schema.DocID) *DocUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Doc entities by IDs.
+func (_u *DocUpdate) RemoveChildrenIDs(ids ...schema.DocID) *DocUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -130,7 +130,7 @@ func (_u *DocUpdate) RemoveChildren(v ...*Doc) *DocUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearRelated clears all "related" edges to the Doc entity.
@@ -374,9 +374,9 @@ func (_u *DocUpdateOne) SetParent(v *Doc) *DocUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Doc entity by IDs.
-func (_u *DocUpdateOne) AddChildIDs(ids ...schema.DocID) *DocUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Doc entity by IDs.
+func (_u *DocUpdateOne) AddChildrenIDs(ids ...schema.DocID) *DocUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -386,7 +386,7 @@ func (_u *DocUpdateOne) AddChildren(v ...*Doc) *DocUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // AddRelatedIDs adds the "related" edge to the Doc entity by IDs.
@@ -421,9 +421,9 @@ func (_u *DocUpdateOne) ClearChildren() *DocUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Doc entities by IDs.
-func (_u *DocUpdateOne) RemoveChildIDs(ids ...schema.DocID) *DocUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Doc entities by IDs.
+func (_u *DocUpdateOne) RemoveChildrenIDs(ids ...schema.DocID) *DocUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -433,7 +433,7 @@ func (_u *DocUpdateOne) RemoveChildren(v ...*Doc) *DocUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearRelated clears all "related" edges to the Doc entity.

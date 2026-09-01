@@ -59,15 +59,21 @@ func (_c *FriendshipCreate) SetUserID(v int) *FriendshipCreate {
 	return _c
 }
 
-// SetFriendID sets the "friend_id" field.
-func (_c *FriendshipCreate) SetFriendID(v int) *FriendshipCreate {
-	_c.mutation.SetFriendID(v)
+// SetFriendsID sets the "friends_id" field.
+func (_c *FriendshipCreate) SetFriendsID(v int) *FriendshipCreate {
+	_c.mutation.SetFriendsID(v)
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *FriendshipCreate) SetUser(v *User) *FriendshipCreate {
 	return _c.SetUserID(v.ID)
+}
+
+// SetFriendID sets the "friend" edge to the User entity by ID.
+func (_c *FriendshipCreate) SetFriendID(id int) *FriendshipCreate {
+	_c.mutation.SetFriendID(id)
+	return _c
 }
 
 // SetFriend sets the "friend" edge to the User entity.
@@ -131,8 +137,8 @@ func (_c *FriendshipCreate) check() error {
 	if _, ok := _c.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "Friendship.user_id"`)}
 	}
-	if _, ok := _c.mutation.FriendID(); !ok {
-		return &ValidationError{Name: "friend_id", err: errors.New(`ent: missing required field "Friendship.friend_id"`)}
+	if _, ok := _c.mutation.FriendsID(); !ok {
+		return &ValidationError{Name: "friends_id", err: errors.New(`ent: missing required field "Friendship.friends_id"`)}
 	}
 	if len(_c.mutation.UserIDs()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "Friendship.user"`)}
@@ -208,7 +214,7 @@ func (_c *FriendshipCreate) createSpec() (*Friendship, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.FriendID = nodes[0]
+		_node.FriendsID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

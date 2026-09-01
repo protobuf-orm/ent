@@ -33,9 +33,9 @@ func (_u *ProcessUpdate) Where(ps ...predicate.Process) *ProcessUpdate {
 	return _u
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_u *ProcessUpdate) AddFileIDs(ids ...int) *ProcessUpdate {
-	_u.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_u *ProcessUpdate) AddFilesIDs(ids ...int) *ProcessUpdate {
+	_u.mutation.AddFilesIDs(ids...)
 	return _u
 }
 
@@ -45,12 +45,12 @@ func (_u *ProcessUpdate) AddFiles(v ...*File) *ProcessUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFileIDs(ids...)
+	return _u.AddFilesIDs(ids...)
 }
 
-// AddAttachedFileIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
-func (_u *ProcessUpdate) AddAttachedFileIDs(ids ...int) *ProcessUpdate {
-	_u.mutation.AddAttachedFileIDs(ids...)
+// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
+func (_u *ProcessUpdate) AddAttachedFilesIDs(ids ...int) *ProcessUpdate {
+	_u.mutation.AddAttachedFilesIDs(ids...)
 	return _u
 }
 
@@ -60,7 +60,7 @@ func (_u *ProcessUpdate) AddAttachedFiles(v ...*AttachedFile) *ProcessUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddAttachedFileIDs(ids...)
+	return _u.AddAttachedFilesIDs(ids...)
 }
 
 // Mutation returns the ProcessMutation object of the builder.
@@ -74,9 +74,9 @@ func (_u *ProcessUpdate) ClearFiles() *ProcessUpdate {
 	return _u
 }
 
-// RemoveFileIDs removes the "files" edge to File entities by IDs.
-func (_u *ProcessUpdate) RemoveFileIDs(ids ...int) *ProcessUpdate {
-	_u.mutation.RemoveFileIDs(ids...)
+// RemoveFilesIDs removes the "files" edge to File entities by IDs.
+func (_u *ProcessUpdate) RemoveFilesIDs(ids ...int) *ProcessUpdate {
+	_u.mutation.RemoveFilesIDs(ids...)
 	return _u
 }
 
@@ -86,7 +86,7 @@ func (_u *ProcessUpdate) RemoveFiles(v ...*File) *ProcessUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFileIDs(ids...)
+	return _u.RemoveFilesIDs(ids...)
 }
 
 // ClearAttachedFiles clears all "attached_files" edges to the AttachedFile entity.
@@ -95,9 +95,9 @@ func (_u *ProcessUpdate) ClearAttachedFiles() *ProcessUpdate {
 	return _u
 }
 
-// RemoveAttachedFileIDs removes the "attached_files" edge to AttachedFile entities by IDs.
-func (_u *ProcessUpdate) RemoveAttachedFileIDs(ids ...int) *ProcessUpdate {
-	_u.mutation.RemoveAttachedFileIDs(ids...)
+// RemoveAttachedFilesIDs removes the "attached_files" edge to AttachedFile entities by IDs.
+func (_u *ProcessUpdate) RemoveAttachedFilesIDs(ids ...int) *ProcessUpdate {
+	_u.mutation.RemoveAttachedFilesIDs(ids...)
 	return _u
 }
 
@@ -107,7 +107,7 @@ func (_u *ProcessUpdate) RemoveAttachedFiles(v ...*AttachedFile) *ProcessUpdate 
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveAttachedFileIDs(ids...)
+	return _u.RemoveAttachedFilesIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -268,9 +268,9 @@ type ProcessUpdateOne struct {
 	mutation *ProcessMutation
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_u *ProcessUpdateOne) AddFileIDs(ids ...int) *ProcessUpdateOne {
-	_u.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_u *ProcessUpdateOne) AddFilesIDs(ids ...int) *ProcessUpdateOne {
+	_u.mutation.AddFilesIDs(ids...)
 	return _u
 }
 
@@ -280,12 +280,12 @@ func (_u *ProcessUpdateOne) AddFiles(v ...*File) *ProcessUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFileIDs(ids...)
+	return _u.AddFilesIDs(ids...)
 }
 
-// AddAttachedFileIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
-func (_u *ProcessUpdateOne) AddAttachedFileIDs(ids ...int) *ProcessUpdateOne {
-	_u.mutation.AddAttachedFileIDs(ids...)
+// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
+func (_u *ProcessUpdateOne) AddAttachedFilesIDs(ids ...int) *ProcessUpdateOne {
+	_u.mutation.AddAttachedFilesIDs(ids...)
 	return _u
 }
 
@@ -295,7 +295,7 @@ func (_u *ProcessUpdateOne) AddAttachedFiles(v ...*AttachedFile) *ProcessUpdateO
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddAttachedFileIDs(ids...)
+	return _u.AddAttachedFilesIDs(ids...)
 }
 
 // Mutation returns the ProcessMutation object of the builder.
@@ -309,9 +309,9 @@ func (_u *ProcessUpdateOne) ClearFiles() *ProcessUpdateOne {
 	return _u
 }
 
-// RemoveFileIDs removes the "files" edge to File entities by IDs.
-func (_u *ProcessUpdateOne) RemoveFileIDs(ids ...int) *ProcessUpdateOne {
-	_u.mutation.RemoveFileIDs(ids...)
+// RemoveFilesIDs removes the "files" edge to File entities by IDs.
+func (_u *ProcessUpdateOne) RemoveFilesIDs(ids ...int) *ProcessUpdateOne {
+	_u.mutation.RemoveFilesIDs(ids...)
 	return _u
 }
 
@@ -321,7 +321,7 @@ func (_u *ProcessUpdateOne) RemoveFiles(v ...*File) *ProcessUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFileIDs(ids...)
+	return _u.RemoveFilesIDs(ids...)
 }
 
 // ClearAttachedFiles clears all "attached_files" edges to the AttachedFile entity.
@@ -330,9 +330,9 @@ func (_u *ProcessUpdateOne) ClearAttachedFiles() *ProcessUpdateOne {
 	return _u
 }
 
-// RemoveAttachedFileIDs removes the "attached_files" edge to AttachedFile entities by IDs.
-func (_u *ProcessUpdateOne) RemoveAttachedFileIDs(ids ...int) *ProcessUpdateOne {
-	_u.mutation.RemoveAttachedFileIDs(ids...)
+// RemoveAttachedFilesIDs removes the "attached_files" edge to AttachedFile entities by IDs.
+func (_u *ProcessUpdateOne) RemoveAttachedFilesIDs(ids ...int) *ProcessUpdateOne {
+	_u.mutation.RemoveAttachedFilesIDs(ids...)
 	return _u
 }
 
@@ -342,7 +342,7 @@ func (_u *ProcessUpdateOne) RemoveAttachedFiles(v ...*AttachedFile) *ProcessUpda
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveAttachedFileIDs(ids...)
+	return _u.RemoveAttachedFilesIDs(ids...)
 }
 
 // Where appends a list predicates to the ProcessUpdate builder.

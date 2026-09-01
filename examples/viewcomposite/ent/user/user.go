@@ -18,7 +18,7 @@ const (
 	// FieldPrivateInfo holds the string denoting the private_info field in the database.
 	FieldPrivateInfo = "private_info"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 )
 
 // Columns holds all SQL columns for user fields.

@@ -158,7 +158,7 @@ func (_q *RoleUserQuery) OnlyX(ctx context.Context) *RoleUser {
 	return node
 }
 
-// All executes the query and returns a list of RoleUsers.
+// All executes the query and returns a list of RoleUser entities.
 func (_q *RoleUserQuery) All(ctx context.Context) ([]*RoleUser, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

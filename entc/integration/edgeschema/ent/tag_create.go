@@ -36,9 +36,9 @@ func (_c *TagCreate) SetValue(v string) *TagCreate {
 	return _c
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_c *TagCreate) AddTweetIDs(ids ...int) *TagCreate {
-	_c.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_c *TagCreate) AddTweetsIDs(ids ...int) *TagCreate {
+	_c.mutation.AddTweetsIDs(ids...)
 	return _c
 }
 
@@ -48,12 +48,12 @@ func (_c *TagCreate) AddTweets(v ...*Tweet) *TagCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTweetIDs(ids...)
+	return _c.AddTweetsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *TagCreate) AddGroupIDs(ids ...int) *TagCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *TagCreate) AddGroupsIDs(ids ...int) *TagCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -63,12 +63,12 @@ func (_c *TagCreate) AddGroups(v ...*Group) *TagCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_c *TagCreate) AddTweetTagIDs(ids ...uuid.UUID) *TagCreate {
-	_c.mutation.AddTweetTagIDs(ids...)
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
+func (_c *TagCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TagCreate {
+	_c.mutation.AddTweetTagsIDs(ids...)
 	return _c
 }
 
@@ -78,12 +78,12 @@ func (_c *TagCreate) AddTweetTags(v ...*TweetTag) *TagCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTweetTagIDs(ids...)
+	return _c.AddTweetTagsIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_c *TagCreate) AddGroupTagIDs(ids ...int) *TagCreate {
-	_c.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_c *TagCreate) AddGroupTagsIDs(ids ...int) *TagCreate {
+	_c.mutation.AddGroupTagsIDs(ids...)
 	return _c
 }
 
@@ -93,7 +93,7 @@ func (_c *TagCreate) AddGroupTags(v ...*GroupTag) *TagCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupTagIDs(ids...)
+	return _c.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.

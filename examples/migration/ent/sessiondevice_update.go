@@ -110,9 +110,9 @@ func (_u *SessionDeviceUpdate) ClearUpdatedAt() *SessionDeviceUpdate {
 	return _u
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by IDs.
-func (_u *SessionDeviceUpdate) AddSessionIDs(ids ...uuid.UUID) *SessionDeviceUpdate {
-	_u.mutation.AddSessionIDs(ids...)
+// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
+func (_u *SessionDeviceUpdate) AddSessionsIDs(ids ...uuid.UUID) *SessionDeviceUpdate {
+	_u.mutation.AddSessionsIDs(ids...)
 	return _u
 }
 
@@ -122,7 +122,7 @@ func (_u *SessionDeviceUpdate) AddSessions(v ...*Session) *SessionDeviceUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddSessionIDs(ids...)
+	return _u.AddSessionsIDs(ids...)
 }
 
 // Mutation returns the SessionDeviceMutation object of the builder.
@@ -136,9 +136,9 @@ func (_u *SessionDeviceUpdate) ClearSessions() *SessionDeviceUpdate {
 	return _u
 }
 
-// RemoveSessionIDs removes the "sessions" edge to Session entities by IDs.
-func (_u *SessionDeviceUpdate) RemoveSessionIDs(ids ...uuid.UUID) *SessionDeviceUpdate {
-	_u.mutation.RemoveSessionIDs(ids...)
+// RemoveSessionsIDs removes the "sessions" edge to Session entities by IDs.
+func (_u *SessionDeviceUpdate) RemoveSessionsIDs(ids ...uuid.UUID) *SessionDeviceUpdate {
+	_u.mutation.RemoveSessionsIDs(ids...)
 	return _u
 }
 
@@ -148,7 +148,7 @@ func (_u *SessionDeviceUpdate) RemoveSessions(v ...*Session) *SessionDeviceUpdat
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveSessionIDs(ids...)
+	return _u.RemoveSessionsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -369,9 +369,9 @@ func (_u *SessionDeviceUpdateOne) ClearUpdatedAt() *SessionDeviceUpdateOne {
 	return _u
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by IDs.
-func (_u *SessionDeviceUpdateOne) AddSessionIDs(ids ...uuid.UUID) *SessionDeviceUpdateOne {
-	_u.mutation.AddSessionIDs(ids...)
+// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
+func (_u *SessionDeviceUpdateOne) AddSessionsIDs(ids ...uuid.UUID) *SessionDeviceUpdateOne {
+	_u.mutation.AddSessionsIDs(ids...)
 	return _u
 }
 
@@ -381,7 +381,7 @@ func (_u *SessionDeviceUpdateOne) AddSessions(v ...*Session) *SessionDeviceUpdat
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddSessionIDs(ids...)
+	return _u.AddSessionsIDs(ids...)
 }
 
 // Mutation returns the SessionDeviceMutation object of the builder.
@@ -395,9 +395,9 @@ func (_u *SessionDeviceUpdateOne) ClearSessions() *SessionDeviceUpdateOne {
 	return _u
 }
 
-// RemoveSessionIDs removes the "sessions" edge to Session entities by IDs.
-func (_u *SessionDeviceUpdateOne) RemoveSessionIDs(ids ...uuid.UUID) *SessionDeviceUpdateOne {
-	_u.mutation.RemoveSessionIDs(ids...)
+// RemoveSessionsIDs removes the "sessions" edge to Session entities by IDs.
+func (_u *SessionDeviceUpdateOne) RemoveSessionsIDs(ids ...uuid.UUID) *SessionDeviceUpdateOne {
+	_u.mutation.RemoveSessionsIDs(ids...)
 	return _u
 }
 
@@ -407,7 +407,7 @@ func (_u *SessionDeviceUpdateOne) RemoveSessions(v ...*Session) *SessionDeviceUp
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveSessionIDs(ids...)
+	return _u.RemoveSessionsIDs(ids...)
 }
 
 // Where appends a list predicates to the SessionDeviceUpdate builder.

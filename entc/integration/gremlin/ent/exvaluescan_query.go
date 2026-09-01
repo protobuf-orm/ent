@@ -163,7 +163,7 @@ func (_q *ExValueScanQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of ExValueScans.
+// All executes the query and returns a list of ExValueScan entities.
 func (_q *ExValueScanQuery) All(ctx context.Context) ([]*ExValueScan, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *ExValueScanQuery) gremlinAll(ctx context.Context, hooks ...queryHook) 
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms ExValueScans
+	var _ms ExValueScanList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

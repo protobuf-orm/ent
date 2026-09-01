@@ -210,7 +210,7 @@ func (_q *UserGroupQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of UserGroups.
+// All executes the query and returns a list of UserGroup entities.
 func (_q *UserGroupQuery) All(ctx context.Context) ([]*UserGroup, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

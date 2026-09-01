@@ -129,5 +129,5 @@ func (_m *City) String() string {
 	return builder.String()
 }
 
-// Cities is a parsable slice of City.
-type Cities []*City
+// CityList is a parsable slice of City.
+type CityList []*City

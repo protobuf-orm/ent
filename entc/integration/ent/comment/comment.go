@@ -28,7 +28,7 @@ const (
 	// FieldClient holds the string denoting the client field in the database.
 	FieldClient = "client"
 	// Table holds the table name of the comment in the database.
-	Table = "comments"
+	Table = "comment"
 )
 
 // Columns holds all SQL columns for comment fields.

@@ -33,9 +33,9 @@ func (_c *UserCreate) SetID(v int) *UserCreate {
 	return _c
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -45,7 +45,7 @@ func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
 // SetParentID sets the "parent" edge to the User entity by ID.
@@ -67,9 +67,9 @@ func (_c *UserCreate) SetParent(v *User) *UserCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -79,12 +79,12 @@ func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_c *UserCreate) AddPetIDs(ids ...string) *UserCreate {
-	_c.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_c *UserCreate) AddPetsIDs(ids ...string) *UserCreate {
+	_c.mutation.AddPetsIDs(ids...)
 	return _c
 }
 
@@ -94,7 +94,7 @@ func (_c *UserCreate) AddPets(v ...*Pet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPetIDs(ids...)
+	return _c.AddPetsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

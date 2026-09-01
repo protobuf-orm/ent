@@ -60,9 +60,9 @@ func (_c *FileTypeCreate) SetNillableState(v *filetype.State) *FileTypeCreate {
 	return _c
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_c *FileTypeCreate) AddFileIDs(ids ...string) *FileTypeCreate {
-	_c.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_c *FileTypeCreate) AddFilesIDs(ids ...string) *FileTypeCreate {
+	_c.mutation.AddFilesIDs(ids...)
 	return _c
 }
 
@@ -72,7 +72,7 @@ func (_c *FileTypeCreate) AddFiles(v ...*File) *FileTypeCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFileIDs(ids...)
+	return _c.AddFilesIDs(ids...)
 }
 
 // Mutation returns the FileTypeMutation object of the builder.

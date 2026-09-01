@@ -43,8 +43,8 @@ func (m *Mutation) Predicates() []predicate.Process {
 	return m.predicates
 }
 
-// AddFileIDs adds the "files" edge to the File entity by ids.
-func (m *Mutation) AddFileIDs(ids ...int) {
+// AddFilesIDs adds the "files" edge to the File entity by ids.
+func (m *Mutation) AddFilesIDs(ids ...int) {
 	if m.files == nil {
 		m.files = make(map[int]struct{})
 	}
@@ -63,8 +63,8 @@ func (m *Mutation) FilesCleared() bool {
 	return m.clearedfiles
 }
 
-// RemoveFileIDs removes the "files" edge to the File entity by IDs.
-func (m *Mutation) RemoveFileIDs(ids ...int) {
+// RemoveFilesIDs removes the "files" edge to the File entity by IDs.
+func (m *Mutation) RemoveFilesIDs(ids ...int) {
 	if m.removedfiles == nil {
 		m.removedfiles = make(map[int]struct{})
 	}
@@ -97,8 +97,8 @@ func (m *Mutation) ResetFiles() {
 	m.removedfiles = nil
 }
 
-// AddAttachedFileIDs adds the "attached_files" edge to the AttachedFile entity by ids.
-func (m *Mutation) AddAttachedFileIDs(ids ...int) {
+// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by ids.
+func (m *Mutation) AddAttachedFilesIDs(ids ...int) {
 	if m.attached_files == nil {
 		m.attached_files = make(map[int]struct{})
 	}
@@ -117,8 +117,8 @@ func (m *Mutation) AttachedFilesCleared() bool {
 	return m.clearedattached_files
 }
 
-// RemoveAttachedFileIDs removes the "attached_files" edge to the AttachedFile entity by IDs.
-func (m *Mutation) RemoveAttachedFileIDs(ids ...int) {
+// RemoveAttachedFilesIDs removes the "attached_files" edge to the AttachedFile entity by IDs.
+func (m *Mutation) RemoveAttachedFilesIDs(ids ...int) {
 	if m.removedattached_files == nil {
 		m.removedattached_files = make(map[int]struct{})
 	}

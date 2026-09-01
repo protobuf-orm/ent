@@ -187,7 +187,7 @@ func (_q *StreetQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Streets.
+// All executes the query and returns a list of Street entities.
 func (_q *StreetQuery) All(ctx context.Context) ([]*Street, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

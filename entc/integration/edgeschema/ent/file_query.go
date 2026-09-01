@@ -187,7 +187,7 @@ func (_q *FileQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Files.
+// All executes the query and returns a list of File entities.
 func (_q *FileQuery) All(ctx context.Context) ([]*File, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

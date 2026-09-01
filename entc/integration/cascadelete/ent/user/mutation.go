@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddPostIDs adds the "posts" edge to the Post entity by ids.
-func (m *Mutation) AddPostIDs(ids ...int) {
+// AddPostsIDs adds the "posts" edge to the Post entity by ids.
+func (m *Mutation) AddPostsIDs(ids ...int) {
 	if m.posts == nil {
 		m.posts = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) PostsCleared() bool {
 	return m.clearedposts
 }
 
-// RemovePostIDs removes the "posts" edge to the Post entity by IDs.
-func (m *Mutation) RemovePostIDs(ids ...int) {
+// RemovePostsIDs removes the "posts" edge to the Post entity by IDs.
+func (m *Mutation) RemovePostsIDs(ids ...int) {
 	if m.removedposts == nil {
 		m.removedposts = make(map[int]struct{})
 	}

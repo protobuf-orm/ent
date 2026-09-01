@@ -77,11 +77,11 @@ func (_m *License) String() string {
 	return builder.String()
 }
 
-// Licenses is a parsable slice of License.
-type Licenses []*License
+// LicenseList is a parsable slice of License.
+type LicenseList []*License
 
-// FromResponse scans the gremlin response data into Licenses.
-func (_m *Licenses) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into LicenseList.
+func (_m *LicenseList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

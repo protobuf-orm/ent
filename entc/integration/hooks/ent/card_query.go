@@ -187,7 +187,7 @@ func (_q *CardQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Cards.
+// All executes the query and returns a list of Card entities.
 func (_q *CardQuery) All(ctx context.Context) ([]*Card, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

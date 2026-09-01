@@ -27,13 +27,13 @@ const (
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
 	// Table holds the table name of the file in the database.
-	Table = "files"
+	Table = "file"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "files"
+	ParentTable = "file"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "parent_id"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "files"
+	ChildrenTable = "file"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
 )

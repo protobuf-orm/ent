@@ -192,7 +192,7 @@ func (_q *GroupQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Groups.
+// All executes the query and returns a list of Group entities.
 func (_q *GroupQuery) All(ctx context.Context) ([]*Group, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

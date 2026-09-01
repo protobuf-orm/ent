@@ -19,8 +19,8 @@ const (
 	FieldWeight = "weight"
 	// FieldUserID holds the string denoting the user_id field in the database.
 	FieldUserID = "user_id"
-	// FieldRelativeID holds the string denoting the relative_id field in the database.
-	FieldRelativeID = "relative_id"
+	// FieldRelativesID holds the string denoting the relatives_id field in the database.
+	FieldRelativesID = "relatives_id"
 	// FieldInfoID holds the string denoting the info_id field in the database.
 	FieldInfoID = "info_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
@@ -34,26 +34,26 @@ const (
 	// RelationshipInfoFieldID holds the string denoting the ID field of the RelationshipInfo.
 	RelationshipInfoFieldID = "id"
 	// Table holds the table name of the relationship in the database.
-	Table = "relationships"
+	Table = "relationship"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "relationships"
+	UserTable = "relationship"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 	// RelativeTable is the table that holds the relative relation/edge.
-	RelativeTable = "relationships"
+	RelativeTable = "relationship"
 	// RelativeInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	RelativeInverseTable = "users"
+	RelativeInverseTable = "user"
 	// RelativeColumn is the table column denoting the relative relation/edge.
-	RelativeColumn = "relative_id"
+	RelativeColumn = "relatives_id"
 	// InfoTable is the table that holds the info relation/edge.
-	InfoTable = "relationships"
+	InfoTable = "relationship"
 	// InfoInverseTable is the table name for the RelationshipInfo entity.
 	// It exists in this package in order to avoid circular dependency with the "relationshipinfo" package.
-	InfoInverseTable = "relationship_infos"
+	InfoInverseTable = "relationship_info"
 	// InfoColumn is the table column denoting the info relation/edge.
 	InfoColumn = "info_id"
 )
@@ -62,7 +62,7 @@ const (
 var Columns = []string{
 	FieldWeight,
 	FieldUserID,
-	FieldRelativeID,
+	FieldRelativesID,
 	FieldInfoID,
 }
 
@@ -101,9 +101,9 @@ func ByUserID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserID, opts...).ToFunc()
 }
 
-// ByRelativeID orders the results by the relative_id field.
-func ByRelativeID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldRelativeID, opts...).ToFunc()
+// ByRelativesID orders the results by the relatives_id field.
+func ByRelativesID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRelativesID, opts...).ToFunc()
 }
 
 // ByInfoID orders the results by the info_id field.

@@ -22,7 +22,7 @@ const (
 	// FieldUpdateTime holds the string denoting the update_time field in the database.
 	FieldUpdateTime = "update_time"
 	// Table holds the table name of the license in the database.
-	Table = "licenses"
+	Table = "license"
 )
 
 // Columns holds all SQL columns for license fields.

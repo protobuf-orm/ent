@@ -125,5 +125,5 @@ func (_m *Media) String() string {
 	return builder.String()
 }
 
-// MediaSlice is a parsable slice of Media.
-type MediaSlice []*Media
+// MediaList is a parsable slice of Media.
+type MediaList []*Media

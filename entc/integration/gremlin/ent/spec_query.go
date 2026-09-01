@@ -178,7 +178,7 @@ func (_q *SpecQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Specs.
+// All executes the query and returns a list of Spec entities.
 func (_q *SpecQuery) All(ctx context.Context) ([]*Spec, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -351,7 +351,7 @@ func (_q *SpecQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Spe
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Specs
+	var _ms SpecList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

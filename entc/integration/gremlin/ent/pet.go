@@ -153,11 +153,11 @@ func (_m *Pet) String() string {
 	return builder.String()
 }
 
-// Pets is a parsable slice of Pet.
-type Pets []*Pet
+// PetList is a parsable slice of Pet.
+type PetList []*Pet
 
-// FromResponse scans the gremlin response data into Pets.
-func (_m *Pets) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into PetList.
+func (_m *PetList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

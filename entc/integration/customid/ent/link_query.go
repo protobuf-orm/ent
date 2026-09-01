@@ -163,7 +163,7 @@ func (_q *LinkQuery) OnlyIDX(ctx context.Context) uuidc.UUIDC {
 	return id
 }
 
-// All executes the query and returns a list of Links.
+// All executes the query and returns a list of Link entities.
 func (_q *LinkQuery) All(ctx context.Context) ([]*Link, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

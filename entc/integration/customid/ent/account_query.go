@@ -188,7 +188,7 @@ func (_q *AccountQuery) OnlyIDX(ctx context.Context) sid.ID {
 	return id
 }
 
-// All executes the query and returns a list of Accounts.
+// All executes the query and returns a list of Account entities.
 func (_q *AccountQuery) All(ctx context.Context) ([]*Account, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

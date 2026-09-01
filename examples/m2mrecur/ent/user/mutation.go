@@ -104,8 +104,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddFollowerIDs adds the "followers" edge to the User entity by ids.
-func (m *Mutation) AddFollowerIDs(ids ...int) {
+// AddFollowersIDs adds the "followers" edge to the User entity by ids.
+func (m *Mutation) AddFollowersIDs(ids ...int) {
 	if m.followers == nil {
 		m.followers = make(map[int]struct{})
 	}
@@ -124,8 +124,8 @@ func (m *Mutation) FollowersCleared() bool {
 	return m.clearedfollowers
 }
 
-// RemoveFollowerIDs removes the "followers" edge to the User entity by IDs.
-func (m *Mutation) RemoveFollowerIDs(ids ...int) {
+// RemoveFollowersIDs removes the "followers" edge to the User entity by IDs.
+func (m *Mutation) RemoveFollowersIDs(ids ...int) {
 	if m.removedfollowers == nil {
 		m.removedfollowers = make(map[int]struct{})
 	}

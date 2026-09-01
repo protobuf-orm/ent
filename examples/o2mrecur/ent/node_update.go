@@ -77,9 +77,9 @@ func (_u *NodeUpdate) SetParent(v *Node) *NodeUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Node entity by IDs.
-func (_u *NodeUpdate) AddChildIDs(ids ...int) *NodeUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Node entity by IDs.
+func (_u *NodeUpdate) AddChildrenIDs(ids ...int) *NodeUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -89,7 +89,7 @@ func (_u *NodeUpdate) AddChildren(v ...*Node) *NodeUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NodeMutation object of the builder.
@@ -109,9 +109,9 @@ func (_u *NodeUpdate) ClearChildren() *NodeUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Node entities by IDs.
-func (_u *NodeUpdate) RemoveChildIDs(ids ...int) *NodeUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Node entities by IDs.
+func (_u *NodeUpdate) RemoveChildrenIDs(ids ...int) *NodeUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -121,7 +121,7 @@ func (_u *NodeUpdate) RemoveChildren(v ...*Node) *NodeUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -306,9 +306,9 @@ func (_u *NodeUpdateOne) SetParent(v *Node) *NodeUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Node entity by IDs.
-func (_u *NodeUpdateOne) AddChildIDs(ids ...int) *NodeUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Node entity by IDs.
+func (_u *NodeUpdateOne) AddChildrenIDs(ids ...int) *NodeUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -318,7 +318,7 @@ func (_u *NodeUpdateOne) AddChildren(v ...*Node) *NodeUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NodeMutation object of the builder.
@@ -338,9 +338,9 @@ func (_u *NodeUpdateOne) ClearChildren() *NodeUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Node entities by IDs.
-func (_u *NodeUpdateOne) RemoveChildIDs(ids ...int) *NodeUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Node entities by IDs.
+func (_u *NodeUpdateOne) RemoveChildrenIDs(ids ...int) *NodeUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -350,7 +350,7 @@ func (_u *NodeUpdateOne) RemoveChildren(v ...*Node) *NodeUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Where appends a list predicates to the NodeUpdate builder.

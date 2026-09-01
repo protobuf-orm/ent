@@ -61,9 +61,9 @@ func (_c *PetCreate) SetOwner(v *User) *PetCreate {
 	return _c.SetOwnerID(v.ID)
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_c *PetCreate) AddCarIDs(ids ...int) *PetCreate {
-	_c.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_c *PetCreate) AddCarsIDs(ids ...int) *PetCreate {
+	_c.mutation.AddCarsIDs(ids...)
 	return _c
 }
 
@@ -73,12 +73,12 @@ func (_c *PetCreate) AddCars(v ...*Car) *PetCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddCarIDs(ids...)
+	return _c.AddCarsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by IDs.
-func (_c *PetCreate) AddFriendIDs(ids ...string) *PetCreate {
-	_c.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
+func (_c *PetCreate) AddFriendsIDs(ids ...string) *PetCreate {
+	_c.mutation.AddFriendsIDs(ids...)
 	return _c
 }
 
@@ -88,7 +88,7 @@ func (_c *PetCreate) AddFriends(v ...*Pet) *PetCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendIDs(ids...)
+	return _c.AddFriendsIDs(ids...)
 }
 
 // SetBestFriendID sets the "best_friend" edge to the Pet entity by ID.

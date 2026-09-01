@@ -52,9 +52,9 @@ func (_u *CarUpdate) ClearNumber() *CarUpdate {
 	return _u
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *CarUpdate) AddRentalIDs(ids ...int) *CarUpdate {
-	_u.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_u *CarUpdate) AddRentalsIDs(ids ...int) *CarUpdate {
+	_u.mutation.AddRentalsIDs(ids...)
 	return _u
 }
 
@@ -64,7 +64,7 @@ func (_u *CarUpdate) AddRentals(v ...*Rental) *CarUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRentalIDs(ids...)
+	return _u.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -78,9 +78,9 @@ func (_u *CarUpdate) ClearRentals() *CarUpdate {
 	return _u
 }
 
-// RemoveRentalIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *CarUpdate) RemoveRentalIDs(ids ...int) *CarUpdate {
-	_u.mutation.RemoveRentalIDs(ids...)
+// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
+func (_u *CarUpdate) RemoveRentalsIDs(ids ...int) *CarUpdate {
+	_u.mutation.RemoveRentalsIDs(ids...)
 	return _u
 }
 
@@ -90,7 +90,7 @@ func (_u *CarUpdate) RemoveRentals(v ...*Rental) *CarUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRentalIDs(ids...)
+	return _u.RemoveRentalsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -220,9 +220,9 @@ func (_u *CarUpdateOne) ClearNumber() *CarUpdateOne {
 	return _u
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *CarUpdateOne) AddRentalIDs(ids ...int) *CarUpdateOne {
-	_u.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_u *CarUpdateOne) AddRentalsIDs(ids ...int) *CarUpdateOne {
+	_u.mutation.AddRentalsIDs(ids...)
 	return _u
 }
 
@@ -232,7 +232,7 @@ func (_u *CarUpdateOne) AddRentals(v ...*Rental) *CarUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRentalIDs(ids...)
+	return _u.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -246,9 +246,9 @@ func (_u *CarUpdateOne) ClearRentals() *CarUpdateOne {
 	return _u
 }
 
-// RemoveRentalIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *CarUpdateOne) RemoveRentalIDs(ids ...int) *CarUpdateOne {
-	_u.mutation.RemoveRentalIDs(ids...)
+// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
+func (_u *CarUpdateOne) RemoveRentalsIDs(ids ...int) *CarUpdateOne {
+	_u.mutation.RemoveRentalsIDs(ids...)
 	return _u
 }
 
@@ -258,7 +258,7 @@ func (_u *CarUpdateOne) RemoveRentals(v ...*Rental) *CarUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRentalIDs(ids...)
+	return _u.RemoveRentalsIDs(ids...)
 }
 
 // Where appends a list predicates to the CarUpdate builder.

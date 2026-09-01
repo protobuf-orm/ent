@@ -62,9 +62,9 @@ func (_c *FileCreate) SetParent(v *File) *FileCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the File entity by IDs.
-func (_c *FileCreate) AddChildIDs(ids ...int) *FileCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the File entity by IDs.
+func (_c *FileCreate) AddChildrenIDs(ids ...int) *FileCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -74,7 +74,7 @@ func (_c *FileCreate) AddChildren(v ...*File) *FileCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.

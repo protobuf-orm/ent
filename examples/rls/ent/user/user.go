@@ -16,7 +16,7 @@ const (
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 )
 
 // Columns holds all SQL columns for user fields.

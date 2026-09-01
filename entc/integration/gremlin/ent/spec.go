@@ -89,11 +89,11 @@ func (_m *Spec) String() string {
 	return builder.String()
 }
 
-// Specs is a parsable slice of Spec.
-type Specs []*Spec
+// SpecList is a parsable slice of Spec.
+type SpecList []*Spec
 
-// FromResponse scans the gremlin response data into Specs.
-func (_m *Specs) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into SpecList.
+func (_m *SpecList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

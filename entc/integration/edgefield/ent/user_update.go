@@ -56,9 +56,9 @@ func (_u *UserUpdate) ClearSpouseID() *UserUpdate {
 	return _u
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_u *UserUpdate) AddPetIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_u *UserUpdate) AddPetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddPetsIDs(ids...)
 	return _u
 }
 
@@ -68,12 +68,12 @@ func (_u *UserUpdate) AddPets(v ...*Pet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPetIDs(ids...)
+	return _u.AddPetsIDs(ids...)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdate) AddChildIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_u *UserUpdate) AddChildrenIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -83,7 +83,7 @@ func (_u *UserUpdate) AddChildren(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
@@ -144,9 +144,9 @@ func (_u *UserUpdate) AddInfo(v ...*Info) *UserUpdate {
 	return _u.AddInfoIDs(ids...)
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *UserUpdate) AddRentalIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_u *UserUpdate) AddRentalsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddRentalsIDs(ids...)
 	return _u
 }
 
@@ -156,7 +156,7 @@ func (_u *UserUpdate) AddRentals(v ...*Rental) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRentalIDs(ids...)
+	return _u.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -170,9 +170,9 @@ func (_u *UserUpdate) ClearPets() *UserUpdate {
 	return _u
 }
 
-// RemovePetIDs removes the "pets" edge to Pet entities by IDs.
-func (_u *UserUpdate) RemovePetIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemovePetIDs(ids...)
+// RemovePetsIDs removes the "pets" edge to Pet entities by IDs.
+func (_u *UserUpdate) RemovePetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemovePetsIDs(ids...)
 	return _u
 }
 
@@ -182,7 +182,7 @@ func (_u *UserUpdate) RemovePets(v ...*Pet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePetIDs(ids...)
+	return _u.RemovePetsIDs(ids...)
 }
 
 // ClearChildren clears all "children" edges to the User entity.
@@ -191,9 +191,9 @@ func (_u *UserUpdate) ClearChildren() *UserUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveChildIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveChildrenIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -203,7 +203,7 @@ func (_u *UserUpdate) RemoveChildren(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.
@@ -251,9 +251,9 @@ func (_u *UserUpdate) ClearRentals() *UserUpdate {
 	return _u
 }
 
-// RemoveRentalIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *UserUpdate) RemoveRentalIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveRentalIDs(ids...)
+// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
+func (_u *UserUpdate) RemoveRentalsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveRentalsIDs(ids...)
 	return _u
 }
 
@@ -263,7 +263,7 @@ func (_u *UserUpdate) RemoveRentals(v ...*Rental) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRentalIDs(ids...)
+	return _u.RemoveRentalsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -609,9 +609,9 @@ func (_u *UserUpdateOne) ClearSpouseID() *UserUpdateOne {
 	return _u
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_u *UserUpdateOne) AddPetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_u *UserUpdateOne) AddPetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddPetsIDs(ids...)
 	return _u
 }
 
@@ -621,12 +621,12 @@ func (_u *UserUpdateOne) AddPets(v ...*Pet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddPetIDs(ids...)
+	return _u.AddPetsIDs(ids...)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddChildIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddChildrenIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -636,7 +636,7 @@ func (_u *UserUpdateOne) AddChildren(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
@@ -697,9 +697,9 @@ func (_u *UserUpdateOne) AddInfo(v ...*Info) *UserUpdateOne {
 	return _u.AddInfoIDs(ids...)
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *UserUpdateOne) AddRentalIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_u *UserUpdateOne) AddRentalsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddRentalsIDs(ids...)
 	return _u
 }
 
@@ -709,7 +709,7 @@ func (_u *UserUpdateOne) AddRentals(v ...*Rental) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRentalIDs(ids...)
+	return _u.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -723,9 +723,9 @@ func (_u *UserUpdateOne) ClearPets() *UserUpdateOne {
 	return _u
 }
 
-// RemovePetIDs removes the "pets" edge to Pet entities by IDs.
-func (_u *UserUpdateOne) RemovePetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemovePetIDs(ids...)
+// RemovePetsIDs removes the "pets" edge to Pet entities by IDs.
+func (_u *UserUpdateOne) RemovePetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemovePetsIDs(ids...)
 	return _u
 }
 
@@ -735,7 +735,7 @@ func (_u *UserUpdateOne) RemovePets(v ...*Pet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemovePetIDs(ids...)
+	return _u.RemovePetsIDs(ids...)
 }
 
 // ClearChildren clears all "children" edges to the User entity.
@@ -744,9 +744,9 @@ func (_u *UserUpdateOne) ClearChildren() *UserUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveChildIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveChildrenIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -756,7 +756,7 @@ func (_u *UserUpdateOne) RemoveChildren(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.
@@ -804,9 +804,9 @@ func (_u *UserUpdateOne) ClearRentals() *UserUpdateOne {
 	return _u
 }
 
-// RemoveRentalIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *UserUpdateOne) RemoveRentalIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveRentalIDs(ids...)
+// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
+func (_u *UserUpdateOne) RemoveRentalsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveRentalsIDs(ids...)
 	return _u
 }
 
@@ -816,7 +816,7 @@ func (_u *UserUpdateOne) RemoveRentals(v ...*Rental) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRentalIDs(ids...)
+	return _u.RemoveRentalsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

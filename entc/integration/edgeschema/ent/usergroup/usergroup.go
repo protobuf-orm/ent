@@ -29,19 +29,19 @@ const (
 	// EdgeGroup holds the string denoting the group edge name in mutations.
 	EdgeGroup = "group"
 	// Table holds the table name of the usergroup in the database.
-	Table = "user_groups"
+	Table = "user_group"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "user_groups"
+	UserTable = "user_group"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 	// GroupTable is the table that holds the group relation/edge.
-	GroupTable = "user_groups"
+	GroupTable = "user_group"
 	// GroupInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupInverseTable = "groups"
+	GroupInverseTable = "group"
 	// GroupColumn is the table column denoting the group relation/edge.
 	GroupColumn = "group_id"
 )

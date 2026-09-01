@@ -118,8 +118,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildIDs adds the "children" edge to the Doc entity by ids.
-func (m *Mutation) AddChildIDs(ids ...schema.DocID) {
+// AddChildrenIDs adds the "children" edge to the Doc entity by ids.
+func (m *Mutation) AddChildrenIDs(ids ...schema.DocID) {
 	if m.children == nil {
 		m.children = make(map[schema.DocID]struct{})
 	}
@@ -138,8 +138,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildIDs removes the "children" edge to the Doc entity by IDs.
-func (m *Mutation) RemoveChildIDs(ids ...schema.DocID) {
+// RemoveChildrenIDs removes the "children" edge to the Doc entity by IDs.
+func (m *Mutation) RemoveChildrenIDs(ids ...schema.DocID) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[schema.DocID]struct{})
 	}

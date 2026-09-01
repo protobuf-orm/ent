@@ -79,7 +79,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			friendship.FieldWeight:    {Type: field.TypeInt, Column: friendship.FieldWeight},
 			friendship.FieldCreatedAt: {Type: field.TypeTime, Column: friendship.FieldCreatedAt},
 			friendship.FieldUserID:    {Type: field.TypeInt, Column: friendship.FieldUserID},
-			friendship.FieldFriendID:  {Type: field.TypeInt, Column: friendship.FieldFriendID},
+			friendship.FieldFriendsID: {Type: field.TypeInt, Column: friendship.FieldFriendsID},
 		},
 	}
 	graph.Nodes[3] = &sqlgraph.Node{
@@ -134,16 +134,16 @@ var schemaGraph = func() *sqlgraph.Schema {
 				},
 				{
 					Type:   field.TypeInt,
-					Column: relationship.FieldRelativeID,
+					Column: relationship.FieldRelativesID,
 				},
 			},
 		},
 		Type: "Relationship",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			relationship.FieldWeight:     {Type: field.TypeInt, Column: relationship.FieldWeight},
-			relationship.FieldUserID:     {Type: field.TypeInt, Column: relationship.FieldUserID},
-			relationship.FieldRelativeID: {Type: field.TypeInt, Column: relationship.FieldRelativeID},
-			relationship.FieldInfoID:     {Type: field.TypeInt, Column: relationship.FieldInfoID},
+			relationship.FieldWeight:      {Type: field.TypeInt, Column: relationship.FieldWeight},
+			relationship.FieldUserID:      {Type: field.TypeInt, Column: relationship.FieldUserID},
+			relationship.FieldRelativesID: {Type: field.TypeInt, Column: relationship.FieldRelativesID},
+			relationship.FieldInfoID:      {Type: field.TypeInt, Column: relationship.FieldInfoID},
 		},
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
@@ -1115,9 +1115,9 @@ func (f *FriendshipFilter) WhereUserID(p entql.IntP) {
 	f.Where(p.Field(friendship.FieldUserID))
 }
 
-// WhereFriendID applies the entql int predicate on the friend_id field.
-func (f *FriendshipFilter) WhereFriendID(p entql.IntP) {
-	f.Where(p.Field(friendship.FieldFriendID))
+// WhereFriendsID applies the entql int predicate on the friends_id field.
+func (f *FriendshipFilter) WhereFriendsID(p entql.IntP) {
+	f.Where(p.Field(friendship.FieldFriendsID))
 }
 
 // WhereHasUser applies a predicate to check if query has an edge user.
@@ -1440,9 +1440,9 @@ func (f *RelationshipFilter) WhereUserID(p entql.IntP) {
 	f.Where(p.Field(relationship.FieldUserID))
 }
 
-// WhereRelativeID applies the entql int predicate on the relative_id field.
-func (f *RelationshipFilter) WhereRelativeID(p entql.IntP) {
-	f.Where(p.Field(relationship.FieldRelativeID))
+// WhereRelativesID applies the entql int predicate on the relatives_id field.
+func (f *RelationshipFilter) WhereRelativesID(p entql.IntP) {
+	f.Where(p.Field(relationship.FieldRelativesID))
 }
 
 // WhereInfoID applies the entql int predicate on the info_id field.

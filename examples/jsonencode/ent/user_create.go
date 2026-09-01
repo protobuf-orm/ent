@@ -36,9 +36,9 @@ func (_c *UserCreate) SetName(v string) *UserCreate {
 	return _c
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_c *UserCreate) AddPetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_c *UserCreate) AddPetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddPetsIDs(ids...)
 	return _c
 }
 
@@ -48,7 +48,7 @@ func (_c *UserCreate) AddPets(v ...*Pet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPetIDs(ids...)
+	return _c.AddPetsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

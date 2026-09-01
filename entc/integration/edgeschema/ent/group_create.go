@@ -43,9 +43,9 @@ func (_c *GroupCreate) SetNillableName(v *string) *GroupCreate {
 	return _c
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_c *GroupCreate) AddUserIDs(ids ...int) *GroupCreate {
-	_c.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_c *GroupCreate) AddUsersIDs(ids ...int) *GroupCreate {
+	_c.mutation.AddUsersIDs(ids...)
 	return _c
 }
 
@@ -55,12 +55,12 @@ func (_c *GroupCreate) AddUsers(v ...*User) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddUserIDs(ids...)
+	return _c.AddUsersIDs(ids...)
 }
 
-// AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (_c *GroupCreate) AddTagIDs(ids ...int) *GroupCreate {
-	_c.mutation.AddTagIDs(ids...)
+// AddTagsIDs adds the "tags" edge to the Tag entity by IDs.
+func (_c *GroupCreate) AddTagsIDs(ids ...int) *GroupCreate {
+	_c.mutation.AddTagsIDs(ids...)
 	return _c
 }
 
@@ -70,12 +70,12 @@ func (_c *GroupCreate) AddTags(v ...*Tag) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTagIDs(ids...)
+	return _c.AddTagsIDs(ids...)
 }
 
-// AddJoinedUserIDs adds the "joined_users" edge to the UserGroup entity by IDs.
-func (_c *GroupCreate) AddJoinedUserIDs(ids ...int) *GroupCreate {
-	_c.mutation.AddJoinedUserIDs(ids...)
+// AddJoinedUsersIDs adds the "joined_users" edge to the UserGroup entity by IDs.
+func (_c *GroupCreate) AddJoinedUsersIDs(ids ...int) *GroupCreate {
+	_c.mutation.AddJoinedUsersIDs(ids...)
 	return _c
 }
 
@@ -85,12 +85,12 @@ func (_c *GroupCreate) AddJoinedUsers(v ...*UserGroup) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddJoinedUserIDs(ids...)
+	return _c.AddJoinedUsersIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_c *GroupCreate) AddGroupTagIDs(ids ...int) *GroupCreate {
-	_c.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_c *GroupCreate) AddGroupTagsIDs(ids ...int) *GroupCreate {
+	_c.mutation.AddGroupTagsIDs(ids...)
 	return _c
 }
 
@@ -100,7 +100,7 @@ func (_c *GroupCreate) AddGroupTags(v ...*GroupTag) *GroupCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupTagIDs(ids...)
+	return _c.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the GroupMutation object of the builder.

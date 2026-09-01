@@ -115,5 +115,5 @@ func (_m *License) String() string {
 	return builder.String()
 }
 
-// Licenses is a parsable slice of License.
-type Licenses []*License
+// LicenseList is a parsable slice of License.
+type LicenseList []*License

@@ -166,5 +166,5 @@ func (_m *Car) String() string {
 	return builder.String()
 }
 
-// Cars is a parsable slice of Car.
-type Cars []*Car
+// CarList is a parsable slice of Car.
+type CarList []*Car

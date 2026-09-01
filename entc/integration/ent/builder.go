@@ -91,5 +91,5 @@ func (_m *Builder) String() string {
 	return builder.String()
 }
 
-// Builders is a parsable slice of Builder.
-type Builders []*Builder
+// BuilderList is a parsable slice of Builder.
+type BuilderList []*Builder

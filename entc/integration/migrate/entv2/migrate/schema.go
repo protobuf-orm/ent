@@ -13,16 +13,16 @@ import (
 )
 
 var (
-	// BlogsColumns holds the columns for the "blogs" table.
-	BlogsColumns = []*schema.Column{
+	// BlogColumns holds the columns for the "blog" table.
+	BlogColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true, SchemaType: map[string]string{"postgres": "serial"}},
 		{Name: "oid", Type: field.TypeInt, SchemaType: map[string]string{"postgres": "serial"}},
 	}
-	// BlogsTable holds the schema information for the "blogs" table.
-	BlogsTable = &schema.Table{
-		Name:       "blogs",
-		Columns:    BlogsColumns,
-		PrimaryKey: []*schema.Column{BlogsColumns[0]},
+	// BlogTable holds the schema information for the "blog" table.
+	BlogTable = &schema.Table{
+		Name:       "blog",
+		Columns:    BlogColumns,
+		PrimaryKey: []*schema.Column{BlogColumns[0]},
 	}
 	// CarColumns holds the columns for the "Car" table.
 	CarColumns = []*schema.Column{
@@ -37,15 +37,15 @@ var (
 		PrimaryKey: []*schema.Column{CarColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "Car_users_car",
+				Symbol:     "Car_user_car",
 				Columns:    []*schema.Column{CarColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// ConversionsColumns holds the columns for the "conversions" table.
-	ConversionsColumns = []*schema.Column{
+	// ConversionColumns holds the columns for the "conversion" table.
+	ConversionColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "int8_to_string", Type: field.TypeString, Nullable: true, Size: 6},
@@ -57,34 +57,34 @@ var (
 		{Name: "int64_to_string", Type: field.TypeString, Nullable: true, Size: 21},
 		{Name: "uint64_to_string", Type: field.TypeString, Nullable: true, Size: 21},
 	}
-	// ConversionsTable holds the schema information for the "conversions" table.
-	ConversionsTable = &schema.Table{
-		Name:       "conversions",
-		Columns:    ConversionsColumns,
-		PrimaryKey: []*schema.Column{ConversionsColumns[0]},
+	// ConversionTable holds the schema information for the "conversion" table.
+	ConversionTable = &schema.Table{
+		Name:       "conversion",
+		Columns:    ConversionColumns,
+		PrimaryKey: []*schema.Column{ConversionColumns[0]},
 	}
-	// CustomTypesColumns holds the columns for the "custom_types" table.
-	CustomTypesColumns = []*schema.Column{
+	// CustomTypeColumns holds the columns for the "custom_type" table.
+	CustomTypeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "custom", Type: field.TypeString, Nullable: true, SchemaType: map[string]string{"postgres": "customtype"}},
 		{Name: "tz0", Type: field.TypeTime, Nullable: true, SchemaType: map[string]string{"mysql": "timestamp(0)", "postgres": "timestamptz(0)"}},
 		{Name: "tz3", Type: field.TypeTime, Nullable: true, SchemaType: map[string]string{"mysql": "timestamp(3)", "postgres": "timestamptz(3)"}},
 	}
-	// CustomTypesTable holds the schema information for the "custom_types" table.
-	CustomTypesTable = &schema.Table{
-		Name:       "custom_types",
-		Columns:    CustomTypesColumns,
-		PrimaryKey: []*schema.Column{CustomTypesColumns[0]},
+	// CustomTypeTable holds the schema information for the "custom_type" table.
+	CustomTypeTable = &schema.Table{
+		Name:       "custom_type",
+		Columns:    CustomTypeColumns,
+		PrimaryKey: []*schema.Column{CustomTypeColumns[0]},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 	}
 	// MediaColumns holds the columns for the "media" table.
 	MediaColumns = []*schema.Column{
@@ -120,28 +120,28 @@ var (
 			},
 		},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Unique: true, Nullable: true},
 		{Name: "owner_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "user_pet_id",
-				Columns:    []*schema.Column{PetsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Columns:    []*schema.Column{PetColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "oid", Type: field.TypeInt, Increment: true},
 		{Name: "mixed_string", Type: field.TypeString, Default: "default"},
 		{Name: "mixed_enum", Type: field.TypeEnum, Enums: []string{"on", "off"}, Default: "on"},
@@ -166,16 +166,16 @@ var (
 		{Name: "drop_optional", Type: field.TypeString},
 		{Name: "blog_admins", Type: field.TypeInt, Nullable: true, SchemaType: map[string]string{"postgres": "serial"}},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_blogs_admins",
-				Columns:    []*schema.Column{UsersColumns[22]},
-				RefColumns: []*schema.Column{BlogsColumns[0]},
+				Symbol:     "user_blog_admins",
+				Columns:    []*schema.Column{UserColumns[22]},
+				RefColumns: []*schema.Column{BlogColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -183,7 +183,7 @@ var (
 			{
 				Name:    "user_description",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[6]},
+				Columns: []*schema.Column{UserColumns[6]},
 				Annotation: &entsql.IndexAnnotation{
 					Prefix: 100,
 				},
@@ -191,12 +191,12 @@ var (
 			{
 				Name:    "user_phone_age",
 				Unique:  true,
-				Columns: []*schema.Column{UsersColumns[8], UsersColumns[4]},
+				Columns: []*schema.Column{UserColumns[8], UserColumns[4]},
 			},
 			{
 				Name:    "user_age",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[4]},
+				Columns: []*schema.Column{UserColumns[4]},
 				Annotation: &entsql.IndexAnnotation{
 					Desc: true,
 				},
@@ -204,7 +204,7 @@ var (
 			{
 				Name:    "user_nickname",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[7]},
+				Columns: []*schema.Column{UserColumns[7]},
 				Annotation: &entsql.IndexAnnotation{
 					Types: map[string]string{
 						"mysql": "FULLTEXT",
@@ -214,17 +214,17 @@ var (
 			{
 				Name:    "user_workplace",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[16]},
+				Columns: []*schema.Column{UserColumns[16]},
 				Annotation: &entsql.IndexAnnotation{
 					IncludeColumns: []string{
-						UsersColumns[7].Name,
+						UserColumns[7].Name,
 					},
 				},
 			},
 			{
 				Name:    "user_phone",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[8]},
+				Columns: []*schema.Column{UserColumns[8]},
 				Annotation: &entsql.IndexAnnotation{
 					Where: "active AND \"phone\" <> ''",
 				},
@@ -232,24 +232,24 @@ var (
 			{
 				Name:    "user_age_phone",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[4], UsersColumns[8]},
+				Columns: []*schema.Column{UserColumns[4], UserColumns[8]},
 				Annotation: &entsql.IndexAnnotation{
 					OpClassColumns: map[string]string{
-						UsersColumns[8].Name: "bpchar_pattern_ops",
+						UserColumns[8].Name: "bpchar_pattern_ops",
 					},
 				},
 			},
 		},
 	}
-	// ZoosColumns holds the columns for the "zoos" table.
-	ZoosColumns = []*schema.Column{
+	// ZooColumns holds the columns for the "zoo" table.
+	ZooColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true, Default: map[string]schema.Expr{"mysql": "floor(rand() * ~(1<<31))", "postgres": "floor(random() * ~(1<<31))", "sqlite3": "abs(random())"}},
 	}
-	// ZoosTable holds the schema information for the "zoos" table.
-	ZoosTable = &schema.Table{
-		Name:       "zoos",
-		Columns:    ZoosColumns,
-		PrimaryKey: []*schema.Column{ZoosColumns[0]},
+	// ZooTable holds the schema information for the "zoo" table.
+	ZooTable = &schema.Table{
+		Name:       "zoo",
+		Columns:    ZooColumns,
+		PrimaryKey: []*schema.Column{ZooColumns[0]},
 	}
 	// FriendsColumns holds the columns for the "friends" table.
 	FriendsColumns = []*schema.Column{
@@ -265,34 +265,34 @@ var (
 			{
 				Symbol:     "user_friend_id1",
 				Columns:    []*schema.Column{FriendsColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "user_friend_id2",
 				Columns:    []*schema.Column{FriendsColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		BlogsTable,
+		BlogTable,
 		CarTable,
-		ConversionsTable,
-		CustomTypesTable,
-		GroupsTable,
+		ConversionTable,
+		CustomTypeTable,
+		GroupTable,
 		MediaTable,
-		PetsTable,
-		UsersTable,
-		ZoosTable,
+		PetTable,
+		UserTable,
+		ZooTable,
 		FriendsTable,
 	}
 )
 
 func init() {
-	CarTable.ForeignKeys[0].RefTable = UsersTable
+	CarTable.ForeignKeys[0].RefTable = UserTable
 	CarTable.Annotation = &entsql.Annotation{
 		Table: "Car",
 	}
@@ -302,8 +302,8 @@ func init() {
 	MediaTable.Annotation.Checks = map[string]string{
 		"boring_check": "source_uri <> 'entgo.io'",
 	}
-	PetsTable.ForeignKeys[0].RefTable = UsersTable
-	UsersTable.ForeignKeys[0].RefTable = BlogsTable
-	FriendsTable.ForeignKeys[0].RefTable = UsersTable
-	FriendsTable.ForeignKeys[1].RefTable = UsersTable
+	PetTable.ForeignKeys[0].RefTable = UserTable
+	UserTable.ForeignKeys[0].RefTable = BlogTable
+	FriendsTable.ForeignKeys[0].RefTable = UserTable
+	FriendsTable.ForeignKeys[1].RefTable = UserTable
 }

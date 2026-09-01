@@ -177,5 +177,5 @@ func (_m *Tag) String() string {
 	return builder.String()
 }
 
-// Tags is a parsable slice of Tag.
-type Tags []*Tag
+// TagList is a parsable slice of Tag.
+type TagList []*Tag

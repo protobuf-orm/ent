@@ -81,5 +81,5 @@ func (_m *PetUserName) String() string {
 	return builder.String()
 }
 
-// PetUserNames is a parsable slice of PetUserName.
-type PetUserNames []*PetUserName
+// PetUserNameList is a parsable slice of PetUserName.
+type PetUserNameList []*PetUserName

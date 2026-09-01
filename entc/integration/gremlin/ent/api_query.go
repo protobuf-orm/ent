@@ -163,7 +163,7 @@ func (_q *APIQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Apis.
+// All executes the query and returns a list of Api entities.
 func (_q *APIQuery) All(ctx context.Context) ([]*Api, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -324,7 +324,7 @@ func (_q *APIQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Api,
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Apis
+	var _ms ApiList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

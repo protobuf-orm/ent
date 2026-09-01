@@ -12,33 +12,33 @@ import (
 )
 
 var (
-	// CitiesColumns holds the columns for the "cities" table.
-	CitiesColumns = []*schema.Column{
+	// CityColumns holds the columns for the "city" table.
+	CityColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// CitiesTable holds the schema information for the "cities" table.
-	CitiesTable = &schema.Table{
-		Name:       "cities",
-		Columns:    CitiesColumns,
-		PrimaryKey: []*schema.Column{CitiesColumns[0]},
+	// CityTable holds the schema information for the "city" table.
+	CityTable = &schema.Table{
+		Name:       "city",
+		Columns:    CityColumns,
+		PrimaryKey: []*schema.Column{CityColumns[0]},
 	}
-	// StreetsColumns holds the columns for the "streets" table.
-	StreetsColumns = []*schema.Column{
+	// StreetColumns holds the columns for the "street" table.
+	StreetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "city_streets", Type: field.TypeInt, Nullable: true},
 	}
-	// StreetsTable holds the schema information for the "streets" table.
-	StreetsTable = &schema.Table{
-		Name:       "streets",
-		Columns:    StreetsColumns,
-		PrimaryKey: []*schema.Column{StreetsColumns[0]},
+	// StreetTable holds the schema information for the "street" table.
+	StreetTable = &schema.Table{
+		Name:       "street",
+		Columns:    StreetColumns,
+		PrimaryKey: []*schema.Column{StreetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "streets_cities_streets",
-				Columns:    []*schema.Column{StreetsColumns[2]},
-				RefColumns: []*schema.Column{CitiesColumns[0]},
+				Symbol:     "street_city_streets",
+				Columns:    []*schema.Column{StreetColumns[2]},
+				RefColumns: []*schema.Column{CityColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -46,17 +46,17 @@ var (
 			{
 				Name:    "street_name_city_streets",
 				Unique:  true,
-				Columns: []*schema.Column{StreetsColumns[1], StreetsColumns[2]},
+				Columns: []*schema.Column{StreetColumns[1], StreetColumns[2]},
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		CitiesTable,
-		StreetsTable,
+		CityTable,
+		StreetTable,
 	}
 )
 
 func init() {
-	StreetsTable.ForeignKeys[0].RefTable = CitiesTable
+	StreetTable.ForeignKeys[0].RefTable = CityTable
 }

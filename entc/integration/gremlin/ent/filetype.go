@@ -110,11 +110,11 @@ func (_m *FileType) String() string {
 	return builder.String()
 }
 
-// FileTypes is a parsable slice of FileType.
-type FileTypes []*FileType
+// FileTypeList is a parsable slice of FileType.
+type FileTypeList []*FileType
 
-// FromResponse scans the gremlin response data into FileTypes.
-func (_m *FileTypes) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into FileTypeList.
+func (_m *FileTypeList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

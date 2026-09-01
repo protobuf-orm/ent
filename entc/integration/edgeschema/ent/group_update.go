@@ -49,9 +49,9 @@ func (_u *GroupUpdate) SetNillableName(v *string) *GroupUpdate {
 	return _u
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdate) AddUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -61,12 +61,12 @@ func (_u *GroupUpdate) AddUsers(v ...*User) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
-// AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (_u *GroupUpdate) AddTagIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddTagIDs(ids...)
+// AddTagsIDs adds the "tags" edge to the Tag entity by IDs.
+func (_u *GroupUpdate) AddTagsIDs(ids ...int) *GroupUpdate {
+	_u.mutation.AddTagsIDs(ids...)
 	return _u
 }
 
@@ -76,12 +76,12 @@ func (_u *GroupUpdate) AddTags(v ...*Tag) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTagIDs(ids...)
+	return _u.AddTagsIDs(ids...)
 }
 
-// AddJoinedUserIDs adds the "joined_users" edge to the UserGroup entity by IDs.
-func (_u *GroupUpdate) AddJoinedUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddJoinedUserIDs(ids...)
+// AddJoinedUsersIDs adds the "joined_users" edge to the UserGroup entity by IDs.
+func (_u *GroupUpdate) AddJoinedUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.AddJoinedUsersIDs(ids...)
 	return _u
 }
 
@@ -91,12 +91,12 @@ func (_u *GroupUpdate) AddJoinedUsers(v ...*UserGroup) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddJoinedUserIDs(ids...)
+	return _u.AddJoinedUsersIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_u *GroupUpdate) AddGroupTagIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_u *GroupUpdate) AddGroupTagsIDs(ids ...int) *GroupUpdate {
+	_u.mutation.AddGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -106,7 +106,7 @@ func (_u *GroupUpdate) AddGroupTags(v ...*GroupTag) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupTagIDs(ids...)
+	return _u.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -120,9 +120,9 @@ func (_u *GroupUpdate) ClearUsers() *GroupUpdate {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdate) RemoveUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -132,7 +132,7 @@ func (_u *GroupUpdate) RemoveUsers(v ...*User) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // ClearTags clears all "tags" edges to the Tag entity.
@@ -141,9 +141,9 @@ func (_u *GroupUpdate) ClearTags() *GroupUpdate {
 	return _u
 }
 
-// RemoveTagIDs removes the "tags" edge to Tag entities by IDs.
-func (_u *GroupUpdate) RemoveTagIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveTagIDs(ids...)
+// RemoveTagsIDs removes the "tags" edge to Tag entities by IDs.
+func (_u *GroupUpdate) RemoveTagsIDs(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveTagsIDs(ids...)
 	return _u
 }
 
@@ -153,7 +153,7 @@ func (_u *GroupUpdate) RemoveTags(v ...*Tag) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTagIDs(ids...)
+	return _u.RemoveTagsIDs(ids...)
 }
 
 // ClearJoinedUsers clears all "joined_users" edges to the UserGroup entity.
@@ -162,9 +162,9 @@ func (_u *GroupUpdate) ClearJoinedUsers() *GroupUpdate {
 	return _u
 }
 
-// RemoveJoinedUserIDs removes the "joined_users" edge to UserGroup entities by IDs.
-func (_u *GroupUpdate) RemoveJoinedUserIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveJoinedUserIDs(ids...)
+// RemoveJoinedUsersIDs removes the "joined_users" edge to UserGroup entities by IDs.
+func (_u *GroupUpdate) RemoveJoinedUsersIDs(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveJoinedUsersIDs(ids...)
 	return _u
 }
 
@@ -174,7 +174,7 @@ func (_u *GroupUpdate) RemoveJoinedUsers(v ...*UserGroup) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveJoinedUserIDs(ids...)
+	return _u.RemoveJoinedUsersIDs(ids...)
 }
 
 // ClearGroupTags clears all "group_tags" edges to the GroupTag entity.
@@ -183,9 +183,9 @@ func (_u *GroupUpdate) ClearGroupTags() *GroupUpdate {
 	return _u
 }
 
-// RemoveGroupTagIDs removes the "group_tags" edge to GroupTag entities by IDs.
-func (_u *GroupUpdate) RemoveGroupTagIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveGroupTagIDs(ids...)
+// RemoveGroupTagsIDs removes the "group_tags" edge to GroupTag entities by IDs.
+func (_u *GroupUpdate) RemoveGroupTagsIDs(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -195,7 +195,7 @@ func (_u *GroupUpdate) RemoveGroupTags(v ...*GroupTag) *GroupUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupTagIDs(ids...)
+	return _u.RemoveGroupTagsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -463,9 +463,9 @@ func (_u *GroupUpdateOne) SetNillableName(v *string) *GroupUpdateOne {
 	return _u
 }
 
-// AddUserIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdateOne) AddUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddUserIDs(ids...)
+// AddUsersIDs adds the "users" edge to the User entity by IDs.
+func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddUsersIDs(ids...)
 	return _u
 }
 
@@ -475,12 +475,12 @@ func (_u *GroupUpdateOne) AddUsers(v ...*User) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserIDs(ids...)
+	return _u.AddUsersIDs(ids...)
 }
 
-// AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (_u *GroupUpdateOne) AddTagIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddTagIDs(ids...)
+// AddTagsIDs adds the "tags" edge to the Tag entity by IDs.
+func (_u *GroupUpdateOne) AddTagsIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddTagsIDs(ids...)
 	return _u
 }
 
@@ -490,12 +490,12 @@ func (_u *GroupUpdateOne) AddTags(v ...*Tag) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTagIDs(ids...)
+	return _u.AddTagsIDs(ids...)
 }
 
-// AddJoinedUserIDs adds the "joined_users" edge to the UserGroup entity by IDs.
-func (_u *GroupUpdateOne) AddJoinedUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddJoinedUserIDs(ids...)
+// AddJoinedUsersIDs adds the "joined_users" edge to the UserGroup entity by IDs.
+func (_u *GroupUpdateOne) AddJoinedUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddJoinedUsersIDs(ids...)
 	return _u
 }
 
@@ -505,12 +505,12 @@ func (_u *GroupUpdateOne) AddJoinedUsers(v ...*UserGroup) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddJoinedUserIDs(ids...)
+	return _u.AddJoinedUsersIDs(ids...)
 }
 
-// AddGroupTagIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_u *GroupUpdateOne) AddGroupTagIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddGroupTagIDs(ids...)
+// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
+func (_u *GroupUpdateOne) AddGroupTagsIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -520,7 +520,7 @@ func (_u *GroupUpdateOne) AddGroupTags(v ...*GroupTag) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupTagIDs(ids...)
+	return _u.AddGroupTagsIDs(ids...)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -534,9 +534,9 @@ func (_u *GroupUpdateOne) ClearUsers() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveUserIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdateOne) RemoveUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveUserIDs(ids...)
+// RemoveUsersIDs removes the "users" edge to User entities by IDs.
+func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveUsersIDs(ids...)
 	return _u
 }
 
@@ -546,7 +546,7 @@ func (_u *GroupUpdateOne) RemoveUsers(v ...*User) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserIDs(ids...)
+	return _u.RemoveUsersIDs(ids...)
 }
 
 // ClearTags clears all "tags" edges to the Tag entity.
@@ -555,9 +555,9 @@ func (_u *GroupUpdateOne) ClearTags() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveTagIDs removes the "tags" edge to Tag entities by IDs.
-func (_u *GroupUpdateOne) RemoveTagIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveTagIDs(ids...)
+// RemoveTagsIDs removes the "tags" edge to Tag entities by IDs.
+func (_u *GroupUpdateOne) RemoveTagsIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveTagsIDs(ids...)
 	return _u
 }
 
@@ -567,7 +567,7 @@ func (_u *GroupUpdateOne) RemoveTags(v ...*Tag) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTagIDs(ids...)
+	return _u.RemoveTagsIDs(ids...)
 }
 
 // ClearJoinedUsers clears all "joined_users" edges to the UserGroup entity.
@@ -576,9 +576,9 @@ func (_u *GroupUpdateOne) ClearJoinedUsers() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveJoinedUserIDs removes the "joined_users" edge to UserGroup entities by IDs.
-func (_u *GroupUpdateOne) RemoveJoinedUserIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveJoinedUserIDs(ids...)
+// RemoveJoinedUsersIDs removes the "joined_users" edge to UserGroup entities by IDs.
+func (_u *GroupUpdateOne) RemoveJoinedUsersIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveJoinedUsersIDs(ids...)
 	return _u
 }
 
@@ -588,7 +588,7 @@ func (_u *GroupUpdateOne) RemoveJoinedUsers(v ...*UserGroup) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveJoinedUserIDs(ids...)
+	return _u.RemoveJoinedUsersIDs(ids...)
 }
 
 // ClearGroupTags clears all "group_tags" edges to the GroupTag entity.
@@ -597,9 +597,9 @@ func (_u *GroupUpdateOne) ClearGroupTags() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveGroupTagIDs removes the "group_tags" edge to GroupTag entities by IDs.
-func (_u *GroupUpdateOne) RemoveGroupTagIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveGroupTagIDs(ids...)
+// RemoveGroupTagsIDs removes the "group_tags" edge to GroupTag entities by IDs.
+func (_u *GroupUpdateOne) RemoveGroupTagsIDs(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveGroupTagsIDs(ids...)
 	return _u
 }
 
@@ -609,7 +609,7 @@ func (_u *GroupUpdateOne) RemoveGroupTags(v ...*GroupTag) *GroupUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupTagIDs(ids...)
+	return _u.RemoveGroupTagsIDs(ids...)
 }
 
 // Where appends a list predicates to the GroupUpdate builder.

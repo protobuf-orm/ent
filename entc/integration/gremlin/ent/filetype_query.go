@@ -178,7 +178,7 @@ func (_q *FileTypeQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of FileTypes.
+// All executes the query and returns a list of FileType entities.
 func (_q *FileTypeQuery) All(ctx context.Context) ([]*FileType, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -373,7 +373,7 @@ func (_q *FileTypeQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms FileTypes
+	var _ms FileTypeList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

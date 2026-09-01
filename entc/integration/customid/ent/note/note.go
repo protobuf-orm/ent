@@ -24,13 +24,13 @@ const (
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
 	// Table holds the table name of the note in the database.
-	Table = "notes"
+	Table = "note"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "notes"
+	ParentTable = "note"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "note_children"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "notes"
+	ChildrenTable = "note"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "note_children"
 )
@@ -41,7 +41,7 @@ var Columns = []string{
 	FieldText,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "notes"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "note"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"note_children",

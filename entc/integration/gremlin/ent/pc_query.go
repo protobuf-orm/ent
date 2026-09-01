@@ -163,7 +163,7 @@ func (_q *PCQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of PCs.
+// All executes the query and returns a list of PC entities.
 func (_q *PCQuery) All(ctx context.Context) ([]*PC, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -324,7 +324,7 @@ func (_q *PCQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*PC, e
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms PCs
+	var _ms PCList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

@@ -51,9 +51,9 @@ func (_u *IntSIDUpdate) SetParent(v *IntSID) *IntSIDUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the IntSID entity by IDs.
-func (_u *IntSIDUpdate) AddChildIDs(ids ...sid.ID) *IntSIDUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the IntSID entity by IDs.
+func (_u *IntSIDUpdate) AddChildrenIDs(ids ...sid.ID) *IntSIDUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -63,7 +63,7 @@ func (_u *IntSIDUpdate) AddChildren(v ...*IntSID) *IntSIDUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the IntSIDMutation object of the builder.
@@ -83,9 +83,9 @@ func (_u *IntSIDUpdate) ClearChildren() *IntSIDUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to IntSID entities by IDs.
-func (_u *IntSIDUpdate) RemoveChildIDs(ids ...sid.ID) *IntSIDUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to IntSID entities by IDs.
+func (_u *IntSIDUpdate) RemoveChildrenIDs(ids ...sid.ID) *IntSIDUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -95,7 +95,7 @@ func (_u *IntSIDUpdate) RemoveChildren(v ...*IntSID) *IntSIDUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -247,9 +247,9 @@ func (_u *IntSIDUpdateOne) SetParent(v *IntSID) *IntSIDUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the IntSID entity by IDs.
-func (_u *IntSIDUpdateOne) AddChildIDs(ids ...sid.ID) *IntSIDUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the IntSID entity by IDs.
+func (_u *IntSIDUpdateOne) AddChildrenIDs(ids ...sid.ID) *IntSIDUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -259,7 +259,7 @@ func (_u *IntSIDUpdateOne) AddChildren(v ...*IntSID) *IntSIDUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the IntSIDMutation object of the builder.
@@ -279,9 +279,9 @@ func (_u *IntSIDUpdateOne) ClearChildren() *IntSIDUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to IntSID entities by IDs.
-func (_u *IntSIDUpdateOne) RemoveChildIDs(ids ...sid.ID) *IntSIDUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to IntSID entities by IDs.
+func (_u *IntSIDUpdateOne) RemoveChildrenIDs(ids ...sid.ID) *IntSIDUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -291,7 +291,7 @@ func (_u *IntSIDUpdateOne) RemoveChildren(v ...*IntSID) *IntSIDUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Where appends a list predicates to the IntSIDUpdate builder.

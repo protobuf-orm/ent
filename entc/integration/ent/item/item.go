@@ -18,7 +18,7 @@ const (
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// Table holds the table name of the item in the database.
-	Table = "items"
+	Table = "item"
 )
 
 // Columns holds all SQL columns for item fields.

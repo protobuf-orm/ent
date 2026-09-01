@@ -75,9 +75,9 @@ func (_u *FileTypeUpdate) SetNillableState(v *filetype.State) *FileTypeUpdate {
 	return _u
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_u *FileTypeUpdate) AddFileIDs(ids ...string) *FileTypeUpdate {
-	_u.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_u *FileTypeUpdate) AddFilesIDs(ids ...string) *FileTypeUpdate {
+	_u.mutation.AddFilesIDs(ids...)
 	return _u
 }
 
@@ -87,7 +87,7 @@ func (_u *FileTypeUpdate) AddFiles(v ...*File) *FileTypeUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFileIDs(ids...)
+	return _u.AddFilesIDs(ids...)
 }
 
 // Mutation returns the FileTypeMutation object of the builder.
@@ -101,9 +101,9 @@ func (_u *FileTypeUpdate) ClearFiles() *FileTypeUpdate {
 	return _u
 }
 
-// RemoveFileIDs removes the "files" edge to File entities by IDs.
-func (_u *FileTypeUpdate) RemoveFileIDs(ids ...string) *FileTypeUpdate {
-	_u.mutation.RemoveFileIDs(ids...)
+// RemoveFilesIDs removes the "files" edge to File entities by IDs.
+func (_u *FileTypeUpdate) RemoveFilesIDs(ids ...string) *FileTypeUpdate {
+	_u.mutation.RemoveFilesIDs(ids...)
 	return _u
 }
 
@@ -113,7 +113,7 @@ func (_u *FileTypeUpdate) RemoveFiles(v ...*File) *FileTypeUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFileIDs(ids...)
+	return _u.RemoveFilesIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -279,9 +279,9 @@ func (_u *FileTypeUpdateOne) SetNillableState(v *filetype.State) *FileTypeUpdate
 	return _u
 }
 
-// AddFileIDs adds the "files" edge to the File entity by IDs.
-func (_u *FileTypeUpdateOne) AddFileIDs(ids ...string) *FileTypeUpdateOne {
-	_u.mutation.AddFileIDs(ids...)
+// AddFilesIDs adds the "files" edge to the File entity by IDs.
+func (_u *FileTypeUpdateOne) AddFilesIDs(ids ...string) *FileTypeUpdateOne {
+	_u.mutation.AddFilesIDs(ids...)
 	return _u
 }
 
@@ -291,7 +291,7 @@ func (_u *FileTypeUpdateOne) AddFiles(v ...*File) *FileTypeUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFileIDs(ids...)
+	return _u.AddFilesIDs(ids...)
 }
 
 // Mutation returns the FileTypeMutation object of the builder.
@@ -305,9 +305,9 @@ func (_u *FileTypeUpdateOne) ClearFiles() *FileTypeUpdateOne {
 	return _u
 }
 
-// RemoveFileIDs removes the "files" edge to File entities by IDs.
-func (_u *FileTypeUpdateOne) RemoveFileIDs(ids ...string) *FileTypeUpdateOne {
-	_u.mutation.RemoveFileIDs(ids...)
+// RemoveFilesIDs removes the "files" edge to File entities by IDs.
+func (_u *FileTypeUpdateOne) RemoveFilesIDs(ids ...string) *FileTypeUpdateOne {
+	_u.mutation.RemoveFilesIDs(ids...)
 	return _u
 }
 
@@ -317,7 +317,7 @@ func (_u *FileTypeUpdateOne) RemoveFiles(v ...*File) *FileTypeUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFileIDs(ids...)
+	return _u.RemoveFilesIDs(ids...)
 }
 
 // Where appends a list predicates to the FileTypeUpdate builder.

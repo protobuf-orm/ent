@@ -102,11 +102,11 @@ func (_m *GroupInfo) String() string {
 	return builder.String()
 }
 
-// GroupInfos is a parsable slice of GroupInfo.
-type GroupInfos []*GroupInfo
+// GroupInfoList is a parsable slice of GroupInfo.
+type GroupInfoList []*GroupInfo
 
-// FromResponse scans the gremlin response data into GroupInfos.
-func (_m *GroupInfos) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into GroupInfoList.
+func (_m *GroupInfoList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

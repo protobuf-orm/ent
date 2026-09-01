@@ -68,9 +68,9 @@ func UserID(v int) predicate.Parent {
 	return predicate.Parent(sql.FieldEQ(FieldUserID, v))
 }
 
-// ParentID applies equality check predicate on the "parent_id" field. It's identical to ParentIDEQ.
-func ParentID(v int) predicate.Parent {
-	return predicate.Parent(sql.FieldEQ(FieldParentID, v))
+// ParentsID applies equality check predicate on the "parents_id" field. It's identical to ParentsIDEQ.
+func ParentsID(v int) predicate.Parent {
+	return predicate.Parent(sql.FieldEQ(FieldParentsID, v))
 }
 
 // ByAdoptionEQ applies the EQ predicate on the "by_adoption" field.
@@ -103,24 +103,24 @@ func UserIDNotIn(vs ...int) predicate.Parent {
 	return predicate.Parent(sql.FieldNotIn(FieldUserID, vs...))
 }
 
-// ParentIDEQ applies the EQ predicate on the "parent_id" field.
-func ParentIDEQ(v int) predicate.Parent {
-	return predicate.Parent(sql.FieldEQ(FieldParentID, v))
+// ParentsIDEQ applies the EQ predicate on the "parents_id" field.
+func ParentsIDEQ(v int) predicate.Parent {
+	return predicate.Parent(sql.FieldEQ(FieldParentsID, v))
 }
 
-// ParentIDNEQ applies the NEQ predicate on the "parent_id" field.
-func ParentIDNEQ(v int) predicate.Parent {
-	return predicate.Parent(sql.FieldNEQ(FieldParentID, v))
+// ParentsIDNEQ applies the NEQ predicate on the "parents_id" field.
+func ParentsIDNEQ(v int) predicate.Parent {
+	return predicate.Parent(sql.FieldNEQ(FieldParentsID, v))
 }
 
-// ParentIDIn applies the In predicate on the "parent_id" field.
-func ParentIDIn(vs ...int) predicate.Parent {
-	return predicate.Parent(sql.FieldIn(FieldParentID, vs...))
+// ParentsIDIn applies the In predicate on the "parents_id" field.
+func ParentsIDIn(vs ...int) predicate.Parent {
+	return predicate.Parent(sql.FieldIn(FieldParentsID, vs...))
 }
 
-// ParentIDNotIn applies the NotIn predicate on the "parent_id" field.
-func ParentIDNotIn(vs ...int) predicate.Parent {
-	return predicate.Parent(sql.FieldNotIn(FieldParentID, vs...))
+// ParentsIDNotIn applies the NotIn predicate on the "parents_id" field.
+func ParentsIDNotIn(vs ...int) predicate.Parent {
+	return predicate.Parent(sql.FieldNotIn(FieldParentsID, vs...))
 }
 
 // HasChild applies the HasEdge predicate on the "child" edge.

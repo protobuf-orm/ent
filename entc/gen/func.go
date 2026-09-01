@@ -39,9 +39,9 @@ var (
 		"xrange":        xrange,
 		"receiver":      receiver,
 		"plural":        plural,
+		"sliceType":     sliceType,
 		"aggregate":     aggregate,
 		"primitives":    primitives,
-		"singular":      rules.Singularize,
 		"quote":         quote,
 		"base":          filepath.Base,
 		"keys":          keys,
@@ -149,13 +149,23 @@ func xrange(n int) (a []int) {
 	return
 }
 
-// plural a name.
+// plural appends an "s" to the given name. Unlike a dictionary-based
+// inflector, the result is always derivable from the name mechanically.
+//
+//	string  => strings
+//	Float64 => Float64s
 func plural(name string) string {
-	p := rules.Pluralize(name)
-	if p == name {
-		p += "Slice"
-	}
-	return p
+	return name + "s"
+}
+
+// sliceType returns the name of the slice type generated for the given
+// entity name. The suffix keeps the name distinct from the entity itself
+// without depending on English pluralization rules.
+//
+//	User   => UserList
+//	Person => PersonList
+func sliceType(name string) string {
+	return name + "List"
 }
 
 func isSeparator(r rune) bool {

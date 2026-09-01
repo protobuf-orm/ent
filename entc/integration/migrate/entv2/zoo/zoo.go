@@ -16,7 +16,7 @@ const (
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// Table holds the table name of the zoo in the database.
-	Table = "zoos"
+	Table = "zoo"
 )
 
 // Columns holds all SQL columns for zoo fields.

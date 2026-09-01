@@ -22,7 +22,7 @@ func (Parent) Fields() []ent.Field {
 			Default(false),
 		field.Int("user_id").
 			Immutable(),
-		field.Int("parent_id").
+		field.Int("parents_id").
 			Immutable(),
 	}
 }
@@ -39,6 +39,6 @@ func (Parent) Edges() []ent.Edge {
 			Unique().
 			Required().
 			Immutable().
-			Field("parent_id"),
+			Field("parents_id"),
 	}
 }

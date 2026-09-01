@@ -25,12 +25,12 @@ const (
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
 	EdgeOwner = "owner"
 	// Table holds the table name of the car in the database.
-	Table = "cars"
+	Table = "car"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "cars"
+	OwnerTable = "car"
 	// OwnerInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	OwnerInverseTable = "pets"
+	OwnerInverseTable = "pet"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "pet_cars"
 )
@@ -43,7 +43,7 @@ var Columns = []string{
 	FieldModel,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "cars"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "car"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"pet_cars",

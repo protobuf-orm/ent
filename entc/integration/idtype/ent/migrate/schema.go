@@ -12,22 +12,22 @@ import (
 )
 
 var (
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "user_spouse", Type: field.TypeUint64, Unique: true, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_users_spouse",
-				Columns:    []*schema.Column{UsersColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_spouse",
+				Columns:    []*schema.Column{UserColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -35,7 +35,7 @@ var (
 	// UserFollowingColumns holds the columns for the "user_following" table.
 	UserFollowingColumns = []*schema.Column{
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "follower_id", Type: field.TypeInt},
+		{Name: "followers_id", Type: field.TypeInt},
 	}
 	// UserFollowingTable holds the schema information for the "user_following" table.
 	UserFollowingTable = &schema.Table{
@@ -46,26 +46,26 @@ var (
 			{
 				Symbol:     "user_following_user_id",
 				Columns:    []*schema.Column{UserFollowingColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "user_following_follower_id",
+				Symbol:     "user_following_followers_id",
 				Columns:    []*schema.Column{UserFollowingColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		UsersTable,
+		UserTable,
 		UserFollowingTable,
 	}
 )
 
 func init() {
-	UsersTable.ForeignKeys[0].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[0].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[1].RefTable = UsersTable
+	UserTable.ForeignKeys[0].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[0].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[1].RefTable = UserTable
 }

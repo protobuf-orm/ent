@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	// CardsColumns holds the columns for the "cards" table.
-	CardsColumns = []*schema.Column{
+	// CardColumns holds the columns for the "card" table.
+	CardColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "type", Type: field.TypeString, Default: "unknown"},
 		{Name: "number_hash", Type: field.TypeString},
@@ -22,22 +22,22 @@ var (
 		{Name: "expires_at", Type: field.TypeTime, Nullable: true},
 		{Name: "owner_id", Type: field.TypeInt, Default: 0},
 	}
-	// CardsTable holds the schema information for the "cards" table.
-	CardsTable = &schema.Table{
-		Name:       "cards",
-		Columns:    CardsColumns,
-		PrimaryKey: []*schema.Column{CardsColumns[0]},
+	// CardTable holds the schema information for the "card" table.
+	CardTable = &schema.Table{
+		Name:       "card",
+		Columns:    CardColumns,
+		PrimaryKey: []*schema.Column{CardColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "cards_users_cards",
-				Columns:    []*schema.Column{CardsColumns[5]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "card_user_cards",
+				Columns:    []*schema.Column{CardColumns[5]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// PaymentsColumns holds the columns for the "payments" table.
-	PaymentsColumns = []*schema.Column{
+	// PaymentColumns holds the columns for the "payment" table.
+	PaymentColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "amount", Type: field.TypeFloat64},
 		{Name: "currency", Type: field.TypeEnum, Enums: []string{"USD", "EUR", "VND", "ILS"}},
@@ -46,16 +46,16 @@ var (
 		{Name: "status", Type: field.TypeEnum, Enums: []string{"pending", "completed", "failed"}},
 		{Name: "card_id", Type: field.TypeInt},
 	}
-	// PaymentsTable holds the schema information for the "payments" table.
-	PaymentsTable = &schema.Table{
-		Name:       "payments",
-		Columns:    PaymentsColumns,
-		PrimaryKey: []*schema.Column{PaymentsColumns[0]},
+	// PaymentTable holds the schema information for the "payment" table.
+	PaymentTable = &schema.Table{
+		Name:       "payment",
+		Columns:    PaymentColumns,
+		PrimaryKey: []*schema.Column{PaymentColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "payments_cards_payments",
-				Columns:    []*schema.Column{PaymentsColumns[6]},
-				RefColumns: []*schema.Column{CardsColumns[0]},
+				Symbol:     "payment_card_payments",
+				Columns:    []*schema.Column{PaymentColumns[6]},
+				RefColumns: []*schema.Column{CardColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -63,12 +63,12 @@ var (
 			{
 				Name:    "payment_status_time",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentsColumns[5], PaymentsColumns[3]},
+				Columns: []*schema.Column{PaymentColumns[5], PaymentColumns[3]},
 			},
 		},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "name", Type: field.TypeString},
 		{Name: "age", Type: field.TypeFloat64},
@@ -76,22 +76,22 @@ var (
 		{Name: "best_friend_id", Type: field.TypeUUID, Unique: true, Nullable: true, Default: "00000000-0000-0000-0000-000000000000"},
 		{Name: "owner_id", Type: field.TypeInt, Default: 0},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pets_pets_best_friend",
-				Columns:    []*schema.Column{PetsColumns[4]},
-				RefColumns: []*schema.Column{PetsColumns[0]},
+				Symbol:     "pet_pet_best_friend",
+				Columns:    []*schema.Column{PetColumns[4]},
+				RefColumns: []*schema.Column{PetColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "pets_users_owner",
-				Columns:    []*schema.Column{PetsColumns[5]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "pet_user_owner",
+				Columns:    []*schema.Column{PetColumns[5]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -99,12 +99,12 @@ var (
 			{
 				Name:    "pet_name_owner_id",
 				Unique:  true,
-				Columns: []*schema.Column{PetsColumns[1], PetsColumns[5]},
+				Columns: []*schema.Column{PetColumns[1], PetColumns[5]},
 			},
 		},
 	}
-	// SessionsColumns holds the columns for the "sessions" table.
-	SessionsColumns = []*schema.Column{
+	// SessionColumns holds the columns for the "session" table.
+	SessionColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "active", Type: field.TypeBool, Default: false},
 		{Name: "issued_at", Type: field.TypeTime},
@@ -113,16 +113,16 @@ var (
 		{Name: "method", Type: field.TypeJSON, Nullable: true},
 		{Name: "device_id", Type: field.TypeUUID, Nullable: true},
 	}
-	// SessionsTable holds the schema information for the "sessions" table.
-	SessionsTable = &schema.Table{
-		Name:       "sessions",
-		Columns:    SessionsColumns,
-		PrimaryKey: []*schema.Column{SessionsColumns[0]},
+	// SessionTable holds the schema information for the "session" table.
+	SessionTable = &schema.Table{
+		Name:       "session",
+		Columns:    SessionColumns,
+		PrimaryKey: []*schema.Column{SessionColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sessions_session_devices_sessions",
-				Columns:    []*schema.Column{SessionsColumns[6]},
-				RefColumns: []*schema.Column{SessionDevicesColumns[0]},
+				Symbol:     "session_session_device_sessions",
+				Columns:    []*schema.Column{SessionColumns[6]},
+				RefColumns: []*schema.Column{SessionDeviceColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -130,12 +130,12 @@ var (
 			{
 				Name:    "session_active_expires_at",
 				Unique:  false,
-				Columns: []*schema.Column{SessionsColumns[1], SessionsColumns[3]},
+				Columns: []*schema.Column{SessionColumns[1], SessionColumns[3]},
 			},
 		},
 	}
-	// SessionDevicesColumns holds the columns for the "session_devices" table.
-	SessionDevicesColumns = []*schema.Column{
+	// SessionDeviceColumns holds the columns for the "session_device" table.
+	SessionDeviceColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "ip_address", Type: field.TypeString, Size: 50},
 		{Name: "user_agent", Type: field.TypeString, Size: 512},
@@ -143,71 +143,71 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime, Nullable: true},
 	}
-	// SessionDevicesTable holds the schema information for the "session_devices" table.
-	SessionDevicesTable = &schema.Table{
-		Name:       "session_devices",
-		Columns:    SessionDevicesColumns,
-		PrimaryKey: []*schema.Column{SessionDevicesColumns[0]},
+	// SessionDeviceTable holds the schema information for the "session_device" table.
+	SessionDeviceTable = &schema.Table{
+		Name:       "session_device",
+		Columns:    SessionDeviceColumns,
+		PrimaryKey: []*schema.Column{SessionDeviceColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "sessiondevice_ip_address_user_agent",
 				Unique:  false,
-				Columns: []*schema.Column{SessionDevicesColumns[1], SessionDevicesColumns[2]},
+				Columns: []*schema.Column{SessionDeviceColumns[1], SessionDeviceColumns[2]},
 			},
 			{
 				Name:    "sessiondevice_location_updated_at",
 				Unique:  false,
-				Columns: []*schema.Column{SessionDevicesColumns[3], SessionDevicesColumns[5]},
+				Columns: []*schema.Column{SessionDeviceColumns[3], SessionDeviceColumns[5]},
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "age", Type: field.TypeFloat64},
 		{Name: "first_name", Type: field.TypeString},
 		{Name: "last_name", Type: field.TypeString},
 		{Name: "tags", Type: field.TypeJSON, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		CardsTable,
-		PaymentsTable,
-		PetsTable,
-		SessionsTable,
-		SessionDevicesTable,
-		UsersTable,
+		CardTable,
+		PaymentTable,
+		PetTable,
+		SessionTable,
+		SessionDeviceTable,
+		UserTable,
 	}
 )
 
 func init() {
-	CardsTable.ForeignKeys[0].RefTable = UsersTable
-	CardsTable.Annotation = &entsql.Annotation{}
-	CardsTable.Annotation.Checks = map[string]string{
+	CardTable.ForeignKeys[0].RefTable = UserTable
+	CardTable.Annotation = &entsql.Annotation{}
+	CardTable.Annotation.Checks = map[string]string{
 		"number_hash_length": "(LENGTH(`number_hash`) = 16)",
 	}
-	PaymentsTable.ForeignKeys[0].RefTable = CardsTable
-	PaymentsTable.Annotation = &entsql.Annotation{}
-	PaymentsTable.Annotation.Checks = map[string]string{
+	PaymentTable.ForeignKeys[0].RefTable = CardTable
+	PaymentTable.Annotation = &entsql.Annotation{}
+	PaymentTable.Annotation.Checks = map[string]string{
 		"amount_positive": "(`amount` > 0)",
 	}
-	PetsTable.ForeignKeys[0].RefTable = PetsTable
-	PetsTable.ForeignKeys[1].RefTable = UsersTable
-	SessionsTable.ForeignKeys[0].RefTable = SessionDevicesTable
-	SessionsTable.Annotation = &entsql.Annotation{}
-	SessionsTable.Annotation.Checks = map[string]string{
+	PetTable.ForeignKeys[0].RefTable = PetTable
+	PetTable.ForeignKeys[1].RefTable = UserTable
+	SessionTable.ForeignKeys[0].RefTable = SessionDeviceTable
+	SessionTable.Annotation = &entsql.Annotation{}
+	SessionTable.Annotation.Checks = map[string]string{
 		"token_length": "(LENGTH(`token`) = 64)",
 	}
-	UsersTable.Annotation = &entsql.Annotation{
+	UserTable.Annotation = &entsql.Annotation{
 		Check: "age > 0",
 	}
-	UsersTable.Annotation.Checks = map[string]string{
+	UserTable.Annotation.Checks = map[string]string{
 		"first_last_not_empty": "(`first_name` <> '' AND `last_name` <> '')",
 	}
 }

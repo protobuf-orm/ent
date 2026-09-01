@@ -133,5 +133,5 @@ func (_m *Process) String() string {
 	return builder.String()
 }
 
-// Processes is a parsable slice of Process.
-type Processes []*Process
+// ProcessList is a parsable slice of Process.
+type ProcessList []*Process

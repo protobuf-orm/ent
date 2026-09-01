@@ -22,9 +22,9 @@ func UserID(v int) predicate.Relationship {
 	return predicate.Relationship(sql.FieldEQ(FieldUserID, v))
 }
 
-// RelativeID applies equality check predicate on the "relative_id" field. It's identical to RelativeIDEQ.
-func RelativeID(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldRelativeID, v))
+// RelativesID applies equality check predicate on the "relatives_id" field. It's identical to RelativesIDEQ.
+func RelativesID(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldRelativesID, v))
 }
 
 // InfoID applies equality check predicate on the "info_id" field. It's identical to InfoIDEQ.
@@ -92,24 +92,24 @@ func UserIDNotIn(vs ...int) predicate.Relationship {
 	return predicate.Relationship(sql.FieldNotIn(FieldUserID, vs...))
 }
 
-// RelativeIDEQ applies the EQ predicate on the "relative_id" field.
-func RelativeIDEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldRelativeID, v))
+// RelativesIDEQ applies the EQ predicate on the "relatives_id" field.
+func RelativesIDEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldRelativesID, v))
 }
 
-// RelativeIDNEQ applies the NEQ predicate on the "relative_id" field.
-func RelativeIDNEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNEQ(FieldRelativeID, v))
+// RelativesIDNEQ applies the NEQ predicate on the "relatives_id" field.
+func RelativesIDNEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNEQ(FieldRelativesID, v))
 }
 
-// RelativeIDIn applies the In predicate on the "relative_id" field.
-func RelativeIDIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldIn(FieldRelativeID, vs...))
+// RelativesIDIn applies the In predicate on the "relatives_id" field.
+func RelativesIDIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldIn(FieldRelativesID, vs...))
 }
 
-// RelativeIDNotIn applies the NotIn predicate on the "relative_id" field.
-func RelativeIDNotIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNotIn(FieldRelativeID, vs...))
+// RelativesIDNotIn applies the NotIn predicate on the "relatives_id" field.
+func RelativesIDNotIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNotIn(FieldRelativesID, vs...))
 }
 
 // InfoIDEQ applies the EQ predicate on the "info_id" field.

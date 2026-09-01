@@ -210,7 +210,7 @@ func (_q *FileQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Files.
+// All executes the query and returns a list of File entities.
 func (_q *FileQuery) All(ctx context.Context) ([]*File, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -429,7 +429,7 @@ func (_q *FileQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Fil
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Files
+	var _ms FileList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

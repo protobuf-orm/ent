@@ -48,9 +48,9 @@ func (_c *UserCreate) SetSpouse(v *User) *UserCreate {
 	return _c.SetSpouseID(v.ID)
 }
 
-// AddFollowerIDs adds the "followers" edge to the User entity by IDs.
-func (_c *UserCreate) AddFollowerIDs(ids ...uint64) *UserCreate {
-	_c.mutation.AddFollowerIDs(ids...)
+// AddFollowersIDs adds the "followers" edge to the User entity by IDs.
+func (_c *UserCreate) AddFollowersIDs(ids ...uint64) *UserCreate {
+	_c.mutation.AddFollowersIDs(ids...)
 	return _c
 }
 
@@ -60,7 +60,7 @@ func (_c *UserCreate) AddFollowers(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFollowerIDs(ids...)
+	return _c.AddFollowersIDs(ids...)
 }
 
 // AddFollowingIDs adds the "following" edge to the User entity by IDs.

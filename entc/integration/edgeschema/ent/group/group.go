@@ -27,29 +27,29 @@ const (
 	// EdgeGroupTags holds the string denoting the group_tags edge name in mutations.
 	EdgeGroupTags = "group_tags"
 	// Table holds the table name of the group in the database.
-	Table = "groups"
+	Table = "group"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
-	UsersTable = "user_groups"
+	UsersTable = "user_group"
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UsersInverseTable = "users"
+	UsersInverseTable = "user"
 	// TagsTable is the table that holds the tags relation/edge. The primary key declared below.
-	TagsTable = "group_tags"
+	TagsTable = "group_tag"
 	// TagsInverseTable is the table name for the Tag entity.
 	// It exists in this package in order to avoid circular dependency with the "tag" package.
-	TagsInverseTable = "tags"
+	TagsInverseTable = "tag"
 	// JoinedUsersTable is the table that holds the joined_users relation/edge.
-	JoinedUsersTable = "user_groups"
+	JoinedUsersTable = "user_group"
 	// JoinedUsersInverseTable is the table name for the UserGroup entity.
 	// It exists in this package in order to avoid circular dependency with the "usergroup" package.
-	JoinedUsersInverseTable = "user_groups"
+	JoinedUsersInverseTable = "user_group"
 	// JoinedUsersColumn is the table column denoting the joined_users relation/edge.
 	JoinedUsersColumn = "group_id"
 	// GroupTagsTable is the table that holds the group_tags relation/edge.
-	GroupTagsTable = "group_tags"
+	GroupTagsTable = "group_tag"
 	// GroupTagsInverseTable is the table name for the GroupTag entity.
 	// It exists in this package in order to avoid circular dependency with the "grouptag" package.
-	GroupTagsInverseTable = "group_tags"
+	GroupTagsInverseTable = "group_tag"
 	// GroupTagsColumn is the table column denoting the group_tags relation/edge.
 	GroupTagsColumn = "group_id"
 )

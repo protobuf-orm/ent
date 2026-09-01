@@ -21,7 +21,7 @@ const (
 	// FieldNickname holds the string denoting the nickname field in the database.
 	FieldNickname = "nickname"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 )
 
 // Columns holds all SQL columns for user fields.

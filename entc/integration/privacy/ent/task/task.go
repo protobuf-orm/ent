@@ -32,17 +32,17 @@ const (
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
 	EdgeOwner = "owner"
 	// Table holds the table name of the task in the database.
-	Table = "tasks"
+	Table = "task"
 	// TeamsTable is the table that holds the teams relation/edge. The primary key declared below.
 	TeamsTable = "task_teams"
 	// TeamsInverseTable is the table name for the Team entity.
 	// It exists in this package in order to avoid circular dependency with the "team" package.
-	TeamsInverseTable = "teams"
+	TeamsInverseTable = "team"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "tasks"
+	OwnerTable = "task"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "user_tasks"
 )
@@ -56,7 +56,7 @@ var Columns = []string{
 	FieldUUID,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "tasks"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "task"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_tasks",

@@ -143,8 +143,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddLinkIDs adds the "links" edge to the Blob entity by ids.
-func (m *Mutation) AddLinkIDs(ids ...uuid.UUID) {
+// AddLinksIDs adds the "links" edge to the Blob entity by ids.
+func (m *Mutation) AddLinksIDs(ids ...uuid.UUID) {
 	if m.links == nil {
 		m.links = make(map[uuid.UUID]struct{})
 	}
@@ -163,8 +163,8 @@ func (m *Mutation) LinksCleared() bool {
 	return m.clearedlinks
 }
 
-// RemoveLinkIDs removes the "links" edge to the Blob entity by IDs.
-func (m *Mutation) RemoveLinkIDs(ids ...uuid.UUID) {
+// RemoveLinksIDs removes the "links" edge to the Blob entity by IDs.
+func (m *Mutation) RemoveLinksIDs(ids ...uuid.UUID) {
 	if m.removedlinks == nil {
 		m.removedlinks = make(map[uuid.UUID]struct{})
 	}

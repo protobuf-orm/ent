@@ -141,8 +141,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildIDs adds the "children" edge to the File entity by ids.
-func (m *Mutation) AddChildIDs(ids ...int) {
+// AddChildrenIDs adds the "children" edge to the File entity by ids.
+func (m *Mutation) AddChildrenIDs(ids ...int) {
 	if m.children == nil {
 		m.children = make(map[int]struct{})
 	}
@@ -161,8 +161,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildIDs removes the "children" edge to the File entity by IDs.
-func (m *Mutation) RemoveChildIDs(ids ...int) {
+// RemoveChildrenIDs removes the "children" edge to the File entity by IDs.
+func (m *Mutation) RemoveChildrenIDs(ids ...int) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[int]struct{})
 	}

@@ -163,7 +163,7 @@ func (_q *LicenseQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Licenses.
+// All executes the query and returns a list of License entities.
 func (_q *LicenseQuery) All(ctx context.Context) ([]*License, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *LicenseQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Licenses
+	var _ms LicenseList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

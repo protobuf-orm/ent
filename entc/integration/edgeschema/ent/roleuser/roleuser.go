@@ -31,19 +31,19 @@ const (
 	// UserFieldID holds the string denoting the ID field of the User.
 	UserFieldID = "id"
 	// Table holds the table name of the roleuser in the database.
-	Table = "role_users"
+	Table = "role_user"
 	// RoleTable is the table that holds the role relation/edge.
-	RoleTable = "role_users"
+	RoleTable = "role_user"
 	// RoleInverseTable is the table name for the Role entity.
 	// It exists in this package in order to avoid circular dependency with the "role" package.
-	RoleInverseTable = "roles"
+	RoleInverseTable = "role"
 	// RoleColumn is the table column denoting the role relation/edge.
 	RoleColumn = "role_id"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "role_users"
+	UserTable = "role_user"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 )

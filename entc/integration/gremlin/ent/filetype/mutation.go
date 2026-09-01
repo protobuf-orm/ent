@@ -100,8 +100,8 @@ func (m *Mutation) ResetState() {
 	m.state = nil
 }
 
-// AddFileIDs adds the "files" edge to the File entity by ids.
-func (m *Mutation) AddFileIDs(ids ...string) {
+// AddFilesIDs adds the "files" edge to the File entity by ids.
+func (m *Mutation) AddFilesIDs(ids ...string) {
 	if m.files == nil {
 		m.files = make(map[string]struct{})
 	}
@@ -120,8 +120,8 @@ func (m *Mutation) FilesCleared() bool {
 	return m.clearedfiles
 }
 
-// RemoveFileIDs removes the "files" edge to the File entity by IDs.
-func (m *Mutation) RemoveFileIDs(ids ...string) {
+// RemoveFilesIDs removes the "files" edge to the File entity by IDs.
+func (m *Mutation) RemoveFilesIDs(ids ...string) {
 	if m.removedfiles == nil {
 		m.removedfiles = make(map[string]struct{})
 	}

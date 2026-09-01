@@ -163,7 +163,7 @@ func (_q *MixinIDQuery) OnlyIDX(ctx context.Context) uuid.UUID {
 	return id
 }
 
-// All executes the query and returns a list of MixinIDs.
+// All executes the query and returns a list of MixinID entities.
 func (_q *MixinIDQuery) All(ctx context.Context) ([]*MixinID, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

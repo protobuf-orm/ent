@@ -164,7 +164,7 @@ func (_q *ItemQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Items.
+// All executes the query and returns a list of Item entities.
 func (_q *ItemQuery) All(ctx context.Context) ([]*Item, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

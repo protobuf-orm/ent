@@ -23,12 +23,12 @@ const (
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
 	EdgeOwner = "owner"
 	// Table holds the table name of the card in the database.
-	Table = "cards"
+	Table = "card"
 	// OwnerTable is the table that holds the owner relation/edge.
-	OwnerTable = "cards"
+	OwnerTable = "card"
 	// OwnerInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	OwnerInverseTable = "users"
+	OwnerInverseTable = "user"
 	// OwnerColumn is the table column denoting the owner relation/edge.
 	OwnerColumn = "user_card"
 )
@@ -40,7 +40,7 @@ var Columns = []string{
 	FieldNumber,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "cards"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "card"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_card",

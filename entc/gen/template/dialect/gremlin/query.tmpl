@@ -26,7 +26,7 @@ func ({{ $receiver }} *{{ $builder }}) gremlinAll(ctx context.Context, hooks ...
 	if err := {{ $receiver }}.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var {{ plural $.Receiver }} {{ plural $.Name  }}
+	var {{ plural $.Receiver }} {{ sliceType $.Name }}
 	if err := {{ plural $.Receiver }}.FromResponse(res); err != nil {
 		return nil, err
 	}

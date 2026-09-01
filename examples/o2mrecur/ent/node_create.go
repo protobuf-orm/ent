@@ -48,9 +48,9 @@ func (_c *NodeCreate) SetParent(v *Node) *NodeCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Node entity by IDs.
-func (_c *NodeCreate) AddChildIDs(ids ...int) *NodeCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Node entity by IDs.
+func (_c *NodeCreate) AddChildrenIDs(ids ...int) *NodeCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -60,7 +60,7 @@ func (_c *NodeCreate) AddChildren(v ...*Node) *NodeCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NodeMutation object of the builder.

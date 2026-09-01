@@ -162,7 +162,7 @@ func (_q *MediaQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of MediaSlice.
+// All executes the query and returns a list of Media entities.
 func (_q *MediaQuery) All(ctx context.Context) ([]*Media, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

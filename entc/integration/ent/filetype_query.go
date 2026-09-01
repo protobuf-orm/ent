@@ -190,7 +190,7 @@ func (_q *FileTypeQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of FileTypes.
+// All executes the query and returns a list of FileType entities.
 func (_q *FileTypeQuery) All(ctx context.Context) ([]*FileType, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

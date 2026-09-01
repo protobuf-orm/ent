@@ -14,7 +14,7 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// Table holds the table name of the pet in the database.
-	Table = "pets"
+	Table = "pet"
 )
 
 // Columns holds all SQL columns for pet fields.

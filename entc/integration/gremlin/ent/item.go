@@ -69,11 +69,11 @@ func (_m *Item) String() string {
 	return builder.String()
 }
 
-// Items is a parsable slice of Item.
-type Items []*Item
+// ItemList is a parsable slice of Item.
+type ItemList []*Item
 
-// FromResponse scans the gremlin response data into Items.
-func (_m *Items) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into ItemList.
+func (_m *ItemList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

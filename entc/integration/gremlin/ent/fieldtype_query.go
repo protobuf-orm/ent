@@ -163,7 +163,7 @@ func (_q *FieldTypeQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of FieldTypes.
+// All executes the query and returns a list of FieldType entities.
 func (_q *FieldTypeQuery) All(ctx context.Context) ([]*FieldType, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -346,7 +346,7 @@ func (_q *FieldTypeQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms FieldTypes
+	var _ms FieldTypeList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

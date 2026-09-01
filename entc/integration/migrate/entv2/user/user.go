@@ -72,7 +72,7 @@ const (
 	// PetFieldID holds the string denoting the ID field of the Pet.
 	PetFieldID = "id"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// CarTable is the table that holds the car relation/edge.
 	CarTable = "Car"
 	// CarInverseTable is the table name for the Car entity.
@@ -81,10 +81,10 @@ const (
 	// CarColumn is the table column denoting the car relation/edge.
 	CarColumn = "user_car"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "owner_id"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
@@ -117,7 +117,7 @@ var Columns = []string{
 	FieldDropOptional,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blog_admins",

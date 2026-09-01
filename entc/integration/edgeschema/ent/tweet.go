@@ -209,5 +209,5 @@ func (_m *Tweet) String() string {
 	return builder.String()
 }
 
-// Tweets is a parsable slice of Tweet.
-type Tweets []*Tweet
+// TweetList is a parsable slice of Tweet.
+type TweetList []*Tweet

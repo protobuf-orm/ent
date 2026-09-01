@@ -167,5 +167,5 @@ func (_m *Pet) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// Pets is a parsable slice of Pet.
-type Pets []*Pet
+// PetList is a parsable slice of Pet.
+type PetList []*Pet

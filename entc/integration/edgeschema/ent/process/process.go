@@ -21,17 +21,17 @@ const (
 	// EdgeAttachedFiles holds the string denoting the attached_files edge name in mutations.
 	EdgeAttachedFiles = "attached_files"
 	// Table holds the table name of the process in the database.
-	Table = "processes"
+	Table = "process"
 	// FilesTable is the table that holds the files relation/edge. The primary key declared below.
-	FilesTable = "attached_files"
+	FilesTable = "attached_file"
 	// FilesInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
-	FilesInverseTable = "files"
+	FilesInverseTable = "file"
 	// AttachedFilesTable is the table that holds the attached_files relation/edge.
-	AttachedFilesTable = "attached_files"
+	AttachedFilesTable = "attached_file"
 	// AttachedFilesInverseTable is the table name for the AttachedFile entity.
 	// It exists in this package in order to avoid circular dependency with the "attachedfile" package.
-	AttachedFilesInverseTable = "attached_files"
+	AttachedFilesInverseTable = "attached_file"
 	// AttachedFilesColumn is the table column denoting the attached_files relation/edge.
 	AttachedFilesColumn = "proc_id"
 )

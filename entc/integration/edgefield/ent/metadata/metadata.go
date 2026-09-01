@@ -32,7 +32,7 @@ const (
 	UserTable = "metadata"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "id"
 	// ChildrenTable is the table that holds the children relation/edge.

@@ -177,5 +177,5 @@ func (_m *TweetTag) String() string {
 	return builder.String()
 }
 
-// TweetTags is a parsable slice of TweetTag.
-type TweetTags []*TweetTag
+// TweetTagList is a parsable slice of TweetTag.
+type TweetTagList []*TweetTag

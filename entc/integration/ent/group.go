@@ -317,5 +317,5 @@ func (_m *Group) appendNamedUsers(name string, edges ...*User) {
 	}
 }
 
-// Groups is a parsable slice of Group.
-type Groups []*Group
+// GroupList is a parsable slice of Group.
+type GroupList []*Group

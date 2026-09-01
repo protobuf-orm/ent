@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddStreetIDs adds the "streets" edge to the Street entity by ids.
-func (m *Mutation) AddStreetIDs(ids ...int) {
+// AddStreetsIDs adds the "streets" edge to the Street entity by ids.
+func (m *Mutation) AddStreetsIDs(ids ...int) {
 	if m.streets == nil {
 		m.streets = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) StreetsCleared() bool {
 	return m.clearedstreets
 }
 
-// RemoveStreetIDs removes the "streets" edge to the Street entity by IDs.
-func (m *Mutation) RemoveStreetIDs(ids ...int) {
+// RemoveStreetsIDs removes the "streets" edge to the Street entity by IDs.
+func (m *Mutation) RemoveStreetsIDs(ids ...int) {
 	if m.removedstreets == nil {
 		m.removedstreets = make(map[int]struct{})
 	}

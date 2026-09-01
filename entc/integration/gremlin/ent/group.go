@@ -177,11 +177,11 @@ func (_m *Group) String() string {
 	return builder.String()
 }
 
-// Groups is a parsable slice of Group.
-type Groups []*Group
+// GroupList is a parsable slice of Group.
+type GroupList []*Group
 
-// FromResponse scans the gremlin response data into Groups.
-func (_m *Groups) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into GroupList.
+func (_m *GroupList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

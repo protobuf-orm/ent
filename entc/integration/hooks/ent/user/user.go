@@ -36,25 +36,25 @@ const (
 	// EdgeBestFriend holds the string denoting the best_friend edge name in mutations.
 	EdgeBestFriend = "best_friend"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// CardsTable is the table that holds the cards relation/edge.
-	CardsTable = "cards"
+	CardsTable = "card"
 	// CardsInverseTable is the table name for the Card entity.
 	// It exists in this package in order to avoid circular dependency with the "card" package.
-	CardsInverseTable = "cards"
+	CardsInverseTable = "card"
 	// CardsColumn is the table column denoting the cards relation/edge.
 	CardsColumn = "user_cards"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "user_pets"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
 	FriendsTable = "user_friends"
 	// BestFriendTable is the table that holds the best_friend relation/edge.
-	BestFriendTable = "users"
+	BestFriendTable = "user"
 	// BestFriendColumn is the table column denoting the best_friend relation/edge.
 	BestFriendColumn = "user_best_friend"
 )
@@ -69,7 +69,7 @@ var Columns = []string{
 	FieldActive,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_best_friend",
@@ -78,7 +78,7 @@ var ForeignKeys = []string{
 var (
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

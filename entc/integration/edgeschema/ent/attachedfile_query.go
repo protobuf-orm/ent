@@ -210,7 +210,7 @@ func (_q *AttachedFileQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of AttachedFiles.
+// All executes the query and returns a list of AttachedFile entities.
 func (_q *AttachedFileQuery) All(ctx context.Context) ([]*AttachedFile, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

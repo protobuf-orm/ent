@@ -741,7 +741,7 @@ func (c *BlobLinkClient) Update() *BlobLinkUpdate {
 func (c *BlobLinkClient) UpdateOne(_m *BlobLink) *BlobLinkUpdateOne {
 	mutation := newBlobLinkMutation(c.config, OpUpdateOne)
 	mutation.SetBlobID(_m.BlobID)
-	mutation.SetLinkID(_m.LinkID)
+	mutation.SetLinksID(_m.LinksID)
 	return &BlobLinkUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -763,14 +763,14 @@ func (c *BlobLinkClient) Query() *BlobLinkQuery {
 // QueryBlob queries the blob edge of a BlobLink.
 func (c *BlobLinkClient) QueryBlob(_m *BlobLink) *BlobQuery {
 	return c.Query().
-		Where(bloblink.BlobID(_m.BlobID), bloblink.LinkID(_m.LinkID)).
+		Where(bloblink.BlobID(_m.BlobID), bloblink.LinksID(_m.LinksID)).
 		QueryBlob()
 }
 
 // QueryLink queries the link edge of a BlobLink.
 func (c *BlobLinkClient) QueryLink(_m *BlobLink) *BlobQuery {
 	return c.Query().
-		Where(bloblink.BlobID(_m.BlobID), bloblink.LinkID(_m.LinkID)).
+		Where(bloblink.BlobID(_m.BlobID), bloblink.LinksID(_m.LinksID)).
 		QueryLink()
 }
 

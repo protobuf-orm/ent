@@ -68,9 +68,9 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_u *UserUpdate) AddCarIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_u *UserUpdate) AddCarsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddCarsIDs(ids...)
 	return _u
 }
 
@@ -80,12 +80,12 @@ func (_u *UserUpdate) AddCars(v ...*Car) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCarIDs(ids...)
+	return _u.AddCarsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *UserUpdate) AddGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *UserUpdate) AddGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -95,7 +95,7 @@ func (_u *UserUpdate) AddGroups(v ...*Group) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -109,9 +109,9 @@ func (_u *UserUpdate) ClearCars() *UserUpdate {
 	return _u
 }
 
-// RemoveCarIDs removes the "cars" edge to Car entities by IDs.
-func (_u *UserUpdate) RemoveCarIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveCarIDs(ids...)
+// RemoveCarsIDs removes the "cars" edge to Car entities by IDs.
+func (_u *UserUpdate) RemoveCarsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveCarsIDs(ids...)
 	return _u
 }
 
@@ -121,7 +121,7 @@ func (_u *UserUpdate) RemoveCars(v ...*Car) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCarIDs(ids...)
+	return _u.RemoveCarsIDs(ids...)
 }
 
 // ClearGroups clears all "groups" edges to the Group entity.
@@ -130,9 +130,9 @@ func (_u *UserUpdate) ClearGroups() *UserUpdate {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *UserUpdate) RemoveGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *UserUpdate) RemoveGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -142,7 +142,7 @@ func (_u *UserUpdate) RemoveGroups(v ...*Group) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -348,9 +348,9 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// AddCarIDs adds the "cars" edge to the Car entity by IDs.
-func (_u *UserUpdateOne) AddCarIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddCarIDs(ids...)
+// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
+func (_u *UserUpdateOne) AddCarsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddCarsIDs(ids...)
 	return _u
 }
 
@@ -360,12 +360,12 @@ func (_u *UserUpdateOne) AddCars(v ...*Car) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCarIDs(ids...)
+	return _u.AddCarsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *UserUpdateOne) AddGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *UserUpdateOne) AddGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -375,7 +375,7 @@ func (_u *UserUpdateOne) AddGroups(v ...*Group) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -389,9 +389,9 @@ func (_u *UserUpdateOne) ClearCars() *UserUpdateOne {
 	return _u
 }
 
-// RemoveCarIDs removes the "cars" edge to Car entities by IDs.
-func (_u *UserUpdateOne) RemoveCarIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveCarIDs(ids...)
+// RemoveCarsIDs removes the "cars" edge to Car entities by IDs.
+func (_u *UserUpdateOne) RemoveCarsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveCarsIDs(ids...)
 	return _u
 }
 
@@ -401,7 +401,7 @@ func (_u *UserUpdateOne) RemoveCars(v ...*Car) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCarIDs(ids...)
+	return _u.RemoveCarsIDs(ids...)
 }
 
 // ClearGroups clears all "groups" edges to the Group entity.
@@ -410,9 +410,9 @@ func (_u *UserUpdateOne) ClearGroups() *UserUpdateOne {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *UserUpdateOne) RemoveGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *UserUpdateOne) RemoveGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -422,7 +422,7 @@ func (_u *UserUpdateOne) RemoveGroups(v ...*Group) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

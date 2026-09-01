@@ -103,5 +103,5 @@ func (_m *RelationshipInfo) String() string {
 	return builder.String()
 }
 
-// RelationshipInfos is a parsable slice of RelationshipInfo.
-type RelationshipInfos []*RelationshipInfo
+// RelationshipInfoList is a parsable slice of RelationshipInfo.
+type RelationshipInfoList []*RelationshipInfo

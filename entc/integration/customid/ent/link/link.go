@@ -20,7 +20,7 @@ const (
 	// FieldLinkInformation holds the string denoting the link_information field in the database.
 	FieldLinkInformation = "link_information"
 	// Table holds the table name of the link in the database.
-	Table = "links"
+	Table = "link"
 )
 
 // Columns holds all SQL columns for link fields.

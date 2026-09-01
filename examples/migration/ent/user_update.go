@@ -100,9 +100,9 @@ func (_u *UserUpdate) ClearTags() *UserUpdate {
 	return _u
 }
 
-// AddCardIDs adds the "cards" edge to the Card entity by IDs.
-func (_u *UserUpdate) AddCardIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddCardIDs(ids...)
+// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
+func (_u *UserUpdate) AddCardsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddCardsIDs(ids...)
 	return _u
 }
 
@@ -112,7 +112,7 @@ func (_u *UserUpdate) AddCards(v ...*Card) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCardIDs(ids...)
+	return _u.AddCardsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -126,9 +126,9 @@ func (_u *UserUpdate) ClearCards() *UserUpdate {
 	return _u
 }
 
-// RemoveCardIDs removes the "cards" edge to Card entities by IDs.
-func (_u *UserUpdate) RemoveCardIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveCardIDs(ids...)
+// RemoveCardsIDs removes the "cards" edge to Card entities by IDs.
+func (_u *UserUpdate) RemoveCardsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveCardsIDs(ids...)
 	return _u
 }
 
@@ -138,7 +138,7 @@ func (_u *UserUpdate) RemoveCards(v ...*Card) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCardIDs(ids...)
+	return _u.RemoveCardsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -332,9 +332,9 @@ func (_u *UserUpdateOne) ClearTags() *UserUpdateOne {
 	return _u
 }
 
-// AddCardIDs adds the "cards" edge to the Card entity by IDs.
-func (_u *UserUpdateOne) AddCardIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddCardIDs(ids...)
+// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
+func (_u *UserUpdateOne) AddCardsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddCardsIDs(ids...)
 	return _u
 }
 
@@ -344,7 +344,7 @@ func (_u *UserUpdateOne) AddCards(v ...*Card) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddCardIDs(ids...)
+	return _u.AddCardsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -358,9 +358,9 @@ func (_u *UserUpdateOne) ClearCards() *UserUpdateOne {
 	return _u
 }
 
-// RemoveCardIDs removes the "cards" edge to Card entities by IDs.
-func (_u *UserUpdateOne) RemoveCardIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveCardIDs(ids...)
+// RemoveCardsIDs removes the "cards" edge to Card entities by IDs.
+func (_u *UserUpdateOne) RemoveCardsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveCardsIDs(ids...)
 	return _u
 }
 
@@ -370,7 +370,7 @@ func (_u *UserUpdateOne) RemoveCards(v ...*Card) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveCardIDs(ids...)
+	return _u.RemoveCardsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

@@ -68,9 +68,9 @@ func (_u *GroupInfoUpdate) AddMaxUsers(v int) *GroupInfoUpdate {
 	return _u
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *GroupInfoUpdate) AddGroupIDs(ids ...int) *GroupInfoUpdate {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *GroupInfoUpdate) AddGroupsIDs(ids ...int) *GroupInfoUpdate {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -80,7 +80,7 @@ func (_u *GroupInfoUpdate) AddGroups(v ...*Group) *GroupInfoUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the GroupInfoMutation object of the builder.
@@ -94,9 +94,9 @@ func (_u *GroupInfoUpdate) ClearGroups() *GroupInfoUpdate {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *GroupInfoUpdate) RemoveGroupIDs(ids ...int) *GroupInfoUpdate {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *GroupInfoUpdate) RemoveGroupsIDs(ids ...int) *GroupInfoUpdate {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -106,7 +106,7 @@ func (_u *GroupInfoUpdate) RemoveGroups(v ...*Group) *GroupInfoUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -262,9 +262,9 @@ func (_u *GroupInfoUpdateOne) AddMaxUsers(v int) *GroupInfoUpdateOne {
 	return _u
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *GroupInfoUpdateOne) AddGroupIDs(ids ...int) *GroupInfoUpdateOne {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *GroupInfoUpdateOne) AddGroupsIDs(ids ...int) *GroupInfoUpdateOne {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -274,7 +274,7 @@ func (_u *GroupInfoUpdateOne) AddGroups(v ...*Group) *GroupInfoUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the GroupInfoMutation object of the builder.
@@ -288,9 +288,9 @@ func (_u *GroupInfoUpdateOne) ClearGroups() *GroupInfoUpdateOne {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *GroupInfoUpdateOne) RemoveGroupIDs(ids ...int) *GroupInfoUpdateOne {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *GroupInfoUpdateOne) RemoveGroupsIDs(ids ...int) *GroupInfoUpdateOne {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -300,7 +300,7 @@ func (_u *GroupInfoUpdateOne) RemoveGroups(v ...*Group) *GroupInfoUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // Where appends a list predicates to the GroupInfoUpdate builder.

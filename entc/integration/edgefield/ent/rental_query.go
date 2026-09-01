@@ -211,7 +211,7 @@ func (_q *RentalQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Rentals.
+// All executes the query and returns a list of Rental entities.
 func (_q *RentalQuery) All(ctx context.Context) ([]*Rental, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

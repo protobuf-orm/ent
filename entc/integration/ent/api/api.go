@@ -16,7 +16,7 @@ const (
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// Table holds the table name of the api in the database.
-	Table = "apis"
+	Table = "api"
 )
 
 // Columns holds all SQL columns for api fields.

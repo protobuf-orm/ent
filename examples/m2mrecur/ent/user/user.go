@@ -25,7 +25,7 @@ const (
 	// EdgeFollowing holds the string denoting the following edge name in mutations.
 	EdgeFollowing = "following"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// FollowersTable is the table that holds the followers relation/edge. The primary key declared below.
 	FollowersTable = "user_following"
 	// FollowingTable is the table that holds the following relation/edge. The primary key declared below.
@@ -42,10 +42,10 @@ var Columns = []string{
 var (
 	// FollowersPrimaryKey and FollowersColumn2 are the table columns denoting the
 	// primary key for the followers relation (M2M).
-	FollowersPrimaryKey = []string{"user_id", "follower_id"}
+	FollowersPrimaryKey = []string{"user_id", "followers_id"}
 	// FollowingPrimaryKey and FollowingColumn2 are the table columns denoting the
 	// primary key for the following relation (M2M).
-	FollowingPrimaryKey = []string{"user_id", "follower_id"}
+	FollowingPrimaryKey = []string{"user_id", "followers_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

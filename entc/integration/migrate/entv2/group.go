@@ -91,5 +91,5 @@ func (_m *Group) String() string {
 	return builder.String()
 }
 
-// Groups is a parsable slice of Group.
-type Groups []*Group
+// GroupList is a parsable slice of Group.
+type GroupList []*Group

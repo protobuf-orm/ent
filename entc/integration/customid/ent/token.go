@@ -143,5 +143,5 @@ func (_m *Token) String() string {
 	return builder.String()
 }
 
-// Tokens is a parsable slice of Token.
-type Tokens []*Token
+// TokenList is a parsable slice of Token.
+type TokenList []*Token

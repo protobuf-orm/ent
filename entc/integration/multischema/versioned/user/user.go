@@ -31,30 +31,30 @@ const (
 	// EdgeFriendships holds the string denoting the friendships edge name in mutations.
 	EdgeFriendships = "friendships"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "owner_id"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
-	FriendsTable = "friendships"
+	FriendsTable = "friendship"
 	// FollowersTable is the table that holds the followers relation/edge. The primary key declared below.
 	FollowersTable = "user_following"
 	// FollowingTable is the table that holds the following relation/edge. The primary key declared below.
 	FollowingTable = "user_following"
 	// FriendshipsTable is the table that holds the friendships relation/edge.
-	FriendshipsTable = "friendships"
+	FriendshipsTable = "friendship"
 	// FriendshipsInverseTable is the table name for the Friendship entity.
 	// It exists in this package in order to avoid circular dependency with the "friendship" package.
-	FriendshipsInverseTable = "friendships"
+	FriendshipsInverseTable = "friendship"
 	// FriendshipsColumn is the table column denoting the friendships relation/edge.
 	FriendshipsColumn = "user_id"
 )
@@ -71,13 +71,13 @@ var (
 	GroupsPrimaryKey = []string{"group_id", "user_id"}
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 	// FollowersPrimaryKey and FollowersColumn2 are the table columns denoting the
 	// primary key for the followers relation (M2M).
-	FollowersPrimaryKey = []string{"user_id", "follower_id"}
+	FollowersPrimaryKey = []string{"user_id", "followers_id"}
 	// FollowingPrimaryKey and FollowingColumn2 are the table columns denoting the
 	// primary key for the following relation (M2M).
-	FollowingPrimaryKey = []string{"user_id", "follower_id"}
+	FollowingPrimaryKey = []string{"user_id", "followers_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

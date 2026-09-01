@@ -211,7 +211,7 @@ func (_q *NoteQuery) OnlyIDX(ctx context.Context) schema.NoteID {
 	return id
 }
 
-// All executes the query and returns a list of Notes.
+// All executes the query and returns a list of Note entities.
 func (_q *NoteQuery) All(ctx context.Context) ([]*Note, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

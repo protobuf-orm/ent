@@ -53,9 +53,9 @@ func (_u *BlogUpdate) AddOid(v int) *BlogUpdate {
 	return _u
 }
 
-// AddAdminIDs adds the "admins" edge to the User entity by IDs.
-func (_u *BlogUpdate) AddAdminIDs(ids ...int) *BlogUpdate {
-	_u.mutation.AddAdminIDs(ids...)
+// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
+func (_u *BlogUpdate) AddAdminsIDs(ids ...int) *BlogUpdate {
+	_u.mutation.AddAdminsIDs(ids...)
 	return _u
 }
 
@@ -65,7 +65,7 @@ func (_u *BlogUpdate) AddAdmins(v ...*User) *BlogUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddAdminIDs(ids...)
+	return _u.AddAdminsIDs(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.
@@ -79,9 +79,9 @@ func (_u *BlogUpdate) ClearAdmins() *BlogUpdate {
 	return _u
 }
 
-// RemoveAdminIDs removes the "admins" edge to User entities by IDs.
-func (_u *BlogUpdate) RemoveAdminIDs(ids ...int) *BlogUpdate {
-	_u.mutation.RemoveAdminIDs(ids...)
+// RemoveAdminsIDs removes the "admins" edge to User entities by IDs.
+func (_u *BlogUpdate) RemoveAdminsIDs(ids ...int) *BlogUpdate {
+	_u.mutation.RemoveAdminsIDs(ids...)
 	return _u
 }
 
@@ -91,7 +91,7 @@ func (_u *BlogUpdate) RemoveAdmins(v ...*User) *BlogUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveAdminIDs(ids...)
+	return _u.RemoveAdminsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -222,9 +222,9 @@ func (_u *BlogUpdateOne) AddOid(v int) *BlogUpdateOne {
 	return _u
 }
 
-// AddAdminIDs adds the "admins" edge to the User entity by IDs.
-func (_u *BlogUpdateOne) AddAdminIDs(ids ...int) *BlogUpdateOne {
-	_u.mutation.AddAdminIDs(ids...)
+// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
+func (_u *BlogUpdateOne) AddAdminsIDs(ids ...int) *BlogUpdateOne {
+	_u.mutation.AddAdminsIDs(ids...)
 	return _u
 }
 
@@ -234,7 +234,7 @@ func (_u *BlogUpdateOne) AddAdmins(v ...*User) *BlogUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddAdminIDs(ids...)
+	return _u.AddAdminsIDs(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.
@@ -248,9 +248,9 @@ func (_u *BlogUpdateOne) ClearAdmins() *BlogUpdateOne {
 	return _u
 }
 
-// RemoveAdminIDs removes the "admins" edge to User entities by IDs.
-func (_u *BlogUpdateOne) RemoveAdminIDs(ids ...int) *BlogUpdateOne {
-	_u.mutation.RemoveAdminIDs(ids...)
+// RemoveAdminsIDs removes the "admins" edge to User entities by IDs.
+func (_u *BlogUpdateOne) RemoveAdminsIDs(ids ...int) *BlogUpdateOne {
+	_u.mutation.RemoveAdminsIDs(ids...)
 	return _u
 }
 
@@ -260,7 +260,7 @@ func (_u *BlogUpdateOne) RemoveAdmins(v ...*User) *BlogUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveAdminIDs(ids...)
+	return _u.RemoveAdminsIDs(ids...)
 }
 
 // Where appends a list predicates to the BlogUpdate builder.

@@ -224,7 +224,7 @@ func (_q *GroupQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Groups.
+// All executes the query and returns a list of Group entities.
 func (_q *GroupQuery) All(ctx context.Context) ([]*Group, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -455,7 +455,7 @@ func (_q *GroupQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Gr
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Groups
+	var _ms GroupList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

@@ -29,25 +29,25 @@ const (
 	// PetFieldID holds the string denoting the ID field of the Pet.
 	PetFieldID = "id"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "users"
+	ParentTable = "user"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "user_children"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "users"
+	ChildrenTable = "user"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "user_children"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "user_pets"
 )
@@ -57,7 +57,7 @@ var Columns = []string{
 	FieldID,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_children",

@@ -27,12 +27,12 @@ const (
 	// EdgeCards holds the string denoting the cards edge name in mutations.
 	EdgeCards = "cards"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// CardsTable is the table that holds the cards relation/edge.
-	CardsTable = "cards"
+	CardsTable = "card"
 	// CardsInverseTable is the table name for the Card entity.
 	// It exists in this package in order to avoid circular dependency with the "card" package.
-	CardsInverseTable = "cards"
+	CardsInverseTable = "card"
 	// CardsColumn is the table column denoting the cards relation/edge.
 	CardsColumn = "owner_id"
 )

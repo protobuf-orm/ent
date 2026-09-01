@@ -28,8 +28,8 @@ type Friendship struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID int `json:"user_id,omitempty"`
-	// FriendID holds the value of the "friend_id" field.
-	FriendID int `json:"friend_id,omitempty"`
+	// FriendsID holds the value of the "friends_id" field.
+	FriendsID int `json:"friends_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the FriendshipQuery when eager-loading is set.
 	Edges        FriendshipEdges `json:"edges"`
@@ -74,7 +74,7 @@ func (*Friendship) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case friendship.FieldID, friendship.FieldWeight, friendship.FieldUserID, friendship.FieldFriendID:
+		case friendship.FieldID, friendship.FieldWeight, friendship.FieldUserID, friendship.FieldFriendsID:
 			values[i] = new(sql.NullInt64)
 		case friendship.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
@@ -117,11 +117,11 @@ func (_m *Friendship) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.UserID = int(value.Int64)
 			}
-		case friendship.FieldFriendID:
+		case friendship.FieldFriendsID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field friend_id", values[i])
+				return fmt.Errorf("unexpected type %T for field friends_id", values[i])
 			} else if value.Valid {
-				_m.FriendID = int(value.Int64)
+				_m.FriendsID = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -178,11 +178,11 @@ func (_m *Friendship) String() string {
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
 	builder.WriteString(", ")
-	builder.WriteString("friend_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.FriendID))
+	builder.WriteString("friends_id=")
+	builder.WriteString(fmt.Sprintf("%v", _m.FriendsID))
 	builder.WriteByte(')')
 	return builder.String()
 }
 
-// Friendships is a parsable slice of Friendship.
-type Friendships []*Friendship
+// FriendshipList is a parsable slice of Friendship.
+type FriendshipList []*Friendship

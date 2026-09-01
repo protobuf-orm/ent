@@ -37,31 +37,31 @@ const (
 	// EdgeRentals holds the string denoting the rentals edge name in mutations.
 	EdgeRentals = "rentals"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "owner_id"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "users"
+	ParentTable = "user"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "parent_id"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "users"
+	ChildrenTable = "user"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
 	// SpouseTable is the table that holds the spouse relation/edge.
-	SpouseTable = "users"
+	SpouseTable = "user"
 	// SpouseColumn is the table column denoting the spouse relation/edge.
 	SpouseColumn = "spouse_id"
 	// CardTable is the table that holds the card relation/edge.
-	CardTable = "cards"
+	CardTable = "card"
 	// CardInverseTable is the table name for the Card entity.
 	// It exists in this package in order to avoid circular dependency with the "card" package.
-	CardInverseTable = "cards"
+	CardInverseTable = "card"
 	// CardColumn is the table column denoting the card relation/edge.
 	CardColumn = "owner_id"
 	// MetadataTable is the table that holds the metadata relation/edge.
@@ -72,17 +72,17 @@ const (
 	// MetadataColumn is the table column denoting the metadata relation/edge.
 	MetadataColumn = "id"
 	// InfoTable is the table that holds the info relation/edge.
-	InfoTable = "infos"
+	InfoTable = "info"
 	// InfoInverseTable is the table name for the Info entity.
 	// It exists in this package in order to avoid circular dependency with the "info" package.
-	InfoInverseTable = "infos"
+	InfoInverseTable = "info"
 	// InfoColumn is the table column denoting the info relation/edge.
 	InfoColumn = "id"
 	// RentalsTable is the table that holds the rentals relation/edge.
-	RentalsTable = "rentals"
+	RentalsTable = "rental"
 	// RentalsInverseTable is the table name for the Rental entity.
 	// It exists in this package in order to avoid circular dependency with the "rental" package.
-	RentalsInverseTable = "rentals"
+	RentalsInverseTable = "rental"
 	// RentalsColumn is the table column denoting the rentals relation/edge.
 	RentalsColumn = "user_id"
 )

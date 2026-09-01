@@ -164,7 +164,7 @@ func (_q *CommentQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Comments.
+// All executes the query and returns a list of Comment entities.
 func (_q *CommentQuery) All(ctx context.Context) ([]*Comment, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

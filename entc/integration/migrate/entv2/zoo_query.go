@@ -162,7 +162,7 @@ func (_q *ZooQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Zoos.
+// All executes the query and returns a list of Zoo entities.
 func (_q *ZooQuery) All(ctx context.Context) ([]*Zoo, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

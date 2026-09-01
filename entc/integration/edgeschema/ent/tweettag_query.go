@@ -211,7 +211,7 @@ func (_q *TweetTagQuery) OnlyIDX(ctx context.Context) uuid.UUID {
 	return id
 }
 
-// All executes the query and returns a list of TweetTags.
+// All executes the query and returns a list of TweetTag entities.
 func (_q *TweetTagQuery) All(ctx context.Context) ([]*TweetTag, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -25,19 +25,19 @@ const (
 	// EdgeGroups holds the string denoting the groups edge name in mutations.
 	EdgeGroups = "groups"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// CarsTable is the table that holds the cars relation/edge.
-	CarsTable = "cars"
+	CarsTable = "car"
 	// CarsInverseTable is the table name for the Car entity.
 	// It exists in this package in order to avoid circular dependency with the "car" package.
-	CarsInverseTable = "cars"
+	CarsInverseTable = "car"
 	// CarsColumn is the table column denoting the cars relation/edge.
 	CarsColumn = "user_cars"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 )
 
 // Columns holds all SQL columns for user fields.

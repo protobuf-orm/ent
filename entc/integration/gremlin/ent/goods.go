@@ -63,11 +63,11 @@ func (_m *Goods) String() string {
 	return builder.String()
 }
 
-// GoodsSlice is a parsable slice of Goods.
-type GoodsSlice []*Goods
+// GoodsList is a parsable slice of Goods.
+type GoodsList []*Goods
 
-// FromResponse scans the gremlin response data into GoodsSlice.
-func (_m *GoodsSlice) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into GoodsList.
+func (_m *GoodsList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

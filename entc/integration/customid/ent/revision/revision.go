@@ -16,7 +16,7 @@ const (
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// Table holds the table name of the revision in the database.
-	Table = "revisions"
+	Table = "revision"
 )
 
 // Columns holds all SQL columns for revision fields.

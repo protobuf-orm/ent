@@ -153,5 +153,5 @@ func (_m *User) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// Users is a parsable slice of User.
-type Users []*User
+// UserList is a parsable slice of User.
+type UserList []*User

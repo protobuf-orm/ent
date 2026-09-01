@@ -174,5 +174,5 @@ func (_m *UserTweet) String() string {
 	return builder.String()
 }
 
-// UserTweets is a parsable slice of UserTweet.
-type UserTweets []*UserTweet
+// UserTweetList is a parsable slice of UserTweet.
+type UserTweetList []*UserTweet

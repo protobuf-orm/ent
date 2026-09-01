@@ -115,5 +115,5 @@ func (_m *MixinID) String() string {
 	return builder.String()
 }
 
-// MixinIDs is a parsable slice of MixinID.
-type MixinIDs []*MixinID
+// MixinIDList is a parsable slice of MixinID.
+type MixinIDList []*MixinID

@@ -169,5 +169,5 @@ func (_m *Comment) String() string {
 	return builder.String()
 }
 
-// Comments is a parsable slice of Comment.
-type Comments []*Comment
+// CommentList is a parsable slice of Comment.
+type CommentList []*Comment

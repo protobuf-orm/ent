@@ -62,16 +62,16 @@ func (_u *BlobLinkUpdate) SetNillableBlobID(v *uuid.UUID) *BlobLinkUpdate {
 	return _u
 }
 
-// SetLinkID sets the "link_id" field.
-func (_u *BlobLinkUpdate) SetLinkID(v uuid.UUID) *BlobLinkUpdate {
-	_u.mutation.SetLinkID(v)
+// SetLinksID sets the "links_id" field.
+func (_u *BlobLinkUpdate) SetLinksID(v uuid.UUID) *BlobLinkUpdate {
+	_u.mutation.SetLinksID(v)
 	return _u
 }
 
-// SetNillableLinkID sets the "link_id" field if the given value is not nil.
-func (_u *BlobLinkUpdate) SetNillableLinkID(v *uuid.UUID) *BlobLinkUpdate {
+// SetNillableLinksID sets the "links_id" field if the given value is not nil.
+func (_u *BlobLinkUpdate) SetNillableLinksID(v *uuid.UUID) *BlobLinkUpdate {
 	if v != nil {
-		_u.SetLinkID(*v)
+		_u.SetLinksID(*v)
 	}
 	return _u
 }
@@ -79,6 +79,12 @@ func (_u *BlobLinkUpdate) SetNillableLinkID(v *uuid.UUID) *BlobLinkUpdate {
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_u *BlobLinkUpdate) SetBlob(v *Blob) *BlobLinkUpdate {
 	return _u.SetBlobID(v.ID)
+}
+
+// SetLinkID sets the "link" edge to the Blob entity by ID.
+func (_u *BlobLinkUpdate) SetLinkID(id uuid.UUID) *BlobLinkUpdate {
+	_u.mutation.SetLinkID(id)
+	return _u
 }
 
 // SetLink sets the "link" edge to the Blob entity.
@@ -145,7 +151,7 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinkID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinksID, field.TypeUUID))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -262,16 +268,16 @@ func (_u *BlobLinkUpdateOne) SetNillableBlobID(v *uuid.UUID) *BlobLinkUpdateOne 
 	return _u
 }
 
-// SetLinkID sets the "link_id" field.
-func (_u *BlobLinkUpdateOne) SetLinkID(v uuid.UUID) *BlobLinkUpdateOne {
-	_u.mutation.SetLinkID(v)
+// SetLinksID sets the "links_id" field.
+func (_u *BlobLinkUpdateOne) SetLinksID(v uuid.UUID) *BlobLinkUpdateOne {
+	_u.mutation.SetLinksID(v)
 	return _u
 }
 
-// SetNillableLinkID sets the "link_id" field if the given value is not nil.
-func (_u *BlobLinkUpdateOne) SetNillableLinkID(v *uuid.UUID) *BlobLinkUpdateOne {
+// SetNillableLinksID sets the "links_id" field if the given value is not nil.
+func (_u *BlobLinkUpdateOne) SetNillableLinksID(v *uuid.UUID) *BlobLinkUpdateOne {
 	if v != nil {
-		_u.SetLinkID(*v)
+		_u.SetLinksID(*v)
 	}
 	return _u
 }
@@ -279,6 +285,12 @@ func (_u *BlobLinkUpdateOne) SetNillableLinkID(v *uuid.UUID) *BlobLinkUpdateOne 
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_u *BlobLinkUpdateOne) SetBlob(v *Blob) *BlobLinkUpdateOne {
 	return _u.SetBlobID(v.ID)
+}
+
+// SetLinkID sets the "link" edge to the Blob entity by ID.
+func (_u *BlobLinkUpdateOne) SetLinkID(id uuid.UUID) *BlobLinkUpdateOne {
+	_u.mutation.SetLinkID(id)
+	return _u
 }
 
 // SetLink sets the "link" edge to the Blob entity.
@@ -358,14 +370,14 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinkID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinksID, field.TypeUUID))
 	if id, ok := _u.mutation.BlobID(); !ok {
 		return nil, &ValidationError{Name: "blob_id", err: errors.New(`ent: missing "BlobLink.blob_id" for update`)}
 	} else {
 		_spec.Node.CompositeID[0].Value = id
 	}
-	if id, ok := _u.mutation.LinkID(); !ok {
-		return nil, &ValidationError{Name: "link_id", err: errors.New(`ent: missing "BlobLink.link_id" for update`)}
+	if id, ok := _u.mutation.LinksID(); !ok {
+		return nil, &ValidationError{Name: "links_id", err: errors.New(`ent: missing "BlobLink.links_id" for update`)}
 	} else {
 		_spec.Node.CompositeID[1].Value = id
 	}

@@ -187,7 +187,7 @@ func (_q *BlogQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Blogs.
+// All executes the query and returns a list of Blog entities.
 func (_q *BlogQuery) All(ctx context.Context) ([]*Blog, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

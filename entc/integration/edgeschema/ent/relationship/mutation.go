@@ -104,13 +104,13 @@ func (m *Mutation) ResetUserID() {
 	m.user = nil
 }
 
-// SetRelativeID sets the "relative_id" field.
-func (m *Mutation) SetRelativeID(i int) {
+// SetRelativesID sets the "relatives_id" field.
+func (m *Mutation) SetRelativesID(i int) {
 	m.relative = &i
 }
 
-// RelativeID returns the value of the "relative_id" field in the mutation.
-func (m *Mutation) RelativeID() (r int, exists bool) {
+// RelativesID returns the value of the "relatives_id" field in the mutation.
+func (m *Mutation) RelativesID() (r int, exists bool) {
 	v := m.relative
 	if v == nil {
 		return
@@ -118,8 +118,8 @@ func (m *Mutation) RelativeID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetRelativeID resets all changes to the "relative_id" field.
-func (m *Mutation) ResetRelativeID() {
+// ResetRelativesID resets all changes to the "relatives_id" field.
+func (m *Mutation) ResetRelativesID() {
 	m.relative = nil
 }
 
@@ -182,15 +182,28 @@ func (m *Mutation) ResetUser() {
 	m.cleareduser = false
 }
 
+// SetRelativeID sets the "relative" edge to the User entity by id.
+func (m *Mutation) SetRelativeID(id int) {
+	m.relative = &id
+}
+
 // ClearRelative clears the "relative" edge to the User entity.
 func (m *Mutation) ClearRelative() {
 	m.clearedrelative = true
-	m.clearedFields[FieldRelativeID] = struct{}{}
+	m.clearedFields[FieldRelativesID] = struct{}{}
 }
 
 // RelativeCleared reports if the "relative" edge to the User entity was cleared.
 func (m *Mutation) RelativeCleared() bool {
 	return m.clearedrelative
+}
+
+// RelativeID returns the "relative" edge ID in the mutation.
+func (m *Mutation) RelativeID() (id int, exists bool) {
+	if m.relative != nil {
+		return *m.relative, true
+	}
+	return
 }
 
 // RelativeIDs returns the "relative" edge IDs in the mutation.
@@ -278,7 +291,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldUserID)
 	}
 	if m.relative != nil {
-		fields = append(fields, FieldRelativeID)
+		fields = append(fields, FieldRelativesID)
 	}
 	if m.info != nil {
 		fields = append(fields, FieldInfoID)
@@ -295,8 +308,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Weight()
 	case FieldUserID:
 		return m.UserID()
-	case FieldRelativeID:
-		return m.RelativeID()
+	case FieldRelativesID:
+		return m.RelativesID()
 	case FieldInfoID:
 		return m.InfoID()
 	}
@@ -329,12 +342,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserID(v)
 		return nil
-	case FieldRelativeID:
+	case FieldRelativesID:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetRelativeID(v)
+		m.SetRelativesID(v)
 		return nil
 	case FieldInfoID:
 		v, ok := value.(int)
@@ -422,8 +435,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldUserID:
 		m.ResetUserID()
 		return nil
-	case FieldRelativeID:
-		m.ResetRelativeID()
+	case FieldRelativesID:
+		m.ResetRelativesID()
 		return nil
 	case FieldInfoID:
 		m.ResetInfoID()

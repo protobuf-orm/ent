@@ -21,12 +21,12 @@ const (
 	// EdgeCity holds the string denoting the city edge name in mutations.
 	EdgeCity = "city"
 	// Table holds the table name of the street in the database.
-	Table = "streets"
+	Table = "street"
 	// CityTable is the table that holds the city relation/edge.
-	CityTable = "streets"
+	CityTable = "street"
 	// CityInverseTable is the table name for the City entity.
 	// It exists in this package in order to avoid circular dependency with the "city" package.
-	CityInverseTable = "cities"
+	CityInverseTable = "city"
 	// CityColumn is the table column denoting the city relation/edge.
 	CityColumn = "city_streets"
 )
@@ -37,7 +37,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "streets"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "street"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"city_streets",

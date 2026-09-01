@@ -162,7 +162,7 @@ func (_q *RevisionQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Revisions.
+// All executes the query and returns a list of Revision entities.
 func (_q *RevisionQuery) All(ctx context.Context) ([]*Revision, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

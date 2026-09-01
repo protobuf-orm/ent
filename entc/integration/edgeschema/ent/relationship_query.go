@@ -182,7 +182,7 @@ func (_q *RelationshipQuery) OnlyX(ctx context.Context) *Relationship {
 	return node
 }
 
-// All executes the query and returns a list of Relationships.
+// All executes the query and returns a list of Relationship entities.
 func (_q *RelationshipQuery) All(ctx context.Context) ([]*Relationship, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -457,7 +457,7 @@ func (_q *RelationshipQuery) loadRelative(ctx context.Context, query *UserQuery,
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Relationship)
 	for i := range nodes {
-		fk := nodes[i].RelativeID
+		fk := nodes[i].RelativesID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -474,7 +474,7 @@ func (_q *RelationshipQuery) loadRelative(ctx context.Context, query *UserQuery,
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "relative_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "relatives_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -536,7 +536,7 @@ func (_q *RelationshipQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.AddColumnOnce(relationship.FieldUserID)
 		}
 		if _q.withRelative != nil {
-			_spec.Node.AddColumnOnce(relationship.FieldRelativeID)
+			_spec.Node.AddColumnOnce(relationship.FieldRelativesID)
 		}
 		if _q.withInfo != nil {
 			_spec.Node.AddColumnOnce(relationship.FieldInfoID)

@@ -195,7 +195,7 @@ func (_q *CardQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Cards.
+// All executes the query and returns a list of Card entities.
 func (_q *CardQuery) All(ctx context.Context) ([]*Card, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -402,7 +402,7 @@ func (_q *CardQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Car
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Cards
+	var _ms CardList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

@@ -306,7 +306,7 @@ func (_q *TweetQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Tweets.
+// All executes the query and returns a list of Tweet entities.
 func (_q *TweetQuery) All(ctx context.Context) ([]*Tweet, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

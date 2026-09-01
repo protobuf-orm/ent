@@ -120,11 +120,11 @@ func (_m *ExValueScan) String() string {
 	return builder.String()
 }
 
-// ExValueScans is a parsable slice of ExValueScan.
-type ExValueScans []*ExValueScan
+// ExValueScanList is a parsable slice of ExValueScan.
+type ExValueScanList []*ExValueScan
 
-// FromResponse scans the gremlin response data into ExValueScans.
-func (_m *ExValueScans) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into ExValueScanList.
+func (_m *ExValueScanList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

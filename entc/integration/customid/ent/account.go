@@ -130,5 +130,5 @@ func (_m *Account) String() string {
 	return builder.String()
 }
 
-// Accounts is a parsable slice of Account.
-type Accounts []*Account
+// AccountList is a parsable slice of Account.
+type AccountList []*Account

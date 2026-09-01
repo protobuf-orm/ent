@@ -63,11 +63,11 @@ func (_m *Builder) String() string {
 	return builder.String()
 }
 
-// Builders is a parsable slice of Builder.
-type Builders []*Builder
+// BuilderList is a parsable slice of Builder.
+type BuilderList []*Builder
 
-// FromResponse scans the gremlin response data into Builders.
-func (_m *Builders) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into BuilderList.
+func (_m *BuilderList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

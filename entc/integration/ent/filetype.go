@@ -176,5 +176,5 @@ func (_m *FileType) appendNamedFiles(name string, edges ...*File) {
 	}
 }
 
-// FileTypes is a parsable slice of FileType.
-type FileTypes []*FileType
+// FileTypeList is a parsable slice of FileType.
+type FileTypeList []*FileType

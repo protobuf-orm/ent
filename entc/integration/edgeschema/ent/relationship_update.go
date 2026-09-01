@@ -68,16 +68,16 @@ func (_u *RelationshipUpdate) SetNillableUserID(v *int) *RelationshipUpdate {
 	return _u
 }
 
-// SetRelativeID sets the "relative_id" field.
-func (_u *RelationshipUpdate) SetRelativeID(v int) *RelationshipUpdate {
-	_u.mutation.SetRelativeID(v)
+// SetRelativesID sets the "relatives_id" field.
+func (_u *RelationshipUpdate) SetRelativesID(v int) *RelationshipUpdate {
+	_u.mutation.SetRelativesID(v)
 	return _u
 }
 
-// SetNillableRelativeID sets the "relative_id" field if the given value is not nil.
-func (_u *RelationshipUpdate) SetNillableRelativeID(v *int) *RelationshipUpdate {
+// SetNillableRelativesID sets the "relatives_id" field if the given value is not nil.
+func (_u *RelationshipUpdate) SetNillableRelativesID(v *int) *RelationshipUpdate {
 	if v != nil {
-		_u.SetRelativeID(*v)
+		_u.SetRelativesID(*v)
 	}
 	return _u
 }
@@ -105,6 +105,12 @@ func (_u *RelationshipUpdate) ClearInfoID() *RelationshipUpdate {
 // SetUser sets the "user" edge to the User entity.
 func (_u *RelationshipUpdate) SetUser(v *User) *RelationshipUpdate {
 	return _u.SetUserID(v.ID)
+}
+
+// SetRelativeID sets the "relative" edge to the User entity by ID.
+func (_u *RelationshipUpdate) SetRelativeID(id int) *RelationshipUpdate {
+	_u.mutation.SetRelativeID(id)
+	return _u
 }
 
 // SetRelative sets the "relative" edge to the User entity.
@@ -182,7 +188,7 @@ func (_u *RelationshipUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(relationship.Table, relationship.Columns, sqlgraph.NewFieldSpec(relationship.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(relationship.FieldRelativeID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(relationship.Table, relationship.Columns, sqlgraph.NewFieldSpec(relationship.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(relationship.FieldRelativesID, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -338,16 +344,16 @@ func (_u *RelationshipUpdateOne) SetNillableUserID(v *int) *RelationshipUpdateOn
 	return _u
 }
 
-// SetRelativeID sets the "relative_id" field.
-func (_u *RelationshipUpdateOne) SetRelativeID(v int) *RelationshipUpdateOne {
-	_u.mutation.SetRelativeID(v)
+// SetRelativesID sets the "relatives_id" field.
+func (_u *RelationshipUpdateOne) SetRelativesID(v int) *RelationshipUpdateOne {
+	_u.mutation.SetRelativesID(v)
 	return _u
 }
 
-// SetNillableRelativeID sets the "relative_id" field if the given value is not nil.
-func (_u *RelationshipUpdateOne) SetNillableRelativeID(v *int) *RelationshipUpdateOne {
+// SetNillableRelativesID sets the "relatives_id" field if the given value is not nil.
+func (_u *RelationshipUpdateOne) SetNillableRelativesID(v *int) *RelationshipUpdateOne {
 	if v != nil {
-		_u.SetRelativeID(*v)
+		_u.SetRelativesID(*v)
 	}
 	return _u
 }
@@ -375,6 +381,12 @@ func (_u *RelationshipUpdateOne) ClearInfoID() *RelationshipUpdateOne {
 // SetUser sets the "user" edge to the User entity.
 func (_u *RelationshipUpdateOne) SetUser(v *User) *RelationshipUpdateOne {
 	return _u.SetUserID(v.ID)
+}
+
+// SetRelativeID sets the "relative" edge to the User entity by ID.
+func (_u *RelationshipUpdateOne) SetRelativeID(id int) *RelationshipUpdateOne {
+	_u.mutation.SetRelativeID(id)
+	return _u
 }
 
 // SetRelative sets the "relative" edge to the User entity.
@@ -465,14 +477,14 @@ func (_u *RelationshipUpdateOne) sqlSave(ctx context.Context) (_node *Relationsh
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(relationship.Table, relationship.Columns, sqlgraph.NewFieldSpec(relationship.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(relationship.FieldRelativeID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(relationship.Table, relationship.Columns, sqlgraph.NewFieldSpec(relationship.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(relationship.FieldRelativesID, field.TypeInt))
 	if id, ok := _u.mutation.UserID(); !ok {
 		return nil, &ValidationError{Name: "user_id", err: errors.New(`ent: missing "Relationship.user_id" for update`)}
 	} else {
 		_spec.Node.CompositeID[0].Value = id
 	}
-	if id, ok := _u.mutation.RelativeID(); !ok {
-		return nil, &ValidationError{Name: "relative_id", err: errors.New(`ent: missing "Relationship.relative_id" for update`)}
+	if id, ok := _u.mutation.RelativesID(); !ok {
+		return nil, &ValidationError{Name: "relatives_id", err: errors.New(`ent: missing "Relationship.relatives_id" for update`)}
 	} else {
 		_spec.Node.CompositeID[1].Value = id
 	}

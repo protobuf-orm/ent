@@ -25,13 +25,13 @@ const (
 	// EdgeNext holds the string denoting the next edge name in mutations.
 	EdgeNext = "next"
 	// Table holds the table name of the node in the database.
-	Table = "nodes"
+	Table = "node"
 	// PrevTable is the table that holds the prev relation/edge.
-	PrevTable = "nodes"
+	PrevTable = "node"
 	// PrevColumn is the table column denoting the prev relation/edge.
 	PrevColumn = "prev_id"
 	// NextTable is the table that holds the next relation/edge.
-	NextTable = "nodes"
+	NextTable = "node"
 	// NextColumn is the table column denoting the next relation/edge.
 	NextColumn = "prev_id"
 )

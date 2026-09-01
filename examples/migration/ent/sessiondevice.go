@@ -177,5 +177,5 @@ func (_m *SessionDevice) String() string {
 	return builder.String()
 }
 
-// SessionDevices is a parsable slice of SessionDevice.
-type SessionDevices []*SessionDevice
+// SessionDeviceList is a parsable slice of SessionDevice.
+type SessionDeviceList []*SessionDevice

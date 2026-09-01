@@ -132,5 +132,5 @@ func (_m *UserAuditLog) String() string {
 	return builder.String()
 }
 
-// UserAuditLogs is a parsable slice of UserAuditLog.
-type UserAuditLogs []*UserAuditLog
+// UserAuditLogList is a parsable slice of UserAuditLog.
+type UserAuditLogList []*UserAuditLog

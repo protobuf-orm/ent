@@ -187,7 +187,7 @@ func (_q *CarQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Cars.
+// All executes the query and returns a list of Car entities.
 func (_q *CarQuery) All(ctx context.Context) ([]*Car, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

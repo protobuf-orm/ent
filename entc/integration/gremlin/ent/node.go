@@ -127,11 +127,11 @@ func (_m *Node) String() string {
 	return builder.String()
 }
 
-// Nodes is a parsable slice of Node.
-type Nodes []*Node
+// NodeList is a parsable slice of Node.
+type NodeList []*Node
 
-// FromResponse scans the gremlin response data into Nodes.
-func (_m *Nodes) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into NodeList.
+func (_m *NodeList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

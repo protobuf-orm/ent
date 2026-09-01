@@ -46,9 +46,9 @@ func (_u *FileUpdate) SetNillableName(v *string) *FileUpdate {
 	return _u
 }
 
-// AddProcessIDs adds the "processes" edge to the Process entity by IDs.
-func (_u *FileUpdate) AddProcessIDs(ids ...int) *FileUpdate {
-	_u.mutation.AddProcessIDs(ids...)
+// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
+func (_u *FileUpdate) AddProcessesIDs(ids ...int) *FileUpdate {
+	_u.mutation.AddProcessesIDs(ids...)
 	return _u
 }
 
@@ -58,7 +58,7 @@ func (_u *FileUpdate) AddProcesses(v ...*Process) *FileUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddProcessIDs(ids...)
+	return _u.AddProcessesIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -72,9 +72,9 @@ func (_u *FileUpdate) ClearProcesses() *FileUpdate {
 	return _u
 }
 
-// RemoveProcessIDs removes the "processes" edge to Process entities by IDs.
-func (_u *FileUpdate) RemoveProcessIDs(ids ...int) *FileUpdate {
-	_u.mutation.RemoveProcessIDs(ids...)
+// RemoveProcessesIDs removes the "processes" edge to Process entities by IDs.
+func (_u *FileUpdate) RemoveProcessesIDs(ids ...int) *FileUpdate {
+	_u.mutation.RemoveProcessesIDs(ids...)
 	return _u
 }
 
@@ -84,7 +84,7 @@ func (_u *FileUpdate) RemoveProcesses(v ...*Process) *FileUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveProcessIDs(ids...)
+	return _u.RemoveProcessesIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -205,9 +205,9 @@ func (_u *FileUpdateOne) SetNillableName(v *string) *FileUpdateOne {
 	return _u
 }
 
-// AddProcessIDs adds the "processes" edge to the Process entity by IDs.
-func (_u *FileUpdateOne) AddProcessIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.AddProcessIDs(ids...)
+// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
+func (_u *FileUpdateOne) AddProcessesIDs(ids ...int) *FileUpdateOne {
+	_u.mutation.AddProcessesIDs(ids...)
 	return _u
 }
 
@@ -217,7 +217,7 @@ func (_u *FileUpdateOne) AddProcesses(v ...*Process) *FileUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddProcessIDs(ids...)
+	return _u.AddProcessesIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -231,9 +231,9 @@ func (_u *FileUpdateOne) ClearProcesses() *FileUpdateOne {
 	return _u
 }
 
-// RemoveProcessIDs removes the "processes" edge to Process entities by IDs.
-func (_u *FileUpdateOne) RemoveProcessIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.RemoveProcessIDs(ids...)
+// RemoveProcessesIDs removes the "processes" edge to Process entities by IDs.
+func (_u *FileUpdateOne) RemoveProcessesIDs(ids ...int) *FileUpdateOne {
+	_u.mutation.RemoveProcessesIDs(ids...)
 	return _u
 }
 
@@ -243,7 +243,7 @@ func (_u *FileUpdateOne) RemoveProcesses(v ...*Process) *FileUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveProcessIDs(ids...)
+	return _u.RemoveProcessesIDs(ids...)
 }
 
 // Where appends a list predicates to the FileUpdate builder.

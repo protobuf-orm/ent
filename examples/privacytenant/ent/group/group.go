@@ -26,19 +26,19 @@ const (
 	// EdgeUsers holds the string denoting the users edge name in mutations.
 	EdgeUsers = "users"
 	// Table holds the table name of the group in the database.
-	Table = "groups"
+	Table = "group"
 	// TenantTable is the table that holds the tenant relation/edge.
-	TenantTable = "groups"
+	TenantTable = "group"
 	// TenantInverseTable is the table name for the Tenant entity.
 	// It exists in this package in order to avoid circular dependency with the "tenant" package.
-	TenantInverseTable = "tenants"
+	TenantInverseTable = "tenant"
 	// TenantColumn is the table column denoting the tenant relation/edge.
 	TenantColumn = "tenant_id"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
 	UsersTable = "user_groups"
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UsersInverseTable = "users"
+	UsersInverseTable = "user"
 )
 
 // Columns holds all SQL columns for group fields.

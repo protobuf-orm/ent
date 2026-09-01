@@ -146,5 +146,5 @@ func (_m *Post) String() string {
 	return builder.String()
 }
 
-// Posts is a parsable slice of Post.
-type Posts []*Post
+// PostList is a parsable slice of Post.
+type PostList []*Post

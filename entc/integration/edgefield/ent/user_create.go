@@ -61,9 +61,9 @@ func (_c *UserCreate) SetID(v int) *UserCreate {
 	return _c
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_c *UserCreate) AddPetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_c *UserCreate) AddPetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddPetsIDs(ids...)
 	return _c
 }
 
@@ -73,7 +73,7 @@ func (_c *UserCreate) AddPets(v ...*Pet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPetIDs(ids...)
+	return _c.AddPetsIDs(ids...)
 }
 
 // SetParent sets the "parent" edge to the User entity.
@@ -81,9 +81,9 @@ func (_c *UserCreate) SetParent(v *User) *UserCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -93,7 +93,7 @@ func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
@@ -154,9 +154,9 @@ func (_c *UserCreate) AddInfo(v ...*Info) *UserCreate {
 	return _c.AddInfoIDs(ids...)
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_c *UserCreate) AddRentalIDs(ids ...int) *UserCreate {
-	_c.mutation.AddRentalIDs(ids...)
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
+func (_c *UserCreate) AddRentalsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddRentalsIDs(ids...)
 	return _c
 }
 
@@ -166,7 +166,7 @@ func (_c *UserCreate) AddRentals(v ...*Rental) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddRentalIDs(ids...)
+	return _c.AddRentalsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.

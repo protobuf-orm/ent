@@ -156,5 +156,5 @@ func (_m *User) String() string {
 	return builder.String()
 }
 
-// Users is a parsable slice of User.
-type Users []*User
+// UserList is a parsable slice of User.
+type UserList []*User

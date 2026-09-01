@@ -188,7 +188,7 @@ func (_q *TokenQuery) OnlyIDX(ctx context.Context) sid.ID {
 	return id
 }
 
-// All executes the query and returns a list of Tokens.
+// All executes the query and returns a list of Token entities.
 func (_q *TokenQuery) All(ctx context.Context) ([]*Token, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

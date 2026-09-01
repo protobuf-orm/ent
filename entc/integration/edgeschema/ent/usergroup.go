@@ -174,5 +174,5 @@ func (_m *UserGroup) String() string {
 	return builder.String()
 }
 
-// UserGroups is a parsable slice of UserGroup.
-type UserGroups []*UserGroup
+// UserGroupList is a parsable slice of UserGroup.
+type UserGroupList []*UserGroup

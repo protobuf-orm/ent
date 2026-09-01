@@ -91,5 +91,5 @@ func (_m *Zoo) String() string {
 	return builder.String()
 }
 
-// Zoos is a parsable slice of Zoo.
-type Zoos []*Zoo
+// ZooList is a parsable slice of Zoo.
+type ZooList []*Zoo

@@ -217,7 +217,7 @@ func (_q *FriendshipQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Friendships.
+// All executes the query and returns a list of Friendship entities.
 func (_q *FriendshipQuery) All(ctx context.Context) ([]*Friendship, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -494,7 +494,7 @@ func (_q *FriendshipQuery) loadFriend(ctx context.Context, query *UserQuery, nod
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Friendship)
 	for i := range nodes {
-		fk := nodes[i].FriendID
+		fk := nodes[i].FriendsID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -511,7 +511,7 @@ func (_q *FriendshipQuery) loadFriend(ctx context.Context, query *UserQuery, nod
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "friend_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "friends_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -554,7 +554,7 @@ func (_q *FriendshipQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.AddColumnOnce(friendship.FieldUserID)
 		}
 		if _q.withFriend != nil {
-			_spec.Node.AddColumnOnce(friendship.FieldFriendID)
+			_spec.Node.AddColumnOnce(friendship.FieldFriendsID)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

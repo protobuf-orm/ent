@@ -182,8 +182,8 @@ func (m *Mutation) ResetOwner() {
 	m.clearedowner = false
 }
 
-// AddPaymentIDs adds the "payments" edge to the Payment entity by ids.
-func (m *Mutation) AddPaymentIDs(ids ...int) {
+// AddPaymentsIDs adds the "payments" edge to the Payment entity by ids.
+func (m *Mutation) AddPaymentsIDs(ids ...int) {
 	if m.payments == nil {
 		m.payments = make(map[int]struct{})
 	}
@@ -202,8 +202,8 @@ func (m *Mutation) PaymentsCleared() bool {
 	return m.clearedpayments
 }
 
-// RemovePaymentIDs removes the "payments" edge to the Payment entity by IDs.
-func (m *Mutation) RemovePaymentIDs(ids ...int) {
+// RemovePaymentsIDs removes the "payments" edge to the Payment entity by IDs.
+func (m *Mutation) RemovePaymentsIDs(ids ...int) {
 	if m.removedpayments == nil {
 		m.removedpayments = make(map[int]struct{})
 	}

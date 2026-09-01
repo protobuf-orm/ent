@@ -58,9 +58,9 @@ func (_c *PostCreate) SetAuthor(v *User) *PostCreate {
 	return _c.SetAuthorID(v.ID)
 }
 
-// AddCommentIDs adds the "comments" edge to the Comment entity by IDs.
-func (_c *PostCreate) AddCommentIDs(ids ...int) *PostCreate {
-	_c.mutation.AddCommentIDs(ids...)
+// AddCommentsIDs adds the "comments" edge to the Comment entity by IDs.
+func (_c *PostCreate) AddCommentsIDs(ids ...int) *PostCreate {
+	_c.mutation.AddCommentsIDs(ids...)
 	return _c
 }
 
@@ -70,7 +70,7 @@ func (_c *PostCreate) AddComments(v ...*Comment) *PostCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddCommentIDs(ids...)
+	return _c.AddCommentsIDs(ids...)
 }
 
 // Mutation returns the PostMutation object of the builder.

@@ -212,7 +212,7 @@ func (_q *DeviceQuery) OnlyIDX(ctx context.Context) schema.ID {
 	return id
 }
 
-// All executes the query and returns a list of Devices.
+// All executes the query and returns a list of Device entities.
 func (_q *DeviceQuery) All(ctx context.Context) ([]*Device, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -48,15 +48,21 @@ func (_c *BlobLinkCreate) SetBlobID(v uuid.UUID) *BlobLinkCreate {
 	return _c
 }
 
-// SetLinkID sets the "link_id" field.
-func (_c *BlobLinkCreate) SetLinkID(v uuid.UUID) *BlobLinkCreate {
-	_c.mutation.SetLinkID(v)
+// SetLinksID sets the "links_id" field.
+func (_c *BlobLinkCreate) SetLinksID(v uuid.UUID) *BlobLinkCreate {
+	_c.mutation.SetLinksID(v)
 	return _c
 }
 
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_c *BlobLinkCreate) SetBlob(v *Blob) *BlobLinkCreate {
 	return _c.SetBlobID(v.ID)
+}
+
+// SetLinkID sets the "link" edge to the Blob entity by ID.
+func (_c *BlobLinkCreate) SetLinkID(id uuid.UUID) *BlobLinkCreate {
+	_c.mutation.SetLinkID(id)
+	return _c
 }
 
 // SetLink sets the "link" edge to the Blob entity.
@@ -113,8 +119,8 @@ func (_c *BlobLinkCreate) check() error {
 	if _, ok := _c.mutation.BlobID(); !ok {
 		return &ValidationError{Name: "blob_id", err: errors.New(`ent: missing required field "BlobLink.blob_id"`)}
 	}
-	if _, ok := _c.mutation.LinkID(); !ok {
-		return &ValidationError{Name: "link_id", err: errors.New(`ent: missing required field "BlobLink.link_id"`)}
+	if _, ok := _c.mutation.LinksID(); !ok {
+		return &ValidationError{Name: "links_id", err: errors.New(`ent: missing required field "BlobLink.links_id"`)}
 	}
 	if len(_c.mutation.BlobIDs()) == 0 {
 		return &ValidationError{Name: "blob", err: errors.New(`ent: missing required edge "BlobLink.blob"`)}
@@ -180,7 +186,7 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.LinkID = nodes[0]
+		_node.LinksID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -259,15 +265,15 @@ func (u *BlobLinkUpsert) UpdateBlobID() *BlobLinkUpsert {
 	return u
 }
 
-// SetLinkID sets the "link_id" field.
-func (u *BlobLinkUpsert) SetLinkID(v uuid.UUID) *BlobLinkUpsert {
-	u.Set(bloblink.FieldLinkID, v)
+// SetLinksID sets the "links_id" field.
+func (u *BlobLinkUpsert) SetLinksID(v uuid.UUID) *BlobLinkUpsert {
+	u.Set(bloblink.FieldLinksID, v)
 	return u
 }
 
-// UpdateLinkID sets the "link_id" field to the value that was provided on create.
-func (u *BlobLinkUpsert) UpdateLinkID() *BlobLinkUpsert {
-	u.SetExcluded(bloblink.FieldLinkID)
+// UpdateLinksID sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsert) UpdateLinksID() *BlobLinkUpsert {
+	u.SetExcluded(bloblink.FieldLinksID)
 	return u
 }
 
@@ -339,17 +345,17 @@ func (u *BlobLinkUpsertOne) UpdateBlobID() *BlobLinkUpsertOne {
 	})
 }
 
-// SetLinkID sets the "link_id" field.
-func (u *BlobLinkUpsertOne) SetLinkID(v uuid.UUID) *BlobLinkUpsertOne {
+// SetLinksID sets the "links_id" field.
+func (u *BlobLinkUpsertOne) SetLinksID(v uuid.UUID) *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetLinkID(v)
+		s.SetLinksID(v)
 	})
 }
 
-// UpdateLinkID sets the "link_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertOne) UpdateLinkID() *BlobLinkUpsertOne {
+// UpdateLinksID sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertOne) UpdateLinksID() *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateLinkID()
+		s.UpdateLinksID()
 	})
 }
 
@@ -562,17 +568,17 @@ func (u *BlobLinkUpsertBulk) UpdateBlobID() *BlobLinkUpsertBulk {
 	})
 }
 
-// SetLinkID sets the "link_id" field.
-func (u *BlobLinkUpsertBulk) SetLinkID(v uuid.UUID) *BlobLinkUpsertBulk {
+// SetLinksID sets the "links_id" field.
+func (u *BlobLinkUpsertBulk) SetLinksID(v uuid.UUID) *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetLinkID(v)
+		s.SetLinksID(v)
 	})
 }
 
-// UpdateLinkID sets the "link_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertBulk) UpdateLinkID() *BlobLinkUpsertBulk {
+// UpdateLinksID sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertBulk) UpdateLinksID() *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateLinkID()
+		s.UpdateLinksID()
 	})
 }
 

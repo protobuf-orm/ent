@@ -91,5 +91,5 @@ func (_m *Api) String() string {
 	return builder.String()
 }
 
-// Apis is a parsable slice of Api.
-type Apis []*Api
+// ApiList is a parsable slice of Api.
+type ApiList []*Api

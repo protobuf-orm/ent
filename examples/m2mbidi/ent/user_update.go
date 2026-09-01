@@ -66,9 +66,9 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdate) AddFriendIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_u *UserUpdate) AddFriendsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -78,7 +78,7 @@ func (_u *UserUpdate) AddFriends(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -92,9 +92,9 @@ func (_u *UserUpdate) ClearFriends() *UserUpdate {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveFriendIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveFriendsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -104,7 +104,7 @@ func (_u *UserUpdate) RemoveFriends(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -252,9 +252,9 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddFriendIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddFriendsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -264,7 +264,7 @@ func (_u *UserUpdateOne) AddFriends(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -278,9 +278,9 @@ func (_u *UserUpdateOne) ClearFriends() *UserUpdateOne {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveFriendIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveFriendsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -290,7 +290,7 @@ func (_u *UserUpdateOne) RemoveFriends(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

@@ -73,8 +73,8 @@ func (m *Mutation) ResetNumber() {
 	delete(m.clearedFields, FieldNumber)
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by ids.
-func (m *Mutation) AddRentalIDs(ids ...int) {
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by ids.
+func (m *Mutation) AddRentalsIDs(ids ...int) {
 	if m.rentals == nil {
 		m.rentals = make(map[int]struct{})
 	}
@@ -93,8 +93,8 @@ func (m *Mutation) RentalsCleared() bool {
 	return m.clearedrentals
 }
 
-// RemoveRentalIDs removes the "rentals" edge to the Rental entity by IDs.
-func (m *Mutation) RemoveRentalIDs(ids ...int) {
+// RemoveRentalsIDs removes the "rentals" edge to the Rental entity by IDs.
+func (m *Mutation) RemoveRentalsIDs(ids ...int) {
 	if m.removedrentals == nil {
 		m.removedrentals = make(map[int]struct{})
 	}

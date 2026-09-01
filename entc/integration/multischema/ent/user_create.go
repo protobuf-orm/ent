@@ -41,9 +41,9 @@ func (_c *UserCreate) SetNillableName(v *string) *UserCreate {
 	return _c
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by IDs.
-func (_c *UserCreate) AddPetIDs(ids ...int) *UserCreate {
-	_c.mutation.AddPetIDs(ids...)
+// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
+func (_c *UserCreate) AddPetsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddPetsIDs(ids...)
 	return _c
 }
 
@@ -53,12 +53,12 @@ func (_c *UserCreate) AddPets(v ...*Pet) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddPetIDs(ids...)
+	return _c.AddPetsIDs(ids...)
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -68,12 +68,12 @@ func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIDs(ids...)
 	return _c
 }
 
@@ -83,12 +83,12 @@ func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendIDs(ids...)
+	return _c.AddFriendsIDs(ids...)
 }
 
-// AddParentIDs adds the "parents" edge to the User entity by IDs.
-func (_c *UserCreate) AddParentIDs(ids ...int) *UserCreate {
-	_c.mutation.AddParentIDs(ids...)
+// AddParentsIDs adds the "parents" edge to the User entity by IDs.
+func (_c *UserCreate) AddParentsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddParentsIDs(ids...)
 	return _c
 }
 
@@ -98,12 +98,12 @@ func (_c *UserCreate) AddParents(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddParentIDs(ids...)
+	return _c.AddParentsIDs(ids...)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -113,12 +113,12 @@ func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
-// AddFriendshipIDs adds the "friendships" edge to the Friendship entity by IDs.
-func (_c *UserCreate) AddFriendshipIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendshipIDs(ids...)
+// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by IDs.
+func (_c *UserCreate) AddFriendshipsIDs(ids ...int) *UserCreate {
+	_c.mutation.AddFriendshipsIDs(ids...)
 	return _c
 }
 
@@ -128,7 +128,7 @@ func (_c *UserCreate) AddFriendships(v ...*Friendship) *UserCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddFriendshipIDs(ids...)
+	return _c.AddFriendshipsIDs(ids...)
 }
 
 // AddParentHoodIDs adds the "parent_hood" edge to the Parent entity by IDs.

@@ -63,11 +63,11 @@ func (_m *PC) String() string {
 	return builder.String()
 }
 
-// PCs is a parsable slice of PC.
-type PCs []*PC
+// PCList is a parsable slice of PC.
+type PCList []*PC
 
-// FromResponse scans the gremlin response data into PCs.
-func (_m *PCs) FromResponse(res *gremlin.Response) error {
+// FromResponse scans the gremlin response data into PCList.
+func (_m *PCList) FromResponse(res *gremlin.Response) error {
 	vmap, err := res.ReadValueMap()
 	if err != nil {
 		return err

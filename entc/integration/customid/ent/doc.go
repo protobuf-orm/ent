@@ -174,5 +174,5 @@ func (_m *Doc) String() string {
 	return builder.String()
 }
 
-// Docs is a parsable slice of Doc.
-type Docs []*Doc
+// DocList is a parsable slice of Doc.
+type DocList []*Doc

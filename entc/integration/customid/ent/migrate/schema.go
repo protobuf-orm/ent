@@ -12,333 +12,333 @@ import (
 )
 
 var (
-	// AccountsColumns holds the columns for the "accounts" table.
-	AccountsColumns = []*schema.Column{
+	// AccountColumns holds the columns for the "account" table.
+	AccountColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeOther, SchemaType: map[string]string{"mysql": "bigint", "postgres": "bigint", "sqlite3": "integer"}},
 		{Name: "email", Type: field.TypeString},
 	}
-	// AccountsTable holds the schema information for the "accounts" table.
-	AccountsTable = &schema.Table{
-		Name:       "accounts",
-		Columns:    AccountsColumns,
-		PrimaryKey: []*schema.Column{AccountsColumns[0]},
+	// AccountTable holds the schema information for the "account" table.
+	AccountTable = &schema.Table{
+		Name:       "account",
+		Columns:    AccountColumns,
+		PrimaryKey: []*schema.Column{AccountColumns[0]},
 	}
-	// BlobsColumns holds the columns for the "blobs" table.
-	BlobsColumns = []*schema.Column{
+	// BlobColumns holds the columns for the "blob" table.
+	BlobColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Unique: true, Default: "uuid_generate_v4()"},
 		{Name: "uuid", Type: field.TypeUUID, Unique: true},
 		{Name: "count", Type: field.TypeInt, Default: 0},
 		{Name: "blob_parent", Type: field.TypeUUID, Unique: true, Nullable: true},
 	}
-	// BlobsTable holds the schema information for the "blobs" table.
-	BlobsTable = &schema.Table{
-		Name:       "blobs",
-		Columns:    BlobsColumns,
-		PrimaryKey: []*schema.Column{BlobsColumns[0]},
+	// BlobTable holds the schema information for the "blob" table.
+	BlobTable = &schema.Table{
+		Name:       "blob",
+		Columns:    BlobColumns,
+		PrimaryKey: []*schema.Column{BlobColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "blobs_blobs_parent",
-				Columns:    []*schema.Column{BlobsColumns[3]},
-				RefColumns: []*schema.Column{BlobsColumns[0]},
+				Symbol:     "blob_blob_parent",
+				Columns:    []*schema.Column{BlobColumns[3]},
+				RefColumns: []*schema.Column{BlobColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// BlobLinksColumns holds the columns for the "blob_links" table.
-	BlobLinksColumns = []*schema.Column{
+	// BlobLinkColumns holds the columns for the "blob_link" table.
+	BlobLinkColumns = []*schema.Column{
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "blob_id", Type: field.TypeUUID},
-		{Name: "link_id", Type: field.TypeUUID},
+		{Name: "links_id", Type: field.TypeUUID},
 	}
-	// BlobLinksTable holds the schema information for the "blob_links" table.
-	BlobLinksTable = &schema.Table{
-		Name:       "blob_links",
-		Columns:    BlobLinksColumns,
-		PrimaryKey: []*schema.Column{BlobLinksColumns[1], BlobLinksColumns[2]},
+	// BlobLinkTable holds the schema information for the "blob_link" table.
+	BlobLinkTable = &schema.Table{
+		Name:       "blob_link",
+		Columns:    BlobLinkColumns,
+		PrimaryKey: []*schema.Column{BlobLinkColumns[1], BlobLinkColumns[2]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "blob_links_blobs_blob",
-				Columns:    []*schema.Column{BlobLinksColumns[1]},
-				RefColumns: []*schema.Column{BlobsColumns[0]},
+				Symbol:     "blob_link_blob_blob",
+				Columns:    []*schema.Column{BlobLinkColumns[1]},
+				RefColumns: []*schema.Column{BlobColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "blob_links_blobs_link",
-				Columns:    []*schema.Column{BlobLinksColumns[2]},
-				RefColumns: []*schema.Column{BlobsColumns[0]},
+				Symbol:     "blob_link_blob_link",
+				Columns:    []*schema.Column{BlobLinkColumns[2]},
+				RefColumns: []*schema.Column{BlobColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// CarsColumns holds the columns for the "cars" table.
-	CarsColumns = []*schema.Column{
+	// CarColumns holds the columns for the "car" table.
+	CarColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "before_id", Type: field.TypeFloat64, Nullable: true},
 		{Name: "after_id", Type: field.TypeFloat64, Nullable: true},
 		{Name: "model", Type: field.TypeString},
 		{Name: "pet_cars", Type: field.TypeString, Nullable: true, Size: 36},
 	}
-	// CarsTable holds the schema information for the "cars" table.
-	CarsTable = &schema.Table{
-		Name:       "cars",
-		Columns:    CarsColumns,
-		PrimaryKey: []*schema.Column{CarsColumns[0]},
+	// CarTable holds the schema information for the "car" table.
+	CarTable = &schema.Table{
+		Name:       "car",
+		Columns:    CarColumns,
+		PrimaryKey: []*schema.Column{CarColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "cars_pets_cars",
-				Columns:    []*schema.Column{CarsColumns[4]},
-				RefColumns: []*schema.Column{PetsColumns[0]},
+				Symbol:     "car_pet_cars",
+				Columns:    []*schema.Column{CarColumns[4]},
+				RefColumns: []*schema.Column{PetColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// DevicesColumns holds the columns for the "devices" table.
-	DevicesColumns = []*schema.Column{
+	// DeviceColumns holds the columns for the "device" table.
+	DeviceColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeBytes, Size: 64},
 		{Name: "device_active_session", Type: field.TypeBytes, Nullable: true, Size: 64},
 	}
-	// DevicesTable holds the schema information for the "devices" table.
-	DevicesTable = &schema.Table{
-		Name:       "devices",
-		Columns:    DevicesColumns,
-		PrimaryKey: []*schema.Column{DevicesColumns[0]},
+	// DeviceTable holds the schema information for the "device" table.
+	DeviceTable = &schema.Table{
+		Name:       "device",
+		Columns:    DeviceColumns,
+		PrimaryKey: []*schema.Column{DeviceColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "devices_sessions_active_session",
-				Columns:    []*schema.Column{DevicesColumns[1]},
-				RefColumns: []*schema.Column{SessionsColumns[0]},
+				Symbol:     "device_session_active_session",
+				Columns:    []*schema.Column{DeviceColumns[1]},
+				RefColumns: []*schema.Column{SessionColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// DocsColumns holds the columns for the "docs" table.
-	DocsColumns = []*schema.Column{
+	// DocColumns holds the columns for the "doc" table.
+	DocColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString, Unique: true, Size: 36, SchemaType: map[string]string{"postgres": "uuid"}},
 		{Name: "text", Type: field.TypeString, Nullable: true},
 		{Name: "doc_children", Type: field.TypeString, Nullable: true, Size: 36, SchemaType: map[string]string{"postgres": "uuid"}},
 	}
-	// DocsTable holds the schema information for the "docs" table.
-	DocsTable = &schema.Table{
-		Name:       "docs",
-		Columns:    DocsColumns,
-		PrimaryKey: []*schema.Column{DocsColumns[0]},
+	// DocTable holds the schema information for the "doc" table.
+	DocTable = &schema.Table{
+		Name:       "doc",
+		Columns:    DocColumns,
+		PrimaryKey: []*schema.Column{DocColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "docs_docs_children",
-				Columns:    []*schema.Column{DocsColumns[2]},
-				RefColumns: []*schema.Column{DocsColumns[0]},
+				Symbol:     "doc_doc_children",
+				Columns:    []*schema.Column{DocColumns[2]},
+				RefColumns: []*schema.Column{DocColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 	}
-	// IntSiDsColumns holds the columns for the "int_si_ds" table.
-	IntSiDsColumns = []*schema.Column{
+	// IntSidColumns holds the columns for the "int_sid" table.
+	IntSidColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "int_sid_parent", Type: field.TypeInt64, Nullable: true},
 	}
-	// IntSiDsTable holds the schema information for the "int_si_ds" table.
-	IntSiDsTable = &schema.Table{
-		Name:       "int_si_ds",
-		Columns:    IntSiDsColumns,
-		PrimaryKey: []*schema.Column{IntSiDsColumns[0]},
+	// IntSidTable holds the schema information for the "int_sid" table.
+	IntSidTable = &schema.Table{
+		Name:       "int_sid",
+		Columns:    IntSidColumns,
+		PrimaryKey: []*schema.Column{IntSidColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "int_si_ds_int_si_ds_parent",
-				Columns:    []*schema.Column{IntSiDsColumns[1]},
-				RefColumns: []*schema.Column{IntSiDsColumns[0]},
+				Symbol:     "int_sid_int_sid_parent",
+				Columns:    []*schema.Column{IntSidColumns[1]},
+				RefColumns: []*schema.Column{IntSidColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// LinksColumns holds the columns for the "links" table.
-	LinksColumns = []*schema.Column{
+	// LinkColumns holds the columns for the "link" table.
+	LinkColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "link_information", Type: field.TypeJSON},
 	}
-	// LinksTable holds the schema information for the "links" table.
-	LinksTable = &schema.Table{
-		Name:       "links",
-		Columns:    LinksColumns,
-		PrimaryKey: []*schema.Column{LinksColumns[0]},
+	// LinkTable holds the schema information for the "link" table.
+	LinkTable = &schema.Table{
+		Name:       "link",
+		Columns:    LinkColumns,
+		PrimaryKey: []*schema.Column{LinkColumns[0]},
 	}
-	// MixinIdsColumns holds the columns for the "mixin_ids" table.
-	MixinIdsColumns = []*schema.Column{
+	// MixinIDColumns holds the columns for the "mixin_id" table.
+	MixinIDColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "some_field", Type: field.TypeString},
 		{Name: "mixin_field", Type: field.TypeString},
 	}
-	// MixinIdsTable holds the schema information for the "mixin_ids" table.
-	MixinIdsTable = &schema.Table{
-		Name:       "mixin_ids",
-		Columns:    MixinIdsColumns,
-		PrimaryKey: []*schema.Column{MixinIdsColumns[0]},
+	// MixinIDTable holds the schema information for the "mixin_id" table.
+	MixinIDTable = &schema.Table{
+		Name:       "mixin_id",
+		Columns:    MixinIDColumns,
+		PrimaryKey: []*schema.Column{MixinIDColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "mixinid_id",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIdsColumns[0]},
+				Columns: []*schema.Column{MixinIDColumns[0]},
 			},
 			{
 				Name:    "mixinid_id_some_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIdsColumns[0], MixinIdsColumns[1]},
+				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[1]},
 			},
 			{
 				Name:    "mixinid_id_mixin_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIdsColumns[0], MixinIdsColumns[2]},
+				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[2]},
 			},
 			{
 				Name:    "mixinid_id_mixin_field_some_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIdsColumns[0], MixinIdsColumns[2], MixinIdsColumns[1]},
+				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[2], MixinIDColumns[1]},
 			},
 		},
 	}
-	// NotesColumns holds the columns for the "notes" table.
-	NotesColumns = []*schema.Column{
+	// NoteColumns holds the columns for the "note" table.
+	NoteColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString, Unique: true, Size: 36},
 		{Name: "text", Type: field.TypeString, Nullable: true},
 		{Name: "note_children", Type: field.TypeString, Nullable: true, Size: 36},
 	}
-	// NotesTable holds the schema information for the "notes" table.
-	NotesTable = &schema.Table{
-		Name:       "notes",
-		Columns:    NotesColumns,
-		PrimaryKey: []*schema.Column{NotesColumns[0]},
+	// NoteTable holds the schema information for the "note" table.
+	NoteTable = &schema.Table{
+		Name:       "note",
+		Columns:    NoteColumns,
+		PrimaryKey: []*schema.Column{NoteColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "notes_notes_children",
-				Columns:    []*schema.Column{NotesColumns[2]},
-				RefColumns: []*schema.Column{NotesColumns[0]},
+				Symbol:     "note_note_children",
+				Columns:    []*schema.Column{NoteColumns[2]},
+				RefColumns: []*schema.Column{NoteColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// OthersColumns holds the columns for the "others" table.
-	OthersColumns = []*schema.Column{
+	// OtherColumns holds the columns for the "other" table.
+	OtherColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeOther, SchemaType: map[string]string{"mysql": "bigint", "postgres": "bigint", "sqlite3": "integer"}},
 	}
-	// OthersTable holds the schema information for the "others" table.
-	OthersTable = &schema.Table{
-		Name:       "others",
-		Columns:    OthersColumns,
-		PrimaryKey: []*schema.Column{OthersColumns[0]},
+	// OtherTable holds the schema information for the "other" table.
+	OtherTable = &schema.Table{
+		Name:       "other",
+		Columns:    OtherColumns,
+		PrimaryKey: []*schema.Column{OtherColumns[0]},
 	}
-	// PetsColumns holds the columns for the "pets" table.
-	PetsColumns = []*schema.Column{
+	// PetColumns holds the columns for the "pet" table.
+	PetColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString, Unique: true, Size: 36},
 		{Name: "pet_best_friend", Type: field.TypeString, Unique: true, Nullable: true, Size: 36},
 		{Name: "user_pets", Type: field.TypeInt, Nullable: true},
 	}
-	// PetsTable holds the schema information for the "pets" table.
-	PetsTable = &schema.Table{
-		Name:       "pets",
-		Columns:    PetsColumns,
-		PrimaryKey: []*schema.Column{PetsColumns[0]},
+	// PetTable holds the schema information for the "pet" table.
+	PetTable = &schema.Table{
+		Name:       "pet",
+		Columns:    PetColumns,
+		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pets_pets_best_friend",
-				Columns:    []*schema.Column{PetsColumns[1]},
-				RefColumns: []*schema.Column{PetsColumns[0]},
+				Symbol:     "pet_pet_best_friend",
+				Columns:    []*schema.Column{PetColumns[1]},
+				RefColumns: []*schema.Column{PetColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "pets_users_pets",
-				Columns:    []*schema.Column{PetsColumns[2]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "pet_user_pets",
+				Columns:    []*schema.Column{PetColumns[2]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// RevisionsColumns holds the columns for the "revisions" table.
-	RevisionsColumns = []*schema.Column{
+	// RevisionColumns holds the columns for the "revision" table.
+	RevisionColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString},
 	}
-	// RevisionsTable holds the schema information for the "revisions" table.
-	RevisionsTable = &schema.Table{
-		Name:       "revisions",
-		Columns:    RevisionsColumns,
-		PrimaryKey: []*schema.Column{RevisionsColumns[0]},
+	// RevisionTable holds the schema information for the "revision" table.
+	RevisionTable = &schema.Table{
+		Name:       "revision",
+		Columns:    RevisionColumns,
+		PrimaryKey: []*schema.Column{RevisionColumns[0]},
 	}
-	// SessionsColumns holds the columns for the "sessions" table.
-	SessionsColumns = []*schema.Column{
+	// SessionColumns holds the columns for the "session" table.
+	SessionColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeBytes, Size: 64},
 		{Name: "device_sessions", Type: field.TypeBytes, Nullable: true, Size: 64},
 	}
-	// SessionsTable holds the schema information for the "sessions" table.
-	SessionsTable = &schema.Table{
-		Name:       "sessions",
-		Columns:    SessionsColumns,
-		PrimaryKey: []*schema.Column{SessionsColumns[0]},
+	// SessionTable holds the schema information for the "session" table.
+	SessionTable = &schema.Table{
+		Name:       "session",
+		Columns:    SessionColumns,
+		PrimaryKey: []*schema.Column{SessionColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sessions_devices_sessions",
-				Columns:    []*schema.Column{SessionsColumns[1]},
-				RefColumns: []*schema.Column{DevicesColumns[0]},
+				Symbol:     "session_device_sessions",
+				Columns:    []*schema.Column{SessionColumns[1]},
+				RefColumns: []*schema.Column{DeviceColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// TokensColumns holds the columns for the "tokens" table.
-	TokensColumns = []*schema.Column{
+	// TokenColumns holds the columns for the "token" table.
+	TokenColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeOther, SchemaType: map[string]string{"mysql": "bigint", "postgres": "bigint", "sqlite3": "integer"}},
 		{Name: "body", Type: field.TypeString},
 		{Name: "account_token", Type: field.TypeOther, SchemaType: map[string]string{"mysql": "bigint", "postgres": "bigint", "sqlite3": "integer"}},
 	}
-	// TokensTable holds the schema information for the "tokens" table.
-	TokensTable = &schema.Table{
-		Name:       "tokens",
-		Columns:    TokensColumns,
-		PrimaryKey: []*schema.Column{TokensColumns[0]},
+	// TokenTable holds the schema information for the "token" table.
+	TokenTable = &schema.Table{
+		Name:       "token",
+		Columns:    TokenColumns,
+		PrimaryKey: []*schema.Column{TokenColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "tokens_accounts_token",
-				Columns:    []*schema.Column{TokensColumns[2]},
-				RefColumns: []*schema.Column{AccountsColumns[0]},
+				Symbol:     "token_account_token",
+				Columns:    []*schema.Column{TokenColumns[2]},
+				RefColumns: []*schema.Column{AccountColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "oid", Type: field.TypeInt, Increment: true},
 		{Name: "user_children", Type: field.TypeInt, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_users_children",
-				Columns:    []*schema.Column{UsersColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_children",
+				Columns:    []*schema.Column{UserColumns[1]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// ValueScansColumns holds the columns for the "value_scans" table.
-	ValueScansColumns = []*schema.Column{
+	// ValueScanColumns holds the columns for the "value_scan" table.
+	ValueScanColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// ValueScansTable holds the schema information for the "value_scans" table.
-	ValueScansTable = &schema.Table{
-		Name:       "value_scans",
-		Columns:    ValueScansColumns,
-		PrimaryKey: []*schema.Column{ValueScansColumns[0]},
+	// ValueScanTable holds the schema information for the "value_scan" table.
+	ValueScanTable = &schema.Table{
+		Name:       "value_scan",
+		Columns:    ValueScanColumns,
+		PrimaryKey: []*schema.Column{ValueScanColumns[0]},
 	}
 	// DocRelatedColumns holds the columns for the "doc_related" table.
 	DocRelatedColumns = []*schema.Column{
@@ -354,13 +354,13 @@ var (
 			{
 				Symbol:     "doc_related_doc_id",
 				Columns:    []*schema.Column{DocRelatedColumns[0]},
-				RefColumns: []*schema.Column{DocsColumns[0]},
+				RefColumns: []*schema.Column{DocColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "doc_related_related_id",
 				Columns:    []*schema.Column{DocRelatedColumns[1]},
-				RefColumns: []*schema.Column{DocsColumns[0]},
+				RefColumns: []*schema.Column{DocColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -379,13 +379,13 @@ var (
 			{
 				Symbol:     "group_users_group_id",
 				Columns:    []*schema.Column{GroupUsersColumns[0]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "group_users_user_id",
 				Columns:    []*schema.Column{GroupUsersColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -393,7 +393,7 @@ var (
 	// PetFriendsColumns holds the columns for the "pet_friends" table.
 	PetFriendsColumns = []*schema.Column{
 		{Name: "pet_id", Type: field.TypeString, Size: 36},
-		{Name: "friend_id", Type: field.TypeString, Size: 36},
+		{Name: "friends_id", Type: field.TypeString, Size: 36},
 	}
 	// PetFriendsTable holds the schema information for the "pet_friends" table.
 	PetFriendsTable = &schema.Table{
@@ -404,37 +404,37 @@ var (
 			{
 				Symbol:     "pet_friends_pet_id",
 				Columns:    []*schema.Column{PetFriendsColumns[0]},
-				RefColumns: []*schema.Column{PetsColumns[0]},
+				RefColumns: []*schema.Column{PetColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "pet_friends_friend_id",
+				Symbol:     "pet_friends_friends_id",
 				Columns:    []*schema.Column{PetFriendsColumns[1]},
-				RefColumns: []*schema.Column{PetsColumns[0]},
+				RefColumns: []*schema.Column{PetColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		AccountsTable,
-		BlobsTable,
-		BlobLinksTable,
-		CarsTable,
-		DevicesTable,
-		DocsTable,
-		GroupsTable,
-		IntSiDsTable,
-		LinksTable,
-		MixinIdsTable,
-		NotesTable,
-		OthersTable,
-		PetsTable,
-		RevisionsTable,
-		SessionsTable,
-		TokensTable,
-		UsersTable,
-		ValueScansTable,
+		AccountTable,
+		BlobTable,
+		BlobLinkTable,
+		CarTable,
+		DeviceTable,
+		DocTable,
+		GroupTable,
+		IntSidTable,
+		LinkTable,
+		MixinIDTable,
+		NoteTable,
+		OtherTable,
+		PetTable,
+		RevisionTable,
+		SessionTable,
+		TokenTable,
+		UserTable,
+		ValueScanTable,
 		DocRelatedTable,
 		GroupUsersTable,
 		PetFriendsTable,
@@ -442,23 +442,23 @@ var (
 )
 
 func init() {
-	BlobsTable.ForeignKeys[0].RefTable = BlobsTable
-	BlobLinksTable.ForeignKeys[0].RefTable = BlobsTable
-	BlobLinksTable.ForeignKeys[1].RefTable = BlobsTable
-	CarsTable.ForeignKeys[0].RefTable = PetsTable
-	DevicesTable.ForeignKeys[0].RefTable = SessionsTable
-	DocsTable.ForeignKeys[0].RefTable = DocsTable
-	IntSiDsTable.ForeignKeys[0].RefTable = IntSiDsTable
-	NotesTable.ForeignKeys[0].RefTable = NotesTable
-	PetsTable.ForeignKeys[0].RefTable = PetsTable
-	PetsTable.ForeignKeys[1].RefTable = UsersTable
-	SessionsTable.ForeignKeys[0].RefTable = DevicesTable
-	TokensTable.ForeignKeys[0].RefTable = AccountsTable
-	UsersTable.ForeignKeys[0].RefTable = UsersTable
-	DocRelatedTable.ForeignKeys[0].RefTable = DocsTable
-	DocRelatedTable.ForeignKeys[1].RefTable = DocsTable
-	GroupUsersTable.ForeignKeys[0].RefTable = GroupsTable
-	GroupUsersTable.ForeignKeys[1].RefTable = UsersTable
-	PetFriendsTable.ForeignKeys[0].RefTable = PetsTable
-	PetFriendsTable.ForeignKeys[1].RefTable = PetsTable
+	BlobTable.ForeignKeys[0].RefTable = BlobTable
+	BlobLinkTable.ForeignKeys[0].RefTable = BlobTable
+	BlobLinkTable.ForeignKeys[1].RefTable = BlobTable
+	CarTable.ForeignKeys[0].RefTable = PetTable
+	DeviceTable.ForeignKeys[0].RefTable = SessionTable
+	DocTable.ForeignKeys[0].RefTable = DocTable
+	IntSidTable.ForeignKeys[0].RefTable = IntSidTable
+	NoteTable.ForeignKeys[0].RefTable = NoteTable
+	PetTable.ForeignKeys[0].RefTable = PetTable
+	PetTable.ForeignKeys[1].RefTable = UserTable
+	SessionTable.ForeignKeys[0].RefTable = DeviceTable
+	TokenTable.ForeignKeys[0].RefTable = AccountTable
+	UserTable.ForeignKeys[0].RefTable = UserTable
+	DocRelatedTable.ForeignKeys[0].RefTable = DocTable
+	DocRelatedTable.ForeignKeys[1].RefTable = DocTable
+	GroupUsersTable.ForeignKeys[0].RefTable = GroupTable
+	GroupUsersTable.ForeignKeys[1].RefTable = UserTable
+	PetFriendsTable.ForeignKeys[0].RefTable = PetTable
+	PetFriendsTable.ForeignKeys[1].RefTable = PetTable
 }

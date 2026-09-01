@@ -894,5 +894,5 @@ func (_m *FieldType) String() string {
 	return builder.String()
 }
 
-// FieldTypes is a parsable slice of FieldType.
-type FieldTypes []*FieldType
+// FieldTypeList is a parsable slice of FieldType.
+type FieldTypeList []*FieldType

@@ -99,5 +99,5 @@ func (_m *Tenant) String() string {
 	return builder.String()
 }
 
-// Tenants is a parsable slice of Tenant.
-type Tenants []*Tenant
+// TenantList is a parsable slice of Tenant.
+type TenantList []*Tenant

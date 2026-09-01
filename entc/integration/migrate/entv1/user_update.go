@@ -266,9 +266,9 @@ func (_u *UserUpdate) SetParent(v *User) *UserUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdate) AddChildIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_u *UserUpdate) AddChildrenIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -278,7 +278,7 @@ func (_u *UserUpdate) AddChildren(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetSpouseID sets the "spouse" edge to the User entity by ID.
@@ -336,9 +336,9 @@ func (_u *UserUpdate) ClearChildren() *UserUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveChildIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveChildrenIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -348,7 +348,7 @@ func (_u *UserUpdate) RemoveChildren(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.
@@ -876,9 +876,9 @@ func (_u *UserUpdateOne) SetParent(v *User) *UserUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddChildIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddChildrenIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -888,7 +888,7 @@ func (_u *UserUpdateOne) AddChildren(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // SetSpouseID sets the "spouse" edge to the User entity by ID.
@@ -946,9 +946,9 @@ func (_u *UserUpdateOne) ClearChildren() *UserUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveChildIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveChildrenIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -958,7 +958,7 @@ func (_u *UserUpdateOne) RemoveChildren(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.

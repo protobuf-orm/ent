@@ -12,46 +12,46 @@ import (
 )
 
 var (
-	// CardsColumns holds the columns for the "cards" table.
-	CardsColumns = []*schema.Column{
+	// CardColumns holds the columns for the "card" table.
+	CardColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "expired", Type: field.TypeTime},
 		{Name: "number", Type: field.TypeString},
 		{Name: "user_card", Type: field.TypeInt, Unique: true},
 	}
-	// CardsTable holds the schema information for the "cards" table.
-	CardsTable = &schema.Table{
-		Name:       "cards",
-		Columns:    CardsColumns,
-		PrimaryKey: []*schema.Column{CardsColumns[0]},
+	// CardTable holds the schema information for the "card" table.
+	CardTable = &schema.Table{
+		Name:       "card",
+		Columns:    CardColumns,
+		PrimaryKey: []*schema.Column{CardColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "cards_users_card",
-				Columns:    []*schema.Column{CardsColumns[3]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "card_user_card",
+				Columns:    []*schema.Column{CardColumns[3]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "age", Type: field.TypeInt},
 		{Name: "name", Type: field.TypeString},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		CardsTable,
-		UsersTable,
+		CardTable,
+		UserTable,
 	}
 )
 
 func init() {
-	CardsTable.ForeignKeys[0].RefTable = UsersTable
+	CardTable.ForeignKeys[0].RefTable = UserTable
 }

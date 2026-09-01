@@ -171,8 +171,8 @@ func (m *Mutation) ResetTags() {
 	delete(m.clearedFields, FieldTags)
 }
 
-// AddCardIDs adds the "cards" edge to the Card entity by ids.
-func (m *Mutation) AddCardIDs(ids ...int) {
+// AddCardsIDs adds the "cards" edge to the Card entity by ids.
+func (m *Mutation) AddCardsIDs(ids ...int) {
 	if m.cards == nil {
 		m.cards = make(map[int]struct{})
 	}
@@ -191,8 +191,8 @@ func (m *Mutation) CardsCleared() bool {
 	return m.clearedcards
 }
 
-// RemoveCardIDs removes the "cards" edge to the Card entity by IDs.
-func (m *Mutation) RemoveCardIDs(ids ...int) {
+// RemoveCardsIDs removes the "cards" edge to the Card entity by IDs.
+func (m *Mutation) RemoveCardsIDs(ids ...int) {
 	if m.removedcards == nil {
 		m.removedcards = make(map[int]struct{})
 	}

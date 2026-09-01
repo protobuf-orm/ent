@@ -121,8 +121,8 @@ func (m *Mutation) ResetSpouseID() {
 	delete(m.clearedFields, FieldSpouseID)
 }
 
-// AddPetIDs adds the "pets" edge to the Pet entity by ids.
-func (m *Mutation) AddPetIDs(ids ...int) {
+// AddPetsIDs adds the "pets" edge to the Pet entity by ids.
+func (m *Mutation) AddPetsIDs(ids ...int) {
 	if m.pets == nil {
 		m.pets = make(map[int]struct{})
 	}
@@ -141,8 +141,8 @@ func (m *Mutation) PetsCleared() bool {
 	return m.clearedpets
 }
 
-// RemovePetIDs removes the "pets" edge to the Pet entity by IDs.
-func (m *Mutation) RemovePetIDs(ids ...int) {
+// RemovePetsIDs removes the "pets" edge to the Pet entity by IDs.
+func (m *Mutation) RemovePetsIDs(ids ...int) {
 	if m.removedpets == nil {
 		m.removedpets = make(map[int]struct{})
 	}
@@ -202,8 +202,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildIDs adds the "children" edge to the User entity by ids.
-func (m *Mutation) AddChildIDs(ids ...int) {
+// AddChildrenIDs adds the "children" edge to the User entity by ids.
+func (m *Mutation) AddChildrenIDs(ids ...int) {
 	if m.children == nil {
 		m.children = make(map[int]struct{})
 	}
@@ -222,8 +222,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildIDs removes the "children" edge to the User entity by IDs.
-func (m *Mutation) RemoveChildIDs(ids ...int) {
+// RemoveChildrenIDs removes the "children" edge to the User entity by IDs.
+func (m *Mutation) RemoveChildrenIDs(ids ...int) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[int]struct{})
 	}
@@ -415,8 +415,8 @@ func (m *Mutation) ResetInfo() {
 	m.removedinfo = nil
 }
 
-// AddRentalIDs adds the "rentals" edge to the Rental entity by ids.
-func (m *Mutation) AddRentalIDs(ids ...int) {
+// AddRentalsIDs adds the "rentals" edge to the Rental entity by ids.
+func (m *Mutation) AddRentalsIDs(ids ...int) {
 	if m.rentals == nil {
 		m.rentals = make(map[int]struct{})
 	}
@@ -435,8 +435,8 @@ func (m *Mutation) RentalsCleared() bool {
 	return m.clearedrentals
 }
 
-// RemoveRentalIDs removes the "rentals" edge to the Rental entity by IDs.
-func (m *Mutation) RemoveRentalIDs(ids ...int) {
+// RemoveRentalsIDs removes the "rentals" edge to the Rental entity by IDs.
+func (m *Mutation) RemoveRentalsIDs(ids ...int) {
 	if m.removedrentals == nil {
 		m.removedrentals = make(map[int]struct{})
 	}

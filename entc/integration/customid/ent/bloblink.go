@@ -25,8 +25,8 @@ type BlobLink struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// BlobID holds the value of the "blob_id" field.
 	BlobID uuid.UUID `json:"blob_id,omitempty"`
-	// LinkID holds the value of the "link_id" field.
-	LinkID uuid.UUID `json:"link_id,omitempty"`
+	// LinksID holds the value of the "links_id" field.
+	LinksID uuid.UUID `json:"links_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the BlobLinkQuery when eager-loading is set.
 	Edges        BlobLinkEdges `json:"edges"`
@@ -73,7 +73,7 @@ func (*BlobLink) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case bloblink.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
-		case bloblink.FieldBlobID, bloblink.FieldLinkID:
+		case bloblink.FieldBlobID, bloblink.FieldLinksID:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -102,11 +102,11 @@ func (_m *BlobLink) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				_m.BlobID = *value
 			}
-		case bloblink.FieldLinkID:
+		case bloblink.FieldLinksID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field link_id", values[i])
+				return fmt.Errorf("unexpected type %T for field links_id", values[i])
 			} else if value != nil {
-				_m.LinkID = *value
+				_m.LinksID = *value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -159,11 +159,11 @@ func (_m *BlobLink) String() string {
 	builder.WriteString("blob_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.BlobID))
 	builder.WriteString(", ")
-	builder.WriteString("link_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.LinkID))
+	builder.WriteString("links_id=")
+	builder.WriteString(fmt.Sprintf("%v", _m.LinksID))
 	builder.WriteByte(')')
 	return builder.String()
 }
 
-// BlobLinks is a parsable slice of BlobLink.
-type BlobLinks []*BlobLink
+// BlobLinkList is a parsable slice of BlobLink.
+type BlobLinkList []*BlobLink

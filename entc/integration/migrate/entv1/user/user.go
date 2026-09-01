@@ -53,17 +53,17 @@ const (
 	// CarFieldID holds the string denoting the ID field of the Car.
 	CarFieldID = "id"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "users"
+	ParentTable = "user"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "user_children"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "users"
+	ChildrenTable = "user"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "user_children"
 	// SpouseTable is the table that holds the spouse relation/edge.
-	SpouseTable = "users"
+	SpouseTable = "user"
 	// SpouseColumn is the table column denoting the spouse relation/edge.
 	SpouseColumn = "user_spouse"
 	// CarTable is the table that holds the car relation/edge.
@@ -92,7 +92,7 @@ var Columns = []string{
 	FieldDropOptional,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_children",

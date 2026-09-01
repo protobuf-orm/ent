@@ -71,9 +71,9 @@ func (_u *NoteUpdate) SetParent(v *Note) *NoteUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Note entity by IDs.
-func (_u *NoteUpdate) AddChildIDs(ids ...schema.NoteID) *NoteUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Note entity by IDs.
+func (_u *NoteUpdate) AddChildrenIDs(ids ...schema.NoteID) *NoteUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -83,7 +83,7 @@ func (_u *NoteUpdate) AddChildren(v ...*Note) *NoteUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NoteMutation object of the builder.
@@ -103,9 +103,9 @@ func (_u *NoteUpdate) ClearChildren() *NoteUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Note entities by IDs.
-func (_u *NoteUpdate) RemoveChildIDs(ids ...schema.NoteID) *NoteUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Note entities by IDs.
+func (_u *NoteUpdate) RemoveChildrenIDs(ids ...schema.NoteID) *NoteUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -115,7 +115,7 @@ func (_u *NoteUpdate) RemoveChildren(v ...*Note) *NoteUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -293,9 +293,9 @@ func (_u *NoteUpdateOne) SetParent(v *Note) *NoteUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Note entity by IDs.
-func (_u *NoteUpdateOne) AddChildIDs(ids ...schema.NoteID) *NoteUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Note entity by IDs.
+func (_u *NoteUpdateOne) AddChildrenIDs(ids ...schema.NoteID) *NoteUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -305,7 +305,7 @@ func (_u *NoteUpdateOne) AddChildren(v ...*Note) *NoteUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NoteMutation object of the builder.
@@ -325,9 +325,9 @@ func (_u *NoteUpdateOne) ClearChildren() *NoteUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to Note entities by IDs.
-func (_u *NoteUpdateOne) RemoveChildIDs(ids ...schema.NoteID) *NoteUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to Note entities by IDs.
+func (_u *NoteUpdateOne) RemoveChildrenIDs(ids ...schema.NoteID) *NoteUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -337,7 +337,7 @@ func (_u *NoteUpdateOne) RemoveChildren(v ...*Note) *NoteUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Where appends a list predicates to the NoteUpdate builder.

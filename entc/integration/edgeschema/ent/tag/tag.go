@@ -27,29 +27,29 @@ const (
 	// EdgeGroupTags holds the string denoting the group_tags edge name in mutations.
 	EdgeGroupTags = "group_tags"
 	// Table holds the table name of the tag in the database.
-	Table = "tags"
+	Table = "tag"
 	// TweetsTable is the table that holds the tweets relation/edge. The primary key declared below.
-	TweetsTable = "tweet_tags"
+	TweetsTable = "tweet_tag"
 	// TweetsInverseTable is the table name for the Tweet entity.
 	// It exists in this package in order to avoid circular dependency with the "tweet" package.
-	TweetsInverseTable = "tweets"
+	TweetsInverseTable = "tweet"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
-	GroupsTable = "group_tags"
+	GroupsTable = "group_tag"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// TweetTagsTable is the table that holds the tweet_tags relation/edge.
-	TweetTagsTable = "tweet_tags"
+	TweetTagsTable = "tweet_tag"
 	// TweetTagsInverseTable is the table name for the TweetTag entity.
 	// It exists in this package in order to avoid circular dependency with the "tweettag" package.
-	TweetTagsInverseTable = "tweet_tags"
+	TweetTagsInverseTable = "tweet_tag"
 	// TweetTagsColumn is the table column denoting the tweet_tags relation/edge.
 	TweetTagsColumn = "tag_id"
 	// GroupTagsTable is the table that holds the group_tags relation/edge.
-	GroupTagsTable = "group_tags"
+	GroupTagsTable = "group_tag"
 	// GroupTagsInverseTable is the table name for the GroupTag entity.
 	// It exists in this package in order to avoid circular dependency with the "grouptag" package.
-	GroupTagsInverseTable = "group_tags"
+	GroupTagsInverseTable = "group_tag"
 	// GroupTagsColumn is the table column denoting the group_tags relation/edge.
 	GroupTagsColumn = "tag_id"
 )

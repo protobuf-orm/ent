@@ -190,7 +190,7 @@ func (_q *GroupInfoQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of GroupInfos.
+// All executes the query and returns a list of GroupInfo entities.
 func (_q *GroupInfoQuery) All(ctx context.Context) ([]*GroupInfo, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

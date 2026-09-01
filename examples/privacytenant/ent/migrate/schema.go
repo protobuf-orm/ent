@@ -12,54 +12,54 @@ import (
 )
 
 var (
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
 		{Name: "tenant_id", Type: field.TypeInt},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "groups_tenants_tenant",
-				Columns:    []*schema.Column{GroupsColumns[2]},
-				RefColumns: []*schema.Column{TenantsColumns[0]},
+				Symbol:     "group_tenant_tenant",
+				Columns:    []*schema.Column{GroupColumns[2]},
+				RefColumns: []*schema.Column{TenantColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// TenantsColumns holds the columns for the "tenants" table.
-	TenantsColumns = []*schema.Column{
+	// TenantColumns holds the columns for the "tenant" table.
+	TenantColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 	}
-	// TenantsTable holds the schema information for the "tenants" table.
-	TenantsTable = &schema.Table{
-		Name:       "tenants",
-		Columns:    TenantsColumns,
-		PrimaryKey: []*schema.Column{TenantsColumns[0]},
+	// TenantTable holds the schema information for the "tenant" table.
+	TenantTable = &schema.Table{
+		Name:       "tenant",
+		Columns:    TenantColumns,
+		PrimaryKey: []*schema.Column{TenantColumns[0]},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
 		{Name: "foods", Type: field.TypeJSON, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeInt},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_tenants_tenant",
-				Columns:    []*schema.Column{UsersColumns[3]},
-				RefColumns: []*schema.Column{TenantsColumns[0]},
+				Symbol:     "user_tenant_tenant",
+				Columns:    []*schema.Column{UserColumns[3]},
+				RefColumns: []*schema.Column{TenantColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
@@ -78,29 +78,29 @@ var (
 			{
 				Symbol:     "user_groups_user_id",
 				Columns:    []*schema.Column{UserGroupsColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "user_groups_group_id",
 				Columns:    []*schema.Column{UserGroupsColumns[1]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		GroupsTable,
-		TenantsTable,
-		UsersTable,
+		GroupTable,
+		TenantTable,
+		UserTable,
 		UserGroupsTable,
 	}
 )
 
 func init() {
-	GroupsTable.ForeignKeys[0].RefTable = TenantsTable
-	UsersTable.ForeignKeys[0].RefTable = TenantsTable
-	UserGroupsTable.ForeignKeys[0].RefTable = UsersTable
-	UserGroupsTable.ForeignKeys[1].RefTable = GroupsTable
+	GroupTable.ForeignKeys[0].RefTable = TenantTable
+	UserTable.ForeignKeys[0].RefTable = TenantTable
+	UserGroupsTable.ForeignKeys[0].RefTable = UserTable
+	UserGroupsTable.ForeignKeys[1].RefTable = GroupTable
 }

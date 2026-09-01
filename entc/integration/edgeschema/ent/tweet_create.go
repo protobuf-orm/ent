@@ -36,9 +36,9 @@ func (_c *TweetCreate) SetText(v string) *TweetCreate {
 	return _c
 }
 
-// AddLikedUserIDs adds the "liked_users" edge to the User entity by IDs.
-func (_c *TweetCreate) AddLikedUserIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddLikedUserIDs(ids...)
+// AddLikedUsersIDs adds the "liked_users" edge to the User entity by IDs.
+func (_c *TweetCreate) AddLikedUsersIDs(ids ...int) *TweetCreate {
+	_c.mutation.AddLikedUsersIDs(ids...)
 	return _c
 }
 
@@ -48,7 +48,7 @@ func (_c *TweetCreate) AddLikedUsers(v ...*User) *TweetCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddLikedUserIDs(ids...)
+	return _c.AddLikedUsersIDs(ids...)
 }
 
 // AddUserIDs adds the "user" edge to the User entity by IDs.
@@ -66,9 +66,9 @@ func (_c *TweetCreate) AddUser(v ...*User) *TweetCreate {
 	return _c.AddUserIDs(ids...)
 }
 
-// AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (_c *TweetCreate) AddTagIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddTagIDs(ids...)
+// AddTagsIDs adds the "tags" edge to the Tag entity by IDs.
+func (_c *TweetCreate) AddTagsIDs(ids ...int) *TweetCreate {
+	_c.mutation.AddTagsIDs(ids...)
 	return _c
 }
 
@@ -78,7 +78,7 @@ func (_c *TweetCreate) AddTags(v ...*Tag) *TweetCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTagIDs(ids...)
+	return _c.AddTagsIDs(ids...)
 }
 
 // AddTweetUserIDs adds the "tweet_user" edge to the UserTweet entity by IDs.
@@ -96,9 +96,9 @@ func (_c *TweetCreate) AddTweetUser(v ...*UserTweet) *TweetCreate {
 	return _c.AddTweetUserIDs(ids...)
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_c *TweetCreate) AddTweetTagIDs(ids ...uuid.UUID) *TweetCreate {
-	_c.mutation.AddTweetTagIDs(ids...)
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
+func (_c *TweetCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TweetCreate {
+	_c.mutation.AddTweetTagsIDs(ids...)
 	return _c
 }
 
@@ -108,7 +108,7 @@ func (_c *TweetCreate) AddTweetTags(v ...*TweetTag) *TweetCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddTweetTagIDs(ids...)
+	return _c.AddTweetTagsIDs(ids...)
 }
 
 // Mutation returns the TweetMutation object of the builder.

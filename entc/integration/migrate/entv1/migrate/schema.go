@@ -25,15 +25,15 @@ var (
 		PrimaryKey: []*schema.Column{CarColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "Car_users_car",
+				Symbol:     "Car_user_car",
 				Columns:    []*schema.Column{CarColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// ConversionsColumns holds the columns for the "conversions" table.
-	ConversionsColumns = []*schema.Column{
+	// ConversionColumns holds the columns for the "conversion" table.
+	ConversionColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "int8_to_string", Type: field.TypeInt8, Nullable: true},
@@ -45,25 +45,25 @@ var (
 		{Name: "int64_to_string", Type: field.TypeInt64, Nullable: true},
 		{Name: "uint64_to_string", Type: field.TypeUint64, Nullable: true},
 	}
-	// ConversionsTable holds the schema information for the "conversions" table.
-	ConversionsTable = &schema.Table{
-		Name:       "conversions",
-		Columns:    ConversionsColumns,
-		PrimaryKey: []*schema.Column{ConversionsColumns[0]},
+	// ConversionTable holds the schema information for the "conversion" table.
+	ConversionTable = &schema.Table{
+		Name:       "conversion",
+		Columns:    ConversionColumns,
+		PrimaryKey: []*schema.Column{ConversionColumns[0]},
 	}
-	// CustomTypesColumns holds the columns for the "custom_types" table.
-	CustomTypesColumns = []*schema.Column{
+	// CustomTypeColumns holds the columns for the "custom_type" table.
+	CustomTypeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "custom", Type: field.TypeString, Nullable: true, SchemaType: map[string]string{"postgres": "customtype"}},
 	}
-	// CustomTypesTable holds the schema information for the "custom_types" table.
-	CustomTypesTable = &schema.Table{
-		Name:       "custom_types",
-		Columns:    CustomTypesColumns,
-		PrimaryKey: []*schema.Column{CustomTypesColumns[0]},
+	// CustomTypeTable holds the schema information for the "custom_type" table.
+	CustomTypeTable = &schema.Table{
+		Name:       "custom_type",
+		Columns:    CustomTypeColumns,
+		PrimaryKey: []*schema.Column{CustomTypeColumns[0]},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "oid", Type: field.TypeInt, Increment: true},
 		{Name: "age", Type: field.TypeInt32},
 		{Name: "name", Type: field.TypeString, Size: 10},
@@ -80,22 +80,22 @@ var (
 		{Name: "user_children", Type: field.TypeInt, Nullable: true},
 		{Name: "user_spouse", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_users_children",
-				Columns:    []*schema.Column{UsersColumns[13]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_children",
+				Columns:    []*schema.Column{UserColumns[13]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "users_users_spouse",
-				Columns:    []*schema.Column{UsersColumns[14]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_spouse",
+				Columns:    []*schema.Column{UserColumns[14]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -103,7 +103,7 @@ var (
 			{
 				Name:    "user_description",
 				Unique:  false,
-				Columns: []*schema.Column{UsersColumns[3]},
+				Columns: []*schema.Column{UserColumns[3]},
 				Annotation: &entsql.IndexAnnotation{
 					Prefix: 50,
 				},
@@ -111,24 +111,24 @@ var (
 			{
 				Name:    "user_name_address",
 				Unique:  true,
-				Columns: []*schema.Column{UsersColumns[2], UsersColumns[5]},
+				Columns: []*schema.Column{UserColumns[2], UserColumns[5]},
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		CarTable,
-		ConversionsTable,
-		CustomTypesTable,
-		UsersTable,
+		ConversionTable,
+		CustomTypeTable,
+		UserTable,
 	}
 )
 
 func init() {
-	CarTable.ForeignKeys[0].RefTable = UsersTable
+	CarTable.ForeignKeys[0].RefTable = UserTable
 	CarTable.Annotation = &entsql.Annotation{
 		Table: "Car",
 	}
-	UsersTable.ForeignKeys[0].RefTable = UsersTable
-	UsersTable.ForeignKeys[1].RefTable = UsersTable
+	UserTable.ForeignKeys[0].RefTable = UserTable
+	UserTable.ForeignKeys[1].RefTable = UserTable
 }

@@ -174,5 +174,5 @@ func (_m *AttachedFile) String() string {
 	return builder.String()
 }
 
-// AttachedFiles is a parsable slice of AttachedFile.
-type AttachedFiles []*AttachedFile
+// AttachedFileList is a parsable slice of AttachedFile.
+type AttachedFileList []*AttachedFile

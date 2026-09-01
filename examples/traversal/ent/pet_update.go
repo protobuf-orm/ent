@@ -46,9 +46,9 @@ func (_u *PetUpdate) SetNillableName(v *string) *PetUpdate {
 	return _u
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by IDs.
-func (_u *PetUpdate) AddFriendIDs(ids ...int) *PetUpdate {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
+func (_u *PetUpdate) AddFriendsIDs(ids ...int) *PetUpdate {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -58,7 +58,7 @@ func (_u *PetUpdate) AddFriends(v ...*Pet) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // SetOwnerID sets the "owner" edge to the User entity by ID.
@@ -91,9 +91,9 @@ func (_u *PetUpdate) ClearFriends() *PetUpdate {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to Pet entities by IDs.
-func (_u *PetUpdate) RemoveFriendIDs(ids ...int) *PetUpdate {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to Pet entities by IDs.
+func (_u *PetUpdate) RemoveFriendsIDs(ids ...int) *PetUpdate {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -103,7 +103,7 @@ func (_u *PetUpdate) RemoveFriends(v ...*Pet) *PetUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.
@@ -259,9 +259,9 @@ func (_u *PetUpdateOne) SetNillableName(v *string) *PetUpdateOne {
 	return _u
 }
 
-// AddFriendIDs adds the "friends" edge to the Pet entity by IDs.
-func (_u *PetUpdateOne) AddFriendIDs(ids ...int) *PetUpdateOne {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
+func (_u *PetUpdateOne) AddFriendsIDs(ids ...int) *PetUpdateOne {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -271,7 +271,7 @@ func (_u *PetUpdateOne) AddFriends(v ...*Pet) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
 // SetOwnerID sets the "owner" edge to the User entity by ID.
@@ -304,9 +304,9 @@ func (_u *PetUpdateOne) ClearFriends() *PetUpdateOne {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to Pet entities by IDs.
-func (_u *PetUpdateOne) RemoveFriendIDs(ids ...int) *PetUpdateOne {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to Pet entities by IDs.
+func (_u *PetUpdateOne) RemoveFriendsIDs(ids ...int) *PetUpdateOne {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -316,7 +316,7 @@ func (_u *PetUpdateOne) RemoveFriends(v ...*Pet) *PetUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.

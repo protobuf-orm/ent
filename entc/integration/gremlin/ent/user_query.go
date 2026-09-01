@@ -328,7 +328,7 @@ func (_q *UserQuery) OnlyIDX(ctx context.Context) string {
 	return id
 }
 
-// All executes the query and returns a list of Users.
+// All executes the query and returns a list of User entities.
 func (_q *UserQuery) All(ctx context.Context) ([]*User, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
@@ -643,7 +643,7 @@ func (_q *UserQuery) gremlinAll(ctx context.Context, hooks ...queryHook) ([]*Use
 	if err := _q.driver.Exec(ctx, query, bindings, res); err != nil {
 		return nil, err
 	}
-	var _ms Users
+	var _ms UserList
 	if err := _ms.FromResponse(res); err != nil {
 		return nil, err
 	}

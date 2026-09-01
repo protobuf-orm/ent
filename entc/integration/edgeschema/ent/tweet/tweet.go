@@ -31,41 +31,41 @@ const (
 	// EdgeTweetTags holds the string denoting the tweet_tags edge name in mutations.
 	EdgeTweetTags = "tweet_tags"
 	// Table holds the table name of the tweet in the database.
-	Table = "tweets"
+	Table = "tweet"
 	// LikedUsersTable is the table that holds the liked_users relation/edge. The primary key declared below.
-	LikedUsersTable = "tweet_likes"
+	LikedUsersTable = "tweet_like"
 	// LikedUsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	LikedUsersInverseTable = "users"
+	LikedUsersInverseTable = "user"
 	// UserTable is the table that holds the user relation/edge. The primary key declared below.
-	UserTable = "user_tweets"
+	UserTable = "user_tweet"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// TagsTable is the table that holds the tags relation/edge. The primary key declared below.
-	TagsTable = "tweet_tags"
+	TagsTable = "tweet_tag"
 	// TagsInverseTable is the table name for the Tag entity.
 	// It exists in this package in order to avoid circular dependency with the "tag" package.
-	TagsInverseTable = "tags"
+	TagsInverseTable = "tag"
 	// LikesTable is the table that holds the likes relation/edge.
-	LikesTable = "tweet_likes"
+	LikesTable = "tweet_like"
 	// LikesInverseTable is the table name for the TweetLike entity.
 	// It exists in this package in order to avoid circular dependency with the "tweetlike" package.
-	LikesInverseTable = "tweet_likes"
+	LikesInverseTable = "tweet_like"
 	// LikesColumn is the table column denoting the likes relation/edge.
 	LikesColumn = "tweet_id"
 	// TweetUserTable is the table that holds the tweet_user relation/edge.
-	TweetUserTable = "user_tweets"
+	TweetUserTable = "user_tweet"
 	// TweetUserInverseTable is the table name for the UserTweet entity.
 	// It exists in this package in order to avoid circular dependency with the "usertweet" package.
-	TweetUserInverseTable = "user_tweets"
+	TweetUserInverseTable = "user_tweet"
 	// TweetUserColumn is the table column denoting the tweet_user relation/edge.
 	TweetUserColumn = "tweet_id"
 	// TweetTagsTable is the table that holds the tweet_tags relation/edge.
-	TweetTagsTable = "tweet_tags"
+	TweetTagsTable = "tweet_tag"
 	// TweetTagsInverseTable is the table name for the TweetTag entity.
 	// It exists in this package in order to avoid circular dependency with the "tweettag" package.
-	TweetTagsInverseTable = "tweet_tags"
+	TweetTagsInverseTable = "tweet_tag"
 	// TweetTagsColumn is the table column denoting the tweet_tags relation/edge.
 	TweetTagsColumn = "tweet_id"
 )

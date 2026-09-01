@@ -46,9 +46,9 @@ func (_c *GroupInfoCreate) SetNillableMaxUsers(v *int) *GroupInfoCreate {
 	return _c
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *GroupInfoCreate) AddGroupIDs(ids ...int) *GroupInfoCreate {
-	_c.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_c *GroupInfoCreate) AddGroupsIDs(ids ...int) *GroupInfoCreate {
+	_c.mutation.AddGroupsIDs(ids...)
 	return _c
 }
 
@@ -58,7 +58,7 @@ func (_c *GroupInfoCreate) AddGroups(v ...*Group) *GroupInfoCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddGroupIDs(ids...)
+	return _c.AddGroupsIDs(ids...)
 }
 
 // Mutation returns the GroupInfoMutation object of the builder.

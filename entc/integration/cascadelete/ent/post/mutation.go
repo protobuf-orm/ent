@@ -121,8 +121,8 @@ func (m *Mutation) ResetAuthor() {
 	m.clearedauthor = false
 }
 
-// AddCommentIDs adds the "comments" edge to the Comment entity by ids.
-func (m *Mutation) AddCommentIDs(ids ...int) {
+// AddCommentsIDs adds the "comments" edge to the Comment entity by ids.
+func (m *Mutation) AddCommentsIDs(ids ...int) {
 	if m.comments == nil {
 		m.comments = make(map[int]struct{})
 	}
@@ -141,8 +141,8 @@ func (m *Mutation) CommentsCleared() bool {
 	return m.clearedcomments
 }
 
-// RemoveCommentIDs removes the "comments" edge to the Comment entity by IDs.
-func (m *Mutation) RemoveCommentIDs(ids ...int) {
+// RemoveCommentsIDs removes the "comments" edge to the Comment entity by IDs.
+func (m *Mutation) RemoveCommentsIDs(ids ...int) {
 	if m.removedcomments == nil {
 		m.removedcomments = make(map[int]struct{})
 	}

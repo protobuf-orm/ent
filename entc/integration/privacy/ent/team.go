@@ -145,5 +145,5 @@ func (_m *Team) String() string {
 	return builder.String()
 }
 
-// Teams is a parsable slice of Team.
-type Teams []*Team
+// TeamList is a parsable slice of Team.
+type TeamList []*Team

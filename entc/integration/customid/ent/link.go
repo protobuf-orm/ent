@@ -108,5 +108,5 @@ func (_m *Link) String() string {
 	return builder.String()
 }
 
-// Links is a parsable slice of Link.
-type Links []*Link
+// LinkList is a parsable slice of Link.
+type LinkList []*Link

@@ -84,9 +84,9 @@ func (_u *FileUpdate) SetParent(v *File) *FileUpdate {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the File entity by IDs.
-func (_u *FileUpdate) AddChildIDs(ids ...int) *FileUpdate {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the File entity by IDs.
+func (_u *FileUpdate) AddChildrenIDs(ids ...int) *FileUpdate {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -96,7 +96,7 @@ func (_u *FileUpdate) AddChildren(v ...*File) *FileUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -116,9 +116,9 @@ func (_u *FileUpdate) ClearChildren() *FileUpdate {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to File entities by IDs.
-func (_u *FileUpdate) RemoveChildIDs(ids ...int) *FileUpdate {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to File entities by IDs.
+func (_u *FileUpdate) RemoveChildrenIDs(ids ...int) *FileUpdate {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -128,7 +128,7 @@ func (_u *FileUpdate) RemoveChildren(v ...*File) *FileUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -320,9 +320,9 @@ func (_u *FileUpdateOne) SetParent(v *File) *FileUpdateOne {
 	return _u.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the File entity by IDs.
-func (_u *FileUpdateOne) AddChildIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the File entity by IDs.
+func (_u *FileUpdateOne) AddChildrenIDs(ids ...int) *FileUpdateOne {
+	_u.mutation.AddChildrenIDs(ids...)
 	return _u
 }
 
@@ -332,7 +332,7 @@ func (_u *FileUpdateOne) AddChildren(v ...*File) *FileUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddChildIDs(ids...)
+	return _u.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -352,9 +352,9 @@ func (_u *FileUpdateOne) ClearChildren() *FileUpdateOne {
 	return _u
 }
 
-// RemoveChildIDs removes the "children" edge to File entities by IDs.
-func (_u *FileUpdateOne) RemoveChildIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.RemoveChildIDs(ids...)
+// RemoveChildrenIDs removes the "children" edge to File entities by IDs.
+func (_u *FileUpdateOne) RemoveChildrenIDs(ids ...int) *FileUpdateOne {
+	_u.mutation.RemoveChildrenIDs(ids...)
 	return _u
 }
 
@@ -364,7 +364,7 @@ func (_u *FileUpdateOne) RemoveChildren(v ...*File) *FileUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveChildIDs(ids...)
+	return _u.RemoveChildrenIDs(ids...)
 }
 
 // Where appends a list predicates to the FileUpdate builder.

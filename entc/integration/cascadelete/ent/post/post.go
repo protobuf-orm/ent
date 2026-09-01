@@ -25,19 +25,19 @@ const (
 	// EdgeComments holds the string denoting the comments edge name in mutations.
 	EdgeComments = "comments"
 	// Table holds the table name of the post in the database.
-	Table = "posts"
+	Table = "post"
 	// AuthorTable is the table that holds the author relation/edge.
-	AuthorTable = "posts"
+	AuthorTable = "post"
 	// AuthorInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	AuthorInverseTable = "users"
+	AuthorInverseTable = "user"
 	// AuthorColumn is the table column denoting the author relation/edge.
 	AuthorColumn = "author_id"
 	// CommentsTable is the table that holds the comments relation/edge.
-	CommentsTable = "comments"
+	CommentsTable = "comment"
 	// CommentsInverseTable is the table name for the Comment entity.
 	// It exists in this package in order to avoid circular dependency with the "comment" package.
-	CommentsInverseTable = "comments"
+	CommentsInverseTable = "comment"
 	// CommentsColumn is the table column denoting the comments relation/edge.
 	CommentsColumn = "post_id"
 )

@@ -20,7 +20,7 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// Table holds the table name of the valuescan in the database.
-	Table = "value_scans"
+	Table = "value_scan"
 )
 
 // Columns holds all SQL columns for valuescan fields.

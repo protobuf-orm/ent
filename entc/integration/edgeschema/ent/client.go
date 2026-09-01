@@ -1406,7 +1406,7 @@ func (c *RelationshipClient) Update() *RelationshipUpdate {
 func (c *RelationshipClient) UpdateOne(_m *Relationship) *RelationshipUpdateOne {
 	mutation := newRelationshipMutation(c.config, OpUpdateOne)
 	mutation.SetUserID(_m.UserID)
-	mutation.SetRelativeID(_m.RelativeID)
+	mutation.SetRelativesID(_m.RelativesID)
 	return &RelationshipUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1428,21 +1428,21 @@ func (c *RelationshipClient) Query() *RelationshipQuery {
 // QueryUser queries the user edge of a Relationship.
 func (c *RelationshipClient) QueryUser(_m *Relationship) *UserQuery {
 	return c.Query().
-		Where(relationship.UserID(_m.UserID), relationship.RelativeID(_m.RelativeID)).
+		Where(relationship.UserID(_m.UserID), relationship.RelativesID(_m.RelativesID)).
 		QueryUser()
 }
 
 // QueryRelative queries the relative edge of a Relationship.
 func (c *RelationshipClient) QueryRelative(_m *Relationship) *UserQuery {
 	return c.Query().
-		Where(relationship.UserID(_m.UserID), relationship.RelativeID(_m.RelativeID)).
+		Where(relationship.UserID(_m.UserID), relationship.RelativesID(_m.RelativesID)).
 		QueryRelative()
 }
 
 // QueryInfo queries the info edge of a Relationship.
 func (c *RelationshipClient) QueryInfo(_m *Relationship) *RelationshipInfoQuery {
 	return c.Query().
-		Where(relationship.UserID(_m.UserID), relationship.RelativeID(_m.RelativeID)).
+		Where(relationship.UserID(_m.UserID), relationship.RelativesID(_m.RelativesID)).
 		QueryInfo()
 }
 

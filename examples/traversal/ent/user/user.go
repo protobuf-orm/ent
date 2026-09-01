@@ -29,12 +29,12 @@ const (
 	// EdgeManage holds the string denoting the manage edge name in mutations.
 	EdgeManage = "manage"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// PetsTable is the table that holds the pets relation/edge.
-	PetsTable = "pets"
+	PetsTable = "pet"
 	// PetsInverseTable is the table name for the Pet entity.
 	// It exists in this package in order to avoid circular dependency with the "pet" package.
-	PetsInverseTable = "pets"
+	PetsInverseTable = "pet"
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "user_pets"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
@@ -43,12 +43,12 @@ const (
 	GroupsTable = "group_users"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// ManageTable is the table that holds the manage relation/edge.
-	ManageTable = "groups"
+	ManageTable = "group"
 	// ManageInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	ManageInverseTable = "groups"
+	ManageInverseTable = "group"
 	// ManageColumn is the table column denoting the manage relation/edge.
 	ManageColumn = "group_admin"
 )
@@ -63,7 +63,7 @@ var Columns = []string{
 var (
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 	// GroupsPrimaryKey and GroupsColumn2 are the table columns denoting the
 	// primary key for the groups relation (M2M).
 	GroupsPrimaryKey = []string{"group_id", "user_id"}

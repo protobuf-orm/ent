@@ -88,9 +88,9 @@ func (_c *BlobCreate) SetParent(v *Blob) *BlobCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddLinkIDs adds the "links" edge to the Blob entity by IDs.
-func (_c *BlobCreate) AddLinkIDs(ids ...uuid.UUID) *BlobCreate {
-	_c.mutation.AddLinkIDs(ids...)
+// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
+func (_c *BlobCreate) AddLinksIDs(ids ...uuid.UUID) *BlobCreate {
+	_c.mutation.AddLinksIDs(ids...)
 	return _c
 }
 
@@ -100,7 +100,7 @@ func (_c *BlobCreate) AddLinks(v ...*Blob) *BlobCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddLinkIDs(ids...)
+	return _c.AddLinksIDs(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.

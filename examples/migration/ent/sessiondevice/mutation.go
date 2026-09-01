@@ -155,8 +155,8 @@ func (m *Mutation) ResetUpdatedAt() {
 	delete(m.clearedFields, FieldUpdatedAt)
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by ids.
-func (m *Mutation) AddSessionIDs(ids ...uuid.UUID) {
+// AddSessionsIDs adds the "sessions" edge to the Session entity by ids.
+func (m *Mutation) AddSessionsIDs(ids ...uuid.UUID) {
 	if m.sessions == nil {
 		m.sessions = make(map[uuid.UUID]struct{})
 	}
@@ -175,8 +175,8 @@ func (m *Mutation) SessionsCleared() bool {
 	return m.clearedsessions
 }
 
-// RemoveSessionIDs removes the "sessions" edge to the Session entity by IDs.
-func (m *Mutation) RemoveSessionIDs(ids ...uuid.UUID) {
+// RemoveSessionsIDs removes the "sessions" edge to the Session entity by IDs.
+func (m *Mutation) RemoveSessionsIDs(ids ...uuid.UUID) {
 	if m.removedsessions == nil {
 		m.removedsessions = make(map[uuid.UUID]struct{})
 	}

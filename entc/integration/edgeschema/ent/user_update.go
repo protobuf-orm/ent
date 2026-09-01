@@ -51,9 +51,9 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *UserUpdate) AddGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *UserUpdate) AddGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -63,12 +63,12 @@ func (_u *UserUpdate) AddGroups(v ...*Group) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdate) AddFriendIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_u *UserUpdate) AddFriendsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -78,12 +78,12 @@ func (_u *UserUpdate) AddFriends(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
-// AddRelativeIDs adds the "relatives" edge to the User entity by IDs.
-func (_u *UserUpdate) AddRelativeIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddRelativeIDs(ids...)
+// AddRelativesIDs adds the "relatives" edge to the User entity by IDs.
+func (_u *UserUpdate) AddRelativesIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddRelativesIDs(ids...)
 	return _u
 }
 
@@ -93,12 +93,12 @@ func (_u *UserUpdate) AddRelatives(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRelativeIDs(ids...)
+	return _u.AddRelativesIDs(ids...)
 }
 
-// AddLikedTweetIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
-func (_u *UserUpdate) AddLikedTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddLikedTweetIDs(ids...)
+// AddLikedTweetsIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
+func (_u *UserUpdate) AddLikedTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddLikedTweetsIDs(ids...)
 	return _u
 }
 
@@ -108,12 +108,12 @@ func (_u *UserUpdate) AddLikedTweets(v ...*Tweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddLikedTweetIDs(ids...)
+	return _u.AddLikedTweetsIDs(ids...)
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_u *UserUpdate) AddTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_u *UserUpdate) AddTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddTweetsIDs(ids...)
 	return _u
 }
 
@@ -123,12 +123,12 @@ func (_u *UserUpdate) AddTweets(v ...*Tweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetIDs(ids...)
+	return _u.AddTweetsIDs(ids...)
 }
 
-// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
-func (_u *UserUpdate) AddRoleIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddRoleIDs(ids...)
+// AddRolesIDs adds the "roles" edge to the Role entity by IDs.
+func (_u *UserUpdate) AddRolesIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddRolesIDs(ids...)
 	return _u
 }
 
@@ -138,12 +138,12 @@ func (_u *UserUpdate) AddRoles(v ...*Role) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRoleIDs(ids...)
+	return _u.AddRolesIDs(ids...)
 }
 
-// AddJoinedGroupIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
-func (_u *UserUpdate) AddJoinedGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddJoinedGroupIDs(ids...)
+// AddJoinedGroupsIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
+func (_u *UserUpdate) AddJoinedGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddJoinedGroupsIDs(ids...)
 	return _u
 }
 
@@ -153,12 +153,12 @@ func (_u *UserUpdate) AddJoinedGroups(v ...*UserGroup) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddJoinedGroupIDs(ids...)
+	return _u.AddJoinedGroupsIDs(ids...)
 }
 
-// AddFriendshipIDs adds the "friendships" edge to the Friendship entity by IDs.
-func (_u *UserUpdate) AddFriendshipIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddFriendshipIDs(ids...)
+// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by IDs.
+func (_u *UserUpdate) AddFriendshipsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddFriendshipsIDs(ids...)
 	return _u
 }
 
@@ -168,12 +168,12 @@ func (_u *UserUpdate) AddFriendships(v ...*Friendship) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendshipIDs(ids...)
+	return _u.AddFriendshipsIDs(ids...)
 }
 
-// AddUserTweetIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
-func (_u *UserUpdate) AddUserTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddUserTweetIDs(ids...)
+// AddUserTweetsIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
+func (_u *UserUpdate) AddUserTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddUserTweetsIDs(ids...)
 	return _u
 }
 
@@ -183,7 +183,7 @@ func (_u *UserUpdate) AddUserTweets(v ...*UserTweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserTweetIDs(ids...)
+	return _u.AddUserTweetsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -197,9 +197,9 @@ func (_u *UserUpdate) ClearGroups() *UserUpdate {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *UserUpdate) RemoveGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *UserUpdate) RemoveGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -209,7 +209,7 @@ func (_u *UserUpdate) RemoveGroups(v ...*Group) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the User entity.
@@ -218,9 +218,9 @@ func (_u *UserUpdate) ClearFriends() *UserUpdate {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveFriendIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveFriendsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -230,7 +230,7 @@ func (_u *UserUpdate) RemoveFriends(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearRelatives clears all "relatives" edges to the User entity.
@@ -239,9 +239,9 @@ func (_u *UserUpdate) ClearRelatives() *UserUpdate {
 	return _u
 }
 
-// RemoveRelativeIDs removes the "relatives" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveRelativeIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveRelativeIDs(ids...)
+// RemoveRelativesIDs removes the "relatives" edge to User entities by IDs.
+func (_u *UserUpdate) RemoveRelativesIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveRelativesIDs(ids...)
 	return _u
 }
 
@@ -251,7 +251,7 @@ func (_u *UserUpdate) RemoveRelatives(v ...*User) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRelativeIDs(ids...)
+	return _u.RemoveRelativesIDs(ids...)
 }
 
 // ClearLikedTweets clears all "liked_tweets" edges to the Tweet entity.
@@ -260,9 +260,9 @@ func (_u *UserUpdate) ClearLikedTweets() *UserUpdate {
 	return _u
 }
 
-// RemoveLikedTweetIDs removes the "liked_tweets" edge to Tweet entities by IDs.
-func (_u *UserUpdate) RemoveLikedTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveLikedTweetIDs(ids...)
+// RemoveLikedTweetsIDs removes the "liked_tweets" edge to Tweet entities by IDs.
+func (_u *UserUpdate) RemoveLikedTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveLikedTweetsIDs(ids...)
 	return _u
 }
 
@@ -272,7 +272,7 @@ func (_u *UserUpdate) RemoveLikedTweets(v ...*Tweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveLikedTweetIDs(ids...)
+	return _u.RemoveLikedTweetsIDs(ids...)
 }
 
 // ClearTweets clears all "tweets" edges to the Tweet entity.
@@ -281,9 +281,9 @@ func (_u *UserUpdate) ClearTweets() *UserUpdate {
 	return _u
 }
 
-// RemoveTweetIDs removes the "tweets" edge to Tweet entities by IDs.
-func (_u *UserUpdate) RemoveTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveTweetIDs(ids...)
+// RemoveTweetsIDs removes the "tweets" edge to Tweet entities by IDs.
+func (_u *UserUpdate) RemoveTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveTweetsIDs(ids...)
 	return _u
 }
 
@@ -293,7 +293,7 @@ func (_u *UserUpdate) RemoveTweets(v ...*Tweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetIDs(ids...)
+	return _u.RemoveTweetsIDs(ids...)
 }
 
 // ClearRoles clears all "roles" edges to the Role entity.
@@ -302,9 +302,9 @@ func (_u *UserUpdate) ClearRoles() *UserUpdate {
 	return _u
 }
 
-// RemoveRoleIDs removes the "roles" edge to Role entities by IDs.
-func (_u *UserUpdate) RemoveRoleIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveRoleIDs(ids...)
+// RemoveRolesIDs removes the "roles" edge to Role entities by IDs.
+func (_u *UserUpdate) RemoveRolesIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveRolesIDs(ids...)
 	return _u
 }
 
@@ -314,7 +314,7 @@ func (_u *UserUpdate) RemoveRoles(v ...*Role) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRoleIDs(ids...)
+	return _u.RemoveRolesIDs(ids...)
 }
 
 // ClearJoinedGroups clears all "joined_groups" edges to the UserGroup entity.
@@ -323,9 +323,9 @@ func (_u *UserUpdate) ClearJoinedGroups() *UserUpdate {
 	return _u
 }
 
-// RemoveJoinedGroupIDs removes the "joined_groups" edge to UserGroup entities by IDs.
-func (_u *UserUpdate) RemoveJoinedGroupIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveJoinedGroupIDs(ids...)
+// RemoveJoinedGroupsIDs removes the "joined_groups" edge to UserGroup entities by IDs.
+func (_u *UserUpdate) RemoveJoinedGroupsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveJoinedGroupsIDs(ids...)
 	return _u
 }
 
@@ -335,7 +335,7 @@ func (_u *UserUpdate) RemoveJoinedGroups(v ...*UserGroup) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveJoinedGroupIDs(ids...)
+	return _u.RemoveJoinedGroupsIDs(ids...)
 }
 
 // ClearFriendships clears all "friendships" edges to the Friendship entity.
@@ -344,9 +344,9 @@ func (_u *UserUpdate) ClearFriendships() *UserUpdate {
 	return _u
 }
 
-// RemoveFriendshipIDs removes the "friendships" edge to Friendship entities by IDs.
-func (_u *UserUpdate) RemoveFriendshipIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveFriendshipIDs(ids...)
+// RemoveFriendshipsIDs removes the "friendships" edge to Friendship entities by IDs.
+func (_u *UserUpdate) RemoveFriendshipsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveFriendshipsIDs(ids...)
 	return _u
 }
 
@@ -356,7 +356,7 @@ func (_u *UserUpdate) RemoveFriendships(v ...*Friendship) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendshipIDs(ids...)
+	return _u.RemoveFriendshipsIDs(ids...)
 }
 
 // ClearUserTweets clears all "user_tweets" edges to the UserTweet entity.
@@ -365,9 +365,9 @@ func (_u *UserUpdate) ClearUserTweets() *UserUpdate {
 	return _u
 }
 
-// RemoveUserTweetIDs removes the "user_tweets" edge to UserTweet entities by IDs.
-func (_u *UserUpdate) RemoveUserTweetIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveUserTweetIDs(ids...)
+// RemoveUserTweetsIDs removes the "user_tweets" edge to UserTweet entities by IDs.
+func (_u *UserUpdate) RemoveUserTweetsIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveUserTweetsIDs(ids...)
 	return _u
 }
 
@@ -377,7 +377,7 @@ func (_u *UserUpdate) RemoveUserTweets(v ...*UserTweet) *UserUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserTweetIDs(ids...)
+	return _u.RemoveUserTweetsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -930,9 +930,9 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// AddGroupIDs adds the "groups" edge to the Group entity by IDs.
-func (_u *UserUpdateOne) AddGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddGroupIDs(ids...)
+// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
+func (_u *UserUpdateOne) AddGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddGroupsIDs(ids...)
 	return _u
 }
 
@@ -942,12 +942,12 @@ func (_u *UserUpdateOne) AddGroups(v ...*Group) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddGroupIDs(ids...)
+	return _u.AddGroupsIDs(ids...)
 }
 
-// AddFriendIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddFriendIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddFriendIDs(ids...)
+// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddFriendsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddFriendsIDs(ids...)
 	return _u
 }
 
@@ -957,12 +957,12 @@ func (_u *UserUpdateOne) AddFriends(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendIDs(ids...)
+	return _u.AddFriendsIDs(ids...)
 }
 
-// AddRelativeIDs adds the "relatives" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddRelativeIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddRelativeIDs(ids...)
+// AddRelativesIDs adds the "relatives" edge to the User entity by IDs.
+func (_u *UserUpdateOne) AddRelativesIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddRelativesIDs(ids...)
 	return _u
 }
 
@@ -972,12 +972,12 @@ func (_u *UserUpdateOne) AddRelatives(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRelativeIDs(ids...)
+	return _u.AddRelativesIDs(ids...)
 }
 
-// AddLikedTweetIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
-func (_u *UserUpdateOne) AddLikedTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddLikedTweetIDs(ids...)
+// AddLikedTweetsIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
+func (_u *UserUpdateOne) AddLikedTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddLikedTweetsIDs(ids...)
 	return _u
 }
 
@@ -987,12 +987,12 @@ func (_u *UserUpdateOne) AddLikedTweets(v ...*Tweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddLikedTweetIDs(ids...)
+	return _u.AddLikedTweetsIDs(ids...)
 }
 
-// AddTweetIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_u *UserUpdateOne) AddTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddTweetIDs(ids...)
+// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
+func (_u *UserUpdateOne) AddTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddTweetsIDs(ids...)
 	return _u
 }
 
@@ -1002,12 +1002,12 @@ func (_u *UserUpdateOne) AddTweets(v ...*Tweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTweetIDs(ids...)
+	return _u.AddTweetsIDs(ids...)
 }
 
-// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
-func (_u *UserUpdateOne) AddRoleIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddRoleIDs(ids...)
+// AddRolesIDs adds the "roles" edge to the Role entity by IDs.
+func (_u *UserUpdateOne) AddRolesIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddRolesIDs(ids...)
 	return _u
 }
 
@@ -1017,12 +1017,12 @@ func (_u *UserUpdateOne) AddRoles(v ...*Role) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddRoleIDs(ids...)
+	return _u.AddRolesIDs(ids...)
 }
 
-// AddJoinedGroupIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
-func (_u *UserUpdateOne) AddJoinedGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddJoinedGroupIDs(ids...)
+// AddJoinedGroupsIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
+func (_u *UserUpdateOne) AddJoinedGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddJoinedGroupsIDs(ids...)
 	return _u
 }
 
@@ -1032,12 +1032,12 @@ func (_u *UserUpdateOne) AddJoinedGroups(v ...*UserGroup) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddJoinedGroupIDs(ids...)
+	return _u.AddJoinedGroupsIDs(ids...)
 }
 
-// AddFriendshipIDs adds the "friendships" edge to the Friendship entity by IDs.
-func (_u *UserUpdateOne) AddFriendshipIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddFriendshipIDs(ids...)
+// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by IDs.
+func (_u *UserUpdateOne) AddFriendshipsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddFriendshipsIDs(ids...)
 	return _u
 }
 
@@ -1047,12 +1047,12 @@ func (_u *UserUpdateOne) AddFriendships(v ...*Friendship) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddFriendshipIDs(ids...)
+	return _u.AddFriendshipsIDs(ids...)
 }
 
-// AddUserTweetIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
-func (_u *UserUpdateOne) AddUserTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddUserTweetIDs(ids...)
+// AddUserTweetsIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
+func (_u *UserUpdateOne) AddUserTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddUserTweetsIDs(ids...)
 	return _u
 }
 
@@ -1062,7 +1062,7 @@ func (_u *UserUpdateOne) AddUserTweets(v ...*UserTweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddUserTweetIDs(ids...)
+	return _u.AddUserTweetsIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -1076,9 +1076,9 @@ func (_u *UserUpdateOne) ClearGroups() *UserUpdateOne {
 	return _u
 }
 
-// RemoveGroupIDs removes the "groups" edge to Group entities by IDs.
-func (_u *UserUpdateOne) RemoveGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveGroupIDs(ids...)
+// RemoveGroupsIDs removes the "groups" edge to Group entities by IDs.
+func (_u *UserUpdateOne) RemoveGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveGroupsIDs(ids...)
 	return _u
 }
 
@@ -1088,7 +1088,7 @@ func (_u *UserUpdateOne) RemoveGroups(v ...*Group) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveGroupIDs(ids...)
+	return _u.RemoveGroupsIDs(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the User entity.
@@ -1097,9 +1097,9 @@ func (_u *UserUpdateOne) ClearFriends() *UserUpdateOne {
 	return _u
 }
 
-// RemoveFriendIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveFriendIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveFriendIDs(ids...)
+// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveFriendsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveFriendsIDs(ids...)
 	return _u
 }
 
@@ -1109,7 +1109,7 @@ func (_u *UserUpdateOne) RemoveFriends(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendIDs(ids...)
+	return _u.RemoveFriendsIDs(ids...)
 }
 
 // ClearRelatives clears all "relatives" edges to the User entity.
@@ -1118,9 +1118,9 @@ func (_u *UserUpdateOne) ClearRelatives() *UserUpdateOne {
 	return _u
 }
 
-// RemoveRelativeIDs removes the "relatives" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveRelativeIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveRelativeIDs(ids...)
+// RemoveRelativesIDs removes the "relatives" edge to User entities by IDs.
+func (_u *UserUpdateOne) RemoveRelativesIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveRelativesIDs(ids...)
 	return _u
 }
 
@@ -1130,7 +1130,7 @@ func (_u *UserUpdateOne) RemoveRelatives(v ...*User) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRelativeIDs(ids...)
+	return _u.RemoveRelativesIDs(ids...)
 }
 
 // ClearLikedTweets clears all "liked_tweets" edges to the Tweet entity.
@@ -1139,9 +1139,9 @@ func (_u *UserUpdateOne) ClearLikedTweets() *UserUpdateOne {
 	return _u
 }
 
-// RemoveLikedTweetIDs removes the "liked_tweets" edge to Tweet entities by IDs.
-func (_u *UserUpdateOne) RemoveLikedTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveLikedTweetIDs(ids...)
+// RemoveLikedTweetsIDs removes the "liked_tweets" edge to Tweet entities by IDs.
+func (_u *UserUpdateOne) RemoveLikedTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveLikedTweetsIDs(ids...)
 	return _u
 }
 
@@ -1151,7 +1151,7 @@ func (_u *UserUpdateOne) RemoveLikedTweets(v ...*Tweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveLikedTweetIDs(ids...)
+	return _u.RemoveLikedTweetsIDs(ids...)
 }
 
 // ClearTweets clears all "tweets" edges to the Tweet entity.
@@ -1160,9 +1160,9 @@ func (_u *UserUpdateOne) ClearTweets() *UserUpdateOne {
 	return _u
 }
 
-// RemoveTweetIDs removes the "tweets" edge to Tweet entities by IDs.
-func (_u *UserUpdateOne) RemoveTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveTweetIDs(ids...)
+// RemoveTweetsIDs removes the "tweets" edge to Tweet entities by IDs.
+func (_u *UserUpdateOne) RemoveTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveTweetsIDs(ids...)
 	return _u
 }
 
@@ -1172,7 +1172,7 @@ func (_u *UserUpdateOne) RemoveTweets(v ...*Tweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTweetIDs(ids...)
+	return _u.RemoveTweetsIDs(ids...)
 }
 
 // ClearRoles clears all "roles" edges to the Role entity.
@@ -1181,9 +1181,9 @@ func (_u *UserUpdateOne) ClearRoles() *UserUpdateOne {
 	return _u
 }
 
-// RemoveRoleIDs removes the "roles" edge to Role entities by IDs.
-func (_u *UserUpdateOne) RemoveRoleIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveRoleIDs(ids...)
+// RemoveRolesIDs removes the "roles" edge to Role entities by IDs.
+func (_u *UserUpdateOne) RemoveRolesIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveRolesIDs(ids...)
 	return _u
 }
 
@@ -1193,7 +1193,7 @@ func (_u *UserUpdateOne) RemoveRoles(v ...*Role) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveRoleIDs(ids...)
+	return _u.RemoveRolesIDs(ids...)
 }
 
 // ClearJoinedGroups clears all "joined_groups" edges to the UserGroup entity.
@@ -1202,9 +1202,9 @@ func (_u *UserUpdateOne) ClearJoinedGroups() *UserUpdateOne {
 	return _u
 }
 
-// RemoveJoinedGroupIDs removes the "joined_groups" edge to UserGroup entities by IDs.
-func (_u *UserUpdateOne) RemoveJoinedGroupIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveJoinedGroupIDs(ids...)
+// RemoveJoinedGroupsIDs removes the "joined_groups" edge to UserGroup entities by IDs.
+func (_u *UserUpdateOne) RemoveJoinedGroupsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveJoinedGroupsIDs(ids...)
 	return _u
 }
 
@@ -1214,7 +1214,7 @@ func (_u *UserUpdateOne) RemoveJoinedGroups(v ...*UserGroup) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveJoinedGroupIDs(ids...)
+	return _u.RemoveJoinedGroupsIDs(ids...)
 }
 
 // ClearFriendships clears all "friendships" edges to the Friendship entity.
@@ -1223,9 +1223,9 @@ func (_u *UserUpdateOne) ClearFriendships() *UserUpdateOne {
 	return _u
 }
 
-// RemoveFriendshipIDs removes the "friendships" edge to Friendship entities by IDs.
-func (_u *UserUpdateOne) RemoveFriendshipIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveFriendshipIDs(ids...)
+// RemoveFriendshipsIDs removes the "friendships" edge to Friendship entities by IDs.
+func (_u *UserUpdateOne) RemoveFriendshipsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveFriendshipsIDs(ids...)
 	return _u
 }
 
@@ -1235,7 +1235,7 @@ func (_u *UserUpdateOne) RemoveFriendships(v ...*Friendship) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveFriendshipIDs(ids...)
+	return _u.RemoveFriendshipsIDs(ids...)
 }
 
 // ClearUserTweets clears all "user_tweets" edges to the UserTweet entity.
@@ -1244,9 +1244,9 @@ func (_u *UserUpdateOne) ClearUserTweets() *UserUpdateOne {
 	return _u
 }
 
-// RemoveUserTweetIDs removes the "user_tweets" edge to UserTweet entities by IDs.
-func (_u *UserUpdateOne) RemoveUserTweetIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveUserTweetIDs(ids...)
+// RemoveUserTweetsIDs removes the "user_tweets" edge to UserTweet entities by IDs.
+func (_u *UserUpdateOne) RemoveUserTweetsIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveUserTweetsIDs(ids...)
 	return _u
 }
 
@@ -1256,7 +1256,7 @@ func (_u *UserUpdateOne) RemoveUserTweets(v ...*UserTweet) *UserUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveUserTweetIDs(ids...)
+	return _u.RemoveUserTweetsIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.

@@ -24,28 +24,28 @@ const (
 	FieldCreatedAt = "created_at"
 	// FieldUserID holds the string denoting the user_id field in the database.
 	FieldUserID = "user_id"
-	// FieldFriendID holds the string denoting the friend_id field in the database.
-	FieldFriendID = "friend_id"
+	// FieldFriendsID holds the string denoting the friends_id field in the database.
+	FieldFriendsID = "friends_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// EdgeFriend holds the string denoting the friend edge name in mutations.
 	EdgeFriend = "friend"
 	// Table holds the table name of the friendship in the database.
-	Table = "friendships"
+	Table = "friendship"
 	// UserTable is the table that holds the user relation/edge.
-	UserTable = "friendships"
+	UserTable = "friendship"
 	// UserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
+	UserInverseTable = "user"
 	// UserColumn is the table column denoting the user relation/edge.
 	UserColumn = "user_id"
 	// FriendTable is the table that holds the friend relation/edge.
-	FriendTable = "friendships"
+	FriendTable = "friendship"
 	// FriendInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	FriendInverseTable = "users"
+	FriendInverseTable = "user"
 	// FriendColumn is the table column denoting the friend relation/edge.
-	FriendColumn = "friend_id"
+	FriendColumn = "friends_id"
 )
 
 // Columns holds all SQL columns for friendship fields.
@@ -54,7 +54,7 @@ var Columns = []string{
 	FieldWeight,
 	FieldCreatedAt,
 	FieldUserID,
-	FieldFriendID,
+	FieldFriendsID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -97,9 +97,9 @@ func ByUserID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserID, opts...).ToFunc()
 }
 
-// ByFriendID orders the results by the friend_id field.
-func ByFriendID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldFriendID, opts...).ToFunc()
+// ByFriendsID orders the results by the friends_id field.
+func ByFriendsID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFriendsID, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.

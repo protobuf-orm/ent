@@ -34,7 +34,7 @@ const (
 	// FieldUint64ToString holds the string denoting the uint64_to_string field in the database.
 	FieldUint64ToString = "uint64_to_string"
 	// Table holds the table name of the conversion in the database.
-	Table = "conversions"
+	Table = "conversion"
 )
 
 // Columns holds all SQL columns for conversion fields.

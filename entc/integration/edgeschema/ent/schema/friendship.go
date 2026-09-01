@@ -27,7 +27,7 @@ func (Friendship) Fields() []ent.Field {
 			Default(time.Now),
 		field.Int("user_id").
 			Immutable(),
-		field.Int("friend_id").
+		field.Int("friends_id").
 			Immutable(),
 	}
 }
@@ -44,7 +44,7 @@ func (Friendship) Edges() []ent.Edge {
 			Unique().
 			Required().
 			Immutable().
-			Field("friend_id"),
+			Field("friends_id"),
 	}
 }
 
@@ -56,7 +56,7 @@ func (Friendship) Indexes() []ent.Index {
 		// for edge-schemas with an ID field to enforce the uniqueness of
 		// the edges reside in the join table. However, in this case it is
 		// skipped because we define it explicitly in the definition below.
-		index.Fields("user_id", "friend_id").
+		index.Fields("user_id", "friends_id").
 			Unique().
 			StorageKey("friendships_edge"),
 	}

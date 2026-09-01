@@ -74,9 +74,9 @@ func (_c *NoteCreate) SetParent(v *Note) *NoteCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Note entity by IDs.
-func (_c *NoteCreate) AddChildIDs(ids ...schema.NoteID) *NoteCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Note entity by IDs.
+func (_c *NoteCreate) AddChildrenIDs(ids ...schema.NoteID) *NoteCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -86,7 +86,7 @@ func (_c *NoteCreate) AddChildren(v ...*Note) *NoteCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // Mutation returns the NoteMutation object of the builder.

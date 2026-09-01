@@ -14,7 +14,7 @@ const (
 	// FieldLocation holds the string denoting the location field in the database.
 	FieldLocation = "location"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 )
 
 // Columns holds all SQL columns for user fields.

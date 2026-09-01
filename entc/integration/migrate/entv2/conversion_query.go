@@ -162,7 +162,7 @@ func (_q *ConversionQuery) OnlyIDX(ctx context.Context) int {
 	return id
 }
 
-// All executes the query and returns a list of Conversions.
+// All executes the query and returns a list of Conversion entities.
 func (_q *ConversionQuery) All(ctx context.Context) ([]*Conversion, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {

@@ -76,7 +76,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 				},
 				{
 					Type:   field.TypeUUID,
-					Column: bloblink.FieldLinkID,
+					Column: bloblink.FieldLinksID,
 				},
 			},
 		},
@@ -84,7 +84,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Fields: map[string]*sqlgraph.FieldSpec{
 			bloblink.FieldCreatedAt: {Type: field.TypeTime, Column: bloblink.FieldCreatedAt},
 			bloblink.FieldBlobID:    {Type: field.TypeUUID, Column: bloblink.FieldBlobID},
-			bloblink.FieldLinkID:    {Type: field.TypeUUID, Column: bloblink.FieldLinkID},
+			bloblink.FieldLinksID:   {Type: field.TypeUUID, Column: bloblink.FieldLinksID},
 		},
 	}
 	graph.Nodes[3] = &sqlgraph.Node{
@@ -813,9 +813,9 @@ func (f *BlobLinkFilter) WhereBlobID(p entql.ValueP) {
 	f.Where(p.Field(bloblink.FieldBlobID))
 }
 
-// WhereLinkID applies the entql [16]byte predicate on the link_id field.
-func (f *BlobLinkFilter) WhereLinkID(p entql.ValueP) {
-	f.Where(p.Field(bloblink.FieldLinkID))
+// WhereLinksID applies the entql [16]byte predicate on the links_id field.
+func (f *BlobLinkFilter) WhereLinksID(p entql.ValueP) {
+	f.Where(p.Field(bloblink.FieldLinksID))
 }
 
 // WhereHasBlob applies a predicate to check if query has an edge blob.

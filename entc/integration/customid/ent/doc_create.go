@@ -74,9 +74,9 @@ func (_c *DocCreate) SetParent(v *Doc) *DocCreate {
 	return _c.SetParentID(v.ID)
 }
 
-// AddChildIDs adds the "children" edge to the Doc entity by IDs.
-func (_c *DocCreate) AddChildIDs(ids ...schema.DocID) *DocCreate {
-	_c.mutation.AddChildIDs(ids...)
+// AddChildrenIDs adds the "children" edge to the Doc entity by IDs.
+func (_c *DocCreate) AddChildrenIDs(ids ...schema.DocID) *DocCreate {
+	_c.mutation.AddChildrenIDs(ids...)
 	return _c
 }
 
@@ -86,7 +86,7 @@ func (_c *DocCreate) AddChildren(v ...*Doc) *DocCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddChildIDs(ids...)
+	return _c.AddChildrenIDs(ids...)
 }
 
 // AddRelatedIDs adds the "related" edge to the Doc entity by IDs.

@@ -102,9 +102,9 @@ func (_u *TaskUpdate) ClearUUID() *TaskUpdate {
 	return _u
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by IDs.
-func (_u *TaskUpdate) AddTeamIDs(ids ...int) *TaskUpdate {
-	_u.mutation.AddTeamIDs(ids...)
+// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
+func (_u *TaskUpdate) AddTeamsIDs(ids ...int) *TaskUpdate {
+	_u.mutation.AddTeamsIDs(ids...)
 	return _u
 }
 
@@ -114,7 +114,7 @@ func (_u *TaskUpdate) AddTeams(v ...*Team) *TaskUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTeamIDs(ids...)
+	return _u.AddTeamsIDs(ids...)
 }
 
 // SetOwnerID sets the "owner" edge to the User entity by ID.
@@ -147,9 +147,9 @@ func (_u *TaskUpdate) ClearTeams() *TaskUpdate {
 	return _u
 }
 
-// RemoveTeamIDs removes the "teams" edge to Team entities by IDs.
-func (_u *TaskUpdate) RemoveTeamIDs(ids ...int) *TaskUpdate {
-	_u.mutation.RemoveTeamIDs(ids...)
+// RemoveTeamsIDs removes the "teams" edge to Team entities by IDs.
+func (_u *TaskUpdate) RemoveTeamsIDs(ids ...int) *TaskUpdate {
+	_u.mutation.RemoveTeamsIDs(ids...)
 	return _u
 }
 
@@ -159,7 +159,7 @@ func (_u *TaskUpdate) RemoveTeams(v ...*Team) *TaskUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTeamIDs(ids...)
+	return _u.RemoveTeamsIDs(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.
@@ -402,9 +402,9 @@ func (_u *TaskUpdateOne) ClearUUID() *TaskUpdateOne {
 	return _u
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by IDs.
-func (_u *TaskUpdateOne) AddTeamIDs(ids ...int) *TaskUpdateOne {
-	_u.mutation.AddTeamIDs(ids...)
+// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
+func (_u *TaskUpdateOne) AddTeamsIDs(ids ...int) *TaskUpdateOne {
+	_u.mutation.AddTeamsIDs(ids...)
 	return _u
 }
 
@@ -414,7 +414,7 @@ func (_u *TaskUpdateOne) AddTeams(v ...*Team) *TaskUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddTeamIDs(ids...)
+	return _u.AddTeamsIDs(ids...)
 }
 
 // SetOwnerID sets the "owner" edge to the User entity by ID.
@@ -447,9 +447,9 @@ func (_u *TaskUpdateOne) ClearTeams() *TaskUpdateOne {
 	return _u
 }
 
-// RemoveTeamIDs removes the "teams" edge to Team entities by IDs.
-func (_u *TaskUpdateOne) RemoveTeamIDs(ids ...int) *TaskUpdateOne {
-	_u.mutation.RemoveTeamIDs(ids...)
+// RemoveTeamsIDs removes the "teams" edge to Team entities by IDs.
+func (_u *TaskUpdateOne) RemoveTeamsIDs(ids ...int) *TaskUpdateOne {
+	_u.mutation.RemoveTeamsIDs(ids...)
 	return _u
 }
 
@@ -459,7 +459,7 @@ func (_u *TaskUpdateOne) RemoveTeams(v ...*Team) *TaskUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveTeamIDs(ids...)
+	return _u.RemoveTeamsIDs(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.

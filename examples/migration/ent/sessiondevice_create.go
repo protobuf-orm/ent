@@ -78,9 +78,9 @@ func (_c *SessionDeviceCreate) SetNillableID(v *uuid.UUID) *SessionDeviceCreate 
 	return _c
 }
 
-// AddSessionIDs adds the "sessions" edge to the Session entity by IDs.
-func (_c *SessionDeviceCreate) AddSessionIDs(ids ...uuid.UUID) *SessionDeviceCreate {
-	_c.mutation.AddSessionIDs(ids...)
+// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
+func (_c *SessionDeviceCreate) AddSessionsIDs(ids ...uuid.UUID) *SessionDeviceCreate {
+	_c.mutation.AddSessionsIDs(ids...)
 	return _c
 }
 
@@ -90,7 +90,7 @@ func (_c *SessionDeviceCreate) AddSessions(v ...*Session) *SessionDeviceCreate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _c.AddSessionIDs(ids...)
+	return _c.AddSessionsIDs(ids...)
 }
 
 // Mutation returns the SessionDeviceMutation object of the builder.

@@ -73,8 +73,8 @@ func (m *Mutation) ResetText() {
 	m.text = nil
 }
 
-// AddLikedUserIDs adds the "liked_users" edge to the User entity by ids.
-func (m *Mutation) AddLikedUserIDs(ids ...int) {
+// AddLikedUsersIDs adds the "liked_users" edge to the User entity by ids.
+func (m *Mutation) AddLikedUsersIDs(ids ...int) {
 	if m.liked_users == nil {
 		m.liked_users = make(map[int]struct{})
 	}
@@ -93,8 +93,8 @@ func (m *Mutation) LikedUsersCleared() bool {
 	return m.clearedliked_users
 }
 
-// RemoveLikedUserIDs removes the "liked_users" edge to the User entity by IDs.
-func (m *Mutation) RemoveLikedUserIDs(ids ...int) {
+// RemoveLikedUsersIDs removes the "liked_users" edge to the User entity by IDs.
+func (m *Mutation) RemoveLikedUsersIDs(ids ...int) {
 	if m.removedliked_users == nil {
 		m.removedliked_users = make(map[int]struct{})
 	}
@@ -181,8 +181,8 @@ func (m *Mutation) ResetUser() {
 	m.removeduser = nil
 }
 
-// AddTagIDs adds the "tags" edge to the Tag entity by ids.
-func (m *Mutation) AddTagIDs(ids ...int) {
+// AddTagsIDs adds the "tags" edge to the Tag entity by ids.
+func (m *Mutation) AddTagsIDs(ids ...int) {
 	if m.tags == nil {
 		m.tags = make(map[int]struct{})
 	}
@@ -201,8 +201,8 @@ func (m *Mutation) TagsCleared() bool {
 	return m.clearedtags
 }
 
-// RemoveTagIDs removes the "tags" edge to the Tag entity by IDs.
-func (m *Mutation) RemoveTagIDs(ids ...int) {
+// RemoveTagsIDs removes the "tags" edge to the Tag entity by IDs.
+func (m *Mutation) RemoveTagsIDs(ids ...int) {
 	if m.removedtags == nil {
 		m.removedtags = make(map[int]struct{})
 	}
@@ -289,8 +289,8 @@ func (m *Mutation) ResetTweetUser() {
 	m.removedtweet_user = nil
 }
 
-// AddTweetTagIDs adds the "tweet_tags" edge to the TweetTag entity by ids.
-func (m *Mutation) AddTweetTagIDs(ids ...uuid.UUID) {
+// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by ids.
+func (m *Mutation) AddTweetTagsIDs(ids ...uuid.UUID) {
 	if m.tweet_tags == nil {
 		m.tweet_tags = make(map[uuid.UUID]struct{})
 	}
@@ -309,8 +309,8 @@ func (m *Mutation) TweetTagsCleared() bool {
 	return m.clearedtweet_tags
 }
 
-// RemoveTweetTagIDs removes the "tweet_tags" edge to the TweetTag entity by IDs.
-func (m *Mutation) RemoveTweetTagIDs(ids ...uuid.UUID) {
+// RemoveTweetTagsIDs removes the "tweet_tags" edge to the TweetTag entity by IDs.
+func (m *Mutation) RemoveTweetTagsIDs(ids ...uuid.UUID) {
 	if m.removedtweet_tags == nil {
 		m.removedtweet_tags = make(map[uuid.UUID]struct{})
 	}

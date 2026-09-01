@@ -46,9 +46,9 @@ func (_u *CityUpdate) SetNillableName(v *string) *CityUpdate {
 	return _u
 }
 
-// AddStreetIDs adds the "streets" edge to the Street entity by IDs.
-func (_u *CityUpdate) AddStreetIDs(ids ...int) *CityUpdate {
-	_u.mutation.AddStreetIDs(ids...)
+// AddStreetsIDs adds the "streets" edge to the Street entity by IDs.
+func (_u *CityUpdate) AddStreetsIDs(ids ...int) *CityUpdate {
+	_u.mutation.AddStreetsIDs(ids...)
 	return _u
 }
 
@@ -58,7 +58,7 @@ func (_u *CityUpdate) AddStreets(v ...*Street) *CityUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddStreetIDs(ids...)
+	return _u.AddStreetsIDs(ids...)
 }
 
 // Mutation returns the CityMutation object of the builder.
@@ -72,9 +72,9 @@ func (_u *CityUpdate) ClearStreets() *CityUpdate {
 	return _u
 }
 
-// RemoveStreetIDs removes the "streets" edge to Street entities by IDs.
-func (_u *CityUpdate) RemoveStreetIDs(ids ...int) *CityUpdate {
-	_u.mutation.RemoveStreetIDs(ids...)
+// RemoveStreetsIDs removes the "streets" edge to Street entities by IDs.
+func (_u *CityUpdate) RemoveStreetsIDs(ids ...int) *CityUpdate {
+	_u.mutation.RemoveStreetsIDs(ids...)
 	return _u
 }
 
@@ -84,7 +84,7 @@ func (_u *CityUpdate) RemoveStreets(v ...*Street) *CityUpdate {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveStreetIDs(ids...)
+	return _u.RemoveStreetsIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -205,9 +205,9 @@ func (_u *CityUpdateOne) SetNillableName(v *string) *CityUpdateOne {
 	return _u
 }
 
-// AddStreetIDs adds the "streets" edge to the Street entity by IDs.
-func (_u *CityUpdateOne) AddStreetIDs(ids ...int) *CityUpdateOne {
-	_u.mutation.AddStreetIDs(ids...)
+// AddStreetsIDs adds the "streets" edge to the Street entity by IDs.
+func (_u *CityUpdateOne) AddStreetsIDs(ids ...int) *CityUpdateOne {
+	_u.mutation.AddStreetsIDs(ids...)
 	return _u
 }
 
@@ -217,7 +217,7 @@ func (_u *CityUpdateOne) AddStreets(v ...*Street) *CityUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.AddStreetIDs(ids...)
+	return _u.AddStreetsIDs(ids...)
 }
 
 // Mutation returns the CityMutation object of the builder.
@@ -231,9 +231,9 @@ func (_u *CityUpdateOne) ClearStreets() *CityUpdateOne {
 	return _u
 }
 
-// RemoveStreetIDs removes the "streets" edge to Street entities by IDs.
-func (_u *CityUpdateOne) RemoveStreetIDs(ids ...int) *CityUpdateOne {
-	_u.mutation.RemoveStreetIDs(ids...)
+// RemoveStreetsIDs removes the "streets" edge to Street entities by IDs.
+func (_u *CityUpdateOne) RemoveStreetsIDs(ids ...int) *CityUpdateOne {
+	_u.mutation.RemoveStreetsIDs(ids...)
 	return _u
 }
 
@@ -243,7 +243,7 @@ func (_u *CityUpdateOne) RemoveStreets(v ...*Street) *CityUpdateOne {
 	for i := range v {
 		ids[i] = v[i].ID
 	}
-	return _u.RemoveStreetIDs(ids...)
+	return _u.RemoveStreetsIDs(ids...)
 }
 
 // Where appends a list predicates to the CityUpdate builder.

@@ -65,12 +65,12 @@ const (
 	// EdgeParent holds the string denoting the parent edge name in mutations.
 	EdgeParent = "parent"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "user"
 	// CardTable is the table that holds the card relation/edge.
-	CardTable = "cards"
+	CardTable = "card"
 	// CardInverseTable is the table name for the Card entity.
 	// It exists in this package in order to avoid circular dependency with the "card" package.
-	CardInverseTable = "cards"
+	CardInverseTable = "card"
 	// CardColumn is the table column denoting the card relation/edge.
 	CardColumn = "user_card"
 	// PetsTable is the table that holds the pets relation/edge.
@@ -81,17 +81,17 @@ const (
 	// PetsColumn is the table column denoting the pets relation/edge.
 	PetsColumn = "user_pets"
 	// FilesTable is the table that holds the files relation/edge.
-	FilesTable = "files"
+	FilesTable = "file"
 	// FilesInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
-	FilesInverseTable = "files"
+	FilesInverseTable = "file"
 	// FilesColumn is the table column denoting the files relation/edge.
 	FilesColumn = "user_files"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
 	GroupsTable = "user_groups"
 	// GroupsInverseTable is the table name for the Group entity.
 	// It exists in this package in order to avoid circular dependency with the "group" package.
-	GroupsInverseTable = "groups"
+	GroupsInverseTable = "group"
 	// FriendsTable is the table that holds the friends relation/edge. The primary key declared below.
 	FriendsTable = "user_friends"
 	// FollowersTable is the table that holds the followers relation/edge. The primary key declared below.
@@ -106,15 +106,15 @@ const (
 	// TeamColumn is the table column denoting the team relation/edge.
 	TeamColumn = "user_team"
 	// SpouseTable is the table that holds the spouse relation/edge.
-	SpouseTable = "users"
+	SpouseTable = "user"
 	// SpouseColumn is the table column denoting the spouse relation/edge.
 	SpouseColumn = "user_spouse"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "users"
+	ChildrenTable = "user"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "user_parent"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "users"
+	ParentTable = "user"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "user_parent"
 )
@@ -136,7 +136,7 @@ var Columns = []string{
 	FieldFilesCount,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "users"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_blocked",
@@ -150,13 +150,13 @@ var (
 	GroupsPrimaryKey = []string{"user_id", "group_id"}
 	// FriendsPrimaryKey and FriendsColumn2 are the table columns denoting the
 	// primary key for the friends relation (M2M).
-	FriendsPrimaryKey = []string{"user_id", "friend_id"}
+	FriendsPrimaryKey = []string{"user_id", "friends_id"}
 	// FollowersPrimaryKey and FollowersColumn2 are the table columns denoting the
 	// primary key for the followers relation (M2M).
-	FollowersPrimaryKey = []string{"user_id", "follower_id"}
+	FollowersPrimaryKey = []string{"user_id", "followers_id"}
 	// FollowingPrimaryKey and FollowingColumn2 are the table columns denoting the
 	// primary key for the following relation (M2M).
-	FollowingPrimaryKey = []string{"user_id", "follower_id"}
+	FollowingPrimaryKey = []string{"user_id", "followers_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

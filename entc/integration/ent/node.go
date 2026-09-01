@@ -174,5 +174,5 @@ func (_m *Node) String() string {
 	return builder.String()
 }
 
-// Nodes is a parsable slice of Node.
-type Nodes []*Node
+// NodeList is a parsable slice of Node.
+type NodeList []*Node

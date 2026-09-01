@@ -115,8 +115,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildIDs adds the "children" edge to the Note entity by ids.
-func (m *Mutation) AddChildIDs(ids ...schema.NoteID) {
+// AddChildrenIDs adds the "children" edge to the Note entity by ids.
+func (m *Mutation) AddChildrenIDs(ids ...schema.NoteID) {
 	if m.children == nil {
 		m.children = make(map[schema.NoteID]struct{})
 	}
@@ -135,8 +135,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildIDs removes the "children" edge to the Note entity by IDs.
-func (m *Mutation) RemoveChildIDs(ids ...schema.NoteID) {
+// RemoveChildrenIDs removes the "children" edge to the Note entity by IDs.
+func (m *Mutation) RemoveChildrenIDs(ids ...schema.NoteID) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[schema.NoteID]struct{})
 	}

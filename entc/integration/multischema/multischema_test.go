@@ -42,12 +42,12 @@ func TestMySQL(t *testing.T) {
 		db.Close()
 	})
 
-	migrate.ParentsTable.Schema = "db1"
-	migrate.PetsTable.Schema = "db1"
-	migrate.UsersTable.Schema = "db1"
-	migrate.GroupsTable.Schema = "db2"
+	migrate.ParentTable.Schema = "db1"
+	migrate.PetTable.Schema = "db1"
+	migrate.UserTable.Schema = "db1"
+	migrate.GroupTable.Schema = "db2"
 	migrate.GroupUsersTable.Schema = "db2"
-	migrate.FriendshipsTable.Schema = "db2"
+	migrate.FriendshipTable.Schema = "db2"
 
 	pl, err := schema.Dump(ctx, dialect.MySQL, "8.0.19", migrate.Tables)
 	require.NoError(t, err)

@@ -27,12 +27,12 @@ const (
 	// EdgeFiles holds the string denoting the files edge name in mutations.
 	EdgeFiles = "files"
 	// Table holds the table name of the filetype in the database.
-	Table = "file_types"
+	Table = "file_type"
 	// FilesTable is the table that holds the files relation/edge.
-	FilesTable = "files"
+	FilesTable = "file"
 	// FilesInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
-	FilesInverseTable = "files"
+	FilesInverseTable = "file"
 	// FilesColumn is the table column denoting the files relation/edge.
 	FilesColumn = "file_type_files"
 )

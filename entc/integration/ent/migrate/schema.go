@@ -13,28 +13,28 @@ import (
 )
 
 var (
-	// ApisColumns holds the columns for the "apis" table.
-	ApisColumns = []*schema.Column{
+	// APIColumns holds the columns for the "api" table.
+	APIColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// ApisTable holds the schema information for the "apis" table.
-	ApisTable = &schema.Table{
-		Name:       "apis",
-		Columns:    ApisColumns,
-		PrimaryKey: []*schema.Column{ApisColumns[0]},
+	// APITable holds the schema information for the "api" table.
+	APITable = &schema.Table{
+		Name:       "api",
+		Columns:    APIColumns,
+		PrimaryKey: []*schema.Column{APIColumns[0]},
 	}
-	// BuildersColumns holds the columns for the "builders" table.
-	BuildersColumns = []*schema.Column{
+	// BuilderColumns holds the columns for the "builder" table.
+	BuilderColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// BuildersTable holds the schema information for the "builders" table.
-	BuildersTable = &schema.Table{
-		Name:       "builders",
-		Columns:    BuildersColumns,
-		PrimaryKey: []*schema.Column{BuildersColumns[0]},
+	// BuilderTable holds the schema information for the "builder" table.
+	BuilderTable = &schema.Table{
+		Name:       "builder",
+		Columns:    BuilderColumns,
+		PrimaryKey: []*schema.Column{BuilderColumns[0]},
 	}
-	// CardsColumns holds the columns for the "cards" table.
-	CardsColumns = []*schema.Column{
+	// CardColumns holds the columns for the "card" table.
+	CardColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "create_time", Type: field.TypeTime},
 		{Name: "update_time", Type: field.TypeTime},
@@ -43,16 +43,16 @@ var (
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "user_card", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
-	// CardsTable holds the schema information for the "cards" table.
-	CardsTable = &schema.Table{
-		Name:       "cards",
-		Columns:    CardsColumns,
-		PrimaryKey: []*schema.Column{CardsColumns[0]},
+	// CardTable holds the schema information for the "card" table.
+	CardTable = &schema.Table{
+		Name:       "card",
+		Columns:    CardColumns,
+		PrimaryKey: []*schema.Column{CardColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "cards_users_card",
-				Columns:    []*schema.Column{CardsColumns[6]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "card_user_card",
+				Columns:    []*schema.Column{CardColumns[6]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -60,22 +60,22 @@ var (
 			{
 				Name:    "card_id",
 				Unique:  false,
-				Columns: []*schema.Column{CardsColumns[0]},
+				Columns: []*schema.Column{CardColumns[0]},
 			},
 			{
 				Name:    "card_number",
 				Unique:  true,
-				Columns: []*schema.Column{CardsColumns[4]},
+				Columns: []*schema.Column{CardColumns[4]},
 			},
 			{
 				Name:    "card_id_name_number",
 				Unique:  false,
-				Columns: []*schema.Column{CardsColumns[0], CardsColumns[5], CardsColumns[4]},
+				Columns: []*schema.Column{CardColumns[0], CardColumns[5], CardColumns[4]},
 			},
 		},
 	}
-	// CommentsColumns holds the columns for the "comments" table.
-	CommentsColumns = []*schema.Column{
+	// CommentColumns holds the columns for the "comment" table.
+	CommentColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "unique_int", Type: field.TypeInt, Unique: true},
 		{Name: "unique_float", Type: field.TypeFloat64, Unique: true},
@@ -84,14 +84,14 @@ var (
 		{Name: "dir", Type: field.TypeJSON, Nullable: true},
 		{Name: "client", Type: field.TypeString, Nullable: true},
 	}
-	// CommentsTable holds the schema information for the "comments" table.
-	CommentsTable = &schema.Table{
-		Name:       "comments",
-		Columns:    CommentsColumns,
-		PrimaryKey: []*schema.Column{CommentsColumns[0]},
+	// CommentTable holds the schema information for the "comment" table.
+	CommentTable = &schema.Table{
+		Name:       "comment",
+		Columns:    CommentColumns,
+		PrimaryKey: []*schema.Column{CommentColumns[0]},
 	}
-	// ExValueScansColumns holds the columns for the "ex_value_scans" table.
-	ExValueScansColumns = []*schema.Column{
+	// ExValueScanColumns holds the columns for the "ex_value_scan" table.
+	ExValueScanColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "binary", Type: field.TypeString},
 		{Name: "binary_bytes", Type: field.TypeBytes},
@@ -102,14 +102,14 @@ var (
 		{Name: "custom", Type: field.TypeString},
 		{Name: "custom_optional", Type: field.TypeString, Nullable: true},
 	}
-	// ExValueScansTable holds the schema information for the "ex_value_scans" table.
-	ExValueScansTable = &schema.Table{
-		Name:       "ex_value_scans",
-		Columns:    ExValueScansColumns,
-		PrimaryKey: []*schema.Column{ExValueScansColumns[0]},
+	// ExValueScanTable holds the schema information for the "ex_value_scan" table.
+	ExValueScanTable = &schema.Table{
+		Name:       "ex_value_scan",
+		Columns:    ExValueScanColumns,
+		PrimaryKey: []*schema.Column{ExValueScanColumns[0]},
 	}
-	// FieldTypesColumns holds the columns for the "field_types" table.
-	FieldTypesColumns = []*schema.Column{
+	// FieldTypeColumns holds the columns for the "field_type" table.
+	FieldTypeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "int", Type: field.TypeInt},
 		{Name: "int8", Type: field.TypeInt8},
@@ -178,22 +178,22 @@ var (
 		{Name: "password_other", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "char(32)", "postgres": "varchar", "sqlite3": "char(32)"}},
 		{Name: "file_field", Type: field.TypeInt, Nullable: true},
 	}
-	// FieldTypesTable holds the schema information for the "field_types" table.
-	FieldTypesTable = &schema.Table{
-		Name:       "field_types",
-		Columns:    FieldTypesColumns,
-		PrimaryKey: []*schema.Column{FieldTypesColumns[0]},
+	// FieldTypeTable holds the schema information for the "field_type" table.
+	FieldTypeTable = &schema.Table{
+		Name:       "field_type",
+		Columns:    FieldTypeColumns,
+		PrimaryKey: []*schema.Column{FieldTypeColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "field_types_files_field",
-				Columns:    []*schema.Column{FieldTypesColumns[66]},
-				RefColumns: []*schema.Column{FilesColumns[0]},
+				Symbol:     "field_type_file_field",
+				Columns:    []*schema.Column{FieldTypeColumns[66]},
+				RefColumns: []*schema.Column{FileColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// FilesColumns holds the columns for the "files" table.
-	FilesColumns = []*schema.Column{
+	// FileColumns holds the columns for the "file" table.
+	FileColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "set_id", Type: field.TypeInt, Nullable: true},
 		{Name: "fsize", Type: field.TypeInt, Default: 2147483647},
@@ -207,28 +207,28 @@ var (
 		{Name: "group_files", Type: field.TypeInt, Nullable: true},
 		{Name: "user_files", Type: field.TypeInt, Nullable: true},
 	}
-	// FilesTable holds the schema information for the "files" table.
-	FilesTable = &schema.Table{
-		Name:       "files",
-		Columns:    FilesColumns,
-		PrimaryKey: []*schema.Column{FilesColumns[0]},
+	// FileTable holds the schema information for the "file" table.
+	FileTable = &schema.Table{
+		Name:       "file",
+		Columns:    FileColumns,
+		PrimaryKey: []*schema.Column{FileColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "files_file_types_files",
-				Columns:    []*schema.Column{FilesColumns[9]},
-				RefColumns: []*schema.Column{FileTypesColumns[0]},
+				Symbol:     "file_file_type_files",
+				Columns:    []*schema.Column{FileColumns[9]},
+				RefColumns: []*schema.Column{FileTypeColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "files_groups_files",
-				Columns:    []*schema.Column{FilesColumns[10]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				Symbol:     "file_group_files",
+				Columns:    []*schema.Column{FileColumns[10]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "files_users_files",
-				Columns:    []*schema.Column{FilesColumns[11]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "file_user_files",
+				Columns:    []*schema.Column{FileColumns[11]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -236,42 +236,42 @@ var (
 			{
 				Name:    "file_name_size",
 				Unique:  false,
-				Columns: []*schema.Column{FilesColumns[3], FilesColumns[2]},
+				Columns: []*schema.Column{FileColumns[3], FileColumns[2]},
 			},
 			{
 				Name:    "file_name_user",
 				Unique:  true,
-				Columns: []*schema.Column{FilesColumns[3], FilesColumns[4]},
+				Columns: []*schema.Column{FileColumns[3], FileColumns[4]},
 			},
 			{
 				Name:    "file_user_files_file_type_files",
 				Unique:  false,
-				Columns: []*schema.Column{FilesColumns[11], FilesColumns[9]},
+				Columns: []*schema.Column{FileColumns[11], FileColumns[9]},
 			},
 			{
 				Name:    "file_name_user_files_file_type_files",
 				Unique:  true,
-				Columns: []*schema.Column{FilesColumns[3], FilesColumns[11], FilesColumns[9]},
+				Columns: []*schema.Column{FileColumns[3], FileColumns[11], FileColumns[9]},
 			},
 			{
 				Name:    "file_name_user_files",
 				Unique:  false,
-				Columns: []*schema.Column{FilesColumns[3], FilesColumns[11]},
+				Columns: []*schema.Column{FileColumns[3], FileColumns[11]},
 			},
 		},
 	}
-	// FileTypesColumns holds the columns for the "file_types" table.
-	FileTypesColumns = []*schema.Column{
+	// FileTypeColumns holds the columns for the "file_type" table.
+	FileTypeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "type", Type: field.TypeEnum, Enums: []string{"png", "svg", "jpg"}, Default: "png"},
 		{Name: "state", Type: field.TypeEnum, Enums: []string{"ON", "OFF"}, Default: "ON"},
 	}
-	// FileTypesTable holds the schema information for the "file_types" table.
-	FileTypesTable = &schema.Table{
-		Name:       "file_types",
-		Columns:    FileTypesColumns,
-		PrimaryKey: []*schema.Column{FileTypesColumns[0]},
+	// FileTypeTable holds the schema information for the "file_type" table.
+	FileTypeTable = &schema.Table{
+		Name:       "file_type",
+		Columns:    FileTypeColumns,
+		PrimaryKey: []*schema.Column{FileTypeColumns[0]},
 	}
 	// GoodsColumns holds the columns for the "goods" table.
 	GoodsColumns = []*schema.Column{
@@ -283,8 +283,8 @@ var (
 		Columns:    GoodsColumns,
 		PrimaryKey: []*schema.Column{GoodsColumns[0]},
 	}
-	// GroupsColumns holds the columns for the "groups" table.
-	GroupsColumns = []*schema.Column{
+	// GroupColumns holds the columns for the "group" table.
+	GroupColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "active", Type: field.TypeBool, Default: true},
 		{Name: "expire", Type: field.TypeTime},
@@ -293,85 +293,85 @@ var (
 		{Name: "name", Type: field.TypeString},
 		{Name: "group_info", Type: field.TypeInt},
 	}
-	// GroupsTable holds the schema information for the "groups" table.
-	GroupsTable = &schema.Table{
-		Name:       "groups",
-		Columns:    GroupsColumns,
-		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	// GroupTable holds the schema information for the "group" table.
+	GroupTable = &schema.Table{
+		Name:       "group",
+		Columns:    GroupColumns,
+		PrimaryKey: []*schema.Column{GroupColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "groups_group_infos_info",
-				Columns:    []*schema.Column{GroupsColumns[6]},
-				RefColumns: []*schema.Column{GroupInfosColumns[0]},
+				Symbol:     "group_group_info_info",
+				Columns:    []*schema.Column{GroupColumns[6]},
+				RefColumns: []*schema.Column{GroupInfoColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 		},
 	}
-	// GroupInfosColumns holds the columns for the "group_infos" table.
-	GroupInfosColumns = []*schema.Column{
+	// GroupInfoColumns holds the columns for the "group_info" table.
+	GroupInfoColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "desc", Type: field.TypeString},
 		{Name: "max_users", Type: field.TypeInt, Default: 10000},
 	}
-	// GroupInfosTable holds the schema information for the "group_infos" table.
-	GroupInfosTable = &schema.Table{
-		Name:       "group_infos",
-		Columns:    GroupInfosColumns,
-		PrimaryKey: []*schema.Column{GroupInfosColumns[0]},
+	// GroupInfoTable holds the schema information for the "group_info" table.
+	GroupInfoTable = &schema.Table{
+		Name:       "group_info",
+		Columns:    GroupInfoColumns,
+		PrimaryKey: []*schema.Column{GroupInfoColumns[0]},
 	}
-	// ItemsColumns holds the columns for the "items" table.
-	ItemsColumns = []*schema.Column{
+	// ItemColumns holds the columns for the "item" table.
+	ItemColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString, Size: 64},
 		{Name: "text", Type: field.TypeString, Unique: true, Nullable: true, Size: 128},
 	}
-	// ItemsTable holds the schema information for the "items" table.
-	ItemsTable = &schema.Table{
-		Name:       "items",
-		Columns:    ItemsColumns,
-		PrimaryKey: []*schema.Column{ItemsColumns[0]},
+	// ItemTable holds the schema information for the "item" table.
+	ItemTable = &schema.Table{
+		Name:       "item",
+		Columns:    ItemColumns,
+		PrimaryKey: []*schema.Column{ItemColumns[0]},
 	}
-	// LicensesColumns holds the columns for the "licenses" table.
-	LicensesColumns = []*schema.Column{
+	// LicenseColumns holds the columns for the "license" table.
+	LicenseColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true, SchemaType: map[string]string{"postgres": "bigserial"}},
 		{Name: "create_time", Type: field.TypeTime},
 		{Name: "update_time", Type: field.TypeTime},
 	}
-	// LicensesTable holds the schema information for the "licenses" table.
-	LicensesTable = &schema.Table{
-		Name:       "licenses",
-		Columns:    LicensesColumns,
-		PrimaryKey: []*schema.Column{LicensesColumns[0]},
+	// LicenseTable holds the schema information for the "license" table.
+	LicenseTable = &schema.Table{
+		Name:       "license",
+		Columns:    LicenseColumns,
+		PrimaryKey: []*schema.Column{LicenseColumns[0]},
 	}
-	// NodesColumns holds the columns for the "nodes" table.
-	NodesColumns = []*schema.Column{
+	// NodeColumns holds the columns for the "node" table.
+	NodeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "value", Type: field.TypeInt, Nullable: true},
 		{Name: "updated_at", Type: field.TypeTime, Nullable: true},
 		{Name: "node_next", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
-	// NodesTable holds the schema information for the "nodes" table.
-	NodesTable = &schema.Table{
-		Name:       "nodes",
-		Columns:    NodesColumns,
-		PrimaryKey: []*schema.Column{NodesColumns[0]},
+	// NodeTable holds the schema information for the "node" table.
+	NodeTable = &schema.Table{
+		Name:       "node",
+		Columns:    NodeColumns,
+		PrimaryKey: []*schema.Column{NodeColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "nodes_nodes_next",
-				Columns:    []*schema.Column{NodesColumns[3]},
-				RefColumns: []*schema.Column{NodesColumns[0]},
+				Symbol:     "node_node_next",
+				Columns:    []*schema.Column{NodeColumns[3]},
+				RefColumns: []*schema.Column{NodeColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// PcsColumns holds the columns for the "pcs" table.
-	PcsColumns = []*schema.Column{
+	// PcColumns holds the columns for the "pc" table.
+	PcColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// PcsTable holds the schema information for the "pcs" table.
-	PcsTable = &schema.Table{
-		Name:       "pcs",
-		Columns:    PcsColumns,
-		PrimaryKey: []*schema.Column{PcsColumns[0]},
+	// PcTable holds the schema information for the "pc" table.
+	PcTable = &schema.Table{
+		Name:       "pc",
+		Columns:    PcColumns,
+		PrimaryKey: []*schema.Column{PcColumns[0]},
 	}
 	// PetColumns holds the columns for the "pet" table.
 	PetColumns = []*schema.Column{
@@ -392,15 +392,15 @@ var (
 		PrimaryKey: []*schema.Column{PetColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "pet_users_pets",
+				Symbol:     "pet_user_pets",
 				Columns:    []*schema.Column{PetColumns[7]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "pet_users_team",
+				Symbol:     "pet_user_team",
 				Columns:    []*schema.Column{PetColumns[8]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -417,18 +417,18 @@ var (
 			},
 		},
 	}
-	// SpecsColumns holds the columns for the "specs" table.
-	SpecsColumns = []*schema.Column{
+	// SpecColumns holds the columns for the "spec" table.
+	SpecColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// SpecsTable holds the schema information for the "specs" table.
-	SpecsTable = &schema.Table{
-		Name:       "specs",
-		Columns:    SpecsColumns,
-		PrimaryKey: []*schema.Column{SpecsColumns[0]},
+	// SpecTable holds the schema information for the "spec" table.
+	SpecTable = &schema.Table{
+		Name:       "spec",
+		Columns:    SpecColumns,
+		PrimaryKey: []*schema.Column{SpecColumns[0]},
 	}
-	// TasksColumns holds the columns for the "tasks" table.
-	TasksColumns = []*schema.Column{
+	// TaskColumns holds the columns for the "task" table.
+	TaskColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "priority", Type: field.TypeInt, Default: 1},
 		{Name: "priorities", Type: field.TypeJSON, Nullable: true},
@@ -439,21 +439,21 @@ var (
 		{Name: "order_option", Type: field.TypeInt, Nullable: true},
 		{Name: "op", Type: field.TypeString, Size: 45, Default: ""},
 	}
-	// TasksTable holds the schema information for the "tasks" table.
-	TasksTable = &schema.Table{
-		Name:       "tasks",
-		Columns:    TasksColumns,
-		PrimaryKey: []*schema.Column{TasksColumns[0]},
+	// TaskTable holds the schema information for the "task" table.
+	TaskTable = &schema.Table{
+		Name:       "task",
+		Columns:    TaskColumns,
+		PrimaryKey: []*schema.Column{TaskColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "task_name_owner",
 				Unique:  true,
-				Columns: []*schema.Column{TasksColumns[4], TasksColumns[5]},
+				Columns: []*schema.Column{TaskColumns[4], TaskColumns[5]},
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// UserColumns holds the columns for the "user" table.
+	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "optional_int", Type: field.TypeInt, Nullable: true},
 		{Name: "age", Type: field.TypeInt},
@@ -471,28 +471,28 @@ var (
 		{Name: "user_spouse", Type: field.TypeInt, Unique: true, Nullable: true},
 		{Name: "user_parent", Type: field.TypeInt, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// UserTable holds the schema information for the "user" table.
+	UserTable = &schema.Table{
+		Name:       "user",
+		Columns:    UserColumns,
+		PrimaryKey: []*schema.Column{UserColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "users_groups_blocked",
-				Columns:    []*schema.Column{UsersColumns[13]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				Symbol:     "user_group_blocked",
+				Columns:    []*schema.Column{UserColumns[13]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "users_users_spouse",
-				Columns:    []*schema.Column{UsersColumns[14]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_spouse",
+				Columns:    []*schema.Column{UserColumns[14]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "users_users_parent",
-				Columns:    []*schema.Column{UsersColumns[15]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				Symbol:     "user_user_parent",
+				Columns:    []*schema.Column{UserColumns[15]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -511,13 +511,13 @@ var (
 			{
 				Symbol:     "spec_card_spec_id",
 				Columns:    []*schema.Column{SpecCardColumns[0]},
-				RefColumns: []*schema.Column{SpecsColumns[0]},
+				RefColumns: []*schema.Column{SpecColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "spec_card_card_id",
 				Columns:    []*schema.Column{SpecCardColumns[1]},
-				RefColumns: []*schema.Column{CardsColumns[0]},
+				RefColumns: []*schema.Column{CardColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -536,13 +536,13 @@ var (
 			{
 				Symbol:     "user_groups_user_id",
 				Columns:    []*schema.Column{UserGroupsColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "user_groups_group_id",
 				Columns:    []*schema.Column{UserGroupsColumns[1]},
-				RefColumns: []*schema.Column{GroupsColumns[0]},
+				RefColumns: []*schema.Column{GroupColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -550,7 +550,7 @@ var (
 	// UserFriendsColumns holds the columns for the "user_friends" table.
 	UserFriendsColumns = []*schema.Column{
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "friend_id", Type: field.TypeInt},
+		{Name: "friends_id", Type: field.TypeInt},
 	}
 	// UserFriendsTable holds the schema information for the "user_friends" table.
 	UserFriendsTable = &schema.Table{
@@ -561,13 +561,13 @@ var (
 			{
 				Symbol:     "user_friends_user_id",
 				Columns:    []*schema.Column{UserFriendsColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "user_friends_friend_id",
+				Symbol:     "user_friends_friends_id",
 				Columns:    []*schema.Column{UserFriendsColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -575,7 +575,7 @@ var (
 	// UserFollowingColumns holds the columns for the "user_following" table.
 	UserFollowingColumns = []*schema.Column{
 		{Name: "user_id", Type: field.TypeInt},
-		{Name: "follower_id", Type: field.TypeInt},
+		{Name: "followers_id", Type: field.TypeInt},
 	}
 	// UserFollowingTable holds the schema information for the "user_following" table.
 	UserFollowingTable = &schema.Table{
@@ -586,38 +586,38 @@ var (
 			{
 				Symbol:     "user_following_user_id",
 				Columns:    []*schema.Column{UserFollowingColumns[0]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "user_following_follower_id",
+				Symbol:     "user_following_followers_id",
 				Columns:    []*schema.Column{UserFollowingColumns[1]},
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{UserColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		ApisTable,
-		BuildersTable,
-		CardsTable,
-		CommentsTable,
-		ExValueScansTable,
-		FieldTypesTable,
-		FilesTable,
-		FileTypesTable,
+		APITable,
+		BuilderTable,
+		CardTable,
+		CommentTable,
+		ExValueScanTable,
+		FieldTypeTable,
+		FileTable,
+		FileTypeTable,
 		GoodsTable,
-		GroupsTable,
-		GroupInfosTable,
-		ItemsTable,
-		LicensesTable,
-		NodesTable,
-		PcsTable,
+		GroupTable,
+		GroupInfoTable,
+		ItemTable,
+		LicenseTable,
+		NodeTable,
+		PcTable,
 		PetTable,
-		SpecsTable,
-		TasksTable,
-		UsersTable,
+		SpecTable,
+		TaskTable,
+		UserTable,
 		SpecCardTable,
 		UserGroupsTable,
 		UserFriendsTable,
@@ -626,82 +626,82 @@ var (
 )
 
 func init() {
-	ApisTable.Annotation = &entsql.Annotation{
+	APITable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(12884901888),
 	}
-	BuildersTable.Annotation = &entsql.Annotation{
+	BuilderTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(17179869184),
 	}
-	CardsTable.ForeignKeys[0].RefTable = UsersTable
-	CardsTable.Annotation = &entsql.Annotation{
+	CardTable.ForeignKeys[0].RefTable = UserTable
+	CardTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(21474836480),
 	}
-	CommentsTable.Annotation = &entsql.Annotation{
+	CommentTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(25769803776),
 	}
-	ExValueScansTable.Annotation = &entsql.Annotation{
+	ExValueScanTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(30064771072),
 	}
-	FieldTypesTable.ForeignKeys[0].RefTable = FilesTable
-	FieldTypesTable.Annotation = &entsql.Annotation{
+	FieldTypeTable.ForeignKeys[0].RefTable = FileTable
+	FieldTypeTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(34359738368),
 	}
-	FilesTable.ForeignKeys[0].RefTable = FileTypesTable
-	FilesTable.ForeignKeys[1].RefTable = GroupsTable
-	FilesTable.ForeignKeys[2].RefTable = UsersTable
-	FilesTable.Annotation = &entsql.Annotation{
+	FileTable.ForeignKeys[0].RefTable = FileTypeTable
+	FileTable.ForeignKeys[1].RefTable = GroupTable
+	FileTable.ForeignKeys[2].RefTable = UserTable
+	FileTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(38654705664),
 	}
-	FileTypesTable.Annotation = &entsql.Annotation{
+	FileTypeTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(42949672960),
 	}
 	GoodsTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(47244640256),
 	}
-	GroupsTable.ForeignKeys[0].RefTable = GroupInfosTable
-	GroupsTable.Annotation = &entsql.Annotation{
+	GroupTable.ForeignKeys[0].RefTable = GroupInfoTable
+	GroupTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(51539607552),
 	}
-	GroupInfosTable.Annotation = &entsql.Annotation{
+	GroupInfoTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(55834574848),
 	}
-	ItemsTable.Annotation = &entsql.Annotation{
+	ItemTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(60129542144),
 	}
-	LicensesTable.Annotation = &entsql.Annotation{
+	LicenseTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(64424509440),
 	}
-	NodesTable.ForeignKeys[0].RefTable = NodesTable
-	NodesTable.Annotation = &entsql.Annotation{
+	NodeTable.ForeignKeys[0].RefTable = NodeTable
+	NodeTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(68719476736),
 	}
-	PcsTable.Annotation = &entsql.Annotation{
+	PcTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(73014444032),
 	}
-	PetTable.ForeignKeys[0].RefTable = UsersTable
-	PetTable.ForeignKeys[1].RefTable = UsersTable
+	PetTable.ForeignKeys[0].RefTable = UserTable
+	PetTable.ForeignKeys[1].RefTable = UserTable
 	PetTable.Annotation = &entsql.Annotation{
 		Table:          "pet",
 		IncrementStart: func(i int) *int { return &i }(77309411328),
 	}
-	SpecsTable.Annotation = &entsql.Annotation{
+	SpecTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(81604378624),
 	}
-	TasksTable.Annotation = &entsql.Annotation{
+	TaskTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(85899345920),
 	}
-	UsersTable.ForeignKeys[0].RefTable = GroupsTable
-	UsersTable.ForeignKeys[1].RefTable = UsersTable
-	UsersTable.ForeignKeys[2].RefTable = UsersTable
-	UsersTable.Annotation = &entsql.Annotation{
+	UserTable.ForeignKeys[0].RefTable = GroupTable
+	UserTable.ForeignKeys[1].RefTable = UserTable
+	UserTable.ForeignKeys[2].RefTable = UserTable
+	UserTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(8589934592),
 	}
-	SpecCardTable.ForeignKeys[0].RefTable = SpecsTable
-	SpecCardTable.ForeignKeys[1].RefTable = CardsTable
-	UserGroupsTable.ForeignKeys[0].RefTable = UsersTable
-	UserGroupsTable.ForeignKeys[1].RefTable = GroupsTable
-	UserFriendsTable.ForeignKeys[0].RefTable = UsersTable
-	UserFriendsTable.ForeignKeys[1].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[0].RefTable = UsersTable
-	UserFollowingTable.ForeignKeys[1].RefTable = UsersTable
+	SpecCardTable.ForeignKeys[0].RefTable = SpecTable
+	SpecCardTable.ForeignKeys[1].RefTable = CardTable
+	UserGroupsTable.ForeignKeys[0].RefTable = UserTable
+	UserGroupsTable.ForeignKeys[1].RefTable = GroupTable
+	UserFriendsTable.ForeignKeys[0].RefTable = UserTable
+	UserFriendsTable.ForeignKeys[1].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[0].RefTable = UserTable
+	UserFollowingTable.ForeignKeys[1].RefTable = UserTable
 }

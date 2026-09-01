@@ -118,8 +118,8 @@ func (m *Mutation) ResetAge() {
 	delete(m.clearedFields, FieldAge)
 }
 
-// AddTeamIDs adds the "teams" edge to the Team entity by ids.
-func (m *Mutation) AddTeamIDs(ids ...int) {
+// AddTeamsIDs adds the "teams" edge to the Team entity by ids.
+func (m *Mutation) AddTeamsIDs(ids ...int) {
 	if m.teams == nil {
 		m.teams = make(map[int]struct{})
 	}
@@ -138,8 +138,8 @@ func (m *Mutation) TeamsCleared() bool {
 	return m.clearedteams
 }
 
-// RemoveTeamIDs removes the "teams" edge to the Team entity by IDs.
-func (m *Mutation) RemoveTeamIDs(ids ...int) {
+// RemoveTeamsIDs removes the "teams" edge to the Team entity by IDs.
+func (m *Mutation) RemoveTeamsIDs(ids ...int) {
 	if m.removedteams == nil {
 		m.removedteams = make(map[int]struct{})
 	}
@@ -172,8 +172,8 @@ func (m *Mutation) ResetTeams() {
 	m.removedteams = nil
 }
 
-// AddTaskIDs adds the "tasks" edge to the Task entity by ids.
-func (m *Mutation) AddTaskIDs(ids ...int) {
+// AddTasksIDs adds the "tasks" edge to the Task entity by ids.
+func (m *Mutation) AddTasksIDs(ids ...int) {
 	if m.tasks == nil {
 		m.tasks = make(map[int]struct{})
 	}
@@ -192,8 +192,8 @@ func (m *Mutation) TasksCleared() bool {
 	return m.clearedtasks
 }
 
-// RemoveTaskIDs removes the "tasks" edge to the Task entity by IDs.
-func (m *Mutation) RemoveTaskIDs(ids ...int) {
+// RemoveTasksIDs removes the "tasks" edge to the Task entity by IDs.
+func (m *Mutation) RemoveTasksIDs(ids ...int) {
 	if m.removedtasks == nil {
 		m.removedtasks = make(map[int]struct{})
 	}

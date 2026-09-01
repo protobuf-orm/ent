@@ -16,7 +16,7 @@ const (
 	// FieldPublicInfo holds the string denoting the public_info field in the database.
 	FieldPublicInfo = "public_info"
 	// Table holds the table name of the cleanuser in the database.
-	Table = "clean_users"
+	Table = "clean_user"
 )
 
 // Columns holds all SQL columns for cleanuser fields.
