@@ -7,6 +7,7 @@ in the LICENSE file in the root directory of this source tree.
 {{/* gotype: entgo.io/ent/entc/gen.Type */}}
 
 {{ define "dialect/sql/create" }}
+{{ $specErr := or $.HasValueScanner $.HasEdgeValueScanner }}
 {{ $builder := pascal $.Scope.Builder }}
 {{ $receiver := $.Scope.Receiver }}
 {{ $mutation := print $receiver ".mutation"  }}
@@ -15,8 +16,8 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (*{{ $.Name 
 	if err := {{ $receiver }}.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec {{ if $.HasValueScanner }}, err {{ end }} := {{ $receiver }}.createSpec()
-	{{- if $.HasValueScanner }}
+	_node, _spec {{ if $specErr }}, err {{ end }} := {{ $receiver }}.createSpec()
+	{{- if $specErr }}
 		if err != nil {
 			return nil, err
 		}
@@ -79,7 +80,7 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (*{{ $.Name 
 	return _node, nil
 }
 
-func ({{ $receiver }} *{{ $builder }}) createSpec() (*{{ $.Name }}, *sqlgraph.CreateSpec{{ if $.HasValueScanner }}, error{{ end }}) {
+func ({{ $receiver }} *{{ $builder }}) createSpec() (*{{ $.Name }}, *sqlgraph.CreateSpec{{ if $specErr }}, error{{ end }}) {
 	var (
 		_node = &{{ $.Name }}{config: {{ $receiver }}.config}
 		_spec = sqlgraph.NewCreateSpec({{ $.Package }}.Table, {{ if $.HasOneFieldID }}sqlgraph.NewFieldSpec({{ $.Package }}.{{ $.ID.Constant }}, field.{{ $.ID.Type.ConstName }}){{ else }}nil{{ end }})
@@ -120,7 +121,7 @@ func ({{ $receiver }} *{{ $builder }}) createSpec() (*{{ $.Name }}, *sqlgraph.Cr
 	{{- end }}
 	{{- range $e := $.EdgesWithID }}
 		if nodes := {{ $mutation }}.{{ $e.StructField }}IDs(); len(nodes) > 0 {
-			{{- with extend $ "Edge" $e "Nodes" true "Zero" "nil" }}
+			{{- with extend $ "Edge" $e "Nodes" true "Zero" "nil, nil" }}
 				{{ template "dialect/sql/defedge" . }}{{/* defined in sql/update.tmpl */}}
 			{{- end }}
 			{{- if $e.OwnFK }}
@@ -130,7 +131,7 @@ func ({{ $receiver }} *{{ $builder }}) createSpec() (*{{ $.Name }}, *sqlgraph.Cr
 			_spec.Edges = append(_spec.Edges, edge)
 		}
 	{{- end }}
-	return _node, _spec{{ if $.HasValueScanner }}, nil{{ end }}
+	return _node, _spec{{ if $specErr }}, nil{{ end }}
 }
 
 {{- /* Allow adding methods to the create-builder by ent extensions or user templates.*/}}
@@ -161,6 +162,7 @@ func ({{ $receiver }} *{{ $builder }}) createSpec() (*{{ $.Name }}, *sqlgraph.Cr
 {{- end }}
 
 {{ define "dialect/sql/create_bulk" }}
+{{ $specErr := or $.HasValueScanner $.HasEdgeValueScanner }}
 {{ $builder := pascal $.Scope.Builder }}
 {{ $receiver := $.Scope.Receiver }}
 
@@ -189,8 +191,8 @@ func ({{ $receiver }} *{{ $builder }}) Save(ctx context.Context) ([]*{{ $.Name }
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i] {{ if $.HasValueScanner }}, err {{ end }}= builder.createSpec()
-				{{- if $.HasValueScanner }}
+				nodes[i], specs[i] {{ if $specErr }}, err {{ end }}= builder.createSpec()
+				{{- if $specErr }}
 					if err != nil {
 						return nil, err
 					}

@@ -149,7 +149,7 @@ func Enum(name string) *enumBuilder {
 // UUID returns a new Field with type UUID. An example for defining UUID field is as follows:
 //
 //	field.UUID("id", uuid.New())
-func UUID(name string, typ driver.Valuer) *uuidBuilder {
+func UUID(name string, typ any) *uuidBuilder {
 	rt := reflect.TypeOf(typ)
 	b := &uuidBuilder{&Descriptor{
 		Name: name,
@@ -1242,6 +1242,18 @@ func (b *uuidBuilder) Default(fn any) *uuidBuilder {
 	return b
 }
 
+// ValueScanner provides an external value scanner for the given GoType.
+// Using this option allows UUID types that do not implement the
+// sql.Scanner and driver.Valuer interfaces, such as the one in the
+// standard library, which only marshals to and from text.
+//
+//	field.UUID("id", uuid.UUID{}).
+//		ValueScanner(field.TextValueScanner[uuid.UUID]{})
+func (b *uuidBuilder) ValueScanner(vs any) *uuidBuilder {
+	b.desc.ValueScanner = vs
+	return b
+}
+
 // SchemaType overrides the default database type with a custom
 // schema type (per dialect) for uuid.
 //
@@ -1614,6 +1626,54 @@ func (TextValueScanner[T]) FromValue(v driver.Value) (tv T, err error) {
 	tv = newT(tv).(T)
 	if s.Valid {
 		err = tv.UnmarshalText([]byte(s.String))
+	}
+	return tv, err
+}
+
+// TextValueScannerOf returns a TypeValueScanner that calls MarshalText for
+// storing values in the database, and UnmarshalText for scanning them back.
+//
+// Unlike TextValueScanner, the type parameter is the value type and its
+// pointer is what must implement the encoding interfaces. That covers types
+// whose UnmarshalText is defined on the pointer receiver, which is the usual
+// case, uuid.UUID in the standard library among them:
+//
+//	field.UUID("id", uuid.UUID{}).
+//		ValueScanner(field.TextValueScannerOf[uuid.UUID]())
+//
+// PT is inferred from T and should not be provided.
+func TextValueScannerOf[T any, PT interface {
+	*T
+	encoding.TextMarshaler
+	encoding.TextUnmarshaler
+}]() TypeValueScanner[T] {
+	return ptrTextValueScanner[T, PT]{}
+}
+
+type ptrTextValueScanner[T any, PT interface {
+	*T
+	encoding.TextMarshaler
+	encoding.TextUnmarshaler
+}] struct{}
+
+// Value implements the TypeValueScanner.Value method.
+func (ptrTextValueScanner[T, PT]) Value(v T) (driver.Value, error) {
+	return PT(&v).MarshalText()
+}
+
+// ScanValue implements the TypeValueScanner.ScanValue method.
+func (ptrTextValueScanner[T, PT]) ScanValue() ValueScanner {
+	return &sql.NullString{}
+}
+
+// FromValue implements the TypeValueScanner.FromValue method.
+func (ptrTextValueScanner[T, PT]) FromValue(v driver.Value) (tv T, err error) {
+	s, ok := v.(*sql.NullString)
+	if !ok {
+		return tv, fmt.Errorf("unexpected input for FromValue: %T", v)
+	}
+	if s.Valid {
+		err = PT(&tv).UnmarshalText([]byte(s.String))
 	}
 	return tv, err
 }

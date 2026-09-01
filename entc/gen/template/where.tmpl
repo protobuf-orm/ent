@@ -84,7 +84,7 @@ in the LICENSE file in the root directory of this source tree.
 	{{ $func := $f.StructField }}
 	{{/* JSON cannot be compared using "=" and Enum has a type defined with the field name */}}
 	{{ $hasP := not (or $f.IsJSON $f.IsEnum) }}
-	{{ $comparable := or $f.ConvertedToBasic $f.Type.Valuer }}
+	{{ $comparable := or $f.ConvertedToBasic $f.Type.Valuer $f.HasValueScanner }}
 	{{ $undeclared := (and (ne $func "Label") (ne $func "OrderOption") (ne $func "Hooks") (ne $func "Policy") (ne $func "Table") (ne $func "FieldID")) }}
 	{{- if and $hasP $comparable $undeclared }}
 		{{ $arg := "v" }}

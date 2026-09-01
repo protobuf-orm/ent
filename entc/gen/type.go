@@ -1420,6 +1420,19 @@ func (t Type) HasValueScanner() bool {
 	return false
 }
 
+// HasEdgeValueScanner reports if any edge of the type points at a type whose
+// ID goes through an external ValueScanner. The edge spec has to convert the
+// target ids with it, because they are compared against a column that holds
+// the converted form.
+func (t Type) HasEdgeValueScanner() bool {
+	for _, e := range t.Edges {
+		if e.Type != nil && e.Type.ID != nil && e.Type.ID.HasValueScanner() {
+			return true
+		}
+	}
+	return false
+}
+
 // DeprecatedFields returns all deprecated fields of the type.
 func (t Type) DeprecatedFields() []*Field {
 	fs := make([]*Field, 0, len(t.Fields))

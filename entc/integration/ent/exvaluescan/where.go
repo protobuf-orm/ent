@@ -66,6 +66,12 @@ func Binary(v *url.URL) predicate.ExValueScan {
 	return predicate.ExValueScanOrErr(sql.FieldEQ(FieldBinary, vc), err)
 }
 
+// BinaryBytes applies equality check predicate on the "binary_bytes" field. It's identical to BinaryBytesEQ.
+func BinaryBytes(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldEQ(FieldBinaryBytes, vc), err)
+}
+
 // BinaryOptional applies equality check predicate on the "binary_optional" field. It's identical to BinaryOptionalEQ.
 func BinaryOptional(v *url.URL) predicate.ExValueScan {
 	vc, err := ValueScanner.BinaryOptional.Value(v)
@@ -214,6 +220,70 @@ func BinaryContainsFold(v *url.URL) predicate.ExValueScan {
 		err = fmt.Errorf("binary value is not a string: %T", vc)
 	}
 	return predicate.ExValueScanOrErr(sql.FieldContainsFold(FieldBinary, vcs), err)
+}
+
+// BinaryBytesEQ applies the EQ predicate on the "binary_bytes" field.
+func BinaryBytesEQ(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldEQ(FieldBinaryBytes, vc), err)
+}
+
+// BinaryBytesNEQ applies the NEQ predicate on the "binary_bytes" field.
+func BinaryBytesNEQ(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldNEQ(FieldBinaryBytes, vc), err)
+}
+
+// BinaryBytesIn applies the In predicate on the "binary_bytes" field.
+func BinaryBytesIn(vs ...*url.URL) predicate.ExValueScan {
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.BinaryBytes.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.ExValueScanOrErr(sql.FieldIn(FieldBinaryBytes, v...), err)
+}
+
+// BinaryBytesNotIn applies the NotIn predicate on the "binary_bytes" field.
+func BinaryBytesNotIn(vs ...*url.URL) predicate.ExValueScan {
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.BinaryBytes.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.ExValueScanOrErr(sql.FieldNotIn(FieldBinaryBytes, v...), err)
+}
+
+// BinaryBytesGT applies the GT predicate on the "binary_bytes" field.
+func BinaryBytesGT(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldGT(FieldBinaryBytes, vc), err)
+}
+
+// BinaryBytesGTE applies the GTE predicate on the "binary_bytes" field.
+func BinaryBytesGTE(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldGTE(FieldBinaryBytes, vc), err)
+}
+
+// BinaryBytesLT applies the LT predicate on the "binary_bytes" field.
+func BinaryBytesLT(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldLT(FieldBinaryBytes, vc), err)
+}
+
+// BinaryBytesLTE applies the LTE predicate on the "binary_bytes" field.
+func BinaryBytesLTE(v *url.URL) predicate.ExValueScan {
+	vc, err := ValueScanner.BinaryBytes.Value(v)
+	return predicate.ExValueScanOrErr(sql.FieldLTE(FieldBinaryBytes, vc), err)
 }
 
 // BinaryOptionalEQ applies the EQ predicate on the "binary_optional" field.

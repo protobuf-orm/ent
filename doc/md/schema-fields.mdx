@@ -259,7 +259,7 @@ interface. Additionally, this option enables users to use `GoType` that does not
 as `*url.URL`.
 
 :::note
-At this stage, this option is only available for text and numeric fields, but it will be extended to other types in
+At this stage, this option is available for text, numeric and UUID fields, but it will be extended to other types in
 the future.
 :::
 
@@ -275,6 +275,21 @@ field.String("big_int").
     GoType(&big.Int{}).
     ValueScanner(field.TextValueScanner[*big.Int]{})
 ```
+
+`field.TextValueScanner` requires the type itself to implement both interfaces, which holds for pointer types like
+`*big.Int`. Types that define `UnmarshalText` on the pointer receiver but are used by value, such as the `uuid.UUID`
+of the standard library, use `field.TextValueScannerOf` instead. It takes the value type and works through its
+pointer:
+
+```go
+field.UUID("id", uuid.UUID{}).
+    Default(uuid.New).
+    ValueScanner(field.TextValueScannerOf[uuid.UUID]())
+```
+
+This is what makes the standard library UUID usable as a field type: it marshals to text, but implements neither
+`driver.Valuer` nor `sql.Scanner`. Note that a generated package cannot mix it with another package named `uuid`,
+such as `github.com/google/uuid`, because the two imports collide.
 
 </TabItem>
 <TabItem value="BinaryMarshaller">

@@ -211,9 +211,20 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 		{{- end }}
 	{{- end }}
 	{{- with $.Scope.Nodes }}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
+		{{- if $e.Type.ID.HasValueScanner }}
+			{{- /* The referenced column holds the converted form of the id. */}}
+			for _, k := range nodes {
+				vv, err := {{ $e.Type.Package }}.ValueScanner.{{ $e.Type.ID.StructField }}.Value(k)
+				if err != nil {
+					return {{ $.Scope.Zero }}, err
+				}
+				edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			}
+		{{- else }}
+			for _, k := range nodes {
+				edge.Target.Nodes = append(edge.Target.Nodes, k)
+			}
+		{{- end }}
 	{{- end }}
 	{{- with $e.Through }}
 		{{- if .HasDefault }}

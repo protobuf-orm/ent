@@ -118,7 +118,9 @@ func quote(v any) any {
 // fieldOps returns all predicate operations for a given field.
 func fieldOps(f *Field) (ops []Op) {
 	switch t := f.Type.Type; {
-	case f.HasGoType() && !f.ConvertedToBasic() && !f.Type.Valuer():
+	// A GoType that cannot be compared as a basic type, unless an external
+	// ValueScanner converts it to a driver value on the way to the predicate.
+	case f.HasGoType() && !f.ConvertedToBasic() && !f.Type.Valuer() && !f.HasValueScanner():
 	case t == field.TypeJSON:
 	case t == field.TypeBool:
 		ops = boolOps
