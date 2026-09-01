@@ -19,11 +19,7 @@ possible.
 
 - `privacy` - Runtime code for [privacy layer](https://entgo.io/docs/privacy/).
 
-- `doc` - Documentation code for `entgo.io` (uses [Docusaurus](https://docusaurus.io)).
-  - `doc/md` - Markdown files for documentation.
-  - `doc/website` - Website code and assets.
-
-  In order to test your documentation changes, run `npm start` from the `doc/website` directory, and open [localhost:3000](http://localhost:3000/).
+- `doc/md` - Markdown files for documentation.
 
 # Run integration tests
 If you touch any file in `entc`, run the following commands in `entc/integration` and 'examples' dirs:
