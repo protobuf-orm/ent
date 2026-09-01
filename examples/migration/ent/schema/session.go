@@ -1,7 +1,8 @@
 package schema
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/entsql"
 	"github.com/protobuf-orm/ent/schema"
@@ -18,7 +19,7 @@ type Session struct {
 // Fields of the Session.
 func (Session) Fields() []ent.Field {
 	return []ent.Field{
-		field.Uuid("id", uuid.Nil).
+		field.Uuid("id", uuid.Nil()).
 			Default(uuid.New),
 		field.Bool("active").
 			Default(false),
@@ -29,7 +30,7 @@ func (Session) Fields() []ent.Field {
 			Optional(),
 		field.Json("method", map[string]any{}).
 			Optional(),
-		field.Uuid("device_id", uuid.Nil).
+		field.Uuid("device_id", uuid.Nil()).
 			Optional(),
 	}
 }
@@ -70,7 +71,7 @@ type SessionDevice struct {
 // Fields of the SessionDevice.
 func (SessionDevice) Fields() []ent.Field {
 	return []ent.Field{
-		field.Uuid("id", uuid.Nil).
+		field.Uuid("id", uuid.Nil()).
 			Default(uuid.New),
 		field.String("ip_address").
 			MaxLen(50),

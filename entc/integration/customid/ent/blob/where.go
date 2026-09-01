@@ -7,7 +7,8 @@
 package blob
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
@@ -15,52 +16,78 @@ import (
 
 // Id filters vertices based on their Id field.
 func Id(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
 // IdEQ applies the EQ predicate on the Id field.
 func IdEQ(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
 // IdNEQ applies the NEQ predicate on the Id field.
 func IdNEQ(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldNEQ(FieldId, vc), err)
 }
 
 // IdIn applies the In predicate on the Id field.
 func IdIn(ids ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldIn(FieldId, ids...))
+	var (
+		err error
+		vcs = make([]any, len(ids))
+	)
+	for i := range vcs {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobOrErr(sql.FieldIn(FieldId, vcs...), err)
 }
 
 // IdNotIn applies the NotIn predicate on the Id field.
 func IdNotIn(ids ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNotIn(FieldId, ids...))
+	var (
+		err error
+		vcs = make([]any, len(ids))
+	)
+	for i := range vcs {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobOrErr(sql.FieldNotIn(FieldId, vcs...), err)
 }
 
 // IdGT applies the GT predicate on the Id field.
 func IdGT(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGT(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldGT(FieldId, vc), err)
 }
 
 // IdGTE applies the GTE predicate on the Id field.
 func IdGTE(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGTE(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldGTE(FieldId, vc), err)
 }
 
 // IdLT applies the LT predicate on the Id field.
 func IdLT(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLT(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldLT(FieldId, vc), err)
 }
 
 // IdLTE applies the LTE predicate on the Id field.
 func IdLTE(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLTE(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.BlobOrErr(sql.FieldLTE(FieldId, vc), err)
 }
 
 // Uuid applies equality check predicate on the "uuid" field. It's identical to UuidEQ.
 func Uuid(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldEQ(FieldUuid, vc), err)
 }
 
 // Count applies equality check predicate on the "count" field. It's identical to CountEQ.
@@ -70,42 +97,66 @@ func Count(v int) predicate.Blob {
 
 // UuidEQ applies the EQ predicate on the "uuid" field.
 func UuidEQ(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldEQ(FieldUuid, vc), err)
 }
 
 // UuidNEQ applies the NEQ predicate on the "uuid" field.
 func UuidNEQ(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldNEQ(FieldUuid, vc), err)
 }
 
 // UuidIn applies the In predicate on the "uuid" field.
 func UuidIn(vs ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldIn(FieldUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobOrErr(sql.FieldIn(FieldUuid, v...), err)
 }
 
 // UuidNotIn applies the NotIn predicate on the "uuid" field.
 func UuidNotIn(vs ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNotIn(FieldUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobOrErr(sql.FieldNotIn(FieldUuid, v...), err)
 }
 
 // UuidGT applies the GT predicate on the "uuid" field.
 func UuidGT(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGT(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldGT(FieldUuid, vc), err)
 }
 
 // UuidGTE applies the GTE predicate on the "uuid" field.
 func UuidGTE(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGTE(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldGTE(FieldUuid, vc), err)
 }
 
 // UuidLT applies the LT predicate on the "uuid" field.
 func UuidLT(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLT(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldLT(FieldUuid, vc), err)
 }
 
 // UuidLTE applies the LTE predicate on the "uuid" field.
 func UuidLTE(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLTE(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.BlobOrErr(sql.FieldLTE(FieldUuid, vc), err)
 }
 
 // CountEQ applies the EQ predicate on the "count" field.

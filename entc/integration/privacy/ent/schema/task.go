@@ -5,7 +5,8 @@
 package schema
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/privacy"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/rule"

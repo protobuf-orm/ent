@@ -5,7 +5,8 @@
 package schema
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/schema/edge"
 	"github.com/protobuf-orm/ent/schema/field"
@@ -28,7 +29,7 @@ func (Note) Fields() []ent.Field {
 			Unique().
 			Immutable().
 			DefaultFunc(func() NoteId {
-				return NoteId(uuid.NewString())
+				return NoteId(uuid.New().String())
 			}),
 		field.String("text").
 			Optional(),

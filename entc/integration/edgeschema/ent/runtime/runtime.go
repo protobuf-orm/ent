@@ -9,8 +9,8 @@ package runtime
 import (
 	"context"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/attachedfile"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/friendship"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/group"
@@ -26,6 +26,7 @@ import (
 
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/privacy"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -106,6 +107,7 @@ func init() {
 	tweettagDescId := tweettagFields[0].Descriptor()
 	// tweettag.DefaultId holds the default value on creation for the id field.
 	tweettag.DefaultId = tweettagDescId.Default.(func() uuid.UUID)
+	tweettag.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	user.Policy = privacy.NewPolicies(schema.User{})
 	user.Hooks[0] = func(next ent.Mutator) ent.Mutator {
 		return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {

@@ -7,8 +7,8 @@ package schema
 import (
 	"database/sql/driver"
 	"fmt"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/schema/edge"
@@ -32,7 +32,7 @@ func (Doc) Fields() []ent.Field {
 			Unique().
 			Immutable().
 			DefaultFunc(func() DocId {
-				return DocId(uuid.NewString())
+				return DocId(uuid.New().String())
 			}).
 			SchemaType(map[string]string{
 				dialect.Postgres: postgres.TypeUUID,

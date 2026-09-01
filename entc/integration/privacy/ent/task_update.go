@@ -10,8 +10,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/predicate"
@@ -235,7 +235,11 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
+		vv, err := task.ValueScanner.Uuid.Value(value)
+		if err != nil {
+			return 0, err
+		}
+		_spec.SetField(task.FieldUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)
@@ -565,7 +569,11 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
+		vv, err := task.ValueScanner.Uuid.Value(value)
+		if err != nil {
+			return nil, err
+		}
+		_spec.SetField(task.FieldUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)

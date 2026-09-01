@@ -1651,6 +1651,27 @@ type TypeValueScanner[T any] interface {
 	FromValue(driver.Value) (T, error)
 }
 
+// NillableFromValue answers with what the scanner read, or with nil if the
+// column was NULL. A Nillable field holds a *T so that it can tell a stored
+// zero from nothing stored, and FromValue alone cannot: it answers with the
+// zero value in both cases.
+func NillableFromValue[T any](vs TypeValueScanner[T], v driver.Value) (*T, error) {
+	if s, ok := v.(driver.Valuer); ok {
+		dv, err := s.Value()
+		if err != nil {
+			return nil, err
+		}
+		if dv == nil {
+			return nil, nil
+		}
+	}
+	tv, err := vs.FromValue(v)
+	if err != nil {
+		return nil, err
+	}
+	return &tv, nil
+}
+
 // TextValueScanner returns a new TypeValueScanner that calls MarshalText
 // for storing values in the database, and calls UnmarshalText for scanning
 // database values into struct fields.

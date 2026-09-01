@@ -11,8 +11,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
@@ -235,7 +235,11 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
+			vv, err := sessiondevice.ValueScanner.Id.Value(k)
+			if err != nil {
+				return 0, err
+			}
+			edge.Target.Nodes = append(edge.Target.Nodes, vv)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -421,7 +425,11 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Session.id" for update`)}
 	}
-	_spec.Node.Id.Value = id
+	vv, err := session.ValueScanner.Id.Value(id)
+	if err != nil {
+		return nil, err
+	}
+	_spec.Node.Id.Value = vv
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, session.FieldId)
@@ -490,7 +498,11 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 			},
 		}
 		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
+			vv, err := sessiondevice.ValueScanner.Id.Value(k)
+			if err != nil {
+				return nil, err
+			}
+			edge.Target.Nodes = append(edge.Target.Nodes, vv)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}

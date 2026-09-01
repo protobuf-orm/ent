@@ -8,8 +8,8 @@ package rental
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/predicate"
@@ -72,7 +72,8 @@ func UserId(v int) predicate.Rental {
 
 // CarId applies equality check predicate on the "car_id" field. It's identical to CarIdEQ.
 func CarId(v uuid.UUID) predicate.Rental {
-	return predicate.Rental(sql.FieldEQ(FieldCarId, v))
+	vc, err := ValueScanner.CarId.Value(v)
+	return predicate.RentalOrErr(sql.FieldEQ(FieldCarId, vc), err)
 }
 
 // DateEQ applies the EQ predicate on the "date" field.
@@ -137,22 +138,42 @@ func UserIdNotIn(vs ...int) predicate.Rental {
 
 // CarIdEQ applies the EQ predicate on the "car_id" field.
 func CarIdEQ(v uuid.UUID) predicate.Rental {
-	return predicate.Rental(sql.FieldEQ(FieldCarId, v))
+	vc, err := ValueScanner.CarId.Value(v)
+	return predicate.RentalOrErr(sql.FieldEQ(FieldCarId, vc), err)
 }
 
 // CarIdNEQ applies the NEQ predicate on the "car_id" field.
 func CarIdNEQ(v uuid.UUID) predicate.Rental {
-	return predicate.Rental(sql.FieldNEQ(FieldCarId, v))
+	vc, err := ValueScanner.CarId.Value(v)
+	return predicate.RentalOrErr(sql.FieldNEQ(FieldCarId, vc), err)
 }
 
 // CarIdIn applies the In predicate on the "car_id" field.
 func CarIdIn(vs ...uuid.UUID) predicate.Rental {
-	return predicate.Rental(sql.FieldIn(FieldCarId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.CarId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.RentalOrErr(sql.FieldIn(FieldCarId, v...), err)
 }
 
 // CarIdNotIn applies the NotIn predicate on the "car_id" field.
 func CarIdNotIn(vs ...uuid.UUID) predicate.Rental {
-	return predicate.Rental(sql.FieldNotIn(FieldCarId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.CarId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.RentalOrErr(sql.FieldNotIn(FieldCarId, v...), err)
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.

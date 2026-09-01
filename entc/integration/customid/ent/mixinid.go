@@ -9,8 +9,8 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/mixinid"
@@ -33,10 +33,10 @@ func (*MixinId) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case mixinid.FieldId:
+			values[i] = mixinid.ValueScanner.Id.ScanValue()
 		case mixinid.FieldSomeField, mixinid.FieldMixinField:
 			values[i] = new(sql.NullString)
-		case mixinid.FieldId:
-			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -53,10 +53,10 @@ func (_m *MixinId) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case mixinid.FieldId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field id", values[i])
-			} else if value != nil {
-				_m.Id = *value
+			if value, err := mixinid.ValueScanner.Id.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Id = value
 			}
 		case mixinid.FieldSomeField:
 			if value, ok := values[i].(*sql.NullString); !ok {

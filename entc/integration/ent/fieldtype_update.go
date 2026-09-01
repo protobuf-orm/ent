@@ -13,8 +13,8 @@ import (
 	"net"
 	"net/http"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/dialect/sql/sqljson"
@@ -1865,13 +1865,21 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.ClearField(fieldtype.FieldPriority, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.OptionalUuid(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.OptionalUuid.Value(value)
+		if err != nil {
+			return 0, err
+		}
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.OptionalUuidCleared() {
 		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.NillableUuid(); ok {
-		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.NillableUuid.Value(value)
+		if err != nil {
+			return 0, err
+		}
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.NillableUuidCleared() {
 		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)
@@ -3795,13 +3803,21 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 		_spec.ClearField(fieldtype.FieldPriority, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.OptionalUuid(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.OptionalUuid.Value(value)
+		if err != nil {
+			return nil, err
+		}
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.OptionalUuidCleared() {
 		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.NillableUuid(); ok {
-		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.NillableUuid.Value(value)
+		if err != nil {
+			return nil, err
+		}
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.NillableUuidCleared() {
 		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)

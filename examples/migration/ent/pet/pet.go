@@ -7,9 +7,11 @@
 package pet
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -71,6 +73,11 @@ var (
 	DefaultOwnerId int
 	// DefaultId holds the default value on creation for the "id" field.
 	DefaultId func() uuid.UUID
+	// ValueScanner of all Pet fields.
+	ValueScanner struct {
+		BestFriendId field.TypeValueScanner[uuid.UUID]
+		Id           field.TypeValueScanner[uuid.UUID]
+	}
 )
 
 // OrderOption defines the ordering options for the Pet queries.

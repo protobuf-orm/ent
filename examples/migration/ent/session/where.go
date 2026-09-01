@@ -8,8 +8,8 @@ package session
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
@@ -17,47 +17,72 @@ import (
 
 // Id filters vertices based on their Id field.
 func Id(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
 // IdEQ applies the EQ predicate on the Id field.
 func IdEQ(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
 // IdNEQ applies the NEQ predicate on the Id field.
 func IdNEQ(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNEQ(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldNEQ(FieldId, vc), err)
 }
 
 // IdIn applies the In predicate on the Id field.
 func IdIn(ids ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldIn(FieldId, ids...))
+	var (
+		err error
+		vcs = make([]any, len(ids))
+	)
+	for i := range vcs {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
+			break
+		}
+	}
+	return predicate.SessionOrErr(sql.FieldIn(FieldId, vcs...), err)
 }
 
 // IdNotIn applies the NotIn predicate on the Id field.
 func IdNotIn(ids ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNotIn(FieldId, ids...))
+	var (
+		err error
+		vcs = make([]any, len(ids))
+	)
+	for i := range vcs {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
+			break
+		}
+	}
+	return predicate.SessionOrErr(sql.FieldNotIn(FieldId, vcs...), err)
 }
 
 // IdGT applies the GT predicate on the Id field.
 func IdGT(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldGT(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldGT(FieldId, vc), err)
 }
 
 // IdGTE applies the GTE predicate on the Id field.
 func IdGTE(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldGTE(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldGTE(FieldId, vc), err)
 }
 
 // IdLT applies the LT predicate on the Id field.
 func IdLT(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldLT(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldLT(FieldId, vc), err)
 }
 
 // IdLTE applies the LTE predicate on the Id field.
 func IdLTE(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldLTE(FieldId, id))
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.SessionOrErr(sql.FieldLTE(FieldId, vc), err)
 }
 
 // Active applies equality check predicate on the "active" field. It's identical to ActiveEQ.
@@ -82,7 +107,8 @@ func Token(v string) predicate.Session {
 
 // DeviceId applies equality check predicate on the "device_id" field. It's identical to DeviceIdEQ.
 func DeviceId(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldDeviceId, v))
+	vc, err := ValueScanner.DeviceId.Value(v)
+	return predicate.SessionOrErr(sql.FieldEQ(FieldDeviceId, vc), err)
 }
 
 // ActiveEQ applies the EQ predicate on the "active" field.
@@ -272,22 +298,42 @@ func MethodNotNil() predicate.Session {
 
 // DeviceIdEQ applies the EQ predicate on the "device_id" field.
 func DeviceIdEQ(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldDeviceId, v))
+	vc, err := ValueScanner.DeviceId.Value(v)
+	return predicate.SessionOrErr(sql.FieldEQ(FieldDeviceId, vc), err)
 }
 
 // DeviceIdNEQ applies the NEQ predicate on the "device_id" field.
 func DeviceIdNEQ(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNEQ(FieldDeviceId, v))
+	vc, err := ValueScanner.DeviceId.Value(v)
+	return predicate.SessionOrErr(sql.FieldNEQ(FieldDeviceId, vc), err)
 }
 
 // DeviceIdIn applies the In predicate on the "device_id" field.
 func DeviceIdIn(vs ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldIn(FieldDeviceId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.DeviceId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.SessionOrErr(sql.FieldIn(FieldDeviceId, v...), err)
 }
 
 // DeviceIdNotIn applies the NotIn predicate on the "device_id" field.
 func DeviceIdNotIn(vs ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNotIn(FieldDeviceId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.DeviceId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.SessionOrErr(sql.FieldNotIn(FieldDeviceId, v...), err)
 }
 
 // DeviceIdIsNil applies the IsNil predicate on the "device_id" field.

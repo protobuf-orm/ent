@@ -12,7 +12,7 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 	"github.com/protobuf-orm/ent/schema/index"
 
-	"github.com/google/uuid"
+	"uuid"
 )
 
 // Pet holds the schema definition for the Pet entity.

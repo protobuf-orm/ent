@@ -11,8 +11,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
@@ -251,7 +251,11 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
+		vv, err := pet.ValueScanner.Uuid.Value(value)
+		if err != nil {
+			return 0, err
+		}
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(pet.FieldUuid, field.TypeUuid)
@@ -597,7 +601,11 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
+		vv, err := pet.ValueScanner.Uuid.Value(value)
+		if err != nil {
+			return nil, err
+		}
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, vv)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(pet.FieldUuid, field.TypeUuid)

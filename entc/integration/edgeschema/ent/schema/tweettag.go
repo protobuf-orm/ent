@@ -6,8 +6,8 @@ package schema
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/schema/edge"
 	"github.com/protobuf-orm/ent/schema/field"

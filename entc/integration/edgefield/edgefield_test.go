@@ -27,7 +27,7 @@ func TestEdgeField(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	a8m := client.User.Create().SaveX(ctx)
 	p1 := client.Pet.Create().SetOwner(a8m).SaveX(ctx)
@@ -124,7 +124,7 @@ func TestNamedEdges(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 	u1 := client.User.Create().SaveX(ctx)
 	client.Pet.Create().SetOwner(u1).SaveX(ctx)
 

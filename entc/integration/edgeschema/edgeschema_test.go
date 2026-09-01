@@ -9,6 +9,7 @@ import (
 	"errors"
 	"testing"
 	"time"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent"
@@ -24,7 +25,6 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
 	"github.com/protobuf-orm/ent/entql"
 
-	"github.com/google/uuid"
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
 )
@@ -34,7 +34,7 @@ func TestEdgeSchemaWithId(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	// Create one.
 	hub, lab := client.Group.Create().SetName("GitHub").SaveX(ctx), client.Group.Create().SetName("GitLab").SaveX(ctx)
@@ -101,7 +101,7 @@ func TestEdgeSchemaCompositeId(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	tweets := client.Tweet.CreateBulk(
 		client.Tweet.Create().SetText("foo"),
@@ -193,11 +193,11 @@ func TestEdgeSchemaDefaultId(t *testing.T) {
 	tag1 := client.Tag.Create().SetValue("1").SaveX(ctx)
 	tweet1.Update().AddTags(tag1).SaveX(ctx)
 	require.Equal(t, tag1.Id, tweet1.QueryTags().OnlyIdX(ctx))
-	require.NotEqual(t, uuid.Nil, tweet1.QueryTweetTags().OnlyIdX(ctx))
+	require.NotEqual(t, uuid.Nil(), tweet1.QueryTweetTags().OnlyIdX(ctx))
 
 	tweet2 := client.Tweet.Create().SetText("bar").AddTags(tag1).SaveX(ctx)
 	require.Equal(t, tag1.Id, tweet2.QueryTags().OnlyIdX(ctx))
-	require.NotEqual(t, uuid.Nil, tweet2.QueryTweetTags().OnlyIdX(ctx))
+	require.NotEqual(t, uuid.Nil(), tweet2.QueryTweetTags().OnlyIdX(ctx))
 }
 
 func TestEdgeSchemaBidiWithId(t *testing.T) {
@@ -205,7 +205,7 @@ func TestEdgeSchemaBidiWithId(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	nat := client.User.Create().SetName("nati").SaveX(ctx)
 	a8m := client.User.Create().SetName("a8m").AddFriends(nat).SaveX(ctx)
@@ -227,7 +227,7 @@ func TestEdgeSchemaBidiCompositeId(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	u1 := client.User.Create().SetName("u1").SaveX(ctx)
 	u2 := client.User.Create().SetName("u2").AddRelatives(u1).SaveX(ctx)
@@ -295,7 +295,7 @@ func TestEdgeSchemaForO2M(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	t1 := client.Tweet.Create().SetText("Hello Edge Schema").SaveX(ctx)
 	a8m := client.User.Create().SetName("a8m").AddTweets(t1).SaveX(ctx)
@@ -321,7 +321,7 @@ func TestEdgeSchemaEntQL(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	tweets := client.Tweet.CreateBulk(
 		client.Tweet.Create().SetText("t1"),
@@ -379,7 +379,7 @@ func TestEdgeSchemaTypeMatching(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	files := client.File.CreateBulk(
 		client.File.Create().SetName("a"),

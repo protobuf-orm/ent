@@ -11,8 +11,8 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/team"

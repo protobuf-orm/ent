@@ -16,8 +16,30 @@ type Account func(*sql.Selector)
 // Blob is the predicate function for blob builders.
 type Blob func(*sql.Selector)
 
+// BlobOrErr calls the predicate only if the error is not nit.
+func BlobOrErr(p Blob, err error) Blob {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
+
 // BlobLink is the predicate function for bloblink builders.
 type BlobLink func(*sql.Selector)
+
+// BlobLinkOrErr calls the predicate only if the error is not nit.
+func BlobLinkOrErr(p BlobLink, err error) BlobLink {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
 
 // Car is the predicate function for car builders.
 type Car func(*sql.Selector)
@@ -39,6 +61,17 @@ type Link func(*sql.Selector)
 
 // MixinId is the predicate function for mixinid builders.
 type MixinId func(*sql.Selector)
+
+// MixinIdOrErr calls the predicate only if the error is not nit.
+func MixinIdOrErr(p MixinId, err error) MixinId {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
 
 // Note is the predicate function for note builders.
 type Note func(*sql.Selector)

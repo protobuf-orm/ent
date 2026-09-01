@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tag"
@@ -74,12 +74,12 @@ func (*TweetTag) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case tweettag.FieldId:
+			values[i] = tweettag.ValueScanner.Id.ScanValue()
 		case tweettag.FieldTagId, tweettag.FieldTweetId:
 			values[i] = new(sql.NullInt64)
 		case tweettag.FieldAddedAt:
 			values[i] = new(sql.NullTime)
-		case tweettag.FieldId:
-			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -96,10 +96,10 @@ func (_m *TweetTag) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case tweettag.FieldId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field id", values[i])
-			} else if value != nil {
-				_m.Id = *value
+			if value, err := tweettag.ValueScanner.Id.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Id = value
 			}
 		case tweettag.FieldAddedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {

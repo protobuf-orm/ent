@@ -11,8 +11,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
@@ -128,7 +128,10 @@ func (_c *RentalCreate) sqlSave(ctx context.Context) (*Rental, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := _c.createSpec()
+	_node, _spec, err := _c.createSpec()
+	if err != nil {
+		return nil, err
+	}
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -142,7 +145,7 @@ func (_c *RentalCreate) sqlSave(ctx context.Context) (*Rental, error) {
 	return _node, nil
 }
 
-func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec) {
+func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &Rental{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(rental.Table, sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt))
@@ -180,12 +183,16 @@ func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec) {
 			},
 		}
 		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
+			vv, err := car.ValueScanner.Id.Value(k)
+			if err != nil {
+				return nil, nil, err
+			}
+			edge.Target.Nodes = append(edge.Target.Nodes, vv)
 		}
 		_node.CarId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec
+	return _node, _spec, nil
 }
 
 // RentalCreateBulk is the builder for creating many Rental entities in bulk.
@@ -217,7 +224,10 @@ func (_c *RentalCreateBulk) Save(ctx context.Context) ([]*Rental, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i] = builder.createSpec()
+				nodes[i], specs[i], err = builder.createSpec()
+				if err != nil {
+					return nil, err
+				}
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

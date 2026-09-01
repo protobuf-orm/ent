@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/examples/migration/ent/sessiondevice"
@@ -61,12 +61,12 @@ func (*SessionDevice) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case sessiondevice.FieldId:
+			values[i] = sessiondevice.ValueScanner.Id.ScanValue()
 		case sessiondevice.FieldIpAddress, sessiondevice.FieldUserAgent, sessiondevice.FieldLocation:
 			values[i] = new(sql.NullString)
 		case sessiondevice.FieldCreatedAt, sessiondevice.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case sessiondevice.FieldId:
-			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -83,10 +83,10 @@ func (_m *SessionDevice) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case sessiondevice.FieldId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field id", values[i])
-			} else if value != nil {
-				_m.Id = *value
+			if value, err := sessiondevice.ValueScanner.Id.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Id = value
 			}
 		case sessiondevice.FieldIpAddress:
 			if value, ok := values[i].(*sql.NullString); !ok {

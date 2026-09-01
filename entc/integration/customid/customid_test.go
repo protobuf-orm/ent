@@ -11,6 +11,7 @@ import (
 	"net"
 	"strconv"
 	"testing"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect"
 	entsql "github.com/protobuf-orm/ent/dialect/sql"
@@ -29,7 +30,6 @@ import (
 
 	atlas "ariga.io/atlas/sql/schema"
 	"github.com/go-sql-driver/mysql"
-	"github.com/google/uuid"
 	_ "github.com/lib/pq"
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"
@@ -121,9 +121,9 @@ func CustomId(t *testing.T, client *ent.Client) {
 	links := lnk.QueryBlobLinks().AllX(ctx)
 	require.Len(t, links, 2)
 	require.Equal(t, lnk.Id, links[0].BlobId)
-	require.NotEqual(t, uuid.Nil, links[0].LinksId)
+	require.NotEqual(t, uuid.Nil(), links[0].LinksId)
 	require.Equal(t, lnk.Id, links[1].BlobId)
-	require.NotEqual(t, uuid.Nil, links[1].LinksId)
+	require.NotEqual(t, uuid.Nil(), links[1].LinksId)
 
 	pedro := client.Pet.Create().SetId("pedro").SetOwner(a8m).SaveX(ctx)
 	require.Equal(t, a8m.Id, pedro.QueryOwner().OnlyIdX(ctx))

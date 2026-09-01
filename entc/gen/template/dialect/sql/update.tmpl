@@ -149,7 +149,7 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 			{{- continue }}
 		{{- end }}
 		if {{ $mutation }}.{{ $e.MutationCleared }}() {
-			{{- with extend $ "Edge" $e }}
+			{{- with extend $ "Edge" $e "Zero" $zero }}
 				{{ template "dialect/sql/defedge" . }}
 			{{- end }}
 			_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -237,7 +237,13 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 			createE := &{{ .CreateName }}{config: {{ $receiver }}.config, mutation: new{{ .MutationName }}({{ $receiver }}.config, OpCreate)}
 			{{- /* Skip error handling here as this check was already handled. */}}
 			{{ if or .NumHooks .NumPolicy }}_ = {{ end }}createE.defaults()
-			_, specE := createE.createSpec()
+			{{- $specErrE := or .HasValueScanner .HasEdgeValueScanner }}
+			_, specE {{ if $specErrE }}, err {{ end }}:= createE.createSpec()
+			{{- if $specErrE }}
+				if err != nil {
+					return {{ $.Scope.Zero }}, err
+				}
+			{{- end }}
 			edge.Target.Fields = specE.Fields
 			{{- if and .HasOneFieldId .Id.Default }}
 				if specE.Id.Value != nil {

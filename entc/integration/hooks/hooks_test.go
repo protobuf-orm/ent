@@ -30,7 +30,7 @@ import (
 
 func TestSchemaHooks(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	err := client.Card.Create().SetNumber("123").Exec(ctx)
 	require.EqualError(t, err, "card number is too short", "error is returned from hook")
@@ -55,7 +55,7 @@ func TestSchemaHooks(t *testing.T) {
 
 func TestRuntimeHooks(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithOptions(ent.Log(t.Log)), enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithOptions(ent.Log(t.Log)), enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	var calls int
 	client.Use(func(next ent.Mutator) ent.Mutator {
@@ -97,7 +97,7 @@ func TestRuntimeChain(t *testing.T) {
 
 func TestMutationClient(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	client.Card.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {
@@ -165,7 +165,7 @@ func TestMutatorClient(t *testing.T) {
 
 func TestMutationTx(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	client.Card.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {
@@ -191,7 +191,7 @@ func TestMutationTx(t *testing.T) {
 
 func TestDeletion(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	client.User.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.UserFunc(func(ctx context.Context, m *ent.UserMutation) (ent.Value, error) {
@@ -331,7 +331,7 @@ func TestUpdateAfterUpdateOne(t *testing.T) {
 
 func TestOldValues(t *testing.T) {
 	ctx := context.Background()
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 
 	// Querying old fields post mutation should fail.
@@ -417,7 +417,7 @@ func TestOldValues(t *testing.T) {
 }
 
 func TestConditions(t *testing.T) {
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 
 	var calls int
@@ -454,7 +454,7 @@ func TestConditions(t *testing.T) {
 }
 
 func TestRuntimeTx(t *testing.T) {
-	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueID(true)))
+	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1", enttest.WithMigrateOptions(migrate.WithGlobalUniqueId(true)))
 	defer client.Close()
 	client.Card.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {

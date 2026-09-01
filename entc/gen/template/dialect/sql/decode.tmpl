@@ -125,11 +125,19 @@ func ({{ $receiver }} *{{ $.Name }}) {{ $.ValueName }}(name string) (ent.Value, 
 	{{- $ret := $.Scope.Rec -}}
 	{{- $field := $f.StructField }}{{ with $.Scope.StructField }}{{ $field = . }}{{ end -}}
 	{{- if $f.HasValueScanner -}}
-		if value, err := {{ $f.FromValueFunc }}(values[{{ $i }}]); err != nil {
-			return err
-		} else {
-			{{ $ret }}.{{ $field }} = value
-		}
+		{{- if $f.NillableValue -}}
+			if value, err := field.NillableFromValue({{ $f.ValueScannerPath }}, values[{{ $i }}]); err != nil {
+				return err
+			} else {
+				{{ $ret }}.{{ $field }} = value
+			}
+		{{- else -}}
+			if value, err := {{ $f.FromValueFunc }}(values[{{ $i }}]); err != nil {
+				return err
+			} else {
+				{{ $ret }}.{{ $field }} = value
+			}
+		{{- end }}
 	{{- else if $f.IsJson -}}
 		if value, ok := values[{{ $i }}].(*{{ $f.ScanType }}); !ok {
 			return fmt.Errorf("unexpected type %T for field {{ $f.Name }}", values[{{ $i }}])

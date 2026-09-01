@@ -52,6 +52,17 @@ type TweetLike func(*sql.Selector)
 // TweetTag is the predicate function for tweettag builders.
 type TweetTag func(*sql.Selector)
 
+// TweetTagOrErr calls the predicate only if the error is not nit.
+func TweetTagOrErr(p TweetTag, err error) TweetTag {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
+
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
 

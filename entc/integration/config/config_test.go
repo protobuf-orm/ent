@@ -31,7 +31,7 @@ func TestSchemaConfig(t *testing.T) {
 	defer drv.Close()
 	ctx := context.Background()
 	client := ent.NewClient(ent.Driver(drv))
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 	client.User.Create().SetId(1).SaveX(ctx)
 
 	// Check that the table was created with the given custom name.

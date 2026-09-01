@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"testing"
 	"time"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent"
@@ -21,7 +22,6 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/schema/task"
 	enttask "github.com/protobuf-orm/ent/entc/integration/ent/task"
 
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )
 
@@ -70,9 +70,9 @@ func Types(t *testing.T, client *ent.Client) {
 		SetDir("dir").
 		SetNdir("ndir").
 		SetNullStr(&sql.NullString{String: "not-default", Valid: true}).
-		SetLink(schema.Link{Url: link}).
-		SetLinkOther(&schema.Link{Url: link}).
-		SetNullLink(&schema.Link{Url: link}).
+		SetLink(schema.Link{URL: link}).
+		SetLinkOther(&schema.Link{URL: link}).
+		SetNullLink(&schema.Link{URL: link}).
 		SetRole(role.Admin).
 		SetPriority(role.High).
 		SetDuration(time.Hour).
@@ -164,9 +164,9 @@ func Types(t *testing.T, client *ent.Client) {
 		SetNdir("ndir").
 		SetStr(sql.NullString{String: "str", Valid: true}).
 		SetNullStr(&sql.NullString{String: "str", Valid: true}).
-		SetLink(schema.Link{Url: link}).
-		SetNullLink(&schema.Link{Url: link}).
-		SetLinkOther(&schema.Link{Url: link}).
+		SetLink(schema.Link{URL: link}).
+		SetNullLink(&schema.Link{URL: link}).
+		SetLinkOther(&schema.Link{URL: link}).
 		SetSchemaInt(64).
 		SetSchemaInt8(8).
 		SetSchemaInt64(64).

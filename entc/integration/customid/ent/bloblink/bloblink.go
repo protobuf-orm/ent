@@ -8,9 +8,11 @@ package bloblink
 
 import (
 	"time"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -66,6 +68,11 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
+	// ValueScanner of all BlobLink fields.
+	ValueScanner struct {
+		BlobId  field.TypeValueScanner[uuid.UUID]
+		LinksId field.TypeValueScanner[uuid.UUID]
+	}
 )
 
 // OrderOption defines the ordering options for the BlobLink queries.

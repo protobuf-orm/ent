@@ -8,10 +8,11 @@ package tweettag
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -70,6 +71,10 @@ var (
 	DefaultAddedAt func() time.Time
 	// DefaultId holds the default value on creation for the "id" field.
 	DefaultId func() uuid.UUID
+	// ValueScanner of all TweetTag fields.
+	ValueScanner struct {
+		Id field.TypeValueScanner[uuid.UUID]
+	}
 )
 
 // OrderOption defines the ordering options for the TweetTag queries.

@@ -19,11 +19,44 @@ type Payment func(*sql.Selector)
 // Pet is the predicate function for pet builders.
 type Pet func(*sql.Selector)
 
+// PetOrErr calls the predicate only if the error is not nit.
+func PetOrErr(p Pet, err error) Pet {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
+
 // Session is the predicate function for session builders.
 type Session func(*sql.Selector)
 
+// SessionOrErr calls the predicate only if the error is not nit.
+func SessionOrErr(p Session, err error) Session {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
+
 // SessionDevice is the predicate function for sessiondevice builders.
 type SessionDevice func(*sql.Selector)
+
+// SessionDeviceOrErr calls the predicate only if the error is not nit.
+func SessionDeviceOrErr(p SessionDevice, err error) SessionDevice {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

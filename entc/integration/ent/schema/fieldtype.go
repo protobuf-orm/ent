@@ -22,7 +22,7 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/role"
 	"github.com/protobuf-orm/ent/schema/field"
 
-	"github.com/google/uuid"
+	"uuid"
 )
 
 // FieldType holds the schema definition for the FieldType entity.

@@ -8,9 +8,11 @@ package rental
 
 import (
 	"time"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -67,6 +69,10 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultDate holds the default value on creation for the "date" field.
 	DefaultDate func() time.Time
+	// ValueScanner of all Rental fields.
+	ValueScanner struct {
+		CarId field.TypeValueScanner[uuid.UUID]
+	}
 )
 
 // OrderOption defines the ordering options for the Rental queries.

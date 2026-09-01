@@ -13,8 +13,8 @@ import (
 	"net"
 	"net/http"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/ent/fieldtype"
@@ -954,7 +954,10 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := _c.createSpec()
+	_node, _spec, err := _c.createSpec()
+	if err != nil {
+		return nil, err
+	}
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -968,7 +971,7 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 	return _node, nil
 }
 
-func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
+func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &FieldType{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(fieldtype.Table, sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt))
@@ -1199,11 +1202,19 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 		_node.Priority = value
 	}
 	if value, ok := _c.mutation.OptionalUuid(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.OptionalUuid.Value(value)
+		if err != nil {
+			return nil, nil, err
+		}
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, vv)
 		_node.OptionalUuid = value
 	}
 	if value, ok := _c.mutation.NillableUuid(); ok {
-		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
+		vv, err := fieldtype.ValueScanner.NillableUuid.Value(value)
+		if err != nil {
+			return nil, nil, err
+		}
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, vv)
 		_node.NillableUuid = &value
 	}
 	if value, ok := _c.mutation.Strings(); ok {
@@ -1234,7 +1245,7 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, value)
 		_node.PasswordOther = value
 	}
-	return _node, _spec
+	return _node, _spec, nil
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -4197,7 +4208,10 @@ func (_c *FieldTypeCreateBulk) Save(ctx context.Context) ([]*FieldType, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i] = builder.createSpec()
+				nodes[i], specs[i], err = builder.createSpec()
+				if err != nil {
+					return nil, err
+				}
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

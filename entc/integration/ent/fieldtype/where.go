@@ -10,8 +10,8 @@ import (
 	"net"
 	"net/http"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
 	"github.com/protobuf-orm/ent/entc/integration/ent/role"
@@ -341,12 +341,14 @@ func NullFloat(v *sql.NullFloat64) predicate.FieldType {
 
 // OptionalUuid applies equality check predicate on the "optional_uuid" field. It's identical to OptionalUuidEQ.
 func OptionalUuid(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldEQ(FieldOptionalUuid, vc), err)
 }
 
 // NillableUuid applies equality check predicate on the "nillable_uuid" field. It's identical to NillableUuidEQ.
 func NillableUuid(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldEQ(FieldNillableUuid, vc), err)
 }
 
 // Pair applies equality check predicate on the "pair" field. It's identical to PairEQ.
@@ -3391,42 +3393,66 @@ func PriorityNotNil() predicate.FieldType {
 
 // OptionalUuidEQ applies the EQ predicate on the "optional_uuid" field.
 func OptionalUuidEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldEQ(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidNEQ applies the NEQ predicate on the "optional_uuid" field.
 func OptionalUuidNEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldNEQ(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidIn applies the In predicate on the "optional_uuid" field.
 func OptionalUuidIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldOptionalUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.OptionalUuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.FieldTypeOrErr(sql.FieldIn(FieldOptionalUuid, v...), err)
 }
 
 // OptionalUuidNotIn applies the NotIn predicate on the "optional_uuid" field.
 func OptionalUuidNotIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldOptionalUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.OptionalUuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.FieldTypeOrErr(sql.FieldNotIn(FieldOptionalUuid, v...), err)
 }
 
 // OptionalUuidGT applies the GT predicate on the "optional_uuid" field.
 func OptionalUuidGT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldGT(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidGTE applies the GTE predicate on the "optional_uuid" field.
 func OptionalUuidGTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldGTE(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidLT applies the LT predicate on the "optional_uuid" field.
 func OptionalUuidLT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldLT(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidLTE applies the LTE predicate on the "optional_uuid" field.
 func OptionalUuidLTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldOptionalUuid, v))
+	vc, err := ValueScanner.OptionalUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldLTE(FieldOptionalUuid, vc), err)
 }
 
 // OptionalUuidIsNil applies the IsNil predicate on the "optional_uuid" field.
@@ -3441,42 +3467,66 @@ func OptionalUuidNotNil() predicate.FieldType {
 
 // NillableUuidEQ applies the EQ predicate on the "nillable_uuid" field.
 func NillableUuidEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldEQ(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidNEQ applies the NEQ predicate on the "nillable_uuid" field.
 func NillableUuidNEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldNEQ(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidIn applies the In predicate on the "nillable_uuid" field.
 func NillableUuidIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldNillableUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.NillableUuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.FieldTypeOrErr(sql.FieldIn(FieldNillableUuid, v...), err)
 }
 
 // NillableUuidNotIn applies the NotIn predicate on the "nillable_uuid" field.
 func NillableUuidNotIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldNillableUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.NillableUuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.FieldTypeOrErr(sql.FieldNotIn(FieldNillableUuid, v...), err)
 }
 
 // NillableUuidGT applies the GT predicate on the "nillable_uuid" field.
 func NillableUuidGT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldGT(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidGTE applies the GTE predicate on the "nillable_uuid" field.
 func NillableUuidGTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldGTE(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidLT applies the LT predicate on the "nillable_uuid" field.
 func NillableUuidLT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldLT(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidLTE applies the LTE predicate on the "nillable_uuid" field.
 func NillableUuidLTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldNillableUuid, v))
+	vc, err := ValueScanner.NillableUuid.Value(v)
+	return predicate.FieldTypeOrErr(sql.FieldLTE(FieldNillableUuid, vc), err)
 }
 
 // NillableUuidIsNil applies the IsNil predicate on the "nillable_uuid" field.

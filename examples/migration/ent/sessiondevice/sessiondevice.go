@@ -7,9 +7,11 @@
 package sessiondevice
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -69,6 +71,10 @@ var (
 	LocationValidator func(string) error
 	// DefaultId holds the default value on creation for the "id" field.
 	DefaultId func() uuid.UUID
+	// ValueScanner of all SessionDevice fields.
+	ValueScanner struct {
+		Id field.TypeValueScanner[uuid.UUID]
+	}
 )
 
 // OrderOption defines the ordering options for the SessionDevice queries.

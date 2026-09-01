@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"log"
 	"reflect"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/migrate"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
@@ -656,7 +656,12 @@ func (c *BlobClient) GetX(ctx context.Context, id uuid.UUID) *Blob {
 func (c *BlobClient) QueryParent(_m *Blob) *BlobQuery {
 	query := (&BlobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := blob.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(blob.Table, blob.FieldId, id),
 			sqlgraph.To(blob.Table, blob.FieldId),
@@ -672,7 +677,12 @@ func (c *BlobClient) QueryParent(_m *Blob) *BlobQuery {
 func (c *BlobClient) QueryLinks(_m *Blob) *BlobQuery {
 	query := (&BlobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := blob.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(blob.Table, blob.FieldId, id),
 			sqlgraph.To(blob.Table, blob.FieldId),
@@ -688,7 +698,12 @@ func (c *BlobClient) QueryLinks(_m *Blob) *BlobQuery {
 func (c *BlobClient) QueryBlobLinks(_m *Blob) *BlobLinkQuery {
 	query := (&BlobLinkClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := blob.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(blob.Table, blob.FieldId, id),
 			sqlgraph.To(bloblink.Table, bloblink.BlobColumn),

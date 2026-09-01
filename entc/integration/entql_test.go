@@ -6,9 +6,10 @@ package integration
 
 import (
 	"context"
+	"database/sql/driver"
 	"testing"
 
-	"github.com/google/uuid"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/entc/integration/ent"
 	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
@@ -17,6 +18,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 )
+
+// storedUuid is the form a uuid field is written in, which is its text: the
+// standard library type says nothing to a driver itself, so entql has to be
+// handed what the column actually holds.
+type storedUuid uuid.UUID
+
+func (u storedUuid) Value() (driver.Value, error) { return uuid.UUID(u).MarshalText() }
 
 func EntQL(t *testing.T, client *ent.Client) {
 	require := require.New(t)
@@ -61,10 +69,10 @@ func EntQL(t *testing.T, client *ent.Client) {
 	require.Equal(nati.Id, uq.OnlyIdX(ctx))
 
 	pq := client.Pet.Query()
-	pq.Filter().WhereUuid(entql.ValueEQ(u1))
+	pq.Filter().WhereUuid(entql.ValueEQ(storedUuid(u1)))
 	require.Equal(xabi.Id, pq.OnlyIdX(ctx))
 	pq = client.Pet.Query()
-	pq.Filter().WhereUuid(entql.ValueEQ(u2))
+	pq.Filter().WhereUuid(entql.ValueEQ(storedUuid(u2)))
 	require.Equal(luna.Id, pq.OnlyIdX(ctx))
 
 	uq = client.User.Query()

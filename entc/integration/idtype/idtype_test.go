@@ -21,7 +21,7 @@ func TestIdType(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	a8m := client.User.Create().SetName("a8m").SaveX(ctx)
 	require.Equal(t, "a8m", a8m.Name)

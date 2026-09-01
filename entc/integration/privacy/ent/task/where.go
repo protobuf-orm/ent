@@ -7,7 +7,8 @@
 package task
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/predicate"
@@ -70,7 +71,8 @@ func Description(v string) predicate.Task {
 
 // Uuid applies equality check predicate on the "uuid" field. It's identical to UuidEQ.
 func Uuid(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldEQ(FieldUuid, vc), err)
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
@@ -235,42 +237,66 @@ func StatusNotIn(vs ...Status) predicate.Task {
 
 // UuidEQ applies the EQ predicate on the "uuid" field.
 func UuidEQ(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldEQ(FieldUuid, vc), err)
 }
 
 // UuidNEQ applies the NEQ predicate on the "uuid" field.
 func UuidNEQ(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldNEQ(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldNEQ(FieldUuid, vc), err)
 }
 
 // UuidIn applies the In predicate on the "uuid" field.
 func UuidIn(vs ...uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldIn(FieldUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.TaskOrErr(sql.FieldIn(FieldUuid, v...), err)
 }
 
 // UuidNotIn applies the NotIn predicate on the "uuid" field.
 func UuidNotIn(vs ...uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldNotIn(FieldUuid, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.TaskOrErr(sql.FieldNotIn(FieldUuid, v...), err)
 }
 
 // UuidGT applies the GT predicate on the "uuid" field.
 func UuidGT(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldGT(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldGT(FieldUuid, vc), err)
 }
 
 // UuidGTE applies the GTE predicate on the "uuid" field.
 func UuidGTE(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldGTE(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldGTE(FieldUuid, vc), err)
 }
 
 // UuidLT applies the LT predicate on the "uuid" field.
 func UuidLT(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldLT(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldLT(FieldUuid, vc), err)
 }
 
 // UuidLTE applies the LTE predicate on the "uuid" field.
 func UuidLTE(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldLTE(FieldUuid, v))
+	vc, err := ValueScanner.Uuid.Value(v)
+	return predicate.TaskOrErr(sql.FieldLTE(FieldUuid, vc), err)
 }
 
 // UuidIsNil applies the IsNil predicate on the "uuid" field.

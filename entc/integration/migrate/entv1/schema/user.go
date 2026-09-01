@@ -5,7 +5,8 @@
 package schema
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/entsql"
 	"github.com/protobuf-orm/ent/schema"
@@ -36,7 +37,7 @@ func (User) Fields() []ent.Field {
 		field.String("renamed").
 			Optional(),
 		field.String("old_token").
-			DefaultFunc(uuid.NewString),
+			DefaultFunc(func() string { return uuid.New().String() }),
 		field.Bytes("blob").
 			Optional().
 			MaxLen(255),

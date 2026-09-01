@@ -14,7 +14,7 @@ import (
 	"github.com/protobuf-orm/ent/schema/edge"
 	"github.com/protobuf-orm/ent/schema/field"
 
-	"github.com/google/uuid"
+	"uuid"
 )
 
 // Blob holds the schema definition for the Blob entity.

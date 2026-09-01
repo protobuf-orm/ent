@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
@@ -92,7 +92,7 @@ func (*Pet) scanValues(columns []string) ([]any, error) {
 		case pet.FieldOptionalTime:
 			values[i] = new(sql.NullTime)
 		case pet.FieldUuid:
-			values[i] = new(uuid.UUID)
+			values[i] = pet.ValueScanner.Uuid.ScanValue()
 		case pet.ForeignKeys[0]: // user_pets
 			values[i] = new(sql.NullInt64)
 		case pet.ForeignKeys[1]: // user_team
@@ -131,10 +131,10 @@ func (_m *Pet) assignValues(columns []string, values []any) error {
 				_m.Name = value.String
 			}
 		case pet.FieldUuid:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field uuid", values[i])
-			} else if value != nil {
-				_m.Uuid = *value
+			if value, err := pet.ValueScanner.Uuid.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Uuid = value
 			}
 		case pet.FieldNickname:
 			if value, ok := values[i].(*sql.NullString); !ok {

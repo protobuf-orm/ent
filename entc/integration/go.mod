@@ -8,7 +8,6 @@ require (
 	ariga.io/atlas v1.3.0
 	ariga.io/atlas-go-sdk v0.6.9
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.7
 	github.com/ncruces/go-sqlite3 v0.35.3
 	github.com/protobuf-orm/ent v0.14.6

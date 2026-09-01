@@ -5,7 +5,8 @@
 package schema
 
 import (
-	"github.com/google/uuid"
+	"uuid"
+
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/entsql"
 	"github.com/protobuf-orm/ent/schema/edge"
@@ -21,14 +22,14 @@ type Pet struct {
 // Fields of the Pet.
 func (Pet) Fields() []ent.Field {
 	return []ent.Field{
-		field.Uuid("id", uuid.Nil).
+		field.Uuid("id", uuid.Nil()).
 			Default(uuid.New),
 		field.String("name"),
 		field.Float("age"),
 		field.Float("weight"),
-		field.Uuid("best_friend_id", uuid.Nil).
+		field.Uuid("best_friend_id", uuid.Nil()).
 			Annotations(
-				entsql.Default(uuid.Nil.String()),
+				entsql.Default(uuid.Nil().String()),
 			),
 		field.Int("owner_id").
 			Default(0),

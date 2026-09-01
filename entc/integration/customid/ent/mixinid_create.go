@@ -10,8 +10,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
@@ -109,7 +109,10 @@ func (_c *MixinIdCreate) sqlSave(ctx context.Context) (*MixinId, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := _c.createSpec()
+	_node, _spec, err := _c.createSpec()
+	if err != nil {
+		return nil, err
+	}
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -117,10 +120,17 @@ func (_c *MixinIdCreate) sqlSave(ctx context.Context) (*MixinId, error) {
 		return nil, err
 	}
 	if _spec.Id.Value != nil {
-		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
-			_node.Id = *id
-		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
+		sv, ok := _spec.Id.Value.(field.ValueScanner)
+		if !ok {
+			sv = mixinid.ValueScanner.Id.ScanValue()
+			if err := sv.Scan(_spec.Id.Value); err != nil {
+				return nil, err
+			}
+		}
+		if value, err := mixinid.ValueScanner.Id.FromValue(sv); err != nil {
 			return nil, err
+		} else {
+			_node.Id = value
 		}
 	}
 	_c.mutation.id = &_node.Id
@@ -128,7 +138,7 @@ func (_c *MixinIdCreate) sqlSave(ctx context.Context) (*MixinId, error) {
 	return _node, nil
 }
 
-func (_c *MixinIdCreate) createSpec() (*MixinId, *sqlgraph.CreateSpec) {
+func (_c *MixinIdCreate) createSpec() (*MixinId, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &MixinId{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(mixinid.Table, sqlgraph.NewFieldSpec(mixinid.FieldId, field.TypeUuid))
@@ -136,7 +146,11 @@ func (_c *MixinIdCreate) createSpec() (*MixinId, *sqlgraph.CreateSpec) {
 	_spec.OnConflict = _c.conflict
 	if id, ok := _c.mutation.Id(); ok {
 		_node.Id = id
-		_spec.Id.Value = &id
+		vv, err := mixinid.ValueScanner.Id.Value(id)
+		if err != nil {
+			return nil, nil, err
+		}
+		_spec.Id.Value = vv
 	}
 	if value, ok := _c.mutation.SomeField(); ok {
 		_spec.SetField(mixinid.FieldSomeField, field.TypeString, value)
@@ -146,7 +160,7 @@ func (_c *MixinIdCreate) createSpec() (*MixinId, *sqlgraph.CreateSpec) {
 		_spec.SetField(mixinid.FieldMixinField, field.TypeString, value)
 		_node.MixinField = value
 	}
-	return _node, _spec
+	return _node, _spec, nil
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -366,7 +380,10 @@ func (_c *MixinIdCreateBulk) Save(ctx context.Context) ([]*MixinId, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i] = builder.createSpec()
+				nodes[i], specs[i], err = builder.createSpec()
+				if err != nil {
+					return nil, err
+				}
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
@@ -383,6 +400,20 @@ func (_c *MixinIdCreateBulk) Save(ctx context.Context) ([]*MixinId, error) {
 					return nil, err
 				}
 				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					sv, ok := specs[i].Id.Value.(field.ValueScanner)
+					if !ok {
+						sv = mixinid.ValueScanner.Id.ScanValue()
+						if err := sv.Scan(specs[i].Id.Value); err != nil {
+							return nil, err
+						}
+					}
+					if id, err := mixinid.ValueScanner.Id.FromValue(sv); err != nil {
+						return nil, err
+					} else {
+						nodes[i].Id = id
+					}
+				}
 				mutation.done = true
 				return nodes[i], nil
 			})

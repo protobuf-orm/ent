@@ -8,7 +8,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 
-	"github.com/google/uuid"
+	"uuid"
 
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/schema/edge"
@@ -67,7 +67,7 @@ type Id [64]byte
 
 func NewId() Id {
 	var id [64]byte
-	copy(id[:], uuid.NewString()+uuid.NewString()+uuid.NewString()+uuid.NewString())
+	copy(id[:], uuid.New().String()+uuid.New().String()+uuid.New().String()+uuid.New().String())
 	return id
 }
 

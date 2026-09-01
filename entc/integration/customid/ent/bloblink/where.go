@@ -8,8 +8,8 @@ package bloblink
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
@@ -22,12 +22,14 @@ func CreatedAt(v time.Time) predicate.BlobLink {
 
 // BlobId applies equality check predicate on the "blob_id" field. It's identical to BlobIdEQ.
 func BlobId(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
+	vc, err := ValueScanner.BlobId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldBlobId, vc), err)
 }
 
 // LinksId applies equality check predicate on the "links_id" field. It's identical to LinksIdEQ.
 func LinksId(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
+	vc, err := ValueScanner.LinksId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldLinksId, vc), err)
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -72,42 +74,82 @@ func CreatedAtLTE(v time.Time) predicate.BlobLink {
 
 // BlobIdEQ applies the EQ predicate on the "blob_id" field.
 func BlobIdEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
+	vc, err := ValueScanner.BlobId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldBlobId, vc), err)
 }
 
 // BlobIdNEQ applies the NEQ predicate on the "blob_id" field.
 func BlobIdNEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNEQ(FieldBlobId, v))
+	vc, err := ValueScanner.BlobId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldNEQ(FieldBlobId, vc), err)
 }
 
 // BlobIdIn applies the In predicate on the "blob_id" field.
 func BlobIdIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldIn(FieldBlobId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.BlobId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobLinkOrErr(sql.FieldIn(FieldBlobId, v...), err)
 }
 
 // BlobIdNotIn applies the NotIn predicate on the "blob_id" field.
 func BlobIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNotIn(FieldBlobId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.BlobId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobLinkOrErr(sql.FieldNotIn(FieldBlobId, v...), err)
 }
 
 // LinksIdEQ applies the EQ predicate on the "links_id" field.
 func LinksIdEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
+	vc, err := ValueScanner.LinksId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldLinksId, vc), err)
 }
 
 // LinksIdNEQ applies the NEQ predicate on the "links_id" field.
 func LinksIdNEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNEQ(FieldLinksId, v))
+	vc, err := ValueScanner.LinksId.Value(v)
+	return predicate.BlobLinkOrErr(sql.FieldNEQ(FieldLinksId, vc), err)
 }
 
 // LinksIdIn applies the In predicate on the "links_id" field.
 func LinksIdIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldIn(FieldLinksId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.LinksId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobLinkOrErr(sql.FieldIn(FieldLinksId, v...), err)
 }
 
 // LinksIdNotIn applies the NotIn predicate on the "links_id" field.
 func LinksIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNotIn(FieldLinksId, vs...))
+	var (
+		err error
+		v   = make([]any, len(vs))
+	)
+	for i := range v {
+		if v[i], err = ValueScanner.LinksId.Value(vs[i]); err != nil {
+			break
+		}
+	}
+	return predicate.BlobLinkOrErr(sql.FieldNotIn(FieldLinksId, v...), err)
 }
 
 // HasBlob applies the HasEdge predicate on the "blob" edge.

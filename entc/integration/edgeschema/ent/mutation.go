@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/attachedfile"
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/file"

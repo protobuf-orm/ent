@@ -192,7 +192,7 @@ func TestVersionedMigration(t *testing.T) {
 	}
 	// Run `atlas migrate apply` on a SQLite database under /tmp.
 	res, err := ac.MigrateApply(context.Background(), &atlasexec.MigrateApplyParams{
-		Url:        "mysql://root:pass@:3308/",
+		URL:        "mysql://root:pass@:3308/",
 		AllowDirty: true,
 	})
 	if err != nil {

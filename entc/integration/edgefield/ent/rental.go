@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
@@ -79,7 +79,7 @@ func (*Rental) scanValues(columns []string) ([]any, error) {
 		case rental.FieldDate:
 			values[i] = new(sql.NullTime)
 		case rental.FieldCarId:
-			values[i] = new(uuid.UUID)
+			values[i] = rental.ValueScanner.CarId.ScanValue()
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -114,10 +114,10 @@ func (_m *Rental) assignValues(columns []string, values []any) error {
 				_m.UserId = int(value.Int64)
 			}
 		case rental.FieldCarId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field car_id", values[i])
-			} else if value != nil {
-				_m.CarId = *value
+			if value, err := rental.ValueScanner.CarId.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.CarId = value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

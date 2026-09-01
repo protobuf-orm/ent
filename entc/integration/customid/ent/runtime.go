@@ -8,8 +8,8 @@ package ent
 
 import (
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/account"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/blob"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/bloblink"
@@ -51,6 +51,7 @@ func init() {
 	blobDescUuid := blobFields[1].Descriptor()
 	// blob.DefaultUuid holds the default value on creation for the uuid field.
 	blob.DefaultUuid = blobDescUuid.Default.(func() uuid.UUID)
+	blob.ValueScanner.Uuid = field.TextValueScannerOf[uuid.UUID]()
 	// blobDescCount is the schema descriptor for count field.
 	blobDescCount := blobFields[2].Descriptor()
 	// blob.DefaultCount holds the default value on creation for the count field.
@@ -59,12 +60,15 @@ func init() {
 	blobDescId := blobFields[0].Descriptor()
 	// blob.DefaultId holds the default value on creation for the id field.
 	blob.DefaultId = blobDescId.Default.(func() uuid.UUID)
+	blob.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	bloblinkFields := schema.BlobLink{}.Fields()
 	_ = bloblinkFields
 	// bloblinkDescCreatedAt is the schema descriptor for created_at field.
 	bloblinkDescCreatedAt := bloblinkFields[0].Descriptor()
 	// bloblink.DefaultCreatedAt holds the default value on creation for the created_at field.
 	bloblink.DefaultCreatedAt = bloblinkDescCreatedAt.Default.(func() time.Time)
+	bloblink.ValueScanner.BlobId = field.TextValueScannerOf[uuid.UUID]()
+	bloblink.ValueScanner.LinksId = field.TextValueScannerOf[uuid.UUID]()
 	carMixin := schema.Car{}.Mixin()
 	carMixinFields0 := carMixin[0].Fields()
 	_ = carMixinFields0
@@ -131,6 +135,7 @@ func init() {
 	mixinidDescId := mixinidMixinFields0[0].Descriptor()
 	// mixinid.DefaultId holds the default value on creation for the id field.
 	mixinid.DefaultId = mixinidDescId.Default.(func() uuid.UUID)
+	mixinid.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	noteFields := schema.Note{}.Fields()
 	_ = noteFields
 	// noteDescId is the schema descriptor for id field.

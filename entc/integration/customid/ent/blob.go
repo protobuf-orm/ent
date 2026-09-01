@@ -9,8 +9,8 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/blob"
@@ -79,12 +79,14 @@ func (*Blob) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case blob.FieldId:
+			values[i] = blob.ValueScanner.Id.ScanValue()
 		case blob.FieldCount:
 			values[i] = new(sql.NullInt64)
-		case blob.FieldId, blob.FieldUuid:
-			values[i] = new(uuid.UUID)
+		case blob.FieldUuid:
+			values[i] = blob.ValueScanner.Uuid.ScanValue()
 		case blob.ForeignKeys[0]: // blob_parent
-			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
+			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -101,16 +103,16 @@ func (_m *Blob) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case blob.FieldId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field id", values[i])
-			} else if value != nil {
-				_m.Id = *value
+			if value, err := blob.ValueScanner.Id.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Id = value
 			}
 		case blob.FieldUuid:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field uuid", values[i])
-			} else if value != nil {
-				_m.Uuid = *value
+			if value, err := blob.ValueScanner.Uuid.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Uuid = value
 			}
 		case blob.FieldCount:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -119,11 +121,10 @@ func (_m *Blob) assignValues(columns []string, values []any) error {
 				_m.Count = int(value.Int64)
 			}
 		case blob.ForeignKeys[0]:
-			if value, ok := values[i].(*sql.NullScanner); !ok {
+			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field blob_parent", values[i])
-			} else if value.Valid {
-				_m.blob_parent = new(uuid.UUID)
-				*_m.blob_parent = *value.S.(*uuid.UUID)
+			} else if value != nil {
+				_m.blob_parent = value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

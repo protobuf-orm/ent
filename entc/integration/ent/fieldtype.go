@@ -13,13 +13,14 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent/fieldtype"
 	"github.com/protobuf-orm/ent/entc/integration/ent/role"
 	"github.com/protobuf-orm/ent/entc/integration/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // FieldType is the model entity for the FieldType schema.
@@ -172,8 +173,6 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 			values[i] = &sql.NullScanner{S: new(schema.Pair)}
 		case fieldtype.FieldStringScanner:
 			values[i] = &sql.NullScanner{S: new(schema.StringScanner)}
-		case fieldtype.FieldNillableUuid:
-			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
 		case fieldtype.FieldRawData, fieldtype.FieldSensitive, fieldtype.FieldIp, fieldtype.FieldStrings:
 			values[i] = new([]byte)
 		case fieldtype.FieldPriority:
@@ -205,7 +204,9 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 		case fieldtype.FieldDatetime, fieldtype.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
 		case fieldtype.FieldOptionalUuid:
-			values[i] = new(uuid.UUID)
+			values[i] = fieldtype.ValueScanner.OptionalUuid.ScanValue()
+		case fieldtype.FieldNillableUuid:
+			values[i] = fieldtype.ValueScanner.NillableUuid.ScanValue()
 		case fieldtype.ForeignKeys[0]: // file_field
 			values[i] = new(sql.NullInt64)
 		default:
@@ -574,17 +575,16 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 				_m.Priority = *value
 			}
 		case fieldtype.FieldOptionalUuid:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field optional_uuid", values[i])
-			} else if value != nil {
-				_m.OptionalUuid = *value
+			if value, err := fieldtype.ValueScanner.OptionalUuid.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.OptionalUuid = value
 			}
 		case fieldtype.FieldNillableUuid:
-			if value, ok := values[i].(*sql.NullScanner); !ok {
-				return fmt.Errorf("unexpected type %T for field nillable_uuid", values[i])
-			} else if value.Valid {
-				_m.NillableUuid = new(uuid.UUID)
-				*_m.NillableUuid = *value.S.(*uuid.UUID)
+			if value, err := field.NillableFromValue(fieldtype.ValueScanner.NillableUuid, values[i]); err != nil {
+				return err
+			} else {
+				_m.NillableUuid = value
 			}
 		case fieldtype.FieldStrings:
 			if value, ok := values[i].(*[]byte); !ok {

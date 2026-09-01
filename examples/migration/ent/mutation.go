@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/examples/migration/ent/card"
 	"github.com/protobuf-orm/ent/examples/migration/ent/payment"

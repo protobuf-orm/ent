@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/examples/migration/ent/session"
@@ -67,6 +67,8 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case session.FieldId:
+			values[i] = session.ValueScanner.Id.ScanValue()
 		case session.FieldMethod:
 			values[i] = new([]byte)
 		case session.FieldActive:
@@ -75,8 +77,8 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullString)
 		case session.FieldIssuedAt, session.FieldExpiresAt:
 			values[i] = new(sql.NullTime)
-		case session.FieldId, session.FieldDeviceId:
-			values[i] = new(uuid.UUID)
+		case session.FieldDeviceId:
+			values[i] = session.ValueScanner.DeviceId.ScanValue()
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -93,10 +95,10 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case session.FieldId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field id", values[i])
-			} else if value != nil {
-				_m.Id = *value
+			if value, err := session.ValueScanner.Id.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.Id = value
 			}
 		case session.FieldActive:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -131,10 +133,10 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 				}
 			}
 		case session.FieldDeviceId:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field device_id", values[i])
-			} else if value != nil {
-				_m.DeviceId = *value
+			if value, err := session.ValueScanner.DeviceId.FromValue(values[i]); err != nil {
+				return err
+			} else {
+				_m.DeviceId = value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

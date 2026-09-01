@@ -659,7 +659,7 @@ func SanityV2(t *testing.T, dbdialect string, client *entv2.Client) {
 			require.Equal(t, strconv.Itoa(math.MaxUint8), max.Uint8ToString)
 			require.Equal(t, strconv.Itoa(math.MaxUint16), max.Uint16ToString)
 			require.Equal(t, strconv.Itoa(math.MaxUint32), max.Uint32ToString)
-			require.Equal(t, strconv.FormatUInt(math.MaxUint64, 10), max.Uint64ToString)
+			require.Equal(t, strconv.FormatUint(math.MaxUint64, 10), max.Uint64ToString)
 		}
 	}
 }

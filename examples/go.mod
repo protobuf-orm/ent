@@ -7,7 +7,6 @@ replace github.com/protobuf-orm/ent => ../
 require (
 	ariga.io/atlas v1.3.0
 	ariga.io/atlas-go-sdk v0.6.9
-	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.12.0
 	github.com/ncruces/go-sqlite3 v0.35.3
 	github.com/protobuf-orm/ent v0.14.6
@@ -27,6 +26,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v1.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.24.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.50 // indirect

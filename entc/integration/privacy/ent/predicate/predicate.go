@@ -13,6 +13,17 @@ import (
 // Task is the predicate function for task builders.
 type Task func(*sql.Selector)
 
+// TaskOrErr calls the predicate only if the error is not nit.
+func TaskOrErr(p Task, err error) Task {
+	return func(s *sql.Selector) {
+		if err != nil {
+			s.AddError(err)
+			return
+		}
+		p(s)
+	}
+}
+
 // Team is the predicate function for team builders.
 type Team func(*sql.Selector)
 

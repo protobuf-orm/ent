@@ -760,7 +760,12 @@ func (t *Type) setupFieldEdge(fk *ForeignKey, fkOwner *Edge, fkName string) erro
 		return fmt.Errorf("edge-field %q was set as Immutable, but edge %q is not", fkName, fkOwner.Name)
 	case !tf.Immutable && fkOwner.Immutable:
 		return fmt.Errorf("edge %q was set as Immutable, but edge-field %q is not", fkOwner.Name, fkName)
-	case tf.HasValueScanner():
+	// A codec codegen wrote is derived from the Go type, and the type is
+	// checked against the referenced id just below, so both ends of the edge
+	// necessarily read and write the column the same way. One the schema
+	// handed over is a property of the field alone, and nothing says the id
+	// it points at was given the same.
+	case tf.HasValueScanner() && !tf.HasTextCodec():
 		return fmt.Errorf("edge-field %q cannot have an external ValueScanner", fkName)
 	}
 	if t1, t2 := tf.Type.Type, fkOwner.Type.Id.Type.Type; t1 != t2 {
@@ -1461,6 +1466,15 @@ func (f Field) ValueFunc() (string, error) {
 		return "", fmt.Errorf("%q does not have an external ValueScanner", f.Name)
 	}
 	return fmt.Sprintf("%s.ValueScanner.%s.Value", f.typ.Package(), f.StructField()), nil
+}
+
+// ValueScannerPath returns a path to the external ValueScanner itself, for
+// the callers that hand it over whole rather than calling one of its methods.
+func (f Field) ValueScannerPath() (string, error) {
+	if !f.HasValueScanner() {
+		return "", fmt.Errorf("%q does not have an external ValueScanner", f.Name)
+	}
+	return fmt.Sprintf("%s.ValueScanner.%s", f.typ.Package(), f.StructField()), nil
 }
 
 // ScanValueFunc returns a path to the ScanValue field (func) of the external ValueScanner.

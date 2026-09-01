@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"log"
 	"reflect"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/examples/migration/ent/migrate"
 
@@ -718,7 +718,12 @@ func (c *PetClient) GetX(ctx context.Context, id uuid.UUID) *Pet {
 func (c *PetClient) QueryBestFriend(_m *Pet) *PetQuery {
 	query := (&PetClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := pet.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(pet.Table, pet.FieldId, id),
 			sqlgraph.To(pet.Table, pet.FieldId),
@@ -734,7 +739,12 @@ func (c *PetClient) QueryBestFriend(_m *Pet) *PetQuery {
 func (c *PetClient) QueryOwner(_m *Pet) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := pet.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(pet.Table, pet.FieldId, id),
 			sqlgraph.To(user.Table, user.FieldId),
@@ -883,7 +893,12 @@ func (c *SessionClient) GetX(ctx context.Context, id uuid.UUID) *Session {
 func (c *SessionClient) QueryDevice(_m *Session) *SessionDeviceQuery {
 	query := (&SessionDeviceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := session.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(session.Table, session.FieldId, id),
 			sqlgraph.To(sessiondevice.Table, sessiondevice.FieldId),
@@ -1032,7 +1047,12 @@ func (c *SessionDeviceClient) GetX(ctx context.Context, id uuid.UUID) *SessionDe
 func (c *SessionDeviceClient) QuerySessions(_m *SessionDevice) *SessionQuery {
 	query := (&SessionClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.Id
+		id := any(_m.Id)
+		vv, err := sessiondevice.ValueScanner.Id.Value(_m.Id)
+		if err != nil {
+			return nil, err
+		}
+		id = vv
 		step := sqlgraph.NewStep(
 			sqlgraph.From(sessiondevice.Table, sessiondevice.FieldId, id),
 			sqlgraph.To(session.Table, session.FieldId),

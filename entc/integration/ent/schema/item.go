@@ -8,7 +8,7 @@ import (
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/schema/field"
 
-	"github.com/google/uuid"
+	"uuid"
 )
 
 // Item holds the schema definition for the Item entity.
@@ -20,7 +20,7 @@ type Item struct {
 func (Item) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("id").
-			DefaultFunc(uuid.NewString).
+			DefaultFunc(func() string { return uuid.New().String() }).
 			MaxLen(64),
 		field.String("text").
 			MaxLen(128).

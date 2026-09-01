@@ -37,7 +37,7 @@ func TestCompositeTypes(t *testing.T) {
 	_, err = ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
 		// URL to your database. For example:
 		// postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable
-		Url:         os.Getenv("DB_Url"),
+		URL:         os.Getenv("DB_Url"),
 		Env:         "local",
 		AutoApprove: true,
 	})

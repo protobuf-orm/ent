@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	"uuid"
 
-	"github.com/google/uuid"
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/card"

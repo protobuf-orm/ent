@@ -40,7 +40,7 @@ func TestMySql(t *testing.T) {
 			defer db.Exec(ctx, "DROP DATABASE IF EXISTS json", []any{}, nil)
 			client, err := ent.Open("mysql", fmt.Sprintf("root:pass@tcp(localhost:%d)/json", port))
 			require.NoError(t, err, "connecting to json database")
-			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
+			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueId(true))
 			require.NoError(t, err)
 
 			Url(t, client)
@@ -77,11 +77,11 @@ func TestMaria(t *testing.T) {
 			defer db.Exec(ctx, "DROP DATABASE IF EXISTS json", []any{}, nil)
 			client, err := ent.Open("mysql", fmt.Sprintf("root:pass@tcp(localhost:%d)/json", port))
 			require.NoError(t, err, "connecting to json database")
-			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
+			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueId(true))
 			require.NoError(t, err)
 			// We run the migration twice to check that migration handles
 			// the JSON columns, since MariaDB stores them as longtext.
-			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
+			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueId(true))
 			require.NoError(t, err)
 
 			Url(t, client)
@@ -117,7 +117,7 @@ func TestPostgres(t *testing.T) {
 			client, err := ent.Open(dialect.Postgres, dsn+" dbname=json")
 			require.NoError(t, err, "connecting to json database")
 			defer client.Close()
-			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
+			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueId(true))
 			require.NoError(t, err)
 
 			Url(t, client)
@@ -144,7 +144,7 @@ func TestSQLite(t *testing.T) {
 	require.NoError(t, err)
 	defer client.Close()
 	ctx := context.Background()
-	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
+	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueId(true)))
 
 	Url(t, client)
 	Urls(t, client)
@@ -328,9 +328,9 @@ func RawMessage(t *testing.T, client *ent.Client) {
 func NetAddr(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	ip := net.ParseIP("127.0.0.1")
-	usr := client.User.Create().SetAddr(schema.Addr{Addr: &net.TCPAddr{Ip: ip, Port: 80}}).SaveX(ctx)
+	usr := client.User.Create().SetAddr(schema.Addr{Addr: &net.TCPAddr{IP: ip, Port: 80}}).SaveX(ctx)
 	require.Equal(t, "127.0.0.1:80", client.User.GetX(ctx, usr.Id).Addr.String())
-	usr.Update().SetAddr(schema.Addr{Addr: &net.UDPAddr{Ip: ip, Port: 1812}}).ExecX(ctx)
+	usr.Update().SetAddr(schema.Addr{Addr: &net.UDPAddr{IP: ip, Port: 1812}}).ExecX(ctx)
 	require.Equal(t, "127.0.0.1:1812", client.User.GetX(ctx, usr.Id).Addr.String())
 
 	// Ensure sensitive fields are not marshalled.
