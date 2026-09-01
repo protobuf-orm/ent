@@ -16,9 +16,9 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqljson"
+	"entgo.io/ent/internal/uuidtest"
 
 	"ariga.io/atlas/sql/migrate"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )
 
@@ -55,7 +55,7 @@ func TestWriteDriver(t *testing.T) {
 
 	b.Reset()
 	w = NewWriteDriver(dialect.Postgres, b)
-	query, args = sql.Dialect(dialect.Postgres).Update("users").Set("id", uuid.Nil).Set("a", 1).Set("b", time.Now()).Query()
+	query, args = sql.Dialect(dialect.Postgres).Update("users").Set("id", uuidtest.Nil).Set("a", 1).Set("b", time.Now()).Query()
 	err = w.Exec(ctx, query, args, nil)
 	require.NoError(t, err)
 	require.Equal(t, `UPDATE "users" SET "id" = '00000000-0000-0000-0000-000000000000', "a" = 1, "b" = {{ TIME_VALUE }};`+"\n", b.String())

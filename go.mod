@@ -5,7 +5,6 @@ go 1.27.0
 require (
 	ariga.io/atlas v1.3.0
 	github.com/DATA-DOG/go-sqlmock v1.5.0
-	github.com/google/uuid v1.6.0
 	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1

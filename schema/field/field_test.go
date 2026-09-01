@@ -23,9 +23,9 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
+	"entgo.io/ent/internal/uuidtest"
 	"entgo.io/ent/schema/field"
 
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -256,21 +256,21 @@ func TestBytes(t *testing.T) {
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
 
-	fd = field.Bytes("uuid").GoType(uuid.UUID{}).DefaultFunc(uuid.New).Descriptor()
+	fd = field.Bytes("uuid").GoType(uuidtest.UUID{}).DefaultFunc(uuidtest.New).Descriptor()
 	assert.NoError(t, fd.Err)
-	assert.Equal(t, "uuid.UUID", fd.Info.Ident)
-	assert.Equal(t, "github.com/google/uuid", fd.Info.PkgPath)
-	assert.Equal(t, "uuid.UUID", fd.Info.String())
+	assert.Equal(t, "uuidtest.UUID", fd.Info.Ident)
+	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
+	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
-	assert.NotEmpty(t, fd.Default.(func() uuid.UUID)())
+	assert.NotEmpty(t, fd.Default.(func() uuidtest.UUID)())
 
 	fd = field.Bytes("uuid").
-		GoType(uuid.UUID{}).
-		DefaultFunc(uuid.New).
+		GoType(uuidtest.UUID{}).
+		DefaultFunc(uuidtest.New).
 		Descriptor()
 	assert.NoError(t, fd.Err)
-	assert.Equal(t, "uuid.UUID", fd.Info.String())
+	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
 	fd = field.Bytes("pair").
 		GoType(&Pair{}).
 		Descriptor()
@@ -795,29 +795,29 @@ func TestField_Enums(t *testing.T) {
 }
 
 func TestField_UUID(t *testing.T) {
-	fd := field.UUID("id", uuid.UUID{}).
+	fd := field.UUID("id", uuidtest.UUID{}).
 		Unique().
-		Default(uuid.New).
+		Default(uuidtest.New).
 		Comment("comment").
 		Nillable().
 		Descriptor()
 	assert.Equal(t, "id", fd.Name)
 	assert.True(t, fd.Unique)
-	assert.Equal(t, "uuid.UUID", fd.Info.String())
-	assert.Equal(t, "github.com/google/uuid", fd.Info.PkgPath)
+	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
+	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
 	assert.NotNil(t, fd.Default)
-	assert.NotEmpty(t, fd.Default.(func() uuid.UUID)())
+	assert.NotEmpty(t, fd.Default.(func() uuidtest.UUID)())
 	assert.Equal(t, "comment", fd.Comment)
 	assert.True(t, fd.Nillable)
 
-	fd = field.UUID("id", &uuid.UUID{}).
+	fd = field.UUID("id", &uuidtest.UUID{}).
 		Descriptor()
-	assert.Equal(t, "github.com/google/uuid", fd.Info.PkgPath)
+	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
 
-	fd = field.UUID("id", uuid.UUID{}).
-		Default(uuid.UUID{}).
+	fd = field.UUID("id", uuidtest.UUID{}).
+		Default(uuidtest.UUID{}).
 		Descriptor()
-	assert.EqualError(t, fd.Err, "expect type (func() uuid.UUID) for uuid default value")
+	assert.EqualError(t, fd.Err, "expect type (func() uuidtest.UUID) for uuid default value")
 }
 
 type custom struct {

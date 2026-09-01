@@ -10,8 +10,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"log"
-
-	"github.com/google/uuid"
+	"uuid"
 )
 
 // Dialect names for external usage.

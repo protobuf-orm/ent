@@ -14,13 +14,13 @@ import (
 	"time"
 
 	"entgo.io/ent"
+	"entgo.io/ent/internal/uuidtest"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
 
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )
 
@@ -103,8 +103,8 @@ func (User) Fields() []ent.Field {
 			Sensitive(),
 		field.Time("creation_time").
 			Default(time.Now),
-		field.UUID("uuid", uuid.UUID{}).
-			Default(uuid.New),
+		field.UUID("uuid", uuidtest.UUID{}).
+			Default(uuidtest.New),
 		field.Int("parent_id").
 			Optional(),
 	}
@@ -204,7 +204,7 @@ func TestMarshalSchema(t *testing.T) {
 		require.Equal(t, "uuid", schema.Fields[7].Name)
 		require.Equal(t, field.TypeUUID, schema.Fields[7].Info.Type)
 		require.True(t, schema.Fields[7].Default)
-		require.Equal(t, "github.com/google/uuid", schema.Fields[7].Info.PkgPath)
+		require.Equal(t, "entgo.io/ent/internal/uuidtest", schema.Fields[7].Info.PkgPath)
 
 		require.Equal(t, "parent_id", schema.Fields[8].Name)
 		require.Equal(t, field.TypeInt, schema.Fields[8].Info.Type)
@@ -264,7 +264,7 @@ type InvalidUUID struct {
 
 func (InvalidUUID) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("invalid", uuid.New()).
+		field.UUID("invalid", uuidtest.New()).
 			Default(time.Now),
 	}
 }
@@ -278,7 +278,7 @@ func TestMarshalFails(t *testing.T) {
 	i2 := InvalidUUID{}
 	buf, err = MarshalSchema(i2)
 	require.Nil(t, buf)
-	require.EqualError(t, err, `schema "InvalidUUID": field "invalid": expect type (func() uuid.UUID) for uuid default value`)
+	require.EqualError(t, err, `schema "InvalidUUID": field "invalid": expect type (func() uuidtest.UUID) for uuid default value`)
 }
 
 type WithDefaults struct {

@@ -10,8 +10,9 @@ import (
 	"encoding/json"
 	"testing"
 
+	"entgo.io/ent/internal/uuidtest"
+
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )
 
@@ -96,11 +97,11 @@ func TestScanSlice(t *testing.T) {
 	require.False(t, v6[1].Age.Valid)
 	require.Equal(t, "a8m", v6[1].Name.String)
 
-	u1, u2 := uuid.New().String(), uuid.New().String()
+	u1, u2 := uuidtest.New().String(), uuidtest.New().String()
 	mock = sqlmock.NewRows([]string{"ids"}).
 		AddRow([]byte(u1)).
 		AddRow([]byte(u2))
-	var ids []uuid.UUID
+	var ids []uuidtest.UUID
 	require.NoError(t, ScanSlice(toRows(mock), &ids))
 	require.Equal(t, u1, ids[0].String())
 	require.Equal(t, u2, ids[1].String())
@@ -108,7 +109,7 @@ func TestScanSlice(t *testing.T) {
 	mock = sqlmock.NewRows([]string{"pids"}).
 		AddRow([]byte(u1)).
 		AddRow([]byte(u2))
-	var pids []*uuid.UUID
+	var pids []*uuidtest.UUID
 	require.NoError(t, ScanSlice(toRows(mock), &pids))
 	require.Equal(t, u1, pids[0].String())
 	require.Equal(t, u2, pids[1].String())
