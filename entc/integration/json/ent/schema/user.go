@@ -76,7 +76,7 @@ type T struct {
 
 type Addr struct{ net.Addr }
 
-func (a *Addr) UnmarshalJson(data []byte) error {
+func (a *Addr) UnmarshalJSON(data []byte) error {
 	var types struct {
 		Tcp *net.TCPAddr `json:"tcp,omitempty"`
 		Udp *net.UDPAddr `json:"udp,omitempty"`
@@ -95,7 +95,7 @@ func (a *Addr) UnmarshalJson(data []byte) error {
 	return nil
 }
 
-func (a Addr) MarshalJson() ([]byte, error) {
+func (a Addr) MarshalJSON() ([]byte, error) {
 	var types struct {
 		Tcp *net.TCPAddr `json:"tcp,omitempty"`
 		Udp *net.UDPAddr `json:"udp,omitempty"`

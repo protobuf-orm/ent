@@ -155,8 +155,8 @@ func (_m *Pet) String() string {
 	return builder.String()
 }
 
-// MarshalJson implements the json.Marshaler interface.
-func (_m *Pet) MarshalJson() ([]byte, error) {
+// MarshalJSON implements the json.Marshaler interface.
+func (_m *Pet) MarshalJSON() ([]byte, error) {
 	type Alias Pet
 	return json.Marshal(&struct {
 		*Alias
