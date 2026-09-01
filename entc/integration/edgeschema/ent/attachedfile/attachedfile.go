@@ -46,7 +46,7 @@ const (
 	ProcColumn = "proc_id"
 )
 
-// Columns holds all Sql columns for attachedfile fields.
+// Columns holds all SQL columns for attachedfile fields.
 var Columns = []string{
 	FieldId,
 	FieldAttachTime,

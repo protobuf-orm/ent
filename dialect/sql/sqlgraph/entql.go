@@ -16,14 +16,14 @@ type (
 	// represents a single schema-type and its relations in the graph (storage).
 	//
 	// It is used for translating common graph traversal operations to the
-	// underlying Sql storage. For example, an operation like `has_edge(E)`,
-	// will be translated to an Sql lookup based on the relation type and the
+	// underlying SQL storage. For example, an operation like `has_edge(E)`,
+	// will be translated to an SQL lookup based on the relation type and the
 	// FK configuration.
 	Schema struct {
 		Nodes []*Node
 	}
 
-	// A Node in the graph holds the Sql information for an ent/schema.
+	// A Node in the graph holds the SQL information for an ent/schema.
 	Node struct {
 		NodeSpec
 

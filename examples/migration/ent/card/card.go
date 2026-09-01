@@ -48,7 +48,7 @@ const (
 	PaymentsColumn = "card_id"
 )
 
-// Columns holds all Sql columns for card fields.
+// Columns holds all SQL columns for card fields.
 var Columns = []string{
 	FieldId,
 	FieldType,

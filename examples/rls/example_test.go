@@ -39,7 +39,7 @@ func TestRowLevelSecurity(t *testing.T) {
 	// Automatically update the database with the desired schema.
 	// Another option, is to use 'migrate apply' or 'schema apply' manually.
 	_, err = ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
-		// Url to your database. For example:
+		// URL to your database. For example:
 		// postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable
 		Url:         os.Getenv("ATLAS_Url"),
 		Env:         "local",

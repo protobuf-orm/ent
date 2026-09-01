@@ -39,13 +39,13 @@ const (
 	RelatedTable = "doc_related"
 )
 
-// Columns holds all Sql columns for doc fields.
+// Columns holds all SQL columns for doc fields.
 var Columns = []string{
 	FieldId,
 	FieldText,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "doc"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "doc"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"doc_children",

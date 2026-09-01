@@ -40,7 +40,7 @@ const (
 	SessionsColumn = "device_id"
 )
 
-// Columns holds all Sql columns for sessiondevice fields.
+// Columns holds all SQL columns for sessiondevice fields.
 var Columns = []string{
 	FieldId,
 	FieldIpAddress,

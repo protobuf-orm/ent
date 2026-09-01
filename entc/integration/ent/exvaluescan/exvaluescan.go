@@ -39,7 +39,7 @@ const (
 	Table = "ex_value_scan"
 )
 
-// Columns holds all Sql columns for exvaluescan fields.
+// Columns holds all SQL columns for exvaluescan fields.
 var Columns = []string{
 	FieldId,
 	FieldBinary,

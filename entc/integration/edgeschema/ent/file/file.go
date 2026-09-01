@@ -29,7 +29,7 @@ const (
 	ProcessesInverseTable = "process"
 )
 
-// Columns holds all Sql columns for file fields.
+// Columns holds all SQL columns for file fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

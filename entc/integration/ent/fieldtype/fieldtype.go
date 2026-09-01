@@ -156,7 +156,7 @@ const (
 	Table = "field_type"
 )
 
-// Columns holds all Sql columns for fieldtype fields.
+// Columns holds all SQL columns for fieldtype fields.
 var Columns = []string{
 	FieldId,
 	FieldInt,
@@ -226,7 +226,7 @@ var Columns = []string{
 	FieldPasswordOther,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "field_type"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "field_type"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_field",

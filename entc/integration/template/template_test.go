@@ -34,7 +34,7 @@ func TestCustomTemplate(t *testing.T) {
 	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
 	client.User.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.UserFunc(func(ctx context.Context, m *ent.UserMutation) (ent.Value, error) {
-			// Access the injected Http client here.
+			// Access the injected HTTP client here.
 			_ = m.HttpClient
 			return next.Mutate(ctx, m)
 		})

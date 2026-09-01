@@ -1835,7 +1835,7 @@ func TestUnionAllFunc(t *testing.T) {
 	})
 
 	t.Run("Postgres", func(t *testing.T) {
-		// Postgres supports parenthesized branches (standard Sql) — same output shape
+		// Postgres supports parenthesized branches (standard SQL) — same output shape
 		// as MySql but with double-quoted identifiers. Dialect is inferred from selectors.
 		migSel := Dialect(dialect.Postgres).Select("id").From(Table("t1")).Limit(5)
 		schemaSel := Dialect(dialect.Postgres).Select("id").From(Table("t2")).Limit(5)

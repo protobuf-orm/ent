@@ -48,7 +48,7 @@ const (
 	FriendColumn = "friends_id"
 )
 
-// Columns holds all Sql columns for friendship fields.
+// Columns holds all SQL columns for friendship fields.
 var Columns = []string{
 	FieldId,
 	FieldWeight,

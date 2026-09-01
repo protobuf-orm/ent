@@ -13,7 +13,7 @@ import (
 
 // The following helpers exist to simplify the way raw predicates
 // are defined and used in both ent/schema and generated code. For
-// full predicates Api, check out the sql.P in builder.go.
+// full predicates API, check out the sql.P in builder.go.
 
 // FieldIsNull returns a raw predicate to check if the given field is NULL.
 func FieldIsNull(name string) func(*Selector) {

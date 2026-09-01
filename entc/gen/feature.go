@@ -79,7 +79,7 @@ var (
 	}
 
 	// FeatureSchemaConfig allows users to pass init time alternate schema names
-	// for each ent model. This is useful if your Sql tables are spread out against
+	// for each ent model. This is useful if your SQL tables are spread out against
 	// multiple databases.
 	FeatureSchemaConfig = Feature{
 		Name:        "sql/schemaconfig",
@@ -121,7 +121,7 @@ var (
 		Description: "Allows users to attach custom modifiers to queries",
 	}
 
-	// FeatureExecQuery provides a feature-flag for exposing the ExecContext/QueryContext methods of the underlying Sql drivers.
+	// FeatureExecQuery provides a feature-flag for exposing the ExecContext/QueryContext methods of the underlying SQL drivers.
 	FeatureExecQuery = Feature{
 		Name:        "sql/execquery",
 		Stage:       Experimental,

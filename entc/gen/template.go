@@ -383,7 +383,7 @@ type (
 		//
 		//	http.Client	=> HttpClient
 		//	net.Conn	=> NetConn
-		//	url.URL		=> Url
+		//	url.URL		=> URL
 		//
 		Field string
 		// Type defines the type identifier. For example, `*http.Client`.

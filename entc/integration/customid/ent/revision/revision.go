@@ -19,7 +19,7 @@ const (
 	Table = "revision"
 )
 
-// Columns holds all Sql columns for revision fields.
+// Columns holds all SQL columns for revision fields.
 var Columns = []string{
 	FieldId,
 }

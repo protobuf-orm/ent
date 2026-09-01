@@ -54,7 +54,7 @@ type (
 		ForeignKeys []*ForeignKey
 		foreignKeys map[string]struct{}
 		// Annotations that were defined for the field in the schema.
-		// The mapping is from the Annotation.Name() to a Json decoded object.
+		// The mapping is from the Annotation.Name() to a JSON decoded object.
 		Annotations Annotations
 		// EdgeSchema indicates that this type (schema) is being used as an "edge schema".
 		// The To and From fields holds references to the edges that go "through" this type.
@@ -98,7 +98,7 @@ type (
 		// the schema. Unlike the default id field, which is defined by the generator.
 		UserDefined bool
 		// Annotations that were defined for the field in the schema.
-		// The mapping is from the Annotation.Name() to a Json decoded object.
+		// The mapping is from the Annotation.Name() to a JSON decoded object.
 		Annotations Annotations
 		// referenced foreign-key.
 		fk *ForeignKey
@@ -141,7 +141,7 @@ type (
 		//
 		Bidi bool
 		// Annotations that were defined for the edge in the schema.
-		// The mapping is from the Annotation.Name() to a Json decoded object.
+		// The mapping is from the Annotation.Name() to a JSON decoded object.
 		Annotations Annotations
 	}
 
@@ -173,7 +173,7 @@ type (
 		// Columns are the table columns.
 		Columns []string
 		// Annotations that were defined for the index in the schema.
-		// The mapping is from the Annotation.Name() to a Json decoded object.
+		// The mapping is from the Annotation.Name() to a JSON decoded object.
 		Annotations Annotations
 	}
 
@@ -1473,7 +1473,7 @@ func (f Field) FromValueFunc() (string, error) {
 
 // NewScanType returns an expression for creating a new object
 // to be used by the `rows.Scan` method. A sql.Scanner or a
-// nillable-type supported by the Sql driver (e.g. []byte).
+// nillable-type supported by the SQL driver (e.g. []byte).
 func (f Field) NewScanType() string {
 	if f.Type.ValueScanner() {
 		expr := fmt.Sprintf("new(%s)", f.Type.RType.String())
@@ -1628,7 +1628,7 @@ func (f Field) PK() *schema.Column {
 		Comment:   f.sqlComment(),
 		Increment: f.incremental(f.Type.Type.Integer()),
 	}
-	// If the PK was defined by the user, and it is Uuid or string.
+	// If the PK was defined by the user, and it is UUID or string.
 	if f.UserDefined && !f.Type.Numeric() {
 		c.Increment = false
 		c.Type = f.Type.Type
@@ -1683,7 +1683,7 @@ func (f Field) sqlComment() string {
 }
 
 // StorageKey returns the storage name of the field.
-// Sql column.
+// SQL column.
 func (f Field) StorageKey() string {
 	if f.def != nil && f.def.StorageKey != "" {
 		return f.def.StorageKey
@@ -1948,7 +1948,7 @@ func (e Edge) StructField() string {
 }
 
 // OwnFK indicates if the foreign-key of this edge is owned by the edge
-// column (reside in the type's table). Used by the Sql storage-driver.
+// column (reside in the type's table). Used by the SQL storage-driver.
 func (e Edge) OwnFK() bool {
 	switch {
 	case e.M2O():

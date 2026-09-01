@@ -43,7 +43,7 @@ in the LICENSE file in the root directory of this source tree.
 
 {{/* Variables needed for sql dialects. */}}
 {{ define "dialect/sql/meta/variables" }}
-	// Columns holds all Sql columns for {{ lower $.Name }} fields.
+	// Columns holds all SQL columns for {{ lower $.Name }} fields.
 	var Columns = []string{
 		{{- if $.HasOneFieldId }}
 			{{ $.Id.Constant }},
@@ -56,7 +56,7 @@ in the LICENSE file in the root directory of this source tree.
 	}
 	{{/* If any of the edges owns a foreign-key */}}
 	{{ with $.UnexportedForeignKeys }}
-		// ForeignKeys holds the Sql foreign-keys that are owned by the "{{ $.Table }}"
+		// ForeignKeys holds the SQL foreign-keys that are owned by the "{{ $.Table }}"
 		// table and are not defined as standalone fields in the schema.
 		var ForeignKeys = []string{
 			{{- range $fk := . }}

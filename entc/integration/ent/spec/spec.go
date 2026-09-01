@@ -27,7 +27,7 @@ const (
 	CardInverseTable = "card"
 )
 
-// Columns holds all Sql columns for spec fields.
+// Columns holds all SQL columns for spec fields.
 var Columns = []string{
 	FieldId,
 }

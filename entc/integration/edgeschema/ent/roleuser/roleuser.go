@@ -48,7 +48,7 @@ const (
 	UserColumn = "user_id"
 )
 
-// Columns holds all Sql columns for roleuser fields.
+// Columns holds all SQL columns for roleuser fields.
 var Columns = []string{
 	FieldCreatedAt,
 	FieldRoleId,

@@ -25,7 +25,7 @@ const (
 	Table = "license"
 )
 
-// Columns holds all Sql columns for license fields.
+// Columns holds all SQL columns for license fields.
 var Columns = []string{
 	FieldId,
 	FieldCreateTime,

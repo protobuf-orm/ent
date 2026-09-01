@@ -91,7 +91,7 @@ type (
 		//		{{/* Annotation usage goes here. */}}
 		//	{{- end }}
 		//
-		// Note that the mapping is from the annotation-name (e.g. "GQL") to a Json decoded object.
+		// Note that the mapping is from the annotation-name (e.g. "GQL") to a JSON decoded object.
 		Annotations Annotations
 
 		// BuildFlags holds a list of custom build flags to use
@@ -137,7 +137,7 @@ type (
 	// It can be defined on most elements in the schema (node, field, edge), or globally
 	// on the Config object.
 	// The mapping is from the annotation name (e.g. "EntGQL") to the annotation itself.
-	// Note that, annotations that are defined in the schema must be Json encoded/decoded.
+	// Note that, annotations that are defined in the schema must be JSON encoded/decoded.
 	Annotations map[string]any
 )
 

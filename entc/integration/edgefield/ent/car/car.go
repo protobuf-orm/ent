@@ -32,7 +32,7 @@ const (
 	RentalsColumn = "car_id"
 )
 
-// Columns holds all Sql columns for car fields.
+// Columns holds all SQL columns for car fields.
 var Columns = []string{
 	FieldId,
 	FieldNumber,

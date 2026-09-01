@@ -31,13 +31,13 @@ const (
 	CityColumn = "city_streets"
 )
 
-// Columns holds all Sql columns for street fields.
+// Columns holds all SQL columns for street fields.
 var Columns = []string{
 	FieldId,
 	FieldName,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "street"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "street"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"city_streets",

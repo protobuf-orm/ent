@@ -35,13 +35,13 @@ const (
 	ChildrenColumn = "note_children"
 )
 
-// Columns holds all Sql columns for note fields.
+// Columns holds all SQL columns for note fields.
 var Columns = []string{
 	FieldId,
 	FieldText,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "note"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "note"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"note_children",

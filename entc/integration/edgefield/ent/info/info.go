@@ -31,7 +31,7 @@ const (
 	UserColumn = "id"
 )
 
-// Columns holds all Sql columns for info fields.
+// Columns holds all SQL columns for info fields.
 var Columns = []string{
 	FieldId,
 	FieldContent,

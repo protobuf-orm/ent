@@ -37,7 +37,7 @@ const (
 	UsersInverseTable = "user"
 )
 
-// Columns holds all Sql columns for team fields.
+// Columns holds all SQL columns for team fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

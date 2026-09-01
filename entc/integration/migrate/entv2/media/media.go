@@ -25,7 +25,7 @@ const (
 	Table = "media"
 )
 
-// Columns holds all Sql columns for media fields.
+// Columns holds all SQL columns for media fields.
 var Columns = []string{
 	FieldId,
 	FieldSource,

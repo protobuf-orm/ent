@@ -23,7 +23,7 @@ const (
 	Table = "user_audit_log"
 )
 
-// Columns holds all Sql columns for userauditlog fields.
+// Columns holds all SQL columns for userauditlog fields.
 var Columns = []string{
 	FieldId,
 	FieldOperationType,

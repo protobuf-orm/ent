@@ -20,7 +20,7 @@ const (
 	Table = "other"
 )
 
-// Columns holds all Sql columns for other fields.
+// Columns holds all SQL columns for other fields.
 var Columns = []string{
 	FieldId,
 }

@@ -49,7 +49,7 @@ func TestMySql(t *testing.T) {
 			NetAddr(t, client)
 			RawMessage(t, client)
 			Any(t, client)
-			// Skip tests with Json functions for old MySql versions.
+			// Skip tests with JSON functions for old MySql versions.
 			if version != "56" {
 				Urls(t, client)
 				Ints(t, client)
@@ -80,7 +80,7 @@ func TestMaria(t *testing.T) {
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 			// We run the migration twice to check that migration handles
-			// the Json columns, since MariaDB stores them as longtext.
+			// the JSON columns, since MariaDB stores them as longtext.
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 

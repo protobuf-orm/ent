@@ -2647,7 +2647,7 @@ func OrderByFluent(t *testing.T, client *ent.Client) {
 }
 
 // Testing the "low-level" behavior of the sqlgraph package.
-// This functionality may be extended to the generated fluent Api.
+// This functionality may be extended to the generated fluent API.
 func OrderByEdgeCount(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	users := client.User.CreateBulk(
@@ -2795,7 +2795,7 @@ func OrderByEdgeCount(t *testing.T, client *ent.Client) {
 }
 
 // Testing the "low-level" behavior of the sqlgraph package.
-// This functionality may be extended to the generated fluent Api.
+// This functionality may be extended to the generated fluent API.
 func OrderByEdgeTerms(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	users := client.User.CreateBulk(

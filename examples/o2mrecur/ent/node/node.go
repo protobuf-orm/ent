@@ -36,7 +36,7 @@ const (
 	ChildrenColumn = "parent_id"
 )
 
-// Columns holds all Sql columns for node fields.
+// Columns holds all SQL columns for node fields.
 var Columns = []string{
 	FieldId,
 	FieldValue,

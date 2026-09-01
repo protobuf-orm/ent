@@ -27,7 +27,7 @@ const (
 	// Cascade defines cascading operations (e.g. cascade deletion).
 	Cascade
 
-	// Migrate defines static schema and migration support (e.g. Sql-based).
+	// Migrate defines static schema and migration support (e.g. SQL-based).
 	Migrate
 )
 

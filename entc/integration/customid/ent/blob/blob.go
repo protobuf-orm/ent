@@ -44,14 +44,14 @@ const (
 	BlobLinksColumn = "blob_id"
 )
 
-// Columns holds all Sql columns for blob fields.
+// Columns holds all SQL columns for blob fields.
 var Columns = []string{
 	FieldId,
 	FieldUuid,
 	FieldCount,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "blob"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "blob"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blob_parent",

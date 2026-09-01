@@ -48,7 +48,7 @@ func LoadGraph(schemaPath string, cfg *gen.Config) (*gen.Graph, error) {
 // Hence, if the schema package resides in "<project>/ent/schema",
 // the base directory for codegen will be "<project>/ent".
 //
-// If no storage driver provided by option, Sql driver will be used.
+// If no storage driver provided by option, SQL driver will be used.
 //
 //	entc.Generate("./ent/path", &gen.Config{
 //		Header: "// Custom header",
@@ -127,7 +127,7 @@ func FeatureNames(names ...string) Option {
 }
 
 // Annotation is used to attach arbitrary metadata to the schema objects in codegen.
-// Unlike schema annotations, being serializable to Json raw value is not mandatory.
+// Unlike schema annotations, being serializable to JSON raw value is not mandatory.
 //
 // Template extensions can retrieve this metadata and use it inside their execution.
 // Read more about it in ent website: https://entgo.io/docs/templates/#annotations.
@@ -217,7 +217,7 @@ type Extension interface {
 
 	// Annotations injects global annotations to the gen.Config object that
 	// can be accessed globally in all templates. Unlike schema annotations,
-	// being serializable to Json raw value is not mandatory.
+	// being serializable to JSON raw value is not mandatory.
 	//
 	//	{{- with $.Config.Annotations.GQL }}
 	//		{{/* Annotation usage goes here. */}}

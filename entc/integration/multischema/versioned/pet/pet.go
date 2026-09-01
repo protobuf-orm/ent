@@ -33,7 +33,7 @@ const (
 	OwnerColumn = "owner_id"
 )
 
-// Columns holds all Sql columns for pet fields.
+// Columns holds all SQL columns for pet fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

@@ -36,7 +36,7 @@ func main() {
 }
 
 // EncodeExtension is an implementation of entc.Extension that adds a MarshalJson
-// method to each generated type <T> and inlines the Edges field to the top level Json.
+// method to each generated type <T> and inlines the Edges field to the top level JSON.
 type EncodeExtension struct {
 	entc.DefaultExtension
 }

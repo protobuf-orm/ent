@@ -33,14 +33,14 @@ const (
 	OwnerColumn = "user_card"
 )
 
-// Columns holds all Sql columns for card fields.
+// Columns holds all SQL columns for card fields.
 var Columns = []string{
 	FieldId,
 	FieldExpired,
 	FieldNumber,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "card"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "card"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_card",

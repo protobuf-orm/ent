@@ -49,7 +49,7 @@ const (
 	UserColumn = "user_id"
 )
 
-// Columns holds all Sql columns for tweetlike fields.
+// Columns holds all SQL columns for tweetlike fields.
 var Columns = []string{
 	FieldLikedAt,
 	FieldUserId,

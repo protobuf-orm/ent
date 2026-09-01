@@ -330,7 +330,7 @@ func TestEdgeSchemaEntQL(t *testing.T) {
 	nat := client.User.Create().SetName("nati").SaveX(ctx)
 	a8m := client.User.Create().SetName("a8m").AddLikedTweets(tweets...).SaveX(ctx)
 
-	// Using the regular fluent Api.
+	// Using the regular fluent API.
 	require.Equal(t, a8m.Id, client.User.Query().Where(user.HasLikes()).OnlyIdX(ctx))
 	require.Equal(t, nat.Id, client.User.Query().Where(user.Not(user.HasLikes())).OnlyIdX(ctx))
 
@@ -342,7 +342,7 @@ func TestEdgeSchemaEntQL(t *testing.T) {
 	require.Equal(t, nat.Id, q2.OnlyIdX(ctx))
 
 	nat.Update().AddLikedTweets(tweets[0]).ExecX(ctx)
-	// Using the regular fluent Api.
+	// Using the regular fluent API.
 	require.Equal(t, 2, client.User.Query().Where(user.HasLikesWith(tweetlike.TweetId(tweets[0].Id))).CountX(ctx))
 	require.Equal(t, 1, client.User.Query().Where(user.HasLikesWith(tweetlike.TweetId(tweets[1].Id))).CountX(ctx))
 	// Using EntQL.

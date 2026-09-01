@@ -38,14 +38,14 @@ const (
 	NextColumn = "node_next"
 )
 
-// Columns holds all Sql columns for node fields.
+// Columns holds all SQL columns for node fields.
 var Columns = []string{
 	FieldId,
 	FieldValue,
 	FieldUpdatedAt,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "node"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "node"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"node_next",

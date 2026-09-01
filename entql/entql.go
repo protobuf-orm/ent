@@ -2,7 +2,7 @@
 // This source code is licensed under the Apache 2.0 license found
 // in the LICENSE file in the root directory of this source tree.
 
-// Package entql provides an experimental Api for interacting dynamically
+// Package entql provides an experimental API for interacting dynamically
 // with ent queries. For more info, search for it in https://entgo.io.
 package entql
 

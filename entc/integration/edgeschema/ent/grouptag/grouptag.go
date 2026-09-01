@@ -42,7 +42,7 @@ const (
 	GroupColumn = "group_id"
 )
 
-// Columns holds all Sql columns for grouptag fields.
+// Columns holds all SQL columns for grouptag fields.
 var Columns = []string{
 	FieldId,
 	FieldTagId,

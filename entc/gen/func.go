@@ -327,7 +327,7 @@ func add(xs ...int) (n int) {
 }
 
 // AddAcronym makes word an initialism, so that a name containing it is
-// PascalCased with it in capitals: after AddAcronym("Api"), api_key becomes
+// PascalCased with it in capitals: after AddAcronym("API"), api_key becomes
 // ApiKey rather than ApiKey.
 //
 // The set starts empty. ent used to seed it from golint's list of common

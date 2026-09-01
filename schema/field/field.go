@@ -326,7 +326,7 @@ func (b *stringBuilder) StructTag(s string) *stringBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *stringBuilder) StorageKey(key string) *stringBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -463,7 +463,7 @@ func (b *timeBuilder) UpdateDefault(fn any) *timeBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *timeBuilder) StorageKey(key string) *timeBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -576,7 +576,7 @@ func (b *boolBuilder) StructTag(s string) *boolBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *boolBuilder) StorageKey(key string) *boolBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -739,7 +739,7 @@ func (b *bytesBuilder) Validate(fn func([]byte) error) *bytesBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *bytesBuilder) StorageKey(key string) *bytesBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -812,7 +812,7 @@ type jsonBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *jsonBuilder) StorageKey(key string) *jsonBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -850,7 +850,7 @@ func (b *jsonBuilder) StructTag(s string) *jsonBuilder {
 }
 
 // ValueScanner provides an external value scanner for the given GoType.
-// Using this option allows a Json column whose Go value is encoded by
+// Using this option allows a JSON column whose Go value is encoded by
 // something other than encoding/json, such as a protobuf message that
 // only protojson can see the fields of.
 //
@@ -932,7 +932,7 @@ func (b *sliceBuilder[T]) Validate(fn func([]T) error) *sliceBuilder[T] {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *sliceBuilder[T]) StorageKey(key string) *sliceBuilder[T] {
 	b.desc.StorageKey = key
 	return b
@@ -1086,7 +1086,7 @@ func (b *enumBuilder) Default(value string) *enumBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *enumBuilder) StorageKey(key string) *enumBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1196,7 +1196,7 @@ type uuidBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *uuidBuilder) StorageKey(key string) *uuidBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1242,7 +1242,7 @@ func (b *uuidBuilder) StructTag(s string) *uuidBuilder {
 
 // Default sets the function that is applied to set default value
 // of the field on creation. Codegen fails if the default function
-// doesn't return the same concrete that was set for the Uuid type.
+// doesn't return the same concrete that was set for the UUID type.
 //
 //	field.Uuid("id", uuid.UUID{}).
 //		Default(uuid.New)
@@ -1256,7 +1256,7 @@ func (b *uuidBuilder) Default(fn any) *uuidBuilder {
 }
 
 // ValueScanner provides an external value scanner for the given GoType.
-// Using this option allows Uuid types that do not implement the
+// Using this option allows UUID types that do not implement the
 // sql.Scanner and driver.Valuer interfaces, such as the one in the
 // standard library, which only marshals to and from text.
 //
@@ -1387,7 +1387,7 @@ func (b *otherBuilder) StructTag(s string) *otherBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In Sql dialects it is the column name.
+// In SQL dialects it is the column name.
 func (b *otherBuilder) StorageKey(key string) *otherBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1783,7 +1783,7 @@ func pkgPath(t reflect.Type) string {
 }
 
 // JsonValue prepares the result of an external ValueScanner for a Json
-// column. A Json column is written through encoding/json, which would
+// column. A JSON column is written through encoding/json, which would
 // encode the scanner's own output a second time: a string would arrive
 // quoted and a byte slice base64 encoded. Wrapping it in a
 // json.RawMessage says the value is already encoded and is passed

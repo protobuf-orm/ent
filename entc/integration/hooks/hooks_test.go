@@ -642,11 +642,11 @@ func TestSoftDelete(t *testing.T) {
 	).SaveX(ctx)
 	require.Equal(t, []int{pets[0].Id, pets[1].Id}, client.Pet.Query().Order(ent.Asc(pet.FieldId)).IdsX(ctx))
 
-	// DeleteOne using the Api.
+	// DeleteOne using the API.
 	client.Pet.DeleteOne(pets[1]).ExecX(ctx)
 	require.Equal(t, pets[0].Id, client.Pet.Query().OnlyIdX(ctx))
 
-	// Delete using the Api.
+	// Delete using the API.
 	n := client.Pet.Delete().ExecX(ctx)
 	require.Equal(t, 1, n)
 	require.False(t, client.Pet.Query().ExistX(ctx))

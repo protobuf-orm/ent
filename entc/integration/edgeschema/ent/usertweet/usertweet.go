@@ -46,7 +46,7 @@ const (
 	TweetColumn = "tweet_id"
 )
 
-// Columns holds all Sql columns for usertweet fields.
+// Columns holds all SQL columns for usertweet fields.
 var Columns = []string{
 	FieldId,
 	FieldCreatedAt,

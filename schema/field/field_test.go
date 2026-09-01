@@ -1018,7 +1018,7 @@ func TestString_MaxRuneLen(t *testing.T) {
 }
 
 func TestJsonValueScanner(t *testing.T) {
-	// A Json column is written through encoding/json, so whatever an
+	// A JSON column is written through encoding/json, so whatever an
 	// external ValueScanner returns has to say it is already encoded.
 	for _, tt := range []struct {
 		in   driver.Value

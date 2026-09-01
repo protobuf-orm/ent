@@ -113,7 +113,7 @@ const (
 	RolesUsersColumn = "user_id"
 )
 
-// Columns holds all Sql columns for user fields.
+// Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

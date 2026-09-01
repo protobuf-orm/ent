@@ -32,7 +32,7 @@ const (
 	TokenColumn = "account_token"
 )
 
-// Columns holds all Sql columns for account fields.
+// Columns holds all SQL columns for account fields.
 var Columns = []string{
 	FieldId,
 	FieldEmail,

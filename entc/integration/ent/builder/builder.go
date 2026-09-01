@@ -19,7 +19,7 @@ const (
 	Table = "builder"
 )
 
-// Columns holds all Sql columns for builder fields.
+// Columns holds all SQL columns for builder fields.
 var Columns = []string{
 	FieldId,
 }

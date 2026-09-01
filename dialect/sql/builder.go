@@ -3,10 +3,10 @@
 // in the LICENSE file in the root directory of this source tree.
 
 // Package sql provides wrappers around the standard database/sql package
-// to allow the generated code to interact with a statically-typed Api.
+// to allow the generated code to interact with a statically-typed API.
 //
 // Users that are interacting with this package should be aware that the
-// following builders don't check the given Sql syntax nor validate or escape
+// following builders don't check the given SQL syntax nor validate or escape
 // user-inputs. ~All validations are expected to be happened in the generated
 // ent package.
 package sql
@@ -255,7 +255,7 @@ func ConflictConstraint(name string) ConflictOption {
 }
 
 // ConflictWhere allows inference of partial unique indexes. See, PostgreSql
-// doc: https://www.postgresql.org/docs/current/sql-insert.html#Sql-ON-CONFLICT
+// doc: https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT
 func ConflictWhere(p *Predicate) ConflictOption {
 	return func(c *conflict) {
 		c.target.where = p
@@ -2225,7 +2225,7 @@ func (s *Selector) IntersectAll(t TableView) *Selector {
 // setOpQuerier implements Querier for a compound set operation (UNION, EXCEPT,
 // INTERSECT) where every branch is wrapped in parentheses. This is required
 // when branches contain ORDER BY, LIMIT, or OFFSET (MySql, Postgres, and the
-// Sql standard). SQLite does not support parenthesized branches; on that
+// SQL standard). SQLite does not support parenthesized branches; on that
 // dialect the parentheses — and any per-branch ORDER BY / LIMIT / OFFSET,
 // which SQLite cannot honour inside a compound SELECT — are silently omitted.
 // Use the package-level Union / UnionAll / Except / ExceptAll / Intersect /
@@ -2270,7 +2270,7 @@ func (q *setOpQuerier) Query() (string, []any) {
 // Union returns a Querier that combines selectors with UNION (DISTINCT),
 // wrapping every branch in parentheses. Use this instead of the chaining
 // method when branches carry their own ORDER BY, LIMIT, or OFFSET — MySql
-// and the Sql standard require parentheses in that case.
+// and the SQL standard require parentheses in that case.
 func Union(selectors ...*Selector) Querier {
 	return &setOpQuerier{op: string(setOpTypeUnion), selectors: selectors}
 }
@@ -2885,7 +2885,7 @@ func Window(fn func(*Builder)) *WindowBuilder {
 }
 
 // PartitionBy indicates to divide the query rows into groups by the given columns.
-// Note that, standard Sql spec allows partition only by columns, and in order to
+// Note that, standard SQL spec allows partition only by columns, and in order to
 // use the "expression" version, use the PartitionByExpr.
 func (w *WindowBuilder) PartitionBy(columns ...string) *WindowBuilder {
 	w.partition = func(b *Builder) {
@@ -3230,7 +3230,7 @@ type (
 	// StmtInfo holds an information regarding
 	// the statement
 	StmtInfo struct {
-		// The Dialect of the Sql driver.
+		// The Dialect of the SQL driver.
 		Dialect string
 	}
 	// ParamFormatter wraps the FormatPram function.
@@ -3285,7 +3285,7 @@ func (b *Builder) Args(a ...any) *Builder {
 // Argf appends an input argument to the builder
 // with the given format. For example:
 //
-//	FormatArg("Json(?)", b).
+//	FormatArg("JSON(?)", b).
 //	FormatArg("ST_GeomFromText(?)", geom)
 func (b *Builder) Argf(format string, a any) *Builder {
 	switch a := a.(type) {

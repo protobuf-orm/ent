@@ -346,7 +346,7 @@ func ConsistentVersioned(t *testing.T, devUrl string) {
 		schema.WithDialect(strings.Split(devUrl, "://")[0]), // Ent dialect to use
 		schema.WithFormatter(migrate.DefaultFormatter),      // Default Atlas formatter
 	}
-	// Run diff should generate a single Sql file containing the diff.
+	// Run diff should generate a single SQL file containing the diff.
 	err = migratev2.NamedDiff(ctx, devUrl, "first", opts...)
 	require.NoError(t, err)
 	files, err := dir.Files()
@@ -497,7 +497,7 @@ func V1ToV2(t *testing.T, dialect string, clientv1 *entv1.Client, clientv2 *entv
 	idRange(t, clientv2.Media.Create().SaveX(ctx).Id, 6<<32-1, 7<<32)
 	idRange(t, clientv2.Pet.Create().SaveX(ctx).Id, 7<<32-1, 8<<32)
 
-	// Sql specific predicates.
+	// SQL specific predicates.
 	EqualFold(t, clientv2)
 	ContainsFold(t, clientv2)
 
@@ -854,7 +854,7 @@ func fillNulls(dbdialect string) schema.ApplyHook {
 	return func(next schema.Applier) schema.Applier {
 		return schema.ApplyFunc(func(ctx context.Context, conn dialect.ExecQuerier, plan *migrate.Plan) error {
 			// There are three ways to UPDATE the NULL values to "Unknown" in this stage.
-			// Append a custom migrate.Change to the plan, execute an Sql statement directly
+			// Append a custom migrate.Change to the plan, execute an SQL statement directly
 			// on the dialect.ExecQuerier, or use the ent.Client used by the project.
 			drv := sql.NewDriver(dbdialect, sql.Conn{ExecQuerier: conn.(*sql.Tx)})
 			client := entv2.NewClient(entv2.Driver(drv))

@@ -64,7 +64,7 @@ const (
 	InfoColumn = "group_info"
 )
 
-// Columns holds all Sql columns for group fields.
+// Columns holds all SQL columns for group fields.
 var Columns = []string{
 	FieldId,
 	FieldActive,
@@ -74,7 +74,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "group"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "group"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_info",

@@ -99,7 +99,7 @@ func (User) Fields() []ent.Field {
 		// remove the max-length constraint from varchar.
 		field.String("workplace").
 			Optional(),
-		// Json field with database-default value.
+		// JSON field with database-default value.
 		field.Strings("roles").
 			Optional().
 			Annotations(entsql.Default(`[]`)),

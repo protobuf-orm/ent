@@ -31,7 +31,7 @@ const (
 	StreetsColumn = "city_streets"
 )
 
-// Columns holds all Sql columns for city fields.
+// Columns holds all SQL columns for city fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

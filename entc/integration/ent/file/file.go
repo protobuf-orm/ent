@@ -63,7 +63,7 @@ const (
 	FieldColumn = "file_field"
 )
 
-// Columns holds all Sql columns for file fields.
+// Columns holds all SQL columns for file fields.
 var Columns = []string{
 	FieldId,
 	FieldSetId,
@@ -76,7 +76,7 @@ var Columns = []string{
 	FieldCreateTime,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "file"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "file"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_type_files",

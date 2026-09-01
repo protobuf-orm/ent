@@ -59,7 +59,7 @@ const (
 	BestFriendColumn = "user_best_friend"
 )
 
-// Columns holds all Sql columns for user fields.
+// Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldId,
 	FieldVersion,
@@ -69,7 +69,7 @@ var Columns = []string{
 	FieldActive,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_best_friend",

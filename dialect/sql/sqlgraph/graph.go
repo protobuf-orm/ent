@@ -1203,7 +1203,7 @@ func (u *updater) nodes(ctx context.Context, drv dialect.Driver) (int, error) {
 	case len(u.Node.CompositeId) == 2:
 		// Other edge-schemas (M2M tables) cannot be updated by this operation.
 		// Also, in case there is a need to update an external foreign-key, it must
-		// be a single value and the user should use the "update by id" Api instead.
+		// be a single value and the user should use the "update by id" API instead.
 		if multiple {
 			return 0, fmt.Errorf("sql/sqlgraph: update edge schema table %q cannot update external tables", u.Node.Table)
 		}
@@ -1884,7 +1884,7 @@ func setTableColumns(fields []*FieldSpec, edges map[Rel][]*EdgeSpec, set func(st
 			if err != nil {
 				return fmt.Errorf("marshal value for column %s: %w", fi.Column, err)
 			}
-			// If the underlying driver does not support Json types,
+			// If the underlying driver does not support JSON types,
 			// driver.DefaultParameterConverter will convert it to uint8.
 			value = json.RawMessage(buf)
 		}

@@ -232,7 +232,7 @@ func scanStruct(typ reflect.Type, columns []string) (*rowScan, error) {
 		}
 		switch {
 		// If the field is not support by the standard
-		// convertAssign, assume it is a Json field.
+		// convertAssign, assume it is a JSON field.
 		case !supportsScan(rtype):
 			rtype = nullJsonType
 		// Create a pointer to the actual reflect

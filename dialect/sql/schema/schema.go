@@ -2,7 +2,7 @@
 // This source code is licensed under the Apache 2.0 license found
 // in the LICENSE file in the root directory of this source tree.
 
-// Package schema contains all schema migration logic for Sql dialects.
+// Package schema contains all schema migration logic for SQL dialects.
 package schema
 
 import (
@@ -27,7 +27,7 @@ import (
 const (
 	// DefaultStringLen describes the default length for string/varchar types.
 	DefaultStringLen int64 = 255
-	// Null is the string representation of NULL in Sql.
+	// Null is the string representation of NULL in SQL.
 	Null = "NULL"
 	// PrimaryKey is the string representation of PKs in Sql.
 	PrimaryKey = "PRI"

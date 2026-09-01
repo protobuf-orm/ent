@@ -58,7 +58,7 @@ const (
 	InfoColumn = "info_id"
 )
 
-// Columns holds all Sql columns for relationship fields.
+// Columns holds all SQL columns for relationship fields.
 var Columns = []string{
 	FieldWeight,
 	FieldUserId,

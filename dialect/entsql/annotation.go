@@ -13,7 +13,7 @@ import (
 )
 
 // Annotation is a builtin schema annotation for attaching
-// Sql metadata to schema objects for both codegen and runtime.
+// SQL metadata to schema objects for both codegen and runtime.
 type Annotation struct {
 	// The Schema option allows setting the schema which the table belongs to.
 	// Note, this option is no-op for Ent default migration engine. However, schema
@@ -194,7 +194,7 @@ type Annotation struct {
 	ViewFor map[string]string `json:"view_for,omitempty"`
 
 	// error occurs during annotation build. This field is not
-	// serialized to Json and used only by the codegen loader.
+	// serialized to JSON and used only by the codegen loader.
 	err error
 }
 
@@ -502,7 +502,7 @@ const (
 )
 
 // IndexAnnotation is a builtin schema annotation for attaching
-// Sql metadata to schema indexes for both codegen and runtime.
+// SQL metadata to schema indexes for both codegen and runtime.
 type IndexAnnotation struct {
 	// Prefix defines a column prefix for a single string column index.
 	// In MySql, the following annotation maps to:

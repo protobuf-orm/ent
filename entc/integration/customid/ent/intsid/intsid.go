@@ -32,12 +32,12 @@ const (
 	ChildrenColumn = "int_sid_parent"
 )
 
-// Columns holds all Sql columns for intsid fields.
+// Columns holds all SQL columns for intsid fields.
 var Columns = []string{
 	FieldId,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "int_sid"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "int_sid"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"int_sid_parent",

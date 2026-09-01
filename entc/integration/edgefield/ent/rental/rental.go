@@ -46,7 +46,7 @@ const (
 	CarColumn = "car_id"
 )
 
-// Columns holds all Sql columns for rental fields.
+// Columns holds all SQL columns for rental fields.
 var Columns = []string{
 	FieldId,
 	FieldDate,

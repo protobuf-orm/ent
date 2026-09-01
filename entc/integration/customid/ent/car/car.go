@@ -35,7 +35,7 @@ const (
 	OwnerColumn = "pet_cars"
 )
 
-// Columns holds all Sql columns for car fields.
+// Columns holds all SQL columns for car fields.
 var Columns = []string{
 	FieldId,
 	FieldBeforeId,
@@ -43,7 +43,7 @@ var Columns = []string{
 	FieldModel,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "car"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "car"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"pet_cars",

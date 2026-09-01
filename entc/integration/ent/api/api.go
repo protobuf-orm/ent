@@ -19,7 +19,7 @@ const (
 	Table = "api"
 )
 
-// Columns holds all Sql columns for api fields.
+// Columns holds all SQL columns for api fields.
 var Columns = []string{
 	FieldId,
 }

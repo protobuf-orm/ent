@@ -33,7 +33,7 @@ const (
 	PostColumn = "post_id"
 )
 
-// Columns holds all Sql columns for comment fields.
+// Columns holds all SQL columns for comment fields.
 var Columns = []string{
 	FieldId,
 	FieldText,

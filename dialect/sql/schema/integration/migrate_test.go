@@ -232,7 +232,7 @@ func TestMigrate_Diff(t *testing.T) {
 	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueId(true), entschema.WithIndent("  "))
 	require.NoError(t, err)
 	// Adding another node will result in a new entry to the TypeTable (without actually creating it).
-	// Applying the plan as generated also covers that it is valid Sql for a driver built with
+	// Applying the plan as generated also covers that it is valid SQL for a driver built with
 	// SqlITE_DQS=0, which is what schema.fixSequenceQuoting is there for.
 	_, err = db.ExecContext(ctx, changesSql)
 	require.NoError(t, err)

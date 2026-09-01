@@ -32,13 +32,13 @@ const (
 	AccountColumn = "account_token"
 )
 
-// Columns holds all Sql columns for token fields.
+// Columns holds all SQL columns for token fields.
 var Columns = []string{
 	FieldId,
 	FieldBody,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "token"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "token"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"account_token",

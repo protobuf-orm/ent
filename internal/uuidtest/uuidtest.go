@@ -2,14 +2,14 @@
 // This source code is licensed under the Apache 2.0 license found
 // in the LICENSE file in the root directory of this source tree.
 
-// Package uuidtest provides a database-compatible Uuid type for tests.
+// Package uuidtest provides a database-compatible UUID type for tests.
 //
 // The standard library uuid package marshals to and from text, but does not
-// implement driver.Valuer or sql.Scanner. Both are required by ent's Uuid
-// fields and by the Sql scanners, so this type adds them.
+// implement driver.Valuer or sql.Scanner. Both are required by ent's UUID
+// fields and by the SQL scanners, so this type adds them.
 //
 // It is defined over uuid.UUID rather than wrapping it in a struct, because
-// the Sql scanners treat a struct as a set of columns to map a row onto.
+// the SQL scanners treat a struct as a set of columns to map a row onto.
 package uuidtest
 
 import (

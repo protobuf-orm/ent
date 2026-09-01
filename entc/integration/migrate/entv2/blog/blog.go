@@ -33,7 +33,7 @@ const (
 	AdminsColumn = "blog_admins"
 )
 
-// Columns holds all Sql columns for blog fields.
+// Columns holds all SQL columns for blog fields.
 var Columns = []string{
 	FieldId,
 	FieldOid,

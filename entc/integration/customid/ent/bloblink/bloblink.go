@@ -46,7 +46,7 @@ const (
 	LinkColumn = "links_id"
 )
 
-// Columns holds all Sql columns for bloblink fields.
+// Columns holds all SQL columns for bloblink fields.
 var Columns = []string{
 	FieldCreatedAt,
 	FieldBlobId,

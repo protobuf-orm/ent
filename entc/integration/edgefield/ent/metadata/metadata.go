@@ -45,7 +45,7 @@ const (
 	ParentColumn = "parent_id"
 )
 
-// Columns holds all Sql columns for metadata fields.
+// Columns holds all SQL columns for metadata fields.
 var Columns = []string{
 	FieldId,
 	FieldAge,

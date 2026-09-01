@@ -5,7 +5,7 @@
 package schema
 
 // Annotation is used to attach arbitrary metadata to the schema objects in codegen.
-// The object must be serializable to Json raw value (e.g. struct, map or slice).
+// The object must be serializable to JSON raw value (e.g. struct, map or slice).
 //
 // Template extensions can retrieve this metadata and use it inside their templates.
 // Read more about it in ent website: https://entgo.io/docs/templates/#annotations.

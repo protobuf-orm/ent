@@ -46,7 +46,7 @@ const (
 	GroupColumn = "group_id"
 )
 
-// Columns holds all Sql columns for usergroup fields.
+// Columns holds all SQL columns for usergroup fields.
 var Columns = []string{
 	FieldId,
 	FieldJoinedAt,

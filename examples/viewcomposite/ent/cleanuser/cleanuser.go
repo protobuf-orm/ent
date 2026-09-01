@@ -19,7 +19,7 @@ const (
 	Table = "clean_user"
 )
 
-// Columns holds all Sql columns for cleanuser fields.
+// Columns holds all SQL columns for cleanuser fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

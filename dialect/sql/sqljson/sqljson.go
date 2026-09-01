@@ -36,10 +36,10 @@ func HasKey(column string, opts ...Option) *sql.Predicate {
 }
 
 // ValueIsNull return a predicate for checking that a Json value
-// (returned by the path) is a null literal (Json "null").
+// (returned by the path) is a null literal (JSON "null").
 //
 // In order to check if the column is NULL (database NULL), or if
-// the Json key exists, use sql.IsNull or sqljson.HasKey.
+// the JSON key exists, use sql.IsNull or sqljson.HasKey.
 //
 //	sqljson.ValueIsNull("a", sqljson.Path("b"))
 func ValueIsNull(column string, opts ...Option) *sql.Predicate {
@@ -64,7 +64,7 @@ func ValueIsNull(column string, opts ...Option) *sql.Predicate {
 }
 
 // ValueIsNotNull return a predicate for checking that a Json value
-// (returned by the path) is not null literal (Json "null").
+// (returned by the path) is not null literal (JSON "null").
 //
 //	sqljson.ValueIsNotNull("a", sqljson.Path("b"))
 func ValueIsNotNull(column string, opts ...Option) *sql.Predicate {
@@ -270,7 +270,7 @@ func valueInOp(column string, args []any, opts []Option, op sql.Op) *sql.Predica
 }
 
 // LenEQ return a predicate for checking that an array length
-// of a Json (returned by the path) is equal to the given argument.
+// of a JSON (returned by the path) is equal to the given argument.
 //
 //	sqljson.LenEQ("a", 1, sqljson.Path("b"))
 func LenEQ(column string, size int, opts ...Option) *sql.Predicate {
@@ -281,7 +281,7 @@ func LenEQ(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenNEQ return a predicate for checking that an array length
-// of a Json (returned by the path) is not equal to the given argument.
+// of a JSON (returned by the path) is not equal to the given argument.
 //
 //	sqljson.LenEQ("a", 1, sqljson.Path("b"))
 func LenNEQ(column string, size int, opts ...Option) *sql.Predicate {
@@ -292,7 +292,7 @@ func LenNEQ(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenGT return a predicate for checking that an array length
-// of a Json (returned by the path) is greater than the given
+// of a JSON (returned by the path) is greater than the given
 // argument.
 //
 //	sqljson.LenGT("a", 1, sqljson.Path("b"))
@@ -304,7 +304,7 @@ func LenGT(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenGTE return a predicate for checking that an array length
-// of a Json (returned by the path) is greater than or equal to
+// of a JSON (returned by the path) is greater than or equal to
 // the given argument.
 //
 //	sqljson.LenGTE("a", 1, sqljson.Path("b"))
@@ -316,7 +316,7 @@ func LenGTE(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenLT return a predicate for checking that an array length
-// of a Json (returned by the path) is less than the given
+// of a JSON (returned by the path) is less than the given
 // argument.
 //
 //	sqljson.LenLT("a", 1, sqljson.Path("b"))
@@ -328,7 +328,7 @@ func LenLT(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenLTE return a predicate for checking that an array length
-// of a Json (returned by the path) is less than or equal to
+// of a JSON (returned by the path) is less than or equal to
 // the given argument.
 //
 //	sqljson.LenLTE("a", 1, sqljson.Path("b"))
@@ -340,7 +340,7 @@ func LenLTE(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenPath returns an Sql expression for getting the length
-// of a Json value (returned by the path).
+// of a JSON value (returned by the path).
 func LenPath(column string, opts ...Option) sql.Querier {
 	return sql.ExprFunc(func(b *sql.Builder) {
 		lenPath(b, column, opts...)
@@ -348,7 +348,7 @@ func LenPath(column string, opts ...Option) sql.Querier {
 }
 
 // OrderLen returns a custom predicate function (as defined in the doc),
-// that sets the result order by the length of the given Json value.
+// that sets the result order by the length of the given JSON value.
 func OrderLen(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(LenPath(column, opts...))
@@ -356,7 +356,7 @@ func OrderLen(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // OrderLenDesc returns a custom predicate function (as defined in the doc), that
-// sets the result order by the length of the given Json value, but in descending order.
+// sets the result order by the length of the given JSON value, but in descending order.
 func OrderLenDesc(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(
@@ -366,7 +366,7 @@ func OrderLenDesc(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // LenPath writes to the given Sql builder the Json path for
-// getting the length of a given Json path.
+// getting the length of a given JSON path.
 //
 //	sqljson.LenPath(b, Path("a", "b", "[1]", "c"))
 func lenPath(b *sql.Builder, column string, opts ...Option) {
@@ -375,8 +375,8 @@ func lenPath(b *sql.Builder, column string, opts ...Option) {
 }
 
 // Append writes to the given Sql builder the Sql command for appending Json values
-// into the array, optionally defined as a key. Note, the generated Sql will use the
-// Go semantics, the Json column/key will be set to the given Array in case it is `null`
+// into the array, optionally defined as a key. Note, the generated SQL will use the
+// Go semantics, the JSON column/key will be set to the given Array in case it is `null`
 // or NULL. For example:
 //
 //	Append(u, column, []string{"a", "b"})
@@ -484,7 +484,7 @@ func ValuePath(column string, opts ...Option) sql.Querier {
 }
 
 // OrderValue returns a custom predicate function (as defined in the doc),
-// that sets the result order by the given Json value.
+// that sets the result order by the given JSON value.
 func OrderValue(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(ValuePath(column, opts...))
@@ -492,7 +492,7 @@ func OrderValue(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // OrderValueDesc returns a custom predicate function (as defined in the doc),
-// that sets the result order by the given Json value, but in descending order.
+// that sets the result order by the given JSON value, but in descending order.
 func OrderValueDesc(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(
@@ -502,8 +502,8 @@ func OrderValueDesc(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // valuePath writes to the given Sql builder the Json path for
-// getting the value of a given Json path.
-// Use sqljson.ValuePath for using a Json value as an argument.
+// getting the value of a given JSON path.
+// Use sqljson.ValuePath for using a JSON value as an argument.
 func valuePath(b *sql.Builder, column string, opts ...Option) {
 	path := identPath(column, opts...)
 	path.value(b)

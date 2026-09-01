@@ -31,13 +31,13 @@ const (
 	OwnerColumn = "user_pets"
 )
 
-// Columns holds all Sql columns for pet fields.
+// Columns holds all SQL columns for pet fields.
 var Columns = []string{
 	FieldId,
 	FieldName,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "pet"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "pet"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_pets",

@@ -47,7 +47,7 @@ const (
 	OwnerColumn = "user_tasks"
 )
 
-// Columns holds all Sql columns for task fields.
+// Columns holds all SQL columns for task fields.
 var Columns = []string{
 	FieldId,
 	FieldTitle,
@@ -56,7 +56,7 @@ var Columns = []string{
 	FieldUuid,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "task"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "task"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_tasks",

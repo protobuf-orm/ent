@@ -227,7 +227,7 @@ func (tx *tx) ExecContext(ctx context.Context, query string, args ...any) (stdsq
 
 // atSequenceRe matches the two statements Atlas generates to seed
 // sqlite_sequence for an AUTOINCREMENT table. It formats the table name with
-// %q, which is a Go string literal and, in Sql, a quoted identifier. SQLite
+// %q, which is a Go string literal and, in SQL, a quoted identifier. SQLite
 // reads it as a string only under the legacy double-quoted-string behaviour,
 // which drivers built with SqlITE_DQS=0 disable, and those reject it.
 //
@@ -241,7 +241,7 @@ var atSequenceRe = regexp.MustCompile(
 )
 
 // fixSequenceQuoting rewrites the double-quoted table name of any
-// sqlite_sequence statement in the plan into a Sql string literal, leaving
+// sqlite_sequence statement in the plan into a SQL string literal, leaving
 // every other statement untouched. Both the applied plan and the migration
 // files written from it are corrected. Once Atlas quotes the name itself, the
 // pattern stops matching and this becomes a no-op.
@@ -260,7 +260,7 @@ func fixSequenceQuoting(plan *migrate.Plan) {
 }
 
 // requoteSequence replaces the quoted identifier that names the table in a
-// sqlite_sequence statement with an equivalent Sql string literal.
+// sqlite_sequence statement with an equivalent SQL string literal.
 func requoteSequence(s string) string {
 	m := atSequenceRe.FindStringSubmatch(s)
 	if m == nil {

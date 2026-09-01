@@ -23,7 +23,7 @@ const (
 	Table = "value_scan"
 )
 
-// Columns holds all Sql columns for valuescan fields.
+// Columns holds all SQL columns for valuescan fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

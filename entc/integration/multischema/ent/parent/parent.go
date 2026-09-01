@@ -44,7 +44,7 @@ const (
 	ParentColumn = "parents_id"
 )
 
-// Columns holds all Sql columns for parent fields.
+// Columns holds all SQL columns for parent fields.
 var Columns = []string{
 	FieldId,
 	FieldByAdoption,

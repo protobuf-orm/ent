@@ -52,12 +52,12 @@ const (
 	PetsColumn = "user_pets"
 )
 
-// Columns holds all Sql columns for user fields.
+// Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldId,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_children",

@@ -37,7 +37,7 @@ const (
 	Table = "conversion"
 )
 
-// Columns holds all Sql columns for conversion fields.
+// Columns holds all SQL columns for conversion fields.
 var Columns = []string{
 	FieldId,
 	FieldName,

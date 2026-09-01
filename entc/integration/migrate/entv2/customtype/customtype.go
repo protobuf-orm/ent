@@ -25,7 +25,7 @@ const (
 	Table = "custom_type"
 )
 
-// Columns holds all Sql columns for customtype fields.
+// Columns holds all SQL columns for customtype fields.
 var Columns = []string{
 	FieldId,
 	FieldCustom,

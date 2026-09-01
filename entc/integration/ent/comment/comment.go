@@ -31,7 +31,7 @@ const (
 	Table = "comment"
 )
 
-// Columns holds all Sql columns for comment fields.
+// Columns holds all SQL columns for comment fields.
 var Columns = []string{
 	FieldId,
 	FieldUniqueInt,

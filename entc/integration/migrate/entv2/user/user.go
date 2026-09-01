@@ -91,7 +91,7 @@ const (
 	FriendsTable = "friends"
 )
 
-// Columns holds all Sql columns for user fields.
+// Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldId,
 	FieldMixedString,
@@ -117,7 +117,7 @@ var Columns = []string{
 	FieldDropOptional,
 }
 
-// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blog_admins",

@@ -43,7 +43,7 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 			b.WriteString("Json_INSERT").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				// If no path was provided the top-level value is
-				// a Json array. i.e. Json_INSERT(c, '$[#]', ?).
+				// a JSON array. i.e. Json_INSERT(c, '$[#]', ?).
 				path := func(b *sql.Builder) { b.WriteString("'$[#]'") }
 				if len(opts) > 0 {
 					p := identPath(column, opts...)

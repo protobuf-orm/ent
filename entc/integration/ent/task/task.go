@@ -38,7 +38,7 @@ const (
 	Table = "task"
 )
 
-// Columns holds all Sql columns for task fields.
+// Columns holds all SQL columns for task fields.
 var Columns = []string{
 	FieldId,
 	FieldPriority,

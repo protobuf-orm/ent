@@ -19,7 +19,7 @@ const (
 	Table = "zoo"
 )
 
-// Columns holds all Sql columns for zoo fields.
+// Columns holds all SQL columns for zoo fields.
 var Columns = []string{
 	FieldId,
 }

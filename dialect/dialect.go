@@ -23,10 +23,10 @@ const (
 // ExecQuerier wraps the 2 database operations.
 type ExecQuerier interface {
 	// Exec executes a query that does not return records. For example, in Sql, INSERT or UPDATE.
-	// It scans the result into the pointer v. For Sql drivers, it is dialect/sql.Result.
+	// It scans the result into the pointer v. For SQL drivers, it is dialect/sql.Result.
 	Exec(ctx context.Context, query string, args, v any) error
 	// Query executes a query that returns rows, typically a SELECT in Sql.
-	// It scans the result into the pointer v. For Sql drivers, it is *dialect/sql.Rows.
+	// It scans the result into the pointer v. For SQL drivers, it is *dialect/sql.Rows.
 	Query(ctx context.Context, query string, args, v any) error
 }
 

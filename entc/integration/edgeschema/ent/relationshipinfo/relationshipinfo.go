@@ -21,7 +21,7 @@ const (
 	Table = "relationship_info"
 )
 
-// Columns holds all Sql columns for relationshipinfo fields.
+// Columns holds all SQL columns for relationshipinfo fields.
 var Columns = []string{
 	FieldId,
 	FieldText,
