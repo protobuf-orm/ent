@@ -795,6 +795,9 @@ func (a *Atlas) diff(ctx context.Context, name string, current, desired *schema.
 			Comment: fmt.Sprintf("add pk ranges for %s tables", strings.Join(newTypes, ",")),
 		})
 	}
+	if _, ok := a.sqlDialect.(*SQLite); ok {
+		fixSequenceQuoting(plan)
+	}
 	return plan, nil
 }
 

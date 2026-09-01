@@ -9,6 +9,7 @@ import (
 	stdsql "database/sql"
 	"fmt"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -222,4 +223,47 @@ func (tx *tx) ExecContext(ctx context.Context, query string, args ...any) (stdsq
 		return nil, err
 	}
 	return r, nil
+}
+
+// atSequenceRe matches the statements Atlas generates to seed sqlite_sequence
+// for an AUTOINCREMENT table. It formats the table name with %q, which is a
+// Go string literal and, in SQL, a quoted identifier. SQLite only reads it as
+// a string under the legacy double-quoted-string setting, which drivers built
+// with SQLITE_DQS=0 disable, so those statements fail there.
+//
+// See ariga.io/atlas/sql/sqlite.(*state).autoIncrement.
+var atSequenceRe = regexp.MustCompile(`(sqlite_sequence [^"]*)("(?:[^"\\]|\\.)*")`)
+
+// fixSequenceQuoting rewrites the double-quoted table name of any
+// sqlite_sequence statement in the plan into a SQL string literal, leaving
+// every other statement untouched. Both the applied plan and the migration
+// files written from it are corrected.
+func fixSequenceQuoting(plan *migrate.Plan) {
+	for _, c := range plan.Changes {
+		c.Cmd = requoteSequence(c.Cmd)
+		switch r := c.Reverse.(type) {
+		case string:
+			c.Reverse = requoteSequence(r)
+		case []string:
+			for i := range r {
+				r[i] = requoteSequence(r[i])
+			}
+		}
+	}
+}
+
+// requoteSequence replaces the quoted identifier that names the table in a
+// sqlite_sequence statement with an equivalent SQL string literal.
+func requoteSequence(s string) string {
+	if !strings.Contains(s, "sqlite_sequence") {
+		return s
+	}
+	return atSequenceRe.ReplaceAllStringFunc(s, func(m string) string {
+		sm := atSequenceRe.FindStringSubmatch(m)
+		name, err := strconv.Unquote(sm[2])
+		if err != nil {
+			return m
+		}
+		return sm[1] + "'" + strings.ReplaceAll(name, "'", "''") + "'"
+	})
 }
