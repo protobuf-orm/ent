@@ -225,19 +225,26 @@ func (tx *tx) ExecContext(ctx context.Context, query string, args ...any) (stdsq
 	return r, nil
 }
 
-// atSequenceRe matches the statements Atlas generates to seed sqlite_sequence
-// for an AUTOINCREMENT table. It formats the table name with %q, which is a
-// Go string literal and, in SQL, a quoted identifier. SQLite only reads it as
-// a string under the legacy double-quoted-string setting, which drivers built
-// with SQLITE_DQS=0 disable, so those statements fail there.
+// atSequenceRe matches the two statements Atlas generates to seed
+// sqlite_sequence for an AUTOINCREMENT table. It formats the table name with
+// %q, which is a Go string literal and, in SQL, a quoted identifier. SQLite
+// reads it as a string only under the legacy double-quoted-string behaviour,
+// which drivers built with SQLITE_DQS=0 disable, and those reject it.
+//
+// The two shapes are matched in full rather than by looking for a quoted token
+// near "sqlite_sequence", so that an unrelated identifier in the same statement
+// is never turned into a string.
 //
 // See ariga.io/atlas/sql/sqlite.(*state).autoIncrement.
-var atSequenceRe = regexp.MustCompile(`(sqlite_sequence [^"]*)("(?:[^"\\]|\\.)*")`)
+var atSequenceRe = regexp.MustCompile(
+	`^(INSERT INTO sqlite_sequence \(name, seq\) VALUES \(|UPDATE sqlite_sequence SET seq = 0 WHERE name = )("(?:[^"\\]|\\.)*")`,
+)
 
 // fixSequenceQuoting rewrites the double-quoted table name of any
 // sqlite_sequence statement in the plan into a SQL string literal, leaving
 // every other statement untouched. Both the applied plan and the migration
-// files written from it are corrected.
+// files written from it are corrected. Once Atlas quotes the name itself, the
+// pattern stops matching and this becomes a no-op.
 func fixSequenceQuoting(plan *migrate.Plan) {
 	for _, c := range plan.Changes {
 		c.Cmd = requoteSequence(c.Cmd)
@@ -255,15 +262,13 @@ func fixSequenceQuoting(plan *migrate.Plan) {
 // requoteSequence replaces the quoted identifier that names the table in a
 // sqlite_sequence statement with an equivalent SQL string literal.
 func requoteSequence(s string) string {
-	if !strings.Contains(s, "sqlite_sequence") {
+	m := atSequenceRe.FindStringSubmatch(s)
+	if m == nil {
 		return s
 	}
-	return atSequenceRe.ReplaceAllStringFunc(s, func(m string) string {
-		sm := atSequenceRe.FindStringSubmatch(m)
-		name, err := strconv.Unquote(sm[2])
-		if err != nil {
-			return m
-		}
-		return sm[1] + "'" + strings.ReplaceAll(name, "'", "''") + "'"
-	})
+	name, err := strconv.Unquote(m[2])
+	if err != nil {
+		return s
+	}
+	return m[1] + "'" + strings.ReplaceAll(name, "'", "''") + "'" + s[len(m[0]):]
 }

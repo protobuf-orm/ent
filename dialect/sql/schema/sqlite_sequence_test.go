@@ -32,6 +32,15 @@ func TestFixSequenceQuoting(t *testing.T) {
 			Cmd:     "CREATE INDEX `user_phone` ON `user` (`phone`) WHERE \"phone\" <> ''",
 			Reverse: "DROP INDEX `user_phone`",
 		},
+		{
+			// A quoted identifier elsewhere in a statement that mentions the
+			// sequence table is not a name to rewrite.
+			Cmd: `UPDATE sqlite_sequence SET seq = 0 WHERE name = 'pets' AND "seq" > 0`,
+		},
+		{
+			// Once Atlas quotes the name itself, there is nothing to do.
+			Cmd: `INSERT INTO sqlite_sequence (name, seq) VALUES ('cars', 3)`,
+		},
 	}}
 	fixSequenceQuoting(plan)
 	require.Equal(t, `INSERT INTO sqlite_sequence (name, seq) VALUES ('users', 4294967296)`, plan.Changes[0].Cmd)
@@ -41,4 +50,6 @@ func TestFixSequenceQuoting(t *testing.T) {
 	require.Equal(t, []string{`UPDATE sqlite_sequence SET seq = 0 WHERE name = 'pets'`, `SELECT 1`}, plan.Changes[2].Reverse)
 	require.Equal(t, "CREATE INDEX `user_phone` ON `user` (`phone`) WHERE \"phone\" <> ''", plan.Changes[3].Cmd)
 	require.Equal(t, "DROP INDEX `user_phone`", plan.Changes[3].Reverse)
+	require.Equal(t, `UPDATE sqlite_sequence SET seq = 0 WHERE name = 'pets' AND "seq" > 0`, plan.Changes[4].Cmd)
+	require.Equal(t, `INSERT INTO sqlite_sequence (name, seq) VALUES ('cars', 3)`, plan.Changes[5].Cmd)
 }

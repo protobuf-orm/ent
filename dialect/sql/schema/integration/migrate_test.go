@@ -213,7 +213,7 @@ func TestMigrate_Diff(t *testing.T) {
 		"CREATE INDEX `short` ON `groups` (`id`);",
 		"CREATE INDEX `long____________________________1cb2e7e47a309191385af4ad320875b1` ON `groups` (`id`);",
 		"CREATE TABLE `users` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `name` text NOT NULL);",
-		fmt.Sprintf("INSERT INTO sqlite_sequence (name, seq) VALUES (\"users\", %d);", 1<<32),
+		fmt.Sprintf("INSERT INTO sqlite_sequence (name, seq) VALUES ('users', %d);", 1<<32),
 		"CREATE TABLE `user_groups` (`user_id` integer NOT NULL, `group_id` integer NOT NULL, PRIMARY KEY (`user_id`, `group_id`), CONSTRAINT `user_groups_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE, CONSTRAINT `user_groups_group_id` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE);",
 		"CREATE TABLE `ent_types` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `type` text NOT NULL);",
 		"CREATE UNIQUE INDEX `ent_types_type_key` ON `ent_types` (`type`);",
@@ -232,17 +232,15 @@ func TestMigrate_Diff(t *testing.T) {
 	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueID(true), entschema.WithIndent("  "))
 	require.NoError(t, err)
 	// Adding another node will result in a new entry to the TypeTable (without actually creating it).
-	// Atlas seeds sqlite_sequence with fmt.Sprintf("%q", name), which produces a double-quoted
-	// string literal. SQLite only reads that as a string under the legacy SQLITE_DQS setting,
-	// which this driver disables, so the plan is rewritten before it is applied here. Applying
-	// such a plan to a live database has the same problem, see the package documentation.
-	_, err = db.ExecContext(ctx, strings.ReplaceAll(changesSQL, `"users"`, `'users'`))
+	// Applying the plan as generated also covers that it is valid SQL for a driver built with
+	// SQLITE_DQS=0, which is what schema.fixSequenceQuoting is there for.
+	_, err = db.ExecContext(ctx, changesSQL)
 	require.NoError(t, err)
 	require.NoError(t, m.NamedDiff(ctx, "changes_2", petsTable))
 	requireFileEqual(t,
 		filepath.Join(p, "changes_2.sql"), strings.Join([]string{
 			"CREATE TABLE `pets` (\n  `id` integer NOT NULL PRIMARY KEY AUTOINCREMENT\n);",
-			fmt.Sprintf("INSERT INTO sqlite_sequence (name, seq) VALUES (\"pets\", %d);", 2<<32),
+			fmt.Sprintf("INSERT INTO sqlite_sequence (name, seq) VALUES ('pets', %d);", 2<<32),
 			"INSERT INTO `ent_types` (`type`) VALUES ('pets');", "",
 		}, "\n"))
 
