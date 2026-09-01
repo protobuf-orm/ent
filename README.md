@@ -37,8 +37,7 @@ For discussion and support, [open an issue](https://github.com/ent/ent/issues/ne
 The `ent` project was inspired by Ent, an entity framework used internally at Meta (Facebook). It was created by [a8m](https://github.com/a8m) and [alexsn](https://github.com/alexsn) from the [Facebook Connectivity][fbc] team. These days, it is developed and maintained by the [Atlas](https://github.com/ariga/atlas) team, and the roadmap for its v1 release is described [here](https://github.com/ent/ent/issues/46).
 
 ## Join the ent Community
-Building `ent` would not have been possible without the collective work of our entire community. We maintain a [contributors page](doc/md/contributors.md)
-which lists the contributors to this `ent`. 
+Building `ent` would not have been possible without the collective work of our entire community.
 
 In order to contribute to `ent`, see the [CONTRIBUTING](CONTRIBUTING.md) file for how to go get started.
 If your company or your product is using `ent`, please let us know by adding yourself to the [ent users page](https://github.com/ent/ent/wiki/ent-users).
