@@ -101,8 +101,8 @@ c, err := ent.Open(dialect, conn, ent.AlternateSchema(ent.SchemaConfig{
 	User: "usersdb",
 	Car: "carsdb",
 }))
-c.User.Query().All(ctx) // SELECT * FROM `usersdb`.`users`
-c.Car.Query().All(ctx) 	// SELECT * FROM `carsdb`.`cars`
+c.User.Query().All(ctx) // SELECT * FROM `usersdb`.`user`
+c.Car.Query().All(ctx) 	// SELECT * FROM `carsdb`.`car`
 ```
 
 ### Row-level Locks
@@ -274,16 +274,16 @@ The above code will produce the following SQL query:
 
 ```sql
 SELECT
-    `groups`.*,
+    `group`.*,
     COUNT(`t1`.`group_id`) AS `users_count`
 FROM
-    `groups` LEFT JOIN `user_groups` AS `t1`
+    `group` LEFT JOIN `user_groups` AS `t1`
 ON
-    `groups`.`id` = `t1`.`group_id`
+    `group`.`id` = `t1`.`group_id`
 GROUP BY
-    `groups`.`id`
+    `group`.`id`
 ORDER BY
-    `groups`.`id` ASC
+    `group`.`id` ASC
 ```
 
 
@@ -300,7 +300,7 @@ client.User.Update().
 The above code will produce the following SQL query:
 
 ```sql
-UPDATE `users` SET `name` = UPPER(`name`)
+UPDATE `user` SET `name` = UPPER(`name`)
 ```
 
 #### Modify Example 6
@@ -319,7 +319,7 @@ client.User.Update().
 The above code will produce the following SQL query:
 
 ```sql
-UPDATE `users` SET `id` = `id` + 1 ORDER BY `id` DESC
+UPDATE `user` SET `id` = `id` + 1 ORDER BY `id` DESC
 ```
 
 #### Modify Example 7
@@ -337,7 +337,7 @@ client.User.Update().
 The above code will produce the following SQL query:
 
 ```sql
-UPDATE `users` SET `tags` = CASE
+UPDATE `user` SET `tags` = CASE
     WHEN (JSON_TYPE(JSON_EXTRACT(`tags`, '$.values')) IS NULL OR JSON_TYPE(JSON_EXTRACT(`tags`, '$.values')) = 'NULL')
     THEN JSON_SET(`tags`, '$.values', JSON_ARRAY(?, ?))
     ELSE JSON_ARRAY_APPEND(`tags`, '$.values', ?, '$.values', ?) END
@@ -411,7 +411,7 @@ client.User.
 	UpdateNewValues().
 	Exec(ctx)
 
-// INSERT INTO "users" (...) VALUES ... ON CONFLICT WHERE ... DO UPDATE SET ... WHERE ...
+// INSERT INTO "user" (...) VALUES ... ON CONFLICT WHERE ... DO UPDATE SET ... WHERE ...
 ```
 
 ### Globally Unique ID

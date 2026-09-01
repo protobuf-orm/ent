@@ -97,11 +97,11 @@ atlas migrate diff add_user_title \
 
 Observe a new file named `20221115101649_add_user_title.sql` was created under
 the `ent/migrate/migrations/` directory. This file contains the SQL statements
-to create the newly added `title` field in the `users` table:
+to create the newly added `title` field in the `user` table:
 
 ```sql title=ent/migrate/migrations/20221115101649_add_user_title.sql
--- modify "users" table
-ALTER TABLE `users` ADD COLUMN `title` varchar(255) NULL;
+-- modify "user" table
+ALTER TABLE `user` ADD COLUMN `title` varchar(255) NULL;
 ```
 
 Great! We've successfully used the Atlas CLI to automatically
@@ -117,7 +117,7 @@ Atlas reports:
 Migrating to version 20221115101649 from 20221114165732 (1 migrations in total):
 
   -- migrating version 20221115101649
-    -> ALTER TABLE `users` ADD COLUMN `title` varchar(255) NULL;
+    -> ALTER TABLE `user` ADD COLUMN `title` varchar(255) NULL;
   -- ok (36.152277ms)
 
   -------------------------

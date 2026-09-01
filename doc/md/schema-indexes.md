@@ -206,9 +206,9 @@ func (User) Indexes() []ent.Index {
 The code above generates the following SQL statements:
 
 ```sql
-CREATE INDEX `users_description` ON `users`(`description`(128))
+CREATE INDEX `user_description` ON `user`(`description`(128))
 
-CREATE INDEX `users_c1_c2_c3` ON `users`(`c1`(100), `c2`(200), `c3`)
+CREATE INDEX `user_c1_c2_c3` ON `user`(`c1`(100), `c2`(200), `c3`)
 ```
 
 ## Atlas Support
@@ -257,26 +257,26 @@ func (User) Indexes() []ent.Index {
 The code above generates the following SQL statements:
 
 ```sql
-CREATE INDEX `users_c1` ON `users` (`c1` DESC)
+CREATE INDEX `user_c1` ON `user` (`c1` DESC)
 
-CREATE INDEX `users_c1_c2_c3` ON `users` (`c1` DESC, `c2` DESC, `c3`)
+CREATE INDEX `user_c1_c2_c3` ON `user` (`c1` DESC, `c2` DESC, `c3`)
 
-CREATE INDEX `users_c4` ON `users` USING HASH (`c4`)
+CREATE INDEX `user_c4` ON `user` USING HASH (`c4`)
 
 -- MySQL only.
-CREATE FULLTEXT INDEX `users_c5` ON `users` (`c5`)
+CREATE FULLTEXT INDEX `user_c5` ON `user` (`c5`)
 
 -- PostgreSQL only.
-CREATE INDEX "users_c5" ON "users" USING GIN ("c5")
+CREATE INDEX "user_c5" ON "user" USING GIN ("c5")
 
 -- Include index-only scan on PostgreSQL.
-CREATE INDEX "users_workplace" ON "users" ("workplace") INCLUDE ("address")
+CREATE INDEX "user_workplace" ON "user" ("workplace") INCLUDE ("address")
 
 -- Define partial index on SQLite and PostgreSQL.
-CREATE INDEX "users_nickname" ON "users" ("nickname") WHERE "active"
+CREATE INDEX "user_nickname" ON "user" ("nickname") WHERE "active"
 
 -- PostgreSQL only.
-CREATE INDEX "users_phone" ON "users" ("phone" bpchar_pattern_ops)
+CREATE INDEX "user_phone" ON "user" ("phone" bpchar_pattern_ops)
 ```
 
 ## Functional Indexes

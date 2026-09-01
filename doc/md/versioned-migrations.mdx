@@ -134,8 +134,8 @@ values={[
 <TabItem value="migration_file">
 
 ```sql
--- create "users" table
-CREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+-- create "user" table
+CREATE TABLE `user` (`id` bigint NOT NULL AUTO_INCREMENT, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
 
 ```
 
@@ -552,8 +552,8 @@ values={[
 <TabItem value="migration_file">
 
 ```sql
--- create "users" table
-CREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+-- create "user" table
+CREATE TABLE `user` (`id` bigint NOT NULL AUTO_INCREMENT, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
 
 ```
 
@@ -752,22 +752,22 @@ have a special database table named `ent_types`. The above command will create t
 that table as well as its contents (similar to the following):
 
 ```sql
-CREATE TABLE `users` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT);
-CREATE TABLE `groups` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT);
-INSERT INTO sqlite_sequence (name, seq) VALUES ("groups", 4294967296);
+CREATE TABLE `user` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT);
+CREATE TABLE `group` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT);
+INSERT INTO sqlite_sequence (name, seq) VALUES ('group', 4294967296);
 CREATE TABLE `ent_types` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `type` text NOT NULL);
 CREATE UNIQUE INDEX `ent_types_type_key` ON `ent_types` (`type`);
-INSERT INTO `ent_types` (`type`) VALUES ('users'), ('groups');
+INSERT INTO `ent_types` (`type`) VALUES ('user'), ('group');
 ```
 
 In order to ensure to not break existing code, make sure the contents of that file are equal to the contents in the
 table present in the database you created the diff from. For example, if you consider the migration file from
-above (`users,groups`) but your deployed table looks like the one below (`groups,users`):
+above (`user,group`) but your deployed table looks like the one below (`group,user`):
 
-| id  | type   |
-|-----|--------|
-| 1   | groups |
-| 2   | users  |
+| id  | type  |
+|-----|-------|
+| 1   | group |
+| 2   | user  |
 
 You can see, that the order differs. In that case, you have to manually change both the entries in the generated
 migration file.
@@ -799,8 +799,8 @@ Assume both Team A and Team B add a new schema called User and generate a versio
 branch.
 
 ```sql title="20220318104614_team_A.sql"
--- create "users" table
-CREATE TABLE `users` (
+-- create "user" table
+CREATE TABLE `user` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     // highlight-start
     `team_a_col` INTEGER NOT NULL,
@@ -810,8 +810,8 @@ CREATE TABLE `users` (
 ```
 
 ```sql title="20220318104615_team_B.sql"
--- create "users" table
-CREATE TABLE `users` (
+-- create "user" table
+CREATE TABLE `user` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     // highlight-start
      `team_b_col` INTEGER NOT NULL,
@@ -824,11 +824,11 @@ If they both merge their branch into master, git will not raise a conflict and e
 apply the pending migrations will result in migration failure:
 
 ```shell
-mysql> CREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT, `team_a_col` INTEGER NOT NULL, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+mysql> CREATE TABLE `user` (`id` bigint NOT NULL AUTO_INCREMENT, `team_a_col` INTEGER NOT NULL, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
 [2022-04-14 10:00:38] completed in 31 ms
 
-mysql> CREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT, `team_b_col` INTEGER NOT NULL, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
-[2022-04-14 10:00:48] [42S01][1050] Table 'users' already exists
+mysql> CREATE TABLE `user` (`id` bigint NOT NULL AUTO_INCREMENT, `team_b_col` INTEGER NOT NULL, PRIMARY KEY (`id`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+[2022-04-14 10:00:48] [42S01][1050] Table 'user' already exists
 ```
 
 Depending on the SQL this can potentially leave your database in a crippled state.

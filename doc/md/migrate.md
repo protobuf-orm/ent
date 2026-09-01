@@ -424,7 +424,7 @@ func fillNulls(next schema.Applier) schema.Applier {
 		//
 		//  plan.Changes = append([]*migrate.Change{
 		//	    {
-		//		    Cmd: fmt.Sprintf("UPDATE users SET %[1]s = '%[2]s' WHERE %[1]s IS NULL", user.FieldDropOptional, "Unknown"),
+		//		    Cmd: fmt.Sprintf("UPDATE user SET %[1]s = '%[2]s' WHERE %[1]s IS NULL", user.FieldDropOptional, "Unknown"),
 		//	    },
 		//  }, plan.Changes...)
 

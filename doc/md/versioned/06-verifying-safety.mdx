@@ -105,8 +105,8 @@ atlas migrate diff user_title_required \
 A new migration file was created in the `ent/migrate/migrations` directory:
 
 ```sql title="ent/migrate/migrations/20221116051710_user_title_required.sql"
--- modify "users" table
-ALTER TABLE `users` MODIFY COLUMN `title` varchar(255) NOT NULL;
+-- modify "user" table
+ALTER TABLE `user` MODIFY COLUMN `title` varchar(255) NOT NULL;
 ```
 
 Now, let's lint the migration directory:
@@ -211,10 +211,10 @@ Let's fix the issue by back-filling the `title` column. Add the following
 statement to the migration file:
 
 ```sql title="ent/migrate/migrations/20221116051710_user_title_required.sql"
--- modify "users" table
-UPDATE `users` SET `title` = "" WHERE `title` IS NULL;
+-- modify "user" table
+UPDATE `user` SET `title` = "" WHERE `title` IS NULL;
 
-ALTER TABLE `users` MODIFY COLUMN `title` varchar(255) NOT NULL;
+ALTER TABLE `user` MODIFY COLUMN `title` varchar(255) NOT NULL;
 ```
 
 Re-hash the migration directory:

@@ -45,7 +45,7 @@ atlas migrate new <migration_name> \
 3\. Edit the migration file and add the custom data migration there. For example:
 ```sql title="ent/migrate/migrations/20221126185750_backfill_data.sql"
 -- Backfill NULL or null tags with a default value.
-UPDATE `users` SET `tags` = '["foo","bar"]' WHERE `tags` IS NULL OR JSON_CONTAINS(`tags`, 'null', '$');
+UPDATE `user` SET `tags` = '["foo","bar"]' WHERE `tags` IS NULL OR JSON_CONTAINS(`tags`, 'null', '$');
 ```
 
 4\. Update the migration directory [integrity file](https://atlasgo.io/concepts/migration-directory-integrity):
@@ -103,7 +103,7 @@ Then, using this function in `ent/migrate/main.go` will generate the following m
 
 ```sql title="migrations/20221126185750_unknown_names.sql"
 -- Backfill all empty user names with default value 'unknown'.
-UPDATE `users` SET `name` = 'Unknown' WHERE `users`.`name` = '';
+UPDATE `user` SET `name` = 'Unknown' WHERE `user`.`name` = '';
 ```
 
 </TabItem>
@@ -168,9 +168,9 @@ Then, using this function in `ent/migrate/main.go` will generate the following m
 
 ```sql title="migrations/20221126185750_backfill_user_tags.sql"
 -- Backfill NULL or null tags with a default value.
-UPDATE `users` SET `tags` = '["foo","bar"]' WHERE `tags` IS NULL OR JSON_CONTAINS(`tags`, 'null', '$');
+UPDATE `user` SET `tags` = '["foo","bar"]' WHERE `tags` IS NULL OR JSON_CONTAINS(`tags`, 'null', '$');
 -- Append the 'org' tag for organization accounts in case they don't have it.
-UPDATE `users` SET `tags` = CASE WHEN (JSON_TYPE(JSON_EXTRACT(`tags`, '$')) IS NULL OR JSON_TYPE(JSON_EXTRACT(`tags`, '$')) = 'NULL') THEN JSON_ARRAY('org') ELSE JSON_ARRAY_APPEND(`tags`, '$', 'org') END WHERE (`users`.`name` LIKE 'org-%' OR `users`.`name` LIKE '%-org') AND (NOT (JSON_CONTAINS(`tags`, '"org"', '$') = 1));
+UPDATE `user` SET `tags` = CASE WHEN (JSON_TYPE(JSON_EXTRACT(`tags`, '$')) IS NULL OR JSON_TYPE(JSON_EXTRACT(`tags`, '$')) = 'NULL') THEN JSON_ARRAY('org') ELSE JSON_ARRAY_APPEND(`tags`, '$', 'org') END WHERE (`user`.`name` LIKE 'org-%' OR `user`.`name` LIKE '%-org') AND (NOT (JSON_CONTAINS(`tags`, '"org"', '$') = 1));
 ```
 
 </TabItem>
@@ -205,7 +205,7 @@ Then, using this function in `ent/migrate/main.go` will generate the following m
 
 ```sql title="migrations/20221126212120_seed_users.sql"
 -- Add the initial users to the database.
-INSERT INTO `users` (`age`, `name`, `tags`) VALUES (1, 'a8m', '["foo"]'), (1, 'nati', '["bar"]');
+INSERT INTO `user` (`age`, `name`, `tags`) VALUES (1, 'a8m', '["foo"]'), (1, 'nati', '["bar"]');
 ```
 
 </TabItem>

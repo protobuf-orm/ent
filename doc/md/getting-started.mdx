@@ -450,17 +450,17 @@ atlas schema inspect \
 #### SQL Output
 
 ```sql
--- Create "cars" table
-CREATE TABLE `cars` (
+-- Create "car" table
+CREATE TABLE `car` (
   `id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   `model` text NOT NULL,
   `registered_at` datetime NOT NULL,
   `user_cars` integer NULL,
-  CONSTRAINT `cars_users_cars` FOREIGN KEY (`user_cars`) REFERENCES `users` (`id`) ON DELETE SET NULL
+  CONSTRAINT `car_user_cars` FOREIGN KEY (`user_cars`) REFERENCES `user` (`id`) ON DELETE SET NULL
 );
 
--- Create "users" table
-CREATE TABLE `users` (
+-- Create "user" table
+CREATE TABLE `user` (
   `id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   `age` integer NOT NULL,
   `name` text NOT NULL DEFAULT 'unknown'

@@ -33,7 +33,7 @@ Observe that a new file named `20221115102552_seed_users.sql` was created in the
 Continue by opening the file and adding the following SQL statements:
 
 ```sql
-INSERT INTO `users` (`name`, `email`, `title`)
+INSERT INTO `user` (`name`, `email`, `title`)
 VALUES ('Jerry Seinfeld', 'jerry@seinfeld.io', 'Mr.'),
        ('George Costanza', 'george@costanza.io', 'Mr.')
 ```
@@ -76,7 +76,7 @@ Atlas reports:
 Migrating to version 20221115102552 from 20221115101649 (1 migrations in total):
 
   -- migrating version 20221115102552
-    -> INSERT INTO `users` (`name`, `email`, `title`)
+    -> INSERT INTO `user` (`name`, `email`, `title`)
 VALUES ('Jerry Seinfeld', 'jerry@seinfeld.io', 'Mr.'),
        ('George Costanza', 'george@costanza.io', 'Mr.')
   -- ok (9.077102ms)

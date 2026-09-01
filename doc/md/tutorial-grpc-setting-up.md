@@ -85,4 +85,4 @@ Notice that new files were created from our schema definition:
 └── go.sum
 ```
 
-At this point, we can open a connection to a database, run a migration to create the `users` table, and start reading and writing data to it. This is covered on the [Setup Tutorial](tutorial-setup.md), so let's cut to the chase and learn about generating Protobuf definitions and gRPC servers from our schema.
+At this point, we can open a connection to a database, run a migration to create the `user` table, and start reading and writing data to it. This is covered on the [Setup Tutorial](tutorial-setup.md), so let's cut to the chase and learn about generating Protobuf definitions and gRPC servers from our schema.

@@ -5,7 +5,6 @@ title: Multi-Schema Migration
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import InstallationInstructions from './components/_installation_instructions.mdx';
 
 Using the [Atlas](https://atlasgo.io) migration engine, an Ent schema can be defined and managed across multiple
 database schemas. This guides show how to achieve this with three simple steps:
@@ -17,17 +16,10 @@ atlas login
 ```
 :::
 
-## Install Atlas
+## Set up the Atlas CLI
 
-<InstallationInstructions />
-
-## Login to Atlas
-
-```shell
-$ atlas login a8m
-//highlight-next-line-info
-You are now connected to "a8m" on Atlas Cloud.
-```
+This feature is planned and applied by the Atlas CLI, not by Ent, and it needs an Atlas Cloud account. Install the
+CLI and run `atlas login` as described at [atlasgo.io](https://atlasgo.io/getting-started) before continuing.
 
 ## Annotate your Ent schemas
 
@@ -175,6 +167,6 @@ c, err := ent.Open(dialect, conn, ent.AlternateSchema(ent.SchemaConfig{
 	User: "usersdb",
 	Car:  "carsdb",
 }))
-c.User.Query().All(ctx) // SELECT * FROM `usersdb`.`users`
-c.Car.Query().All(ctx)  // SELECT * FROM `carsdb`.`cars`
+c.User.Query().All(ctx) // SELECT * FROM `usersdb`.`user`
+c.Car.Query().All(ctx)  // SELECT * FROM `carsdb`.`car`
 ```

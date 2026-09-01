@@ -101,7 +101,7 @@ pets := client.Pet.
 ```
 The above code will produce the following SQL query:
 ```sql
-SELECT DISTINCT `pets`.`id`, `pets`.`owner_id` FROM `pets` WHERE `owner_id` IN (1, 2, 3)
+SELECT DISTINCT `pet`.`id`, `pet`.`owner_id` FROM `pet` WHERE `owner_id` IN (1, 2, 3)
 ```
 
 #### Count the number of users whose JSON field named `URL` contains the `Scheme` key
@@ -119,10 +119,10 @@ The above code will produce the following SQL query:
 
 ```sql
 -- PostgreSQL
-SELECT COUNT(DISTINCT "users"."id") FROM "users" WHERE "url"->'Scheme' IS NOT NULL
+SELECT COUNT(DISTINCT "user"."id") FROM "user" WHERE "url"->'Scheme' IS NOT NULL
 
 -- SQLite and MySQL
-SELECT COUNT(DISTINCT `users`.`id`) FROM `users` WHERE JSON_EXTRACT(`url`, "$.Scheme") IS NOT NULL
+SELECT COUNT(DISTINCT `user`.`id`) FROM `user` WHERE JSON_EXTRACT(`url`, "$.Scheme") IS NOT NULL
 ```
 
 #### Get all users with a `"Tesla"` car
@@ -177,13 +177,13 @@ The above code will produce the following SQL query:
 
 ```sql
 -- `IN` version.
-SELECT DISTINCT `users`.`id`, `users`.`age`, `users`.`name` FROM `users` WHERE `users`.`id` IN (SELECT `cars`.`owner_id` FROM `cars` WHERE `cars`.`model` = 'Tesla')
+SELECT DISTINCT `user`.`id`, `user`.`age`, `user`.`name` FROM `user` WHERE `user`.`id` IN (SELECT `car`.`owner_id` FROM `car` WHERE `car`.`model` = 'Tesla')
 
 -- `JOIN` version.
-SELECT DISTINCT `users`.`id`, `users`.`age`, `users`.`name` FROM `users` JOIN `cars` ON `users`.`id` = `cars`.`owner_id` WHERE `cars`.`model` = 'Tesla'
+SELECT DISTINCT `user`.`id`, `user`.`age`, `user`.`name` FROM `user` JOIN `car` ON `user`.`id` = `car`.`owner_id` WHERE `car`.`model` = 'Tesla'
 
 -- `EXISTS` version.
-SELECT DISTINCT `users`.`id`, `users`.`age`, `users`.`name` FROM `users` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`model` = 'Tesla' AND `users`.`id` = `cars`.`owner_id`)
+SELECT DISTINCT `user`.`id`, `user`.`age`, `user`.`name` FROM `user` WHERE EXISTS (SELECT * FROM `car` WHERE `car`.`model` = 'Tesla' AND `user`.`id` = `car`.`owner_id`)
 ```
 
 #### Get all pets where pet name contains a specific pattern
@@ -202,7 +202,7 @@ pets := client.Pet.Query().
 The above code will produce the following SQL query:
 
 ```sql
-SELECT DISTINCT `pets`.`id`, `pets`.`owner_id`, `pets`.`name`, `pets`.`age`, `pets`.`species` FROM `pets` WHERE `name` LIKE '_B%'
+SELECT DISTINCT `pet`.`id`, `pet`.`owner_id`, `pet`.`name`, `pet`.`age`, `pet`.`species` FROM `pet` WHERE `name` LIKE '_B%'
 ```
 
 #### Custom SQL functions
@@ -225,7 +225,7 @@ users := client.User.Query().
 The above code will produce the following SQL query:
 
 ```sql
-SELECT `id` FROM `users` WHERE DATE(`last_login_at`) >= ?
+SELECT `id` FROM `user` WHERE DATE(`last_login_at`) >= ?
 ```
 
 2\. Inline a predicate expression using the `ExprP()` option:
@@ -242,7 +242,7 @@ users := client.User.Query().
 The above code will produce the same SQL query:
 
 ```sql
-SELECT `id` FROM `users` WHERE DATE(`last_login_at`) >= ?
+SELECT `id` FROM `user` WHERE DATE(`last_login_at`) >= ?
 ```
 
 ## JSON predicates

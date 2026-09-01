@@ -199,10 +199,10 @@ The second file is the actual migration file, which is named after the label we 
 script:
 
 ```sql title=ent/migrate/migrations/20221114165732_initial.sql
--- create "users" table
-CREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, PRIMARY KEY (`id`), UNIQUE INDEX `email` (`email`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
--- create "blogs" table
-CREATE TABLE `blogs` (`id` bigint NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `body` longtext NOT NULL, `created_at` timestamp NOT NULL, `user_blog_posts` bigint NULL, PRIMARY KEY (`id`), CONSTRAINT `blogs_users_blog_posts` FOREIGN KEY (`user_blog_posts`) REFERENCES `users` (`id`) ON DELETE SET NULL) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+-- create "user" table
+CREATE TABLE `user` (`id` bigint NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, PRIMARY KEY (`id`), UNIQUE INDEX `email` (`email`)) CHARSET utf8mb4 COLLATE utf8mb4_bin;
+-- create "blog" table
+CREATE TABLE `blog` (`id` bigint NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `body` longtext NOT NULL, `created_at` timestamp NOT NULL, `user_blog_posts` bigint NULL, PRIMARY KEY (`id`), CONSTRAINT `blog_user_blog_posts` FOREIGN KEY (`user_blog_posts`) REFERENCES `user` (`id`) ON DELETE SET NULL) CHARSET utf8mb4 COLLATE utf8mb4_bin;
 ```
 
 ## Other migration tools
