@@ -4,7 +4,7 @@ possible.
 
 # Project structure
 
-- `dialect` - Contains SQL and Gremlin code used by the generated code.
+- `dialect` - Contains the SQL code used by the generated code.
   - `dialect/sql/schema` - Auto migration logic resides there.
   - `dialect/sql/sqljson` - JSON extension for SQL.
 

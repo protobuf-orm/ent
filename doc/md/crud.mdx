@@ -23,7 +23,6 @@ values={[
 {label: 'SQLite', value: 'sqlite'},
 {label: 'PostgreSQL', value: 'postgres'},
 {label: 'MySQL', value: 'mysql'},
-{label: 'Gremlin (AWS Neptune)', value: 'gremlin'},
 ]}>
 <TabItem value="sqlite">
 
@@ -104,26 +103,6 @@ func main() {
 	// Run the auto migration tool.
 	if err := client.Schema.Create(context.Background()); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
-	}
-}
-```
-
-</TabItem>
-<TabItem value="gremlin">
-
-```go
-package main
-
-import (
-	"log"
-
-	"entdemo/ent"
-)
-
-func main() {
-	client, err := ent.Open("gremlin", "http://localhost:8182")
-	if err != nil {
-		log.Fatal(err)
 	}
 }
 ```

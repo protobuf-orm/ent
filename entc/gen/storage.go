@@ -11,7 +11,6 @@ import (
 	"slices"
 	"strings"
 
-	"entgo.io/ent/dialect/gremlin/graph/dsl"
 	"entgo.io/ent/dialect/sql"
 )
 
@@ -95,23 +94,6 @@ var drivers = []*Storage{
 			}
 		},
 	},
-	{
-		Name:      "gremlin",
-		IdentName: "Gremlin",
-		Builder:   reflect.TypeOf(&dsl.Traversal{}),
-		Dialects:  []string{"dialect.Gremlin"},
-		Imports: []string{
-			"entgo.io/ent/dialect/gremlin",
-			"entgo.io/ent/dialect/gremlin/graph/dsl",
-			"entgo.io/ent/dialect/gremlin/graph/dsl/__",
-			"entgo.io/ent/dialect/gremlin/graph/dsl/g",
-			"entgo.io/ent/dialect/gremlin/graph/dsl/p",
-			"entgo.io/ent/dialect/gremlin/encoding/graphson",
-		},
-		SchemaMode: Unique,
-		OpCode:     opCodes(gremlinCode[:]),
-		Init:       func(*Graph) error { return nil }, // Noop.
-	},
 }
 
 // NewStorage returns the storage driver type from the given string.
@@ -134,16 +116,6 @@ var (
 	sqlCode = [...]string{
 		IsNil:  "IsNull",
 		NotNil: "NotNull",
-	}
-	// exceptional operation names in gremlin.
-	gremlinCode = [...]string{
-		IsNil:     "HasNot",
-		NotNil:    "Has",
-		In:        "Within",
-		NotIn:     "Without",
-		Contains:  "Containing",
-		HasPrefix: "StartingWith",
-		HasSuffix: "EndingWith",
 	}
 )
 

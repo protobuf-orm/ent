@@ -293,7 +293,7 @@ func (t Type) HasOneFieldID() bool {
 	return !t.HasCompositeID() && t.ID != nil
 }
 
-// Label returns Gremlin label name of the node/type.
+// Label returns the label name of the node/type.
 func (t Type) Label() string {
 	return snake(t.Name)
 }
@@ -529,22 +529,6 @@ func (t Type) NumMixin() int {
 		}
 	}
 	return len(m)
-}
-
-// NumConstraint returns the type's constraint count. Used for slice allocation.
-func (t Type) NumConstraint() int {
-	var n int
-	for _, f := range t.Fields {
-		if f.Unique {
-			n++
-		}
-	}
-	for _, e := range t.Edges {
-		if e.HasConstraint() {
-			n++
-		}
-	}
-	return n
 }
 
 // MutableFields returns all type fields that are mutable (on update).
@@ -1688,7 +1672,7 @@ func (f Field) sqlComment() string {
 }
 
 // StorageKey returns the storage name of the field.
-// SQL column or Gremlin property.
+// SQL column.
 func (f Field) StorageKey() string {
 	if f.def != nil && f.def.StorageKey != "" {
 		return f.def.StorageKey
@@ -1888,7 +1872,7 @@ func (f *Field) Ops() []Op {
 	return ops
 }
 
-// Label returns the Gremlin label name of the edge.
+// Label returns the label name of the edge.
 // If the edge is inverse
 func (e Edge) Label() string {
 	if e.IsInverse() {
@@ -1917,19 +1901,6 @@ func (e Edge) O2O() bool { return e.Rel.Type == O2O }
 // IsInverse returns if this edge is an inverse edge.
 func (e Edge) IsInverse() bool { return e.Inverse != "" }
 
-// LabelConstant returns the constant name of the edge for the gremlin dialect.
-// If the edge is inverse, it returns the constant name of the owner-edge (assoc-edge).
-func (e Edge) LabelConstant() string {
-	name := e.Name
-	if e.IsInverse() {
-		name = e.Inverse
-	}
-	return pascal(name) + "Label"
-}
-
-// InverseLabelConstant returns the inverse constant name of the edge.
-func (e Edge) InverseLabelConstant() string { return pascal(e.Name) + "InverseLabel" }
-
 // TableConstant returns the constant name of the relation table.
 // The value id Edge.Rel.Table, which is table that holds the relation/edge.
 func (e Edge) TableConstant() string { return pascal(e.Name) + "Table" }
@@ -1942,13 +1913,6 @@ func (e Edge) ColumnConstant() string { return pascal(e.Name) + "Column" }
 
 // PKConstant returns the constant name of the primary key. Used for M2M edges.
 func (e Edge) PKConstant() string { return pascal(e.Name) + "PrimaryKey" }
-
-// HasConstraint indicates if this edge has a unique constraint check.
-// We check uniqueness when both-directions are unique or one of them.
-// Used by the Gremlin storage-layer.
-func (e Edge) HasConstraint() bool {
-	return e.Rel.Type == O2O || e.Rel.Type == O2M
-}
 
 // BuilderField returns the struct member of the edge in the builder.
 func (e Edge) BuilderField() string {

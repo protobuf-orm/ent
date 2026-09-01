@@ -19,7 +19,6 @@ const (
 	MySQL    = "mysql"
 	SQLite   = "sqlite3"
 	Postgres = "postgres"
-	Gremlin  = "gremlin"
 )
 
 // ExecQuerier wraps the 2 database operations.

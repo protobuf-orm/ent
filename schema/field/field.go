@@ -29,7 +29,7 @@ func String(name string) *stringBuilder {
 }
 
 // Text returns a new string field without limitation on the size.
-// In MySQL, it is the "longtext" type, but in SQLite and Gremlin it has no effect.
+// In MySQL, it is the "longtext" type, but in SQLite it has no effect.
 func Text(name string) *stringBuilder {
 	return &stringBuilder{&Descriptor{
 		Name: name,
@@ -39,7 +39,7 @@ func Text(name string) *stringBuilder {
 }
 
 // Bytes returns a new Field with type bytes/buffer.
-// In MySQL and SQLite, it is the "BLOB" type, and it does not support for Gremlin.
+// In MySQL and SQLite, it is the "BLOB" type.
 func Bytes(name string) *bytesBuilder {
 	return &bytesBuilder{&Descriptor{
 		Name: name,
@@ -325,7 +325,7 @@ func (b *stringBuilder) StructTag(s string) *stringBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *stringBuilder) StorageKey(key string) *stringBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -462,7 +462,7 @@ func (b *timeBuilder) UpdateDefault(fn any) *timeBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *timeBuilder) StorageKey(key string) *timeBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -575,7 +575,7 @@ func (b *boolBuilder) StructTag(s string) *boolBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *boolBuilder) StorageKey(key string) *boolBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -738,7 +738,7 @@ func (b *bytesBuilder) Validate(fn func([]byte) error) *bytesBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *bytesBuilder) StorageKey(key string) *bytesBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -811,7 +811,7 @@ type jsonBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *jsonBuilder) StorageKey(key string) *jsonBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -919,7 +919,7 @@ func (b *sliceBuilder[T]) Validate(fn func([]T) error) *sliceBuilder[T] {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *sliceBuilder[T]) StorageKey(key string) *sliceBuilder[T] {
 	b.desc.StorageKey = key
 	return b
@@ -1073,7 +1073,7 @@ func (b *enumBuilder) Default(value string) *enumBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *enumBuilder) StorageKey(key string) *enumBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1183,7 +1183,7 @@ type uuidBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *uuidBuilder) StorageKey(key string) *uuidBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1362,7 +1362,7 @@ func (b *otherBuilder) StructTag(s string) *otherBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects is the column name and Gremlin is the property.
+// In SQL dialects it is the column name.
 func (b *otherBuilder) StorageKey(key string) *otherBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1431,7 +1431,7 @@ type Descriptor struct {
 	Default          any                     // default value on create.
 	UpdateDefault    any                     // default value on update.
 	Validators       []any                   // validator functions.
-	StorageKey       string                  // sql column or gremlin property.
+	StorageKey       string                  // sql column.
 	Enums            []struct{ N, V string } // enum values.
 	Sensitive        bool                    // sensitive info string field.
 	SchemaType       map[string]string       // override the schema type.

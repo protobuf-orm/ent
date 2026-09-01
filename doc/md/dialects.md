@@ -29,10 +29,6 @@ Using [Atlas](https://github.com/ariga/atlas), the SQLite driver supports all th
 are mentioned in the [Migration](migrate.md) section. Note that some changes, like column modification,
 are performed on a temporary table using the sequence of operations described in [SQLite official documentation](https://www.sqlite.org/lang_altertable.html#otheralter).
 
-## Gremlin
-
-Gremlin does not support migration nor indexes, and **<ins>it's considered experimental</ins>**.
-
 ## TiDB **(<ins>preview</ins>)**
 
 TiDB support is in preview and requires the [Atlas migration engine](migrate.md#atlas-integration).  

@@ -159,11 +159,3 @@ services:
       test: pg_isready -U postgres
     ports:
       - 5437:5432
-
-  gremlin:
-    platform: linux/amd64
-    image: entgo/gremlin-server
-    build: compose/gremlin-server
-    restart: on-failure
-    ports:
-      - 8182:8182

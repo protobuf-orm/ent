@@ -319,10 +319,6 @@ func TestEdge(t *testing.T) {
 	require.True(t, users.IsInverse())
 	require.False(t, groups.IsInverse())
 
-	require.Equal(t, "GroupsLabel", users.LabelConstant())
-	require.Equal(t, "GroupsLabel", groups.LabelConstant())
-
-	require.Equal(t, "UsersInverseLabel", users.InverseLabelConstant())
 	require.Equal(t, "user_groups", users.Label())
 	require.Equal(t, "user_groups", groups.Label())
 }

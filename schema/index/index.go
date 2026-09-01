@@ -21,7 +21,6 @@ type Builder struct {
 }
 
 // Fields creates an index on the given vertex fields.
-// Note that indexes are implemented only for SQL dialects, and does not support gremlin.
 //
 //	func (T) Indexes() []ent.Index {
 //
@@ -40,7 +39,6 @@ func Fields(fields ...string) *Builder {
 }
 
 // Edges creates an index on the given vertex edge fields.
-// Note that indexes are implemented only for SQL dialects, and does not support gremlin.
 //
 //	func (T) Indexes() []ent.Index {
 //

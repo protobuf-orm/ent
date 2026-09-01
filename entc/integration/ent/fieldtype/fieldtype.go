@@ -324,12 +324,12 @@ func RoleValidator(r role.Role) error {
 }
 
 // PriorityValidator is a validator for the "priority" field enum values. It is called by the builders before save.
-func PriorityValidator(pr role.Priority) error {
-	switch pr.String() {
+func PriorityValidator(p role.Priority) error {
+	switch p.String() {
 	case "UNKNOWN", "LOW", "HIGH":
 		return nil
 	default:
-		return fmt.Errorf("fieldtype: invalid enum value for priority field: %q", pr)
+		return fmt.Errorf("fieldtype: invalid enum value for priority field: %q", p)
 	}
 }
 

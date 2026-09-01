@@ -12,15 +12,8 @@ go generate ./...
 #### Running the integration tests
 
 ```
-docker-compose up -d --scale gremlin=0
+docker-compose up -d
 go test .
-```
-
-In order to run the Gremlin tests, run:
-
-```
-docker-compose up -d gremlin
-go test ./gremlin/...
 ```
 
 Use the `-run` flag for running specific test or set of tests. For example:

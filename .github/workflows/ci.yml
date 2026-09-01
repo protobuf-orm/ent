@@ -265,15 +265,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      gremlin-server:
-        image: entgo/gremlin-server
-        ports:
-          - 8182:8182
-        options: >-
-          --health-cmd "netstat -an | grep -q 8182"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -464,15 +455,6 @@ jobs:
           - 5437:5432
         options: >-
           --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      gremlin-server:
-        image: entgo/gremlin-server
-        ports:
-          - 8182:8182
-        options: >-
-          --health-cmd "netstat -an | grep -q 8182"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5

@@ -99,7 +99,7 @@ Flags:
 
 ## Storage Options
 
-`ent` can generate assets for both SQL and Gremlin dialect. The default dialect is SQL.
+`ent` generates assets for the SQL dialect, which is also the default and only storage option.
 
 ## External Templates
 
