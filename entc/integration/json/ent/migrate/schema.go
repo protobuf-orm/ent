@@ -15,19 +15,19 @@ var (
 	// UserColumns holds the columns for the "user" table.
 	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "t", Type: field.TypeJSON, Nullable: true},
-		{Name: "url", Type: field.TypeJSON, Nullable: true},
-		{Name: "urls", Type: field.TypeJSON, Nullable: true},
-		{Name: "raw", Type: field.TypeJSON, Nullable: true},
-		{Name: "dirs", Type: field.TypeJSON},
-		{Name: "ints", Type: field.TypeJSON, Nullable: true},
-		{Name: "floats", Type: field.TypeJSON, Nullable: true},
-		{Name: "strings", Type: field.TypeJSON, Nullable: true},
-		{Name: "ints_validate", Type: field.TypeJSON, Nullable: true},
-		{Name: "floats_validate", Type: field.TypeJSON, Nullable: true},
-		{Name: "strings_validate", Type: field.TypeJSON, Nullable: true},
-		{Name: "addr", Type: field.TypeJSON, Nullable: true},
-		{Name: "unknown", Type: field.TypeJSON, Nullable: true},
+		{Name: "t", Type: field.TypeJson, Nullable: true},
+		{Name: "url", Type: field.TypeJson, Nullable: true},
+		{Name: "urls", Type: field.TypeJson, Nullable: true},
+		{Name: "raw", Type: field.TypeJson, Nullable: true},
+		{Name: "dirs", Type: field.TypeJson},
+		{Name: "ints", Type: field.TypeJson, Nullable: true},
+		{Name: "floats", Type: field.TypeJson, Nullable: true},
+		{Name: "strings", Type: field.TypeJson, Nullable: true},
+		{Name: "ints_validate", Type: field.TypeJson, Nullable: true},
+		{Name: "floats_validate", Type: field.TypeJson, Nullable: true},
+		{Name: "strings_validate", Type: field.TypeJson, Nullable: true},
+		{Name: "addr", Type: field.TypeJson, Nullable: true},
+		{Name: "unknown", Type: field.TypeJson, Nullable: true},
 	}
 	// UserTable holds the schema information for the "user" table.
 	UserTable = &schema.Table{

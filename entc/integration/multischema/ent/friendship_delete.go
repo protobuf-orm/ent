@@ -45,7 +45,7 @@ func (_d *FriendshipDelete) ExecX(ctx context.Context) int {
 }
 
 func (_d *FriendshipDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(friendship.Table, sqlgraph.NewFieldSpec(friendship.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewDeleteSpec(friendship.Table, sqlgraph.NewFieldSpec(friendship.FieldId, field.TypeInt))
 	_spec.Node.Schema = _d.schemaConfig.Friendship
 	ctx = internal.NewSchemaConfigContext(ctx, _d.schemaConfig)
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {

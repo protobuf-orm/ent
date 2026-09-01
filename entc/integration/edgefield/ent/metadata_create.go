@@ -38,48 +38,48 @@ func (_c *MetadataCreate) SetNillableAge(v *int) *MetadataCreate {
 	return _c
 }
 
-// SetParentID sets the "parent_id" field.
-func (_c *MetadataCreate) SetParentID(v int) *MetadataCreate {
-	_c.mutation.SetParentID(v)
+// SetParentId sets the "parent_id" field.
+func (_c *MetadataCreate) SetParentId(v int) *MetadataCreate {
+	_c.mutation.SetParentId(v)
 	return _c
 }
 
-// SetNillableParentID sets the "parent_id" field if the given value is not nil.
-func (_c *MetadataCreate) SetNillableParentID(v *int) *MetadataCreate {
+// SetNillableParentId sets the "parent_id" field if the given value is not nil.
+func (_c *MetadataCreate) SetNillableParentId(v *int) *MetadataCreate {
 	if v != nil {
-		_c.SetParentID(*v)
+		_c.SetParentId(*v)
 	}
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *MetadataCreate) SetID(v int) *MetadataCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *MetadataCreate) SetId(v int) *MetadataCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetUserID sets the "user" edge to the User entity by ID.
-func (_c *MetadataCreate) SetUserID(id int) *MetadataCreate {
-	_c.mutation.SetUserID(id)
+// SetUserId sets the "user" edge to the User entity by Id.
+func (_c *MetadataCreate) SetUserId(id int) *MetadataCreate {
+	_c.mutation.SetUserId(id)
 	return _c
 }
 
-// SetNillableUserID sets the "user" edge to the User entity by ID if the given value is not nil.
-func (_c *MetadataCreate) SetNillableUserID(id *int) *MetadataCreate {
+// SetNillableUserId sets the "user" edge to the User entity by Id if the given value is not nil.
+func (_c *MetadataCreate) SetNillableUserId(id *int) *MetadataCreate {
 	if id != nil {
-		_c = _c.SetUserID(*id)
+		_c = _c.SetUserId(*id)
 	}
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *MetadataCreate) SetUser(v *User) *MetadataCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the Metadata entity by IDs.
-func (_c *MetadataCreate) AddChildrenIDs(ids ...int) *MetadataCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the Metadata entity by Ids.
+func (_c *MetadataCreate) AddChildrenIds(ids ...int) *MetadataCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
@@ -87,14 +87,14 @@ func (_c *MetadataCreate) AddChildrenIDs(ids ...int) *MetadataCreate {
 func (_c *MetadataCreate) AddChildren(v ...*Metadata) *MetadataCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
 // SetParent sets the "parent" edge to the Metadata entity.
 func (_c *MetadataCreate) SetParent(v *Metadata) *MetadataCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
 // Mutation returns the MetadataMutation object of the builder.
@@ -157,11 +157,11 @@ func (_c *MetadataCreate) sqlSave(ctx context.Context) (*Metadata, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -169,17 +169,17 @@ func (_c *MetadataCreate) sqlSave(ctx context.Context) (*Metadata, error) {
 func (_c *MetadataCreate) createSpec() (*Metadata, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Metadata{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(metadata.Table, sqlgraph.NewFieldSpec(metadata.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(metadata.Table, sqlgraph.NewFieldSpec(metadata.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Age(); ok {
 		_spec.SetField(metadata.FieldAge, field.TypeInt, value)
 		_node.Age = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -187,16 +187,16 @@ func (_c *MetadataCreate) createSpec() (*Metadata, *sqlgraph.CreateSpec) {
 			Columns: []string{metadata.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ID = nodes[0]
+		_node.Id = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -204,7 +204,7 @@ func (_c *MetadataCreate) createSpec() (*Metadata, *sqlgraph.CreateSpec) {
 			Columns: []string{metadata.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(metadata.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(metadata.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -212,7 +212,7 @@ func (_c *MetadataCreate) createSpec() (*Metadata, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -220,13 +220,13 @@ func (_c *MetadataCreate) createSpec() (*Metadata, *sqlgraph.CreateSpec) {
 			Columns: []string{metadata.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(metadata.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(metadata.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ParentID = nodes[0]
+		_node.ParentId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -276,10 +276,10 @@ func (_c *MetadataCreateBulk) Save(ctx context.Context) ([]*Metadata, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

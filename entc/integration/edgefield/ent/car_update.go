@@ -52,9 +52,9 @@ func (_u *CarUpdate) ClearNumber() *CarUpdate {
 	return _u
 }
 
-// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *CarUpdate) AddRentalsIDs(ids ...int) *CarUpdate {
-	_u.mutation.AddRentalsIDs(ids...)
+// AddRentalsIds adds the "rentals" edge to the Rental entity by Ids.
+func (_u *CarUpdate) AddRentalsIds(ids ...int) *CarUpdate {
+	_u.mutation.AddRentalsIds(ids...)
 	return _u
 }
 
@@ -62,9 +62,9 @@ func (_u *CarUpdate) AddRentalsIDs(ids ...int) *CarUpdate {
 func (_u *CarUpdate) AddRentals(v ...*Rental) *CarUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddRentalsIDs(ids...)
+	return _u.AddRentalsIds(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -78,9 +78,9 @@ func (_u *CarUpdate) ClearRentals() *CarUpdate {
 	return _u
 }
 
-// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *CarUpdate) RemoveRentalsIDs(ids ...int) *CarUpdate {
-	_u.mutation.RemoveRentalsIDs(ids...)
+// RemoveRentalsIds removes the "rentals" edge to Rental entities by Ids.
+func (_u *CarUpdate) RemoveRentalsIds(ids ...int) *CarUpdate {
+	_u.mutation.RemoveRentalsIds(ids...)
 	return _u
 }
 
@@ -88,9 +88,9 @@ func (_u *CarUpdate) RemoveRentalsIDs(ids ...int) *CarUpdate {
 func (_u *CarUpdate) RemoveRentals(v ...*Rental) *CarUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveRentalsIDs(ids...)
+	return _u.RemoveRentalsIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -121,7 +121,7 @@ func (_u *CarUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -143,12 +143,12 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedRentalsIDs(); len(nodes) > 0 && !_u.mutation.RentalsCleared() {
+	if nodes := _u.mutation.RemovedRentalsIds(); len(nodes) > 0 && !_u.mutation.RentalsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -156,7 +156,7 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -164,7 +164,7 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RentalsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RentalsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -172,7 +172,7 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -220,9 +220,9 @@ func (_u *CarUpdateOne) ClearNumber() *CarUpdateOne {
 	return _u
 }
 
-// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_u *CarUpdateOne) AddRentalsIDs(ids ...int) *CarUpdateOne {
-	_u.mutation.AddRentalsIDs(ids...)
+// AddRentalsIds adds the "rentals" edge to the Rental entity by Ids.
+func (_u *CarUpdateOne) AddRentalsIds(ids ...int) *CarUpdateOne {
+	_u.mutation.AddRentalsIds(ids...)
 	return _u
 }
 
@@ -230,9 +230,9 @@ func (_u *CarUpdateOne) AddRentalsIDs(ids ...int) *CarUpdateOne {
 func (_u *CarUpdateOne) AddRentals(v ...*Rental) *CarUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddRentalsIDs(ids...)
+	return _u.AddRentalsIds(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -246,9 +246,9 @@ func (_u *CarUpdateOne) ClearRentals() *CarUpdateOne {
 	return _u
 }
 
-// RemoveRentalsIDs removes the "rentals" edge to Rental entities by IDs.
-func (_u *CarUpdateOne) RemoveRentalsIDs(ids ...int) *CarUpdateOne {
-	_u.mutation.RemoveRentalsIDs(ids...)
+// RemoveRentalsIds removes the "rentals" edge to Rental entities by Ids.
+func (_u *CarUpdateOne) RemoveRentalsIds(ids ...int) *CarUpdateOne {
+	_u.mutation.RemoveRentalsIds(ids...)
 	return _u
 }
 
@@ -256,9 +256,9 @@ func (_u *CarUpdateOne) RemoveRentalsIDs(ids ...int) *CarUpdateOne {
 func (_u *CarUpdateOne) RemoveRentals(v ...*Rental) *CarUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveRentalsIDs(ids...)
+	return _u.RemoveRentalsIds(ids...)
 }
 
 // Where appends a list predicates to the CarUpdate builder.
@@ -302,20 +302,20 @@ func (_u *CarUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
-	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Car.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, car.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, car.FieldId)
 		for _, f := range fields {
 			if !car.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != car.FieldID {
+			if f != car.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -341,12 +341,12 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedRentalsIDs(); len(nodes) > 0 && !_u.mutation.RentalsCleared() {
+	if nodes := _u.mutation.RemovedRentalsIds(); len(nodes) > 0 && !_u.mutation.RentalsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -354,7 +354,7 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -362,7 +362,7 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RentalsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RentalsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -370,7 +370,7 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

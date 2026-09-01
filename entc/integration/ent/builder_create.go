@@ -73,9 +73,9 @@ func (_c *BuilderCreate) sqlSave(ctx context.Context) (*Builder, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -83,7 +83,7 @@ func (_c *BuilderCreate) sqlSave(ctx context.Context) (*Builder, error) {
 func (_c *BuilderCreate) createSpec() (*Builder, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Builder{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(builder.Table, sqlgraph.NewFieldSpec(builder.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(builder.Table, sqlgraph.NewFieldSpec(builder.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	return _node, _spec
@@ -157,7 +157,7 @@ func (u *BuilderUpsertOne) Ignore() *BuilderUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BuilderUpsertOne) DoNothing() *BuilderUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -187,18 +187,18 @@ func (u *BuilderUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *BuilderUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *BuilderUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *BuilderUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *BuilderUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -250,10 +250,10 @@ func (_c *BuilderCreateBulk) Save(ctx context.Context) ([]*Builder, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -355,7 +355,7 @@ func (u *BuilderUpsertBulk) Ignore() *BuilderUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BuilderUpsertBulk) DoNothing() *BuilderUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

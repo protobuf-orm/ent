@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the card type in the database.
 	Label = "card"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldType holds the string denoting the type field in the database.
 	FieldType = "type"
 	// FieldNumberHash holds the string denoting the number_hash field in the database.
@@ -24,8 +24,8 @@ const (
 	FieldCvvHash = "cvv_hash"
 	// FieldExpiresAt holds the string denoting the expires_at field in the database.
 	FieldExpiresAt = "expires_at"
-	// FieldOwnerID holds the string denoting the owner_id field in the database.
-	FieldOwnerID = "owner_id"
+	// FieldOwnerId holds the string denoting the owner_id field in the database.
+	FieldOwnerId = "owner_id"
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
 	EdgeOwner = "owner"
 	// EdgePayments holds the string denoting the payments edge name in mutations.
@@ -48,14 +48,14 @@ const (
 	PaymentsColumn = "card_id"
 )
 
-// Columns holds all SQL columns for card fields.
+// Columns holds all Sql columns for card fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldType,
 	FieldNumberHash,
 	FieldCvvHash,
 	FieldExpiresAt,
-	FieldOwnerID,
+	FieldOwnerId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -71,16 +71,16 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultType holds the default value on creation for the "type" field.
 	DefaultType string
-	// DefaultOwnerID holds the default value on creation for the "owner_id" field.
-	DefaultOwnerID int
+	// DefaultOwnerId holds the default value on creation for the "owner_id" field.
+	DefaultOwnerId int
 )
 
 // OrderOption defines the ordering options for the Card queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByType orders the results by the type field.
@@ -103,9 +103,9 @@ func ByExpiresAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldExpiresAt, opts...).ToFunc()
 }
 
-// ByOwnerID orders the results by the owner_id field.
-func ByOwnerID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldOwnerID, opts...).ToFunc()
+// ByOwnerId orders the results by the owner_id field.
+func ByOwnerId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOwnerId, opts...).ToFunc()
 }
 
 // ByOwnerField orders the results by owner field.
@@ -130,15 +130,15 @@ func ByPayments(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }
 func newPaymentsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PaymentsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PaymentsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PaymentsTable, PaymentsColumn),
 	)
 }

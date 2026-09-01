@@ -19,8 +19,8 @@ import (
 // CustomType is the model entity for the CustomType schema.
 type CustomType struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Custom holds the value of the "custom" field.
 	Custom string `json:"custom,omitempty"`
 	// Tz0 holds the value of the "tz0" field.
@@ -35,7 +35,7 @@ func (*CustomType) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case customtype.FieldID:
+		case customtype.FieldId:
 			values[i] = new(sql.NullInt64)
 		case customtype.FieldCustom:
 			values[i] = new(sql.NullString)
@@ -56,12 +56,12 @@ func (_m *CustomType) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case customtype.FieldID:
+		case customtype.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case customtype.FieldCustom:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field custom", values[i])
@@ -115,7 +115,7 @@ func (_m *CustomType) Unwrap() *CustomType {
 func (_m *CustomType) String() string {
 	var builder strings.Builder
 	builder.WriteString("CustomType(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("custom=")
 	builder.WriteString(_m.Custom)
 	builder.WriteString(", ")

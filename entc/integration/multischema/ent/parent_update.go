@@ -81,10 +81,10 @@ func (_u *ParentUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *ParentUpdate) check() error {
-	if _u.mutation.ChildCleared() && len(_u.mutation.ChildIDs()) > 0 {
+	if _u.mutation.ChildCleared() && len(_u.mutation.ChildIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Parent.child"`)
 	}
-	if _u.mutation.ParentCleared() && len(_u.mutation.ParentIDs()) > 0 {
+	if _u.mutation.ParentCleared() && len(_u.mutation.ParentIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Parent.parent"`)
 	}
 	return nil
@@ -100,7 +100,7 @@ func (_u *ParentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(parent.Table, parent.Columns, sqlgraph.NewFieldSpec(parent.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(parent.Table, parent.Columns, sqlgraph.NewFieldSpec(parent.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -196,10 +196,10 @@ func (_u *ParentUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *ParentUpdateOne) check() error {
-	if _u.mutation.ChildCleared() && len(_u.mutation.ChildIDs()) > 0 {
+	if _u.mutation.ChildCleared() && len(_u.mutation.ChildIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Parent.child"`)
 	}
-	if _u.mutation.ParentCleared() && len(_u.mutation.ParentIDs()) > 0 {
+	if _u.mutation.ParentCleared() && len(_u.mutation.ParentIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Parent.parent"`)
 	}
 	return nil
@@ -215,20 +215,20 @@ func (_u *ParentUpdateOne) sqlSave(ctx context.Context) (_node *Parent, err erro
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(parent.Table, parent.Columns, sqlgraph.NewFieldSpec(parent.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(parent.Table, parent.Columns, sqlgraph.NewFieldSpec(parent.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Parent.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, parent.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, parent.FieldId)
 		for _, f := range fields {
 			if !parent.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != parent.FieldID {
+			if f != parent.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

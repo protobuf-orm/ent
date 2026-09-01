@@ -39,25 +39,25 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   attachedfile.Table,
 			Columns: attachedfile.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: attachedfile.FieldID,
+				Column: attachedfile.FieldId,
 			},
 		},
 		Type: "AttachedFile",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			attachedfile.FieldAttachTime: {Type: field.TypeTime, Column: attachedfile.FieldAttachTime},
-			attachedfile.FieldFID:        {Type: field.TypeInt, Column: attachedfile.FieldFID},
-			attachedfile.FieldProcID:     {Type: field.TypeInt, Column: attachedfile.FieldProcID},
+			attachedfile.FieldFId:        {Type: field.TypeInt, Column: attachedfile.FieldFId},
+			attachedfile.FieldProcId:     {Type: field.TypeInt, Column: attachedfile.FieldProcId},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   file.Table,
 			Columns: file.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: file.FieldID,
+				Column: file.FieldId,
 			},
 		},
 		Type: "File",
@@ -69,26 +69,26 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   friendship.Table,
 			Columns: friendship.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: friendship.FieldID,
+				Column: friendship.FieldId,
 			},
 		},
 		Type: "Friendship",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			friendship.FieldWeight:    {Type: field.TypeInt, Column: friendship.FieldWeight},
 			friendship.FieldCreatedAt: {Type: field.TypeTime, Column: friendship.FieldCreatedAt},
-			friendship.FieldUserID:    {Type: field.TypeInt, Column: friendship.FieldUserID},
-			friendship.FieldFriendsID: {Type: field.TypeInt, Column: friendship.FieldFriendsID},
+			friendship.FieldUserId:    {Type: field.TypeInt, Column: friendship.FieldUserId},
+			friendship.FieldFriendsId: {Type: field.TypeInt, Column: friendship.FieldFriendsId},
 		},
 	}
 	graph.Nodes[3] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   group.Table,
 			Columns: group.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: group.FieldID,
+				Column: group.FieldId,
 			},
 		},
 		Type: "Group",
@@ -100,24 +100,24 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   grouptag.Table,
 			Columns: grouptag.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: grouptag.FieldID,
+				Column: grouptag.FieldId,
 			},
 		},
 		Type: "GroupTag",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			grouptag.FieldTagID:   {Type: field.TypeInt, Column: grouptag.FieldTagID},
-			grouptag.FieldGroupID: {Type: field.TypeInt, Column: grouptag.FieldGroupID},
+			grouptag.FieldTagId:   {Type: field.TypeInt, Column: grouptag.FieldTagId},
+			grouptag.FieldGroupId: {Type: field.TypeInt, Column: grouptag.FieldGroupId},
 		},
 	}
 	graph.Nodes[5] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   process.Table,
 			Columns: process.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: process.FieldID,
+				Column: process.FieldId,
 			},
 		},
 		Type:   "Process",
@@ -127,32 +127,32 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   relationship.Table,
 			Columns: relationship.Columns,
-			CompositeID: []*sqlgraph.FieldSpec{
+			CompositeId: []*sqlgraph.FieldSpec{
 				{
 					Type:   field.TypeInt,
-					Column: relationship.FieldUserID,
+					Column: relationship.FieldUserId,
 				},
 				{
 					Type:   field.TypeInt,
-					Column: relationship.FieldRelativesID,
+					Column: relationship.FieldRelativesId,
 				},
 			},
 		},
 		Type: "Relationship",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			relationship.FieldWeight:      {Type: field.TypeInt, Column: relationship.FieldWeight},
-			relationship.FieldUserID:      {Type: field.TypeInt, Column: relationship.FieldUserID},
-			relationship.FieldRelativesID: {Type: field.TypeInt, Column: relationship.FieldRelativesID},
-			relationship.FieldInfoID:      {Type: field.TypeInt, Column: relationship.FieldInfoID},
+			relationship.FieldUserId:      {Type: field.TypeInt, Column: relationship.FieldUserId},
+			relationship.FieldRelativesId: {Type: field.TypeInt, Column: relationship.FieldRelativesId},
+			relationship.FieldInfoId:      {Type: field.TypeInt, Column: relationship.FieldInfoId},
 		},
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   relationshipinfo.Table,
 			Columns: relationshipinfo.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: relationshipinfo.FieldID,
+				Column: relationshipinfo.FieldId,
 			},
 		},
 		Type: "RelationshipInfo",
@@ -164,9 +164,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   role.Table,
 			Columns: role.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: role.FieldID,
+				Column: role.FieldId,
 			},
 		},
 		Type: "Role",
@@ -179,31 +179,31 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   roleuser.Table,
 			Columns: roleuser.Columns,
-			CompositeID: []*sqlgraph.FieldSpec{
+			CompositeId: []*sqlgraph.FieldSpec{
 				{
 					Type:   field.TypeInt,
-					Column: roleuser.FieldUserID,
+					Column: roleuser.FieldUserId,
 				},
 				{
 					Type:   field.TypeInt,
-					Column: roleuser.FieldRoleID,
+					Column: roleuser.FieldRoleId,
 				},
 			},
 		},
 		Type: "RoleUser",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			roleuser.FieldCreatedAt: {Type: field.TypeTime, Column: roleuser.FieldCreatedAt},
-			roleuser.FieldRoleID:    {Type: field.TypeInt, Column: roleuser.FieldRoleID},
-			roleuser.FieldUserID:    {Type: field.TypeInt, Column: roleuser.FieldUserID},
+			roleuser.FieldRoleId:    {Type: field.TypeInt, Column: roleuser.FieldRoleId},
+			roleuser.FieldUserId:    {Type: field.TypeInt, Column: roleuser.FieldUserId},
 		},
 	}
 	graph.Nodes[10] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   tag.Table,
 			Columns: tag.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: tag.FieldID,
+				Column: tag.FieldId,
 			},
 		},
 		Type: "Tag",
@@ -215,9 +215,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   tweet.Table,
 			Columns: tweet.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: tweet.FieldID,
+				Column: tweet.FieldId,
 			},
 		},
 		Type: "Tweet",
@@ -229,47 +229,47 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   tweetlike.Table,
 			Columns: tweetlike.Columns,
-			CompositeID: []*sqlgraph.FieldSpec{
+			CompositeId: []*sqlgraph.FieldSpec{
 				{
 					Type:   field.TypeInt,
-					Column: tweetlike.FieldUserID,
+					Column: tweetlike.FieldUserId,
 				},
 				{
 					Type:   field.TypeInt,
-					Column: tweetlike.FieldTweetID,
+					Column: tweetlike.FieldTweetId,
 				},
 			},
 		},
 		Type: "TweetLike",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			tweetlike.FieldLikedAt: {Type: field.TypeTime, Column: tweetlike.FieldLikedAt},
-			tweetlike.FieldUserID:  {Type: field.TypeInt, Column: tweetlike.FieldUserID},
-			tweetlike.FieldTweetID: {Type: field.TypeInt, Column: tweetlike.FieldTweetID},
+			tweetlike.FieldUserId:  {Type: field.TypeInt, Column: tweetlike.FieldUserId},
+			tweetlike.FieldTweetId: {Type: field.TypeInt, Column: tweetlike.FieldTweetId},
 		},
 	}
 	graph.Nodes[13] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   tweettag.Table,
 			Columns: tweettag.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUUID,
-				Column: tweettag.FieldID,
+			Id: &sqlgraph.FieldSpec{
+				Type:   field.TypeUuid,
+				Column: tweettag.FieldId,
 			},
 		},
 		Type: "TweetTag",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			tweettag.FieldAddedAt: {Type: field.TypeTime, Column: tweettag.FieldAddedAt},
-			tweettag.FieldTagID:   {Type: field.TypeInt, Column: tweettag.FieldTagID},
-			tweettag.FieldTweetID: {Type: field.TypeInt, Column: tweettag.FieldTweetID},
+			tweettag.FieldTagId:   {Type: field.TypeInt, Column: tweettag.FieldTagId},
+			tweettag.FieldTweetId: {Type: field.TypeInt, Column: tweettag.FieldTweetId},
 		},
 	}
 	graph.Nodes[14] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   user.Table,
 			Columns: user.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: user.FieldID,
+				Column: user.FieldId,
 			},
 		},
 		Type: "User",
@@ -281,32 +281,32 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   usergroup.Table,
 			Columns: usergroup.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: usergroup.FieldID,
+				Column: usergroup.FieldId,
 			},
 		},
 		Type: "UserGroup",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			usergroup.FieldJoinedAt: {Type: field.TypeTime, Column: usergroup.FieldJoinedAt},
-			usergroup.FieldUserID:   {Type: field.TypeInt, Column: usergroup.FieldUserID},
-			usergroup.FieldGroupID:  {Type: field.TypeInt, Column: usergroup.FieldGroupID},
+			usergroup.FieldUserId:   {Type: field.TypeInt, Column: usergroup.FieldUserId},
+			usergroup.FieldGroupId:  {Type: field.TypeInt, Column: usergroup.FieldGroupId},
 		},
 	}
 	graph.Nodes[16] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   usertweet.Table,
 			Columns: usertweet.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: usertweet.FieldID,
+				Column: usertweet.FieldId,
 			},
 		},
 		Type: "UserTweet",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			usertweet.FieldCreatedAt: {Type: field.TypeTime, Column: usertweet.FieldCreatedAt},
-			usertweet.FieldUserID:    {Type: field.TypeInt, Column: usertweet.FieldUserID},
-			usertweet.FieldTweetID:   {Type: field.TypeInt, Column: usertweet.FieldTweetID},
+			usertweet.FieldUserId:    {Type: field.TypeInt, Column: usertweet.FieldUserId},
+			usertweet.FieldTweetId:   {Type: field.TypeInt, Column: usertweet.FieldTweetId},
 		},
 	}
 	graph.MustAddE(
@@ -953,9 +953,9 @@ func (f *AttachedFileFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *AttachedFileFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(attachedfile.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *AttachedFileFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(attachedfile.FieldId))
 }
 
 // WhereAttachTime applies the entql time.Time predicate on the attach_time field.
@@ -963,14 +963,14 @@ func (f *AttachedFileFilter) WhereAttachTime(p entql.TimeP) {
 	f.Where(p.Field(attachedfile.FieldAttachTime))
 }
 
-// WhereFID applies the entql int predicate on the f_id field.
-func (f *AttachedFileFilter) WhereFID(p entql.IntP) {
-	f.Where(p.Field(attachedfile.FieldFID))
+// WhereFId applies the entql int predicate on the f_id field.
+func (f *AttachedFileFilter) WhereFId(p entql.IntP) {
+	f.Where(p.Field(attachedfile.FieldFId))
 }
 
-// WhereProcID applies the entql int predicate on the proc_id field.
-func (f *AttachedFileFilter) WhereProcID(p entql.IntP) {
-	f.Where(p.Field(attachedfile.FieldProcID))
+// WhereProcId applies the entql int predicate on the proc_id field.
+func (f *AttachedFileFilter) WhereProcId(p entql.IntP) {
+	f.Where(p.Field(attachedfile.FieldProcId))
 }
 
 // WhereHasFi applies a predicate to check if query has an edge fi.
@@ -1036,9 +1036,9 @@ func (f *FileFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *FileFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(file.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *FileFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(file.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -1095,9 +1095,9 @@ func (f *FriendshipFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *FriendshipFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(friendship.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *FriendshipFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(friendship.FieldId))
 }
 
 // WhereWeight applies the entql int predicate on the weight field.
@@ -1110,14 +1110,14 @@ func (f *FriendshipFilter) WhereCreatedAt(p entql.TimeP) {
 	f.Where(p.Field(friendship.FieldCreatedAt))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *FriendshipFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(friendship.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *FriendshipFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(friendship.FieldUserId))
 }
 
-// WhereFriendsID applies the entql int predicate on the friends_id field.
-func (f *FriendshipFilter) WhereFriendsID(p entql.IntP) {
-	f.Where(p.Field(friendship.FieldFriendsID))
+// WhereFriendsId applies the entql int predicate on the friends_id field.
+func (f *FriendshipFilter) WhereFriendsId(p entql.IntP) {
+	f.Where(p.Field(friendship.FieldFriendsId))
 }
 
 // WhereHasUser applies a predicate to check if query has an edge user.
@@ -1183,9 +1183,9 @@ func (f *GroupFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GroupFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(group.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GroupFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(group.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -1284,19 +1284,19 @@ func (f *GroupTagFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GroupTagFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(grouptag.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GroupTagFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(grouptag.FieldId))
 }
 
-// WhereTagID applies the entql int predicate on the tag_id field.
-func (f *GroupTagFilter) WhereTagID(p entql.IntP) {
-	f.Where(p.Field(grouptag.FieldTagID))
+// WhereTagId applies the entql int predicate on the tag_id field.
+func (f *GroupTagFilter) WhereTagId(p entql.IntP) {
+	f.Where(p.Field(grouptag.FieldTagId))
 }
 
-// WhereGroupID applies the entql int predicate on the group_id field.
-func (f *GroupTagFilter) WhereGroupID(p entql.IntP) {
-	f.Where(p.Field(grouptag.FieldGroupID))
+// WhereGroupId applies the entql int predicate on the group_id field.
+func (f *GroupTagFilter) WhereGroupId(p entql.IntP) {
+	f.Where(p.Field(grouptag.FieldGroupId))
 }
 
 // WhereHasTag applies a predicate to check if query has an edge tag.
@@ -1362,9 +1362,9 @@ func (f *ProcessFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *ProcessFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(process.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *ProcessFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(process.FieldId))
 }
 
 // WhereHasFiles applies a predicate to check if query has an edge files.
@@ -1435,19 +1435,19 @@ func (f *RelationshipFilter) WhereWeight(p entql.IntP) {
 	f.Where(p.Field(relationship.FieldWeight))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *RelationshipFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(relationship.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *RelationshipFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(relationship.FieldUserId))
 }
 
-// WhereRelativesID applies the entql int predicate on the relatives_id field.
-func (f *RelationshipFilter) WhereRelativesID(p entql.IntP) {
-	f.Where(p.Field(relationship.FieldRelativesID))
+// WhereRelativesId applies the entql int predicate on the relatives_id field.
+func (f *RelationshipFilter) WhereRelativesId(p entql.IntP) {
+	f.Where(p.Field(relationship.FieldRelativesId))
 }
 
-// WhereInfoID applies the entql int predicate on the info_id field.
-func (f *RelationshipFilter) WhereInfoID(p entql.IntP) {
-	f.Where(p.Field(relationship.FieldInfoID))
+// WhereInfoId applies the entql int predicate on the info_id field.
+func (f *RelationshipFilter) WhereInfoId(p entql.IntP) {
+	f.Where(p.Field(relationship.FieldInfoId))
 }
 
 // WhereHasUser applies a predicate to check if query has an edge user.
@@ -1527,9 +1527,9 @@ func (f *RelationshipInfoFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *RelationshipInfoFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(relationshipinfo.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *RelationshipInfoFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(relationshipinfo.FieldId))
 }
 
 // WhereText applies the entql string predicate on the text field.
@@ -1572,9 +1572,9 @@ func (f *RoleFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *RoleFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(role.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *RoleFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(role.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -1655,14 +1655,14 @@ func (f *RoleUserFilter) WhereCreatedAt(p entql.TimeP) {
 	f.Where(p.Field(roleuser.FieldCreatedAt))
 }
 
-// WhereRoleID applies the entql int predicate on the role_id field.
-func (f *RoleUserFilter) WhereRoleID(p entql.IntP) {
-	f.Where(p.Field(roleuser.FieldRoleID))
+// WhereRoleId applies the entql int predicate on the role_id field.
+func (f *RoleUserFilter) WhereRoleId(p entql.IntP) {
+	f.Where(p.Field(roleuser.FieldRoleId))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *RoleUserFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(roleuser.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *RoleUserFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(roleuser.FieldUserId))
 }
 
 // WhereHasRole applies a predicate to check if query has an edge role.
@@ -1728,9 +1728,9 @@ func (f *TagFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TagFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(tag.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TagFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(tag.FieldId))
 }
 
 // WhereValue applies the entql string predicate on the value field.
@@ -1829,9 +1829,9 @@ func (f *TweetFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TweetFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(tweet.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TweetFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(tweet.FieldId))
 }
 
 // WhereText applies the entql string predicate on the text field.
@@ -1963,14 +1963,14 @@ func (f *TweetLikeFilter) WhereLikedAt(p entql.TimeP) {
 	f.Where(p.Field(tweetlike.FieldLikedAt))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *TweetLikeFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(tweetlike.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *TweetLikeFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(tweetlike.FieldUserId))
 }
 
-// WhereTweetID applies the entql int predicate on the tweet_id field.
-func (f *TweetLikeFilter) WhereTweetID(p entql.IntP) {
-	f.Where(p.Field(tweetlike.FieldTweetID))
+// WhereTweetId applies the entql int predicate on the tweet_id field.
+func (f *TweetLikeFilter) WhereTweetId(p entql.IntP) {
+	f.Where(p.Field(tweetlike.FieldTweetId))
 }
 
 // WhereHasTweet applies a predicate to check if query has an edge tweet.
@@ -2036,9 +2036,9 @@ func (f *TweetTagFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql [16]byte predicate on the id field.
-func (f *TweetTagFilter) WhereID(p entql.ValueP) {
-	f.Where(p.Field(tweettag.FieldID))
+// WhereId applies the entql [16]byte predicate on the id field.
+func (f *TweetTagFilter) WhereId(p entql.ValueP) {
+	f.Where(p.Field(tweettag.FieldId))
 }
 
 // WhereAddedAt applies the entql time.Time predicate on the added_at field.
@@ -2046,14 +2046,14 @@ func (f *TweetTagFilter) WhereAddedAt(p entql.TimeP) {
 	f.Where(p.Field(tweettag.FieldAddedAt))
 }
 
-// WhereTagID applies the entql int predicate on the tag_id field.
-func (f *TweetTagFilter) WhereTagID(p entql.IntP) {
-	f.Where(p.Field(tweettag.FieldTagID))
+// WhereTagId applies the entql int predicate on the tag_id field.
+func (f *TweetTagFilter) WhereTagId(p entql.IntP) {
+	f.Where(p.Field(tweettag.FieldTagId))
 }
 
-// WhereTweetID applies the entql int predicate on the tweet_id field.
-func (f *TweetTagFilter) WhereTweetID(p entql.IntP) {
-	f.Where(p.Field(tweettag.FieldTweetID))
+// WhereTweetId applies the entql int predicate on the tweet_id field.
+func (f *TweetTagFilter) WhereTweetId(p entql.IntP) {
+	f.Where(p.Field(tweettag.FieldTweetId))
 }
 
 // WhereHasTag applies a predicate to check if query has an edge tag.
@@ -2119,9 +2119,9 @@ func (f *UserFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(user.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(user.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -2332,9 +2332,9 @@ func (f *UserGroupFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserGroupFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(usergroup.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserGroupFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(usergroup.FieldId))
 }
 
 // WhereJoinedAt applies the entql time.Time predicate on the joined_at field.
@@ -2342,14 +2342,14 @@ func (f *UserGroupFilter) WhereJoinedAt(p entql.TimeP) {
 	f.Where(p.Field(usergroup.FieldJoinedAt))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *UserGroupFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(usergroup.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *UserGroupFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(usergroup.FieldUserId))
 }
 
-// WhereGroupID applies the entql int predicate on the group_id field.
-func (f *UserGroupFilter) WhereGroupID(p entql.IntP) {
-	f.Where(p.Field(usergroup.FieldGroupID))
+// WhereGroupId applies the entql int predicate on the group_id field.
+func (f *UserGroupFilter) WhereGroupId(p entql.IntP) {
+	f.Where(p.Field(usergroup.FieldGroupId))
 }
 
 // WhereHasUser applies a predicate to check if query has an edge user.
@@ -2415,9 +2415,9 @@ func (f *UserTweetFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserTweetFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(usertweet.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserTweetFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(usertweet.FieldId))
 }
 
 // WhereCreatedAt applies the entql time.Time predicate on the created_at field.
@@ -2425,14 +2425,14 @@ func (f *UserTweetFilter) WhereCreatedAt(p entql.TimeP) {
 	f.Where(p.Field(usertweet.FieldCreatedAt))
 }
 
-// WhereUserID applies the entql int predicate on the user_id field.
-func (f *UserTweetFilter) WhereUserID(p entql.IntP) {
-	f.Where(p.Field(usertweet.FieldUserID))
+// WhereUserId applies the entql int predicate on the user_id field.
+func (f *UserTweetFilter) WhereUserId(p entql.IntP) {
+	f.Where(p.Field(usertweet.FieldUserId))
 }
 
-// WhereTweetID applies the entql int predicate on the tweet_id field.
-func (f *UserTweetFilter) WhereTweetID(p entql.IntP) {
-	f.Where(p.Field(usertweet.FieldTweetID))
+// WhereTweetId applies the entql int predicate on the tweet_id field.
+func (f *UserTweetFilter) WhereTweetId(p entql.IntP) {
+	f.Where(p.Field(usertweet.FieldTweetId))
 }
 
 // WhereHasUser applies a predicate to check if query has an edge user.

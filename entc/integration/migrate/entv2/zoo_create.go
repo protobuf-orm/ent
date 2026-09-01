@@ -22,9 +22,9 @@ type ZooCreate struct {
 	hooks    []Hook
 }
 
-// SetID sets the "id" field.
-func (_c *ZooCreate) SetID(v int) *ZooCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *ZooCreate) SetId(v int) *ZooCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
@@ -76,11 +76,11 @@ func (_c *ZooCreate) sqlSave(ctx context.Context) (*Zoo, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -88,11 +88,11 @@ func (_c *ZooCreate) sqlSave(ctx context.Context) (*Zoo, error) {
 func (_c *ZooCreate) createSpec() (*Zoo, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Zoo{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(zoo.Table, sqlgraph.NewFieldSpec(zoo.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(zoo.Table, sqlgraph.NewFieldSpec(zoo.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	return _node, _spec
 }
@@ -140,10 +140,10 @@ func (_c *ZooCreateBulk) Save(ctx context.Context) ([]*Zoo, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

@@ -18,8 +18,8 @@ import (
 // RelationshipInfo is the model entity for the RelationshipInfo schema.
 type RelationshipInfo struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Text holds the value of the "text" field.
 	Text         string `json:"text,omitempty"`
 	selectValues sql.SelectValues
@@ -30,7 +30,7 @@ func (*RelationshipInfo) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case relationshipinfo.FieldID:
+		case relationshipinfo.FieldId:
 			values[i] = new(sql.NullInt64)
 		case relationshipinfo.FieldText:
 			values[i] = new(sql.NullString)
@@ -49,12 +49,12 @@ func (_m *RelationshipInfo) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case relationshipinfo.FieldID:
+		case relationshipinfo.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case relationshipinfo.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field text", values[i])
@@ -96,7 +96,7 @@ func (_m *RelationshipInfo) Unwrap() *RelationshipInfo {
 func (_m *RelationshipInfo) String() string {
 	var builder strings.Builder
 	builder.WriteString("RelationshipInfo(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)
 	builder.WriteByte(')')

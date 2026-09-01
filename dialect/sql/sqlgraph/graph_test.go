@@ -1105,7 +1105,7 @@ func TestCreateNode(t *testing.T) {
 			name: "fields",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "age", Type: field.TypeInt, Value: 30},
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1121,7 +1121,7 @@ func TestCreateNode(t *testing.T) {
 			name: "modifiers",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "age", Type: field.TypeInt, Value: 30},
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1131,7 +1131,7 @@ func TestCreateNode(t *testing.T) {
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
-				m.ExpectExec(escape("INSERT INTO `users` (`age`, `name`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `age` = VALUES(`age`), `name` = VALUES(`name`), `id` = LAST_INSERT_ID(`users`.`id`)")).
+				m.ExpectExec(escape("INSERT INTO `users` (`age`, `name`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `age` = VALUES(`age`), `name` = VALUES(`name`), `id` = LAST_INSERT_Id(`users`.`id`)")).
 					WithArgs(30, "a8m").
 					WillReturnResult(sqlmock.NewResult(1, 1))
 			},
@@ -1140,7 +1140,7 @@ func TestCreateNode(t *testing.T) {
 			name: "fields/user-defined-id",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Value: 1},
+				Id:    &FieldSpec{Column: "id", Value: 1},
 				Fields: []*FieldSpec{
 					{Column: "age", Type: field.TypeInt, Value: 30},
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1156,9 +1156,9 @@ func TestCreateNode(t *testing.T) {
 			name: "fields/json",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
-					{Column: "json", Type: field.TypeJSON, Value: struct{}{}},
+					{Column: "json", Type: field.TypeJson, Value: struct{}{}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1171,7 +1171,7 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2o",
 			spec: &CreateSpec{
 				Table: "pets",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "pedro"},
 				},
@@ -1189,7 +1189,7 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/o2o/inverse",
 			spec: &CreateSpec{
 				Table: "cards",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "number", Type: field.TypeString, Value: "0001"},
 				},
@@ -1207,12 +1207,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/o2m",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1230,12 +1230,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/o2m",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2, 3, 4}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2, 3, 4}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1253,12 +1253,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/o2o",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1276,12 +1276,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/o2o/bidi",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: O2O, Bidi: true, Table: "users", Columns: []string{"spouse_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: O2O, Bidi: true, Table: "users", Columns: []string{"spouse_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1299,12 +1299,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m",
 			spec: &CreateSpec{
 				Table: "groups",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "GitHub"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1322,12 +1322,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m/fields",
 			spec: &CreateSpec{
 				Table: "groups",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "GitHub"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}, Fields: []*FieldSpec{{Column: "ts", Type: field.TypeInt, Value: 3}}}},
+					{Rel: M2M, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}, Fields: []*FieldSpec{{Column: "ts", Type: field.TypeInt, Value: 3}}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1345,12 +1345,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m/inverse",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "mashraki"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1368,12 +1368,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m/bidi",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "mashraki"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1391,12 +1391,12 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m/bidi/fields",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "mashraki"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}, Fields: []*FieldSpec{{Column: "ts", Type: field.TypeInt, Value: 3}}}},
+					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}, Fields: []*FieldSpec{{Column: "ts", Type: field.TypeInt, Value: 3}}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1414,15 +1414,15 @@ func TestCreateNode(t *testing.T) {
 			name: "edges/m2m/bidi/batch",
 			spec: &CreateSpec{
 				Table: "users",
-				ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "name", Type: field.TypeString, Value: "mashraki"},
 				},
 				Edges: []*EdgeSpec{
-					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
-					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IDSpec: &FieldSpec{Column: "id"}}},
-					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IDSpec: &FieldSpec{Column: "id"}}},
-					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{5}, IDSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Bidi: true, Table: "user_friends", Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IdSpec: &FieldSpec{Column: "id"}}},
+					{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{5}, IdSpec: &FieldSpec{Column: "id"}}},
 				},
 			},
 			expect: func(m sqlmock.Sqlmock) {
@@ -1444,7 +1444,7 @@ func TestCreateNode(t *testing.T) {
 			spec: &CreateSpec{
 				Table:  "users",
 				Schema: "test",
-				ID:     &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:     &FieldSpec{Column: "id", Type: field.TypeInt},
 				Fields: []*FieldSpec{
 					{Column: "age", Type: field.TypeInt, Value: 30},
 					{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1462,7 +1462,7 @@ func TestCreateNode(t *testing.T) {
 			db, mock, err := sqlmock.New()
 			require.NoError(t, err)
 			tt.expect(mock)
-			err = CreateNode(context.Background(), sql.OpenDB(dialect.MySQL, db), tt.spec)
+			err = CreateNode(context.Background(), sql.OpenDB(dialect.MySql, db), tt.spec)
 			require.Equal(t, tt.wantErr, err != nil, err)
 		})
 	}
@@ -1489,7 +1489,7 @@ func TestBatchCreate(t *testing.T) {
 				Nodes: []*CreateSpec{
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 32},
 							{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1498,7 +1498,7 @@ func TestBatchCreate(t *testing.T) {
 					},
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 30},
 							{Column: "name", Type: field.TypeString, Value: "nati"},
@@ -1522,7 +1522,7 @@ func TestBatchCreate(t *testing.T) {
 				Nodes: []*CreateSpec{
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 32},
 							{Column: "name", Type: field.TypeString, Value: "a8m"},
@@ -1530,19 +1530,19 @@ func TestBatchCreate(t *testing.T) {
 						},
 						Edges: []*EdgeSpec{
 							{Rel: M2O, Table: "company", Columns: []string{"workplace_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}}},
-							{Rel: O2O, Inverse: true, Table: "users", Columns: []string{"best_friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: O2O, Inverse: true, Table: "users", Columns: []string{"best_friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 30},
 							{Column: "name", Type: field.TypeString, Value: "nati"},
 						},
 						Edges: []*EdgeSpec{
 							{Rel: M2O, Table: "company", Columns: []string{"workplace_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}}},
-							{Rel: O2O, Inverse: true, Table: "users", Columns: []string{"best_friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: O2O, Inverse: true, Table: "users", Columns: []string{"best_friend_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 				},
@@ -1560,22 +1560,22 @@ func TestBatchCreate(t *testing.T) {
 				Nodes: []*CreateSpec{
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "name", Type: field.TypeString, Value: "a8m"},
 						},
 						Edges: []*EdgeSpec{
-							{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "name", Type: field.TypeString, Value: "nati"},
 						},
 						Edges: []*EdgeSpec{
-							{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: O2O, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{4}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 				},
@@ -1586,10 +1586,10 @@ func TestBatchCreate(t *testing.T) {
 					WithArgs("a8m", "nati").
 					WillReturnResult(sqlmock.NewResult(10, 2))
 				m.ExpectExec(escape("UPDATE `cards` SET `owner_id` = ? WHERE `id` = ? AND `owner_id` IS NULL")).
-					WithArgs(10 /* LAST_INSERT_ID() */, 3).
+					WithArgs(10 /* LAST_INSERT_Id() */, 3).
 					WillReturnResult(sqlmock.NewResult(1, 1))
 				m.ExpectExec(escape("UPDATE `cards` SET `owner_id` = ? WHERE `id` = ? AND `owner_id` IS NULL")).
-					WithArgs(11 /* LAST_INSERT_ID() + 1 */, 4).
+					WithArgs(11 /* LAST_INSERT_Id() + 1 */, 4).
 					WillReturnResult(sqlmock.NewResult(1, 1))
 				m.ExpectCommit()
 			},
@@ -1600,32 +1600,32 @@ func TestBatchCreate(t *testing.T) {
 				Nodes: []*CreateSpec{
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 32},
 							{Column: "name", Type: field.TypeString, Value: "a8m"},
 							{Column: "active", Type: field.TypeBool, Value: false},
 						},
 						Edges: []*EdgeSpec{
-							{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
-							{Rel: M2M, Table: "user_products", Columns: []string{"user_id", "product_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
-							{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
+							{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
+							{Rel: M2M, Table: "user_products", Columns: []string{"user_id", "product_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
+							{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
 							{Rel: M2O, Table: "company", Columns: []string{"workplace_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}}},
-							{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 					{
 						Table: "users",
-						ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+						Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 						Fields: []*FieldSpec{
 							{Column: "age", Type: field.TypeInt, Value: 30},
 							{Column: "name", Type: field.TypeString, Value: "nati"},
 						},
 						Edges: []*EdgeSpec{
-							{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
-							{Rel: M2M, Table: "user_products", Columns: []string{"user_id", "product_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IDSpec: &FieldSpec{Column: "id"}}},
-							{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
-							{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IDSpec: &FieldSpec{Column: "id"}}},
+							{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
+							{Rel: M2M, Table: "user_products", Columns: []string{"user_id", "product_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}},
+							{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
+							{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}},
 						},
 					},
 				},
@@ -1674,7 +1674,7 @@ type user struct {
 	id    int
 	age   int
 	name  string
-	bfID  int
+	bfId  int
 	edges struct {
 		fk1 int
 		fk2 int
@@ -1709,7 +1709,7 @@ func (u *user) assign(columns []string, values []any) error {
 		case "name":
 			u.name = values[i].(*sql.NullString).String
 		case "best_friend_id":
-			u.bfID = int(values[i].(*sql.NullInt64).Int64)
+			u.bfId = int(values[i].(*sql.NullInt64).Int64)
 		case "fk1":
 			u.edges.fk1 = int(values[i].(*sql.NullInt64).Int64)
 		case "fk2":
@@ -1735,7 +1735,7 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Fields: FieldMut{
 					Set: []*FieldSpec{
@@ -1763,7 +1763,7 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Modifiers: []func(*sql.UpdateBuilder){
 					func(u *sql.UpdateBuilder) {
@@ -1790,7 +1790,7 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Predicate: func(s *sql.Selector) {
 					s.Where(sql.EQ("deleted", false))
@@ -1826,7 +1826,7 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Predicate: func(s *sql.Selector) {
 					s.Where(sql.EQ("deleted", false))
@@ -1863,7 +1863,7 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
@@ -1895,15 +1895,15 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
-						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"partner_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id"}}},
-						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"spouse_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
+						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"partner_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id"}}},
+						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"spouse_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
 					},
 					Add: []*EdgeSpec{
-						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"spouse_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{3}}},
+						{Rel: O2O, Table: "users", Bidi: true, Columns: []string{"spouse_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{3}}},
 					},
 				},
 			},
@@ -1940,23 +1940,23 @@ func TestUpdateNode(t *testing.T) {
 				Node: &NodeSpec{
 					Table:   "users",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
-						{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
-						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{3, 7}}},
+						{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{2}}},
+						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{3, 7}}},
 						// Clear all "following" edges (and their inverse).
-						{Rel: M2M, Table: "user_following", Bidi: true, Columns: []string{"following_id", "follower_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: M2M, Table: "user_following", Bidi: true, Columns: []string{"following_id", "follower_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id"}}},
 						// Clear all "user_blocked" edges.
-						{Rel: M2M, Table: "user_blocked", Columns: []string{"user_id", "blocked_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: M2M, Table: "user_blocked", Columns: []string{"user_id", "blocked_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id"}}},
 						// Clear all "comments" edges.
-						{Rel: M2M, Inverse: true, Table: "comment_responders", Columns: []string{"comment_id", "responder_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: M2M, Inverse: true, Table: "comment_responders", Columns: []string{"comment_id", "responder_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id"}}},
 					},
 					Add: []*EdgeSpec{
-						{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{4}}},
-						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{5}}},
-						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{6, 8}}},
+						{Rel: M2M, Table: "user_friends", Bidi: true, Columns: []string{"user_id", "friend_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{4}}},
+						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{5}}},
+						{Rel: M2M, Inverse: true, Table: "group_users", Columns: []string{"group_id", "user_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id", Type: field.TypeInt}, Nodes: []driver.Value{6, 8}}},
 					},
 				},
 			},
@@ -2005,7 +2005,7 @@ func TestUpdateNode(t *testing.T) {
 					Table:   "users",
 					Schema:  "mydb",
 					Columns: []string{"id", "name", "age"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Fields: FieldMut{
 					Set: []*FieldSpec{
@@ -2034,12 +2034,12 @@ func TestUpdateNode(t *testing.T) {
 					Table:   "users",
 					Schema:  "mydb",
 					Columns: []string{"id", "name", "age", "best_friend_id"},
-					ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
 						// Clear O2O bidi edge
-						{Rel: O2O, Schema: "mydb", Table: "users", Bidi: true, Columns: []string{"best_friend_id"}, Target: &EdgeTarget{IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: O2O, Schema: "mydb", Table: "users", Bidi: true, Columns: []string{"best_friend_id"}, Target: &EdgeTarget{IdSpec: &FieldSpec{Column: "id"}}},
 					},
 				},
 			},
@@ -2088,7 +2088,7 @@ func TestExecUpdateNode(t *testing.T) {
 		Node: &NodeSpec{
 			Table:   "users",
 			Columns: []string{"id", "name", "age"},
-			ID:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+			Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
 		},
 		Fields: FieldMut{
 			Set: []*FieldSpec{
@@ -2113,7 +2113,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Fields: FieldMut{
 					Set: []*FieldSpec{
@@ -2135,7 +2135,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Fields: FieldMut{
 					Clear: []*FieldSpec{
@@ -2160,7 +2160,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Modifiers: []func(*sql.UpdateBuilder){
 					func(u *sql.UpdateBuilder) {
@@ -2179,7 +2179,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
@@ -2205,7 +2205,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Fields: FieldMut{
 					Add: []*FieldSpec{
@@ -2214,10 +2214,10 @@ func TestUpdateNodes(t *testing.T) {
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
-						{Rel: O2M, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{20, 30}, IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: O2M, Table: "cards", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{20, 30}, IdSpec: &FieldSpec{Column: "id"}}},
 					},
 					Add: []*EdgeSpec{
-						{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{40}, IDSpec: &FieldSpec{Column: "id"}}},
+						{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{40}, IdSpec: &FieldSpec{Column: "id"}}},
 					},
 				},
 			},
@@ -2247,7 +2247,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
@@ -2296,7 +2296,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+					Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 				},
 				Edges: EdgeMut{
 					Clear: []*EdgeSpec{
@@ -2346,7 +2346,7 @@ func TestUpdateNodes(t *testing.T) {
 			spec: &UpdateSpec{
 				Node: &NodeSpec{
 					Table:       "users",
-					CompositeID: []*FieldSpec{{Column: "user_id", Type: field.TypeInt}, {Column: "group_id", Type: field.TypeInt}},
+					CompositeId: []*FieldSpec{{Column: "user_id", Type: field.TypeInt}, {Column: "group_id", Type: field.TypeInt}},
 				},
 				Predicate: func(s *sql.Selector) {
 					s.Where(sql.EQ("version", 1))
@@ -2385,7 +2385,7 @@ func TestDeleteNodes(t *testing.T) {
 	affected, err := DeleteNodes(context.Background(), sql.OpenDB("", db), &DeleteSpec{
 		Node: &NodeSpec{
 			Table: "users",
-			ID:    &FieldSpec{Column: "id", Type: field.TypeInt},
+			Id:    &FieldSpec{Column: "id", Type: field.TypeInt},
 		},
 	})
 	require.NoError(t, err)
@@ -2401,7 +2401,7 @@ func TestDeleteNodesSchema(t *testing.T) {
 		Node: &NodeSpec{
 			Table:  "users",
 			Schema: "mydb",
-			ID:     &FieldSpec{Column: "id", Type: field.TypeInt},
+			Id:     &FieldSpec{Column: "id", Type: field.TypeInt},
 		},
 	})
 	require.NoError(t, err)
@@ -2432,7 +2432,7 @@ func TestQueryNodes(t *testing.T) {
 			Node: &NodeSpec{
 				Table:   "users",
 				Columns: []string{"id", "age", "name", "fk1", "fk2"},
-				ID:      &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:      &FieldSpec{Column: "id", Type: field.TypeInt},
 			},
 			Limit:  3,
 			Offset: 4,
@@ -2493,7 +2493,7 @@ func TestQueryNodesSchema(t *testing.T) {
 				Table:   "users",
 				Schema:  "mydb",
 				Columns: []string{"id", "age", "name", "fk1", "fk2"},
-				ID:      &FieldSpec{Column: "id", Type: field.TypeInt},
+				Id:      &FieldSpec{Column: "id", Type: field.TypeInt},
 			},
 			Limit:  3,
 			Offset: 4,
@@ -2608,7 +2608,7 @@ func TestIsConstraintError(t *testing.T) {
 		expectedCheck      bool
 	}{
 		{
-			name: "MySQL FK",
+			name: "MySql FK",
 			errMessage: `insert node to table "pets": Error 1452: Cannot add or update a child row: a foreign key` +
 				" constraint fails (`test`.`pets`, CONSTRAINT `pets_users_pets` FOREIGN KEY (`user_pets`) REFERENCES " +
 				"`users` (`id`) ON DELETE SET NULL)",
@@ -2634,7 +2634,7 @@ func TestIsConstraintError(t *testing.T) {
 			expectedCheck:      false,
 		},
 		{
-			name: "MySQL FK",
+			name: "MySql FK",
 			errMessage: "Error 1451: Cannot delete or update a parent row: a foreign key constraint " +
 				"fails (`test`.`groups`, CONSTRAINT `groups_group_infos_info` FOREIGN KEY (`group_info`) REFERENCES `group_infos` (`id`))",
 			expectedConstraint: true,
@@ -2659,7 +2659,7 @@ func TestIsConstraintError(t *testing.T) {
 			expectedCheck:      false,
 		},
 		{
-			name:               "MySQL Unique",
+			name:               "MySql Unique",
 			errMessage:         `insert node to table "file_types": UNIQUE constraint failed: file_types.name ent: constraint failed: insert node to table "file_types": UNIQUE constraint failed: file_types.name`,
 			expectedConstraint: true,
 			expectedFK:         false,
@@ -2683,7 +2683,7 @@ func TestIsConstraintError(t *testing.T) {
 			expectedCheck:      false,
 		},
 		{
-			name:               "MySQL Check",
+			name:               "MySql Check",
 			errMessage:         `insert node to table "users": Error 3819: Check constraint 'users_age_check' is violated`,
 			expectedConstraint: true,
 			expectedFK:         false,
@@ -2726,7 +2726,7 @@ func TestLimitNeighbors(t *testing.T) {
 		LimitNeighbors(fk, 2)(s)
 		query, args := s.Query()
 		require.Equal(t,
-			"WITH `src_query` AS (SELECT `author_id`, `id` FROM `posts`), `limited_query` AS (SELECT *, (ROW_NUMBER() OVER (PARTITION BY `author_id` ORDER BY `id`)) AS `row_number` FROM `src_query`) SELECT `author_id`, `id` FROM `limited_query` AS `posts` WHERE `posts`.`row_number` <= ?",
+			"WITH `src_query` AS (SELECT `author_id`, `id` FROM `posts`), `limited_query` AS (SELECT *, (ROW_NUMbER() OVER (PARTITION BY `author_id` ORDER BY `id`)) AS `row_number` FROM `src_query`) SELECT `author_id`, `id` FROM `limited_query` AS `posts` WHERE `posts`.`row_number` <= ?",
 			query,
 		)
 		require.Equal(t, []any{2}, args)
@@ -2738,7 +2738,7 @@ func TestLimitNeighbors(t *testing.T) {
 		LimitNeighbors(fk, 1, sql.ExprFunc(func(b *sql.Builder) { b.Ident("updated_at") }))(s)
 		query, args := s.Query()
 		require.Equal(t,
-			"WITH `src_query` AS (SELECT `user_id`, `id`, `name` FROM `groups` JOIN `user_groups` AS `t1` ON `groups`.`id` = `t1`.`group_id`), `limited_query` AS (SELECT *, (ROW_NUMBER() OVER (PARTITION BY `user_id` ORDER BY `updated_at`)) AS `row_number` FROM `src_query`) SELECT `user_id`, `id`, `name` FROM `limited_query` AS `groups` WHERE `groups`.`row_number` <= ?",
+			"WITH `src_query` AS (SELECT `user_id`, `id`, `name` FROM `groups` JOIN `user_groups` AS `t1` ON `groups`.`id` = `t1`.`group_id`), `limited_query` AS (SELECT *, (ROW_NUMbER() OVER (PARTITION BY `user_id` ORDER BY `updated_at`)) AS `row_number` FROM `src_query`) SELECT `user_id`, `id`, `name` FROM `limited_query` AS `groups` WHERE `groups`.`row_number` <= ?",
 			query,
 		)
 		require.Equal(t, []any{1}, args)

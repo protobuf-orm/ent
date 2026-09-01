@@ -180,13 +180,13 @@ func (m *Mutation) ResetMethod() {
 	delete(m.clearedFields, FieldMethod)
 }
 
-// SetDeviceID sets the "device_id" field.
-func (m *Mutation) SetDeviceID(u uuid.UUID) {
+// SetDeviceId sets the "device_id" field.
+func (m *Mutation) SetDeviceId(u uuid.UUID) {
 	m.device = &u
 }
 
-// DeviceID returns the value of the "device_id" field in the mutation.
-func (m *Mutation) DeviceID() (r uuid.UUID, exists bool) {
+// DeviceId returns the value of the "device_id" field in the mutation.
+func (m *Mutation) DeviceId() (r uuid.UUID, exists bool) {
 	v := m.device
 	if v == nil {
 		return
@@ -194,39 +194,39 @@ func (m *Mutation) DeviceID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ClearDeviceID clears the value of the "device_id" field.
-func (m *Mutation) ClearDeviceID() {
+// ClearDeviceId clears the value of the "device_id" field.
+func (m *Mutation) ClearDeviceId() {
 	m.device = nil
-	m.clearedFields[FieldDeviceID] = struct{}{}
+	m.clearedFields[FieldDeviceId] = struct{}{}
 }
 
-// DeviceIDCleared returns if the "device_id" field was cleared in this mutation.
-func (m *Mutation) DeviceIDCleared() bool {
-	_, ok := m.clearedFields[FieldDeviceID]
+// DeviceIdCleared returns if the "device_id" field was cleared in this mutation.
+func (m *Mutation) DeviceIdCleared() bool {
+	_, ok := m.clearedFields[FieldDeviceId]
 	return ok
 }
 
-// ResetDeviceID resets all changes to the "device_id" field.
-func (m *Mutation) ResetDeviceID() {
+// ResetDeviceId resets all changes to the "device_id" field.
+func (m *Mutation) ResetDeviceId() {
 	m.device = nil
-	delete(m.clearedFields, FieldDeviceID)
+	delete(m.clearedFields, FieldDeviceId)
 }
 
 // ClearDevice clears the "device" edge to the SessionDevice entity.
 func (m *Mutation) ClearDevice() {
 	m.cleareddevice = true
-	m.clearedFields[FieldDeviceID] = struct{}{}
+	m.clearedFields[FieldDeviceId] = struct{}{}
 }
 
 // DeviceCleared reports if the "device" edge to the SessionDevice entity was cleared.
 func (m *Mutation) DeviceCleared() bool {
-	return m.DeviceIDCleared() || m.cleareddevice
+	return m.DeviceIdCleared() || m.cleareddevice
 }
 
-// DeviceIDs returns the "device" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// DeviceID instead. It exists only for internal usage by the builders.
-func (m *Mutation) DeviceIDs() (ids []uuid.UUID) {
+// DeviceIds returns the "device" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// DeviceId instead. It exists only for internal usage by the builders.
+func (m *Mutation) DeviceIds() (ids []uuid.UUID) {
 	if id := m.device; id != nil {
 		ids = append(ids, *id)
 	}
@@ -290,7 +290,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldMethod)
 	}
 	if m.device != nil {
-		fields = append(fields, FieldDeviceID)
+		fields = append(fields, FieldDeviceId)
 	}
 	return fields
 }
@@ -310,8 +310,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Token()
 	case FieldMethod:
 		return m.Method()
-	case FieldDeviceID:
-		return m.DeviceID()
+	case FieldDeviceId:
+		return m.DeviceId()
 	}
 	return nil, false
 }
@@ -363,12 +363,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetMethod(v)
 		return nil
-	case FieldDeviceID:
+	case FieldDeviceId:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDeviceID(v)
+		m.SetDeviceId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Session field %s", name)
@@ -409,8 +409,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldMethod) {
 		fields = append(fields, FieldMethod)
 	}
-	if m.FieldCleared(FieldDeviceID) {
-		fields = append(fields, FieldDeviceID)
+	if m.FieldCleared(FieldDeviceId) {
+		fields = append(fields, FieldDeviceId)
 	}
 	return fields
 }
@@ -435,8 +435,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldMethod:
 		m.ClearMethod()
 		return nil
-	case FieldDeviceID:
-		m.ClearDeviceID()
+	case FieldDeviceId:
+		m.ClearDeviceId()
 		return nil
 	}
 	return fmt.Errorf("unknown Session nullable field %s", name)
@@ -461,8 +461,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldMethod:
 		m.ResetMethod()
 		return nil
-	case FieldDeviceID:
-		m.ResetDeviceID()
+	case FieldDeviceId:
+		m.ResetDeviceId()
 		return nil
 	}
 	return fmt.Errorf("unknown Session field %s", name)
@@ -477,9 +477,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeDevice:
 		if id := m.device; id != nil {
@@ -495,9 +495,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

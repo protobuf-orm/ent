@@ -19,8 +19,8 @@ import (
 // Pet is the model entity for the Pet schema.
 type Pet struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Age holds the value of the "age" field.
 	Age int `json:"age,omitempty"`
 	// LicensedAt holds the value of the "licensed_at" field.
@@ -57,7 +57,7 @@ func (*Pet) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case pet.FieldID, pet.FieldAge:
+		case pet.FieldId, pet.FieldAge:
 			values[i] = new(sql.NullInt64)
 		case pet.FieldLicensedAt:
 			values[i] = new(sql.NullTime)
@@ -78,12 +78,12 @@ func (_m *Pet) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case pet.FieldID:
+		case pet.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case pet.FieldAge:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field age", values[i])

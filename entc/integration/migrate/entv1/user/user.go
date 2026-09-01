@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "oid"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "oid"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
 	// FieldName holds the string denoting the name field in the database.
@@ -50,8 +50,8 @@ const (
 	EdgeSpouse = "spouse"
 	// EdgeCar holds the string denoting the car edge name in mutations.
 	EdgeCar = "car"
-	// CarFieldID holds the string denoting the ID field of the Car.
-	CarFieldID = "id"
+	// CarFieldId holds the string denoting the Id field of the Car.
+	CarFieldId = "id"
 	// Table holds the table name of the user in the database.
 	Table = "user"
 	// ParentTable is the table that holds the parent relation/edge.
@@ -75,9 +75,9 @@ const (
 	CarColumn = "user_car"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldAge,
 	FieldName,
 	FieldDescription,
@@ -92,7 +92,7 @@ var Columns = []string{
 	FieldDropOptional,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_children",
@@ -154,9 +154,9 @@ func StateValidator(s State) error {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByAge orders the results by the age field.
@@ -250,29 +250,29 @@ func ByCarField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 	)
 }
 func newSpouseStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, SpouseTable, SpouseColumn),
 	)
 }
 func newCarStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CarInverseTable, CarFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CarInverseTable, CarFieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, CarTable, CarColumn),
 	)
 }

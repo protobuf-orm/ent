@@ -112,7 +112,7 @@ func Driver(driver dialect.Driver) Option {
 // Optional parameters can be added for configuring the client.
 func Open(driverName, dataSourceName string, options ...Option) (*Client, error) {
 	switch driverName {
-	case dialect.MySQL, dialect.Postgres, dialect.SQLite:
+	case dialect.MySql, dialect.Postgres, dialect.SQLite:
 		drv, err := sql.Open(driverName, dataSourceName)
 		if err != nil {
 			return nil, err
@@ -191,9 +191,9 @@ func (c *Client) Close() error {
 	return c.driver.Close()
 }
 
-// Dialect is the name of the SQL this client speaks.
+// Dialect is the name of the Sql this client speaks.
 //
-// Code that writes SQL of its own has to know which SQL it may write, and the
+// Code that writes Sql of its own has to know which Sql it may write, and the
 // connection is what settles that. Asking the client keeps the answer from
 // being a second claim that can disagree with the one made when it was opened.
 func (c *Client) Dialect() string {
@@ -323,9 +323,9 @@ func (c *CommentClient) UpdateOne(_m *Comment) *CommentUpdateOne {
 	return &CommentUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *CommentClient) UpdateOneID(id int) *CommentUpdateOne {
-	mutation := newCommentMutation(c.config, OpUpdateOne, withCommentID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *CommentClient) UpdateOneId(id int) *CommentUpdateOne {
+	mutation := newCommentMutation(c.config, OpUpdateOne, withCommentId(id))
 	return &CommentUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -337,12 +337,12 @@ func (c *CommentClient) Delete() *CommentDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *CommentClient) DeleteOne(_m *Comment) *CommentDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *CommentClient) DeleteOneID(id int) *CommentDeleteOne {
-	builder := c.Delete().Where(comment.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *CommentClient) DeleteOneId(id int) *CommentDeleteOne {
+	builder := c.Delete().Where(comment.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &CommentDeleteOne{builder}
@@ -359,7 +359,7 @@ func (c *CommentClient) Query() *CommentQuery {
 
 // Get returns a Comment entity by its id.
 func (c *CommentClient) Get(ctx context.Context, id int) (*Comment, error) {
-	return c.Query().Where(comment.ID(id)).Only(ctx)
+	return c.Query().Where(comment.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -375,10 +375,10 @@ func (c *CommentClient) GetX(ctx context.Context, id int) *Comment {
 func (c *CommentClient) QueryPost(_m *Comment) *PostQuery {
 	query := (&PostClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(comment.Table, comment.FieldID, id),
-			sqlgraph.To(post.Table, post.FieldID),
+			sqlgraph.From(comment.Table, comment.FieldId, id),
+			sqlgraph.To(post.Table, post.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, comment.PostTable, comment.PostColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -472,9 +472,9 @@ func (c *PostClient) UpdateOne(_m *Post) *PostUpdateOne {
 	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *PostClient) UpdateOneID(id int) *PostUpdateOne {
-	mutation := newPostMutation(c.config, OpUpdateOne, withPostID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *PostClient) UpdateOneId(id int) *PostUpdateOne {
+	mutation := newPostMutation(c.config, OpUpdateOne, withPostId(id))
 	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -486,12 +486,12 @@ func (c *PostClient) Delete() *PostDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *PostClient) DeleteOne(_m *Post) *PostDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *PostClient) DeleteOneID(id int) *PostDeleteOne {
-	builder := c.Delete().Where(post.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *PostClient) DeleteOneId(id int) *PostDeleteOne {
+	builder := c.Delete().Where(post.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &PostDeleteOne{builder}
@@ -508,7 +508,7 @@ func (c *PostClient) Query() *PostQuery {
 
 // Get returns a Post entity by its id.
 func (c *PostClient) Get(ctx context.Context, id int) (*Post, error) {
-	return c.Query().Where(post.ID(id)).Only(ctx)
+	return c.Query().Where(post.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -524,10 +524,10 @@ func (c *PostClient) GetX(ctx context.Context, id int) *Post {
 func (c *PostClient) QueryAuthor(_m *Post) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(post.Table, post.FieldID, id),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(post.Table, post.FieldId, id),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, post.AuthorTable, post.AuthorColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -540,10 +540,10 @@ func (c *PostClient) QueryAuthor(_m *Post) *UserQuery {
 func (c *PostClient) QueryComments(_m *Post) *CommentQuery {
 	query := (&CommentClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(post.Table, post.FieldID, id),
-			sqlgraph.To(comment.Table, comment.FieldID),
+			sqlgraph.From(post.Table, post.FieldId, id),
+			sqlgraph.To(comment.Table, comment.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, post.CommentsTable, post.CommentsColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -637,9 +637,9 @@ func (c *UserClient) UpdateOne(_m *User) *UserUpdateOne {
 	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *UserClient) UpdateOneID(id int) *UserUpdateOne {
-	mutation := newUserMutation(c.config, OpUpdateOne, withUserID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *UserClient) UpdateOneId(id int) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUserId(id))
 	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -651,12 +651,12 @@ func (c *UserClient) Delete() *UserDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *UserClient) DeleteOne(_m *User) *UserDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *UserClient) DeleteOneID(id int) *UserDeleteOne {
-	builder := c.Delete().Where(user.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *UserClient) DeleteOneId(id int) *UserDeleteOne {
+	builder := c.Delete().Where(user.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &UserDeleteOne{builder}
@@ -673,7 +673,7 @@ func (c *UserClient) Query() *UserQuery {
 
 // Get returns a User entity by its id.
 func (c *UserClient) Get(ctx context.Context, id int) (*User, error) {
-	return c.Query().Where(user.ID(id)).Only(ctx)
+	return c.Query().Where(user.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -689,10 +689,10 @@ func (c *UserClient) GetX(ctx context.Context, id int) *User {
 func (c *UserClient) QueryPosts(_m *User) *PostQuery {
 	query := (&PostClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, id),
-			sqlgraph.To(post.Table, post.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, id),
+			sqlgraph.To(post.Table, post.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, user.PostsTable, user.PostsColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)

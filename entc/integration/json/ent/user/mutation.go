@@ -25,8 +25,8 @@ type Mutation struct {
 	typ                    string
 	t                      **schema.T
 	url                    **url.URL
-	_URLs                  *[]*url.URL
-	append_URLs            []*url.URL
+	_Urls                  *[]*url.URL
+	append_Urls            []*url.URL
 	raw                    *jsontext.Value
 	appendraw              jsontext.Value
 	dirs                   *[]http.Dir
@@ -95,13 +95,13 @@ func (m *Mutation) ResetT() {
 	delete(m.clearedFields, FieldT)
 }
 
-// SetURL sets the "url" field.
-func (m *Mutation) SetURL(u *url.URL) {
+// SetUrl sets the "url" field.
+func (m *Mutation) SetUrl(u *url.URL) {
 	m.url = &u
 }
 
-// URL returns the value of the "url" field in the mutation.
-func (m *Mutation) URL() (r *url.URL, exists bool) {
+// Url returns the value of the "url" field in the mutation.
+func (m *Mutation) Url() (r *url.URL, exists bool) {
 	v := m.url
 	if v == nil {
 		return
@@ -109,70 +109,70 @@ func (m *Mutation) URL() (r *url.URL, exists bool) {
 	return *v, true
 }
 
-// ClearURL clears the value of the "url" field.
-func (m *Mutation) ClearURL() {
+// ClearUrl clears the value of the "url" field.
+func (m *Mutation) ClearUrl() {
 	m.url = nil
-	m.clearedFields[FieldURL] = struct{}{}
+	m.clearedFields[FieldUrl] = struct{}{}
 }
 
-// URLCleared returns if the "url" field was cleared in this mutation.
-func (m *Mutation) URLCleared() bool {
-	_, ok := m.clearedFields[FieldURL]
+// UrlCleared returns if the "url" field was cleared in this mutation.
+func (m *Mutation) UrlCleared() bool {
+	_, ok := m.clearedFields[FieldUrl]
 	return ok
 }
 
-// ResetURL resets all changes to the "url" field.
-func (m *Mutation) ResetURL() {
+// ResetUrl resets all changes to the "url" field.
+func (m *Mutation) ResetUrl() {
 	m.url = nil
-	delete(m.clearedFields, FieldURL)
+	delete(m.clearedFields, FieldUrl)
 }
 
-// SetURLs sets the "URLs" field.
-func (m *Mutation) SetURLs(u []*url.URL) {
-	m._URLs = &u
-	m.append_URLs = nil
+// SetUrls sets the "Urls" field.
+func (m *Mutation) SetUrls(u []*url.URL) {
+	m._Urls = &u
+	m.append_Urls = nil
 }
 
-// URLs returns the value of the "URLs" field in the mutation.
-func (m *Mutation) URLs() (r []*url.URL, exists bool) {
-	v := m._URLs
+// Urls returns the value of the "Urls" field in the mutation.
+func (m *Mutation) Urls() (r []*url.URL, exists bool) {
+	v := m._Urls
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// AppendURLs adds u to the "URLs" field.
-func (m *Mutation) AppendURLs(u []*url.URL) {
-	m.append_URLs = append(m.append_URLs, u...)
+// AppendUrls adds u to the "Urls" field.
+func (m *Mutation) AppendUrls(u []*url.URL) {
+	m.append_Urls = append(m.append_Urls, u...)
 }
 
-// AppendedURLs returns the list of values that were appended to the "URLs" field in this mutation.
-func (m *Mutation) AppendedURLs() ([]*url.URL, bool) {
-	if len(m.append_URLs) == 0 {
+// AppendedUrls returns the list of values that were appended to the "Urls" field in this mutation.
+func (m *Mutation) AppendedUrls() ([]*url.URL, bool) {
+	if len(m.append_Urls) == 0 {
 		return nil, false
 	}
-	return m.append_URLs, true
+	return m.append_Urls, true
 }
 
-// ClearURLs clears the value of the "URLs" field.
-func (m *Mutation) ClearURLs() {
-	m._URLs = nil
-	m.append_URLs = nil
-	m.clearedFields[FieldURLs] = struct{}{}
+// ClearUrls clears the value of the "Urls" field.
+func (m *Mutation) ClearUrls() {
+	m._Urls = nil
+	m.append_Urls = nil
+	m.clearedFields[FieldUrls] = struct{}{}
 }
 
-// URLsCleared returns if the "URLs" field was cleared in this mutation.
-func (m *Mutation) URLsCleared() bool {
-	_, ok := m.clearedFields[FieldURLs]
+// UrlsCleared returns if the "Urls" field was cleared in this mutation.
+func (m *Mutation) UrlsCleared() bool {
+	_, ok := m.clearedFields[FieldUrls]
 	return ok
 }
 
-// ResetURLs resets all changes to the "URLs" field.
-func (m *Mutation) ResetURLs() {
-	m._URLs = nil
-	m.append_URLs = nil
-	delete(m.clearedFields, FieldURLs)
+// ResetUrls resets all changes to the "Urls" field.
+func (m *Mutation) ResetUrls() {
+	m._Urls = nil
+	m.append_Urls = nil
+	delete(m.clearedFields, FieldUrls)
 }
 
 // SetRaw sets the "raw" field.
@@ -648,10 +648,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldT)
 	}
 	if m.url != nil {
-		fields = append(fields, FieldURL)
+		fields = append(fields, FieldUrl)
 	}
-	if m._URLs != nil {
-		fields = append(fields, FieldURLs)
+	if m._Urls != nil {
+		fields = append(fields, FieldUrls)
 	}
 	if m.raw != nil {
 		fields = append(fields, FieldRaw)
@@ -693,10 +693,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldT:
 		return m.T()
-	case FieldURL:
-		return m.URL()
-	case FieldURLs:
-		return m.URLs()
+	case FieldUrl:
+		return m.Url()
+	case FieldUrls:
+		return m.Urls()
 	case FieldRaw:
 		return m.Raw()
 	case FieldDirs:
@@ -740,19 +740,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetT(v)
 		return nil
-	case FieldURL:
+	case FieldUrl:
 		v, ok := value.(*url.URL)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetURL(v)
+		m.SetUrl(v)
 		return nil
-	case FieldURLs:
+	case FieldUrls:
 		v, ok := value.([]*url.URL)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetURLs(v)
+		m.SetUrls(v)
 		return nil
 	case FieldRaw:
 		v, ok := value.(jsontext.Value)
@@ -857,11 +857,11 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldT) {
 		fields = append(fields, FieldT)
 	}
-	if m.FieldCleared(FieldURL) {
-		fields = append(fields, FieldURL)
+	if m.FieldCleared(FieldUrl) {
+		fields = append(fields, FieldUrl)
 	}
-	if m.FieldCleared(FieldURLs) {
-		fields = append(fields, FieldURLs)
+	if m.FieldCleared(FieldUrls) {
+		fields = append(fields, FieldUrls)
 	}
 	if m.FieldCleared(FieldRaw) {
 		fields = append(fields, FieldRaw)
@@ -907,11 +907,11 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldT:
 		m.ClearT()
 		return nil
-	case FieldURL:
-		m.ClearURL()
+	case FieldUrl:
+		m.ClearUrl()
 		return nil
-	case FieldURLs:
-		m.ClearURLs()
+	case FieldUrls:
+		m.ClearUrls()
 		return nil
 	case FieldRaw:
 		m.ClearRaw()
@@ -951,11 +951,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldT:
 		m.ResetT()
 		return nil
-	case FieldURL:
-		m.ResetURL()
+	case FieldUrl:
+		m.ResetUrl()
 		return nil
-	case FieldURLs:
-		m.ResetURLs()
+	case FieldUrls:
+		m.ResetUrls()
 		return nil
 	case FieldRaw:
 		m.ResetRaw()
@@ -997,9 +997,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	return nil
 }
 
@@ -1009,9 +1009,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

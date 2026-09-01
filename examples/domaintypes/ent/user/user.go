@@ -9,17 +9,17 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldPostalCode holds the string denoting the postal_code field in the database.
 	FieldPostalCode = "postal_code"
 	// Table holds the table name of the user in the database.
 	Table = "user"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldPostalCode,
 }
 
@@ -36,9 +36,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByPostalCode orders the results by the postal_code field.

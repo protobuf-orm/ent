@@ -23,8 +23,8 @@ type Link struct {
 // Fields of the IntSid.
 func (Link) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuidc.UUIDC{}).Default(uuidc.NewUUIDC),
-		field.JSON("link_information", map[string]LinkInformation{}).
+		field.Uuid("id", uuidc.UuidC{}).Default(uuidc.NewUuidC),
+		field.Json("link_information", map[string]LinkInformation{}).
 			Default(map[string]LinkInformation{
 				"ent": {
 					Name: "ent",

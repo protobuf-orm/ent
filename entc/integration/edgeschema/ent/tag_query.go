@@ -83,8 +83,8 @@ func (_q *TagQuery) QueryTweets() *TweetQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tag.Table, tag.FieldID, selector),
-			sqlgraph.To(tweet.Table, tweet.FieldID),
+			sqlgraph.From(tag.Table, tag.FieldId, selector),
+			sqlgraph.To(tweet.Table, tweet.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, tag.TweetsTable, tag.TweetsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -105,8 +105,8 @@ func (_q *TagQuery) QueryGroups() *GroupQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tag.Table, tag.FieldID, selector),
-			sqlgraph.To(group.Table, group.FieldID),
+			sqlgraph.From(tag.Table, tag.FieldId, selector),
+			sqlgraph.To(group.Table, group.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, tag.GroupsTable, tag.GroupsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -127,8 +127,8 @@ func (_q *TagQuery) QueryTweetTags() *TweetTagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tag.Table, tag.FieldID, selector),
-			sqlgraph.To(tweettag.Table, tweettag.FieldID),
+			sqlgraph.From(tag.Table, tag.FieldId, selector),
+			sqlgraph.To(tweettag.Table, tweettag.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, tag.TweetTagsTable, tag.TweetTagsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -149,8 +149,8 @@ func (_q *TagQuery) QueryGroupTags() *GroupTagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tag.Table, tag.FieldID, selector),
-			sqlgraph.To(grouptag.Table, grouptag.FieldID),
+			sqlgraph.From(tag.Table, tag.FieldId, selector),
+			sqlgraph.To(grouptag.Table, grouptag.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, tag.GroupTagsTable, tag.GroupTagsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -181,11 +181,11 @@ func (_q *TagQuery) FirstX(ctx context.Context) *Tag {
 	return node
 }
 
-// FirstID returns the first Tag ID from the query.
-// Returns a *NotFoundError when no Tag ID was found.
-func (_q *TagQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Tag Id from the query.
+// Returns a *NotFoundError when no Tag Id was found.
+func (_q *TagQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -195,9 +195,9 @@ func (_q *TagQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *TagQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *TagQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -231,12 +231,12 @@ func (_q *TagQuery) OnlyX(ctx context.Context) *Tag {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Tag ID in the query.
-// Returns a *NotSingularError when more than one Tag ID is found.
+// OnlyId is like Only, but returns the only Tag Id in the query.
+// Returns a *NotSingularError when more than one Tag Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *TagQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *TagQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -250,9 +250,9 @@ func (_q *TagQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *TagQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *TagQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -278,21 +278,21 @@ func (_q *TagQuery) AllX(ctx context.Context) []*Tag {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Tag IDs.
-func (_q *TagQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Tag Ids.
+func (_q *TagQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(tag.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(tag.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *TagQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *TagQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -320,7 +320,7 @@ func (_q *TagQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *TagQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -540,20 +540,20 @@ func (_q *TagQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tag, err
 }
 
 func (_q *TagQuery) loadTweets(ctx context.Context, query *TweetQuery, nodes []*Tag, init func(*Tag), assign func(*Tag, *Tweet)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Tag)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Tag)
 	nids := make(map[int]map[*Tag]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(tag.TweetsTable)
-		s.Join(joinT).On(s.C(tweet.FieldID), joinT.C(tag.TweetsPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(tag.TweetsPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(tweet.FieldId), joinT.C(tag.TweetsPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(tag.TweetsPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(tag.TweetsPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -577,10 +577,10 @@ func (_q *TagQuery) loadTweets(ctx context.Context, query *TweetQuery, nodes []*
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Tag]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Tag]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -590,9 +590,9 @@ func (_q *TagQuery) loadTweets(ctx context.Context, query *TweetQuery, nodes []*
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "tweets" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "tweets" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -601,20 +601,20 @@ func (_q *TagQuery) loadTweets(ctx context.Context, query *TweetQuery, nodes []*
 	return nil
 }
 func (_q *TagQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []*Tag, init func(*Tag), assign func(*Tag, *Group)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Tag)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Tag)
 	nids := make(map[int]map[*Tag]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(tag.GroupsTable)
-		s.Join(joinT).On(s.C(group.FieldID), joinT.C(tag.GroupsPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(tag.GroupsPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(group.FieldId), joinT.C(tag.GroupsPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(tag.GroupsPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(tag.GroupsPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -638,10 +638,10 @@ func (_q *TagQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []*
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Tag]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Tag]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -651,9 +651,9 @@ func (_q *TagQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []*
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "groups" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "groups" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -665,14 +665,14 @@ func (_q *TagQuery) loadTweetTags(ctx context.Context, query *TweetTagQuery, nod
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Tag)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(tweettag.FieldTagID)
+		query.ctx.AppendFieldOnce(tweettag.FieldTagId)
 	}
 	query.Where(predicate.TweetTag(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(tag.TweetTagsColumn), fks...))
@@ -682,10 +682,10 @@ func (_q *TagQuery) loadTweetTags(ctx context.Context, query *TweetTagQuery, nod
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.TagID
+		fk := n.TagId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "tag_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "tag_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -695,14 +695,14 @@ func (_q *TagQuery) loadGroupTags(ctx context.Context, query *GroupTagQuery, nod
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Tag)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(grouptag.FieldTagID)
+		query.ctx.AppendFieldOnce(grouptag.FieldTagId)
 	}
 	query.Where(predicate.GroupTag(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(tag.GroupTagsColumn), fks...))
@@ -712,10 +712,10 @@ func (_q *TagQuery) loadGroupTags(ctx context.Context, query *GroupTagQuery, nod
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.TagID
+		fk := n.TagId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "tag_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "tag_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -732,7 +732,7 @@ func (_q *TagQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *TagQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(tag.Table, tag.Columns, sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(tag.Table, tag.Columns, sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -741,9 +741,9 @@ func (_q *TagQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, tag.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, tag.FieldId)
 		for i := range fields {
-			if fields[i] != tag.FieldID {
+			if fields[i] != tag.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

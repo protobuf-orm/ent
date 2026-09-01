@@ -25,9 +25,9 @@ type PaymentCreate struct {
 	hooks    []Hook
 }
 
-// SetCardID sets the "card_id" field.
-func (_c *PaymentCreate) SetCardID(v int) *PaymentCreate {
-	_c.mutation.SetCardID(v)
+// SetCardId sets the "card_id" field.
+func (_c *PaymentCreate) SetCardId(v int) *PaymentCreate {
+	_c.mutation.SetCardId(v)
 	return _c
 }
 
@@ -63,7 +63,7 @@ func (_c *PaymentCreate) SetStatus(v payment.Status) *PaymentCreate {
 
 // SetCard sets the "card" edge to the Card entity.
 func (_c *PaymentCreate) SetCard(v *Card) *PaymentCreate {
-	return _c.SetCardID(v.ID)
+	return _c.SetCardId(v.Id)
 }
 
 // Mutation returns the PaymentMutation object of the builder.
@@ -100,7 +100,7 @@ func (_c *PaymentCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *PaymentCreate) check() error {
-	if _, ok := _c.mutation.CardID(); !ok {
+	if _, ok := _c.mutation.CardId(); !ok {
 		return &ValidationError{Name: "card_id", err: errors.New(`ent: missing required field "Payment.card_id"`)}
 	}
 	if _, ok := _c.mutation.Amount(); !ok {
@@ -133,7 +133,7 @@ func (_c *PaymentCreate) check() error {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "Payment.status": %w`, err)}
 		}
 	}
-	if len(_c.mutation.CardIDs()) == 0 {
+	if len(_c.mutation.CardIds()) == 0 {
 		return &ValidationError{Name: "card", err: errors.New(`ent: missing required edge "Payment.card"`)}
 	}
 	return nil
@@ -150,9 +150,9 @@ func (_c *PaymentCreate) sqlSave(ctx context.Context) (*Payment, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -160,7 +160,7 @@ func (_c *PaymentCreate) sqlSave(ctx context.Context) (*Payment, error) {
 func (_c *PaymentCreate) createSpec() (*Payment, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Payment{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(payment.Table, sqlgraph.NewFieldSpec(payment.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(payment.Table, sqlgraph.NewFieldSpec(payment.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Amount(); ok {
 		_spec.SetField(payment.FieldAmount, field.TypeFloat64, value)
@@ -182,7 +182,7 @@ func (_c *PaymentCreate) createSpec() (*Payment, *sqlgraph.CreateSpec) {
 		_spec.SetField(payment.FieldStatus, field.TypeEnum, value)
 		_node.Status = value
 	}
-	if nodes := _c.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -190,13 +190,13 @@ func (_c *PaymentCreate) createSpec() (*Payment, *sqlgraph.CreateSpec) {
 			Columns: []string{payment.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.CardID = nodes[0]
+		_node.CardId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -245,10 +245,10 @@ func (_c *PaymentCreateBulk) Save(ctx context.Context) ([]*Payment, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

@@ -46,9 +46,9 @@ func (_u *GroupUpdate) SetNillableName(v *string) *GroupUpdate {
 	return _u
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddUsersIDs(ids...)
+// AddUsersIds adds the "users" edge to the User entity by Ids.
+func (_u *GroupUpdate) AddUsersIds(ids ...int) *GroupUpdate {
+	_u.mutation.AddUsersIds(ids...)
 	return _u
 }
 
@@ -56,28 +56,28 @@ func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
 func (_u *GroupUpdate) AddUsers(v ...*User) *GroupUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddUsersIDs(ids...)
+	return _u.AddUsersIds(ids...)
 }
 
-// SetAdminID sets the "admin" edge to the User entity by ID.
-func (_u *GroupUpdate) SetAdminID(id int) *GroupUpdate {
-	_u.mutation.SetAdminID(id)
+// SetAdminId sets the "admin" edge to the User entity by Id.
+func (_u *GroupUpdate) SetAdminId(id int) *GroupUpdate {
+	_u.mutation.SetAdminId(id)
 	return _u
 }
 
-// SetNillableAdminID sets the "admin" edge to the User entity by ID if the given value is not nil.
-func (_u *GroupUpdate) SetNillableAdminID(id *int) *GroupUpdate {
+// SetNillableAdminId sets the "admin" edge to the User entity by Id if the given value is not nil.
+func (_u *GroupUpdate) SetNillableAdminId(id *int) *GroupUpdate {
 	if id != nil {
-		_u = _u.SetAdminID(*id)
+		_u = _u.SetAdminId(*id)
 	}
 	return _u
 }
 
 // SetAdmin sets the "admin" edge to the User entity.
 func (_u *GroupUpdate) SetAdmin(v *User) *GroupUpdate {
-	return _u.SetAdminID(v.ID)
+	return _u.SetAdminId(v.Id)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -91,9 +91,9 @@ func (_u *GroupUpdate) ClearUsers() *GroupUpdate {
 	return _u
 }
 
-// RemoveUsersIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveUsersIDs(ids...)
+// RemoveUsersIds removes the "users" edge to User entities by Ids.
+func (_u *GroupUpdate) RemoveUsersIds(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveUsersIds(ids...)
 	return _u
 }
 
@@ -101,9 +101,9 @@ func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
 func (_u *GroupUpdate) RemoveUsers(v ...*User) *GroupUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveUsersIDs(ids...)
+	return _u.RemoveUsersIds(ids...)
 }
 
 // ClearAdmin clears the "admin" edge to the User entity.
@@ -140,7 +140,7 @@ func (_u *GroupUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -159,12 +159,12 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedUsersIDs(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
+	if nodes := _u.mutation.RemovedUsersIds(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -172,7 +172,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -180,7 +180,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -188,7 +188,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -204,12 +204,12 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{group.AdminColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AdminIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AdminIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -217,7 +217,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{group.AdminColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -259,9 +259,9 @@ func (_u *GroupUpdateOne) SetNillableName(v *string) *GroupUpdateOne {
 	return _u
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddUsersIDs(ids...)
+// AddUsersIds adds the "users" edge to the User entity by Ids.
+func (_u *GroupUpdateOne) AddUsersIds(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddUsersIds(ids...)
 	return _u
 }
 
@@ -269,28 +269,28 @@ func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
 func (_u *GroupUpdateOne) AddUsers(v ...*User) *GroupUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddUsersIDs(ids...)
+	return _u.AddUsersIds(ids...)
 }
 
-// SetAdminID sets the "admin" edge to the User entity by ID.
-func (_u *GroupUpdateOne) SetAdminID(id int) *GroupUpdateOne {
-	_u.mutation.SetAdminID(id)
+// SetAdminId sets the "admin" edge to the User entity by Id.
+func (_u *GroupUpdateOne) SetAdminId(id int) *GroupUpdateOne {
+	_u.mutation.SetAdminId(id)
 	return _u
 }
 
-// SetNillableAdminID sets the "admin" edge to the User entity by ID if the given value is not nil.
-func (_u *GroupUpdateOne) SetNillableAdminID(id *int) *GroupUpdateOne {
+// SetNillableAdminId sets the "admin" edge to the User entity by Id if the given value is not nil.
+func (_u *GroupUpdateOne) SetNillableAdminId(id *int) *GroupUpdateOne {
 	if id != nil {
-		_u = _u.SetAdminID(*id)
+		_u = _u.SetAdminId(*id)
 	}
 	return _u
 }
 
 // SetAdmin sets the "admin" edge to the User entity.
 func (_u *GroupUpdateOne) SetAdmin(v *User) *GroupUpdateOne {
-	return _u.SetAdminID(v.ID)
+	return _u.SetAdminId(v.Id)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -304,9 +304,9 @@ func (_u *GroupUpdateOne) ClearUsers() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveUsersIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveUsersIDs(ids...)
+// RemoveUsersIds removes the "users" edge to User entities by Ids.
+func (_u *GroupUpdateOne) RemoveUsersIds(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveUsersIds(ids...)
 	return _u
 }
 
@@ -314,9 +314,9 @@ func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
 func (_u *GroupUpdateOne) RemoveUsers(v ...*User) *GroupUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveUsersIDs(ids...)
+	return _u.RemoveUsersIds(ids...)
 }
 
 // ClearAdmin clears the "admin" edge to the User entity.
@@ -366,20 +366,20 @@ func (_u *GroupUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error) {
-	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Group.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldId)
 		for _, f := range fields {
 			if !group.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != group.FieldID {
+			if f != group.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -402,12 +402,12 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedUsersIDs(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
+	if nodes := _u.mutation.RemovedUsersIds(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -415,7 +415,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -423,7 +423,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -431,7 +431,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -447,12 +447,12 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: []string{group.AdminColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AdminIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AdminIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -460,7 +460,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: []string{group.AdminColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

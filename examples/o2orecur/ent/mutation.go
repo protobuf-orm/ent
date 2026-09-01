@@ -54,17 +54,17 @@ func newNodeMutation(c config, op Op, opts ...nodeOption) *NodeMutation {
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *NodeMutation) ID() (id int, exists bool) {
+func (m *NodeMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withNodeID sets the ID field of the mutation.
-func withNodeID(id int) nodeOption {
+// withNodeId sets the Id field of the mutation.
+func withNodeId(id int) nodeOption {
 	return func(m *NodeMutation) {
 		var (
 			err   error
@@ -91,7 +91,7 @@ func withNode(node *Node) nodeOption {
 		m.oldValue = func(context.Context) (*Node, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -114,22 +114,22 @@ func (m NodeMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *NodeMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *NodeMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().Node.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().Node.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -140,8 +140,8 @@ func (m *NodeMutation) OldValue(ctx context.Context) (v int, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldValue is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldValue requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldValue requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -150,21 +150,21 @@ func (m *NodeMutation) OldValue(ctx context.Context) (v int, err error) {
 	return oldValue.Value, nil
 }
 
-// OldPrevID returns the old "prev_id" field's value of the Node entity.
+// OldPrevId returns the old "prev_id" field's value of the Node entity.
 // If the Node object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *NodeMutation) OldPrevID(ctx context.Context) (v int, err error) {
+func (m *NodeMutation) OldPrevId(ctx context.Context) (v int, err error) {
 	if !m.Op().Is(OpUpdateOne) {
-		return v, errors.New("OldPrevID is only allowed on UpdateOne operations")
+		return v, errors.New("OldPrevId is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldPrevID requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldPrevId requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPrevID: %w", err)
+		return v, fmt.Errorf("querying old value for OldPrevId: %w", err)
 	}
-	return oldValue.PrevID, nil
+	return oldValue.PrevId, nil
 }
 
 // OldField returns the old value of the field from the database. An error is
@@ -174,8 +174,8 @@ func (m *NodeMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case node.FieldValue:
 		return m.OldValue(ctx)
-	case node.FieldPrevID:
-		return m.OldPrevID(ctx)
+	case node.FieldPrevId:
+		return m.OldPrevId(ctx)
 	}
 	return nil, fmt.Errorf("unknown Node field %s", name)
 }

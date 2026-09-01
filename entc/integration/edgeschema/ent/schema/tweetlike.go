@@ -21,7 +21,7 @@ type TweetLike struct {
 
 func (TweetLike) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("user_id", "tweet_id"),
+		field.Id("user_id", "tweet_id"),
 	}
 }
 

@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddProcessesIDs adds the "processes" edge to the Process entity by ids.
-func (m *Mutation) AddProcessesIDs(ids ...int) {
+// AddProcessesIds adds the "processes" edge to the Process entity by ids.
+func (m *Mutation) AddProcessesIds(ids ...int) {
 	if m.processes == nil {
 		m.processes = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) ProcessesCleared() bool {
 	return m.clearedprocesses
 }
 
-// RemoveProcessesIDs removes the "processes" edge to the Process entity by IDs.
-func (m *Mutation) RemoveProcessesIDs(ids ...int) {
+// RemoveProcessesIds removes the "processes" edge to the Process entity by Ids.
+func (m *Mutation) RemoveProcessesIds(ids ...int) {
 	if m.removedprocesses == nil {
 		m.removedprocesses = make(map[int]struct{})
 	}
@@ -91,16 +91,16 @@ func (m *Mutation) RemoveProcessesIDs(ids ...int) {
 	}
 }
 
-// RemovedProcesses returns the removed IDs of the "processes" edge to the Process entity.
-func (m *Mutation) RemovedProcessesIDs() (ids []int) {
+// RemovedProcesses returns the removed Ids of the "processes" edge to the Process entity.
+func (m *Mutation) RemovedProcessesIds() (ids []int) {
 	for id := range m.removedprocesses {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ProcessesIDs returns the "processes" edge IDs in the mutation.
-func (m *Mutation) ProcessesIDs() (ids []int) {
+// ProcessesIds returns the "processes" edge Ids in the mutation.
+func (m *Mutation) ProcessesIds() (ids []int) {
 	for id := range m.processes {
 		ids = append(ids, id)
 	}
@@ -250,9 +250,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeProcesses:
 		ids := make([]ent.Value, 0, len(m.processes))
@@ -273,9 +273,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeProcesses:
 		ids := make([]ent.Value, 0, len(m.removedprocesses))

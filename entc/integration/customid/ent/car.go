@@ -19,12 +19,12 @@ import (
 // Car is the model entity for the Car schema.
 type Car struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
-	// BeforeID holds the value of the "before_id" field.
-	BeforeID float64 `json:"before_id,omitempty"`
-	// AfterID holds the value of the "after_id" field.
-	AfterID float64 `json:"after_id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
+	// BeforeId holds the value of the "before_id" field.
+	BeforeId float64 `json:"before_id,omitempty"`
+	// AfterId holds the value of the "after_id" field.
+	AfterId float64 `json:"after_id,omitempty"`
 	// Model holds the value of the "model" field.
 	Model string `json:"model,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -59,9 +59,9 @@ func (*Car) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case car.FieldBeforeID, car.FieldAfterID:
+		case car.FieldBeforeId, car.FieldAfterId:
 			values[i] = new(sql.NullFloat64)
-		case car.FieldID:
+		case car.FieldId:
 			values[i] = new(sql.NullInt64)
 		case car.FieldModel:
 			values[i] = new(sql.NullString)
@@ -82,23 +82,23 @@ func (_m *Car) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case car.FieldID:
+		case car.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
-		case car.FieldBeforeID:
+			_m.Id = int(value.Int64)
+		case car.FieldBeforeId:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field before_id", values[i])
 			} else if value.Valid {
-				_m.BeforeID = value.Float64
+				_m.BeforeId = value.Float64
 			}
-		case car.FieldAfterID:
+		case car.FieldAfterId:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field after_id", values[i])
 			} else if value.Valid {
-				_m.AfterID = value.Float64
+				_m.AfterId = value.Float64
 			}
 		case car.FieldModel:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -153,12 +153,12 @@ func (_m *Car) Unwrap() *Car {
 func (_m *Car) String() string {
 	var builder strings.Builder
 	builder.WriteString("Car(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("before_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.BeforeID))
+	builder.WriteString(fmt.Sprintf("%v", _m.BeforeId))
 	builder.WriteString(", ")
 	builder.WriteString("after_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.AfterID))
+	builder.WriteString(fmt.Sprintf("%v", _m.AfterId))
 	builder.WriteString(", ")
 	builder.WriteString("model=")
 	builder.WriteString(_m.Model)

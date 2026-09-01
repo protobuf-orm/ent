@@ -47,9 +47,9 @@ func (_c *RoleCreate) SetNillableCreatedAt(v *time.Time) *RoleCreate {
 	return _c
 }
 
-// AddUserIDs adds the "user" edge to the User entity by IDs.
-func (_c *RoleCreate) AddUserIDs(ids ...int) *RoleCreate {
-	_c.mutation.AddUserIDs(ids...)
+// AddUserIds adds the "user" edge to the User entity by Ids.
+func (_c *RoleCreate) AddUserIds(ids ...int) *RoleCreate {
+	_c.mutation.AddUserIds(ids...)
 	return _c
 }
 
@@ -57,9 +57,9 @@ func (_c *RoleCreate) AddUserIDs(ids ...int) *RoleCreate {
 func (_c *RoleCreate) AddUser(v ...*User) *RoleCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddUserIDs(ids...)
+	return _c.AddUserIds(ids...)
 }
 
 // Mutation returns the RoleMutation object of the builder.
@@ -125,9 +125,9 @@ func (_c *RoleCreate) sqlSave(ctx context.Context) (*Role, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -135,7 +135,7 @@ func (_c *RoleCreate) sqlSave(ctx context.Context) (*Role, error) {
 func (_c *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Role{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(role.Table, sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(role.Table, sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Name(); ok {
@@ -146,7 +146,7 @@ func (_c *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 		_spec.SetField(role.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -154,7 +154,7 @@ func (_c *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 			Columns: role.UserPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -267,7 +267,7 @@ func (u *RoleUpsertOne) Ignore() *RoleUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUpsertOne) DoNothing() *RoleUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -325,18 +325,18 @@ func (u *RoleUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *RoleUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *RoleUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *RoleUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *RoleUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -389,10 +389,10 @@ func (_c *RoleCreateBulk) Save(ctx context.Context) ([]*Role, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -499,7 +499,7 @@ func (u *RoleUpsertBulk) Ignore() *RoleUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUpsertBulk) DoNothing() *RoleUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

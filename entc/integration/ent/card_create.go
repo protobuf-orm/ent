@@ -90,28 +90,28 @@ func (_c *CardCreate) SetNillableName(v *string) *CardCreate {
 	return _c
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_c *CardCreate) SetOwnerID(id int) *CardCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_c *CardCreate) SetOwnerId(id int) *CardCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_c *CardCreate) SetNillableOwnerID(id *int) *CardCreate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_c *CardCreate) SetNillableOwnerId(id *int) *CardCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *CardCreate) SetOwner(v *User) *CardCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
-// AddSpecIDs adds the "spec" edge to the Spec entity by IDs.
-func (_c *CardCreate) AddSpecIDs(ids ...int) *CardCreate {
-	_c.mutation.AddSpecIDs(ids...)
+// AddSpecIds adds the "spec" edge to the Spec entity by Ids.
+func (_c *CardCreate) AddSpecIds(ids ...int) *CardCreate {
+	_c.mutation.AddSpecIds(ids...)
 	return _c
 }
 
@@ -119,9 +119,9 @@ func (_c *CardCreate) AddSpecIDs(ids ...int) *CardCreate {
 func (_c *CardCreate) AddSpec(v ...*Spec) *CardCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddSpecIDs(ids...)
+	return _c.AddSpecIds(ids...)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -211,9 +211,9 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -221,7 +221,7 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Card{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.CreateTime(); ok {
@@ -244,7 +244,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 		_spec.SetField(card.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -252,7 +252,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: []string{card.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -261,7 +261,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 		_node.user_card = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.SpecIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SpecIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -269,7 +269,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: card.SpecPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(spec.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(spec.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -410,7 +410,7 @@ func (u *CardUpsertOne) Ignore() *CardUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *CardUpsertOne) DoNothing() *CardUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -496,18 +496,18 @@ func (u *CardUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *CardUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *CardUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *CardUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *CardUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -560,10 +560,10 @@ func (_c *CardCreateBulk) Save(ctx context.Context) ([]*Card, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -680,7 +680,7 @@ func (u *CardUpsertBulk) Ignore() *CardUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *CardUpsertBulk) DoNothing() *CardUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

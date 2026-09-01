@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the account type in the database.
 	Label = "account"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
 	// EdgeToken holds the string denoting the token edge name in mutations.
@@ -32,9 +32,9 @@ const (
 	TokenColumn = "account_token"
 )
 
-// Columns holds all SQL columns for account fields.
+// Columns holds all Sql columns for account fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldEmail,
 }
 
@@ -51,16 +51,16 @@ func ValidColumn(column string) bool {
 var (
 	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
 	EmailValidator func(string) error
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() sid.ID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() sid.Id
 )
 
 // OrderOption defines the ordering options for the Account queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByEmail orders the results by the email field.
@@ -83,8 +83,8 @@ func ByToken(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newTokenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TokenInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TokenInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, TokenTable, TokenColumn),
 	)
 }

@@ -18,8 +18,8 @@ import (
 // Group is the model entity for the Group schema.
 type Group struct {
 	config
-	// ID of the ent.
-	ID int `json:"oid,omitempty"`
+	// Id of the ent.
+	Id int `json:"oid,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the GroupQuery when eager-loading is set.
 	Edges        GroupEdges `json:"edges"`
@@ -49,7 +49,7 @@ func (*Group) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case group.FieldID:
+		case group.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -66,12 +66,12 @@ func (_m *Group) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case group.FieldID:
+		case group.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -112,7 +112,7 @@ func (_m *Group) Unwrap() *Group {
 func (_m *Group) String() string {
 	var builder strings.Builder
 	builder.WriteString("Group(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

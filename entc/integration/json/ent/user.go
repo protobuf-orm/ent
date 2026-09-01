@@ -23,14 +23,14 @@ import (
 // User is the model entity for the User schema.
 type User struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// T holds the value of the "t" field.
 	T *schema.T `json:"t,omitempty"`
-	// URL holds the value of the "url" field.
-	URL *url.URL `json:"url,omitempty"`
-	// URLs holds the value of the "URLs" field.
-	URLs []*url.URL `json:"urls,omitempty"`
+	// Url holds the value of the "url" field.
+	Url *url.URL `json:"url,omitempty"`
+	// Urls holds the value of the "Urls" field.
+	Urls []*url.URL `json:"urls,omitempty"`
 	// Raw holds the value of the "raw" field.
 	Raw jsontext.Value `json:"raw,omitempty"`
 	// Dirs holds the value of the "dirs" field.
@@ -59,9 +59,9 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldT, user.FieldURL, user.FieldURLs, user.FieldRaw, user.FieldDirs, user.FieldInts, user.FieldFloats, user.FieldStrings, user.FieldIntsValidate, user.FieldFloatsValidate, user.FieldStringsValidate, user.FieldAddr, user.FieldUnknown:
+		case user.FieldT, user.FieldUrl, user.FieldUrls, user.FieldRaw, user.FieldDirs, user.FieldInts, user.FieldFloats, user.FieldStrings, user.FieldIntsValidate, user.FieldFloatsValidate, user.FieldStringsValidate, user.FieldAddr, user.FieldUnknown:
 			values[i] = new([]byte)
-		case user.FieldID:
+		case user.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -78,12 +78,12 @@ func (_m *User) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID:
+		case user.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case user.FieldT:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field t", values[i])
@@ -92,20 +92,20 @@ func (_m *User) assignValues(columns []string, values []any) error {
 					return fmt.Errorf("unmarshal field t: %w", err)
 				}
 			}
-		case user.FieldURL:
+		case user.FieldUrl:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field url", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &_m.URL); err != nil {
+				if err := json.Unmarshal(*value, &_m.Url); err != nil {
 					return fmt.Errorf("unmarshal field url: %w", err)
 				}
 			}
-		case user.FieldURLs:
+		case user.FieldUrls:
 			if value, ok := values[i].(*[]byte); !ok {
-				return fmt.Errorf("unexpected type %T for field URLs", values[i])
+				return fmt.Errorf("unexpected type %T for field Urls", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &_m.URLs); err != nil {
-					return fmt.Errorf("unmarshal field URLs: %w", err)
+				if err := json.Unmarshal(*value, &_m.Urls); err != nil {
+					return fmt.Errorf("unmarshal field Urls: %w", err)
 				}
 			}
 		case user.FieldRaw:
@@ -223,15 +223,15 @@ func (_m *User) Unwrap() *User {
 func (_m *User) String() string {
 	var builder strings.Builder
 	builder.WriteString("User(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("t=")
 	builder.WriteString(fmt.Sprintf("%v", _m.T))
 	builder.WriteString(", ")
 	builder.WriteString("url=")
-	builder.WriteString(fmt.Sprintf("%v", _m.URL))
+	builder.WriteString(fmt.Sprintf("%v", _m.Url))
 	builder.WriteString(", ")
-	builder.WriteString("URLs=")
-	builder.WriteString(fmt.Sprintf("%v", _m.URLs))
+	builder.WriteString("Urls=")
+	builder.WriteString(fmt.Sprintf("%v", _m.Urls))
 	builder.WriteString(", ")
 	builder.WriteString("raw=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Raw))

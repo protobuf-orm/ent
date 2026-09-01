@@ -51,7 +51,7 @@ func (User) Fields() []ent.Field {
 		field.Enum("employment").
 			Values("Full-Time", "Part-Time", "Contract").
 			Default("Full-Time"),
-		field.String("SSOCert").
+		field.String("SsoCert").
 			Optional(),
 		// Some users store the associations
 		// count as a separate field.

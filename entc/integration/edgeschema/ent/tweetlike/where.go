@@ -19,14 +19,14 @@ func LikedAt(v time.Time) predicate.TweetLike {
 	return predicate.TweetLike(sql.FieldEQ(FieldLikedAt, v))
 }
 
-// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldEQ(FieldUserID, v))
+// UserId applies equality check predicate on the "user_id" field. It's identical to UserIdEQ.
+func UserId(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldEQ(FieldUserId, v))
 }
 
-// TweetID applies equality check predicate on the "tweet_id" field. It's identical to TweetIDEQ.
-func TweetID(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldEQ(FieldTweetID, v))
+// TweetId applies equality check predicate on the "tweet_id" field. It's identical to TweetIdEQ.
+func TweetId(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldEQ(FieldTweetId, v))
 }
 
 // LikedAtEQ applies the EQ predicate on the "liked_at" field.
@@ -69,44 +69,44 @@ func LikedAtLTE(v time.Time) predicate.TweetLike {
 	return predicate.TweetLike(sql.FieldLTE(FieldLikedAt, v))
 }
 
-// UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldEQ(FieldUserID, v))
+// UserIdEQ applies the EQ predicate on the "user_id" field.
+func UserIdEQ(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldEQ(FieldUserId, v))
 }
 
-// UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldNEQ(FieldUserID, v))
+// UserIdNEQ applies the NEQ predicate on the "user_id" field.
+func UserIdNEQ(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldNEQ(FieldUserId, v))
 }
 
-// UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldIn(FieldUserID, vs...))
+// UserIdIn applies the In predicate on the "user_id" field.
+func UserIdIn(vs ...int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldIn(FieldUserId, vs...))
 }
 
-// UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldNotIn(FieldUserID, vs...))
+// UserIdNotIn applies the NotIn predicate on the "user_id" field.
+func UserIdNotIn(vs ...int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldNotIn(FieldUserId, vs...))
 }
 
-// TweetIDEQ applies the EQ predicate on the "tweet_id" field.
-func TweetIDEQ(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldEQ(FieldTweetID, v))
+// TweetIdEQ applies the EQ predicate on the "tweet_id" field.
+func TweetIdEQ(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldEQ(FieldTweetId, v))
 }
 
-// TweetIDNEQ applies the NEQ predicate on the "tweet_id" field.
-func TweetIDNEQ(v int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldNEQ(FieldTweetID, v))
+// TweetIdNEQ applies the NEQ predicate on the "tweet_id" field.
+func TweetIdNEQ(v int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldNEQ(FieldTweetId, v))
 }
 
-// TweetIDIn applies the In predicate on the "tweet_id" field.
-func TweetIDIn(vs ...int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldIn(FieldTweetID, vs...))
+// TweetIdIn applies the In predicate on the "tweet_id" field.
+func TweetIdIn(vs ...int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldIn(FieldTweetId, vs...))
 }
 
-// TweetIDNotIn applies the NotIn predicate on the "tweet_id" field.
-func TweetIDNotIn(vs ...int) predicate.TweetLike {
-	return predicate.TweetLike(sql.FieldNotIn(FieldTweetID, vs...))
+// TweetIdNotIn applies the NotIn predicate on the "tweet_id" field.
+func TweetIdNotIn(vs ...int) predicate.TweetLike {
+	return predicate.TweetLike(sql.FieldNotIn(FieldTweetId, vs...))
 }
 
 // HasTweet applies the HasEdge predicate on the "tweet" edge.

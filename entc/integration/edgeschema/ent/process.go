@@ -18,8 +18,8 @@ import (
 // Process is the model entity for the Process schema.
 type Process struct {
 	config
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the ProcessQuery when eager-loading is set.
 	Edges        ProcessEdges `json:"edges"`
@@ -60,7 +60,7 @@ func (*Process) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case process.FieldID:
+		case process.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -77,12 +77,12 @@ func (_m *Process) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case process.FieldID:
+		case process.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -128,7 +128,7 @@ func (_m *Process) Unwrap() *Process {
 func (_m *Process) String() string {
 	var builder strings.Builder
 	builder.WriteString("Process(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

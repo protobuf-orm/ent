@@ -48,16 +48,16 @@ func (_c *PetCreate) SetName(v string) *PetCreate {
 	return _c
 }
 
-// SetUUID sets the "uuid" field.
-func (_c *PetCreate) SetUUID(v uuid.UUID) *PetCreate {
-	_c.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_c *PetCreate) SetUuid(v uuid.UUID) *PetCreate {
+	_c.mutation.SetUuid(v)
 	return _c
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_c *PetCreate) SetNillableUUID(v *uuid.UUID) *PetCreate {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_c *PetCreate) SetNillableUuid(v *uuid.UUID) *PetCreate {
 	if v != nil {
-		_c.SetUUID(*v)
+		_c.SetUuid(*v)
 	}
 	return _c
 }
@@ -104,42 +104,42 @@ func (_c *PetCreate) SetNillableOptionalTime(v *time.Time) *PetCreate {
 	return _c
 }
 
-// SetTeamID sets the "team" edge to the User entity by ID.
-func (_c *PetCreate) SetTeamID(id int) *PetCreate {
-	_c.mutation.SetTeamID(id)
+// SetTeamId sets the "team" edge to the User entity by Id.
+func (_c *PetCreate) SetTeamId(id int) *PetCreate {
+	_c.mutation.SetTeamId(id)
 	return _c
 }
 
-// SetNillableTeamID sets the "team" edge to the User entity by ID if the given value is not nil.
-func (_c *PetCreate) SetNillableTeamID(id *int) *PetCreate {
+// SetNillableTeamId sets the "team" edge to the User entity by Id if the given value is not nil.
+func (_c *PetCreate) SetNillableTeamId(id *int) *PetCreate {
 	if id != nil {
-		_c = _c.SetTeamID(*id)
+		_c = _c.SetTeamId(*id)
 	}
 	return _c
 }
 
 // SetTeam sets the "team" edge to the User entity.
 func (_c *PetCreate) SetTeam(v *User) *PetCreate {
-	return _c.SetTeamID(v.ID)
+	return _c.SetTeamId(v.Id)
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_c *PetCreate) SetOwnerID(id int) *PetCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_c *PetCreate) SetOwnerId(id int) *PetCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_c *PetCreate) SetNillableOwnerID(id *int) *PetCreate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_c *PetCreate) SetNillableOwnerId(id *int) *PetCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *PetCreate) SetOwner(v *User) *PetCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
 // Mutation returns the PetMutation object of the builder.
@@ -212,9 +212,9 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -222,7 +222,7 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Pet{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Age(); ok {
@@ -233,9 +233,9 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := _c.mutation.UUID(); ok {
-		_spec.SetField(pet.FieldUUID, field.TypeUUID, value)
-		_node.UUID = value
+	if value, ok := _c.mutation.Uuid(); ok {
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
+		_node.Uuid = value
 	}
 	if value, ok := _c.mutation.Nickname(); ok {
 		_spec.SetField(pet.FieldNickname, field.TypeString, value)
@@ -249,7 +249,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		_spec.SetField(pet.FieldOptionalTime, field.TypeTime, value)
 		_node.OptionalTime = value
 	}
-	if nodes := _c.mutation.TeamIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TeamIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -257,7 +257,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.TeamColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -266,7 +266,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		_node.user_team = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -274,7 +274,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -365,21 +365,21 @@ func (u *PetUpsert) UpdateName() *PetUpsert {
 	return u
 }
 
-// SetUUID sets the "uuid" field.
-func (u *PetUpsert) SetUUID(v uuid.UUID) *PetUpsert {
-	u.Set(pet.FieldUUID, v)
+// SetUuid sets the "uuid" field.
+func (u *PetUpsert) SetUuid(v uuid.UUID) *PetUpsert {
+	u.Set(pet.FieldUuid, v)
 	return u
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *PetUpsert) UpdateUUID() *PetUpsert {
-	u.SetExcluded(pet.FieldUUID)
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *PetUpsert) UpdateUuid() *PetUpsert {
+	u.SetExcluded(pet.FieldUuid)
 	return u
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (u *PetUpsert) ClearUUID() *PetUpsert {
-	u.SetNull(pet.FieldUUID)
+// ClearUuid clears the value of the "uuid" field.
+func (u *PetUpsert) ClearUuid() *PetUpsert {
+	u.SetNull(pet.FieldUuid)
 	return u
 }
 
@@ -456,7 +456,7 @@ func (u *PetUpsertOne) Ignore() *PetUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PetUpsertOne) DoNothing() *PetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -506,24 +506,24 @@ func (u *PetUpsertOne) UpdateName() *PetUpsertOne {
 	})
 }
 
-// SetUUID sets the "uuid" field.
-func (u *PetUpsertOne) SetUUID(v uuid.UUID) *PetUpsertOne {
+// SetUuid sets the "uuid" field.
+func (u *PetUpsertOne) SetUuid(v uuid.UUID) *PetUpsertOne {
 	return u.Update(func(s *PetUpsert) {
-		s.SetUUID(v)
+		s.SetUuid(v)
 	})
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *PetUpsertOne) UpdateUUID() *PetUpsertOne {
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *PetUpsertOne) UpdateUuid() *PetUpsertOne {
 	return u.Update(func(s *PetUpsert) {
-		s.UpdateUUID()
+		s.UpdateUuid()
 	})
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (u *PetUpsertOne) ClearUUID() *PetUpsertOne {
+// ClearUuid clears the value of the "uuid" field.
+func (u *PetUpsertOne) ClearUuid() *PetUpsertOne {
 	return u.Update(func(s *PetUpsert) {
-		s.ClearUUID()
+		s.ClearUuid()
 	})
 }
 
@@ -598,18 +598,18 @@ func (u *PetUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *PetUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *PetUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *PetUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *PetUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -662,10 +662,10 @@ func (_c *PetCreateBulk) Save(ctx context.Context) ([]*Pet, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -772,7 +772,7 @@ func (u *PetUpsertBulk) Ignore() *PetUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PetUpsertBulk) DoNothing() *PetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -822,24 +822,24 @@ func (u *PetUpsertBulk) UpdateName() *PetUpsertBulk {
 	})
 }
 
-// SetUUID sets the "uuid" field.
-func (u *PetUpsertBulk) SetUUID(v uuid.UUID) *PetUpsertBulk {
+// SetUuid sets the "uuid" field.
+func (u *PetUpsertBulk) SetUuid(v uuid.UUID) *PetUpsertBulk {
 	return u.Update(func(s *PetUpsert) {
-		s.SetUUID(v)
+		s.SetUuid(v)
 	})
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *PetUpsertBulk) UpdateUUID() *PetUpsertBulk {
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *PetUpsertBulk) UpdateUuid() *PetUpsertBulk {
 	return u.Update(func(s *PetUpsert) {
-		s.UpdateUUID()
+		s.UpdateUuid()
 	})
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (u *PetUpsertBulk) ClearUUID() *PetUpsertBulk {
+// ClearUuid clears the value of the "uuid" field.
+func (u *PetUpsertBulk) ClearUuid() *PetUpsertBulk {
 	return u.Update(func(s *PetUpsert) {
-		s.ClearUUID()
+		s.ClearUuid()
 	})
 }
 

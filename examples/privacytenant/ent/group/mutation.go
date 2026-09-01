@@ -43,13 +43,13 @@ func (m *Mutation) Predicates() []predicate.Group {
 	return m.predicates
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (m *Mutation) SetTenantID(i int) {
+// SetTenantId sets the "tenant_id" field.
+func (m *Mutation) SetTenantId(i int) {
 	m.tenant = &i
 }
 
-// TenantID returns the value of the "tenant_id" field in the mutation.
-func (m *Mutation) TenantID() (r int, exists bool) {
+// TenantId returns the value of the "tenant_id" field in the mutation.
+func (m *Mutation) TenantId() (r int, exists bool) {
 	v := m.tenant
 	if v == nil {
 		return
@@ -57,8 +57,8 @@ func (m *Mutation) TenantID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetTenantID resets all changes to the "tenant_id" field.
-func (m *Mutation) ResetTenantID() {
+// ResetTenantId resets all changes to the "tenant_id" field.
+func (m *Mutation) ResetTenantId() {
 	m.tenant = nil
 }
 
@@ -84,7 +84,7 @@ func (m *Mutation) ResetName() {
 // ClearTenant clears the "tenant" edge to the Tenant entity.
 func (m *Mutation) ClearTenant() {
 	m.clearedtenant = true
-	m.clearedFields[FieldTenantID] = struct{}{}
+	m.clearedFields[FieldTenantId] = struct{}{}
 }
 
 // TenantCleared reports if the "tenant" edge to the Tenant entity was cleared.
@@ -92,10 +92,10 @@ func (m *Mutation) TenantCleared() bool {
 	return m.clearedtenant
 }
 
-// TenantIDs returns the "tenant" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TenantID instead. It exists only for internal usage by the builders.
-func (m *Mutation) TenantIDs() (ids []int) {
+// TenantIds returns the "tenant" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// TenantId instead. It exists only for internal usage by the builders.
+func (m *Mutation) TenantIds() (ids []int) {
 	if id := m.tenant; id != nil {
 		ids = append(ids, *id)
 	}
@@ -108,8 +108,8 @@ func (m *Mutation) ResetTenant() {
 	m.clearedtenant = false
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by ids.
-func (m *Mutation) AddUsersIDs(ids ...int) {
+// AddUsersIds adds the "users" edge to the User entity by ids.
+func (m *Mutation) AddUsersIds(ids ...int) {
 	if m.users == nil {
 		m.users = make(map[int]struct{})
 	}
@@ -128,8 +128,8 @@ func (m *Mutation) UsersCleared() bool {
 	return m.clearedusers
 }
 
-// RemoveUsersIDs removes the "users" edge to the User entity by IDs.
-func (m *Mutation) RemoveUsersIDs(ids ...int) {
+// RemoveUsersIds removes the "users" edge to the User entity by Ids.
+func (m *Mutation) RemoveUsersIds(ids ...int) {
 	if m.removedusers == nil {
 		m.removedusers = make(map[int]struct{})
 	}
@@ -139,16 +139,16 @@ func (m *Mutation) RemoveUsersIDs(ids ...int) {
 	}
 }
 
-// RemovedUsers returns the removed IDs of the "users" edge to the User entity.
-func (m *Mutation) RemovedUsersIDs() (ids []int) {
+// RemovedUsers returns the removed Ids of the "users" edge to the User entity.
+func (m *Mutation) RemovedUsersIds() (ids []int) {
 	for id := range m.removedusers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// UsersIDs returns the "users" edge IDs in the mutation.
-func (m *Mutation) UsersIDs() (ids []int) {
+// UsersIds returns the "users" edge Ids in the mutation.
+func (m *Mutation) UsersIds() (ids []int) {
 	for id := range m.users {
 		ids = append(ids, id)
 	}
@@ -198,7 +198,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 2)
 	if m.tenant != nil {
-		fields = append(fields, FieldTenantID)
+		fields = append(fields, FieldTenantId)
 	}
 	if m.name != nil {
 		fields = append(fields, FieldName)
@@ -211,8 +211,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldTenantID:
-		return m.TenantID()
+	case FieldTenantId:
+		return m.TenantId()
 	case FieldName:
 		return m.Name()
 	}
@@ -231,12 +231,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldTenantID:
+	case FieldTenantId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetTenantID(v)
+		m.SetTenantId(v)
 		return nil
 	case FieldName:
 		v, ok := value.(string)
@@ -297,8 +297,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldTenantID:
-		m.ResetTenantID()
+	case FieldTenantId:
+		m.ResetTenantId()
 		return nil
 	case FieldName:
 		m.ResetName()
@@ -319,9 +319,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTenant:
 		if id := m.tenant; id != nil {
@@ -346,9 +346,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUsers:
 		ids := make([]ent.Value, 0, len(m.removedusers))

@@ -22,8 +22,8 @@ type Mutation struct {
 	typ           string
 	email         *string
 	clearedFields map[string]struct{}
-	token         map[sid.ID]struct{}
-	removedtoken  map[sid.ID]struct{}
+	token         map[sid.Id]struct{}
+	removedtoken  map[sid.Id]struct{}
 	clearedtoken  bool
 	predicates    []predicate.Account
 }
@@ -61,10 +61,10 @@ func (m *Mutation) ResetEmail() {
 	m.email = nil
 }
 
-// AddTokenIDs adds the "token" edge to the Token entity by ids.
-func (m *Mutation) AddTokenIDs(ids ...sid.ID) {
+// AddTokenIds adds the "token" edge to the Token entity by ids.
+func (m *Mutation) AddTokenIds(ids ...sid.Id) {
 	if m.token == nil {
-		m.token = make(map[sid.ID]struct{})
+		m.token = make(map[sid.Id]struct{})
 	}
 	for i := range ids {
 		m.token[ids[i]] = struct{}{}
@@ -81,10 +81,10 @@ func (m *Mutation) TokenCleared() bool {
 	return m.clearedtoken
 }
 
-// RemoveTokenIDs removes the "token" edge to the Token entity by IDs.
-func (m *Mutation) RemoveTokenIDs(ids ...sid.ID) {
+// RemoveTokenIds removes the "token" edge to the Token entity by Ids.
+func (m *Mutation) RemoveTokenIds(ids ...sid.Id) {
 	if m.removedtoken == nil {
-		m.removedtoken = make(map[sid.ID]struct{})
+		m.removedtoken = make(map[sid.Id]struct{})
 	}
 	for i := range ids {
 		delete(m.token, ids[i])
@@ -92,16 +92,16 @@ func (m *Mutation) RemoveTokenIDs(ids ...sid.ID) {
 	}
 }
 
-// RemovedToken returns the removed IDs of the "token" edge to the Token entity.
-func (m *Mutation) RemovedTokenIDs() (ids []sid.ID) {
+// RemovedToken returns the removed Ids of the "token" edge to the Token entity.
+func (m *Mutation) RemovedTokenIds() (ids []sid.Id) {
 	for id := range m.removedtoken {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TokenIDs returns the "token" edge IDs in the mutation.
-func (m *Mutation) TokenIDs() (ids []sid.ID) {
+// TokenIds returns the "token" edge Ids in the mutation.
+func (m *Mutation) TokenIds() (ids []sid.Id) {
 	for id := range m.token {
 		ids = append(ids, id)
 	}
@@ -251,9 +251,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeToken:
 		ids := make([]ent.Value, 0, len(m.token))
@@ -274,9 +274,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeToken:
 		ids := make([]ent.Value, 0, len(m.removedtoken))

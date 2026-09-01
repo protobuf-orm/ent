@@ -71,7 +71,7 @@ func (_u *LinkUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *LinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(link.Table, link.Columns, sqlgraph.NewFieldSpec(link.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(link.Table, link.Columns, sqlgraph.NewFieldSpec(link.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -80,7 +80,7 @@ func (_u *LinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 	}
 	if value, ok := _u.mutation.LinkInformation(); ok {
-		_spec.SetField(link.FieldLinkInformation, field.TypeJSON, value)
+		_spec.SetField(link.FieldLinkInformation, field.TypeJson, value)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -154,20 +154,20 @@ func (_u *LinkUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *LinkUpdateOne) sqlSave(ctx context.Context) (_node *Link, err error) {
-	_spec := sqlgraph.NewUpdateSpec(link.Table, link.Columns, sqlgraph.NewFieldSpec(link.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(link.Table, link.Columns, sqlgraph.NewFieldSpec(link.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Link.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, link.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, link.FieldId)
 		for _, f := range fields {
 			if !link.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != link.FieldID {
+			if f != link.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -180,7 +180,7 @@ func (_u *LinkUpdateOne) sqlSave(ctx context.Context) (_node *Link, err error) {
 		}
 	}
 	if value, ok := _u.mutation.LinkInformation(); ok {
-		_spec.SetField(link.FieldLinkInformation, field.TypeJSON, value)
+		_spec.SetField(link.FieldLinkInformation, field.TypeJson, value)
 	}
 	_node = &Link{config: _u.config}
 	_spec.Assign = _node.assignValues

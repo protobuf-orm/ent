@@ -74,7 +74,7 @@ var (
 		"replace":       strings.ReplaceAll,
 		"allZero":       allZero,
 	}
-	acronyms = initAcronyms()
+	acronyms = make(map[string]struct{})
 )
 
 // joinWords with spaces and add linebreaks to ensure lines do not exceed the given maxSize.
@@ -121,7 +121,7 @@ func fieldOps(f *Field) (ops []Op) {
 	// A GoType that cannot be compared as a basic type, unless an external
 	// ValueScanner converts it to a driver value on the way to the predicate.
 	case f.HasGoType() && !f.ConvertedToBasic() && !f.Type.Valuer() && !f.HasValueScanner():
-	case t == field.TypeJSON:
+	case t == field.TypeJson:
 	case t == field.TypeBool:
 		ops = boolOps
 	case t == field.TypeString && strings.ToLower(f.Name) != "id":
@@ -183,11 +183,16 @@ func pascalWords(words []string) string {
 	return strings.Join(words, "")
 }
 
+// Pascal converts the given name into a PascalCase. It is exported so that a
+// code generator writing calls into ent's generated code names them the same
+// way ent does, rather than by keeping a copy of this that can drift.
+func Pascal(s string) string { return pascal(s) }
+
 // pascal converts the given name into a PascalCase.
 //
 //	user_info 	=> UserInfo
 //	full_name 	=> FullName
-//	user_id   	=> UserID
+//	user_id   	=> UserId
 //	full-admin	=> FullAdmin
 func pascal(s string) string {
 	words := strings.FieldsFunc(s, isSeparator)
@@ -198,7 +203,7 @@ func pascal(s string) string {
 //
 //	user_info  => userInfo
 //	full_name  => fullName
-//	user_id    => userID
+//	user_id    => userId
 //	full-admin => fullAdmin
 func camel(s string) string {
 	words := strings.FieldsFunc(s, isSeparator)
@@ -212,7 +217,7 @@ func camel(s string) string {
 //
 //	Username => username
 //	FullName => full_name
-//	HTTPCode => http_code
+//	HttpCode => http_code
 func snake(s string) string {
 	var (
 		j int
@@ -321,24 +326,17 @@ func add(xs ...int) (n int) {
 	return
 }
 
-// initAcronyms registers the common initialism from golint and more.
-func initAcronyms() map[string]struct{} {
-	acronyms := make(map[string]struct{})
-	for _, w := range []string{
-		"ACL", "API", "ASCII", "AWS", "CPU", "CSS", "DNS", "EOF", "GB", "GUID",
-		"HCL", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "KB", "LHS", "MAC",
-		"MB", "QPS", "RAM", "RHS", "RPC", "SLA", "SMTP", "SQL", "SSH", "SSO",
-		"TCP", "TLS", "TTL", "UDP", "UI", "UID", "URI", "URL", "UTF8", "UUID",
-		"VM", "XML", "XMPP", "XSRF", "XSS",
-	} {
-		acronyms[w] = struct{}{}
-	}
-	return acronyms
-}
-
-// AddAcronym adds initialism to the global acronym set.
+// AddAcronym makes word an initialism, so that a name containing it is
+// PascalCased with it in capitals: after AddAcronym("Api"), api_key becomes
+// ApiKey rather than ApiKey.
+//
+// The set starts empty. ent used to seed it from golint's list of common
+// initialisms, which made the case of a generated name something you had to
+// look up in a table of forty-four words rather than work out from the name.
+// Whether it holds anything is now the caller's to decide, and saying so is
+// how it is decided.
 func AddAcronym(word string) {
-	acronyms[word] = struct{}{}
+	acronyms[strings.ToUpper(word)] = struct{}{}
 }
 
 // order returns a map of sort orders.

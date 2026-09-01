@@ -48,48 +48,48 @@ func (_u *AttachedFileUpdate) SetNillableAttachTime(v *time.Time) *AttachedFileU
 	return _u
 }
 
-// SetFID sets the "f_id" field.
-func (_u *AttachedFileUpdate) SetFID(v int) *AttachedFileUpdate {
-	_u.mutation.SetFID(v)
+// SetFId sets the "f_id" field.
+func (_u *AttachedFileUpdate) SetFId(v int) *AttachedFileUpdate {
+	_u.mutation.SetFId(v)
 	return _u
 }
 
-// SetNillableFID sets the "f_id" field if the given value is not nil.
-func (_u *AttachedFileUpdate) SetNillableFID(v *int) *AttachedFileUpdate {
+// SetNillableFId sets the "f_id" field if the given value is not nil.
+func (_u *AttachedFileUpdate) SetNillableFId(v *int) *AttachedFileUpdate {
 	if v != nil {
-		_u.SetFID(*v)
+		_u.SetFId(*v)
 	}
 	return _u
 }
 
-// SetProcID sets the "proc_id" field.
-func (_u *AttachedFileUpdate) SetProcID(v int) *AttachedFileUpdate {
-	_u.mutation.SetProcID(v)
+// SetProcId sets the "proc_id" field.
+func (_u *AttachedFileUpdate) SetProcId(v int) *AttachedFileUpdate {
+	_u.mutation.SetProcId(v)
 	return _u
 }
 
-// SetNillableProcID sets the "proc_id" field if the given value is not nil.
-func (_u *AttachedFileUpdate) SetNillableProcID(v *int) *AttachedFileUpdate {
+// SetNillableProcId sets the "proc_id" field if the given value is not nil.
+func (_u *AttachedFileUpdate) SetNillableProcId(v *int) *AttachedFileUpdate {
 	if v != nil {
-		_u.SetProcID(*v)
+		_u.SetProcId(*v)
 	}
 	return _u
 }
 
-// SetFiID sets the "fi" edge to the File entity by ID.
-func (_u *AttachedFileUpdate) SetFiID(id int) *AttachedFileUpdate {
-	_u.mutation.SetFiID(id)
+// SetFiId sets the "fi" edge to the File entity by Id.
+func (_u *AttachedFileUpdate) SetFiId(id int) *AttachedFileUpdate {
+	_u.mutation.SetFiId(id)
 	return _u
 }
 
 // SetFi sets the "fi" edge to the File entity.
 func (_u *AttachedFileUpdate) SetFi(v *File) *AttachedFileUpdate {
-	return _u.SetFiID(v.ID)
+	return _u.SetFiId(v.Id)
 }
 
 // SetProc sets the "proc" edge to the Process entity.
 func (_u *AttachedFileUpdate) SetProc(v *Process) *AttachedFileUpdate {
-	return _u.SetProcID(v.ID)
+	return _u.SetProcId(v.Id)
 }
 
 // Mutation returns the AttachedFileMutation object of the builder.
@@ -138,10 +138,10 @@ func (_u *AttachedFileUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *AttachedFileUpdate) check() error {
-	if _u.mutation.FiCleared() && len(_u.mutation.FiIDs()) > 0 {
+	if _u.mutation.FiCleared() && len(_u.mutation.FiIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "AttachedFile.fi"`)
 	}
-	if _u.mutation.ProcCleared() && len(_u.mutation.ProcIDs()) > 0 {
+	if _u.mutation.ProcCleared() && len(_u.mutation.ProcIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "AttachedFile.proc"`)
 	}
 	return nil
@@ -151,7 +151,7 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(attachedfile.Table, attachedfile.Columns, sqlgraph.NewFieldSpec(attachedfile.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(attachedfile.Table, attachedfile.Columns, sqlgraph.NewFieldSpec(attachedfile.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -170,12 +170,12 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Columns: []string{attachedfile.FiColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FiIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FiIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -183,7 +183,7 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Columns: []string{attachedfile.FiColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -199,12 +199,12 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Columns: []string{attachedfile.ProcColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ProcIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProcIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -212,7 +212,7 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Columns: []string{attachedfile.ProcColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -254,48 +254,48 @@ func (_u *AttachedFileUpdateOne) SetNillableAttachTime(v *time.Time) *AttachedFi
 	return _u
 }
 
-// SetFID sets the "f_id" field.
-func (_u *AttachedFileUpdateOne) SetFID(v int) *AttachedFileUpdateOne {
-	_u.mutation.SetFID(v)
+// SetFId sets the "f_id" field.
+func (_u *AttachedFileUpdateOne) SetFId(v int) *AttachedFileUpdateOne {
+	_u.mutation.SetFId(v)
 	return _u
 }
 
-// SetNillableFID sets the "f_id" field if the given value is not nil.
-func (_u *AttachedFileUpdateOne) SetNillableFID(v *int) *AttachedFileUpdateOne {
+// SetNillableFId sets the "f_id" field if the given value is not nil.
+func (_u *AttachedFileUpdateOne) SetNillableFId(v *int) *AttachedFileUpdateOne {
 	if v != nil {
-		_u.SetFID(*v)
+		_u.SetFId(*v)
 	}
 	return _u
 }
 
-// SetProcID sets the "proc_id" field.
-func (_u *AttachedFileUpdateOne) SetProcID(v int) *AttachedFileUpdateOne {
-	_u.mutation.SetProcID(v)
+// SetProcId sets the "proc_id" field.
+func (_u *AttachedFileUpdateOne) SetProcId(v int) *AttachedFileUpdateOne {
+	_u.mutation.SetProcId(v)
 	return _u
 }
 
-// SetNillableProcID sets the "proc_id" field if the given value is not nil.
-func (_u *AttachedFileUpdateOne) SetNillableProcID(v *int) *AttachedFileUpdateOne {
+// SetNillableProcId sets the "proc_id" field if the given value is not nil.
+func (_u *AttachedFileUpdateOne) SetNillableProcId(v *int) *AttachedFileUpdateOne {
 	if v != nil {
-		_u.SetProcID(*v)
+		_u.SetProcId(*v)
 	}
 	return _u
 }
 
-// SetFiID sets the "fi" edge to the File entity by ID.
-func (_u *AttachedFileUpdateOne) SetFiID(id int) *AttachedFileUpdateOne {
-	_u.mutation.SetFiID(id)
+// SetFiId sets the "fi" edge to the File entity by Id.
+func (_u *AttachedFileUpdateOne) SetFiId(id int) *AttachedFileUpdateOne {
+	_u.mutation.SetFiId(id)
 	return _u
 }
 
 // SetFi sets the "fi" edge to the File entity.
 func (_u *AttachedFileUpdateOne) SetFi(v *File) *AttachedFileUpdateOne {
-	return _u.SetFiID(v.ID)
+	return _u.SetFiId(v.Id)
 }
 
 // SetProc sets the "proc" edge to the Process entity.
 func (_u *AttachedFileUpdateOne) SetProc(v *Process) *AttachedFileUpdateOne {
-	return _u.SetProcID(v.ID)
+	return _u.SetProcId(v.Id)
 }
 
 // Mutation returns the AttachedFileMutation object of the builder.
@@ -357,10 +357,10 @@ func (_u *AttachedFileUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *AttachedFileUpdateOne) check() error {
-	if _u.mutation.FiCleared() && len(_u.mutation.FiIDs()) > 0 {
+	if _u.mutation.FiCleared() && len(_u.mutation.FiIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "AttachedFile.fi"`)
 	}
-	if _u.mutation.ProcCleared() && len(_u.mutation.ProcIDs()) > 0 {
+	if _u.mutation.ProcCleared() && len(_u.mutation.ProcIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "AttachedFile.proc"`)
 	}
 	return nil
@@ -370,20 +370,20 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(attachedfile.Table, attachedfile.Columns, sqlgraph.NewFieldSpec(attachedfile.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(attachedfile.Table, attachedfile.Columns, sqlgraph.NewFieldSpec(attachedfile.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "AttachedFile.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, attachedfile.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, attachedfile.FieldId)
 		for _, f := range fields {
 			if !attachedfile.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != attachedfile.FieldID {
+			if f != attachedfile.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -406,12 +406,12 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 			Columns: []string{attachedfile.FiColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FiIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FiIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -419,7 +419,7 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 			Columns: []string{attachedfile.FiColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -435,12 +435,12 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 			Columns: []string{attachedfile.ProcColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ProcIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProcIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -448,7 +448,7 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 			Columns: []string{attachedfile.ProcColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

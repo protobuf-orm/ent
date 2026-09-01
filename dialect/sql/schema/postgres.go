@@ -81,7 +81,7 @@ func (d *Postgres) matchSchema(columns ...string) *sql.Predicate {
 	return sql.EQ(column, sql.Raw("CURRENT_SCHEMA()"))
 }
 
-// maxCharSize defines the maximum size of limited character types in Postgres (10 MB).
+// maxCharSize defines the maximum size of limited character types in Postgres (10 Mb).
 const maxCharSize = 10 << 20
 
 func (d *Postgres) atOpen(conn dialect.ExecQuerier) (migrate.Driver, error) {
@@ -95,7 +95,7 @@ func (d *Postgres) atTable(t1 *Table, t2 *schema.Table) {
 }
 
 func (d *Postgres) supportsDefault(*Column) bool {
-	// PostgreSQL supports default values for all standard types.
+	// PostgreSql supports default values for all standard types.
 	return true
 }
 
@@ -127,9 +127,9 @@ func (d *Postgres) atTypeC(c1 *Column, c2 *schema.Column) error {
 		t = &schema.FloatType{T: c1.scanTypeOr(postgres.TypeDouble)}
 	case field.TypeBytes:
 		t = &schema.BinaryType{T: postgres.TypeBytea}
-	case field.TypeUUID:
+	case field.TypeUuid:
 		t = &postgres.UUIDType{T: postgres.TypeUUID}
-	case field.TypeJSON:
+	case field.TypeJson:
 		t = &schema.JSONType{T: postgres.TypeJSONB}
 	case field.TypeString:
 		t = &schema.StringType{T: postgres.TypeVarChar}
@@ -156,7 +156,7 @@ func (d *Postgres) atTypeC(c1 *Column, c2 *schema.Column) error {
 }
 
 func (d *Postgres) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Column) {
-	// For UNIQUE columns, PostgreSQL creates an implicit index named
+	// For UNIQUE columns, PostgreSql creates an implicit index named
 	// "<table>_<column>_key<i>".
 	for _, idx := range t1.Indexes {
 		// Index also defined explicitly, and will be added in atIndexes.
@@ -250,7 +250,7 @@ func (d *Postgres) atIndex(idx1 *Index, t2 *schema.Table, idx2 *schema.Index) er
 	return nil
 }
 
-func (*Postgres) atTypeRangeSQL(ts ...string) string {
+func (*Postgres) atTypeRangeSql(ts ...string) string {
 	for i := range ts {
 		ts[i] = fmt.Sprintf("('%s')", ts[i])
 	}

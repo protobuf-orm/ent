@@ -85,13 +85,13 @@ func (m *Mutation) ResetAge() {
 	m.addage = nil
 }
 
-// SetParentID sets the "parent_id" field.
-func (m *Mutation) SetParentID(i int) {
+// SetParentId sets the "parent_id" field.
+func (m *Mutation) SetParentId(i int) {
 	m.parent = &i
 }
 
-// ParentID returns the value of the "parent_id" field in the mutation.
-func (m *Mutation) ParentID() (r int, exists bool) {
+// ParentId returns the value of the "parent_id" field in the mutation.
+func (m *Mutation) ParentId() (r int, exists bool) {
 	v := m.parent
 	if v == nil {
 		return
@@ -99,26 +99,26 @@ func (m *Mutation) ParentID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearParentID clears the value of the "parent_id" field.
-func (m *Mutation) ClearParentID() {
+// ClearParentId clears the value of the "parent_id" field.
+func (m *Mutation) ClearParentId() {
 	m.parent = nil
-	m.clearedFields[FieldParentID] = struct{}{}
+	m.clearedFields[FieldParentId] = struct{}{}
 }
 
-// ParentIDCleared returns if the "parent_id" field was cleared in this mutation.
-func (m *Mutation) ParentIDCleared() bool {
-	_, ok := m.clearedFields[FieldParentID]
+// ParentIdCleared returns if the "parent_id" field was cleared in this mutation.
+func (m *Mutation) ParentIdCleared() bool {
+	_, ok := m.clearedFields[FieldParentId]
 	return ok
 }
 
-// ResetParentID resets all changes to the "parent_id" field.
-func (m *Mutation) ResetParentID() {
+// ResetParentId resets all changes to the "parent_id" field.
+func (m *Mutation) ResetParentId() {
 	m.parent = nil
-	delete(m.clearedFields, FieldParentID)
+	delete(m.clearedFields, FieldParentId)
 }
 
-// SetUserID sets the "user" edge to the User entity by id.
-func (m *Mutation) SetUserID(id int) {
+// SetUserId sets the "user" edge to the User entity by id.
+func (m *Mutation) SetUserId(id int) {
 	m.user = &id
 }
 
@@ -132,18 +132,18 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserID returns the "user" edge ID in the mutation.
-func (m *Mutation) UserID() (id int, exists bool) {
+// UserId returns the "user" edge Id in the mutation.
+func (m *Mutation) UserId() (id int, exists bool) {
 	if m.user != nil {
 		return *m.user, true
 	}
 	return
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -156,8 +156,8 @@ func (m *Mutation) ResetUser() {
 	m.cleareduser = false
 }
 
-// AddChildrenIDs adds the "children" edge to the Metadata entity by ids.
-func (m *Mutation) AddChildrenIDs(ids ...int) {
+// AddChildrenIds adds the "children" edge to the Metadata entity by ids.
+func (m *Mutation) AddChildrenIds(ids ...int) {
 	if m.children == nil {
 		m.children = make(map[int]struct{})
 	}
@@ -176,8 +176,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildrenIDs removes the "children" edge to the Metadata entity by IDs.
-func (m *Mutation) RemoveChildrenIDs(ids ...int) {
+// RemoveChildrenIds removes the "children" edge to the Metadata entity by Ids.
+func (m *Mutation) RemoveChildrenIds(ids ...int) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[int]struct{})
 	}
@@ -187,16 +187,16 @@ func (m *Mutation) RemoveChildrenIDs(ids ...int) {
 	}
 }
 
-// RemovedChildren returns the removed IDs of the "children" edge to the Metadata entity.
-func (m *Mutation) RemovedChildrenIDs() (ids []int) {
+// RemovedChildren returns the removed Ids of the "children" edge to the Metadata entity.
+func (m *Mutation) RemovedChildrenIds() (ids []int) {
 	for id := range m.removedchildren {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ChildrenIDs returns the "children" edge IDs in the mutation.
-func (m *Mutation) ChildrenIDs() (ids []int) {
+// ChildrenIds returns the "children" edge Ids in the mutation.
+func (m *Mutation) ChildrenIds() (ids []int) {
 	for id := range m.children {
 		ids = append(ids, id)
 	}
@@ -213,18 +213,18 @@ func (m *Mutation) ResetChildren() {
 // ClearParent clears the "parent" edge to the Metadata entity.
 func (m *Mutation) ClearParent() {
 	m.clearedparent = true
-	m.clearedFields[FieldParentID] = struct{}{}
+	m.clearedFields[FieldParentId] = struct{}{}
 }
 
 // ParentCleared reports if the "parent" edge to the Metadata entity was cleared.
 func (m *Mutation) ParentCleared() bool {
-	return m.ParentIDCleared() || m.clearedparent
+	return m.ParentIdCleared() || m.clearedparent
 }
 
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ParentIDs() (ids []int) {
+// ParentIds returns the "parent" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ParentId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ParentIds() (ids []int) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
@@ -276,7 +276,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldAge)
 	}
 	if m.parent != nil {
-		fields = append(fields, FieldParentID)
+		fields = append(fields, FieldParentId)
 	}
 	return fields
 }
@@ -288,8 +288,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldAge:
 		return m.Age()
-	case FieldParentID:
-		return m.ParentID()
+	case FieldParentId:
+		return m.ParentId()
 	}
 	return nil, false
 }
@@ -313,12 +313,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAge(v)
 		return nil
-	case FieldParentID:
+	case FieldParentId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetParentID(v)
+		m.SetParentId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Metadata field %s", name)
@@ -365,8 +365,8 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldParentID) {
-		fields = append(fields, FieldParentID)
+	if m.FieldCleared(FieldParentId) {
+		fields = append(fields, FieldParentId)
 	}
 	return fields
 }
@@ -382,8 +382,8 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldParentID:
-		m.ClearParentID()
+	case FieldParentId:
+		m.ClearParentId()
 		return nil
 	}
 	return fmt.Errorf("unknown Metadata nullable field %s", name)
@@ -396,8 +396,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldAge:
 		m.ResetAge()
 		return nil
-	case FieldParentID:
-		m.ResetParentID()
+	case FieldParentId:
+		m.ResetParentId()
 		return nil
 	}
 	return fmt.Errorf("unknown Metadata field %s", name)
@@ -418,9 +418,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUser:
 		if id := m.user; id != nil {
@@ -449,9 +449,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeChildren:
 		ids := make([]ent.Value, 0, len(m.removedchildren))

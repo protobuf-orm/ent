@@ -14,54 +14,54 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.File {
-	return predicate.File(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.File {
+	return predicate.File(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.File {
-	return predicate.File(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.File {
+	return predicate.File(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.File {
-	return predicate.File(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.File {
+	return predicate.File(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.File {
-	return predicate.File(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.File {
+	return predicate.File(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.File {
-	return predicate.File(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.File {
+	return predicate.File(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.File {
-	return predicate.File(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.File {
+	return predicate.File(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.File {
-	return predicate.File(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.File {
+	return predicate.File(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.File {
-	return predicate.File(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.File {
+	return predicate.File(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.File {
-	return predicate.File(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.File {
+	return predicate.File(sql.FieldLTE(FieldId, id))
 }
 
-// SetID applies equality check predicate on the "set_id" field. It's identical to SetIDEQ.
-func SetID(v int) predicate.File {
-	return predicate.File(sql.FieldEQ(FieldSetID, v))
+// SetId applies equality check predicate on the "set_id" field. It's identical to SetIdEQ.
+func SetId(v int) predicate.File {
+	return predicate.File(sql.FieldEQ(FieldSetId, v))
 }
 
 // Size applies equality check predicate on the "size" field. It's identical to SizeEQ.
@@ -94,54 +94,54 @@ func CreateTime(v time.Time) predicate.File {
 	return predicate.File(sql.FieldEQ(FieldCreateTime, v))
 }
 
-// SetIDEQ applies the EQ predicate on the "set_id" field.
-func SetIDEQ(v int) predicate.File {
-	return predicate.File(sql.FieldEQ(FieldSetID, v))
+// SetIdEQ applies the EQ predicate on the "set_id" field.
+func SetIdEQ(v int) predicate.File {
+	return predicate.File(sql.FieldEQ(FieldSetId, v))
 }
 
-// SetIDNEQ applies the NEQ predicate on the "set_id" field.
-func SetIDNEQ(v int) predicate.File {
-	return predicate.File(sql.FieldNEQ(FieldSetID, v))
+// SetIdNEQ applies the NEQ predicate on the "set_id" field.
+func SetIdNEQ(v int) predicate.File {
+	return predicate.File(sql.FieldNEQ(FieldSetId, v))
 }
 
-// SetIDIn applies the In predicate on the "set_id" field.
-func SetIDIn(vs ...int) predicate.File {
-	return predicate.File(sql.FieldIn(FieldSetID, vs...))
+// SetIdIn applies the In predicate on the "set_id" field.
+func SetIdIn(vs ...int) predicate.File {
+	return predicate.File(sql.FieldIn(FieldSetId, vs...))
 }
 
-// SetIDNotIn applies the NotIn predicate on the "set_id" field.
-func SetIDNotIn(vs ...int) predicate.File {
-	return predicate.File(sql.FieldNotIn(FieldSetID, vs...))
+// SetIdNotIn applies the NotIn predicate on the "set_id" field.
+func SetIdNotIn(vs ...int) predicate.File {
+	return predicate.File(sql.FieldNotIn(FieldSetId, vs...))
 }
 
-// SetIDGT applies the GT predicate on the "set_id" field.
-func SetIDGT(v int) predicate.File {
-	return predicate.File(sql.FieldGT(FieldSetID, v))
+// SetIdGT applies the GT predicate on the "set_id" field.
+func SetIdGT(v int) predicate.File {
+	return predicate.File(sql.FieldGT(FieldSetId, v))
 }
 
-// SetIDGTE applies the GTE predicate on the "set_id" field.
-func SetIDGTE(v int) predicate.File {
-	return predicate.File(sql.FieldGTE(FieldSetID, v))
+// SetIdGTE applies the GTE predicate on the "set_id" field.
+func SetIdGTE(v int) predicate.File {
+	return predicate.File(sql.FieldGTE(FieldSetId, v))
 }
 
-// SetIDLT applies the LT predicate on the "set_id" field.
-func SetIDLT(v int) predicate.File {
-	return predicate.File(sql.FieldLT(FieldSetID, v))
+// SetIdLT applies the LT predicate on the "set_id" field.
+func SetIdLT(v int) predicate.File {
+	return predicate.File(sql.FieldLT(FieldSetId, v))
 }
 
-// SetIDLTE applies the LTE predicate on the "set_id" field.
-func SetIDLTE(v int) predicate.File {
-	return predicate.File(sql.FieldLTE(FieldSetID, v))
+// SetIdLTE applies the LTE predicate on the "set_id" field.
+func SetIdLTE(v int) predicate.File {
+	return predicate.File(sql.FieldLTE(FieldSetId, v))
 }
 
-// SetIDIsNil applies the IsNil predicate on the "set_id" field.
-func SetIDIsNil() predicate.File {
-	return predicate.File(sql.FieldIsNull(FieldSetID))
+// SetIdIsNil applies the IsNil predicate on the "set_id" field.
+func SetIdIsNil() predicate.File {
+	return predicate.File(sql.FieldIsNull(FieldSetId))
 }
 
-// SetIDNotNil applies the NotNil predicate on the "set_id" field.
-func SetIDNotNil() predicate.File {
-	return predicate.File(sql.FieldNotNull(FieldSetID))
+// SetIdNotNil applies the NotNil predicate on the "set_id" field.
+func SetIdNotNil() predicate.File {
+	return predicate.File(sql.FieldNotNull(FieldSetId))
 }
 
 // SizeEQ applies the EQ predicate on the "size" field.
@@ -419,54 +419,54 @@ func OpNotNil() predicate.File {
 	return predicate.File(sql.FieldNotNull(FieldOp))
 }
 
-// FieldIDEQ applies the EQ predicate on the "field_id" field.
-func FieldIDEQ(v int) predicate.File {
-	return predicate.File(sql.FieldEQ(FieldFieldID, v))
+// FieldIdEQ applies the EQ predicate on the "field_id" field.
+func FieldIdEQ(v int) predicate.File {
+	return predicate.File(sql.FieldEQ(FieldFieldId, v))
 }
 
-// FieldIDNEQ applies the NEQ predicate on the "field_id" field.
-func FieldIDNEQ(v int) predicate.File {
-	return predicate.File(sql.FieldNEQ(FieldFieldID, v))
+// FieldIdNEQ applies the NEQ predicate on the "field_id" field.
+func FieldIdNEQ(v int) predicate.File {
+	return predicate.File(sql.FieldNEQ(FieldFieldId, v))
 }
 
-// FieldIDIn applies the In predicate on the "field_id" field.
-func FieldIDIn(vs ...int) predicate.File {
-	return predicate.File(sql.FieldIn(FieldFieldID, vs...))
+// FieldIdIn applies the In predicate on the "field_id" field.
+func FieldIdIn(vs ...int) predicate.File {
+	return predicate.File(sql.FieldIn(FieldFieldId, vs...))
 }
 
-// FieldIDNotIn applies the NotIn predicate on the "field_id" field.
-func FieldIDNotIn(vs ...int) predicate.File {
-	return predicate.File(sql.FieldNotIn(FieldFieldID, vs...))
+// FieldIdNotIn applies the NotIn predicate on the "field_id" field.
+func FieldIdNotIn(vs ...int) predicate.File {
+	return predicate.File(sql.FieldNotIn(FieldFieldId, vs...))
 }
 
-// FieldIDGT applies the GT predicate on the "field_id" field.
-func FieldIDGT(v int) predicate.File {
-	return predicate.File(sql.FieldGT(FieldFieldID, v))
+// FieldIdGT applies the GT predicate on the "field_id" field.
+func FieldIdGT(v int) predicate.File {
+	return predicate.File(sql.FieldGT(FieldFieldId, v))
 }
 
-// FieldIDGTE applies the GTE predicate on the "field_id" field.
-func FieldIDGTE(v int) predicate.File {
-	return predicate.File(sql.FieldGTE(FieldFieldID, v))
+// FieldIdGTE applies the GTE predicate on the "field_id" field.
+func FieldIdGTE(v int) predicate.File {
+	return predicate.File(sql.FieldGTE(FieldFieldId, v))
 }
 
-// FieldIDLT applies the LT predicate on the "field_id" field.
-func FieldIDLT(v int) predicate.File {
-	return predicate.File(sql.FieldLT(FieldFieldID, v))
+// FieldIdLT applies the LT predicate on the "field_id" field.
+func FieldIdLT(v int) predicate.File {
+	return predicate.File(sql.FieldLT(FieldFieldId, v))
 }
 
-// FieldIDLTE applies the LTE predicate on the "field_id" field.
-func FieldIDLTE(v int) predicate.File {
-	return predicate.File(sql.FieldLTE(FieldFieldID, v))
+// FieldIdLTE applies the LTE predicate on the "field_id" field.
+func FieldIdLTE(v int) predicate.File {
+	return predicate.File(sql.FieldLTE(FieldFieldId, v))
 }
 
-// FieldIDIsNil applies the IsNil predicate on the "field_id" field.
-func FieldIDIsNil() predicate.File {
-	return predicate.File(sql.FieldIsNull(FieldFieldID))
+// FieldIdIsNil applies the IsNil predicate on the "field_id" field.
+func FieldIdIsNil() predicate.File {
+	return predicate.File(sql.FieldIsNull(FieldFieldId))
 }
 
-// FieldIDNotNil applies the NotNil predicate on the "field_id" field.
-func FieldIDNotNil() predicate.File {
-	return predicate.File(sql.FieldNotNull(FieldFieldID))
+// FieldIdNotNil applies the NotNil predicate on the "field_id" field.
+func FieldIdNotNil() predicate.File {
+	return predicate.File(sql.FieldNotNull(FieldFieldId))
 }
 
 // CreateTimeEQ applies the EQ predicate on the "create_time" field.
@@ -523,7 +523,7 @@ func CreateTimeNotNil() predicate.File {
 func HasOwner() predicate.File {
 	return predicate.File(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -546,7 +546,7 @@ func HasOwnerWith(preds ...predicate.User) predicate.File {
 func HasType() predicate.File {
 	return predicate.File(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, TypeTable, TypeColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -569,7 +569,7 @@ func HasTypeWith(preds ...predicate.FileType) predicate.File {
 func HasField() predicate.File {
 	return predicate.File(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, FieldTable, FieldColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

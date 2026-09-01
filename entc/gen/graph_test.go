@@ -539,7 +539,7 @@ func TestGraph_Gen(t *testing.T) {
 		Target:    target,
 		Storage:   drivers[0],
 		Templates: []*Template{external, skipped},
-		IDType:    &field.TypeInfo{Type: field.TypeInt},
+		IdType:    &field.TypeInfo{Type: field.TypeInt},
 		Features:  AllFeatures,
 	}, schemas...)
 	require.NoError(err)
@@ -549,7 +549,7 @@ func TestGraph_Gen(t *testing.T) {
 	a := IncrementStarts{"t1": 0, "t2": 1 << 32, "t3": 2 << 32}
 	require.Equal(a, graph.Annotations[a.Name()])
 	for i, n := range graph.Nodes {
-		require.Equal(i<<32, *n.EntSQL().IncrementStart)
+		require.Equal(i<<32, *n.EntSql().IncrementStart)
 	}
 	// Ensure graph files were generated.
 	for _, name := range []string{"ent", "client"} {
@@ -598,7 +598,7 @@ func TestGraph_Gen(t *testing.T) {
 		Target:    target,
 		Storage:   drivers[0],
 		Templates: []*Template{external, skipped},
-		IDType:    &field.TypeInfo{Type: field.TypeInt},
+		IdType:    &field.TypeInfo{Type: field.TypeInt},
 		Features:  AllFeatures,
 	}, schemas...)
 	require.NoError(err)
@@ -635,7 +635,7 @@ func TestGraph_Hooks(t *testing.T) {
 	graph, err := NewGraph(&Config{
 		Package: "entc/gen",
 		Storage: drivers[0],
-		IDType:  &field.TypeInfo{Type: field.TypeInt},
+		IdType:  &field.TypeInfo{Type: field.TypeInt},
 		Hooks:   []Hook{ensureStructTag("yaml")},
 	}, &load.Schema{
 		Name: "T1",
@@ -662,7 +662,7 @@ func TestDependencyAnnotation_Build(t *testing.T) {
 			typ: &field.TypeInfo{
 				Ident: "*http.Client",
 			},
-			field: "HTTPClient",
+			field: "HttpClient",
 		},
 		{
 			typ: &field.TypeInfo{
@@ -671,7 +671,7 @@ func TestDependencyAnnotation_Build(t *testing.T) {
 					Kind: reflect.Slice,
 				},
 			},
-			field: "HTTPClients",
+			field: "HttpClients",
 		},
 		{
 			typ: &field.TypeInfo{
@@ -701,13 +701,13 @@ func TestEdgeFieldCollation(t *testing.T) {
 		user = &load.Schema{
 			Name: "User",
 			Fields: []*load.Field{
-				{Name: "id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSQL", dict("collation", "utf8mb4_bin"))},
+				{Name: "id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSql", dict("collation", "utf8mb4_bin"))},
 			},
 		}
 		post = &load.Schema{
 			Name: "Post",
 			Fields: []*load.Field{
-				{Name: "author_id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSQL", dict("collation", "utf8mb4_bin"))},
+				{Name: "author_id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSql", dict("collation", "utf8mb4_bin"))},
 			},
 			Edges: []*load.Edge{
 				{Name: "author", Type: "User", Field: "author_id", Unique: true, Required: true},

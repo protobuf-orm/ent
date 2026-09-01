@@ -47,15 +47,15 @@ func (_u *TokenUpdate) SetNillableBody(v *string) *TokenUpdate {
 	return _u
 }
 
-// SetAccountID sets the "account" edge to the Account entity by ID.
-func (_u *TokenUpdate) SetAccountID(id sid.ID) *TokenUpdate {
-	_u.mutation.SetAccountID(id)
+// SetAccountId sets the "account" edge to the Account entity by Id.
+func (_u *TokenUpdate) SetAccountId(id sid.Id) *TokenUpdate {
+	_u.mutation.SetAccountId(id)
 	return _u
 }
 
 // SetAccount sets the "account" edge to the Account entity.
 func (_u *TokenUpdate) SetAccount(v *Account) *TokenUpdate {
-	return _u.SetAccountID(v.ID)
+	return _u.SetAccountId(v.Id)
 }
 
 // Mutation returns the TokenMutation object of the builder.
@@ -103,7 +103,7 @@ func (_u *TokenUpdate) check() error {
 			return &ValidationError{Name: "body", err: fmt.Errorf(`ent: validator failed for field "Token.body": %w`, err)}
 		}
 	}
-	if _u.mutation.AccountCleared() && len(_u.mutation.AccountIDs()) > 0 {
+	if _u.mutation.AccountCleared() && len(_u.mutation.AccountIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Token.account"`)
 	}
 	return nil
@@ -113,7 +113,7 @@ func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther))
+	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -132,12 +132,12 @@ func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{token.AccountColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AccountIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AccountIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -145,7 +145,7 @@ func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{token.AccountColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -187,15 +187,15 @@ func (_u *TokenUpdateOne) SetNillableBody(v *string) *TokenUpdateOne {
 	return _u
 }
 
-// SetAccountID sets the "account" edge to the Account entity by ID.
-func (_u *TokenUpdateOne) SetAccountID(id sid.ID) *TokenUpdateOne {
-	_u.mutation.SetAccountID(id)
+// SetAccountId sets the "account" edge to the Account entity by Id.
+func (_u *TokenUpdateOne) SetAccountId(id sid.Id) *TokenUpdateOne {
+	_u.mutation.SetAccountId(id)
 	return _u
 }
 
 // SetAccount sets the "account" edge to the Account entity.
 func (_u *TokenUpdateOne) SetAccount(v *Account) *TokenUpdateOne {
-	return _u.SetAccountID(v.ID)
+	return _u.SetAccountId(v.Id)
 }
 
 // Mutation returns the TokenMutation object of the builder.
@@ -256,7 +256,7 @@ func (_u *TokenUpdateOne) check() error {
 			return &ValidationError{Name: "body", err: fmt.Errorf(`ent: validator failed for field "Token.body": %w`, err)}
 		}
 	}
-	if _u.mutation.AccountCleared() && len(_u.mutation.AccountIDs()) > 0 {
+	if _u.mutation.AccountCleared() && len(_u.mutation.AccountIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Token.account"`)
 	}
 	return nil
@@ -266,20 +266,20 @@ func (_u *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error)
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Token.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, token.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, token.FieldId)
 		for _, f := range fields {
 			if !token.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != token.FieldID {
+			if f != token.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -302,12 +302,12 @@ func (_u *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error)
 			Columns: []string{token.AccountColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AccountIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AccountIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -315,7 +315,7 @@ func (_u *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error)
 			Columns: []string{token.AccountColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {

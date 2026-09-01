@@ -73,9 +73,9 @@ func (_c *PCCreate) sqlSave(ctx context.Context) (*PC, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -83,7 +83,7 @@ func (_c *PCCreate) sqlSave(ctx context.Context) (*PC, error) {
 func (_c *PCCreate) createSpec() (*PC, *sqlgraph.CreateSpec) {
 	var (
 		_node = &PC{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(pc.Table, sqlgraph.NewFieldSpec(pc.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(pc.Table, sqlgraph.NewFieldSpec(pc.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	return _node, _spec
@@ -157,7 +157,7 @@ func (u *PCUpsertOne) Ignore() *PCUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PCUpsertOne) DoNothing() *PCUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -187,18 +187,18 @@ func (u *PCUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *PCUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *PCUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *PCUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *PCUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -250,10 +250,10 @@ func (_c *PCCreateBulk) Save(ctx context.Context) ([]*PC, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -355,7 +355,7 @@ func (u *PCUpsertBulk) Ignore() *PCUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PCUpsertBulk) DoNothing() *PCUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

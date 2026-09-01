@@ -48,11 +48,11 @@ func LoadGraph(schemaPath string, cfg *gen.Config) (*gen.Graph, error) {
 // Hence, if the schema package resides in "<project>/ent/schema",
 // the base directory for codegen will be "<project>/ent".
 //
-// If no storage driver provided by option, SQL driver will be used.
+// If no storage driver provided by option, Sql driver will be used.
 //
 //	entc.Generate("./ent/path", &gen.Config{
 //		Header: "// Custom header",
-//		IDType: &field.TypeInfo{Type: field.TypeInt},
+//		IdType: &field.TypeInfo{Type: field.TypeInt},
 //	})
 func Generate(schemaPath string, cfg *gen.Config, options ...Option) error {
 	if err := defaultTarget(schemaPath, cfg); err != nil {
@@ -127,7 +127,7 @@ func FeatureNames(names ...string) Option {
 }
 
 // Annotation is used to attach arbitrary metadata to the schema objects in codegen.
-// Unlike schema annotations, being serializable to JSON raw value is not mandatory.
+// Unlike schema annotations, being serializable to Json raw value is not mandatory.
 //
 // Template extensions can retrieve this metadata and use it inside their execution.
 // Read more about it in ent website: https://entgo.io/docs/templates/#annotations.
@@ -193,7 +193,7 @@ func TemplateDir(path string) Option {
 
 // Extension describes an Ent code generation extension that
 // allows customizing the code generation and integrate with
-// other tools and libraries (e.g. GraphQL, gRPC, OpenAPI) by
+// other tools and libraries (e.g. GraphQL, gRpc, OpenApi) by
 // registering hooks, templates and global annotations in one
 // simple call.
 //
@@ -217,7 +217,7 @@ type Extension interface {
 
 	// Annotations injects global annotations to the gen.Config object that
 	// can be accessed globally in all templates. Unlike schema annotations,
-	// being serializable to JSON raw value is not mandatory.
+	// being serializable to Json raw value is not mandatory.
 	//
 	//	{{- with $.Config.Annotations.GQL }}
 	//		{{/* Annotation usage goes here. */}}
@@ -396,7 +396,7 @@ func mayRecover(err error, schemaPath string, cfg *gen.Config) error {
 	if err := internal.CheckDir(schemaPath); err != nil {
 		return fmt.Errorf("schema failure: %w", err)
 	}
-	if ok, _ := cfg.FeatureEnabled(gen.FeatureGlobalID.Name); ok {
+	if ok, _ := cfg.FeatureEnabled(gen.FeatureGlobalId.Name); ok {
 		if internal.CheckDir(filepath.Dir(gen.IncrementStartsFilePath(cfg.Target))) != nil {
 			// Resolve the conflict by accepting the remote version of the file.
 			if err := gen.ResolveIncrementStartsConflict(cfg.Target); err != nil {

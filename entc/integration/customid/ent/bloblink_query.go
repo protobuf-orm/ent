@@ -78,7 +78,7 @@ func (_q *BlobLinkQuery) QueryBlob() *BlobQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bloblink.Table, bloblink.BlobColumn, selector),
-			sqlgraph.To(blob.Table, blob.FieldID),
+			sqlgraph.To(blob.Table, blob.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, bloblink.BlobTable, bloblink.BlobColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -100,7 +100,7 @@ func (_q *BlobLinkQuery) QueryLink() *BlobQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bloblink.Table, bloblink.LinkColumn, selector),
-			sqlgraph.To(blob.Table, blob.FieldID),
+			sqlgraph.To(blob.Table, blob.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, bloblink.LinkTable, bloblink.LinkColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -379,7 +379,7 @@ func (_q *BlobLinkQuery) loadBlob(ctx context.Context, query *BlobQuery, nodes [
 	ids := make([]uuid.UUID, 0, len(nodes))
 	nodeids := make(map[uuid.UUID][]*BlobLink)
 	for i := range nodes {
-		fk := nodes[i].BlobID
+		fk := nodes[i].BlobId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -388,15 +388,15 @@ func (_q *BlobLinkQuery) loadBlob(ctx context.Context, query *BlobQuery, nodes [
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(blob.IDIn(ids...))
+	query.Where(blob.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "blob_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "blob_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -408,7 +408,7 @@ func (_q *BlobLinkQuery) loadLink(ctx context.Context, query *BlobQuery, nodes [
 	ids := make([]uuid.UUID, 0, len(nodes))
 	nodeids := make(map[uuid.UUID][]*BlobLink)
 	for i := range nodes {
-		fk := nodes[i].LinksID
+		fk := nodes[i].LinksId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -417,15 +417,15 @@ func (_q *BlobLinkQuery) loadLink(ctx context.Context, query *BlobQuery, nodes [
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(blob.IDIn(ids...))
+	query.Where(blob.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "links_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "links_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -455,10 +455,10 @@ func (_q *BlobLinkQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 		}
 		if _q.withBlob != nil {
-			_spec.Node.AddColumnOnce(bloblink.FieldBlobID)
+			_spec.Node.AddColumnOnce(bloblink.FieldBlobId)
 		}
 		if _q.withLink != nil {
-			_spec.Node.AddColumnOnce(bloblink.FieldLinksID)
+			_spec.Node.AddColumnOnce(bloblink.FieldLinksId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

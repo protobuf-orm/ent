@@ -38,7 +38,7 @@ func (v UserViewer) Admin() bool {
 
 func (v UserViewer) Tenant() (int, bool) {
 	if v.T != nil {
-		return v.T.ID, true
+		return v.T.Id, true
 	}
 	return 0, false
 }

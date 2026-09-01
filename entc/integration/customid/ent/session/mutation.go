@@ -21,7 +21,7 @@ type Mutation struct {
 	op            ent.Op
 	typ           string
 	clearedFields map[string]struct{}
-	device        *schema.ID
+	device        *schema.Id
 	cleareddevice bool
 	predicates    []predicate.Session
 }
@@ -40,8 +40,8 @@ func (m *Mutation) Predicates() []predicate.Session {
 	return m.predicates
 }
 
-// SetDeviceID sets the "device" edge to the Device entity by id.
-func (m *Mutation) SetDeviceID(id schema.ID) {
+// SetDeviceId sets the "device" edge to the Device entity by id.
+func (m *Mutation) SetDeviceId(id schema.Id) {
 	m.device = &id
 }
 
@@ -55,18 +55,18 @@ func (m *Mutation) DeviceCleared() bool {
 	return m.cleareddevice
 }
 
-// DeviceID returns the "device" edge ID in the mutation.
-func (m *Mutation) DeviceID() (id schema.ID, exists bool) {
+// DeviceId returns the "device" edge Id in the mutation.
+func (m *Mutation) DeviceId() (id schema.Id, exists bool) {
 	if m.device != nil {
 		return *m.device, true
 	}
 	return
 }
 
-// DeviceIDs returns the "device" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// DeviceID instead. It exists only for internal usage by the builders.
-func (m *Mutation) DeviceIDs() (ids []schema.ID) {
+// DeviceIds returns the "device" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// DeviceId instead. It exists only for internal usage by the builders.
+func (m *Mutation) DeviceIds() (ids []schema.Id) {
 	if id := m.device; id != nil {
 		ids = append(ids, *id)
 	}
@@ -194,9 +194,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeDevice:
 		if id := m.device; id != nil {
@@ -212,9 +212,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

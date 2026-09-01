@@ -60,8 +60,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddStreetsIDs adds the "streets" edge to the Street entity by ids.
-func (m *Mutation) AddStreetsIDs(ids ...int) {
+// AddStreetsIds adds the "streets" edge to the Street entity by ids.
+func (m *Mutation) AddStreetsIds(ids ...int) {
 	if m.streets == nil {
 		m.streets = make(map[int]struct{})
 	}
@@ -80,8 +80,8 @@ func (m *Mutation) StreetsCleared() bool {
 	return m.clearedstreets
 }
 
-// RemoveStreetsIDs removes the "streets" edge to the Street entity by IDs.
-func (m *Mutation) RemoveStreetsIDs(ids ...int) {
+// RemoveStreetsIds removes the "streets" edge to the Street entity by Ids.
+func (m *Mutation) RemoveStreetsIds(ids ...int) {
 	if m.removedstreets == nil {
 		m.removedstreets = make(map[int]struct{})
 	}
@@ -91,16 +91,16 @@ func (m *Mutation) RemoveStreetsIDs(ids ...int) {
 	}
 }
 
-// RemovedStreets returns the removed IDs of the "streets" edge to the Street entity.
-func (m *Mutation) RemovedStreetsIDs() (ids []int) {
+// RemovedStreets returns the removed Ids of the "streets" edge to the Street entity.
+func (m *Mutation) RemovedStreetsIds() (ids []int) {
 	for id := range m.removedstreets {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// StreetsIDs returns the "streets" edge IDs in the mutation.
-func (m *Mutation) StreetsIDs() (ids []int) {
+// StreetsIds returns the "streets" edge Ids in the mutation.
+func (m *Mutation) StreetsIds() (ids []int) {
 	for id := range m.streets {
 		ids = append(ids, id)
 	}
@@ -250,9 +250,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeStreets:
 		ids := make([]ent.Value, 0, len(m.streets))
@@ -273,9 +273,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeStreets:
 		ids := make([]ent.Value, 0, len(m.removedstreets))

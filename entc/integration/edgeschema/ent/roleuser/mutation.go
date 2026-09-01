@@ -63,13 +63,13 @@ func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
-// SetRoleID sets the "role_id" field.
-func (m *Mutation) SetRoleID(i int) {
+// SetRoleId sets the "role_id" field.
+func (m *Mutation) SetRoleId(i int) {
 	m.role = &i
 }
 
-// RoleID returns the value of the "role_id" field in the mutation.
-func (m *Mutation) RoleID() (r int, exists bool) {
+// RoleId returns the value of the "role_id" field in the mutation.
+func (m *Mutation) RoleId() (r int, exists bool) {
 	v := m.role
 	if v == nil {
 		return
@@ -77,18 +77,18 @@ func (m *Mutation) RoleID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetRoleID resets all changes to the "role_id" field.
-func (m *Mutation) ResetRoleID() {
+// ResetRoleId resets all changes to the "role_id" field.
+func (m *Mutation) ResetRoleId() {
 	m.role = nil
 }
 
-// SetUserID sets the "user_id" field.
-func (m *Mutation) SetUserID(i int) {
+// SetUserId sets the "user_id" field.
+func (m *Mutation) SetUserId(i int) {
 	m.user = &i
 }
 
-// UserID returns the value of the "user_id" field in the mutation.
-func (m *Mutation) UserID() (r int, exists bool) {
+// UserId returns the value of the "user_id" field in the mutation.
+func (m *Mutation) UserId() (r int, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -96,15 +96,15 @@ func (m *Mutation) UserID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetUserID resets all changes to the "user_id" field.
-func (m *Mutation) ResetUserID() {
+// ResetUserId resets all changes to the "user_id" field.
+func (m *Mutation) ResetUserId() {
 	m.user = nil
 }
 
 // ClearRole clears the "role" edge to the Role entity.
 func (m *Mutation) ClearRole() {
 	m.clearedrole = true
-	m.clearedFields[FieldRoleID] = struct{}{}
+	m.clearedFields[FieldRoleId] = struct{}{}
 }
 
 // RoleCleared reports if the "role" edge to the Role entity was cleared.
@@ -112,10 +112,10 @@ func (m *Mutation) RoleCleared() bool {
 	return m.clearedrole
 }
 
-// RoleIDs returns the "role" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// RoleID instead. It exists only for internal usage by the builders.
-func (m *Mutation) RoleIDs() (ids []int) {
+// RoleIds returns the "role" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// RoleId instead. It exists only for internal usage by the builders.
+func (m *Mutation) RoleIds() (ids []int) {
 	if id := m.role; id != nil {
 		ids = append(ids, *id)
 	}
@@ -131,7 +131,7 @@ func (m *Mutation) ResetRole() {
 // ClearUser clears the "user" edge to the User entity.
 func (m *Mutation) ClearUser() {
 	m.cleareduser = true
-	m.clearedFields[FieldUserID] = struct{}{}
+	m.clearedFields[FieldUserId] = struct{}{}
 }
 
 // UserCleared reports if the "user" edge to the User entity was cleared.
@@ -139,10 +139,10 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -194,10 +194,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldCreatedAt)
 	}
 	if m.role != nil {
-		fields = append(fields, FieldRoleID)
+		fields = append(fields, FieldRoleId)
 	}
 	if m.user != nil {
-		fields = append(fields, FieldUserID)
+		fields = append(fields, FieldUserId)
 	}
 	return fields
 }
@@ -209,10 +209,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldCreatedAt:
 		return m.CreatedAt()
-	case FieldRoleID:
-		return m.RoleID()
-	case FieldUserID:
-		return m.UserID()
+	case FieldRoleId:
+		return m.RoleId()
+	case FieldUserId:
+		return m.UserId()
 	}
 	return nil, false
 }
@@ -236,19 +236,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case FieldRoleID:
+	case FieldRoleId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetRoleID(v)
+		m.SetRoleId(v)
 		return nil
-	case FieldUserID:
+	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUserID(v)
+		m.SetUserId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown RoleUser field %s", name)
@@ -305,11 +305,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case FieldRoleID:
-		m.ResetRoleID()
+	case FieldRoleId:
+		m.ResetRoleId()
 		return nil
-	case FieldUserID:
-		m.ResetUserID()
+	case FieldUserId:
+		m.ResetUserId()
 		return nil
 	}
 	return fmt.Errorf("unknown RoleUser field %s", name)
@@ -327,9 +327,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeRole:
 		if id := m.role; id != nil {
@@ -349,9 +349,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

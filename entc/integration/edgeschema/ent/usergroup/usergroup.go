@@ -16,14 +16,14 @@ import (
 const (
 	// Label holds the string label denoting the usergroup type in the database.
 	Label = "user_group"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldJoinedAt holds the string denoting the joined_at field in the database.
 	FieldJoinedAt = "joined_at"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldGroupID holds the string denoting the group_id field in the database.
-	FieldGroupID = "group_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldGroupId holds the string denoting the group_id field in the database.
+	FieldGroupId = "group_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// EdgeGroup holds the string denoting the group edge name in mutations.
@@ -46,12 +46,12 @@ const (
 	GroupColumn = "group_id"
 )
 
-// Columns holds all SQL columns for usergroup fields.
+// Columns holds all Sql columns for usergroup fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldJoinedAt,
-	FieldUserID,
-	FieldGroupID,
+	FieldUserId,
+	FieldGroupId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -72,9 +72,9 @@ var (
 // OrderOption defines the ordering options for the UserGroup queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByJoinedAt orders the results by the joined_at field.
@@ -82,14 +82,14 @@ func ByJoinedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldJoinedAt, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByGroupID orders the results by the group_id field.
-func ByGroupID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldGroupID, opts...).ToFunc()
+// ByGroupId orders the results by the group_id field.
+func ByGroupId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldGroupId, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.
@@ -107,15 +107,15 @@ func ByGroupField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }
 func newGroupStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, GroupTable, GroupColumn),
 	)
 }

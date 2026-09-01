@@ -76,8 +76,8 @@ func (_q *PaymentQuery) QueryCard() *CardQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(payment.Table, payment.FieldID, selector),
-			sqlgraph.To(card.Table, card.FieldID),
+			sqlgraph.From(payment.Table, payment.FieldId, selector),
+			sqlgraph.To(card.Table, card.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, payment.CardTable, payment.CardColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -108,11 +108,11 @@ func (_q *PaymentQuery) FirstX(ctx context.Context) *Payment {
 	return node
 }
 
-// FirstID returns the first Payment ID from the query.
-// Returns a *NotFoundError when no Payment ID was found.
-func (_q *PaymentQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Payment Id from the query.
+// Returns a *NotFoundError when no Payment Id was found.
+func (_q *PaymentQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -122,9 +122,9 @@ func (_q *PaymentQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *PaymentQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *PaymentQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -158,12 +158,12 @@ func (_q *PaymentQuery) OnlyX(ctx context.Context) *Payment {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Payment ID in the query.
-// Returns a *NotSingularError when more than one Payment ID is found.
+// OnlyId is like Only, but returns the only Payment Id in the query.
+// Returns a *NotSingularError when more than one Payment Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *PaymentQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *PaymentQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -177,9 +177,9 @@ func (_q *PaymentQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *PaymentQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *PaymentQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -205,21 +205,21 @@ func (_q *PaymentQuery) AllX(ctx context.Context) []*Payment {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Payment IDs.
-func (_q *PaymentQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Payment Ids.
+func (_q *PaymentQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(payment.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(payment.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *PaymentQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *PaymentQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -247,7 +247,7 @@ func (_q *PaymentQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *PaymentQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -302,12 +302,12 @@ func (_q *PaymentQuery) WithCard(opts ...func(*CardQuery)) *PaymentQuery {
 // Example:
 //
 //	var v []struct {
-//		CardID int `json:"card_id,omitempty"`
+//		CardId int `json:"card_id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Payment.Query().
-//		GroupBy(payment.FieldCardID).
+//		GroupBy(payment.FieldCardId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *PaymentQuery) GroupBy(field string, fields ...string) *PaymentGroupBy {
@@ -325,11 +325,11 @@ func (_q *PaymentQuery) GroupBy(field string, fields ...string) *PaymentGroupBy 
 // Example:
 //
 //	var v []struct {
-//		CardID int `json:"card_id,omitempty"`
+//		CardId int `json:"card_id,omitempty"`
 //	}
 //
 //	client.Payment.Query().
-//		Select(payment.FieldCardID).
+//		Select(payment.FieldCardId).
 //		Scan(ctx, &v)
 func (_q *PaymentQuery) Select(fields ...string) *PaymentSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
@@ -409,7 +409,7 @@ func (_q *PaymentQuery) loadCard(ctx context.Context, query *CardQuery, nodes []
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Payment)
 	for i := range nodes {
-		fk := nodes[i].CardID
+		fk := nodes[i].CardId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -418,15 +418,15 @@ func (_q *PaymentQuery) loadCard(ctx context.Context, query *CardQuery, nodes []
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(card.IDIn(ids...))
+	query.Where(card.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "card_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "card_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -445,7 +445,7 @@ func (_q *PaymentQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *PaymentQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -454,14 +454,14 @@ func (_q *PaymentQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, payment.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, payment.FieldId)
 		for i := range fields {
-			if fields[i] != payment.FieldID {
+			if fields[i] != payment.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 		if _q.withCard != nil {
-			_spec.Node.AddColumnOnce(payment.FieldCardID)
+			_spec.Node.AddColumnOnce(payment.FieldCardId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

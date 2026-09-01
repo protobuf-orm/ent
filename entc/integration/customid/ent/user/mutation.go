@@ -48,8 +48,8 @@ func (m *Mutation) Predicates() []predicate.User {
 	return m.predicates
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupsIDs(ids ...int) {
+// AddGroupsIds adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIds(ids ...int) {
 	if m.groups == nil {
 		m.groups = make(map[int]struct{})
 	}
@@ -68,8 +68,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupsIDs(ids ...int) {
+// RemoveGroupsIds removes the "groups" edge to the Group entity by Ids.
+func (m *Mutation) RemoveGroupsIds(ids ...int) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[int]struct{})
 	}
@@ -79,16 +79,16 @@ func (m *Mutation) RemoveGroupsIDs(ids ...int) {
 	}
 }
 
-// RemovedGroups returns the removed IDs of the "groups" edge to the Group entity.
-func (m *Mutation) RemovedGroupsIDs() (ids []int) {
+// RemovedGroups returns the removed Ids of the "groups" edge to the Group entity.
+func (m *Mutation) RemovedGroupsIds() (ids []int) {
 	for id := range m.removedgroups {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// GroupsIDs returns the "groups" edge IDs in the mutation.
-func (m *Mutation) GroupsIDs() (ids []int) {
+// GroupsIds returns the "groups" edge Ids in the mutation.
+func (m *Mutation) GroupsIds() (ids []int) {
 	for id := range m.groups {
 		ids = append(ids, id)
 	}
@@ -102,8 +102,8 @@ func (m *Mutation) ResetGroups() {
 	m.removedgroups = nil
 }
 
-// SetParentID sets the "parent" edge to the User entity by id.
-func (m *Mutation) SetParentID(id int) {
+// SetParentId sets the "parent" edge to the User entity by id.
+func (m *Mutation) SetParentId(id int) {
 	m.parent = &id
 }
 
@@ -117,18 +117,18 @@ func (m *Mutation) ParentCleared() bool {
 	return m.clearedparent
 }
 
-// ParentID returns the "parent" edge ID in the mutation.
-func (m *Mutation) ParentID() (id int, exists bool) {
+// ParentId returns the "parent" edge Id in the mutation.
+func (m *Mutation) ParentId() (id int, exists bool) {
 	if m.parent != nil {
 		return *m.parent, true
 	}
 	return
 }
 
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ParentIDs() (ids []int) {
+// ParentIds returns the "parent" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ParentId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ParentIds() (ids []int) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
@@ -141,8 +141,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by ids.
-func (m *Mutation) AddChildrenIDs(ids ...int) {
+// AddChildrenIds adds the "children" edge to the User entity by ids.
+func (m *Mutation) AddChildrenIds(ids ...int) {
 	if m.children == nil {
 		m.children = make(map[int]struct{})
 	}
@@ -161,8 +161,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildrenIDs removes the "children" edge to the User entity by IDs.
-func (m *Mutation) RemoveChildrenIDs(ids ...int) {
+// RemoveChildrenIds removes the "children" edge to the User entity by Ids.
+func (m *Mutation) RemoveChildrenIds(ids ...int) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[int]struct{})
 	}
@@ -172,16 +172,16 @@ func (m *Mutation) RemoveChildrenIDs(ids ...int) {
 	}
 }
 
-// RemovedChildren returns the removed IDs of the "children" edge to the User entity.
-func (m *Mutation) RemovedChildrenIDs() (ids []int) {
+// RemovedChildren returns the removed Ids of the "children" edge to the User entity.
+func (m *Mutation) RemovedChildrenIds() (ids []int) {
 	for id := range m.removedchildren {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ChildrenIDs returns the "children" edge IDs in the mutation.
-func (m *Mutation) ChildrenIDs() (ids []int) {
+// ChildrenIds returns the "children" edge Ids in the mutation.
+func (m *Mutation) ChildrenIds() (ids []int) {
 	for id := range m.children {
 		ids = append(ids, id)
 	}
@@ -195,8 +195,8 @@ func (m *Mutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
-// AddPetsIDs adds the "pets" edge to the Pet entity by ids.
-func (m *Mutation) AddPetsIDs(ids ...string) {
+// AddPetsIds adds the "pets" edge to the Pet entity by ids.
+func (m *Mutation) AddPetsIds(ids ...string) {
 	if m.pets == nil {
 		m.pets = make(map[string]struct{})
 	}
@@ -215,8 +215,8 @@ func (m *Mutation) PetsCleared() bool {
 	return m.clearedpets
 }
 
-// RemovePetsIDs removes the "pets" edge to the Pet entity by IDs.
-func (m *Mutation) RemovePetsIDs(ids ...string) {
+// RemovePetsIds removes the "pets" edge to the Pet entity by Ids.
+func (m *Mutation) RemovePetsIds(ids ...string) {
 	if m.removedpets == nil {
 		m.removedpets = make(map[string]struct{})
 	}
@@ -226,16 +226,16 @@ func (m *Mutation) RemovePetsIDs(ids ...string) {
 	}
 }
 
-// RemovedPets returns the removed IDs of the "pets" edge to the Pet entity.
-func (m *Mutation) RemovedPetsIDs() (ids []string) {
+// RemovedPets returns the removed Ids of the "pets" edge to the Pet entity.
+func (m *Mutation) RemovedPetsIds() (ids []string) {
 	for id := range m.removedpets {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// PetsIDs returns the "pets" edge IDs in the mutation.
-func (m *Mutation) PetsIDs() (ids []string) {
+// PetsIds returns the "pets" edge Ids in the mutation.
+func (m *Mutation) PetsIds() (ids []string) {
 	for id := range m.pets {
 		ids = append(ids, id)
 	}
@@ -373,9 +373,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeGroups:
 		ids := make([]ent.Value, 0, len(m.groups))
@@ -418,9 +418,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeGroups:
 		ids := make([]ent.Value, 0, len(m.removedgroups))

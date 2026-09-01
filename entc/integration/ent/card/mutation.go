@@ -177,8 +177,8 @@ func (m *Mutation) ResetName() {
 	delete(m.clearedFields, FieldName)
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by id.
-func (m *Mutation) SetOwnerID(id int) {
+// SetOwnerId sets the "owner" edge to the User entity by id.
+func (m *Mutation) SetOwnerId(id int) {
 	m.owner = &id
 }
 
@@ -192,18 +192,18 @@ func (m *Mutation) OwnerCleared() bool {
 	return m.clearedowner
 }
 
-// OwnerID returns the "owner" edge ID in the mutation.
-func (m *Mutation) OwnerID() (id int, exists bool) {
+// OwnerId returns the "owner" edge Id in the mutation.
+func (m *Mutation) OwnerId() (id int, exists bool) {
 	if m.owner != nil {
 		return *m.owner, true
 	}
 	return
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []int) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []int) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -216,8 +216,8 @@ func (m *Mutation) ResetOwner() {
 	m.clearedowner = false
 }
 
-// AddSpecIDs adds the "spec" edge to the Spec entity by ids.
-func (m *Mutation) AddSpecIDs(ids ...int) {
+// AddSpecIds adds the "spec" edge to the Spec entity by ids.
+func (m *Mutation) AddSpecIds(ids ...int) {
 	if m.spec == nil {
 		m.spec = make(map[int]struct{})
 	}
@@ -236,8 +236,8 @@ func (m *Mutation) SpecCleared() bool {
 	return m.clearedspec
 }
 
-// RemoveSpecIDs removes the "spec" edge to the Spec entity by IDs.
-func (m *Mutation) RemoveSpecIDs(ids ...int) {
+// RemoveSpecIds removes the "spec" edge to the Spec entity by Ids.
+func (m *Mutation) RemoveSpecIds(ids ...int) {
 	if m.removedspec == nil {
 		m.removedspec = make(map[int]struct{})
 	}
@@ -247,16 +247,16 @@ func (m *Mutation) RemoveSpecIDs(ids ...int) {
 	}
 }
 
-// RemovedSpec returns the removed IDs of the "spec" edge to the Spec entity.
-func (m *Mutation) RemovedSpecIDs() (ids []int) {
+// RemovedSpec returns the removed Ids of the "spec" edge to the Spec entity.
+func (m *Mutation) RemovedSpecIds() (ids []int) {
 	for id := range m.removedspec {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// SpecIDs returns the "spec" edge IDs in the mutation.
-func (m *Mutation) SpecIDs() (ids []int) {
+// SpecIds returns the "spec" edge Ids in the mutation.
+func (m *Mutation) SpecIds() (ids []int) {
 	for id := range m.spec {
 		ids = append(ids, id)
 	}
@@ -493,9 +493,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeOwner:
 		if id := m.owner; id != nil {
@@ -520,9 +520,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeSpec:
 		ids := make([]ent.Value, 0, len(m.removedspec))

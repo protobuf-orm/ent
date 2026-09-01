@@ -24,7 +24,7 @@ func TestPrinter_Print(t *testing.T) {
 				Nodes: []*gen.Type{
 					{
 						Name: "User",
-						ID:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
+						Id:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
 						Fields: []*gen.Field{
 							{Name: "name", Type: &field.TypeInfo{Type: field.TypeString}, Validators: 1},
 							{Name: "age", Type: &field.TypeInfo{Type: field.TypeInt}, Nillable: true},
@@ -48,7 +48,7 @@ User:
 				Nodes: []*gen.Type{
 					{
 						Name: "User",
-						ID:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
+						Id:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
 						Edges: []*gen.Edge{
 							{Name: "groups", Type: &gen.Type{Name: "Group"}, Rel: gen.Relation{Type: gen.M2M}, Optional: true},
 							{Name: "spouse", Type: &gen.Type{Name: "User"}, Unique: true, Rel: gen.Relation{Type: gen.O2O}},
@@ -72,7 +72,7 @@ User:
 				Nodes: []*gen.Type{
 					{
 						Name: "User",
-						ID:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
+						Id:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
 						Fields: []*gen.Field{
 							{Name: "name", Type: &field.TypeInfo{Type: field.TypeString}, Validators: 1},
 							{Name: "age", Type: &field.TypeInfo{Type: field.TypeInt}, Nillable: true},
@@ -102,7 +102,7 @@ User:
 				Nodes: []*gen.Type{
 					{
 						Name: "User",
-						ID:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
+						Id:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
 						Fields: []*gen.Field{
 							{Name: "name", Type: &field.TypeInfo{Type: field.TypeString}, Validators: 1},
 							{Name: "age", Type: &field.TypeInfo{Type: field.TypeInt}, Nillable: true},
@@ -114,7 +114,7 @@ User:
 					},
 					{
 						Name: "Group",
-						ID:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
+						Id:   &gen.Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}},
 						Fields: []*gen.Field{
 							{Name: "name", Type: &field.TypeInfo{Type: field.TypeString}},
 						},

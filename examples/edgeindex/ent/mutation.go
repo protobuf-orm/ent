@@ -56,17 +56,17 @@ func newCityMutation(c config, op Op, opts ...cityOption) *CityMutation {
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *CityMutation) ID() (id int, exists bool) {
+func (m *CityMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withCityID sets the ID field of the mutation.
-func withCityID(id int) cityOption {
+// withCityId sets the Id field of the mutation.
+func withCityId(id int) cityOption {
 	return func(m *CityMutation) {
 		var (
 			err   error
@@ -93,7 +93,7 @@ func withCity(node *City) cityOption {
 		m.oldValue = func(context.Context) (*City, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -116,22 +116,22 @@ func (m CityMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *CityMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *CityMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().City.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().City.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -142,8 +142,8 @@ func (m *CityMutation) OldName(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldName requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldName requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -189,17 +189,17 @@ func newStreetMutation(c config, op Op, opts ...streetOption) *StreetMutation {
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *StreetMutation) ID() (id int, exists bool) {
+func (m *StreetMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withStreetID sets the ID field of the mutation.
-func withStreetID(id int) streetOption {
+// withStreetId sets the Id field of the mutation.
+func withStreetId(id int) streetOption {
 	return func(m *StreetMutation) {
 		var (
 			err   error
@@ -226,7 +226,7 @@ func withStreet(node *Street) streetOption {
 		m.oldValue = func(context.Context) (*Street, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -249,22 +249,22 @@ func (m StreetMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *StreetMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *StreetMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().Street.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().Street.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -275,8 +275,8 @@ func (m *StreetMutation) OldName(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldName requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldName requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {

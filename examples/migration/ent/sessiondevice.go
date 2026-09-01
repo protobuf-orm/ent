@@ -20,10 +20,10 @@ import (
 // SessionDevice is the model entity for the SessionDevice schema.
 type SessionDevice struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
-	// IPAddress holds the value of the "ip_address" field.
-	IPAddress string `json:"ip_address,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
+	// IpAddress holds the value of the "ip_address" field.
+	IpAddress string `json:"ip_address,omitempty"`
 	// UserAgent holds the value of the "user_agent" field.
 	UserAgent string `json:"user_agent,omitempty"`
 	// Location holds the value of the "location" field.
@@ -61,11 +61,11 @@ func (*SessionDevice) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case sessiondevice.FieldIPAddress, sessiondevice.FieldUserAgent, sessiondevice.FieldLocation:
+		case sessiondevice.FieldIpAddress, sessiondevice.FieldUserAgent, sessiondevice.FieldLocation:
 			values[i] = new(sql.NullString)
 		case sessiondevice.FieldCreatedAt, sessiondevice.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case sessiondevice.FieldID:
+		case sessiondevice.FieldId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -82,17 +82,17 @@ func (_m *SessionDevice) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case sessiondevice.FieldID:
+		case sessiondevice.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
-		case sessiondevice.FieldIPAddress:
+		case sessiondevice.FieldIpAddress:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field ip_address", values[i])
 			} else if value.Valid {
-				_m.IPAddress = value.String
+				_m.IpAddress = value.String
 			}
 		case sessiondevice.FieldUserAgent:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -158,9 +158,9 @@ func (_m *SessionDevice) Unwrap() *SessionDevice {
 func (_m *SessionDevice) String() string {
 	var builder strings.Builder
 	builder.WriteString("SessionDevice(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("ip_address=")
-	builder.WriteString(_m.IPAddress)
+	builder.WriteString(_m.IpAddress)
 	builder.WriteString(", ")
 	builder.WriteString("user_agent=")
 	builder.WriteString(_m.UserAgent)

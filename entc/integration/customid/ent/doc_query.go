@@ -80,8 +80,8 @@ func (_q *DocQuery) QueryParent() *DocQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(doc.Table, doc.FieldID, selector),
-			sqlgraph.To(doc.Table, doc.FieldID),
+			sqlgraph.From(doc.Table, doc.FieldId, selector),
+			sqlgraph.To(doc.Table, doc.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, doc.ParentTable, doc.ParentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -102,8 +102,8 @@ func (_q *DocQuery) QueryChildren() *DocQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(doc.Table, doc.FieldID, selector),
-			sqlgraph.To(doc.Table, doc.FieldID),
+			sqlgraph.From(doc.Table, doc.FieldId, selector),
+			sqlgraph.To(doc.Table, doc.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, doc.ChildrenTable, doc.ChildrenColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -124,8 +124,8 @@ func (_q *DocQuery) QueryRelated() *DocQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(doc.Table, doc.FieldID, selector),
-			sqlgraph.To(doc.Table, doc.FieldID),
+			sqlgraph.From(doc.Table, doc.FieldId, selector),
+			sqlgraph.To(doc.Table, doc.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, doc.RelatedTable, doc.RelatedPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -156,11 +156,11 @@ func (_q *DocQuery) FirstX(ctx context.Context) *Doc {
 	return node
 }
 
-// FirstID returns the first Doc ID from the query.
-// Returns a *NotFoundError when no Doc ID was found.
-func (_q *DocQuery) FirstID(ctx context.Context) (id schema.DocID, err error) {
-	var ids []schema.DocID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+// FirstId returns the first Doc Id from the query.
+// Returns a *NotFoundError when no Doc Id was found.
+func (_q *DocQuery) FirstId(ctx context.Context) (id schema.DocId, err error) {
+	var ids []schema.DocId
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -170,9 +170,9 @@ func (_q *DocQuery) FirstID(ctx context.Context) (id schema.DocID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *DocQuery) FirstIDX(ctx context.Context) schema.DocID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *DocQuery) FirstIdX(ctx context.Context) schema.DocId {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -206,12 +206,12 @@ func (_q *DocQuery) OnlyX(ctx context.Context) *Doc {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Doc ID in the query.
-// Returns a *NotSingularError when more than one Doc ID is found.
+// OnlyId is like Only, but returns the only Doc Id in the query.
+// Returns a *NotSingularError when more than one Doc Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *DocQuery) OnlyID(ctx context.Context) (id schema.DocID, err error) {
-	var ids []schema.DocID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+func (_q *DocQuery) OnlyId(ctx context.Context) (id schema.DocId, err error) {
+	var ids []schema.DocId
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -225,9 +225,9 @@ func (_q *DocQuery) OnlyID(ctx context.Context) (id schema.DocID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *DocQuery) OnlyIDX(ctx context.Context) schema.DocID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *DocQuery) OnlyIdX(ctx context.Context) schema.DocId {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -253,21 +253,21 @@ func (_q *DocQuery) AllX(ctx context.Context) []*Doc {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Doc IDs.
-func (_q *DocQuery) IDs(ctx context.Context) (ids []schema.DocID, err error) {
+// Ids executes the query and returns a list of Doc Ids.
+func (_q *DocQuery) Ids(ctx context.Context) (ids []schema.DocId, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(doc.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(doc.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *DocQuery) IDsX(ctx context.Context) []schema.DocID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *DocQuery) IdsX(ctx context.Context) []schema.DocId {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -295,7 +295,7 @@ func (_q *DocQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *DocQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -501,8 +501,8 @@ func (_q *DocQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Doc, err
 }
 
 func (_q *DocQuery) loadParent(ctx context.Context, query *DocQuery, nodes []*Doc, init func(*Doc), assign func(*Doc, *Doc)) error {
-	ids := make([]schema.DocID, 0, len(nodes))
-	nodeids := make(map[schema.DocID][]*Doc)
+	ids := make([]schema.DocId, 0, len(nodes))
+	nodeids := make(map[schema.DocId][]*Doc)
 	for i := range nodes {
 		if nodes[i].doc_children == nil {
 			continue
@@ -516,15 +516,15 @@ func (_q *DocQuery) loadParent(ctx context.Context, query *DocQuery, nodes []*Do
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(doc.IDIn(ids...))
+	query.Where(doc.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "doc_children" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "doc_children" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -534,10 +534,10 @@ func (_q *DocQuery) loadParent(ctx context.Context, query *DocQuery, nodes []*Do
 }
 func (_q *DocQuery) loadChildren(ctx context.Context, query *DocQuery, nodes []*Doc, init func(*Doc), assign func(*Doc, *Doc)) error {
 	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[schema.DocID]*Doc)
+	nodeids := make(map[schema.DocId]*Doc)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -553,31 +553,31 @@ func (_q *DocQuery) loadChildren(ctx context.Context, query *DocQuery, nodes []*
 	for _, n := range neighbors {
 		fk := n.doc_children
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "doc_children" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "doc_children" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "doc_children" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "doc_children" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
 	return nil
 }
 func (_q *DocQuery) loadRelated(ctx context.Context, query *DocQuery, nodes []*Doc, init func(*Doc), assign func(*Doc, *Doc)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[schema.DocID]*Doc)
-	nids := make(map[schema.DocID]map[*Doc]struct{})
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[schema.DocId]*Doc)
+	nids := make(map[schema.DocId]map[*Doc]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(doc.RelatedTable)
-		s.Join(joinT).On(s.C(doc.FieldID), joinT.C(doc.RelatedPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(doc.RelatedPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(doc.FieldId), joinT.C(doc.RelatedPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(doc.RelatedPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(doc.RelatedPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -595,16 +595,16 @@ func (_q *DocQuery) loadRelated(ctx context.Context, query *DocQuery, nodes []*D
 				if err != nil {
 					return nil, err
 				}
-				return append([]any{new(schema.DocID)}, values...), nil
+				return append([]any{new(schema.DocId)}, values...), nil
 			}
 			spec.Assign = func(columns []string, values []any) error {
-				outValue := *values[0].(*schema.DocID)
-				inValue := *values[1].(*schema.DocID)
+				outValue := *values[0].(*schema.DocId)
+				inValue := *values[1].(*schema.DocId)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Doc]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Doc]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -614,9 +614,9 @@ func (_q *DocQuery) loadRelated(ctx context.Context, query *DocQuery, nodes []*D
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "related" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "related" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -635,7 +635,7 @@ func (_q *DocQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *DocQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(doc.Table, doc.Columns, sqlgraph.NewFieldSpec(doc.FieldID, field.TypeString))
+	_spec := sqlgraph.NewQuerySpec(doc.Table, doc.Columns, sqlgraph.NewFieldSpec(doc.FieldId, field.TypeString))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -644,9 +644,9 @@ func (_q *DocQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, doc.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, doc.FieldId)
 		for i := range fields {
-			if fields[i] != doc.FieldID {
+			if fields[i] != doc.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

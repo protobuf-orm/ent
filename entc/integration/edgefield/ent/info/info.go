@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the info type in the database.
 	Label = "info"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldContent holds the string denoting the content field in the database.
 	FieldContent = "content"
 	// EdgeUser holds the string denoting the user edge name in mutations.
@@ -31,9 +31,9 @@ const (
 	UserColumn = "id"
 )
 
-// Columns holds all SQL columns for info fields.
+// Columns holds all Sql columns for info fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldContent,
 }
 
@@ -50,9 +50,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Info queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.
@@ -63,8 +63,8 @@ func ByUserField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }

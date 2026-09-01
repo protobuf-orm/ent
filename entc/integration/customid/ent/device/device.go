@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the device type in the database.
 	Label = "device"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeActiveSession holds the string denoting the active_session edge name in mutations.
 	EdgeActiveSession = "active_session"
 	// EdgeSessions holds the string denoting the sessions edge name in mutations.
@@ -39,12 +39,12 @@ const (
 	SessionsColumn = "device_sessions"
 )
 
-// Columns holds all SQL columns for device fields.
+// Columns holds all Sql columns for device fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "device"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "device"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"device_active_session",
@@ -66,18 +66,18 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() schema.ID
-	// IDValidator is a validator for the "id" field. It is called by the builders before save.
-	IDValidator func([]byte) error
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() schema.Id
+	// IdValidator is a validator for the "id" field. It is called by the builders before save.
+	IdValidator func([]byte) error
 )
 
 // OrderOption defines the ordering options for the Device queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByActiveSessionField orders the results by active_session field.
@@ -102,15 +102,15 @@ func BySessions(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newActiveSessionStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(ActiveSessionInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(ActiveSessionInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ActiveSessionTable, ActiveSessionColumn),
 	)
 }
 func newSessionsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(SessionsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(SessionsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, SessionsTable, SessionsColumn),
 	)
 }

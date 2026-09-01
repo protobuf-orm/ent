@@ -30,7 +30,7 @@ func String(name string) *stringBuilder {
 }
 
 // Text returns a new string field without limitation on the size.
-// In MySQL, it is the "longtext" type, but in SQLite it has no effect.
+// In MySql, it is the "longtext" type, but in SQLite it has no effect.
 func Text(name string) *stringBuilder {
 	return &stringBuilder{&Descriptor{
 		Name: name,
@@ -40,7 +40,7 @@ func Text(name string) *stringBuilder {
 }
 
 // Bytes returns a new Field with type bytes/buffer.
-// In MySQL and SQLite, it is the "BLOB" type.
+// In MySql and SQLite, it is the "BLOB" type.
 func Bytes(name string) *bytesBuilder {
 	return &bytesBuilder{&Descriptor{
 		Name: name,
@@ -64,25 +64,25 @@ func Time(name string) *timeBuilder {
 	}}
 }
 
-// JSON returns a new Field with type json that is serialized to the given object.
+// Json returns a new Field with type json that is serialized to the given object.
 // For example:
 //
-//	field.JSON("dirs", []http.Dir{}).
+//	field.Json("dirs", []http.Dir{}).
 //		Optional()
 //
 //
-//	field.JSON("info", &Info{}).
+//	field.Json("info", &Info{}).
 //		Optional()
-func JSON(name string, typ any) *jsonBuilder {
+func Json(name string, typ any) *jsonBuilder {
 	b := &jsonBuilder{&Descriptor{
 		Name: name,
 		Info: &TypeInfo{
-			Type: TypeJSON,
+			Type: TypeJson,
 		},
 	}}
 	t := reflect.TypeOf(typ)
 	if t == nil {
-		b.desc.Err = errors.New("expect a Go value as JSON type but got nil")
+		b.desc.Err = errors.New("expect a Go value as Json type but got nil")
 		return b
 	}
 	b.desc.Info.Ident = t.String()
@@ -97,30 +97,30 @@ func JSON(name string, typ any) *jsonBuilder {
 	return b
 }
 
-// Strings returns a new JSON Field with type []string.
+// Strings returns a new Json Field with type []string.
 func Strings(name string) *sliceBuilder[string] {
 	return sb[string](name)
 }
 
-// Ints returns a new JSON Field with type []int.
+// Ints returns a new Json Field with type []int.
 func Ints(name string) *sliceBuilder[int] {
 	return sb[int](name)
 }
 
-// Floats returns a new JSON Field with type []float.
+// Floats returns a new Json Field with type []float.
 func Floats(name string) *sliceBuilder[float64] {
 	return sb[float64](name)
 }
 
-// Any returns a new JSON Field with type any. Although this field type can be
+// Any returns a new Json Field with type any. Although this field type can be
 // useful for fields with dynamic data layout, it is strongly recommended to use
-// JSON with json.RawMessage instead and implement custom marshaling.
+// Json with json.RawMessage instead and implement custom marshaling.
 func Any(name string) *jsonBuilder {
 	const t = "any"
 	return &jsonBuilder{&Descriptor{
 		Name: name,
 		Info: &TypeInfo{
-			Type:     TypeJSON,
+			Type:     TypeJson,
 			Ident:    t,
 			Nillable: true,
 			RType: &RType{
@@ -147,15 +147,15 @@ func Enum(name string) *enumBuilder {
 	}}
 }
 
-// UUID returns a new Field with type UUID. An example for defining UUID field is as follows:
+// Uuid returns a new Field with type Uuid. An example for defining Uuid field is as follows:
 //
-//	field.UUID("id", uuid.New())
-func UUID(name string, typ any) *uuidBuilder {
+//	field.Uuid("id", uuid.New())
+func Uuid(name string, typ any) *uuidBuilder {
 	rt := reflect.TypeOf(typ)
 	b := &uuidBuilder{&Descriptor{
 		Name: name,
 		Info: &TypeInfo{
-			Type:    TypeUUID,
+			Type:    TypeUuid,
 			Ident:   rt.String(),
 			PkgPath: indirect(rt).PkgPath(),
 		},
@@ -172,7 +172,7 @@ func UUID(name string, typ any) *uuidBuilder {
 //
 //	field.Other("link", &Link{}).
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		})
 func Other(name string, typ driver.Valuer) *otherBuilder {
@@ -326,7 +326,7 @@ func (b *stringBuilder) StructTag(s string) *stringBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *stringBuilder) StorageKey(key string) *stringBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -337,7 +337,7 @@ func (b *stringBuilder) StorageKey(key string) *stringBuilder {
 //
 //	field.String("name").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		})
 func (b *stringBuilder) SchemaType(types map[string]string) *stringBuilder {
@@ -463,7 +463,7 @@ func (b *timeBuilder) UpdateDefault(fn any) *timeBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *timeBuilder) StorageKey(key string) *timeBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -524,7 +524,7 @@ func (b *timeBuilder) Descriptor() *Descriptor {
 //
 //	field.Time("created_at").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "datetime",
+//			dialect.MySql:    "datetime",
 //			dialect.Postgres: "time with time zone",
 //		})
 func (b *timeBuilder) SchemaType(types map[string]string) *timeBuilder {
@@ -576,7 +576,7 @@ func (b *boolBuilder) StructTag(s string) *boolBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *boolBuilder) StorageKey(key string) *boolBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -668,7 +668,7 @@ func (b *bytesBuilder) Sensitive() *bytesBuilder {
 }
 
 // Unique makes the field unique within all vertices of this type.
-// Only supported in PostgreSQL.
+// Only supported in PostgreSql.
 func (b *bytesBuilder) Unique() *bytesBuilder {
 	b.desc.Unique = true
 	return b
@@ -693,7 +693,7 @@ func (b *bytesBuilder) StructTag(s string) *bytesBuilder {
 }
 
 // MaxLen sets the max-length of the bytes type in the database.
-// In MySQL, this affects the BLOB type (tiny 2^8-1, regular 2^16-1, medium 2^24-1, long 2^32-1).
+// In MySql, this affects the BLOB type (tiny 2^8-1, regular 2^16-1, medium 2^24-1, long 2^32-1).
 // In SQLite, it does not have any effect on the type size, which is default to 1B bytes.
 func (b *bytesBuilder) MaxLen(i int) *bytesBuilder {
 	b.desc.Size = i
@@ -739,7 +739,7 @@ func (b *bytesBuilder) Validate(fn func([]byte) error) *bytesBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *bytesBuilder) StorageKey(key string) *bytesBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -778,7 +778,7 @@ func (b *bytesBuilder) Annotations(annotations ...schema.Annotation) *bytesBuild
 //
 //	field.Bytes("blob").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:	"tinyblob",
+//			dialect.MySql:	"tinyblob",
 //			dialect.SQLite:	"tinyblob",
 //		})
 func (b *bytesBuilder) SchemaType(types map[string]string) *bytesBuilder {
@@ -812,7 +812,7 @@ type jsonBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *jsonBuilder) StorageKey(key string) *jsonBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -850,11 +850,11 @@ func (b *jsonBuilder) StructTag(s string) *jsonBuilder {
 }
 
 // ValueScanner provides an external value scanner for the given GoType.
-// Using this option allows a JSON column whose Go value is encoded by
+// Using this option allows a Json column whose Go value is encoded by
 // something other than encoding/json, such as a protobuf message that
 // only protojson can see the fields of.
 //
-//	field.JSON("profile", &Profile{}).
+//	field.Json("profile", &Profile{}).
 //		ValueScanner(entpb.ValueScanner[*Profile]{})
 func (b *jsonBuilder) ValueScanner(vs any) *jsonBuilder {
 	b.desc.ValueScanner = vs
@@ -864,9 +864,9 @@ func (b *jsonBuilder) ValueScanner(vs any) *jsonBuilder {
 // SchemaType overrides the default database type with a custom
 // schema type (per dialect) for json.
 //
-//	field.JSON("json").
+//	field.Json("json").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:		"json",
+//			dialect.MySql:		"json",
 //			dialect.Postgres:	"jsonb",
 //		})
 func (b *jsonBuilder) SchemaType(types map[string]string) *jsonBuilder {
@@ -883,11 +883,11 @@ func (b *jsonBuilder) Annotations(annotations ...schema.Annotation) *jsonBuilder
 
 // Default sets the default value of the field. For example:
 //
-//	field.JSON("dirs", []http.Dir{}).
+//	field.Json("dirs", []http.Dir{}).
 //		// A static default value.
 //		Default([]http.Dir{"/tmp"})
 //
-//	field.JSON("dirs", []http.Dir{}).
+//	field.Json("dirs", []http.Dir{}).
 //		// A function for generating the default value.
 //		Default(DefaultDirs)
 func (b *jsonBuilder) Default(v any) *jsonBuilder {
@@ -932,7 +932,7 @@ func (b *sliceBuilder[T]) Validate(fn func([]T) error) *sliceBuilder[T] {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *sliceBuilder[T]) StorageKey(key string) *sliceBuilder[T] {
 	b.desc.StorageKey = key
 	return b
@@ -974,7 +974,7 @@ func (b *sliceBuilder[T]) StructTag(s string) *sliceBuilder[T] {
 //
 //	field.Strings("strings").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:		"json",
+//			dialect.MySql:		"json",
 //			dialect.Postgres:	"jsonb",
 //		})
 func (b *sliceBuilder[T]) SchemaType(types map[string]string) *sliceBuilder[T] {
@@ -1020,12 +1020,12 @@ func sb[T sliceType](name string) *sliceBuilder[T] {
 	b := &jsonBuilder{&Descriptor{
 		Name: name,
 		Info: &TypeInfo{
-			Type: TypeJSON,
+			Type: TypeJson,
 		},
 	}}
 	t := reflect.TypeOf(typ)
 	if t == nil {
-		b.desc.Err = errors.New("expect a Go value as JSON type but got nil")
+		b.desc.Err = errors.New("expect a Go value as Json type but got nil")
 		return &sliceBuilder[T]{b}
 	}
 	b.desc.Info.Ident = t.String()
@@ -1065,7 +1065,7 @@ func (b *enumBuilder) Values(values ...string) *enumBuilder {
 //	field.Enum("priority").
 //		NamedValues(
 //			"Low", "LOW",
-//			"Mid", "MID",
+//			"Mid", "MId",
 //			"High", "HIGH",
 //		)
 func (b *enumBuilder) NamedValues(namevalue ...string) *enumBuilder {
@@ -1086,7 +1086,7 @@ func (b *enumBuilder) Default(value string) *enumBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *enumBuilder) StorageKey(key string) *enumBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1196,7 +1196,7 @@ type uuidBuilder struct {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uuidBuilder) StorageKey(key string) *uuidBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1242,9 +1242,9 @@ func (b *uuidBuilder) StructTag(s string) *uuidBuilder {
 
 // Default sets the function that is applied to set default value
 // of the field on creation. Codegen fails if the default function
-// doesn't return the same concrete that was set for the UUID type.
+// doesn't return the same concrete that was set for the Uuid type.
 //
-//	field.UUID("id", uuid.UUID{}).
+//	field.Uuid("id", uuid.UUID{}).
 //		Default(uuid.New)
 func (b *uuidBuilder) Default(fn any) *uuidBuilder {
 	typ := reflect.TypeOf(fn)
@@ -1256,11 +1256,11 @@ func (b *uuidBuilder) Default(fn any) *uuidBuilder {
 }
 
 // ValueScanner provides an external value scanner for the given GoType.
-// Using this option allows UUID types that do not implement the
+// Using this option allows Uuid types that do not implement the
 // sql.Scanner and driver.Valuer interfaces, such as the one in the
 // standard library, which only marshals to and from text.
 //
-//	field.UUID("id", uuid.UUID{}).
+//	field.Uuid("id", uuid.UUID{}).
 //		ValueScanner(field.TextValueScanner[uuid.UUID]{})
 func (b *uuidBuilder) ValueScanner(vs any) *uuidBuilder {
 	b.desc.ValueScanner = vs
@@ -1270,9 +1270,9 @@ func (b *uuidBuilder) ValueScanner(vs any) *uuidBuilder {
 // SchemaType overrides the default database type with a custom
 // schema type (per dialect) for uuid.
 //
-//	field.UUID("id", uuid.New()).
+//	field.Uuid("id", uuid.New()).
 //		SchemaType(map[string]string{
-//			dialect.Postgres: "CustomUUID",
+//			dialect.Postgres: "CustomUuid",
 //		})
 func (b *uuidBuilder) SchemaType(types map[string]string) *uuidBuilder {
 	b.desc.SchemaType = types
@@ -1282,9 +1282,9 @@ func (b *uuidBuilder) SchemaType(types map[string]string) *uuidBuilder {
 // Annotations adds a list of annotations to the field object to be used by
 // codegen extensions.
 //
-//	field.UUID("id", uuid.New()).
+//	field.Uuid("id", uuid.New()).
 //		Annotations(
-//			entgql.OrderField("ID"),
+//			entgql.OrderField("Id"),
 //		)
 func (b *uuidBuilder) Annotations(annotations ...schema.Annotation) *uuidBuilder {
 	b.desc.Annotations = append(b.desc.Annotations, annotations...)
@@ -1329,7 +1329,7 @@ func (b *otherBuilder) Sensitive() *otherBuilder {
 //
 //	field.Other("link", &Link{}).
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		}).
 //		// A static default value.
@@ -1337,7 +1337,7 @@ func (b *otherBuilder) Sensitive() *otherBuilder {
 //
 //	field.Other("link", &Link{}).
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		}).
 //		// A function for generating the default value.
@@ -1387,7 +1387,7 @@ func (b *otherBuilder) StructTag(s string) *otherBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *otherBuilder) StorageKey(key string) *otherBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -1398,7 +1398,7 @@ func (b *otherBuilder) StorageKey(key string) *otherBuilder {
 //
 //	field.Other("link", Link{}).
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		})
 func (b *otherBuilder) SchemaType(types map[string]string) *otherBuilder {
@@ -1411,7 +1411,7 @@ func (b *otherBuilder) SchemaType(types map[string]string) *otherBuilder {
 //
 //	field.Other("link", &Link{}).
 //		SchemaType(map[string]string{
-//			dialect.MySQL:    "text",
+//			dialect.MySql:    "text",
 //			dialect.Postgres: "varchar",
 //		}).
 //		Annotations(
@@ -1651,7 +1651,7 @@ func (TextValueScanner[T]) FromValue(v driver.Value) (tv T, err error) {
 // whose UnmarshalText is defined on the pointer receiver, which is the usual
 // case, uuid.UUID in the standard library among them:
 //
-//	field.UUID("id", uuid.UUID{}).
+//	field.Uuid("id", uuid.UUID{}).
 //		ValueScanner(field.TextValueScannerOf[uuid.UUID]())
 //
 // PT is inferred from T and should not be provided.
@@ -1782,8 +1782,8 @@ func pkgPath(t reflect.Type) string {
 	return pkg
 }
 
-// JSONValue prepares the result of an external ValueScanner for a JSON
-// column. A JSON column is written through encoding/json, which would
+// JsonValue prepares the result of an external ValueScanner for a Json
+// column. A Json column is written through encoding/json, which would
 // encode the scanner's own output a second time: a string would arrive
 // quoted and a byte slice base64 encoded. Wrapping it in a
 // json.RawMessage says the value is already encoded and is passed
@@ -1791,7 +1791,7 @@ func pkgPath(t reflect.Type) string {
 //
 // It is called by the generated code and is not meant to be called
 // directly.
-func JSONValue(v driver.Value) (driver.Value, error) {
+func JsonValue(v driver.Value) (driver.Value, error) {
 	switch v := v.(type) {
 	case nil:
 		return nil, nil
@@ -1802,6 +1802,6 @@ func JSONValue(v driver.Value) (driver.Value, error) {
 	case string:
 		return json.RawMessage(v), nil
 	default:
-		return nil, fmt.Errorf("field: a ValueScanner for a JSON field must return the encoded value as json.RawMessage, []byte or string, got %T", v)
+		return nil, fmt.Errorf("field: a ValueScanner for a Json field must return the encoded value as json.RawMessage, []byte or string, got %T", v)
 	}
 }

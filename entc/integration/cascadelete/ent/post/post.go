@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the post type in the database.
 	Label = "post"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
-	// FieldAuthorID holds the string denoting the author_id field in the database.
-	FieldAuthorID = "author_id"
+	// FieldAuthorId holds the string denoting the author_id field in the database.
+	FieldAuthorId = "author_id"
 	// EdgeAuthor holds the string denoting the author edge name in mutations.
 	EdgeAuthor = "author"
 	// EdgeComments holds the string denoting the comments edge name in mutations.
@@ -42,11 +42,11 @@ const (
 	CommentsColumn = "post_id"
 )
 
-// Columns holds all SQL columns for post fields.
+// Columns holds all Sql columns for post fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
-	FieldAuthorID,
+	FieldAuthorId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -67,9 +67,9 @@ var (
 // OrderOption defines the ordering options for the Post queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.
@@ -77,9 +77,9 @@ func ByText(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldText, opts...).ToFunc()
 }
 
-// ByAuthorID orders the results by the author_id field.
-func ByAuthorID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldAuthorID, opts...).ToFunc()
+// ByAuthorId orders the results by the author_id field.
+func ByAuthorId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAuthorId, opts...).ToFunc()
 }
 
 // ByAuthorField orders the results by author field.
@@ -104,15 +104,15 @@ func ByComments(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newAuthorStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(AuthorInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(AuthorInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, AuthorTable, AuthorColumn),
 	)
 }
 func newCommentsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CommentsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CommentsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, CommentsTable, CommentsColumn),
 	)
 }

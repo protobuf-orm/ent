@@ -59,13 +59,13 @@ func (m *Mutation) ResetText() {
 	m.text = nil
 }
 
-// SetPostID sets the "post_id" field.
-func (m *Mutation) SetPostID(i int) {
+// SetPostId sets the "post_id" field.
+func (m *Mutation) SetPostId(i int) {
 	m.post = &i
 }
 
-// PostID returns the value of the "post_id" field in the mutation.
-func (m *Mutation) PostID() (r int, exists bool) {
+// PostId returns the value of the "post_id" field in the mutation.
+func (m *Mutation) PostId() (r int, exists bool) {
 	v := m.post
 	if v == nil {
 		return
@@ -73,15 +73,15 @@ func (m *Mutation) PostID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetPostID resets all changes to the "post_id" field.
-func (m *Mutation) ResetPostID() {
+// ResetPostId resets all changes to the "post_id" field.
+func (m *Mutation) ResetPostId() {
 	m.post = nil
 }
 
 // ClearPost clears the "post" edge to the Post entity.
 func (m *Mutation) ClearPost() {
 	m.clearedpost = true
-	m.clearedFields[FieldPostID] = struct{}{}
+	m.clearedFields[FieldPostId] = struct{}{}
 }
 
 // PostCleared reports if the "post" edge to the Post entity was cleared.
@@ -89,10 +89,10 @@ func (m *Mutation) PostCleared() bool {
 	return m.clearedpost
 }
 
-// PostIDs returns the "post" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// PostID instead. It exists only for internal usage by the builders.
-func (m *Mutation) PostIDs() (ids []int) {
+// PostIds returns the "post" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// PostId instead. It exists only for internal usage by the builders.
+func (m *Mutation) PostIds() (ids []int) {
 	if id := m.post; id != nil {
 		ids = append(ids, *id)
 	}
@@ -144,7 +144,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldText)
 	}
 	if m.post != nil {
-		fields = append(fields, FieldPostID)
+		fields = append(fields, FieldPostId)
 	}
 	return fields
 }
@@ -156,8 +156,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldText:
 		return m.Text()
-	case FieldPostID:
-		return m.PostID()
+	case FieldPostId:
+		return m.PostId()
 	}
 	return nil, false
 }
@@ -181,12 +181,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetText(v)
 		return nil
-	case FieldPostID:
+	case FieldPostId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetPostID(v)
+		m.SetPostId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Comment field %s", name)
@@ -243,8 +243,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldText:
 		m.ResetText()
 		return nil
-	case FieldPostID:
-		m.ResetPostID()
+	case FieldPostId:
+		m.ResetPostId()
 		return nil
 	}
 	return fmt.Errorf("unknown Comment field %s", name)
@@ -259,9 +259,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgePost:
 		if id := m.post; id != nil {
@@ -277,9 +277,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

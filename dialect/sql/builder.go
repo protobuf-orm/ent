@@ -3,10 +3,10 @@
 // in the LICENSE file in the root directory of this source tree.
 
 // Package sql provides wrappers around the standard database/sql package
-// to allow the generated code to interact with a statically-typed API.
+// to allow the generated code to interact with a statically-typed Api.
 //
 // Users that are interacting with this package should be aware that the
-// following builders don't check the given SQL syntax nor validate or escape
+// following builders don't check the given Sql syntax nor validate or escape
 // user-inputs. ~All validations are expected to be happened in the generated
 // ent package.
 package sql
@@ -164,7 +164,7 @@ func (i *InsertBuilder) Schema(name string) *InsertBuilder {
 	return i
 }
 
-// Set is a syntactic sugar API for inserting only one row.
+// Set is a syntactic sugar Api for inserting only one row.
 func (i *InsertBuilder) Set(column string, v any) *InsertBuilder {
 	i.columns = append(i.columns, column)
 	if len(i.values) == 0 {
@@ -194,7 +194,7 @@ func (i *InsertBuilder) Default() *InsertBuilder {
 }
 
 // Returning adds the `RETURNING` clause to the insert statement.
-// Supported by SQLite and PostgreSQL.
+// Supported by SQLite and PostgreSql.
 func (i *InsertBuilder) Returning(columns ...string) *InsertBuilder {
 	i.returning = columns
 	return i
@@ -239,7 +239,7 @@ func ConflictColumns(names ...string) ConflictOption {
 }
 
 // ConflictConstraint allows setting the constraint
-// name (i.e. `ON CONSTRAINT <name>`) for PostgreSQL.
+// name (i.e. `ON CONSTRAINT <name>`) for PostgreSql.
 //
 //	sql.Insert("users").
 //		Columns("id", "name").
@@ -254,8 +254,8 @@ func ConflictConstraint(name string) ConflictOption {
 	}
 }
 
-// ConflictWhere allows inference of partial unique indexes. See, PostgreSQL
-// doc: https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT
+// ConflictWhere allows inference of partial unique indexes. See, PostgreSql
+// doc: https://www.postgresql.org/docs/current/sql-insert.html#Sql-ON-CONFLICT
 func ConflictWhere(p *Predicate) ConflictOption {
 	return func(c *conflict) {
 		c.target.where = p
@@ -271,7 +271,7 @@ func UpdateWhere(p *Predicate) ConflictOption {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported by SQLite and PostgreSQL.
+// Supported by SQLite and PostgreSql.
 //
 //	sql.Insert("users").
 //		Columns("id", "name").
@@ -286,7 +286,7 @@ func DoNothing() ConflictOption {
 	}
 }
 
-// ResolveWithIgnore sets each column to itself to force an update and return the ID,
+// ResolveWithIgnore sets each column to itself to force an update and return the Id,
 // otherwise does not change any data. This may still trigger update hooks in the database.
 //
 //	sql.Insert("users").
@@ -298,8 +298,8 @@ func DoNothing() ConflictOption {
 //		)
 //
 //	// Output:
-//	// MySQL: INSERT INTO `users` (`id`) VALUES(1) ON DUPLICATE KEY UPDATE `id` = `users`.`id`
-//	// PostgreSQL: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "users"."id
+//	// MySql: INSERT INTO `users` (`id`) VALUES(1) ON DUPLICATE KEY UPDATE `id` = `users`.`id`
+//	// PostgreSql: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "users"."id
 func ResolveWithIgnore() ConflictOption {
 	return func(c *conflict) {
 		c.action.update = append(c.action.update, func(u *UpdateSet) {
@@ -322,8 +322,8 @@ func ResolveWithIgnore() ConflictOption {
 //		)
 //
 //	// Output:
-//	// MySQL: INSERT INTO `users` (`id`, `name`) VALUES(1, 'Mashraki) ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`),
-//	// PostgreSQL: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "excluded"."id, "name" = "excluded"."name"
+//	// MySql: INSERT INTO `users` (`id`, `name`) VALUES(1, 'Mashraki) ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`),
+//	// PostgreSql: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "excluded"."id, "name" = "excluded"."name"
 func ResolveWithNewValues() ConflictOption {
 	return func(c *conflict) {
 		c.action.update = append(c.action.update, func(u *UpdateSet) {
@@ -421,7 +421,7 @@ func (u *UpdateSet) SetIgnore(name string) *UpdateSet {
 // For example, "c" = "excluded"."c", or `c` = VALUES(`c`).
 func (u *UpdateSet) SetExcluded(name string) *UpdateSet {
 	switch u.UpdateBuilder.Dialect() {
-	case dialect.MySQL:
+	case dialect.MySql:
 		u.UpdateBuilder.Set(name, ExprFunc(func(b *Builder) {
 			b.WriteString("VALUES(").Ident(name).WriteByte(')')
 		}))
@@ -466,7 +466,7 @@ func (i *InsertBuilder) QueryErr() (string, []any, error) {
 
 func (i *InsertBuilder) writeDefault(b *Builder) {
 	switch i.Dialect() {
-	case dialect.MySQL:
+	case dialect.MySql:
 		b.WriteString("VALUES ()")
 	case dialect.SQLite, dialect.Postgres:
 		b.WriteString("DEFAULT VALUES")
@@ -475,9 +475,9 @@ func (i *InsertBuilder) writeDefault(b *Builder) {
 
 func (i *InsertBuilder) writeConflict(b *Builder) {
 	switch i.Dialect() {
-	case dialect.MySQL:
+	case dialect.MySql:
 		b.WriteString(" ON DUPLICATE KEY UPDATE ")
-		// Fallback to ResolveWithIgnore() as MySQL
+		// Fallback to ResolveWithIgnore() as MySql
 		// does not support the "DO NOTHING" clause.
 		if i.conflict.action.nothing {
 			i.OnConflict(ResolveWithIgnore())
@@ -602,10 +602,10 @@ func (u *UpdateBuilder) Empty() bool {
 }
 
 // OrderBy appends the `ORDER BY` clause to the `UPDATE` statement.
-// Supported by SQLite and MySQL.
+// Supported by SQLite and MySql.
 func (u *UpdateBuilder) OrderBy(columns ...string) *UpdateBuilder {
 	if u.postgres() {
-		u.AddError(errors.New("ORDER BY is not supported by PostgreSQL"))
+		u.AddError(errors.New("ORDER BY is not supported by PostgreSql"))
 		return u
 	}
 	for i := range columns {
@@ -615,10 +615,10 @@ func (u *UpdateBuilder) OrderBy(columns ...string) *UpdateBuilder {
 }
 
 // Limit appends the `LIMIT` clause to the `UPDATE` statement.
-// Supported by SQLite and MySQL.
+// Supported by SQLite and MySql.
 func (u *UpdateBuilder) Limit(limit int) *UpdateBuilder {
 	if u.postgres() {
-		u.AddError(errors.New("LIMIT is not supported by PostgreSQL"))
+		u.AddError(errors.New("LIMIT is not supported by PostgreSql"))
 		return u
 	}
 	u.limit = &limit
@@ -632,7 +632,7 @@ func (u *UpdateBuilder) Prefix(stmts ...Querier) *UpdateBuilder {
 }
 
 // Returning adds the `RETURNING` clause to the insert statement.
-// Supported by SQLite and PostgreSQL.
+// Supported by SQLite and PostgreSql.
 func (u *UpdateBuilder) Returning(columns ...string) *UpdateBuilder {
 	u.returning = columns
 	return u
@@ -1206,7 +1206,7 @@ func (p *Predicate) escapedLikeFold(col, left, substr, right string) *Predicate 
 	return p.Append(func(b *Builder) {
 		w, escaped := escape(substr)
 		switch b.dialect {
-		case dialect.MySQL:
+		case dialect.MySql:
 			// We assume the CHARACTER SET is configured to utf8mb4,
 			// because this how it is defined in dialect/sql/schema.
 			b.Ident(col).WriteString(" COLLATE utf8mb4_general_ci LIKE ")
@@ -1256,7 +1256,7 @@ func ColumnsHasPrefix(col, prefixC string) *Predicate {
 func (p *Predicate) ColumnsHasPrefix(col, prefixC string) *Predicate {
 	return p.Append(func(b *Builder) {
 		switch p.dialect {
-		case dialect.MySQL:
+		case dialect.MySql:
 			b.Ident(col)
 			b.WriteOp(OpLike)
 			b.S("CONCAT(REPLACE(REPLACE(").Ident(prefixC).S(", '_', '\\_'), '%', '\\%'), '%')")
@@ -1298,7 +1298,7 @@ func (p *Predicate) EqualFold(col, sub string) *Predicate {
 		f := &Func{}
 		f.SetDialect(b.dialect)
 		switch b.dialect {
-		case dialect.MySQL:
+		case dialect.MySql:
 			// We assume the CHARACTER SET is configured to utf8mb4,
 			// because this how it is defined in dialect/sql/schema.
 			b.Ident(col).WriteString(" COLLATE utf8mb4_general_ci = ")
@@ -1431,7 +1431,7 @@ func (p *Predicate) mayWrap(preds []*Predicate, b *Builder, op string) {
 	}
 }
 
-// Func represents an SQL function.
+// Func represents an Sql function.
 type Func struct {
 	Builder
 	fns []func(*Builder)
@@ -1630,7 +1630,7 @@ func (s *SelectTable) Columns(columns ...string) []string {
 
 // Unquote makes the table name to be formatted as raw string (unquoted).
 // It is useful when you don't want to query tables under the current database.
-// For example: "INFORMATION_SCHEMA.TABLE_CONSTRAINTS" in MySQL.
+// For example: "INFORMATION_SCHEMA.TABLE_CONSTRAINTS" in MySql.
 func (s *SelectTable) Unquote() *SelectTable {
 	s.quote = false
 	return s
@@ -2224,8 +2224,8 @@ func (s *Selector) IntersectAll(t TableView) *Selector {
 
 // setOpQuerier implements Querier for a compound set operation (UNION, EXCEPT,
 // INTERSECT) where every branch is wrapped in parentheses. This is required
-// when branches contain ORDER BY, LIMIT, or OFFSET (MySQL, Postgres, and the
-// SQL standard). SQLite does not support parenthesized branches; on that
+// when branches contain ORDER BY, LIMIT, or OFFSET (MySql, Postgres, and the
+// Sql standard). SQLite does not support parenthesized branches; on that
 // dialect the parentheses — and any per-branch ORDER BY / LIMIT / OFFSET,
 // which SQLite cannot honour inside a compound SELECT — are silently omitted.
 // Use the package-level Union / UnionAll / Except / ExceptAll / Intersect /
@@ -2269,8 +2269,8 @@ func (q *setOpQuerier) Query() (string, []any) {
 
 // Union returns a Querier that combines selectors with UNION (DISTINCT),
 // wrapping every branch in parentheses. Use this instead of the chaining
-// method when branches carry their own ORDER BY, LIMIT, or OFFSET — MySQL
-// and the SQL standard require parentheses in that case.
+// method when branches carry their own ORDER BY, LIMIT, or OFFSET — MySql
+// and the Sql standard require parentheses in that case.
 func Union(selectors ...*Selector) Querier {
 	return &setOpQuerier{op: string(setOpTypeUnion), selectors: selectors}
 }
@@ -2385,7 +2385,7 @@ const (
 	// NoWait means never wait and returns an error.
 	NoWait LockAction = "NOWAIT"
 	// SkipLocked means never wait and skip.
-	SkipLocked LockAction = "SKIP LOCKED"
+	SkipLocked LockAction = "SKIp LOCKED"
 )
 
 // LockStrength defines the strength of the lock (see the list below).
@@ -2431,7 +2431,7 @@ func WithLockTables(tables ...string) LockOption {
 }
 
 // WithLockClause allows providing a custom clause for
-// locking the statement. For example, in MySQL <= 8.22:
+// locking the statement. For example, in MySql <= 8.22:
 //
 //	Select().
 //	From(Table("users")).
@@ -2860,17 +2860,17 @@ func (*WithBuilder) view() {}
 // only to query rows-limited edges in pagination.
 type WindowBuilder struct {
 	Builder
-	fn        func(*Builder) // e.g. ROW_NUMBER(), RANK()
+	fn        func(*Builder) // e.g. ROW_NUMbER(), RANK()
 	partition func(*Builder)
 	order     []any
 }
 
-// RowNumber returns a new window clause with the ROW_NUMBER() as a function.
+// RowNumber returns a new window clause with the ROW_NUMbER() as a function.
 // Using this function will assign each row a number, from 1 to N, in the
 // order defined by the ORDER BY clause in the window spec.
 func RowNumber() *WindowBuilder {
 	return Window(func(b *Builder) {
-		b.WriteString("ROW_NUMBER()")
+		b.WriteString("ROW_NUMbER()")
 	})
 }
 
@@ -2885,7 +2885,7 @@ func Window(fn func(*Builder)) *WindowBuilder {
 }
 
 // PartitionBy indicates to divide the query rows into groups by the given columns.
-// Note that, standard SQL spec allows partition only by columns, and in order to
+// Note that, standard Sql spec allows partition only by columns, and in order to
 // use the "expression" version, use the PartitionByExpr.
 func (w *WindowBuilder) PartitionBy(columns ...string) *WindowBuilder {
 	w.partition = func(b *Builder) {
@@ -2977,14 +2977,14 @@ func (w *Wrapper) SetTotal(total int) {
 	}
 }
 
-// Raw returns a raw SQL query that is placed as-is in the query.
+// Raw returns a raw Sql query that is placed as-is in the query.
 func Raw(s string) Querier { return &raw{s} }
 
 type raw struct{ s string }
 
 func (r *raw) Query() (string, []any) { return r.s, nil }
 
-// Expr returns an SQL expression that implements the Querier interface.
+// Expr returns an Sql expression that implements the Querier interface.
 func Expr(exr string, args ...any) Querier { return &expr{s: exr, args: args} }
 
 type expr struct {
@@ -3230,7 +3230,7 @@ type (
 	// StmtInfo holds an information regarding
 	// the statement
 	StmtInfo struct {
-		// The Dialect of the SQL driver.
+		// The Dialect of the Sql driver.
 		Dialect string
 	}
 	// ParamFormatter wraps the FormatPram function.
@@ -3238,7 +3238,7 @@ type (
 		// The FormatParam function lets users define
 		// custom placeholder formatting for their types.
 		// For example, formatting the default placeholder
-		// from '?' to 'ST_GeomFromWKB(?)' for MySQL dialect.
+		// from '?' to 'ST_GeomFromWKb(?)' for MySql dialect.
 		FormatParam(placeholder string, info *StmtInfo) string
 	}
 )
@@ -3256,7 +3256,7 @@ func (b *Builder) Arg(a any) *Builder {
 		b.Join(v)
 		return b
 	}
-	// Default placeholder param (MySQL and SQLite).
+	// Default placeholder param (MySql and SQLite).
 	format := "?"
 	if b.postgres() {
 		// Postgres' arguments are referenced using the syntax $n.
@@ -3285,7 +3285,7 @@ func (b *Builder) Args(a ...any) *Builder {
 // Argf appends an input argument to the builder
 // with the given format. For example:
 //
-//	FormatArg("JSON(?)", b).
+//	FormatArg("Json(?)", b).
 //	FormatArg("ST_GeomFromText(?)", geom)
 func (b *Builder) Argf(format string, a any) *Builder {
 	switch a := a.(type) {
@@ -3406,7 +3406,7 @@ func (b Builder) clone() Builder {
 	return c
 }
 
-// postgres reports if the builder dialect is PostgreSQL.
+// postgres reports if the builder dialect is PostgreSql.
 func (b Builder) postgres() bool {
 	return b.Dialect() == dialect.Postgres
 }

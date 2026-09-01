@@ -370,7 +370,7 @@ type (
 	// generated builders. For example:
 	//
 	//	DependencyAnnotation{
-	//		Field:	"HTTPClient",
+	//		Field:	"HttpClient",
 	//		Type:	"*http.Client",
 	//		Option:	"WithClient",
 	//	}
@@ -381,9 +381,9 @@ type (
 		// Field defines the struct field name on the builders.
 		// It defaults to the full type name. For example:
 		//
-		//	http.Client	=> HTTPClient
+		//	http.Client	=> HttpClient
 		//	net.Conn	=> NetConn
-		//	url.URL		=> URL
+		//	url.URL		=> Url
 		//
 		Field string
 		// Type defines the type identifier. For example, `*http.Client`.

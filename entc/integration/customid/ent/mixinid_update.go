@@ -18,27 +18,27 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// MixinIDUpdate is the builder for updating MixinID entities.
-type MixinIDUpdate struct {
+// MixinIdUpdate is the builder for updating MixinId entities.
+type MixinIdUpdate struct {
 	config
 	hooks    []Hook
-	mutation *MixinIDMutation
+	mutation *MixinIdMutation
 }
 
-// Where appends a list predicates to the MixinIDUpdate builder.
-func (_u *MixinIDUpdate) Where(ps ...predicate.MixinID) *MixinIDUpdate {
+// Where appends a list predicates to the MixinIdUpdate builder.
+func (_u *MixinIdUpdate) Where(ps ...predicate.MixinId) *MixinIdUpdate {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
 // SetSomeField sets the "some_field" field.
-func (_u *MixinIDUpdate) SetSomeField(v string) *MixinIDUpdate {
+func (_u *MixinIdUpdate) SetSomeField(v string) *MixinIdUpdate {
 	_u.mutation.SetSomeField(v)
 	return _u
 }
 
 // SetNillableSomeField sets the "some_field" field if the given value is not nil.
-func (_u *MixinIDUpdate) SetNillableSomeField(v *string) *MixinIDUpdate {
+func (_u *MixinIdUpdate) SetNillableSomeField(v *string) *MixinIdUpdate {
 	if v != nil {
 		_u.SetSomeField(*v)
 	}
@@ -46,31 +46,31 @@ func (_u *MixinIDUpdate) SetNillableSomeField(v *string) *MixinIDUpdate {
 }
 
 // SetMixinField sets the "mixin_field" field.
-func (_u *MixinIDUpdate) SetMixinField(v string) *MixinIDUpdate {
+func (_u *MixinIdUpdate) SetMixinField(v string) *MixinIdUpdate {
 	_u.mutation.SetMixinField(v)
 	return _u
 }
 
 // SetNillableMixinField sets the "mixin_field" field if the given value is not nil.
-func (_u *MixinIDUpdate) SetNillableMixinField(v *string) *MixinIDUpdate {
+func (_u *MixinIdUpdate) SetNillableMixinField(v *string) *MixinIdUpdate {
 	if v != nil {
 		_u.SetMixinField(*v)
 	}
 	return _u
 }
 
-// Mutation returns the MixinIDMutation object of the builder.
-func (_u *MixinIDUpdate) Mutation() *MixinIDMutation {
+// Mutation returns the MixinIdMutation object of the builder.
+func (_u *MixinIdUpdate) Mutation() *MixinIdMutation {
 	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (_u *MixinIDUpdate) Save(ctx context.Context) (int, error) {
+func (_u *MixinIdUpdate) Save(ctx context.Context) (int, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *MixinIDUpdate) SaveX(ctx context.Context) int {
+func (_u *MixinIdUpdate) SaveX(ctx context.Context) int {
 	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -79,20 +79,20 @@ func (_u *MixinIDUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (_u *MixinIDUpdate) Exec(ctx context.Context) error {
+func (_u *MixinIdUpdate) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *MixinIDUpdate) ExecX(ctx context.Context) {
+func (_u *MixinIdUpdate) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (_u *MixinIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldID, field.TypeUUID))
+func (_u *MixinIdUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	_spec := sqlgraph.NewUpdateSpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -118,22 +118,22 @@ func (_u *MixinIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	return _node, nil
 }
 
-// MixinIDUpdateOne is the builder for updating a single MixinID entity.
-type MixinIDUpdateOne struct {
+// MixinIdUpdateOne is the builder for updating a single MixinId entity.
+type MixinIdUpdateOne struct {
 	config
 	fields   []string
 	hooks    []Hook
-	mutation *MixinIDMutation
+	mutation *MixinIdMutation
 }
 
 // SetSomeField sets the "some_field" field.
-func (_u *MixinIDUpdateOne) SetSomeField(v string) *MixinIDUpdateOne {
+func (_u *MixinIdUpdateOne) SetSomeField(v string) *MixinIdUpdateOne {
 	_u.mutation.SetSomeField(v)
 	return _u
 }
 
 // SetNillableSomeField sets the "some_field" field if the given value is not nil.
-func (_u *MixinIDUpdateOne) SetNillableSomeField(v *string) *MixinIDUpdateOne {
+func (_u *MixinIdUpdateOne) SetNillableSomeField(v *string) *MixinIdUpdateOne {
 	if v != nil {
 		_u.SetSomeField(*v)
 	}
@@ -141,44 +141,44 @@ func (_u *MixinIDUpdateOne) SetNillableSomeField(v *string) *MixinIDUpdateOne {
 }
 
 // SetMixinField sets the "mixin_field" field.
-func (_u *MixinIDUpdateOne) SetMixinField(v string) *MixinIDUpdateOne {
+func (_u *MixinIdUpdateOne) SetMixinField(v string) *MixinIdUpdateOne {
 	_u.mutation.SetMixinField(v)
 	return _u
 }
 
 // SetNillableMixinField sets the "mixin_field" field if the given value is not nil.
-func (_u *MixinIDUpdateOne) SetNillableMixinField(v *string) *MixinIDUpdateOne {
+func (_u *MixinIdUpdateOne) SetNillableMixinField(v *string) *MixinIdUpdateOne {
 	if v != nil {
 		_u.SetMixinField(*v)
 	}
 	return _u
 }
 
-// Mutation returns the MixinIDMutation object of the builder.
-func (_u *MixinIDUpdateOne) Mutation() *MixinIDMutation {
+// Mutation returns the MixinIdMutation object of the builder.
+func (_u *MixinIdUpdateOne) Mutation() *MixinIdMutation {
 	return _u.mutation
 }
 
-// Where appends a list predicates to the MixinIDUpdate builder.
-func (_u *MixinIDUpdateOne) Where(ps ...predicate.MixinID) *MixinIDUpdateOne {
+// Where appends a list predicates to the MixinIdUpdate builder.
+func (_u *MixinIdUpdateOne) Where(ps ...predicate.MixinId) *MixinIdUpdateOne {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (_u *MixinIDUpdateOne) Select(field string, fields ...string) *MixinIDUpdateOne {
+func (_u *MixinIdUpdateOne) Select(field string, fields ...string) *MixinIdUpdateOne {
 	_u.fields = append([]string{field}, fields...)
 	return _u
 }
 
-// Save executes the query and returns the updated MixinID entity.
-func (_u *MixinIDUpdateOne) Save(ctx context.Context) (*MixinID, error) {
+// Save executes the query and returns the updated MixinId entity.
+func (_u *MixinIdUpdateOne) Save(ctx context.Context) (*MixinId, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *MixinIDUpdateOne) SaveX(ctx context.Context) *MixinID {
+func (_u *MixinIdUpdateOne) SaveX(ctx context.Context) *MixinId {
 	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -187,33 +187,33 @@ func (_u *MixinIDUpdateOne) SaveX(ctx context.Context) *MixinID {
 }
 
 // Exec executes the query on the entity.
-func (_u *MixinIDUpdateOne) Exec(ctx context.Context) error {
+func (_u *MixinIdUpdateOne) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *MixinIDUpdateOne) ExecX(ctx context.Context) {
+func (_u *MixinIdUpdateOne) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (_u *MixinIDUpdateOne) sqlSave(ctx context.Context) (_node *MixinID, err error) {
-	_spec := sqlgraph.NewUpdateSpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+func (_u *MixinIdUpdateOne) sqlSave(ctx context.Context) (_node *MixinId, err error) {
+	_spec := sqlgraph.NewUpdateSpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
-		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "MixinID.id" for update`)}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "MixinId.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, mixinid.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, mixinid.FieldId)
 		for _, f := range fields {
 			if !mixinid.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != mixinid.FieldID {
+			if f != mixinid.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -231,7 +231,7 @@ func (_u *MixinIDUpdateOne) sqlSave(ctx context.Context) (_node *MixinID, err er
 	if value, ok := _u.mutation.MixinField(); ok {
 		_spec.SetField(mixinid.FieldMixinField, field.TypeString, value)
 	}
-	_node = &MixinID{config: _u.config}
+	_node = &MixinId{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
 	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {

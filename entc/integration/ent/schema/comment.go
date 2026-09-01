@@ -27,7 +27,7 @@ func (Comment) Fields() []ent.Field {
 			Nillable(),
 		field.String("table").
 			Optional(),
-		field.JSON("dir", schemadir.Dir("")).
+		field.Json("dir", schemadir.Dir("")).
 			Optional(),
 		field.String("client").
 			Optional(),

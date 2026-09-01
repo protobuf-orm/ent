@@ -22,12 +22,12 @@ type Relationship struct {
 	config `json:"-"`
 	// Weight holds the value of the "weight" field.
 	Weight int `json:"weight,omitempty"`
-	// UserID holds the value of the "user_id" field.
-	UserID int `json:"user_id,omitempty"`
-	// RelativesID holds the value of the "relatives_id" field.
-	RelativesID int `json:"relatives_id,omitempty"`
-	// InfoID holds the value of the "info_id" field.
-	InfoID int `json:"info_id,omitempty"`
+	// UserId holds the value of the "user_id" field.
+	UserId int `json:"user_id,omitempty"`
+	// RelativesId holds the value of the "relatives_id" field.
+	RelativesId int `json:"relatives_id,omitempty"`
+	// InfoId holds the value of the "info_id" field.
+	InfoId int `json:"info_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the RelationshipQuery when eager-loading is set.
 	Edges        RelationshipEdges `json:"edges"`
@@ -85,7 +85,7 @@ func (*Relationship) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case relationship.FieldWeight, relationship.FieldUserID, relationship.FieldRelativesID, relationship.FieldInfoID:
+		case relationship.FieldWeight, relationship.FieldUserId, relationship.FieldRelativesId, relationship.FieldInfoId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -108,23 +108,23 @@ func (_m *Relationship) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Weight = int(value.Int64)
 			}
-		case relationship.FieldUserID:
+		case relationship.FieldUserId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
 			} else if value.Valid {
-				_m.UserID = int(value.Int64)
+				_m.UserId = int(value.Int64)
 			}
-		case relationship.FieldRelativesID:
+		case relationship.FieldRelativesId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field relatives_id", values[i])
 			} else if value.Valid {
-				_m.RelativesID = int(value.Int64)
+				_m.RelativesId = int(value.Int64)
 			}
-		case relationship.FieldInfoID:
+		case relationship.FieldInfoId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field info_id", values[i])
 			} else if value.Valid {
-				_m.InfoID = int(value.Int64)
+				_m.InfoId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -180,13 +180,13 @@ func (_m *Relationship) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.Weight))
 	builder.WriteString(", ")
 	builder.WriteString("user_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
+	builder.WriteString(fmt.Sprintf("%v", _m.UserId))
 	builder.WriteString(", ")
 	builder.WriteString("relatives_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.RelativesID))
+	builder.WriteString(fmt.Sprintf("%v", _m.RelativesId))
 	builder.WriteString(", ")
 	builder.WriteString("info_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.InfoID))
+	builder.WriteString(fmt.Sprintf("%v", _m.InfoId))
 	builder.WriteByte(')')
 	return builder.String()
 }

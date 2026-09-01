@@ -100,8 +100,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// SetCardID sets the "card" edge to the Card entity by id.
-func (m *Mutation) SetCardID(id int) {
+// SetCardId sets the "card" edge to the Card entity by id.
+func (m *Mutation) SetCardId(id int) {
 	m.card = &id
 }
 
@@ -115,18 +115,18 @@ func (m *Mutation) CardCleared() bool {
 	return m.clearedcard
 }
 
-// CardID returns the "card" edge ID in the mutation.
-func (m *Mutation) CardID() (id int, exists bool) {
+// CardId returns the "card" edge Id in the mutation.
+func (m *Mutation) CardId() (id int, exists bool) {
 	if m.card != nil {
 		return *m.card, true
 	}
 	return
 }
 
-// CardIDs returns the "card" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// CardID instead. It exists only for internal usage by the builders.
-func (m *Mutation) CardIDs() (ids []int) {
+// CardIds returns the "card" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// CardId instead. It exists only for internal usage by the builders.
+func (m *Mutation) CardIds() (ids []int) {
 	if id := m.card; id != nil {
 		ids = append(ids, *id)
 	}
@@ -305,9 +305,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCard:
 		if id := m.card; id != nil {
@@ -323,9 +323,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

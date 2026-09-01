@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the pet type in the database.
 	Label = "pet"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgeFriends holds the string denoting the friends edge name in mutations.
@@ -35,13 +35,13 @@ const (
 	OwnerColumn = "user_pets"
 )
 
-// Columns holds all SQL columns for pet fields.
+// Columns holds all Sql columns for pet fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "pet"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "pet"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_pets",
@@ -71,9 +71,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Pet queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -103,15 +103,15 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

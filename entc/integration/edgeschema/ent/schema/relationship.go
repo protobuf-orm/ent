@@ -20,7 +20,7 @@ type Relationship struct {
 
 func (Relationship) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("user_id", "relatives_id"),
+		field.Id("user_id", "relatives_id"),
 	}
 }
 

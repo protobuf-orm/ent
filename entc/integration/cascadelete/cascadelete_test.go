@@ -36,6 +36,6 @@ func TestCascadeDelete(t *testing.T) {
 	t.Log("Delete the author with its 2 posts and their comments")
 	client.User.DeleteOne(author).ExecX(ctx)
 	require.Zero(t, client.User.Query().CountX(ctx))
-	require.Equal(t, posts[0].ID, client.Post.Query().OnlyIDX(ctx))
-	require.Equal(t, comments[0].ID, client.Comment.Query().OnlyIDX(ctx))
+	require.Equal(t, posts[0].Id, client.Post.Query().OnlyIdX(ctx))
+	require.Equal(t, comments[0].Id, client.Comment.Query().OnlyIdX(ctx))
 }

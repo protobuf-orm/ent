@@ -37,11 +37,11 @@ func (o OrderConfig) Merge(ant schema.Annotation) schema.Annotation {
 	return o
 }
 
-type IDConfig struct {
+type IdConfig struct {
 	TagName string
 }
 
-func (IDConfig) Name() string {
+func (IdConfig) Name() string {
 	return "id_config"
 }
 
@@ -64,7 +64,7 @@ type AnnotationMixin struct {
 
 func (AnnotationMixin) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		IDConfig{TagName: "id tag"},
+		IdConfig{TagName: "id tag"},
 		OrderConfig{FieldName: "mixin annotations"},
 	}
 }
@@ -103,7 +103,7 @@ func (User) Fields() []ent.Field {
 			Sensitive(),
 		field.Time("creation_time").
 			Default(time.Now),
-		field.UUID("uuid", uuidtest.UUID{}).
+		field.Uuid("uuid", uuidtest.Uuid{}).
 			Default(uuidtest.New),
 		field.Int("parent_id").
 			Optional(),
@@ -202,7 +202,7 @@ func TestMarshalSchema(t *testing.T) {
 		require.Equal(t, reflect.Func, schema.Fields[6].DefaultKind)
 
 		require.Equal(t, "uuid", schema.Fields[7].Name)
-		require.Equal(t, field.TypeUUID, schema.Fields[7].Info.Type)
+		require.Equal(t, field.TypeUuid, schema.Fields[7].Info.Type)
 		require.True(t, schema.Fields[7].Default)
 		require.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", schema.Fields[7].Info.PkgPath)
 
@@ -258,13 +258,13 @@ func (InvalidEdge) Edges() []ent.Edge {
 	}
 }
 
-type InvalidUUID struct {
+type InvalidUuid struct {
 	ent.Schema
 }
 
-func (InvalidUUID) Fields() []ent.Field {
+func (InvalidUuid) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("invalid", uuidtest.New()).
+		field.Uuid("invalid", uuidtest.New()).
 			Default(time.Now),
 	}
 }
@@ -275,10 +275,10 @@ func TestMarshalFails(t *testing.T) {
 	require.Error(t, err)
 	require.Nil(t, buf)
 
-	i2 := InvalidUUID{}
+	i2 := InvalidUuid{}
 	buf, err = MarshalSchema(i2)
 	require.Nil(t, buf)
-	require.EqualError(t, err, `schema "InvalidUUID": field "invalid": expect type (func() uuidtest.UUID) for uuid default value`)
+	require.EqualError(t, err, `schema "InvalidUuid": field "invalid": expect type (func() uuidtest.Uuid) for uuid default value`)
 }
 
 type WithDefaults struct {
@@ -304,7 +304,7 @@ func (WithDefaults) Fields() []ent.Field {
 			}),
 		field.Float("balance").
 			Default(0),
-		field.JSON("dirs", []http.Dir{}).
+		field.Json("dirs", []http.Dir{}).
 			Default([]http.Dir{"/tmp"}),
 		field.Float("float_default_func").
 			DefaultFunc(func() float64 {

@@ -40,7 +40,7 @@ func TestIncrementStartAnnotation(t *testing.T) {
 	require.NotNil(t, g)
 
 	// Increments must be a multiple of 1<<32.
-	c.Features = []gen.Feature{gen.FeatureGlobalID}
+	c.Features = []gen.Feature{gen.FeatureGlobalId}
 	g, err = gen.NewGraph(c, s...)
 	require.EqualError(t, err, "unexpected increment start value 100 for type t1, expected multiple of 4294967296 (1<<32)")
 	require.Nil(t, g)
@@ -74,7 +74,7 @@ func TestResolveConflicts(t *testing.T) {
 		c = &gen.Config{
 			Package:  "entc/gen",
 			Target:   t.TempDir(),
-			Features: []gen.Feature{gen.FeatureGlobalID},
+			Features: []gen.Feature{gen.FeatureGlobalId},
 		}
 		s     = []*load.Schema{{Name: "A"}, {Name: "B"}, {Name: "C"}, {Name: "D"}}
 		cflct = fmt.Sprintf(`

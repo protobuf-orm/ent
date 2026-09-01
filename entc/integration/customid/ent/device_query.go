@@ -80,8 +80,8 @@ func (_q *DeviceQuery) QueryActiveSession() *SessionQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(device.Table, device.FieldID, selector),
-			sqlgraph.To(session.Table, session.FieldID),
+			sqlgraph.From(device.Table, device.FieldId, selector),
+			sqlgraph.To(session.Table, session.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, device.ActiveSessionTable, device.ActiveSessionColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -102,8 +102,8 @@ func (_q *DeviceQuery) QuerySessions() *SessionQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(device.Table, device.FieldID, selector),
-			sqlgraph.To(session.Table, session.FieldID),
+			sqlgraph.From(device.Table, device.FieldId, selector),
+			sqlgraph.To(session.Table, session.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, device.SessionsTable, device.SessionsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -134,11 +134,11 @@ func (_q *DeviceQuery) FirstX(ctx context.Context) *Device {
 	return node
 }
 
-// FirstID returns the first Device ID from the query.
-// Returns a *NotFoundError when no Device ID was found.
-func (_q *DeviceQuery) FirstID(ctx context.Context) (id schema.ID, err error) {
-	var ids []schema.ID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+// FirstId returns the first Device Id from the query.
+// Returns a *NotFoundError when no Device Id was found.
+func (_q *DeviceQuery) FirstId(ctx context.Context) (id schema.Id, err error) {
+	var ids []schema.Id
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -148,9 +148,9 @@ func (_q *DeviceQuery) FirstID(ctx context.Context) (id schema.ID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *DeviceQuery) FirstIDX(ctx context.Context) schema.ID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *DeviceQuery) FirstIdX(ctx context.Context) schema.Id {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -184,12 +184,12 @@ func (_q *DeviceQuery) OnlyX(ctx context.Context) *Device {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Device ID in the query.
-// Returns a *NotSingularError when more than one Device ID is found.
+// OnlyId is like Only, but returns the only Device Id in the query.
+// Returns a *NotSingularError when more than one Device Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *DeviceQuery) OnlyID(ctx context.Context) (id schema.ID, err error) {
-	var ids []schema.ID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+func (_q *DeviceQuery) OnlyId(ctx context.Context) (id schema.Id, err error) {
+	var ids []schema.Id
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -203,9 +203,9 @@ func (_q *DeviceQuery) OnlyID(ctx context.Context) (id schema.ID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *DeviceQuery) OnlyIDX(ctx context.Context) schema.ID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *DeviceQuery) OnlyIdX(ctx context.Context) schema.Id {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -231,21 +231,21 @@ func (_q *DeviceQuery) AllX(ctx context.Context) []*Device {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Device IDs.
-func (_q *DeviceQuery) IDs(ctx context.Context) (ids []schema.ID, err error) {
+// Ids executes the query and returns a list of Device Ids.
+func (_q *DeviceQuery) Ids(ctx context.Context) (ids []schema.Id, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(device.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(device.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *DeviceQuery) IDsX(ctx context.Context) []schema.ID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *DeviceQuery) IdsX(ctx context.Context) []schema.Id {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -273,7 +273,7 @@ func (_q *DeviceQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *DeviceQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -437,8 +437,8 @@ func (_q *DeviceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Devic
 }
 
 func (_q *DeviceQuery) loadActiveSession(ctx context.Context, query *SessionQuery, nodes []*Device, init func(*Device), assign func(*Device, *Session)) error {
-	ids := make([]schema.ID, 0, len(nodes))
-	nodeids := make(map[schema.ID][]*Device)
+	ids := make([]schema.Id, 0, len(nodes))
+	nodeids := make(map[schema.Id][]*Device)
 	for i := range nodes {
 		if nodes[i].device_active_session == nil {
 			continue
@@ -452,15 +452,15 @@ func (_q *DeviceQuery) loadActiveSession(ctx context.Context, query *SessionQuer
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(session.IDIn(ids...))
+	query.Where(session.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "device_active_session" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "device_active_session" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -470,10 +470,10 @@ func (_q *DeviceQuery) loadActiveSession(ctx context.Context, query *SessionQuer
 }
 func (_q *DeviceQuery) loadSessions(ctx context.Context, query *SessionQuery, nodes []*Device, init func(*Device), assign func(*Device, *Session)) error {
 	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[schema.ID]*Device)
+	nodeids := make(map[schema.Id]*Device)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -489,11 +489,11 @@ func (_q *DeviceQuery) loadSessions(ctx context.Context, query *SessionQuery, no
 	for _, n := range neighbors {
 		fk := n.device_sessions
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "device_sessions" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "device_sessions" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "device_sessions" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "device_sessions" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -510,7 +510,7 @@ func (_q *DeviceQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *DeviceQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldID, field.TypeBytes))
+	_spec := sqlgraph.NewQuerySpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldId, field.TypeBytes))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -519,9 +519,9 @@ func (_q *DeviceQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, device.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, device.FieldId)
 		for i := range fields {
-			if fields[i] != device.FieldID {
+			if fields[i] != device.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

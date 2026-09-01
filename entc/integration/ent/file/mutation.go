@@ -56,14 +56,14 @@ func (m *Mutation) Predicates() []predicate.File {
 	return m.predicates
 }
 
-// SetSetID sets the "set_id" field.
-func (m *Mutation) SetSetID(i int) {
+// SetSetId sets the "set_id" field.
+func (m *Mutation) SetSetId(i int) {
 	m.set_id = &i
 	m.addset_id = nil
 }
 
-// SetID returns the value of the "set_id" field in the mutation.
-func (m *Mutation) SetID() (r int, exists bool) {
+// SetId returns the value of the "set_id" field in the mutation.
+func (m *Mutation) SetId() (r int, exists bool) {
 	v := m.set_id
 	if v == nil {
 		return
@@ -71,8 +71,8 @@ func (m *Mutation) SetID() (r int, exists bool) {
 	return *v, true
 }
 
-// AddSetID adds i to the "set_id" field.
-func (m *Mutation) AddSetID(i int) {
+// AddSetId adds i to the "set_id" field.
+func (m *Mutation) AddSetId(i int) {
 	if m.addset_id != nil {
 		*m.addset_id += i
 	} else {
@@ -80,8 +80,8 @@ func (m *Mutation) AddSetID(i int) {
 	}
 }
 
-// AddedSetID returns the value that was added to the "set_id" field in this mutation.
-func (m *Mutation) AddedSetID() (r int, exists bool) {
+// AddedSetId returns the value that was added to the "set_id" field in this mutation.
+func (m *Mutation) AddedSetId() (r int, exists bool) {
 	v := m.addset_id
 	if v == nil {
 		return
@@ -89,24 +89,24 @@ func (m *Mutation) AddedSetID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (m *Mutation) ClearSetID() {
+// ClearSetId clears the value of the "set_id" field.
+func (m *Mutation) ClearSetId() {
 	m.set_id = nil
 	m.addset_id = nil
-	m.clearedFields[FieldSetID] = struct{}{}
+	m.clearedFields[FieldSetId] = struct{}{}
 }
 
-// SetIDCleared returns if the "set_id" field was cleared in this mutation.
-func (m *Mutation) SetIDCleared() bool {
-	_, ok := m.clearedFields[FieldSetID]
+// SetIdCleared returns if the "set_id" field was cleared in this mutation.
+func (m *Mutation) SetIdCleared() bool {
+	_, ok := m.clearedFields[FieldSetId]
 	return ok
 }
 
-// ResetSetID resets all changes to the "set_id" field.
-func (m *Mutation) ResetSetID() {
+// ResetSetId resets all changes to the "set_id" field.
+func (m *Mutation) ResetSetId() {
 	m.set_id = nil
 	m.addset_id = nil
-	delete(m.clearedFields, FieldSetID)
+	delete(m.clearedFields, FieldSetId)
 }
 
 // SetSize sets the "size" field.
@@ -263,14 +263,14 @@ func (m *Mutation) ResetOp() {
 	delete(m.clearedFields, FieldOp)
 }
 
-// SetFieldID sets the "field_id" field.
-func (m *Mutation) SetFieldID(i int) {
+// SetFieldId sets the "field_id" field.
+func (m *Mutation) SetFieldId(i int) {
 	m.field_id = &i
 	m.addfield_id = nil
 }
 
-// FieldID returns the value of the "field_id" field in the mutation.
-func (m *Mutation) FieldID() (r int, exists bool) {
+// FieldId returns the value of the "field_id" field in the mutation.
+func (m *Mutation) FieldId() (r int, exists bool) {
 	v := m.field_id
 	if v == nil {
 		return
@@ -278,8 +278,8 @@ func (m *Mutation) FieldID() (r int, exists bool) {
 	return *v, true
 }
 
-// AddFieldID adds i to the "field_id" field.
-func (m *Mutation) AddFieldID(i int) {
+// AddFieldId adds i to the "field_id" field.
+func (m *Mutation) AddFieldId(i int) {
 	if m.addfield_id != nil {
 		*m.addfield_id += i
 	} else {
@@ -287,8 +287,8 @@ func (m *Mutation) AddFieldID(i int) {
 	}
 }
 
-// AddedFieldID returns the value that was added to the "field_id" field in this mutation.
-func (m *Mutation) AddedFieldID() (r int, exists bool) {
+// AddedFieldId returns the value that was added to the "field_id" field in this mutation.
+func (m *Mutation) AddedFieldId() (r int, exists bool) {
 	v := m.addfield_id
 	if v == nil {
 		return
@@ -296,24 +296,24 @@ func (m *Mutation) AddedFieldID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (m *Mutation) ClearFieldID() {
+// ClearFieldId clears the value of the "field_id" field.
+func (m *Mutation) ClearFieldId() {
 	m.field_id = nil
 	m.addfield_id = nil
-	m.clearedFields[FieldFieldID] = struct{}{}
+	m.clearedFields[FieldFieldId] = struct{}{}
 }
 
-// FieldIDCleared returns if the "field_id" field was cleared in this mutation.
-func (m *Mutation) FieldIDCleared() bool {
-	_, ok := m.clearedFields[FieldFieldID]
+// FieldIdCleared returns if the "field_id" field was cleared in this mutation.
+func (m *Mutation) FieldIdCleared() bool {
+	_, ok := m.clearedFields[FieldFieldId]
 	return ok
 }
 
-// ResetFieldID resets all changes to the "field_id" field.
-func (m *Mutation) ResetFieldID() {
+// ResetFieldId resets all changes to the "field_id" field.
+func (m *Mutation) ResetFieldId() {
 	m.field_id = nil
 	m.addfield_id = nil
-	delete(m.clearedFields, FieldFieldID)
+	delete(m.clearedFields, FieldFieldId)
 }
 
 // SetCreateTime sets the "create_time" field.
@@ -348,8 +348,8 @@ func (m *Mutation) ResetCreateTime() {
 	delete(m.clearedFields, FieldCreateTime)
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by id.
-func (m *Mutation) SetOwnerID(id int) {
+// SetOwnerId sets the "owner" edge to the User entity by id.
+func (m *Mutation) SetOwnerId(id int) {
 	m.owner = &id
 }
 
@@ -363,18 +363,18 @@ func (m *Mutation) OwnerCleared() bool {
 	return m.clearedowner
 }
 
-// OwnerID returns the "owner" edge ID in the mutation.
-func (m *Mutation) OwnerID() (id int, exists bool) {
+// OwnerId returns the "owner" edge Id in the mutation.
+func (m *Mutation) OwnerId() (id int, exists bool) {
 	if m.owner != nil {
 		return *m.owner, true
 	}
 	return
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []int) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []int) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -387,8 +387,8 @@ func (m *Mutation) ResetOwner() {
 	m.clearedowner = false
 }
 
-// SetTypeID sets the "type" edge to the FileType entity by id.
-func (m *Mutation) SetTypeID(id int) {
+// SetTypeId sets the "type" edge to the FileType entity by id.
+func (m *Mutation) SetTypeId(id int) {
 	m._type = &id
 }
 
@@ -402,18 +402,18 @@ func (m *Mutation) TypeCleared() bool {
 	return m.cleared_type
 }
 
-// TypeID returns the "type" edge ID in the mutation.
-func (m *Mutation) TypeID() (id int, exists bool) {
+// TypeId returns the "type" edge Id in the mutation.
+func (m *Mutation) TypeId() (id int, exists bool) {
 	if m._type != nil {
 		return *m._type, true
 	}
 	return
 }
 
-// TypeIDs returns the "type" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TypeID instead. It exists only for internal usage by the builders.
-func (m *Mutation) TypeIDs() (ids []int) {
+// TypeIds returns the "type" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// TypeId instead. It exists only for internal usage by the builders.
+func (m *Mutation) TypeIds() (ids []int) {
 	if id := m._type; id != nil {
 		ids = append(ids, *id)
 	}
@@ -426,8 +426,8 @@ func (m *Mutation) ResetType() {
 	m.cleared_type = false
 }
 
-// AddFieldIDs adds the "field" edge to the FieldType entity by ids.
-func (m *Mutation) AddFieldIDs(ids ...int) {
+// AddFieldIds adds the "field" edge to the FieldType entity by ids.
+func (m *Mutation) AddFieldIds(ids ...int) {
 	if m.field == nil {
 		m.field = make(map[int]struct{})
 	}
@@ -446,8 +446,8 @@ func (m *Mutation) FieldEdgeCleared() bool {
 	return m.clearedfield
 }
 
-// RemoveFieldIDs removes the "field" edge to the FieldType entity by IDs.
-func (m *Mutation) RemoveFieldIDs(ids ...int) {
+// RemoveFieldIds removes the "field" edge to the FieldType entity by Ids.
+func (m *Mutation) RemoveFieldIds(ids ...int) {
 	if m.removedfield == nil {
 		m.removedfield = make(map[int]struct{})
 	}
@@ -457,16 +457,16 @@ func (m *Mutation) RemoveFieldIDs(ids ...int) {
 	}
 }
 
-// RemovedField returns the removed IDs of the "field" edge to the FieldType entity.
-func (m *Mutation) RemovedFieldIDs() (ids []int) {
+// RemovedField returns the removed Ids of the "field" edge to the FieldType entity.
+func (m *Mutation) RemovedFieldIds() (ids []int) {
 	for id := range m.removedfield {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FieldIDs returns the "field" edge IDs in the mutation.
-func (m *Mutation) FieldIDs() (ids []int) {
+// FieldIds returns the "field" edge Ids in the mutation.
+func (m *Mutation) FieldIds() (ids []int) {
 	for id := range m.field {
 		ids = append(ids, id)
 	}
@@ -516,7 +516,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 8)
 	if m.set_id != nil {
-		fields = append(fields, FieldSetID)
+		fields = append(fields, FieldSetId)
 	}
 	if m.size != nil {
 		fields = append(fields, FieldSize)
@@ -534,7 +534,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldOp)
 	}
 	if m.field_id != nil {
-		fields = append(fields, FieldFieldID)
+		fields = append(fields, FieldFieldId)
 	}
 	if m.create_time != nil {
 		fields = append(fields, FieldCreateTime)
@@ -547,8 +547,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldSetID:
-		return m.SetID()
+	case FieldSetId:
+		return m.SetId()
 	case FieldSize:
 		return m.Size()
 	case FieldName:
@@ -559,8 +559,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Group()
 	case FieldOp:
 		return m.GetOp()
-	case FieldFieldID:
-		return m.FieldID()
+	case FieldFieldId:
+		return m.FieldId()
 	case FieldCreateTime:
 		return m.CreateTime()
 	}
@@ -579,12 +579,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldSetID:
+	case FieldSetId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetSetID(v)
+		m.SetSetId(v)
 		return nil
 	case FieldSize:
 		v, ok := value.(int)
@@ -621,12 +621,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetOpField(v)
 		return nil
-	case FieldFieldID:
+	case FieldFieldId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetFieldID(v)
+		m.SetFieldId(v)
 		return nil
 	case FieldCreateTime:
 		v, ok := value.(time.Time)
@@ -644,13 +644,13 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 func (m *Mutation) AddedFields() []string {
 	var fields []string
 	if m.addset_id != nil {
-		fields = append(fields, FieldSetID)
+		fields = append(fields, FieldSetId)
 	}
 	if m.addsize != nil {
 		fields = append(fields, FieldSize)
 	}
 	if m.addfield_id != nil {
-		fields = append(fields, FieldFieldID)
+		fields = append(fields, FieldFieldId)
 	}
 	return fields
 }
@@ -660,12 +660,12 @@ func (m *Mutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case FieldSetID:
-		return m.AddedSetID()
+	case FieldSetId:
+		return m.AddedSetId()
 	case FieldSize:
 		return m.AddedSize()
-	case FieldFieldID:
-		return m.AddedFieldID()
+	case FieldFieldId:
+		return m.AddedFieldId()
 	}
 	return nil, false
 }
@@ -675,12 +675,12 @@ func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *Mutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case FieldSetID:
+	case FieldSetId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddSetID(v)
+		m.AddSetId(v)
 		return nil
 	case FieldSize:
 		v, ok := value.(int)
@@ -689,12 +689,12 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddSize(v)
 		return nil
-	case FieldFieldID:
+	case FieldFieldId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddFieldID(v)
+		m.AddFieldId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown File numeric field %s", name)
@@ -704,8 +704,8 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldSetID) {
-		fields = append(fields, FieldSetID)
+	if m.FieldCleared(FieldSetId) {
+		fields = append(fields, FieldSetId)
 	}
 	if m.FieldCleared(FieldUser) {
 		fields = append(fields, FieldUser)
@@ -716,8 +716,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldOp) {
 		fields = append(fields, FieldOp)
 	}
-	if m.FieldCleared(FieldFieldID) {
-		fields = append(fields, FieldFieldID)
+	if m.FieldCleared(FieldFieldId) {
+		fields = append(fields, FieldFieldId)
 	}
 	if m.FieldCleared(FieldCreateTime) {
 		fields = append(fields, FieldCreateTime)
@@ -736,8 +736,8 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldSetID:
-		m.ClearSetID()
+	case FieldSetId:
+		m.ClearSetId()
 		return nil
 	case FieldUser:
 		m.ClearUser()
@@ -748,8 +748,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldOp:
 		m.ClearOp()
 		return nil
-	case FieldFieldID:
-		m.ClearFieldID()
+	case FieldFieldId:
+		m.ClearFieldId()
 		return nil
 	case FieldCreateTime:
 		m.ClearCreateTime()
@@ -762,8 +762,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldSetID:
-		m.ResetSetID()
+	case FieldSetId:
+		m.ResetSetId()
 		return nil
 	case FieldSize:
 		m.ResetSize()
@@ -780,8 +780,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldOp:
 		m.ResetOp()
 		return nil
-	case FieldFieldID:
-		m.ResetFieldID()
+	case FieldFieldId:
+		m.ResetFieldId()
 		return nil
 	case FieldCreateTime:
 		m.ResetCreateTime()
@@ -805,9 +805,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeOwner:
 		if id := m.owner; id != nil {
@@ -836,9 +836,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeField:
 		ids := make([]ent.Value, 0, len(m.removedfield))

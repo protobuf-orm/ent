@@ -26,7 +26,7 @@ import (
 // It exists here for documentation purpose only, and can be used as a reference for future data migrations.
 func BackfillUserTags(dir *migrate.LocalDir) error {
 	w := &schema.DirWriter{Dir: dir}
-	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySQL, w)))
+	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySql, w)))
 
 	// Add defaults "foo" and "bar" tags for users without any.
 	err := client.User.
@@ -77,7 +77,7 @@ func BackfillUserTags(dir *migrate.LocalDir) error {
 // BackfillUnknown back-fills all empty users' names with the default value 'Unknown'.
 func BackfillUnknown(dir *migrate.LocalDir) error {
 	w := &schema.DirWriter{Dir: dir}
-	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySQL, w)))
+	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySql, w)))
 
 	// Change all empty names to 'unknown'.
 	err := client.User.
@@ -101,7 +101,7 @@ func BackfillUnknown(dir *migrate.LocalDir) error {
 // SeedUsers add the initial users to the database.
 func SeedUsers(dir *migrate.LocalDir) error {
 	w := &schema.DirWriter{Dir: dir}
-	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySQL, w)))
+	client := ent.NewClient(ent.Driver(schema.NewWriteDriver(dialect.MySql, w)))
 
 	// The statement that generates the INSERT statement.
 	err := client.User.CreateBulk(

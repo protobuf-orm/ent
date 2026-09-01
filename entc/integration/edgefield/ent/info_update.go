@@ -46,23 +46,23 @@ func (_u *InfoUpdate) AppendContent(v jsontext.Value) *InfoUpdate {
 	return _u
 }
 
-// SetUserID sets the "user" edge to the User entity by ID.
-func (_u *InfoUpdate) SetUserID(id int) *InfoUpdate {
-	_u.mutation.SetUserID(id)
+// SetUserId sets the "user" edge to the User entity by Id.
+func (_u *InfoUpdate) SetUserId(id int) *InfoUpdate {
+	_u.mutation.SetUserId(id)
 	return _u
 }
 
-// SetNillableUserID sets the "user" edge to the User entity by ID if the given value is not nil.
-func (_u *InfoUpdate) SetNillableUserID(id *int) *InfoUpdate {
+// SetNillableUserId sets the "user" edge to the User entity by Id if the given value is not nil.
+func (_u *InfoUpdate) SetNillableUserId(id *int) *InfoUpdate {
 	if id != nil {
-		_u = _u.SetUserID(*id)
+		_u = _u.SetUserId(*id)
 	}
 	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *InfoUpdate) SetUser(v *User) *InfoUpdate {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the InfoMutation object of the builder.
@@ -104,7 +104,7 @@ func (_u *InfoUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *InfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(info.Table, info.Columns, sqlgraph.NewFieldSpec(info.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(info.Table, info.Columns, sqlgraph.NewFieldSpec(info.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -113,7 +113,7 @@ func (_u *InfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 	}
 	if value, ok := _u.mutation.Content(); ok {
-		_spec.SetField(info.FieldContent, field.TypeJSON, value)
+		_spec.SetField(info.FieldContent, field.TypeJson, value)
 	}
 	if value, ok := _u.mutation.AppendedContent(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -128,12 +128,12 @@ func (_u *InfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{info.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -141,7 +141,7 @@ func (_u *InfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{info.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -181,23 +181,23 @@ func (_u *InfoUpdateOne) AppendContent(v jsontext.Value) *InfoUpdateOne {
 	return _u
 }
 
-// SetUserID sets the "user" edge to the User entity by ID.
-func (_u *InfoUpdateOne) SetUserID(id int) *InfoUpdateOne {
-	_u.mutation.SetUserID(id)
+// SetUserId sets the "user" edge to the User entity by Id.
+func (_u *InfoUpdateOne) SetUserId(id int) *InfoUpdateOne {
+	_u.mutation.SetUserId(id)
 	return _u
 }
 
-// SetNillableUserID sets the "user" edge to the User entity by ID if the given value is not nil.
-func (_u *InfoUpdateOne) SetNillableUserID(id *int) *InfoUpdateOne {
+// SetNillableUserId sets the "user" edge to the User entity by Id if the given value is not nil.
+func (_u *InfoUpdateOne) SetNillableUserId(id *int) *InfoUpdateOne {
 	if id != nil {
-		_u = _u.SetUserID(*id)
+		_u = _u.SetUserId(*id)
 	}
 	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *InfoUpdateOne) SetUser(v *User) *InfoUpdateOne {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the InfoMutation object of the builder.
@@ -252,20 +252,20 @@ func (_u *InfoUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *InfoUpdateOne) sqlSave(ctx context.Context) (_node *Info, err error) {
-	_spec := sqlgraph.NewUpdateSpec(info.Table, info.Columns, sqlgraph.NewFieldSpec(info.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(info.Table, info.Columns, sqlgraph.NewFieldSpec(info.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Info.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, info.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, info.FieldId)
 		for _, f := range fields {
 			if !info.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != info.FieldID {
+			if f != info.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -278,7 +278,7 @@ func (_u *InfoUpdateOne) sqlSave(ctx context.Context) (_node *Info, err error) {
 		}
 	}
 	if value, ok := _u.mutation.Content(); ok {
-		_spec.SetField(info.FieldContent, field.TypeJSON, value)
+		_spec.SetField(info.FieldContent, field.TypeJson, value)
 	}
 	if value, ok := _u.mutation.AppendedContent(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -293,12 +293,12 @@ func (_u *InfoUpdateOne) sqlSave(ctx context.Context) (_node *Info, err error) {
 			Columns: []string{info.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -306,7 +306,7 @@ func (_u *InfoUpdateOne) sqlSave(ctx context.Context) (_node *Info, err error) {
 			Columns: []string{info.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

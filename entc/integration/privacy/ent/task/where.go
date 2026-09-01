@@ -13,49 +13,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Task {
+	return predicate.Task(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Task {
+	return predicate.Task(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Task {
-	return predicate.Task(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Task {
+	return predicate.Task(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Task {
-	return predicate.Task(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Task {
+	return predicate.Task(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Task {
-	return predicate.Task(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Task {
+	return predicate.Task(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Task {
-	return predicate.Task(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Task {
+	return predicate.Task(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Task {
-	return predicate.Task(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Task {
+	return predicate.Task(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Task {
-	return predicate.Task(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Task {
+	return predicate.Task(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Task {
-	return predicate.Task(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Task {
+	return predicate.Task(sql.FieldLTE(FieldId, id))
 }
 
 // Title applies equality check predicate on the "title" field. It's identical to TitleEQ.
@@ -68,9 +68,9 @@ func Description(v string) predicate.Task {
 	return predicate.Task(sql.FieldEQ(FieldDescription, v))
 }
 
-// UUID applies equality check predicate on the "uuid" field. It's identical to UUIDEQ.
-func UUID(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldUUID, v))
+// Uuid applies equality check predicate on the "uuid" field. It's identical to UuidEQ.
+func Uuid(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldEQ(FieldUuid, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
@@ -233,61 +233,61 @@ func StatusNotIn(vs ...Status) predicate.Task {
 	return predicate.Task(sql.FieldNotIn(FieldStatus, vs...))
 }
 
-// UUIDEQ applies the EQ predicate on the "uuid" field.
-func UUIDEQ(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldEQ(FieldUUID, v))
+// UuidEQ applies the EQ predicate on the "uuid" field.
+func UuidEQ(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldEQ(FieldUuid, v))
 }
 
-// UUIDNEQ applies the NEQ predicate on the "uuid" field.
-func UUIDNEQ(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldNEQ(FieldUUID, v))
+// UuidNEQ applies the NEQ predicate on the "uuid" field.
+func UuidNEQ(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldNEQ(FieldUuid, v))
 }
 
-// UUIDIn applies the In predicate on the "uuid" field.
-func UUIDIn(vs ...uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldIn(FieldUUID, vs...))
+// UuidIn applies the In predicate on the "uuid" field.
+func UuidIn(vs ...uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldIn(FieldUuid, vs...))
 }
 
-// UUIDNotIn applies the NotIn predicate on the "uuid" field.
-func UUIDNotIn(vs ...uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldNotIn(FieldUUID, vs...))
+// UuidNotIn applies the NotIn predicate on the "uuid" field.
+func UuidNotIn(vs ...uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldNotIn(FieldUuid, vs...))
 }
 
-// UUIDGT applies the GT predicate on the "uuid" field.
-func UUIDGT(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldGT(FieldUUID, v))
+// UuidGT applies the GT predicate on the "uuid" field.
+func UuidGT(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldGT(FieldUuid, v))
 }
 
-// UUIDGTE applies the GTE predicate on the "uuid" field.
-func UUIDGTE(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldGTE(FieldUUID, v))
+// UuidGTE applies the GTE predicate on the "uuid" field.
+func UuidGTE(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldGTE(FieldUuid, v))
 }
 
-// UUIDLT applies the LT predicate on the "uuid" field.
-func UUIDLT(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldLT(FieldUUID, v))
+// UuidLT applies the LT predicate on the "uuid" field.
+func UuidLT(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldLT(FieldUuid, v))
 }
 
-// UUIDLTE applies the LTE predicate on the "uuid" field.
-func UUIDLTE(v uuid.UUID) predicate.Task {
-	return predicate.Task(sql.FieldLTE(FieldUUID, v))
+// UuidLTE applies the LTE predicate on the "uuid" field.
+func UuidLTE(v uuid.UUID) predicate.Task {
+	return predicate.Task(sql.FieldLTE(FieldUuid, v))
 }
 
-// UUIDIsNil applies the IsNil predicate on the "uuid" field.
-func UUIDIsNil() predicate.Task {
-	return predicate.Task(sql.FieldIsNull(FieldUUID))
+// UuidIsNil applies the IsNil predicate on the "uuid" field.
+func UuidIsNil() predicate.Task {
+	return predicate.Task(sql.FieldIsNull(FieldUuid))
 }
 
-// UUIDNotNil applies the NotNil predicate on the "uuid" field.
-func UUIDNotNil() predicate.Task {
-	return predicate.Task(sql.FieldNotNull(FieldUUID))
+// UuidNotNil applies the NotNil predicate on the "uuid" field.
+func UuidNotNil() predicate.Task {
+	return predicate.Task(sql.FieldNotNull(FieldUuid))
 }
 
 // HasTeams applies the HasEdge predicate on the "teams" edge.
 func HasTeams() predicate.Task {
 	return predicate.Task(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, TeamsTable, TeamsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -310,7 +310,7 @@ func HasTeamsWith(preds ...predicate.Team) predicate.Task {
 func HasOwner() predicate.Task {
 	return predicate.Task(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

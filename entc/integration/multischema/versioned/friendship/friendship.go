@@ -16,16 +16,16 @@ import (
 const (
 	// Label holds the string label denoting the friendship type in the database.
 	Label = "friendship"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldWeight holds the string denoting the weight field in the database.
 	FieldWeight = "weight"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldFriendsID holds the string denoting the friends_id field in the database.
-	FieldFriendsID = "friends_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldFriendsId holds the string denoting the friends_id field in the database.
+	FieldFriendsId = "friends_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// EdgeFriend holds the string denoting the friend edge name in mutations.
@@ -48,13 +48,13 @@ const (
 	FriendColumn = "friends_id"
 )
 
-// Columns holds all SQL columns for friendship fields.
+// Columns holds all Sql columns for friendship fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldWeight,
 	FieldCreatedAt,
-	FieldUserID,
-	FieldFriendsID,
+	FieldUserId,
+	FieldFriendsId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -77,9 +77,9 @@ var (
 // OrderOption defines the ordering options for the Friendship queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByWeight orders the results by the weight field.
@@ -92,14 +92,14 @@ func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByFriendsID orders the results by the friends_id field.
-func ByFriendsID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldFriendsID, opts...).ToFunc()
+// ByFriendsId orders the results by the friends_id field.
+func ByFriendsId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFriendsId, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.
@@ -117,15 +117,15 @@ func ByFriendField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }
 func newFriendStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FriendInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FriendInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, FriendTable, FriendColumn),
 	)
 }

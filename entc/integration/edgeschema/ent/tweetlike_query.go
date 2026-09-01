@@ -79,7 +79,7 @@ func (_q *TweetLikeQuery) QueryTweet() *TweetQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(tweetlike.Table, tweetlike.TweetColumn, selector),
-			sqlgraph.To(tweet.Table, tweet.FieldID),
+			sqlgraph.To(tweet.Table, tweet.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, tweetlike.TweetTable, tweetlike.TweetColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -101,7 +101,7 @@ func (_q *TweetLikeQuery) QueryUser() *UserQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(tweetlike.Table, tweetlike.UserColumn, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, tweetlike.UserTable, tweetlike.UserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -386,7 +386,7 @@ func (_q *TweetLikeQuery) loadTweet(ctx context.Context, query *TweetQuery, node
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TweetLike)
 	for i := range nodes {
-		fk := nodes[i].TweetID
+		fk := nodes[i].TweetId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -395,15 +395,15 @@ func (_q *TweetLikeQuery) loadTweet(ctx context.Context, query *TweetQuery, node
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(tweet.IDIn(ids...))
+	query.Where(tweet.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "tweet_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "tweet_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -415,7 +415,7 @@ func (_q *TweetLikeQuery) loadUser(ctx context.Context, query *UserQuery, nodes 
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TweetLike)
 	for i := range nodes {
-		fk := nodes[i].UserID
+		fk := nodes[i].UserId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -424,15 +424,15 @@ func (_q *TweetLikeQuery) loadUser(ctx context.Context, query *UserQuery, nodes 
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(user.IDIn(ids...))
+	query.Where(user.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -462,10 +462,10 @@ func (_q *TweetLikeQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 		}
 		if _q.withTweet != nil {
-			_spec.Node.AddColumnOnce(tweetlike.FieldTweetID)
+			_spec.Node.AddColumnOnce(tweetlike.FieldTweetId)
 		}
 		if _q.withUser != nil {
-			_spec.Node.AddColumnOnce(tweetlike.FieldUserID)
+			_spec.Node.AddColumnOnce(tweetlike.FieldUserId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

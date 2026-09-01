@@ -18,10 +18,10 @@ import (
 	{{- /* Ignore generating on graph templates (e.g. config.tmpl, client.tmpl, etc). */}}
 	{{- if ne $.Config.Package $.Package }}
 		"{{ $.Config.Package }}/predicate"
-		{{- if $.HasOneFieldID }}
-			{{- with $.ID.Type.PkgPath }}
-				{{- $name := $.ID.Type.PkgName }}
-				{{ if ne $name (base $.ID.Type.PkgPath) }}{{ $name }} {{ end }}"{{ . }}"
+		{{- if $.HasOneFieldId }}
+			{{- with $.Id.Type.PkgPath }}
+				{{- $name := $.Id.Type.PkgName }}
+				{{ if ne $name (base $.Id.Type.PkgPath) }}{{ $name }} {{ end }}"{{ . }}"
 			{{- end }}
 		{{- end }}
 		{{- /* Import external packages */}}
@@ -48,7 +48,7 @@ import (
 {{ define "import/types" -}}
 	{{- $seen := dict }}
 	{{- $selfPkg := "" }}{{ if ne $.Config.Package $.Package }}{{ $selfPkg = print $.Config.Package "/" $.PackageDir }}{{ end }}
-	{{- $fields := $.Fields }}{{ if $.HasOneFieldID }}{{ if $.ID.UserDefined }}{{ $fields = append $fields $.ID }}{{ end }}{{ end }}
+	{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
 	{{- range $f := $fields }}
 		{{- $pkg := $f.Type.PkgPath }}
 		{{- if and $pkg (not (hasImport (base $pkg))) (not (hasKey $seen $pkg)) (ne $pkg $selfPkg) }}
@@ -57,11 +57,11 @@ import (
 			{{- $seen = set $seen $pkg true }}
 		{{- end }}
 	{{- end }}
-	{{- /* Import packages for edge target ID types referenced in mutation fields. */}}
-	{{- range $e := $.EdgesWithID }}
-		{{- $pkg := $e.Type.ID.Type.PkgPath }}
+	{{- /* Import packages for edge target Id types referenced in mutation fields. */}}
+	{{- range $e := $.EdgesWithId }}
+		{{- $pkg := $e.Type.Id.Type.PkgPath }}
 		{{- if and $pkg (not (hasImport (base $pkg))) (not (hasKey $seen $pkg)) (ne $pkg $selfPkg) }}
-			{{- $name := $e.Type.ID.Type.PkgName }}
+			{{- $name := $e.Type.Id.Type.PkgName }}
 			{{ if ne $name (base $pkg) }}{{ $name }} {{ end}}"{{ $pkg }}"
 			{{- $seen = set $seen $pkg true }}
 		{{- end }}

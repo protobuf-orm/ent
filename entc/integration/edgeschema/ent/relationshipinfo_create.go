@@ -82,9 +82,9 @@ func (_c *RelationshipInfoCreate) sqlSave(ctx context.Context) (*RelationshipInf
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -92,7 +92,7 @@ func (_c *RelationshipInfoCreate) sqlSave(ctx context.Context) (*RelationshipInf
 func (_c *RelationshipInfoCreate) createSpec() (*RelationshipInfo, *sqlgraph.CreateSpec) {
 	var (
 		_node = &RelationshipInfo{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(relationshipinfo.Table, sqlgraph.NewFieldSpec(relationshipinfo.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(relationshipinfo.Table, sqlgraph.NewFieldSpec(relationshipinfo.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Text(); ok {
@@ -188,7 +188,7 @@ func (u *RelationshipInfoUpsertOne) Ignore() *RelationshipInfoUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RelationshipInfoUpsertOne) DoNothing() *RelationshipInfoUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -232,18 +232,18 @@ func (u *RelationshipInfoUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *RelationshipInfoUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *RelationshipInfoUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *RelationshipInfoUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *RelationshipInfoUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -295,10 +295,10 @@ func (_c *RelationshipInfoCreateBulk) Save(ctx context.Context) ([]*Relationship
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -405,7 +405,7 @@ func (u *RelationshipInfoUpsertBulk) Ignore() *RelationshipInfoUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RelationshipInfoUpsertBulk) DoNothing() *RelationshipInfoUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

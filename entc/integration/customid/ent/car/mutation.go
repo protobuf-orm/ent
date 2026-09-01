@@ -44,14 +44,14 @@ func (m *Mutation) Predicates() []predicate.Car {
 	return m.predicates
 }
 
-// SetBeforeID sets the "before_id" field.
-func (m *Mutation) SetBeforeID(f float64) {
+// SetBeforeId sets the "before_id" field.
+func (m *Mutation) SetBeforeId(f float64) {
 	m.before_id = &f
 	m.addbefore_id = nil
 }
 
-// BeforeID returns the value of the "before_id" field in the mutation.
-func (m *Mutation) BeforeID() (r float64, exists bool) {
+// BeforeId returns the value of the "before_id" field in the mutation.
+func (m *Mutation) BeforeId() (r float64, exists bool) {
 	v := m.before_id
 	if v == nil {
 		return
@@ -59,8 +59,8 @@ func (m *Mutation) BeforeID() (r float64, exists bool) {
 	return *v, true
 }
 
-// AddBeforeID adds f to the "before_id" field.
-func (m *Mutation) AddBeforeID(f float64) {
+// AddBeforeId adds f to the "before_id" field.
+func (m *Mutation) AddBeforeId(f float64) {
 	if m.addbefore_id != nil {
 		*m.addbefore_id += f
 	} else {
@@ -68,8 +68,8 @@ func (m *Mutation) AddBeforeID(f float64) {
 	}
 }
 
-// AddedBeforeID returns the value that was added to the "before_id" field in this mutation.
-func (m *Mutation) AddedBeforeID() (r float64, exists bool) {
+// AddedBeforeId returns the value that was added to the "before_id" field in this mutation.
+func (m *Mutation) AddedBeforeId() (r float64, exists bool) {
 	v := m.addbefore_id
 	if v == nil {
 		return
@@ -77,34 +77,34 @@ func (m *Mutation) AddedBeforeID() (r float64, exists bool) {
 	return *v, true
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (m *Mutation) ClearBeforeID() {
+// ClearBeforeId clears the value of the "before_id" field.
+func (m *Mutation) ClearBeforeId() {
 	m.before_id = nil
 	m.addbefore_id = nil
-	m.clearedFields[FieldBeforeID] = struct{}{}
+	m.clearedFields[FieldBeforeId] = struct{}{}
 }
 
-// BeforeIDCleared returns if the "before_id" field was cleared in this mutation.
-func (m *Mutation) BeforeIDCleared() bool {
-	_, ok := m.clearedFields[FieldBeforeID]
+// BeforeIdCleared returns if the "before_id" field was cleared in this mutation.
+func (m *Mutation) BeforeIdCleared() bool {
+	_, ok := m.clearedFields[FieldBeforeId]
 	return ok
 }
 
-// ResetBeforeID resets all changes to the "before_id" field.
-func (m *Mutation) ResetBeforeID() {
+// ResetBeforeId resets all changes to the "before_id" field.
+func (m *Mutation) ResetBeforeId() {
 	m.before_id = nil
 	m.addbefore_id = nil
-	delete(m.clearedFields, FieldBeforeID)
+	delete(m.clearedFields, FieldBeforeId)
 }
 
-// SetAfterID sets the "after_id" field.
-func (m *Mutation) SetAfterID(f float64) {
+// SetAfterId sets the "after_id" field.
+func (m *Mutation) SetAfterId(f float64) {
 	m.after_id = &f
 	m.addafter_id = nil
 }
 
-// AfterID returns the value of the "after_id" field in the mutation.
-func (m *Mutation) AfterID() (r float64, exists bool) {
+// AfterId returns the value of the "after_id" field in the mutation.
+func (m *Mutation) AfterId() (r float64, exists bool) {
 	v := m.after_id
 	if v == nil {
 		return
@@ -112,8 +112,8 @@ func (m *Mutation) AfterID() (r float64, exists bool) {
 	return *v, true
 }
 
-// AddAfterID adds f to the "after_id" field.
-func (m *Mutation) AddAfterID(f float64) {
+// AddAfterId adds f to the "after_id" field.
+func (m *Mutation) AddAfterId(f float64) {
 	if m.addafter_id != nil {
 		*m.addafter_id += f
 	} else {
@@ -121,8 +121,8 @@ func (m *Mutation) AddAfterID(f float64) {
 	}
 }
 
-// AddedAfterID returns the value that was added to the "after_id" field in this mutation.
-func (m *Mutation) AddedAfterID() (r float64, exists bool) {
+// AddedAfterId returns the value that was added to the "after_id" field in this mutation.
+func (m *Mutation) AddedAfterId() (r float64, exists bool) {
 	v := m.addafter_id
 	if v == nil {
 		return
@@ -130,24 +130,24 @@ func (m *Mutation) AddedAfterID() (r float64, exists bool) {
 	return *v, true
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (m *Mutation) ClearAfterID() {
+// ClearAfterId clears the value of the "after_id" field.
+func (m *Mutation) ClearAfterId() {
 	m.after_id = nil
 	m.addafter_id = nil
-	m.clearedFields[FieldAfterID] = struct{}{}
+	m.clearedFields[FieldAfterId] = struct{}{}
 }
 
-// AfterIDCleared returns if the "after_id" field was cleared in this mutation.
-func (m *Mutation) AfterIDCleared() bool {
-	_, ok := m.clearedFields[FieldAfterID]
+// AfterIdCleared returns if the "after_id" field was cleared in this mutation.
+func (m *Mutation) AfterIdCleared() bool {
+	_, ok := m.clearedFields[FieldAfterId]
 	return ok
 }
 
-// ResetAfterID resets all changes to the "after_id" field.
-func (m *Mutation) ResetAfterID() {
+// ResetAfterId resets all changes to the "after_id" field.
+func (m *Mutation) ResetAfterId() {
 	m.after_id = nil
 	m.addafter_id = nil
-	delete(m.clearedFields, FieldAfterID)
+	delete(m.clearedFields, FieldAfterId)
 }
 
 // SetModel sets the "model" field.
@@ -169,8 +169,8 @@ func (m *Mutation) ResetModel() {
 	m.model = nil
 }
 
-// SetOwnerID sets the "owner" edge to the Pet entity by id.
-func (m *Mutation) SetOwnerID(id string) {
+// SetOwnerId sets the "owner" edge to the Pet entity by id.
+func (m *Mutation) SetOwnerId(id string) {
 	m.owner = &id
 }
 
@@ -184,18 +184,18 @@ func (m *Mutation) OwnerCleared() bool {
 	return m.clearedowner
 }
 
-// OwnerID returns the "owner" edge ID in the mutation.
-func (m *Mutation) OwnerID() (id string, exists bool) {
+// OwnerId returns the "owner" edge Id in the mutation.
+func (m *Mutation) OwnerId() (id string, exists bool) {
 	if m.owner != nil {
 		return *m.owner, true
 	}
 	return
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []string) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []string) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -244,10 +244,10 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 3)
 	if m.before_id != nil {
-		fields = append(fields, FieldBeforeID)
+		fields = append(fields, FieldBeforeId)
 	}
 	if m.after_id != nil {
-		fields = append(fields, FieldAfterID)
+		fields = append(fields, FieldAfterId)
 	}
 	if m.model != nil {
 		fields = append(fields, FieldModel)
@@ -260,10 +260,10 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldBeforeID:
-		return m.BeforeID()
-	case FieldAfterID:
-		return m.AfterID()
+	case FieldBeforeId:
+		return m.BeforeId()
+	case FieldAfterId:
+		return m.AfterId()
 	case FieldModel:
 		return m.Model()
 	}
@@ -282,19 +282,19 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldBeforeID:
+	case FieldBeforeId:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetBeforeID(v)
+		m.SetBeforeId(v)
 		return nil
-	case FieldAfterID:
+	case FieldAfterId:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetAfterID(v)
+		m.SetAfterId(v)
 		return nil
 	case FieldModel:
 		v, ok := value.(string)
@@ -312,10 +312,10 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 func (m *Mutation) AddedFields() []string {
 	var fields []string
 	if m.addbefore_id != nil {
-		fields = append(fields, FieldBeforeID)
+		fields = append(fields, FieldBeforeId)
 	}
 	if m.addafter_id != nil {
-		fields = append(fields, FieldAfterID)
+		fields = append(fields, FieldAfterId)
 	}
 	return fields
 }
@@ -325,10 +325,10 @@ func (m *Mutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case FieldBeforeID:
-		return m.AddedBeforeID()
-	case FieldAfterID:
-		return m.AddedAfterID()
+	case FieldBeforeId:
+		return m.AddedBeforeId()
+	case FieldAfterId:
+		return m.AddedAfterId()
 	}
 	return nil, false
 }
@@ -338,19 +338,19 @@ func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *Mutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case FieldBeforeID:
+	case FieldBeforeId:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddBeforeID(v)
+		m.AddBeforeId(v)
 		return nil
-	case FieldAfterID:
+	case FieldAfterId:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddAfterID(v)
+		m.AddAfterId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Car numeric field %s", name)
@@ -360,11 +360,11 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldBeforeID) {
-		fields = append(fields, FieldBeforeID)
+	if m.FieldCleared(FieldBeforeId) {
+		fields = append(fields, FieldBeforeId)
 	}
-	if m.FieldCleared(FieldAfterID) {
-		fields = append(fields, FieldAfterID)
+	if m.FieldCleared(FieldAfterId) {
+		fields = append(fields, FieldAfterId)
 	}
 	return fields
 }
@@ -380,11 +380,11 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldBeforeID:
-		m.ClearBeforeID()
+	case FieldBeforeId:
+		m.ClearBeforeId()
 		return nil
-	case FieldAfterID:
-		m.ClearAfterID()
+	case FieldAfterId:
+		m.ClearAfterId()
 		return nil
 	}
 	return fmt.Errorf("unknown Car nullable field %s", name)
@@ -394,11 +394,11 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldBeforeID:
-		m.ResetBeforeID()
+	case FieldBeforeId:
+		m.ResetBeforeId()
 		return nil
-	case FieldAfterID:
-		m.ResetAfterID()
+	case FieldAfterId:
+		m.ResetAfterId()
 		return nil
 	case FieldModel:
 		m.ResetModel()
@@ -416,9 +416,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeOwner:
 		if id := m.owner; id != nil {
@@ -434,9 +434,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

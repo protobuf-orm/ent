@@ -13,17 +13,17 @@ import (
 const (
 	// Label holds the string label denoting the card type in the database.
 	Label = "card"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldNumber holds the string denoting the number field in the database.
 	FieldNumber = "number"
 	// Table holds the table name of the card in the database.
 	Table = "card"
 )
 
-// Columns holds all SQL columns for card fields.
+// Columns holds all Sql columns for card fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldNumber,
 }
 
@@ -40,9 +40,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Card queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByNumber orders the results by the number field.

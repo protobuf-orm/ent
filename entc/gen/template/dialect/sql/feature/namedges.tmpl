@@ -42,7 +42,7 @@ in the LICENSE file in the root directory of this source tree.
                         {{ $receiver }}.Edges.named{{ $e.StructField }} = make(map[string][]*{{ $e.Type.Name }})
                     }
                     if len(edges) == 0 {
-                        {{- /* Prefer empty array over nil to stay consistent with the standard eager-loading API. */}}
+                        {{- /* Prefer empty array over nil to stay consistent with the standard eager-loading Api. */}}
                         {{ $receiver }}.Edges.named{{ $e.StructField }}[name] = []*{{ $e.Type.Name }}{}
                     } else {
                         {{ $receiver }}.Edges.named{{ $e.StructField }}[name] = append({{ $receiver }}.Edges.named{{ $e.StructField }}[name], edges...)

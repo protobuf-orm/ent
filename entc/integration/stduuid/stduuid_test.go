@@ -16,10 +16,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestStdUUID exercises a schema whose id and fields are the uuid.UUID of the
+// TestStdUuid exercises a schema whose id and fields are the uuid.UUID of the
 // standard library, which reaches the database through a ValueScanner because
 // it implements neither driver.Valuer nor sql.Scanner.
-func TestStdUUID(t *testing.T) {
+func TestStdUuid(t *testing.T) {
 	client, err := ent.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
 	require.NoError(t, err)
 	defer client.Close()
@@ -28,36 +28,36 @@ func TestStdUUID(t *testing.T) {
 
 	ref := uuid.New()
 	a8m := client.User.Create().SetName("a8m").SetRef(ref).SaveX(ctx)
-	require.NotEqual(t, uuid.Nil(), a8m.ID, "the default should have generated an id")
+	require.NotEqual(t, uuid.Nil(), a8m.Id, "the default should have generated an id")
 	require.Equal(t, ref, a8m.Ref)
 
 	// Reading the row back goes through FromValue.
-	got := client.User.GetX(ctx, a8m.ID)
-	require.Equal(t, a8m.ID, got.ID)
+	got := client.User.GetX(ctx, a8m.Id)
+	require.Equal(t, a8m.Id, got.Id)
 	require.Equal(t, ref, got.Ref)
 	require.Equal(t, "a8m", got.Name)
 
 	// The values are stored in their text form.
 	var raw []struct {
-		ID  string `sql:"id"`
+		Id  string `sql:"id"`
 		Ref string `sql:"ref"`
 	}
 	client.User.Query().
-		Where(user.ID(a8m.ID)).
-		Select(user.FieldID, user.FieldRef).
+		Where(user.Id(a8m.Id)).
+		Select(user.FieldId, user.FieldRef).
 		ScanX(ctx, &raw)
 	require.Len(t, raw, 1)
-	require.Equal(t, a8m.ID.String(), raw[0].ID)
+	require.Equal(t, a8m.Id.String(), raw[0].Id)
 	require.Equal(t, ref.String(), raw[0].Ref)
 
 	// Predicates convert their arguments through the ValueScanner.
 	require.True(t, client.User.Query().Where(user.Ref(ref)).ExistX(ctx))
 	require.False(t, client.User.Query().Where(user.Ref(uuid.New())).ExistX(ctx))
 	require.True(t, client.User.Query().Where(user.RefIn(ref, uuid.New())).ExistX(ctx))
-	require.True(t, client.User.Query().Where(user.IDEQ(a8m.ID)).ExistX(ctx))
-	require.False(t, client.User.Query().Where(user.IDEQ(uuid.New())).ExistX(ctx))
+	require.True(t, client.User.Query().Where(user.IdEQ(a8m.Id)).ExistX(ctx))
+	require.False(t, client.User.Query().Where(user.IdEQ(uuid.New())).ExistX(ctx))
 
 	// Edges keyed by the same id type.
 	neta := client.User.Create().SetName("neta").SetSpouse(a8m).SaveX(ctx)
-	require.Equal(t, a8m.ID, neta.QuerySpouse().OnlyX(ctx).ID)
+	require.Equal(t, a8m.Id, neta.QuerySpouse().OnlyX(ctx).Id)
 }

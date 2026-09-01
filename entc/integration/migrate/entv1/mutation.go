@@ -60,17 +60,17 @@ func newCarMutation(c config, op Op, opts ...carOption) *CarMutation {
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *CarMutation) ID() (id int, exists bool) {
+func (m *CarMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withCarID sets the ID field of the mutation.
-func withCarID(id int) carOption {
+// withCarId sets the Id field of the mutation.
+func withCarId(id int) carOption {
 	return func(m *CarMutation) {
 		var (
 			err   error
@@ -97,7 +97,7 @@ func withCar(node *Car) carOption {
 		m.oldValue = func(context.Context) (*Car, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -120,22 +120,22 @@ func (m CarMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *CarMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *CarMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().Car.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().Car.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -172,17 +172,17 @@ func newConversionMutation(c config, op Op, opts ...conversionOption) *Conversio
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *ConversionMutation) ID() (id int, exists bool) {
+func (m *ConversionMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withConversionID sets the ID field of the mutation.
-func withConversionID(id int) conversionOption {
+// withConversionId sets the Id field of the mutation.
+func withConversionId(id int) conversionOption {
 	return func(m *ConversionMutation) {
 		var (
 			err   error
@@ -209,7 +209,7 @@ func withConversion(node *Conversion) conversionOption {
 		m.oldValue = func(context.Context) (*Conversion, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -232,22 +232,22 @@ func (m ConversionMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *ConversionMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *ConversionMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().Conversion.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().Conversion.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -258,8 +258,8 @@ func (m *ConversionMutation) OldName(ctx context.Context) (v string, err error) 
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldName requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldName requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -275,8 +275,8 @@ func (m *ConversionMutation) OldInt8ToString(ctx context.Context) (v int8, err e
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldInt8ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldInt8ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldInt8ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -292,8 +292,8 @@ func (m *ConversionMutation) OldUint8ToString(ctx context.Context) (v uint8, err
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldUint8ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldUint8ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldUint8ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -309,8 +309,8 @@ func (m *ConversionMutation) OldInt16ToString(ctx context.Context) (v int16, err
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldInt16ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldInt16ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldInt16ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -326,8 +326,8 @@ func (m *ConversionMutation) OldUint16ToString(ctx context.Context) (v uint16, e
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldUint16ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldUint16ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldUint16ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -343,8 +343,8 @@ func (m *ConversionMutation) OldInt32ToString(ctx context.Context) (v int32, err
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldInt32ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldInt32ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldInt32ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -360,8 +360,8 @@ func (m *ConversionMutation) OldUint32ToString(ctx context.Context) (v uint32, e
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldUint32ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldUint32ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldUint32ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -377,8 +377,8 @@ func (m *ConversionMutation) OldInt64ToString(ctx context.Context) (v int64, err
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldInt64ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldInt64ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldInt64ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -394,8 +394,8 @@ func (m *ConversionMutation) OldUint64ToString(ctx context.Context) (v uint64, e
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldUint64ToString is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldUint64ToString requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldUint64ToString requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -457,17 +457,17 @@ func newCustomTypeMutation(c config, op Op, opts ...customtypeOption) *CustomTyp
 	return m
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *CustomTypeMutation) ID() (id int, exists bool) {
+func (m *CustomTypeMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withCustomTypeID sets the ID field of the mutation.
-func withCustomTypeID(id int) customtypeOption {
+// withCustomTypeId sets the Id field of the mutation.
+func withCustomTypeId(id int) customtypeOption {
 	return func(m *CustomTypeMutation) {
 		var (
 			err   error
@@ -494,7 +494,7 @@ func withCustomType(node *CustomType) customtypeOption {
 		m.oldValue = func(context.Context) (*CustomType, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -517,22 +517,22 @@ func (m CustomTypeMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *CustomTypeMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *CustomTypeMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().CustomType.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().CustomType.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -543,8 +543,8 @@ func (m *CustomTypeMutation) OldCustom(ctx context.Context) (v string, err error
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldCustom is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldCustom requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldCustom requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -590,23 +590,23 @@ func newUserMutation(c config, op Op, opts ...userOption) *UserMutation {
 	return m
 }
 
-// SetID sets the value of the id field. Note that this
+// SetId sets the value of the id field. Note that this
 // operation is only accepted on creation of User entities.
-func (m *UserMutation) SetID(id int) {
+func (m *UserMutation) SetId(id int) {
 	m.id = &id
 }
 
-// ID returns the ID value in the mutation. Note that the ID is only available
+// Id returns the Id value in the mutation. Note that the Id is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *UserMutation) ID() (id int, exists bool) {
+func (m *UserMutation) Id() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// withUserID sets the ID field of the mutation.
-func withUserID(id int) userOption {
+// withUserId sets the Id field of the mutation.
+func withUserId(id int) userOption {
 	return func(m *UserMutation) {
 		var (
 			err   error
@@ -633,7 +633,7 @@ func withUser(node *User) userOption {
 		m.oldValue = func(context.Context) (*User, error) {
 			return node, nil
 		}
-		m.id = &node.ID
+		m.id = &node.Id
 	}
 }
 
@@ -656,22 +656,22 @@ func (m UserMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// Ids queries the database and returns the entity ids that match the mutation's predicate.
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *UserMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *UserMutation) Ids(ctx context.Context) ([]int, error) {
 	switch {
 	case m.Op().Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
+		id, exists := m.Id()
 		if exists {
 			return []int{id}, nil
 		}
 		fallthrough
 	case m.Op().Is(OpUpdate | OpDelete):
-		return m.Client().User.Query().Where(m.Predicates()...).IDs(ctx)
+		return m.Client().User.Query().Where(m.Predicates()...).Ids(ctx)
 	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+		return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 	}
 }
 
@@ -682,8 +682,8 @@ func (m *UserMutation) OldAge(ctx context.Context) (v int32, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldAge is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldAge requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldAge requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -699,8 +699,8 @@ func (m *UserMutation) OldName(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldName requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldName requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -716,8 +716,8 @@ func (m *UserMutation) OldDescription(ctx context.Context) (v string, err error)
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldDescription requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -733,8 +733,8 @@ func (m *UserMutation) OldNickname(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldNickname is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldNickname requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldNickname requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -750,8 +750,8 @@ func (m *UserMutation) OldAddress(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldAddress is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldAddress requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldAddress requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -767,8 +767,8 @@ func (m *UserMutation) OldRenamed(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldRenamed is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldRenamed requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldRenamed requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -784,8 +784,8 @@ func (m *UserMutation) OldOldToken(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldOldToken is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldOldToken requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldOldToken requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -801,8 +801,8 @@ func (m *UserMutation) OldBlob(ctx context.Context) (v []byte, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldBlob is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldBlob requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldBlob requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -818,8 +818,8 @@ func (m *UserMutation) OldState(ctx context.Context) (v user.State, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldState is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldState requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldState requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -835,8 +835,8 @@ func (m *UserMutation) OldStatus(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldStatus requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldStatus requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -852,8 +852,8 @@ func (m *UserMutation) OldWorkplace(ctx context.Context) (v string, err error) {
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldWorkplace is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldWorkplace requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldWorkplace requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
@@ -869,8 +869,8 @@ func (m *UserMutation) OldDropOptional(ctx context.Context) (v string, err error
 	if !m.Op().Is(OpUpdateOne) {
 		return v, errors.New("OldDropOptional is only allowed on UpdateOne operations")
 	}
-	if _, exists := m.ID(); !exists || m.oldValue == nil {
-		return v, errors.New("OldDropOptional requires an ID field in the mutation")
+	if _, exists := m.Id(); !exists || m.oldValue == nil {
+		return v, errors.New("OldDropOptional requires an Id field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {

@@ -63,13 +63,13 @@ func (m *Mutation) ResetDate() {
 	m.date = nil
 }
 
-// SetUserID sets the "user_id" field.
-func (m *Mutation) SetUserID(i int) {
+// SetUserId sets the "user_id" field.
+func (m *Mutation) SetUserId(i int) {
 	m.user = &i
 }
 
-// UserID returns the value of the "user_id" field in the mutation.
-func (m *Mutation) UserID() (r int, exists bool) {
+// UserId returns the value of the "user_id" field in the mutation.
+func (m *Mutation) UserId() (r int, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -77,18 +77,18 @@ func (m *Mutation) UserID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetUserID resets all changes to the "user_id" field.
-func (m *Mutation) ResetUserID() {
+// ResetUserId resets all changes to the "user_id" field.
+func (m *Mutation) ResetUserId() {
 	m.user = nil
 }
 
-// SetCarID sets the "car_id" field.
-func (m *Mutation) SetCarID(u uuid.UUID) {
+// SetCarId sets the "car_id" field.
+func (m *Mutation) SetCarId(u uuid.UUID) {
 	m.car = &u
 }
 
-// CarID returns the value of the "car_id" field in the mutation.
-func (m *Mutation) CarID() (r uuid.UUID, exists bool) {
+// CarId returns the value of the "car_id" field in the mutation.
+func (m *Mutation) CarId() (r uuid.UUID, exists bool) {
 	v := m.car
 	if v == nil {
 		return
@@ -96,15 +96,15 @@ func (m *Mutation) CarID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetCarID resets all changes to the "car_id" field.
-func (m *Mutation) ResetCarID() {
+// ResetCarId resets all changes to the "car_id" field.
+func (m *Mutation) ResetCarId() {
 	m.car = nil
 }
 
 // ClearUser clears the "user" edge to the User entity.
 func (m *Mutation) ClearUser() {
 	m.cleareduser = true
-	m.clearedFields[FieldUserID] = struct{}{}
+	m.clearedFields[FieldUserId] = struct{}{}
 }
 
 // UserCleared reports if the "user" edge to the User entity was cleared.
@@ -112,10 +112,10 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -131,7 +131,7 @@ func (m *Mutation) ResetUser() {
 // ClearCar clears the "car" edge to the Car entity.
 func (m *Mutation) ClearCar() {
 	m.clearedcar = true
-	m.clearedFields[FieldCarID] = struct{}{}
+	m.clearedFields[FieldCarId] = struct{}{}
 }
 
 // CarCleared reports if the "car" edge to the Car entity was cleared.
@@ -139,10 +139,10 @@ func (m *Mutation) CarCleared() bool {
 	return m.clearedcar
 }
 
-// CarIDs returns the "car" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// CarID instead. It exists only for internal usage by the builders.
-func (m *Mutation) CarIDs() (ids []uuid.UUID) {
+// CarIds returns the "car" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// CarId instead. It exists only for internal usage by the builders.
+func (m *Mutation) CarIds() (ids []uuid.UUID) {
 	if id := m.car; id != nil {
 		ids = append(ids, *id)
 	}
@@ -194,10 +194,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldDate)
 	}
 	if m.user != nil {
-		fields = append(fields, FieldUserID)
+		fields = append(fields, FieldUserId)
 	}
 	if m.car != nil {
-		fields = append(fields, FieldCarID)
+		fields = append(fields, FieldCarId)
 	}
 	return fields
 }
@@ -209,10 +209,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldDate:
 		return m.Date()
-	case FieldUserID:
-		return m.UserID()
-	case FieldCarID:
-		return m.CarID()
+	case FieldUserId:
+		return m.UserId()
+	case FieldCarId:
+		return m.CarId()
 	}
 	return nil, false
 }
@@ -236,19 +236,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetDate(v)
 		return nil
-	case FieldUserID:
+	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUserID(v)
+		m.SetUserId(v)
 		return nil
-	case FieldCarID:
+	case FieldCarId:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCarID(v)
+		m.SetCarId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Rental field %s", name)
@@ -305,11 +305,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldDate:
 		m.ResetDate()
 		return nil
-	case FieldUserID:
-		m.ResetUserID()
+	case FieldUserId:
+		m.ResetUserId()
 		return nil
-	case FieldCarID:
-		m.ResetCarID()
+	case FieldCarId:
+		m.ResetCarId()
 		return nil
 	}
 	return fmt.Errorf("unknown Rental field %s", name)
@@ -327,9 +327,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUser:
 		if id := m.user; id != nil {
@@ -349,9 +349,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -18,8 +18,8 @@ import (
 // GroupInfo is the model entity for the GroupInfo schema.
 type GroupInfo struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Desc holds the value of the "desc" field.
 	Desc string `json:"desc,omitempty"`
 	// MaxUsers holds the value of the "max_users" field.
@@ -54,7 +54,7 @@ func (*GroupInfo) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case groupinfo.FieldID, groupinfo.FieldMaxUsers:
+		case groupinfo.FieldId, groupinfo.FieldMaxUsers:
 			values[i] = new(sql.NullInt64)
 		case groupinfo.FieldDesc:
 			values[i] = new(sql.NullString)
@@ -73,12 +73,12 @@ func (_m *GroupInfo) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case groupinfo.FieldID:
+		case groupinfo.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case groupinfo.FieldDesc:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desc", values[i])
@@ -131,7 +131,7 @@ func (_m *GroupInfo) Unwrap() *GroupInfo {
 func (_m *GroupInfo) String() string {
 	var builder strings.Builder
 	builder.WriteString("GroupInfo(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("desc=")
 	builder.WriteString(_m.Desc)
 	builder.WriteString(", ")

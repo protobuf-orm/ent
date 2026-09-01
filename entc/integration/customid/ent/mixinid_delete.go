@@ -16,26 +16,26 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// MixinIDDelete is the builder for deleting a MixinID entity.
-type MixinIDDelete struct {
+// MixinIdDelete is the builder for deleting a MixinId entity.
+type MixinIdDelete struct {
 	config
 	hooks    []Hook
-	mutation *MixinIDMutation
+	mutation *MixinIdMutation
 }
 
-// Where appends a list predicates to the MixinIDDelete builder.
-func (_d *MixinIDDelete) Where(ps ...predicate.MixinID) *MixinIDDelete {
+// Where appends a list predicates to the MixinIdDelete builder.
+func (_d *MixinIdDelete) Where(ps ...predicate.MixinId) *MixinIdDelete {
 	_d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (_d *MixinIDDelete) Exec(ctx context.Context) (int, error) {
+func (_d *MixinIdDelete) Exec(ctx context.Context) (int, error) {
 	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *MixinIDDelete) ExecX(ctx context.Context) int {
+func (_d *MixinIdDelete) ExecX(ctx context.Context) int {
 	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
@@ -43,8 +43,8 @@ func (_d *MixinIDDelete) ExecX(ctx context.Context) int {
 	return n
 }
 
-func (_d *MixinIDDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(mixinid.Table, sqlgraph.NewFieldSpec(mixinid.FieldID, field.TypeUUID))
+func (_d *MixinIdDelete) sqlExec(ctx context.Context) (int, error) {
+	_spec := sqlgraph.NewDeleteSpec(mixinid.Table, sqlgraph.NewFieldSpec(mixinid.FieldId, field.TypeUuid))
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -60,19 +60,19 @@ func (_d *MixinIDDelete) sqlExec(ctx context.Context) (int, error) {
 	return affected, err
 }
 
-// MixinIDDeleteOne is the builder for deleting a single MixinID entity.
-type MixinIDDeleteOne struct {
-	_d *MixinIDDelete
+// MixinIdDeleteOne is the builder for deleting a single MixinId entity.
+type MixinIdDeleteOne struct {
+	_d *MixinIdDelete
 }
 
-// Where appends a list predicates to the MixinIDDelete builder.
-func (_d *MixinIDDeleteOne) Where(ps ...predicate.MixinID) *MixinIDDeleteOne {
+// Where appends a list predicates to the MixinIdDelete builder.
+func (_d *MixinIdDeleteOne) Where(ps ...predicate.MixinId) *MixinIdDeleteOne {
 	_d._d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query.
-func (_d *MixinIDDeleteOne) Exec(ctx context.Context) error {
+func (_d *MixinIdDeleteOne) Exec(ctx context.Context) error {
 	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
@@ -85,7 +85,7 @@ func (_d *MixinIDDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *MixinIDDeleteOne) ExecX(ctx context.Context) {
+func (_d *MixinIdDeleteOne) ExecX(ctx context.Context) {
 	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}

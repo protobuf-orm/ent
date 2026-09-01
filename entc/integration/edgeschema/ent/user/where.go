@@ -12,49 +12,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.User {
-	return predicate.User(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.User {
+	return predicate.User(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.User {
-	return predicate.User(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.User {
+	return predicate.User(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldId, id))
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
@@ -131,7 +131,7 @@ func NameContainsFold(v string) predicate.User {
 func HasGroups() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, GroupsTable, GroupsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -154,7 +154,7 @@ func HasGroupsWith(preds ...predicate.Group) predicate.User {
 func HasFriends() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -177,7 +177,7 @@ func HasFriendsWith(preds ...predicate.User) predicate.User {
 func HasRelatives() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, RelativesTable, RelativesPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -200,7 +200,7 @@ func HasRelativesWith(preds ...predicate.User) predicate.User {
 func HasLikedTweets() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, LikedTweetsTable, LikedTweetsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -223,7 +223,7 @@ func HasLikedTweetsWith(preds ...predicate.Tweet) predicate.User {
 func HasTweets() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, TweetsTable, TweetsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -246,7 +246,7 @@ func HasTweetsWith(preds ...predicate.Tweet) predicate.User {
 func HasRoles() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -269,7 +269,7 @@ func HasRolesWith(preds ...predicate.Role) predicate.User {
 func HasJoinedGroups() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, JoinedGroupsTable, JoinedGroupsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -292,7 +292,7 @@ func HasJoinedGroupsWith(preds ...predicate.UserGroup) predicate.User {
 func HasFriendships() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, FriendshipsTable, FriendshipsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -315,7 +315,7 @@ func HasFriendshipsWith(preds ...predicate.Friendship) predicate.User {
 func HasRelationship() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, RelationshipTable, RelationshipColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -338,7 +338,7 @@ func HasRelationshipWith(preds ...predicate.Relationship) predicate.User {
 func HasLikes() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, LikesTable, LikesColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -361,7 +361,7 @@ func HasLikesWith(preds ...predicate.TweetLike) predicate.User {
 func HasUserTweets() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, UserTweetsTable, UserTweetsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -384,7 +384,7 @@ func HasUserTweetsWith(preds ...predicate.UserTweet) predicate.User {
 func HasRolesUsers() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, RolesUsersTable, RolesUsersColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

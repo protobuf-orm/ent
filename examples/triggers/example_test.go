@@ -24,7 +24,7 @@ func TestTriggers(t *testing.T) {
 		t.Skip()
 	}
 	ctx := context.Background()
-	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_URL"))
+	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_Url"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,9 +35,9 @@ func TestTriggers(t *testing.T) {
 	// Automatically update the database with the desired schema.
 	// Another option, is to use 'migrate apply' or 'schema apply' manually.
 	_, err = ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
-		// URL to your database. For example:
+		// Url to your database. For example:
 		// postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable
-		URL:         os.Getenv("DB_URL"),
+		Url:         os.Getenv("DB_Url"),
 		Env:         "local",
 		AutoApprove: true,
 	})
@@ -54,7 +54,7 @@ func TestTriggers(t *testing.T) {
 	require.Contains(t, logs[0].NewValue, "a8m")
 
 	client.User.Update().SetName("Ariel").ExecX(ctx)
-	logs = client.UserAuditLog.Query().Order(userauditlog.ByID()).AllX(ctx)
+	logs = client.UserAuditLog.Query().Order(userauditlog.ById()).AllX(ctx)
 	require.Len(t, logs, 2)
 	require.Equal(t, "UPDATE", logs[1].OperationType)
 	require.Contains(t, logs[1].OldValue, "a8m")

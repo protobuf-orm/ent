@@ -76,7 +76,7 @@ func IncrementStartAnnotation(g *Graph) error {
 		lastIdx = -1
 	)
 	for _, n := range g.Nodes {
-		a := n.EntSQL()
+		a := n.EntSql()
 		if a == nil {
 			a = &entsql.Annotation{}
 		}
@@ -101,7 +101,7 @@ func IncrementStartAnnotation(g *Graph) error {
 	// Compute new ranges and write them back to the file.
 	for i, n := range need {
 		r[n.Table()] = (lastIdx + i + 1) << 32
-		a := n.EntSQL()
+		a := n.EntSql()
 		a.IncrementStart = func(i int) *int { return &i }(r[n.Table()]) // copy to not override previous values
 		if err := setAnnotation(n, a); err != nil {
 			return err

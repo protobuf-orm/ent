@@ -33,12 +33,12 @@ type Mutation struct {
 		{{- end }}
 	{{- end }}
 	clearedFields map[string]struct{}
-	{{- range $e := $.EdgesWithID }}
+	{{- range $e := $.EdgesWithId }}
 		{{- if $e.Unique }}
-			{{ $e.BuilderField }} *{{ $e.Type.ID.Type }}
+			{{ $e.BuilderField }} *{{ $e.Type.Id.Type }}
 		{{- else }}
-			{{ $e.BuilderField }} map[{{ $e.Type.ID.Type }}]struct{}
-			removed{{ $e.BuilderField }} map[{{ $e.Type.ID.Type }}]struct{}
+			{{ $e.BuilderField }} map[{{ $e.Type.Id.Type }}]struct{}
+			removed{{ $e.BuilderField }} map[{{ $e.Type.Id.Type }}]struct{}
 		{{- end }}
 		cleared{{ $e.BuilderField }} bool
 	{{- end }}
@@ -77,7 +77,7 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 		{{- if $f.SupportsMutationAdd }}
 			m.add{{ $f.BuilderField }} = nil
 		{{- end }}
-		{{- /* Setting JSON type override previous calls to Append. */}}
+		{{- /* Setting Json type override previous calls to Append. */}}
 		{{- if $f.SupportsMutationAppend }}
 			m.append{{ $f.BuilderField }} = nil
 		{{- end }}
@@ -169,18 +169,18 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 {{ end }}
 
 
-{{ range $e := $.EdgesWithID }}
+{{ range $e := $.EdgesWithId }}
 	{{ $op := "add" }}{{ $idsFunc := $e.MutationAdd }}{{ if $e.Unique }}{{ $op = "set" }}{{ $idsFunc = $e.MutationSet }}{{ end }}
 	{{/* Check if this setter was already defined by the field-setters (e.g. edge-field with the same name). */}}
 	{{ $withSetGet := not $e.HasFieldSetter }}
 	{{ if $withSetGet }}
 		// {{ $idsFunc }} {{ $op }}s the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by id{{ if not $e.Unique }}s{{ end }}.
-		func (m *Mutation) {{ $idsFunc }}({{ if $e.Unique }}id{{ else }}ids ...{{ end }} {{ $e.Type.ID.Type }}) {
+		func (m *Mutation) {{ $idsFunc }}({{ if $e.Unique }}id{{ else }}ids ...{{ end }} {{ $e.Type.Id.Type }}) {
 			{{- if $e.Unique }}
 				m.{{ $e.BuilderField }} = &id
 			{{- else }}
 				if m.{{ $e.BuilderField }} == nil {
-					m.{{ $e.BuilderField }} = make(map[{{ $e.Type.ID.Type }}]struct{})
+					m.{{ $e.BuilderField }} = make(map[{{ $e.Type.Id.Type }}]struct{})
 				}
 				for i := range ids {
 					m.{{ $e.BuilderField }}[ids[i]] = struct{}{}
@@ -207,10 +207,10 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 
 	{{ if not $e.Unique }}
 		{{ $p := lower (printf "%.1s" $e.Type.Name) }}
-		// {{ $e.MutationRemove }} removes the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by IDs.
-		func (m *Mutation) {{ $e.MutationRemove }}(ids ...{{ $e.Type.ID.Type }}) {
+		// {{ $e.MutationRemove }} removes the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by Ids.
+		func (m *Mutation) {{ $e.MutationRemove }}(ids ...{{ $e.Type.Id.Type }}) {
 			if m.removed{{ $e.BuilderField }} == nil {
-				m.removed{{ $e.BuilderField }} = make(map[{{ $e.Type.ID.Type }}]struct{})
+				m.removed{{ $e.BuilderField }} = make(map[{{ $e.Type.Id.Type }}]struct{})
 			}
 			for i := range ids {
 				delete(m.{{ $e.BuilderField }}, ids[i])
@@ -219,16 +219,16 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 		}
 
 		{{ $func := print "Removed" $e.StructField }}
-		// {{ $func }} returns the removed IDs of the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity.
-		func (m *Mutation) {{ $func }}IDs() (ids []{{ $e.Type.ID.Type }}) {
+		// {{ $func }} returns the removed Ids of the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity.
+		func (m *Mutation) {{ $func }}Ids() (ids []{{ $e.Type.Id.Type }}) {
 			for id := range m.removed{{ $e.BuilderField }} {
 				ids = append(ids, id)
 			}
 			return
 		}
 	{{ else if and $e.Unique $withSetGet }}
-		// {{ $e.StructField }}ID returns the "{{ $e.Name }}" edge ID in the mutation.
-		func (m *Mutation) {{ $e.StructField }}ID() (id {{ $e.Type.ID.Type }}, exists bool) {
+		// {{ $e.StructField }}Id returns the "{{ $e.Name }}" edge Id in the mutation.
+		func (m *Mutation) {{ $e.StructField }}Id() (id {{ $e.Type.Id.Type }}, exists bool) {
 			if m.{{ $e.BuilderField }} != nil {
 				return *m.{{ $e.BuilderField }}, true
 			}
@@ -236,12 +236,12 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 		}
 	{{ end }}
 
-	// {{ $e.StructField }}IDs returns the "{{ $e.Name }}" edge IDs in the mutation.
+	// {{ $e.StructField }}Ids returns the "{{ $e.Name }}" edge Ids in the mutation.
 	{{- if $e.Unique }}
-		// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-		// {{ $e.StructField }}ID instead. It exists only for internal usage by the builders.
+		// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+		// {{ $e.StructField }}Id instead. It exists only for internal usage by the builders.
 	{{- end }}
-	func (m *Mutation) {{ $e.StructField }}IDs() (ids []{{ $e.Type.ID.Type }}) {
+	func (m *Mutation) {{ $e.StructField }}Ids() (ids []{{ $e.Type.Id.Type }}) {
 		{{- if $e.Unique }}
 			if id := m.{{ $e.BuilderField }}; id != nil {
 				ids = append(ids, *id)
@@ -329,7 +329,7 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
 func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	{{- if $.HasCompositeID }}
+	{{- if $.HasCompositeId }}
 		return nil, errors.New("edge schema {{ $.Name }} does not support getting old values")
 	{{- else }}
 		return nil, fmt.Errorf("unknown {{ $.Name }} field %s", name)
@@ -473,8 +473,8 @@ func (m *Mutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *Mutation) AddedEdges() []string {
-	edges := make([]string, 0, {{ len $.EdgesWithID }})
-	{{- range $e := $.EdgesWithID }}
+	edges := make([]string, 0, {{ len $.EdgesWithId }})
+	{{- range $e := $.EdgesWithId }}
 		if m.{{ $e.BuilderField }} != nil {
 			edges = append(edges, {{ $e.Constant }})
 		}
@@ -482,12 +482,12 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
-	{{- with $.EdgesWithID }}
+func (m *Mutation) AddedIds(name string) []ent.Value {
+	{{- with $.EdgesWithId }}
 		switch name {
-		{{- range $e := $.EdgesWithID }}
+		{{- range $e := $.EdgesWithId }}
 			case {{ $e.Constant }}:
 				{{- if $e.Unique }}
 					if id := m.{{ $e.BuilderField }}; id != nil {
@@ -508,8 +508,8 @@ func (m *Mutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *Mutation) RemovedEdges() []string {
-	edges := make([]string, 0, {{ len $.EdgesWithID }})
-	{{- range $e := $.EdgesWithID }}
+	edges := make([]string, 0, {{ len $.EdgesWithId }})
+	{{- range $e := $.EdgesWithId }}
 		{{- if not $e.Unique }}
 			if m.removed{{ $e.BuilderField }} != nil {
 				edges = append(edges, {{ $e.Constant }})
@@ -519,10 +519,10 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
-	{{- $edges := list }}{{ range $e := $.EdgesWithID }}{{ if not $e.Unique }}{{ $edges = append $edges $e }}{{ end }}{{ end }}
+func (m *Mutation) RemovedIds(name string) []ent.Value {
+	{{- $edges := list }}{{ range $e := $.EdgesWithId }}{{ if not $e.Unique }}{{ $edges = append $edges $e }}{{ end }}{{ end }}
 	{{- with $edges }}
 		switch name {
 		{{- range $e := $edges }}
@@ -540,8 +540,8 @@ func (m *Mutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *Mutation) ClearedEdges() []string {
-	edges := make([]string, 0, {{ len $.EdgesWithID }})
-	{{- range $e := $.EdgesWithID }}
+	edges := make([]string, 0, {{ len $.EdgesWithId }})
+	{{- range $e := $.EdgesWithId }}
 		if m.cleared{{ $e.BuilderField }} {
 			edges = append(edges, {{ $e.Constant }})
 		}
@@ -552,9 +552,9 @@ func (m *Mutation) ClearedEdges() []string {
 // EdgeCleared returns a boolean which indicates if the edge with the given name
 // was cleared in this mutation.
 func (m *Mutation) EdgeCleared(name string) bool {
-	{{- with $.EdgesWithID }}
+	{{- with $.EdgesWithId }}
 		switch name {
-		{{- range $e := $.EdgesWithID }}
+		{{- range $e := $.EdgesWithId }}
 			case {{ $e.Constant }}:
 				return m.cleared{{ $e.BuilderField }}
 		{{- end }}
@@ -566,9 +566,9 @@ func (m *Mutation) EdgeCleared(name string) bool {
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
 func (m *Mutation) ClearEdge(name string) error {
-	{{- with $.EdgesWithID }}
+	{{- with $.EdgesWithId }}
 		switch name {
-		{{- range $e := $.EdgesWithID }}
+		{{- range $e := $.EdgesWithId }}
 			{{- if $e.Unique }}
 				case {{ $e.Constant }}:
 					m.{{ $e.MutationClear }}()
@@ -583,9 +583,9 @@ func (m *Mutation) ClearEdge(name string) error {
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
 func (m *Mutation) ResetEdge(name string) error {
-	{{- with $.EdgesWithID }}
+	{{- with $.EdgesWithId }}
 		switch name {
-		{{- range $e := $.EdgesWithID }}
+		{{- range $e := $.EdgesWithId }}
 			case {{ $e.Constant }}:
 				m.{{ $e.MutationReset }}()
 				return nil

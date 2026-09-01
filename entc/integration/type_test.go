@@ -43,7 +43,7 @@ func Types(t *testing.T, client *ent.Client) {
 		SetInt64(64).
 		SaveX(ctx)
 
-	require.NotEmpty(t, ft.ID)
+	require.NotEmpty(t, ft.Id)
 	require.Equal(1, ft.Int)
 	require.Equal(int8(8), ft.Int8)
 	require.Equal(int16(16), ft.Int16)
@@ -70,9 +70,9 @@ func Types(t *testing.T, client *ent.Client) {
 		SetDir("dir").
 		SetNdir("ndir").
 		SetNullStr(&sql.NullString{String: "not-default", Valid: true}).
-		SetLink(schema.Link{URL: link}).
-		SetLinkOther(&schema.Link{URL: link}).
-		SetNullLink(&schema.Link{URL: link}).
+		SetLink(schema.Link{Url: link}).
+		SetLinkOther(&schema.Link{Url: link}).
+		SetNullLink(&schema.Link{Url: link}).
 		SetRole(role.Admin).
 		SetPriority(role.High).
 		SetDuration(time.Hour).
@@ -100,7 +100,7 @@ func Types(t *testing.T, client *ent.Client) {
 	require.Equal("localhost", ft.Link.String())
 	require.Equal("localhost", ft.LinkOther.String())
 	require.Equal("localhost", ft.NullLink.String())
-	require.Equal(net.IP("127.0.0.1").String(), ft.IP.String())
+	require.Equal(net.IP("127.0.0.1").String(), ft.Ip.String())
 	mac, err := net.ParseMAC("3b:b3:6b:3c:10:79")
 	require.Equal(role.Admin, ft.Role)
 	require.Equal(role.High, ft.Priority)
@@ -164,13 +164,13 @@ func Types(t *testing.T, client *ent.Client) {
 		SetNdir("ndir").
 		SetStr(sql.NullString{String: "str", Valid: true}).
 		SetNullStr(&sql.NullString{String: "str", Valid: true}).
-		SetLink(schema.Link{URL: link}).
-		SetNullLink(&schema.Link{URL: link}).
-		SetLinkOther(&schema.Link{URL: link}).
+		SetLink(schema.Link{Url: link}).
+		SetNullLink(&schema.Link{Url: link}).
+		SetLinkOther(&schema.Link{Url: link}).
 		SetSchemaInt(64).
 		SetSchemaInt8(8).
 		SetSchemaInt64(64).
-		SetMAC(schema.MAC{HardwareAddr: mac}).
+		SetMac(schema.Mac{HardwareAddr: mac}).
 		SetPair(schema.Pair{K: []byte("K1"), V: []byte("V1")}).
 		SetNilPair(&schema.Pair{K: []byte("K1"), V: []byte("V1")}).
 		SetStringArray([]string{"qux"}).
@@ -198,12 +198,12 @@ func Types(t *testing.T, client *ent.Client) {
 	require.Equal(schema.Int(64), ft.SchemaInt)
 	require.Equal(schema.Int8(8), ft.SchemaInt8)
 	require.Equal(schema.Int64(64), ft.SchemaInt64)
-	require.Equal(mac.String(), ft.MAC.String())
+	require.Equal(mac.String(), ft.Mac.String())
 	require.Equal(schema.Pair{K: []byte("K1"), V: []byte("V1")}, ft.Pair)
 	require.Equal(&schema.Pair{K: []byte("K1"), V: []byte("V1")}, ft.NilPair)
 	require.EqualValues([]string{"qux"}, ft.StringArray)
-	require.Nil(ft.NillableUUID)
-	require.Equal(uuid.UUID{}, ft.OptionalUUID)
+	require.Nil(ft.NillableUuid)
+	require.Equal(uuid.UUID{}, ft.OptionalUuid)
 	require.Equal("2000", ft.BigInt.String())
 	require.EqualValues(100, ft.Int64, "UpdateDefault sets the value to 100")
 	require.EqualValues(100, ft.Duration, "UpdateDefault sets the value to 100ns")

@@ -15,14 +15,14 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldT holds the string denoting the t field in the database.
 	FieldT = "t"
-	// FieldURL holds the string denoting the url field in the database.
-	FieldURL = "url"
-	// FieldURLs holds the string denoting the urls field in the database.
-	FieldURLs = "urls"
+	// FieldUrl holds the string denoting the url field in the database.
+	FieldUrl = "url"
+	// FieldUrls holds the string denoting the urls field in the database.
+	FieldUrls = "urls"
 	// FieldRaw holds the string denoting the raw field in the database.
 	FieldRaw = "raw"
 	// FieldDirs holds the string denoting the dirs field in the database.
@@ -47,12 +47,12 @@ const (
 	Table = "user"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldT,
-	FieldURL,
-	FieldURLs,
+	FieldUrl,
+	FieldUrls,
 	FieldRaw,
 	FieldDirs,
 	FieldInts,
@@ -91,7 +91,7 @@ var (
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }

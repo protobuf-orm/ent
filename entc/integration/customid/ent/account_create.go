@@ -34,33 +34,33 @@ func (_c *AccountCreate) SetEmail(v string) *AccountCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *AccountCreate) SetID(v sid.ID) *AccountCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *AccountCreate) SetId(v sid.Id) *AccountCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *AccountCreate) SetNillableID(v *sid.ID) *AccountCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *AccountCreate) SetNillableId(v *sid.Id) *AccountCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// AddTokenIDs adds the "token" edge to the Token entity by IDs.
-func (_c *AccountCreate) AddTokenIDs(ids ...sid.ID) *AccountCreate {
-	_c.mutation.AddTokenIDs(ids...)
+// AddTokenIds adds the "token" edge to the Token entity by Ids.
+func (_c *AccountCreate) AddTokenIds(ids ...sid.Id) *AccountCreate {
+	_c.mutation.AddTokenIds(ids...)
 	return _c
 }
 
 // AddToken adds the "token" edges to the Token entity.
 func (_c *AccountCreate) AddToken(v ...*Token) *AccountCreate {
-	ids := make([]sid.ID, len(v))
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTokenIDs(ids...)
+	return _c.AddTokenIds(ids...)
 }
 
 // Mutation returns the AccountMutation object of the builder.
@@ -98,9 +98,9 @@ func (_c *AccountCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *AccountCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := account.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := account.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -128,14 +128,14 @@ func (_c *AccountCreate) sqlSave(ctx context.Context) (*Account, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*sid.ID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*sid.Id); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -143,18 +143,18 @@ func (_c *AccountCreate) sqlSave(ctx context.Context) (*Account, error) {
 func (_c *AccountCreate) createSpec() (*Account, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Account{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(account.Table, sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther))
+		_spec = sqlgraph.NewCreateSpec(account.Table, sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Email(); ok {
 		_spec.SetField(account.FieldEmail, field.TypeString, value)
 		_node.Email = value
 	}
-	if nodes := _c.mutation.TokenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TokenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -162,7 +162,7 @@ func (_c *AccountCreate) createSpec() (*Account, *sqlgraph.CreateSpec) {
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -234,22 +234,22 @@ func (u *AccountUpsert) UpdateEmail() *AccountUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Account.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(account.FieldID)
+//				u.SetIgnore(account.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *AccountUpsertOne) UpdateNewValues() *AccountUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(account.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(account.FieldId)
 		}
 	}))
 	return u
@@ -267,7 +267,7 @@ func (u *AccountUpsertOne) Ignore() *AccountUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *AccountUpsertOne) DoNothing() *AccountUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -311,23 +311,23 @@ func (u *AccountUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *AccountUpsertOne) ID(ctx context.Context) (id sid.ID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: AccountUpsertOne.ID is not supported by MySQL driver. Use AccountUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *AccountUpsertOne) Id(ctx context.Context) (id sid.Id, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: AccountUpsertOne.Id is not supported by MySql driver. Use AccountUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *AccountUpsertOne) IDX(ctx context.Context) sid.ID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *AccountUpsertOne) IdX(ctx context.Context) sid.Id {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -380,7 +380,7 @@ func (_c *AccountCreateBulk) Save(ctx context.Context) ([]*Account, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -468,7 +468,7 @@ type AccountUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(account.FieldID)
+//				u.SetIgnore(account.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -476,8 +476,8 @@ func (u *AccountUpsertBulk) UpdateNewValues() *AccountUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(account.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(account.FieldId)
 			}
 		}
 	}))
@@ -496,7 +496,7 @@ func (u *AccountUpsertBulk) Ignore() *AccountUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *AccountUpsertBulk) DoNothing() *AccountUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

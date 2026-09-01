@@ -46,9 +46,9 @@ func (_u *FileUpdate) SetNillableName(v *string) *FileUpdate {
 	return _u
 }
 
-// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
-func (_u *FileUpdate) AddProcessesIDs(ids ...int) *FileUpdate {
-	_u.mutation.AddProcessesIDs(ids...)
+// AddProcessesIds adds the "processes" edge to the Process entity by Ids.
+func (_u *FileUpdate) AddProcessesIds(ids ...int) *FileUpdate {
+	_u.mutation.AddProcessesIds(ids...)
 	return _u
 }
 
@@ -56,9 +56,9 @@ func (_u *FileUpdate) AddProcessesIDs(ids ...int) *FileUpdate {
 func (_u *FileUpdate) AddProcesses(v ...*Process) *FileUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddProcessesIDs(ids...)
+	return _u.AddProcessesIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -72,9 +72,9 @@ func (_u *FileUpdate) ClearProcesses() *FileUpdate {
 	return _u
 }
 
-// RemoveProcessesIDs removes the "processes" edge to Process entities by IDs.
-func (_u *FileUpdate) RemoveProcessesIDs(ids ...int) *FileUpdate {
-	_u.mutation.RemoveProcessesIDs(ids...)
+// RemoveProcessesIds removes the "processes" edge to Process entities by Ids.
+func (_u *FileUpdate) RemoveProcessesIds(ids ...int) *FileUpdate {
+	_u.mutation.RemoveProcessesIds(ids...)
 	return _u
 }
 
@@ -82,9 +82,9 @@ func (_u *FileUpdate) RemoveProcessesIDs(ids ...int) *FileUpdate {
 func (_u *FileUpdate) RemoveProcesses(v ...*Process) *FileUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveProcessesIDs(ids...)
+	return _u.RemoveProcessesIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -115,7 +115,7 @@ func (_u *FileUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -134,12 +134,12 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedProcessesIDs(); len(nodes) > 0 && !_u.mutation.ProcessesCleared() {
+	if nodes := _u.mutation.RemovedProcessesIds(); len(nodes) > 0 && !_u.mutation.ProcessesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -147,7 +147,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -155,7 +155,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ProcessesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProcessesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -163,7 +163,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -205,9 +205,9 @@ func (_u *FileUpdateOne) SetNillableName(v *string) *FileUpdateOne {
 	return _u
 }
 
-// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
-func (_u *FileUpdateOne) AddProcessesIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.AddProcessesIDs(ids...)
+// AddProcessesIds adds the "processes" edge to the Process entity by Ids.
+func (_u *FileUpdateOne) AddProcessesIds(ids ...int) *FileUpdateOne {
+	_u.mutation.AddProcessesIds(ids...)
 	return _u
 }
 
@@ -215,9 +215,9 @@ func (_u *FileUpdateOne) AddProcessesIDs(ids ...int) *FileUpdateOne {
 func (_u *FileUpdateOne) AddProcesses(v ...*Process) *FileUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddProcessesIDs(ids...)
+	return _u.AddProcessesIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -231,9 +231,9 @@ func (_u *FileUpdateOne) ClearProcesses() *FileUpdateOne {
 	return _u
 }
 
-// RemoveProcessesIDs removes the "processes" edge to Process entities by IDs.
-func (_u *FileUpdateOne) RemoveProcessesIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.RemoveProcessesIDs(ids...)
+// RemoveProcessesIds removes the "processes" edge to Process entities by Ids.
+func (_u *FileUpdateOne) RemoveProcessesIds(ids ...int) *FileUpdateOne {
+	_u.mutation.RemoveProcessesIds(ids...)
 	return _u
 }
 
@@ -241,9 +241,9 @@ func (_u *FileUpdateOne) RemoveProcessesIDs(ids ...int) *FileUpdateOne {
 func (_u *FileUpdateOne) RemoveProcesses(v ...*Process) *FileUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveProcessesIDs(ids...)
+	return _u.RemoveProcessesIds(ids...)
 }
 
 // Where appends a list predicates to the FileUpdate builder.
@@ -287,20 +287,20 @@ func (_u *FileUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
-	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "File.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldId)
 		for _, f := range fields {
 			if !file.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != file.FieldID {
+			if f != file.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -323,12 +323,12 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedProcessesIDs(); len(nodes) > 0 && !_u.mutation.ProcessesCleared() {
+	if nodes := _u.mutation.RemovedProcessesIds(); len(nodes) > 0 && !_u.mutation.ProcessesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -336,7 +336,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -344,7 +344,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ProcessesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProcessesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -352,7 +352,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

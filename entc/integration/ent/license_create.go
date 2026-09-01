@@ -54,9 +54,9 @@ func (_c *LicenseCreate) SetNillableUpdateTime(v *time.Time) *LicenseCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *LicenseCreate) SetID(v int) *LicenseCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *LicenseCreate) SetId(v int) *LicenseCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
@@ -127,11 +127,11 @@ func (_c *LicenseCreate) sqlSave(ctx context.Context) (*License, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -139,12 +139,12 @@ func (_c *LicenseCreate) sqlSave(ctx context.Context) (*License, error) {
 func (_c *LicenseCreate) createSpec() (*License, *sqlgraph.CreateSpec) {
 	var (
 		_node = &License{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(license.Table, sqlgraph.NewFieldSpec(license.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(license.Table, sqlgraph.NewFieldSpec(license.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.CreateTime(); ok {
 		_spec.SetField(license.FieldCreateTime, field.TypeTime, value)
@@ -218,22 +218,22 @@ func (u *LicenseUpsert) UpdateUpdateTime() *LicenseUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.License.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(license.FieldID)
+//				u.SetIgnore(license.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *LicenseUpsertOne) UpdateNewValues() *LicenseUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(license.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(license.FieldId)
 		}
 		if _, exists := u.create.mutation.CreateTime(); exists {
 			s.SetIgnore(license.FieldCreateTime)
@@ -254,7 +254,7 @@ func (u *LicenseUpsertOne) Ignore() *LicenseUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LicenseUpsertOne) DoNothing() *LicenseUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -298,18 +298,18 @@ func (u *LicenseUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *LicenseUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *LicenseUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *LicenseUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *LicenseUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -362,10 +362,10 @@ func (_c *LicenseCreateBulk) Save(ctx context.Context) ([]*License, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -454,7 +454,7 @@ type LicenseUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(license.FieldID)
+//				u.SetIgnore(license.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -462,8 +462,8 @@ func (u *LicenseUpsertBulk) UpdateNewValues() *LicenseUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(license.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(license.FieldId)
 			}
 			if _, exists := b.mutation.CreateTime(); exists {
 				s.SetIgnore(license.FieldCreateTime)
@@ -485,7 +485,7 @@ func (u *LicenseUpsertBulk) Ignore() *LicenseUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LicenseUpsertBulk) DoNothing() *LicenseUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

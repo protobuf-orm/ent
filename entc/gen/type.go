@@ -41,8 +41,8 @@ type (
 		// alias, or local package name of the generated package.
 		// Empty means no alias.
 		alias string
-		// ID holds the ID field of this type.
-		ID *Field
+		// Id holds the Id field of this type.
+		Id *Field
 		// Fields holds all the primitive fields of this type.
 		Fields []*Field
 		fields map[string]*Field
@@ -54,12 +54,12 @@ type (
 		ForeignKeys []*ForeignKey
 		foreignKeys map[string]struct{}
 		// Annotations that were defined for the field in the schema.
-		// The mapping is from the Annotation.Name() to a JSON decoded object.
+		// The mapping is from the Annotation.Name() to a Json decoded object.
 		Annotations Annotations
 		// EdgeSchema indicates that this type (schema) is being used as an "edge schema".
 		// The To and From fields holds references to the edges that go "through" this type.
 		EdgeSchema struct {
-			ID       []*Field
+			Id       []*Field
 			To, From *Edge
 		}
 	}
@@ -98,7 +98,7 @@ type (
 		// the schema. Unlike the default id field, which is defined by the generator.
 		UserDefined bool
 		// Annotations that were defined for the field in the schema.
-		// The mapping is from the Annotation.Name() to a JSON decoded object.
+		// The mapping is from the Annotation.Name() to a Json decoded object.
 		Annotations Annotations
 		// referenced foreign-key.
 		fk *ForeignKey
@@ -141,7 +141,7 @@ type (
 		//
 		Bidi bool
 		// Annotations that were defined for the edge in the schema.
-		// The mapping is from the Annotation.Name() to a JSON decoded object.
+		// The mapping is from the Annotation.Name() to a Json decoded object.
 		Annotations Annotations
 	}
 
@@ -173,7 +173,7 @@ type (
 		// Columns are the table columns.
 		Columns []string
 		// Annotations that were defined for the index in the schema.
-		// The mapping is from the Annotation.Name() to a JSON decoded object.
+		// The mapping is from the Annotation.Name() to a Json decoded object.
 		Annotations Annotations
 	}
 
@@ -208,9 +208,9 @@ type (
 
 // NewType creates a new type and its fields from the given schema.
 func NewType(c *Config, schema *load.Schema) (*Type, error) {
-	idType := c.IDType
+	idType := c.IdType
 	if idType == nil {
-		idType = defaultIDType
+		idType = defaultIdType
 	}
 	typ := &Type{
 		Config:      c,
@@ -222,7 +222,7 @@ func NewType(c *Config, schema *load.Schema) (*Type, error) {
 		foreignKeys: make(map[string]struct{}),
 	}
 	if !typ.IsView() {
-		typ.ID = &Field{
+		typ.Id = &Field{
 			cfg:  c,
 			typ:  typ,
 			Name: "id",
@@ -259,11 +259,11 @@ func NewType(c *Config, schema *load.Schema) (*Type, error) {
 			return nil, err
 		}
 		// User defined id field.
-		if typ.ID != nil && tf.Name == typ.ID.Name {
+		if typ.Id != nil && tf.Name == typ.Id.Name {
 			if tf.Optional {
 				return nil, errors.New("id field cannot be optional")
 			}
-			typ.ID = tf
+			typ.Id = tf
 		} else {
 			typ.Fields = append(typ.Fields, tf)
 			typ.fields[f.Name] = tf
@@ -283,14 +283,14 @@ func (t Type) IsEdgeSchema() bool {
 	return t.EdgeSchema.To != nil || t.EdgeSchema.From != nil
 }
 
-// HasCompositeID indicates if the type has a composite ID field.
-func (t Type) HasCompositeID() bool {
-	return t.IsEdgeSchema() && len(t.EdgeSchema.ID) > 1
+// HasCompositeId indicates if the type has a composite Id field.
+func (t Type) HasCompositeId() bool {
+	return t.IsEdgeSchema() && len(t.EdgeSchema.Id) > 1
 }
 
-// HasOneFieldID indicates if the type has an ID with one field (not composite).
-func (t Type) HasOneFieldID() bool {
-	return !t.HasCompositeID() && t.ID != nil
+// HasOneFieldId indicates if the type has an Id with one field (not composite).
+func (t Type) HasOneFieldId() bool {
+	return !t.HasCompositeId() && t.Id != nil
 }
 
 // Label returns the label name of the node/type.
@@ -298,9 +298,9 @@ func (t Type) Label() string {
 	return snake(t.Name)
 }
 
-// Table returns SQL table name of the node/type.
+// Table returns Sql table name of the node/type.
 func (t Type) Table() string {
-	if ant := t.EntSQL(); ant != nil && ant.Table != "" {
+	if ant := t.EntSql(); ant != nil && ant.Table != "" {
 		return ant.Table
 	}
 	if t.schema != nil && t.schema.Config.Table != "" {
@@ -309,8 +309,8 @@ func (t Type) Table() string {
 	return snake(t.Name)
 }
 
-// EntSQL returns the EntSQL annotation if exists.
-func (t Type) EntSQL() *entsql.Annotation {
+// EntSql returns the EntSql annotation if exists.
+func (t Type) EntSql() *entsql.Annotation {
 	return sqlAnnotate(t.Annotations)
 }
 
@@ -366,8 +366,8 @@ func (t Type) HasAssoc(name string) (*Edge, bool) {
 // HasValidators reports if any of the type's field has validators.
 func (t Type) HasValidators() bool {
 	fields := t.Fields
-	if t.HasOneFieldID() && t.ID.UserDefined {
-		fields = append(fields, t.ID)
+	if t.HasOneFieldId() && t.Id.UserDefined {
+		fields = append(fields, t.Id)
 	}
 	for _, f := range fields {
 		if f.Validators > 0 {
@@ -380,8 +380,8 @@ func (t Type) HasValidators() bool {
 // HasDefault reports if any of this type's fields has default value on creation.
 func (t Type) HasDefault() bool {
 	fields := t.Fields
-	if t.HasOneFieldID() && t.ID.UserDefined {
-		fields = append(fields, t.ID)
+	if t.HasOneFieldId() && t.Id.UserDefined {
+		fields = append(fields, t.Id)
 	}
 	for _, f := range fields {
 		if f.Default {
@@ -446,11 +446,11 @@ func (t Type) FKEdges() (edges []*Edge) {
 	return
 }
 
-// EdgesWithID returns all edges that point to entities with non-composite identifiers.
+// EdgesWithId returns all edges that point to entities with non-composite identifiers.
 // These types of edges can be created, updated and deleted by their identifiers.
-func (t Type) EdgesWithID() (edges []*Edge) {
+func (t Type) EdgesWithId() (edges []*Edge) {
 	for _, e := range t.Edges {
-		if !e.Type.HasCompositeID() {
+		if !e.Type.HasCompositeId() {
 			edges = append(edges, e)
 		}
 	}
@@ -467,8 +467,8 @@ func (t Type) RuntimeMixin() bool {
 func (t Type) MixedInFields() []int {
 	idx := make(map[int]struct{})
 	fields := t.Fields
-	if t.HasOneFieldID() && t.ID.UserDefined {
-		fields = append(fields, t.ID)
+	if t.HasOneFieldId() && t.Id.UserDefined {
+		fields = append(fields, t.Id)
 	}
 	for _, f := range fields {
 		if f.Position != nil && f.Position.MixedIn && (f.Default || f.UpdateDefault || f.Validators > 0) {
@@ -581,8 +581,8 @@ func (t Type) EnumFields() []*Field {
 
 // FieldBy returns the first field that the given function returns true on it.
 func (t Type) FieldBy(fn func(*Field) bool) (*Field, bool) {
-	if fn(t.ID) {
-		return t.ID, true
+	if fn(t.Id) {
+		return t.Id, true
 	}
 	for _, f := range t.Fields {
 		if fn(f) {
@@ -644,8 +644,8 @@ func (t *Type) AddIndex(idx *load.Index) error {
 	}
 	for _, name := range idx.Fields {
 		var f *Field
-		if t.HasOneFieldID() && name == t.ID.Name {
-			f = t.ID
+		if t.HasOneFieldId() && name == t.Id.Name {
+			f = t.Id
 		} else if f = t.fields[name]; f == nil {
 			return fmt.Errorf("unknown index field %q", name)
 		}
@@ -693,9 +693,9 @@ func (t *Type) setupFKs() error {
 		if e.IsInverse() || e.M2M() {
 			continue
 		}
-		owner, refid := t, e.Type.ID
+		owner, refid := t, e.Type.Id
 		if !e.OwnFK() {
-			owner, refid = e.Type, t.ID
+			owner, refid = e.Type, t.Id
 		}
 		fk := &ForeignKey{
 			Edge: e,
@@ -725,7 +725,7 @@ func (t *Type) setupFKs() error {
 				}
 			}
 		}
-		// Special case for checking if the FK is already defined as the ID field (Issue 1288).
+		// Special case for checking if the FK is already defined as the Id field (Issue 1288).
 		if key, _ := e.StorageKey(); key != nil && len(key.Columns) == 1 && key.Columns[0] == refid.StorageKey() {
 			fk.Field = refid
 			fk.UserDefined = true
@@ -763,7 +763,7 @@ func (t *Type) setupFieldEdge(fk *ForeignKey, fkOwner *Edge, fkName string) erro
 	case tf.HasValueScanner():
 		return fmt.Errorf("edge-field %q cannot have an external ValueScanner", fkName)
 	}
-	if t1, t2 := tf.Type.Type, fkOwner.Type.ID.Type.Type; t1 != t2 {
+	if t1, t2 := tf.Type.Type, fkOwner.Type.Id.Type.Type; t1 != t2 {
 		return fmt.Errorf("mismatch field type between edge field %q and id of type %q (%s != %s)", fkName, fkOwner.Type.Name, t1, t2)
 	}
 	fk.UserDefined = true
@@ -1003,7 +1003,7 @@ func ValidSchemaName(name string) error {
 
 // checkField checks the schema field.
 func (t *Type) checkField(tf *Field, f *load.Field) (err error) {
-	switch ant := tf.EntSQL(); {
+	switch ant := tf.EntSql(); {
 	case f.Name == "":
 		err = fmt.Errorf("field name cannot be empty")
 	case f.Info == nil || !f.Info.Valid():
@@ -1019,7 +1019,7 @@ func (t *Type) checkField(tf *Field, f *load.Field) (err error) {
 			// Enum types should be named as follows: typepkg.Field.
 			f.Info.Ident = fmt.Sprintf("%s.%s", t.PackageDir(), pascal(f.Name))
 		}
-	case tf.Validators > 0 && !tf.ConvertedToBasic() && f.Info.Type != field.TypeJSON:
+	case tf.Validators > 0 && !tf.ConvertedToBasic() && f.Info.Type != field.TypeJson:
 		err = fmt.Errorf("GoType %q for field %q must be converted to the basic %q type for validators", tf.Type, f.Name, tf.Type.Type)
 	case ant != nil && ant.Default != "" && (ant.DefaultExpr != "" || ant.DefaultExprs != nil):
 		err = fmt.Errorf("field %q cannot have both default value and default expression annotations", f.Name)
@@ -1070,9 +1070,9 @@ func aliases(g *Graph) {
 	}
 }
 
-// sqlComment returns the SQL database comment for the node (table), if defined and enabled.
+// sqlComment returns the Sql database comment for the node (table), if defined and enabled.
 func (t Type) sqlComment() string {
-	if ant := t.EntSQL(); ant == nil || ant.WithComments == nil || !*ant.WithComments {
+	if ant := t.EntSql(); ant == nil || ant.WithComments == nil || !*ant.WithComments {
 		return ""
 	}
 	ant := &entschema.CommentAnnotation{}
@@ -1166,8 +1166,8 @@ func (f Field) Validator() string {
 	return pascal(f.Name) + "Validator"
 }
 
-// EntSQL returns the EntSQL annotation if exists.
-func (f Field) EntSQL() *entsql.Annotation {
+// EntSql returns the EntSql annotation if exists.
+func (f Field) EntSql() *entsql.Annotation {
 	return sqlAnnotate(f.Annotations)
 }
 
@@ -1186,7 +1186,7 @@ var mutMethods = func() map[string]bool {
 // with the mutation methods, prefix the method with "Get".
 func (f Field) MutationGet() string {
 	name := pascal(f.Name)
-	if mutMethods[name] || (name == "SetID" && f.typ.ID.UserDefined) {
+	if mutMethods[name] || (name == "SetId" && f.typ.Id.UserDefined) {
 		name = "Get" + name
 	}
 	return name
@@ -1278,7 +1278,7 @@ func (f Field) MutationAppended() string {
 
 // RequiredFor returns a list of dialects that this field is required for.
 // A field can be required in one database, but optional in the other. e.g.,
-// in case a SchemaType was defined as "serial" for PostgreSQL, but "int" for SQLite.
+// in case a SchemaType was defined as "serial" for PostgreSql, but "int" for SQLite.
 func (f Field) RequiredFor() (dialects []string) {
 	seen := make(map[string]struct{})
 	switch f.def.SchemaType[dialect.Postgres] {
@@ -1314,8 +1314,8 @@ func (f Field) IsBytes() bool { return f.Type != nil && f.Type.Type == field.Typ
 // IsTime returns true if the field is a timestamp field.
 func (f Field) IsTime() bool { return f.Type != nil && f.Type.Type == field.TypeTime }
 
-// IsJSON returns true if the field is a JSON field.
-func (f Field) IsJSON() bool { return f.Type != nil && f.Type.Type == field.TypeJSON }
+// IsJson returns true if the field is a Json field.
+func (f Field) IsJson() bool { return f.Type != nil && f.Type.Type == field.TypeJson }
 
 // IsOther returns true if the field is an Other field.
 func (f Field) IsOther() bool { return f.Type != nil && f.Type.Type == field.TypeOther }
@@ -1323,8 +1323,8 @@ func (f Field) IsOther() bool { return f.Type != nil && f.Type.Type == field.Typ
 // IsString returns true if the field is a string field.
 func (f Field) IsString() bool { return f.Type != nil && f.Type.Type == field.TypeString }
 
-// IsUUID returns true if the field is a UUID field.
-func (f Field) IsUUID() bool { return f.Type != nil && f.Type.Type == field.TypeUUID }
+// IsUuid returns true if the field is a Uuid field.
+func (f Field) IsUuid() bool { return f.Type != nil && f.Type.Type == field.TypeUuid }
 
 // IsInt returns true if the field is an int field.
 func (f Field) IsInt() bool { return f.Type != nil && f.Type.Type == field.TypeInt }
@@ -1387,7 +1387,7 @@ func (f Field) ScanType() string {
 		return f.Type.RType.String()
 	}
 	switch f.Type.Type {
-	case field.TypeJSON, field.TypeBytes:
+	case field.TypeJson, field.TypeBytes:
 		return "[]byte"
 	case field.TypeString, field.TypeEnum:
 		return "sql.NullString"
@@ -1407,7 +1407,7 @@ func (f Field) ScanType() string {
 // HasValueScanner reports if any of the fields has (an external) ValueScanner.
 func (t Type) HasValueScanner() bool {
 	sqlStorage := t.Config == nil || t.Storage == nil || t.Storage.Name == "sql"
-	if sqlStorage && t.ID != nil && t.ID.HasValueScanner() {
+	if sqlStorage && t.Id != nil && t.Id.HasValueScanner() {
 		return true
 	}
 	for _, f := range t.Fields {
@@ -1419,12 +1419,12 @@ func (t Type) HasValueScanner() bool {
 }
 
 // HasEdgeValueScanner reports if any edge of the type points at a type whose
-// ID goes through an external ValueScanner. The edge spec has to convert the
+// Id goes through an external ValueScanner. The edge spec has to convert the
 // target ids with it, because they are compared against a column that holds
 // the converted form.
 func (t Type) HasEdgeValueScanner() bool {
 	for _, e := range t.Edges {
-		if e.Type != nil && e.Type.ID != nil && e.Type.ID.HasValueScanner() {
+		if e.Type != nil && e.Type.Id != nil && e.Type.Id.HasValueScanner() {
 			return true
 		}
 	}
@@ -1473,7 +1473,7 @@ func (f Field) FromValueFunc() (string, error) {
 
 // NewScanType returns an expression for creating a new object
 // to be used by the `rows.Scan` method. A sql.Scanner or a
-// nillable-type supported by the SQL driver (e.g. []byte).
+// nillable-type supported by the Sql driver (e.g. []byte).
 func (f Field) NewScanType() string {
 	if f.Type.ValueScanner() {
 		expr := fmt.Sprintf("new(%s)", f.Type.RType.String())
@@ -1484,7 +1484,7 @@ func (f Field) NewScanType() string {
 	}
 	expr := f.Type.String()
 	switch f.Type.Type {
-	case field.TypeJSON, field.TypeBytes:
+	case field.TypeJson, field.TypeBytes:
 		expr = "[]byte"
 	case field.TypeString, field.TypeEnum:
 		expr = "sql.NullString"
@@ -1530,7 +1530,7 @@ func (f Field) ScanTypeField(rec string) string {
 	return expr
 }
 
-// standardNullType reports if the field is one of the standard SQL types.
+// standardNullType reports if the field is one of the standard Sql types.
 func (f Field) standardNullType() bool {
 	for _, t := range []reflect.Type{
 		nullBoolType,
@@ -1554,7 +1554,7 @@ func (f Field) standardNullType() bool {
 }
 
 // Column returns the table column. It sets it as a primary key (auto_increment)
-// in case of ID field, unless stated otherwise.
+// in case of Id field, unless stated otherwise.
 func (f Field) Column() *schema.Column {
 	c := &schema.Column{
 		Name:     f.StorageKey(),
@@ -1575,7 +1575,7 @@ func (f Field) Column() *schema.Column {
 	}
 	// Override the default-value defined in the
 	// schema if it was provided by an annotation.
-	switch ant := f.EntSQL(); {
+	switch ant := f.EntSql(); {
 	case ant == nil:
 	case ant.Default != "":
 		c.Default = ant.Default
@@ -1590,7 +1590,7 @@ func (f Field) Column() *schema.Column {
 	}
 	// Override the collation defined in the
 	// schema if it was provided by an annotation.
-	if ant := f.EntSQL(); ant != nil && ant.Collation != "" {
+	if ant := f.EntSql(); ant != nil && ant.Collation != "" {
 		c.Collation = ant.Collation
 	}
 	if f.def != nil {
@@ -1602,7 +1602,7 @@ func (f Field) Column() *schema.Column {
 // incremental returns if the column has an incremental behavior.
 // If no value is defined externally, we use a provided def flag.
 func (f Field) incremental(def bool) bool {
-	if ant := f.EntSQL(); ant != nil && ant.Incremental != nil {
+	if ant := f.EntSql(); ant != nil && ant.Incremental != nil {
 		return *ant.Incremental
 	}
 	return def
@@ -1610,7 +1610,7 @@ func (f Field) incremental(def bool) bool {
 
 // size returns the field size defined in the schema.
 func (f Field) size() int64 {
-	if ant := f.EntSQL(); ant != nil && ant.Size != 0 {
+	if ant := f.EntSql(); ant != nil && ant.Size != 0 {
 		return ant.Size
 	}
 	if f.def != nil && f.def.Size != nil {
@@ -1628,7 +1628,7 @@ func (f Field) PK() *schema.Column {
 		Comment:   f.sqlComment(),
 		Increment: f.incremental(f.Type.Type.Integer()),
 	}
-	// If the PK was defined by the user, and it is UUID or string.
+	// If the PK was defined by the user, and it is Uuid or string.
 	if f.UserDefined && !f.Type.Numeric() {
 		c.Increment = false
 		c.Type = f.Type.Type
@@ -1639,7 +1639,7 @@ func (f Field) PK() *schema.Column {
 	}
 	// Override the default-value defined in the
 	// schema if it was provided by an annotation.
-	ant := f.EntSQL()
+	ant := f.EntSql()
 	switch {
 	case ant == nil:
 	case ant.Default != "":
@@ -1665,9 +1665,9 @@ func (f Field) PK() *schema.Column {
 	return c
 }
 
-// sqlComment returns the SQL database comment for the field, if defined and enabled.
+// sqlComment returns the Sql database comment for the field, if defined and enabled.
 func (f Field) sqlComment() string {
-	fa, ta := f.EntSQL(), f.typ.EntSQL()
+	fa, ta := f.EntSql(), f.typ.EntSql()
 	switch c := f.Comment(); {
 	// Field annotation gets precedence over type annotation.
 	case fa != nil && fa.WithComments != nil:
@@ -1683,7 +1683,7 @@ func (f Field) sqlComment() string {
 }
 
 // StorageKey returns the storage name of the field.
-// SQL column.
+// Sql column.
 func (f Field) StorageKey() string {
 	if f.def != nil && f.def.StorageKey != "" {
 		return f.def.StorageKey
@@ -1767,7 +1767,7 @@ func rtypeEqual(t1, t2 *field.RType) bool {
 
 // SupportsMutationAppend reports if the field supports the mutation append operation.
 func (f Field) SupportsMutationAppend() bool {
-	return f.IsJSON() && f.Type.RType != nil && f.Type.RType.Kind == reflect.Slice
+	return f.IsJson() && f.Type.RType != nil && f.Type.RType.Kind == reflect.Slice
 }
 
 var (
@@ -1828,7 +1828,7 @@ func (f Field) BasicType(ident string) (expr string) {
 		case rt.TypeEqual(nullStringType) || rt.TypeEqual(nullStringPType):
 			expr = fmt.Sprintf("%s.String", ident)
 		}
-	case field.TypeJSON:
+	case field.TypeJson:
 		expr = ident
 	default:
 		if t.Numeric() && rt.Kind >= reflect.Int && rt.Kind <= reflect.Float64 {
@@ -1948,7 +1948,7 @@ func (e Edge) StructField() string {
 }
 
 // OwnFK indicates if the foreign-key of this edge is owned by the edge
-// column (reside in the type's table). Used by the SQL storage-driver.
+// column (reside in the type's table). Used by the Sql storage-driver.
 func (e Edge) OwnFK() bool {
 	switch {
 	case e.M2O():
@@ -1992,8 +1992,8 @@ func (e Edge) Comment() string {
 	return ""
 }
 
-// HasFieldSetter reports if this edge already has a field-edge setters for its mutation API.
-// It's used by the codegen templates to avoid generating duplicate setters for id APIs (e.g. SetOwnerID).
+// HasFieldSetter reports if this edge already has a field-edge setters for its mutation Api.
+// It's used by the codegen templates to avoid generating duplicate setters for id Apis (e.g. SetOwnerId).
 func (e Edge) HasFieldSetter() bool {
 	if !e.OwnFK() {
 		return false
@@ -2007,12 +2007,12 @@ func (e Edge) HasFieldSetter() bool {
 
 // MutationSet returns the method name for setting the edge id.
 func (e Edge) MutationSet() string {
-	return "Set" + pascal(e.Name) + "ID"
+	return "Set" + pascal(e.Name) + "Id"
 }
 
 // MutationAdd returns the method name for adding edge ids.
 func (e Edge) MutationAdd() string {
-	return "Add" + pascal(e.Name) + "IDs"
+	return "Add" + pascal(e.Name) + "Ids"
 }
 
 // MutationReset returns the method name for resetting the edge value.
@@ -2039,7 +2039,7 @@ func (e Edge) MutationClear() string {
 
 // MutationRemove returns the method name for removing edge ids.
 func (e Edge) MutationRemove() string {
-	return "Remove" + pascal(e.Name) + "IDs"
+	return "Remove" + pascal(e.Name) + "Ids"
 }
 
 // MutationCleared returns the method name for indicating if the edge
@@ -2121,8 +2121,8 @@ func (e Edge) StorageKey() (*edge.StorageKey, error) {
 	return assoc.def.StorageKey, nil
 }
 
-// EntSQL returns the EntSQL annotation if exists.
-func (e Edge) EntSQL() *entsql.Annotation {
+// EntSql returns the EntSql annotation if exists.
+func (e Edge) EntSql() *entsql.Annotation {
 	return sqlAnnotate(e.Annotations)
 }
 

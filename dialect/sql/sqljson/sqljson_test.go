@@ -29,33 +29,33 @@ func TestWritePath(t *testing.T) {
 			wantArgs:  []any{1},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueEQ("a", "a", sqljson.DotPath("b.c[1].d"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.b.c[1].d') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.b.c[1].d') = ?",
 			wantArgs:  []any{"a"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueEQ("a", true, sqljson.DotPath("b.c[1].d"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.b.c[1].d') = true",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.b.c[1].d') = true",
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueEQ("a", "a", sqljson.DotPath("b.\"c[1]\".d[1][2].e"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.b.\"c[1]\".d[1][2].e') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.b.\"c[1]\".d[1][2].e') = ?",
 			wantArgs:  []any{"a"},
 		},
 		{
 			input: sql.Select("*").
 				From(sql.Table("test")).
 				Where(sqljson.ValueEQ("j", sqljson.ValuePath("j", sqljson.DotPath("a.*.b")), sqljson.DotPath("a.*.c"))),
-			wantQuery: "SELECT * FROM `test` WHERE JSON_EXTRACT(`j`, '$.a.*.c') = JSON_EXTRACT(`j`, '$.a.*.b')",
+			wantQuery: "SELECT * FROM `test` WHERE Json_EXTRACT(`j`, '$.a.*.c') = Json_EXTRACT(`j`, '$.a.*.b')",
 		},
 		{
 			input: sql.Dialect(dialect.Postgres).
@@ -68,27 +68,27 @@ func TestWritePath(t *testing.T) {
 			input: sql.Select("*").
 				From(sql.Table("test")).
 				Where(sqljson.HasKey("j", sqljson.DotPath("a.*.c"))),
-			wantQuery: "SELECT * FROM `test` WHERE JSON_EXTRACT(`j`, '$.a.*.c') IS NOT NULL",
+			wantQuery: "SELECT * FROM `test` WHERE Json_EXTRACT(`j`, '$.a.*.c') IS NOT NULL",
 		},
 		{
 			input: sql.Select("*").
 				From(sql.Table("test")).
 				Where(sqljson.HasKey("j", sqljson.DotPath("a.*.c"))),
-			wantQuery: "SELECT * FROM `test` WHERE JSON_EXTRACT(`j`, '$.a.*.c') IS NOT NULL",
+			wantQuery: "SELECT * FROM `test` WHERE Json_EXTRACT(`j`, '$.a.*.c') IS NOT NULL",
 		},
 		{
 			input: sql.Dialect(dialect.SQLite).
 				Select("*").
 				From(sql.Table("test")).
 				Where(sqljson.HasKey("j", sqljson.DotPath("attributes[1].body"))),
-			wantQuery: "SELECT * FROM `test` WHERE JSON_TYPE(`j`, '$.attributes[1].body') IS NOT NULL",
+			wantQuery: "SELECT * FROM `test` WHERE Json_TYPE(`j`, '$.attributes[1].body') IS NOT NULL",
 		},
 		{
 			input: sql.Dialect(dialect.SQLite).
 				Select("*").
 				From(sql.Table("test")).
 				Where(sqljson.HasKey("j", sqljson.DotPath("a.*.c"))),
-			wantQuery: "SELECT * FROM `test` WHERE JSON_TYPE(`j`, '$.a.*.c') IS NOT NULL",
+			wantQuery: "SELECT * FROM `test` WHERE Json_TYPE(`j`, '$.a.*.c') IS NOT NULL",
 		},
 		{
 			input: sql.Dialect(dialect.SQLite).
@@ -101,7 +101,7 @@ func TestWritePath(t *testing.T) {
 						sql.EQ("active", true),
 					),
 				),
-			wantQuery: "SELECT * FROM `test` WHERE `id` > ? AND JSON_TYPE(`j`, '$.a.*.c') IS NOT NULL AND `active`",
+			wantQuery: "SELECT * FROM `test` WHERE `id` > ? AND Json_TYPE(`j`, '$.a.*.c') IS NOT NULL AND `active`",
 			wantArgs:  []any{100},
 		},
 		{
@@ -116,11 +116,11 @@ func TestWritePath(t *testing.T) {
 			wantArgs:  []any{10, 1},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueEQ("a", "a", sqljson.Path("b", "c", "[1]", "d"), sqljson.Unquote(true))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.b.c[1].d')) = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.b.c[1].d')) = ?",
 			wantArgs:  []any{"a"},
 		},
 		{
@@ -160,15 +160,15 @@ func TestWritePath(t *testing.T) {
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.LenEQ("a", 1)),
-			wantQuery: `SELECT * FROM "users" WHERE JSONB_ARRAY_LENGTH("a") = $1`,
+			wantQuery: `SELECT * FROM "users" WHERE JsonB_ARRAY_LENGTH("a") = $1`,
 			wantArgs:  []any{1},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.LenEQ("a", 1)),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_LENGTH(`a`, '$') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_LENGTH(`a`, '$') = ?",
 			wantArgs:  []any{1},
 		},
 		{
@@ -176,7 +176,7 @@ func TestWritePath(t *testing.T) {
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.LenEQ("a", 1)),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_ARRAY_LENGTH(`a`, '$') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_ARRAY_LENGTH(`a`, '$') = ?",
 			wantArgs:  []any{1},
 		},
 		{
@@ -191,23 +191,23 @@ func TestWritePath(t *testing.T) {
 						sqljson.LenLTE("a", 1, sqljson.Path("e")),
 					),
 				),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_ARRAY_LENGTH(`a`, '$.b') > ? OR JSON_ARRAY_LENGTH(`a`, '$.c') >= ? OR JSON_ARRAY_LENGTH(`a`, '$.d') < ? OR JSON_ARRAY_LENGTH(`a`, '$.e') <= ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_ARRAY_LENGTH(`a`, '$.b') > ? OR Json_ARRAY_LENGTH(`a`, '$.c') >= ? OR Json_ARRAY_LENGTH(`a`, '$.d') < ? OR Json_ARRAY_LENGTH(`a`, '$.e') <= ?",
 			wantArgs:  []any{1, 1, 1, 1},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueContains("tags", "foo")),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_CONTAINS(`tags`, ?, '$') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_CONTAINS(`tags`, ?, '$') = ?",
 			wantArgs:  []any{"\"foo\"", 1},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueContains("tags", 1, sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_CONTAINS(`tags`, ?, '$.a') = ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_CONTAINS(`tags`, ?, '$.a') = ?",
 			wantArgs:  []any{"1", 1},
 		},
 		{
@@ -215,7 +215,7 @@ func TestWritePath(t *testing.T) {
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueContains("tags", "foo")),
-			wantQuery: "SELECT * FROM `users` WHERE EXISTS(SELECT * FROM JSON_EACH(`tags`, '$') WHERE `value` = ?)",
+			wantQuery: "SELECT * FROM `users` WHERE EXISTS(SELECT * FROM Json_EACH(`tags`, '$') WHERE `value` = ?)",
 			wantArgs:  []any{"foo"},
 		},
 		{
@@ -223,7 +223,7 @@ func TestWritePath(t *testing.T) {
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueContains("tags", 1, sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE EXISTS(SELECT * FROM JSON_EACH(`tags`, '$.a') WHERE `value` = ?)",
+			wantQuery: "SELECT * FROM `users` WHERE EXISTS(SELECT * FROM Json_EACH(`tags`, '$.a') WHERE `value` = ?)",
 			wantArgs:  []any{1},
 		},
 		{
@@ -250,18 +250,18 @@ func TestWritePath(t *testing.T) {
 			wantQuery: `SELECT * FROM "users" WHERE ("c"->'a')::jsonb = 'null'::jsonb`,
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIsNull("c", sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_CONTAINS(`c`, 'null', '$.a')",
+			wantQuery: "SELECT * FROM `users` WHERE Json_CONTAINS(`c`, 'null', '$.a')",
 		},
 		{
 			input: sql.Dialect(dialect.SQLite).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIsNull("c", sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_TYPE(`c`, '$.a') = 'null'",
+			wantQuery: "SELECT * FROM `users` WHERE Json_TYPE(`c`, '$.a') = 'null'",
 		},
 		{
 			input: sql.Dialect(dialect.Postgres).
@@ -271,18 +271,18 @@ func TestWritePath(t *testing.T) {
 			wantQuery: `SELECT * FROM "users" WHERE ("c"->'a')::jsonb <> 'null'::jsonb`,
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIsNotNull("c", sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE NOT(JSON_CONTAINS(`c`, 'null', '$.a'))",
+			wantQuery: "SELECT * FROM `users` WHERE NOT(Json_CONTAINS(`c`, 'null', '$.a'))",
 		},
 		{
 			input: sql.Dialect(dialect.SQLite).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIsNotNull("c", sqljson.Path("a"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_TYPE(`c`, '$.a') <> 'null'",
+			wantQuery: "SELECT * FROM `users` WHERE Json_TYPE(`c`, '$.a') <> 'null'",
 		},
 		{
 			input: sql.Dialect(dialect.Postgres).
@@ -306,15 +306,15 @@ func TestWritePath(t *testing.T) {
 			wantArgs:  []any{"%c%", "%d%"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.StringContains("a", "substr", sqljson.Path("b", "c", "[1]", "d"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
 			wantArgs:  []any{"%substr%"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(
@@ -323,7 +323,7 @@ func TestWritePath(t *testing.T) {
 						sqljson.StringContains("b", "d", sqljson.Path("b")),
 					),
 				),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.a')) LIKE ? AND JSON_UNQUOTE(JSON_EXTRACT(`b`, '$.b')) LIKE ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.a')) LIKE ? AND Json_UNQUOTE(Json_EXTRACT(`b`, '$.b')) LIKE ?",
 			wantArgs:  []any{"%c%", "%d%"},
 		},
 		{
@@ -335,11 +335,11 @@ func TestWritePath(t *testing.T) {
 			wantArgs:  []any{"substr%"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.StringHasPrefix("a", "substr", sqljson.Path("b", "c", "[1]", "d"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
 			wantArgs:  []any{"substr%"},
 		},
 		{
@@ -351,53 +351,53 @@ func TestWritePath(t *testing.T) {
 			wantArgs:  []any{"%substr"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.StringHasSuffix("a", "substr", sqljson.Path("b", "c", "[1]", "d"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.b.c[1].d')) LIKE ?",
 			wantArgs:  []any{"%substr"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIn("a", []any{"a", "b"}, sqljson.Path("b"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_UNQUOTE(JSON_EXTRACT(`a`, '$.b')) IN (?, ?)",
+			wantQuery: "SELECT * FROM `users` WHERE Json_UNQUOTE(Json_EXTRACT(`a`, '$.b')) IN (?, ?)",
 			wantArgs:  []any{"a", "b"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIn("a", []any{1, 2}, sqljson.Path("b"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.b') IN (?, ?)",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.b') IN (?, ?)",
 			wantArgs:  []any{1, 2},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIn("a", []any{1, "a"}, sqljson.Path("b"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.b') IN (?, ?)",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.b') IN (?, ?)",
 			wantArgs:  []any{1, "a"},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				Where(sqljson.ValueIn("a", []any{1, 2}, sqljson.Path("foo-bar", "3000"))),
-			wantQuery: "SELECT * FROM `users` WHERE JSON_EXTRACT(`a`, '$.\"foo-bar\".\"3000\"') IN (?, ?)",
+			wantQuery: "SELECT * FROM `users` WHERE Json_EXTRACT(`a`, '$.\"foo-bar\".\"3000\"') IN (?, ?)",
 			wantArgs:  []any{1, 2},
 		},
 		{
-			input: sql.Dialect(dialect.MySQL).
+			input: sql.Dialect(dialect.MySql).
 				Select("*").
 				From(sql.Table("users")).
 				OrderExpr(
 					sqljson.LenPath("a", sqljson.Path("b")),
 				),
-			wantQuery: "SELECT * FROM `users` ORDER BY JSON_LENGTH(`a`, '$.b')",
+			wantQuery: "SELECT * FROM `users` ORDER BY Json_LENGTH(`a`, '$.b')",
 		},
 	}
 	for i, tt := range tests {
@@ -494,7 +494,7 @@ func TestAppend(t *testing.T) {
 				sqljson.Append(u, "c", []string{"a"})
 				return u
 			}(),
-			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (JSON_TYPE(`c`, '$') IS NULL OR JSON_TYPE(`c`, '$') = 'null') THEN ? ELSE JSON_INSERT(`c`, '$[#]', ?) END",
+			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (Json_TYPE(`c`, '$') IS NULL OR Json_TYPE(`c`, '$') = 'null') THEN ? ELSE Json_INSERT(`c`, '$[#]', ?) END",
 			wantArgs:  []any{`["a"]`, "a"},
 		},
 		{
@@ -503,25 +503,25 @@ func TestAppend(t *testing.T) {
 				sqljson.Append(u, "c", []any{"a", struct{}{}}, sqljson.Path("a"))
 				return u
 			}(),
-			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (JSON_TYPE(`c`, '$.a') IS NULL OR JSON_TYPE(`c`, '$.a') = 'null') THEN JSON_SET(`c`, '$.a', JSON(?)) ELSE JSON_INSERT(`c`, '$.a[#]', ?, '$.a[#]', JSON(?)) END",
+			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (Json_TYPE(`c`, '$.a') IS NULL OR Json_TYPE(`c`, '$.a') = 'null') THEN Json_SET(`c`, '$.a', Json(?)) ELSE Json_INSERT(`c`, '$.a[#]', ?, '$.a[#]', Json(?)) END",
 			wantArgs:  []any{`["a",{}]`, "a", "{}"},
 		},
 		{
 			input: func() sql.Querier {
-				u := sql.Dialect(dialect.MySQL).Update("t")
+				u := sql.Dialect(dialect.MySql).Update("t")
 				sqljson.Append(u, "c", []string{"a"})
 				return u
 			}(),
-			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (JSON_TYPE(JSON_EXTRACT(`c`, '$')) IS NULL OR JSON_TYPE(JSON_EXTRACT(`c`, '$')) = 'NULL') THEN JSON_ARRAY(?) ELSE JSON_ARRAY_APPEND(`c`, '$', ?) END",
+			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (Json_TYPE(Json_EXTRACT(`c`, '$')) IS NULL OR Json_TYPE(Json_EXTRACT(`c`, '$')) = 'NULL') THEN Json_ARRAY(?) ELSE Json_ARRAY_APPEND(`c`, '$', ?) END",
 			wantArgs:  []any{"a", "a"},
 		},
 		{
 			input: func() sql.Querier {
-				u := sql.Dialect(dialect.MySQL).Update("t")
+				u := sql.Dialect(dialect.MySql).Update("t")
 				sqljson.Append(u, "c", []string{"a"}, sqljson.Path("a"))
 				return u
 			}(),
-			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (JSON_TYPE(JSON_EXTRACT(`c`, '$.a')) IS NULL OR JSON_TYPE(JSON_EXTRACT(`c`, '$.a')) = 'NULL') THEN JSON_SET(`c`, '$.a', JSON_ARRAY(?)) ELSE JSON_ARRAY_APPEND(`c`, '$.a', ?) END",
+			wantQuery: "UPDATE `t` SET `c` = CASE WHEN (Json_TYPE(Json_EXTRACT(`c`, '$.a')) IS NULL OR Json_TYPE(Json_EXTRACT(`c`, '$.a')) = 'NULL') THEN Json_SET(`c`, '$.a', Json_ARRAY(?)) ELSE Json_ARRAY_APPEND(`c`, '$.a', ?) END",
 			wantArgs:  []any{"a", "a"},
 		},
 	}

@@ -57,7 +57,7 @@ func (User) Fields() []ent.Field {
 		field.Int("age"),
 		// extending name field to longtext.
 		field.Text("name"),
-		// extending the index prefix below (on MySQL).
+		// extending the index prefix below (on MySql).
 		field.Text("description").
 			Optional(),
 		// changing nickname from unique no non-unique.
@@ -99,7 +99,7 @@ func (User) Fields() []ent.Field {
 		// remove the max-length constraint from varchar.
 		field.String("workplace").
 			Optional(),
-		// JSON field with database-default value.
+		// Json field with database-default value.
 		field.Strings("roles").
 			Optional().
 			Annotations(entsql.Default(`[]`)),
@@ -109,7 +109,7 @@ func (User) Fields() []ent.Field {
 		field.String("default_exprs").
 			Optional().
 			Annotations(entsql.DefaultExprs(map[string]string{
-				dialect.MySQL:    "TO_BASE64('ent')",
+				dialect.MySql:    "TO_BASE64('ent')",
 				dialect.SQLite:   "hex('ent')",
 				dialect.Postgres: "md5('ent')",
 			})),
@@ -148,7 +148,7 @@ func (User) Edges() []ent.Edge {
 func (User) Indexes() []ent.Index {
 	return []ent.Index{
 		// Extend the column prefix by drop and create
-		// this index on MySQL.
+		// this index on MySql.
 		index.Fields("description").
 			Annotations(entsql.Prefix(100)),
 		// Deleting old indexes (name, address),
@@ -158,24 +158,24 @@ func (User) Indexes() []ent.Index {
 		index.Fields("age").
 			Annotations(entsql.Desc()),
 		// Enable FULLTEXT search on "nickname"
-		// field only in MySQL.
+		// field only in MySql.
 		index.Fields("nickname").
 			Annotations(
 				entsql.IndexTypes(map[string]string{
-					dialect.MySQL: "FULLTEXT",
+					dialect.MySql: "FULLTEXT",
 				}),
 			),
-		// For PostgreSQL, we can include in the index non-key columns.
+		// For PostgreSql, we can include in the index non-key columns.
 		index.Fields("workplace").
 			Annotations(
 				entsql.IncludeColumns("nickname"),
 			),
-		// For PostgreSQL and SQLite, users can define partial indexes.
+		// For PostgreSql and SQLite, users can define partial indexes.
 		index.Fields("phone").
 			Annotations(
 				entsql.IndexWhere(`active AND "phone" <> ''`),
 			),
-		// For PostgreSQL, operator classes can be configured for each field.
+		// For PostgreSql, operator classes can be configured for each field.
 		index.Fields("age", "phone").
 			Annotations(
 				entsql.OpClassColumn("phone", "bpchar_pattern_ops"),

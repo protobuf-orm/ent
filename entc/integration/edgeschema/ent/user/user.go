@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgeGroups holds the string denoting the groups edge name in mutations.
@@ -113,9 +113,9 @@ const (
 	RolesUsersColumn = "user_id"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
@@ -165,9 +165,9 @@ var (
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -344,84 +344,84 @@ func ByRolesUsers(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, GroupsTable, GroupsPrimaryKey...),
 	)
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }
 func newRelativesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, RelativesTable, RelativesPrimaryKey...),
 	)
 }
 func newLikedTweetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(LikedTweetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(LikedTweetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, LikedTweetsTable, LikedTweetsPrimaryKey...),
 	)
 }
 func newTweetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, TweetsTable, TweetsPrimaryKey...),
 	)
 }
 func newRolesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(RolesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(RolesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
 	)
 }
 func newJoinedGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(JoinedGroupsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(JoinedGroupsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, JoinedGroupsTable, JoinedGroupsColumn),
 	)
 }
 func newFriendshipsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FriendshipsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FriendshipsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, FriendshipsTable, FriendshipsColumn),
 	)
 }
 func newRelationshipStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(RelationshipInverseTable, RelationshipColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, RelationshipTable, RelationshipColumn),
 	)
 }
 func newLikesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(LikesInverseTable, LikesColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, LikesTable, LikesColumn),
 	)
 }
 func newUserTweetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserTweetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserTweetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, UserTweetsTable, UserTweetsColumn),
 	)
 }
 func newRolesUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(RolesUsersInverseTable, RolesUsersColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, RolesUsersTable, RolesUsersColumn),
 	)

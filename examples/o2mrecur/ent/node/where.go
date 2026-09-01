@@ -12,49 +12,49 @@ import (
 	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Node {
-	return predicate.Node(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Node {
+	return predicate.Node(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Node {
-	return predicate.Node(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Node {
+	return predicate.Node(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Node {
-	return predicate.Node(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Node {
+	return predicate.Node(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Node {
-	return predicate.Node(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Node {
+	return predicate.Node(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Node {
-	return predicate.Node(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Node {
+	return predicate.Node(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Node {
-	return predicate.Node(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Node {
+	return predicate.Node(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Node {
-	return predicate.Node(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Node {
+	return predicate.Node(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Node {
-	return predicate.Node(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Node {
+	return predicate.Node(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Node {
-	return predicate.Node(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Node {
+	return predicate.Node(sql.FieldLTE(FieldId, id))
 }
 
 // Value applies equality check predicate on the "value" field. It's identical to ValueEQ.
@@ -62,9 +62,9 @@ func Value(v int) predicate.Node {
 	return predicate.Node(sql.FieldEQ(FieldValue, v))
 }
 
-// ParentID applies equality check predicate on the "parent_id" field. It's identical to ParentIDEQ.
-func ParentID(v int) predicate.Node {
-	return predicate.Node(sql.FieldEQ(FieldParentID, v))
+// ParentId applies equality check predicate on the "parent_id" field. It's identical to ParentIdEQ.
+func ParentId(v int) predicate.Node {
+	return predicate.Node(sql.FieldEQ(FieldParentId, v))
 }
 
 // ValueEQ applies the EQ predicate on the "value" field.
@@ -107,41 +107,41 @@ func ValueLTE(v int) predicate.Node {
 	return predicate.Node(sql.FieldLTE(FieldValue, v))
 }
 
-// ParentIDEQ applies the EQ predicate on the "parent_id" field.
-func ParentIDEQ(v int) predicate.Node {
-	return predicate.Node(sql.FieldEQ(FieldParentID, v))
+// ParentIdEQ applies the EQ predicate on the "parent_id" field.
+func ParentIdEQ(v int) predicate.Node {
+	return predicate.Node(sql.FieldEQ(FieldParentId, v))
 }
 
-// ParentIDNEQ applies the NEQ predicate on the "parent_id" field.
-func ParentIDNEQ(v int) predicate.Node {
-	return predicate.Node(sql.FieldNEQ(FieldParentID, v))
+// ParentIdNEQ applies the NEQ predicate on the "parent_id" field.
+func ParentIdNEQ(v int) predicate.Node {
+	return predicate.Node(sql.FieldNEQ(FieldParentId, v))
 }
 
-// ParentIDIn applies the In predicate on the "parent_id" field.
-func ParentIDIn(vs ...int) predicate.Node {
-	return predicate.Node(sql.FieldIn(FieldParentID, vs...))
+// ParentIdIn applies the In predicate on the "parent_id" field.
+func ParentIdIn(vs ...int) predicate.Node {
+	return predicate.Node(sql.FieldIn(FieldParentId, vs...))
 }
 
-// ParentIDNotIn applies the NotIn predicate on the "parent_id" field.
-func ParentIDNotIn(vs ...int) predicate.Node {
-	return predicate.Node(sql.FieldNotIn(FieldParentID, vs...))
+// ParentIdNotIn applies the NotIn predicate on the "parent_id" field.
+func ParentIdNotIn(vs ...int) predicate.Node {
+	return predicate.Node(sql.FieldNotIn(FieldParentId, vs...))
 }
 
-// ParentIDIsNil applies the IsNil predicate on the "parent_id" field.
-func ParentIDIsNil() predicate.Node {
-	return predicate.Node(sql.FieldIsNull(FieldParentID))
+// ParentIdIsNil applies the IsNil predicate on the "parent_id" field.
+func ParentIdIsNil() predicate.Node {
+	return predicate.Node(sql.FieldIsNull(FieldParentId))
 }
 
-// ParentIDNotNil applies the NotNil predicate on the "parent_id" field.
-func ParentIDNotNil() predicate.Node {
-	return predicate.Node(sql.FieldNotNull(FieldParentID))
+// ParentIdNotNil applies the NotNil predicate on the "parent_id" field.
+func ParentIdNotNil() predicate.Node {
+	return predicate.Node(sql.FieldNotNull(FieldParentId))
 }
 
 // HasParent applies the HasEdge predicate on the "parent" edge.
 func HasParent() predicate.Node {
 	return predicate.Node(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -164,7 +164,7 @@ func HasParentWith(preds ...predicate.Node) predicate.Node {
 func HasChildren() predicate.Node {
 	return predicate.Node(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

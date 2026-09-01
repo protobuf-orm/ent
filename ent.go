@@ -316,16 +316,16 @@ type (
 		// AddedEdges returns all edge names that were set/added in this
 		// mutation.
 		AddedEdges() []string
-		// AddedIDs returns all ids (to other nodes) that were added for
+		// AddedIds returns all ids (to other nodes) that were added for
 		// the given edge name.
-		AddedIDs(name string) []Value
+		AddedIds(name string) []Value
 
 		// RemovedEdges returns all edge names that were removed in this
 		// mutation.
 		RemovedEdges() []string
-		// RemovedIDs returns all ids (to other nodes) that were removed for
+		// RemovedIds returns all ids (to other nodes) that were removed for
 		// the given edge name.
-		RemovedIDs(name string) []Value
+		RemovedIds(name string) []Value
 
 		// ClearedEdges returns all edge names that were cleared in this
 		// mutation.
@@ -501,11 +501,11 @@ func (i Op) Is(o Op) bool { return i&o != 0 }
 // List of query operations used by the codegen.
 const (
 	OpQueryFirst   = "First"
-	OpQueryFirstID = "FirstID"
+	OpQueryFirstId = "FirstId"
 	OpQueryOnly    = "Only"
-	OpQueryOnlyID  = "OnlyID"
+	OpQueryOnlyId  = "OnlyId"
 	OpQueryAll     = "All"
-	OpQueryIDs     = "IDs"
+	OpQueryIds     = "Ids"
 	OpQueryCount   = "Count"
 	OpQueryExist   = "Exist"
 	OpQueryGroupBy = "GroupBy"

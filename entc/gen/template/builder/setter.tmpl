@@ -16,9 +16,9 @@ in the LICENSE file in the root directory of this source tree.
 	{{ $updater = true }}
 	{{ $creator = false }}
 	{{ $fields = $.MutableFields }}
-{{- else if $.HasCompositeID }}
-{{- else if $.ID.UserDefined }}
-	{{ $fields = append $fields $.ID }}
+{{- else if $.HasCompositeId }}
+{{- else if $.Id.UserDefined }}
+	{{ $fields = append $fields $.Id }}
 {{- end }}
 
 {{ range $f := $fields }}
@@ -74,7 +74,7 @@ in the LICENSE file in the root directory of this source tree.
 	{{ end }}
 {{ end }}
 
-{{ range $e := $.EdgesWithID }}
+{{ range $e := $.EdgesWithId }}
 	{{ if and $updater $e.Immutable }}
 		{{/* Skip to the next one as immutable edges cannot be updated. */}}
 		{{continue}}
@@ -83,16 +83,16 @@ in the LICENSE file in the root directory of this source tree.
 	{{/* Check if this setter was already defined by the field-setters (e.g. edge-field with the same name). */}}
 	{{ $withSetter := not $e.HasFieldSetter }}
 	{{ if $withSetter }}
-		// {{ $idsFunc }} {{ $op }}s the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by ID{{ if not $e.Unique }}s{{ end }}.
-		func ({{ $receiver }} *{{ $builder }}) {{ $idsFunc }}({{ if $e.Unique }}id{{ else }}ids ...{{ end }} {{ $e.Type.ID.Type }}) *{{ $builder }} {
+		// {{ $idsFunc }} {{ $op }}s the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by Id{{ if not $e.Unique }}s{{ end }}.
+		func ({{ $receiver }} *{{ $builder }}) {{ $idsFunc }}({{ if $e.Unique }}id{{ else }}ids ...{{ end }} {{ $e.Type.Id.Type }}) *{{ $builder }} {
 			{{ $receiver }}.mutation.{{ $idsFunc }}({{ if $e.Unique }}id{{ else }}ids ...{{ end }})
 			return {{ $receiver }}
 		}
 	{{ end }}
 	{{ if and $e.Unique $e.Optional $withSetter }}
-		{{ $nillableIDsFunc := print "SetNillable" $e.StructField "ID" }}
-		// {{ $nillableIDsFunc }} sets the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by ID if the given value is not nil.
-		func ({{ $receiver }} *{{ $builder }}) {{ $nillableIDsFunc }}(id *{{ $e.Type.ID.Type }}) *{{ $builder }} {
+		{{ $nillableIdsFunc := print "SetNillable" $e.StructField "Id" }}
+		// {{ $nillableIdsFunc }} sets the "{{ $e.Name }}" edge to the {{ $e.Type.Name }} entity by Id if the given value is not nil.
+		func ({{ $receiver }} *{{ $builder }}) {{ $nillableIdsFunc }}(id *{{ $e.Type.Id.Type }}) *{{ $builder }} {
 			if id != nil {
 				{{ $receiver}} = {{ $receiver }}.{{ $idsFunc }}(*id)
 			}
@@ -103,11 +103,11 @@ in the LICENSE file in the root directory of this source tree.
 	// {{ $func }} {{ $op }}s the "{{ $e.Name }}" edge{{if not $e.Unique}}s{{ end }} to the {{ $e.Type.Name }} entity.
 	func ({{ $receiver }} *{{ $builder }}) {{ $func }}(v {{ if not $e.Unique }}...{{ end }}*{{ $e.Type.Name}}) *{{ $builder }} {
 		{{ if $e.Unique -}}
-			return {{ $receiver }}.{{ $idsFunc }}(v.ID)
+			return {{ $receiver }}.{{ $idsFunc }}(v.Id)
 		{{- else -}}
-			ids := make([]{{ $e.Type.ID.Type }}, len(v))
+			ids := make([]{{ $e.Type.Id.Type }}, len(v))
 			for i := range v {
-				ids[i] = v[i].ID
+				ids[i] = v[i].Id
 			}
 			return {{ $receiver }}.{{ $idsFunc }}(ids...)
 		{{- end }}

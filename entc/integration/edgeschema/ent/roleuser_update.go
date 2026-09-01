@@ -48,42 +48,42 @@ func (_u *RoleUserUpdate) SetNillableCreatedAt(v *time.Time) *RoleUserUpdate {
 	return _u
 }
 
-// SetRoleID sets the "role_id" field.
-func (_u *RoleUserUpdate) SetRoleID(v int) *RoleUserUpdate {
-	_u.mutation.SetRoleID(v)
+// SetRoleId sets the "role_id" field.
+func (_u *RoleUserUpdate) SetRoleId(v int) *RoleUserUpdate {
+	_u.mutation.SetRoleId(v)
 	return _u
 }
 
-// SetNillableRoleID sets the "role_id" field if the given value is not nil.
-func (_u *RoleUserUpdate) SetNillableRoleID(v *int) *RoleUserUpdate {
+// SetNillableRoleId sets the "role_id" field if the given value is not nil.
+func (_u *RoleUserUpdate) SetNillableRoleId(v *int) *RoleUserUpdate {
 	if v != nil {
-		_u.SetRoleID(*v)
+		_u.SetRoleId(*v)
 	}
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *RoleUserUpdate) SetUserID(v int) *RoleUserUpdate {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *RoleUserUpdate) SetUserId(v int) *RoleUserUpdate {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *RoleUserUpdate) SetNillableUserID(v *int) *RoleUserUpdate {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *RoleUserUpdate) SetNillableUserId(v *int) *RoleUserUpdate {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
 // SetRole sets the "role" edge to the Role entity.
 func (_u *RoleUserUpdate) SetRole(v *Role) *RoleUserUpdate {
-	return _u.SetRoleID(v.ID)
+	return _u.SetRoleId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *RoleUserUpdate) SetUser(v *User) *RoleUserUpdate {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the RoleUserMutation object of the builder.
@@ -132,10 +132,10 @@ func (_u *RoleUserUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *RoleUserUpdate) check() error {
-	if _u.mutation.RoleCleared() && len(_u.mutation.RoleIDs()) > 0 {
+	if _u.mutation.RoleCleared() && len(_u.mutation.RoleIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RoleUser.role"`)
 	}
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RoleUser.user"`)
 	}
 	return nil
@@ -145,7 +145,7 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(roleuser.Table, roleuser.Columns, sqlgraph.NewFieldSpec(roleuser.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(roleuser.FieldRoleID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(roleuser.Table, roleuser.Columns, sqlgraph.NewFieldSpec(roleuser.FieldUserId, field.TypeInt), sqlgraph.NewFieldSpec(roleuser.FieldRoleId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -164,12 +164,12 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{roleuser.RoleColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RoleIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RoleIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -177,7 +177,7 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{roleuser.RoleColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -193,12 +193,12 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{roleuser.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -206,7 +206,7 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{roleuser.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -248,42 +248,42 @@ func (_u *RoleUserUpdateOne) SetNillableCreatedAt(v *time.Time) *RoleUserUpdateO
 	return _u
 }
 
-// SetRoleID sets the "role_id" field.
-func (_u *RoleUserUpdateOne) SetRoleID(v int) *RoleUserUpdateOne {
-	_u.mutation.SetRoleID(v)
+// SetRoleId sets the "role_id" field.
+func (_u *RoleUserUpdateOne) SetRoleId(v int) *RoleUserUpdateOne {
+	_u.mutation.SetRoleId(v)
 	return _u
 }
 
-// SetNillableRoleID sets the "role_id" field if the given value is not nil.
-func (_u *RoleUserUpdateOne) SetNillableRoleID(v *int) *RoleUserUpdateOne {
+// SetNillableRoleId sets the "role_id" field if the given value is not nil.
+func (_u *RoleUserUpdateOne) SetNillableRoleId(v *int) *RoleUserUpdateOne {
 	if v != nil {
-		_u.SetRoleID(*v)
+		_u.SetRoleId(*v)
 	}
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *RoleUserUpdateOne) SetUserID(v int) *RoleUserUpdateOne {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *RoleUserUpdateOne) SetUserId(v int) *RoleUserUpdateOne {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *RoleUserUpdateOne) SetNillableUserID(v *int) *RoleUserUpdateOne {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *RoleUserUpdateOne) SetNillableUserId(v *int) *RoleUserUpdateOne {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
 // SetRole sets the "role" edge to the Role entity.
 func (_u *RoleUserUpdateOne) SetRole(v *Role) *RoleUserUpdateOne {
-	return _u.SetRoleID(v.ID)
+	return _u.SetRoleId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *RoleUserUpdateOne) SetUser(v *User) *RoleUserUpdateOne {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the RoleUserMutation object of the builder.
@@ -345,10 +345,10 @@ func (_u *RoleUserUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *RoleUserUpdateOne) check() error {
-	if _u.mutation.RoleCleared() && len(_u.mutation.RoleIDs()) > 0 {
+	if _u.mutation.RoleCleared() && len(_u.mutation.RoleIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RoleUser.role"`)
 	}
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RoleUser.user"`)
 	}
 	return nil
@@ -358,16 +358,16 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(roleuser.Table, roleuser.Columns, sqlgraph.NewFieldSpec(roleuser.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(roleuser.FieldRoleID, field.TypeInt))
-	if id, ok := _u.mutation.UserID(); !ok {
+	_spec := sqlgraph.NewUpdateSpec(roleuser.Table, roleuser.Columns, sqlgraph.NewFieldSpec(roleuser.FieldUserId, field.TypeInt), sqlgraph.NewFieldSpec(roleuser.FieldRoleId, field.TypeInt))
+	if id, ok := _u.mutation.UserId(); !ok {
 		return nil, &ValidationError{Name: "user_id", err: errors.New(`ent: missing "RoleUser.user_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[0].Value = id
+		_spec.Node.CompositeId[0].Value = id
 	}
-	if id, ok := _u.mutation.RoleID(); !ok {
+	if id, ok := _u.mutation.RoleId(); !ok {
 		return nil, &ValidationError{Name: "role_id", err: errors.New(`ent: missing "RoleUser.role_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[1].Value = id
+		_spec.Node.CompositeId[1].Value = id
 	}
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, len(fields))
@@ -396,12 +396,12 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 			Columns: []string{roleuser.RoleColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RoleIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RoleIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -409,7 +409,7 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 			Columns: []string{roleuser.RoleColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -425,12 +425,12 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 			Columns: []string{roleuser.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -438,7 +438,7 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 			Columns: []string{roleuser.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

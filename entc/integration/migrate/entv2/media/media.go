@@ -13,23 +13,23 @@ import (
 const (
 	// Label holds the string label denoting the media type in the database.
 	Label = "media"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldSource holds the string denoting the source field in the database.
 	FieldSource = "source"
-	// FieldSourceURI holds the string denoting the source_uri field in the database.
-	FieldSourceURI = "source_uri"
+	// FieldSourceUri holds the string denoting the source_uri field in the database.
+	FieldSourceUri = "source_uri"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// Table holds the table name of the media in the database.
 	Table = "media"
 )
 
-// Columns holds all SQL columns for media fields.
+// Columns holds all Sql columns for media fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldSource,
-	FieldSourceURI,
+	FieldSourceUri,
 	FieldText,
 }
 
@@ -46,9 +46,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Media queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // BySource orders the results by the source field.
@@ -56,9 +56,9 @@ func BySource(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldSource, opts...).ToFunc()
 }
 
-// BySourceURI orders the results by the source_uri field.
-func BySourceURI(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldSourceURI, opts...).ToFunc()
+// BySourceUri orders the results by the source_uri field.
+func BySourceUri(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSourceUri, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.

@@ -13,54 +13,54 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldLTE(FieldId, id))
 }
 
-// UUID applies equality check predicate on the "uuid" field. It's identical to UUIDEQ.
-func UUID(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldUUID, v))
+// Uuid applies equality check predicate on the "uuid" field. It's identical to UuidEQ.
+func Uuid(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldEQ(FieldUuid, v))
 }
 
 // Count applies equality check predicate on the "count" field. It's identical to CountEQ.
@@ -68,44 +68,44 @@ func Count(v int) predicate.Blob {
 	return predicate.Blob(sql.FieldEQ(FieldCount, v))
 }
 
-// UUIDEQ applies the EQ predicate on the "uuid" field.
-func UUIDEQ(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldEQ(FieldUUID, v))
+// UuidEQ applies the EQ predicate on the "uuid" field.
+func UuidEQ(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldEQ(FieldUuid, v))
 }
 
-// UUIDNEQ applies the NEQ predicate on the "uuid" field.
-func UUIDNEQ(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNEQ(FieldUUID, v))
+// UuidNEQ applies the NEQ predicate on the "uuid" field.
+func UuidNEQ(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldNEQ(FieldUuid, v))
 }
 
-// UUIDIn applies the In predicate on the "uuid" field.
-func UUIDIn(vs ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldIn(FieldUUID, vs...))
+// UuidIn applies the In predicate on the "uuid" field.
+func UuidIn(vs ...uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldIn(FieldUuid, vs...))
 }
 
-// UUIDNotIn applies the NotIn predicate on the "uuid" field.
-func UUIDNotIn(vs ...uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldNotIn(FieldUUID, vs...))
+// UuidNotIn applies the NotIn predicate on the "uuid" field.
+func UuidNotIn(vs ...uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldNotIn(FieldUuid, vs...))
 }
 
-// UUIDGT applies the GT predicate on the "uuid" field.
-func UUIDGT(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGT(FieldUUID, v))
+// UuidGT applies the GT predicate on the "uuid" field.
+func UuidGT(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldGT(FieldUuid, v))
 }
 
-// UUIDGTE applies the GTE predicate on the "uuid" field.
-func UUIDGTE(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldGTE(FieldUUID, v))
+// UuidGTE applies the GTE predicate on the "uuid" field.
+func UuidGTE(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldGTE(FieldUuid, v))
 }
 
-// UUIDLT applies the LT predicate on the "uuid" field.
-func UUIDLT(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLT(FieldUUID, v))
+// UuidLT applies the LT predicate on the "uuid" field.
+func UuidLT(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldLT(FieldUuid, v))
 }
 
-// UUIDLTE applies the LTE predicate on the "uuid" field.
-func UUIDLTE(v uuid.UUID) predicate.Blob {
-	return predicate.Blob(sql.FieldLTE(FieldUUID, v))
+// UuidLTE applies the LTE predicate on the "uuid" field.
+func UuidLTE(v uuid.UUID) predicate.Blob {
+	return predicate.Blob(sql.FieldLTE(FieldUuid, v))
 }
 
 // CountEQ applies the EQ predicate on the "count" field.
@@ -152,7 +152,7 @@ func CountLTE(v int) predicate.Blob {
 func HasParent() predicate.Blob {
 	return predicate.Blob(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, ParentTable, ParentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -175,7 +175,7 @@ func HasParentWith(preds ...predicate.Blob) predicate.Blob {
 func HasLinks() predicate.Blob {
 	return predicate.Blob(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, LinksTable, LinksPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -198,7 +198,7 @@ func HasLinksWith(preds ...predicate.Blob) predicate.Blob {
 func HasBlobLinks() predicate.Blob {
 	return predicate.Blob(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, BlobLinksTable, BlobLinksColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

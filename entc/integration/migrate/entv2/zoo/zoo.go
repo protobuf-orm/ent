@@ -13,15 +13,15 @@ import (
 const (
 	// Label holds the string label denoting the zoo type in the database.
 	Label = "zoo"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// Table holds the table name of the zoo in the database.
 	Table = "zoo"
 )
 
-// Columns holds all SQL columns for zoo fields.
+// Columns holds all Sql columns for zoo fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -37,7 +37,7 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Zoo queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }

@@ -18,12 +18,12 @@ import (
 // Comment that appears in both the schema and the generated code
 type Media struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Source holds the value of the "source" field.
 	Source string `json:"source,omitempty"`
 	// source_ui text
-	SourceURI string `json:"source_uri,omitempty"`
+	SourceUri string `json:"source_uri,omitempty"`
 	// media text
 	Text         string `json:"text,omitempty"`
 	selectValues sql.SelectValues
@@ -34,9 +34,9 @@ func (*Media) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case media.FieldID:
+		case media.FieldId:
 			values[i] = new(sql.NullInt64)
-		case media.FieldSource, media.FieldSourceURI, media.FieldText:
+		case media.FieldSource, media.FieldSourceUri, media.FieldText:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -53,23 +53,23 @@ func (_m *Media) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case media.FieldID:
+		case media.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case media.FieldSource:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field source", values[i])
 			} else if value.Valid {
 				_m.Source = value.String
 			}
-		case media.FieldSourceURI:
+		case media.FieldSourceUri:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field source_uri", values[i])
 			} else if value.Valid {
-				_m.SourceURI = value.String
+				_m.SourceUri = value.String
 			}
 		case media.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -112,12 +112,12 @@ func (_m *Media) Unwrap() *Media {
 func (_m *Media) String() string {
 	var builder strings.Builder
 	builder.WriteString("Media(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("source=")
 	builder.WriteString(_m.Source)
 	builder.WriteString(", ")
 	builder.WriteString("source_uri=")
-	builder.WriteString(_m.SourceURI)
+	builder.WriteString(_m.SourceUri)
 	builder.WriteString(", ")
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)

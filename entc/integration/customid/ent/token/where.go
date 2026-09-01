@@ -13,49 +13,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id sid.ID) predicate.Token {
-	return predicate.Token(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id sid.Id) predicate.Token {
+	return predicate.Token(sql.FieldLTE(FieldId, id))
 }
 
 // Body applies equality check predicate on the "body" field. It's identical to BodyEQ.
@@ -132,7 +132,7 @@ func BodyContainsFold(v string) predicate.Token {
 func HasAccount() predicate.Token {
 	return predicate.Token(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, AccountTable, AccountColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

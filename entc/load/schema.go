@@ -180,7 +180,7 @@ func NewIndex(idx *index.Descriptor) *Index {
 	return ni
 }
 
-// MarshalSchema encodes the ent.Schema interface into a JSON
+// MarshalSchema encodes the ent.Schema interface into a Json
 // that can be decoded into the Schema objects declared above.
 func MarshalSchema(schema ent.Interface) (b []byte, err error) {
 	s := &Schema{

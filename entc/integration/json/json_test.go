@@ -28,7 +28,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMySQL(t *testing.T) {
+func TestMySql(t *testing.T) {
 	for version, port := range map[string]int{"56": 3306, "57": 3307, "8": 3308} {
 		t.Run(version, func(t *testing.T) {
 			db, err := sql.Open("mysql", fmt.Sprintf("root:pass@tcp(localhost:%d)/", port))
@@ -43,15 +43,15 @@ func TestMySQL(t *testing.T) {
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 
-			URL(t, client)
+			Url(t, client)
 			Dirs(t, client)
 			Floats(t, client)
 			NetAddr(t, client)
 			RawMessage(t, client)
 			Any(t, client)
-			// Skip tests with JSON functions for old MySQL versions.
+			// Skip tests with Json functions for old MySql versions.
 			if version != "56" {
-				URLs(t, client)
+				Urls(t, client)
 				Ints(t, client)
 				Strings(t, client)
 				IntsValidate(t, client)
@@ -80,11 +80,11 @@ func TestMaria(t *testing.T) {
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 			// We run the migration twice to check that migration handles
-			// the JSON columns, since MariaDB stores them as longtext.
+			// the Json columns, since MariaDB stores them as longtext.
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 
-			URL(t, client)
+			Url(t, client)
 			Dirs(t, client)
 			Ints(t, client)
 			Floats(t, client)
@@ -120,8 +120,8 @@ func TestPostgres(t *testing.T) {
 			err = client.Schema.Create(context.Background(), migrate.WithGlobalUniqueID(true))
 			require.NoError(t, err)
 
-			URL(t, client)
-			URLs(t, client)
+			Url(t, client)
+			Urls(t, client)
 			Dirs(t, client)
 			Ints(t, client)
 			Floats(t, client)
@@ -146,8 +146,8 @@ func TestSQLite(t *testing.T) {
 	ctx := context.Background()
 	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
 
-	URL(t, client)
-	URLs(t, client)
+	Url(t, client)
+	Urls(t, client)
 	Dirs(t, client)
 	Ints(t, client)
 	Floats(t, client)
@@ -168,17 +168,17 @@ func Ints(t *testing.T, client *ent.Client) {
 	ints := []int{1, 2, 3}
 	usr := client.User.Create().SetInts(ints).SaveX(ctx)
 	require.Equal(t, ints, usr.Ints)
-	require.Equal(t, ints, client.User.GetX(ctx, usr.ID).Ints)
+	require.Equal(t, ints, client.User.GetX(ctx, usr.Id).Ints)
 	usr = usr.Update().SetInts(ints[:1]).SaveX(ctx)
 	require.Equal(t, ints[:1], usr.Ints)
-	require.Equal(t, ints[:1], client.User.GetX(ctx, usr.ID).Ints)
+	require.Equal(t, ints[:1], client.User.GetX(ctx, usr.Id).Ints)
 	usr = usr.Update().ClearInts().SaveX(ctx)
 	require.Empty(t, usr.Ints)
-	require.Empty(t, client.User.GetX(ctx, usr.ID).Ints)
+	require.Empty(t, client.User.GetX(ctx, usr.Id).Ints)
 
 	usr = client.User.Create().SaveX(ctx)
 	require.Equal(t, []int{1, 2, 3}, usr.Ints)
-	usr = client.User.GetX(ctx, usr.ID)
+	usr = client.User.GetX(ctx, usr.Id)
 	require.Equal(t, []int{1, 2, 3}, usr.Ints)
 	usr = usr.Update().AppendInts([]int{4, 5, 6}).SaveX(ctx)
 	require.Equal(t, []int{1, 2, 3, 4, 5, 6}, usr.Ints)
@@ -198,13 +198,13 @@ func Floats(t *testing.T, client *ent.Client) {
 	flts := []float64{1, 2, 3}
 	usr := client.User.Create().SetFloats(flts).SaveX(ctx)
 	require.Equal(t, flts, usr.Floats)
-	require.Equal(t, flts, client.User.GetX(ctx, usr.ID).Floats)
+	require.Equal(t, flts, client.User.GetX(ctx, usr.Id).Floats)
 	usr = usr.Update().SetFloats(flts[:1]).SaveX(ctx)
 	require.Equal(t, flts[:1], usr.Floats)
-	require.Equal(t, flts[:1], client.User.GetX(ctx, usr.ID).Floats)
+	require.Equal(t, flts[:1], client.User.GetX(ctx, usr.Id).Floats)
 	usr = usr.Update().ClearFloats().SaveX(ctx)
 	require.Empty(t, usr.Floats)
-	require.Empty(t, client.User.GetX(ctx, usr.ID).Floats)
+	require.Empty(t, client.User.GetX(ctx, usr.Id).Floats)
 }
 
 func FloatsValidate(t *testing.T, client *ent.Client) {
@@ -221,17 +221,17 @@ func Strings(t *testing.T, client *ent.Client) {
 	str := []string{"a", "b", "c"}
 	usr := client.User.Create().SetStrings(str).SaveX(ctx)
 	require.Equal(t, str, usr.Strings)
-	require.Equal(t, str, client.User.GetX(ctx, usr.ID).Strings)
+	require.Equal(t, str, client.User.GetX(ctx, usr.Id).Strings)
 	usr = usr.Update().SetStrings(str[:1]).SaveX(ctx)
 	require.Equal(t, str[:1], usr.Strings)
-	require.Equal(t, str[:1], client.User.GetX(ctx, usr.ID).Strings)
+	require.Equal(t, str[:1], client.User.GetX(ctx, usr.Id).Strings)
 	require.Equal(t, 1, client.User.Query().Where(user.StringsNotNil()).CountX(ctx))
 	usr = usr.Update().ClearStrings().SaveX(ctx)
 	require.Empty(t, usr.Strings)
-	require.Empty(t, client.User.GetX(ctx, usr.ID).Strings)
+	require.Empty(t, client.User.GetX(ctx, usr.Id).Strings)
 	require.Zero(t, client.User.Query().Where(user.StringsNotNil()).CountX(ctx))
 
-	t.Run("Modifier API", func(t *testing.T) {
+	t.Run("Modifier Api", func(t *testing.T) {
 		// Append to an empty array.
 		usr.Update().SetStrings([]string{}).SetT(&schema.T{Ls: []string{}}).ExecX(ctx)
 		usr = usr.Update().Modify(func(u *sql.UpdateBuilder) {
@@ -244,7 +244,7 @@ func Strings(t *testing.T, client *ent.Client) {
 		// Set a 'null' (or an undefined) value.
 		usr.Update().ClearStrings().ClearT().ExecX(ctx)
 		usr.Update().SetStrings(nil).SetT(&schema.T{Ls: nil}).ExecX(ctx)
-		usr = client.User.GetX(ctx, usr.ID)
+		usr = client.User.GetX(ctx, usr.Id)
 		usr = usr.Update().Modify(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldStrings, []string{"foo"})
 			sqljson.Append(u, user.FieldT, []string{"foo"}, sqljson.Path("ls"))
@@ -266,13 +266,13 @@ func Strings(t *testing.T, client *ent.Client) {
 		require.Equal(t, []string{"foo"}, usr.Strings)
 	})
 
-	t.Run("Fluent API", func(t *testing.T) {
+	t.Run("Fluent Api", func(t *testing.T) {
 		// Append to an empty array.
 		usr.Update().SetStrings([]string{}).SetInts([]int{}).ExecX(ctx)
 		usr = usr.Update().AppendStrings([]string{"foo"}).AppendInts([]int{1}).SaveX(ctx)
 		require.Equal(t, []int{1}, usr.Ints)
 		require.Equal(t, []string{"foo"}, usr.Strings)
-		usr = client.User.GetX(ctx, usr.ID)
+		usr = client.User.GetX(ctx, usr.Id)
 		require.Equal(t, []int{1}, usr.Ints)
 		require.Equal(t, []string{"foo"}, usr.Strings)
 		usr = usr.Update().AppendStrings([]string{"bar", "baz"}).AppendInts([]int{2, 3}).SaveX(ctx)
@@ -281,7 +281,7 @@ func Strings(t *testing.T, client *ent.Client) {
 
 		// Set a 'null' (or an undefined) value.
 		usr.Update().ClearStrings().SetInts(nil).SetDirs(nil).ExecX(ctx)
-		usr = client.User.GetX(ctx, usr.ID)
+		usr = client.User.GetX(ctx, usr.Id)
 		require.Empty(t, usr.Ints)
 		require.Empty(t, usr.Strings)
 		usr = usr.Update().AppendStrings([]string{"foo"}).AppendInts([]int{1}).SaveX(ctx)
@@ -289,11 +289,11 @@ func Strings(t *testing.T, client *ent.Client) {
 		require.Equal(t, []string{"foo"}, usr.Strings)
 
 		usr.Update().AppendStrings([]string{"bar"}).SetStrings([]string{"baz"}).ExecX(ctx)
-		require.Equal(t, []string{"baz"}, client.User.GetX(ctx, usr.ID).Strings)
+		require.Equal(t, []string{"baz"}, client.User.GetX(ctx, usr.Id).Strings)
 		usr.Update().AppendStrings([]string{"bar"}).SetStrings([]string{"baz"}).ExecX(ctx)
-		require.Equal(t, []string{"baz"}, client.User.GetX(ctx, usr.ID).Strings)
+		require.Equal(t, []string{"baz"}, client.User.GetX(ctx, usr.Id).Strings)
 		usr.Update().AppendStrings([]string{"bar"}).ClearStrings().AppendDirs([]http.Dir{"/etc", "/dev"}).ExecX(ctx)
-		usr = client.User.GetX(ctx, usr.ID)
+		usr = client.User.GetX(ctx, usr.Id)
 		require.Empty(t, usr.Strings)
 		require.Equal(t, []http.Dir{"/etc", "/dev"}, usr.Dirs)
 	})
@@ -314,7 +314,7 @@ func Any(t *testing.T, client *ent.Client) {
 	require.Equal(t, "string", u.Unknown)
 	u = u.Update().SetUnknown([]any{1, 2, 3}).SaveX(ctx)
 	require.Equal(t, []any{1.0, 2.0, 3.0}, u.Unknown)
-	require.Equal(t, []any{1.0, 2.0, 3.0}, client.User.GetX(ctx, u.ID).Unknown)
+	require.Equal(t, []any{1.0, 2.0, 3.0}, client.User.GetX(ctx, u.Id).Unknown)
 }
 
 func RawMessage(t *testing.T, client *ent.Client) {
@@ -322,16 +322,16 @@ func RawMessage(t *testing.T, client *ent.Client) {
 	raw := json.RawMessage("{}")
 	usr := client.User.Create().SetRaw(raw).SaveX(ctx)
 	require.Equal(t, raw, usr.Raw)
-	require.Equal(t, raw, client.User.GetX(ctx, usr.ID).Raw)
+	require.Equal(t, raw, client.User.GetX(ctx, usr.Id).Raw)
 }
 
 func NetAddr(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	ip := net.ParseIP("127.0.0.1")
-	usr := client.User.Create().SetAddr(schema.Addr{Addr: &net.TCPAddr{IP: ip, Port: 80}}).SaveX(ctx)
-	require.Equal(t, "127.0.0.1:80", client.User.GetX(ctx, usr.ID).Addr.String())
-	usr.Update().SetAddr(schema.Addr{Addr: &net.UDPAddr{IP: ip, Port: 1812}}).ExecX(ctx)
-	require.Equal(t, "127.0.0.1:1812", client.User.GetX(ctx, usr.ID).Addr.String())
+	usr := client.User.Create().SetAddr(schema.Addr{Addr: &net.TCPAddr{Ip: ip, Port: 80}}).SaveX(ctx)
+	require.Equal(t, "127.0.0.1:80", client.User.GetX(ctx, usr.Id).Addr.String())
+	usr.Update().SetAddr(schema.Addr{Addr: &net.UDPAddr{Ip: ip, Port: 1812}}).ExecX(ctx)
+	require.Equal(t, "127.0.0.1:1812", client.User.GetX(ctx, usr.Id).Addr.String())
 
 	// Ensure sensitive fields are not marshalled.
 	f, ok := reflect.TypeOf(ent.User{}).FieldByName("Addr")
@@ -344,41 +344,41 @@ func Dirs(t *testing.T, client *ent.Client) {
 	dirs := []http.Dir{"dev", "usr"}
 	usr := client.User.Create().SetDirs(dirs).SaveX(ctx)
 	require.Equal(t, dirs, usr.Dirs)
-	require.Equal(t, dirs, client.User.GetX(ctx, usr.ID).Dirs)
+	require.Equal(t, dirs, client.User.GetX(ctx, usr.Id).Dirs)
 
 	usr = client.User.Create().SaveX(ctx)
 	require.Equal(t, []http.Dir{"/tmp"}, usr.Dirs)
-	usr = client.User.GetX(ctx, usr.ID)
+	usr = client.User.GetX(ctx, usr.Id)
 	require.Equal(t, []http.Dir{"/tmp"}, usr.Dirs)
 }
 
-func URL(t *testing.T, client *ent.Client) {
+func Url(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	usr := client.User.Create().SaveX(ctx)
-	require.Nil(t, usr.URL, "url field should be nil")
+	require.Nil(t, usr.Url, "url field should be nil")
 	u, err := url.Parse("https://github.com/a8m")
 	require.NoError(t, err)
-	usr = client.User.Create().SetURL(u).SaveX(ctx)
-	require.Equal(t, u, usr.URL)
-	require.Equal(t, u, client.User.GetX(ctx, usr.ID).URL)
+	usr = client.User.Create().SetUrl(u).SaveX(ctx)
+	require.Equal(t, u, usr.Url)
+	require.Equal(t, u, client.User.GetX(ctx, usr.Id).Url)
 }
 
-func URLs(t *testing.T, client *ent.Client) {
+func Urls(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
 	u1, err := url.Parse("https://github.com/a8m")
 	require.NoError(t, err)
 	u2, err := url.Parse("https://github.com/ent")
 	require.NoError(t, err)
-	usr := client.User.Create().SetURLs([]*url.URL{u1}).SaveX(ctx)
+	usr := client.User.Create().SetUrls([]*url.URL{u1}).SaveX(ctx)
 	require.NoError(t, err)
-	require.Len(t, usr.URLs, 1)
-	require.Equal(t, u1, usr.URLs[0])
-	usr = client.User.GetX(ctx, usr.ID)
-	require.Equal(t, u1, usr.URLs[0])
-	usr = usr.Update().AppendURLs([]*url.URL{u2}).SaveX(ctx)
-	require.Len(t, usr.URLs, 2)
-	require.Equal(t, u1, usr.URLs[0])
-	require.Equal(t, u2, usr.URLs[1])
+	require.Len(t, usr.Urls, 1)
+	require.Equal(t, u1, usr.Urls[0])
+	usr = client.User.GetX(ctx, usr.Id)
+	require.Equal(t, u1, usr.Urls[0])
+	usr = usr.Update().AppendUrls([]*url.URL{u2}).SaveX(ctx)
+	require.Len(t, usr.Urls, 2)
+	require.Equal(t, u1, usr.Urls[0])
+	require.Equal(t, u2, usr.Urls[1])
 }
 
 func Predicates(t *testing.T, client *ent.Client) {
@@ -390,51 +390,51 @@ func Predicates(t *testing.T, client *ent.Client) {
 	u2, err := url.Parse("ftp://a8m@github.com/ent")
 	require.NoError(t, err)
 	users, err := client.User.CreateBulk(
-		client.User.Create().SetURL(u1),
-		client.User.Create().SetURL(u2),
+		client.User.Create().SetUrl(u1),
+		client.User.Create().SetUrl(u2),
 	).Save(ctx)
 	require.NoError(t, err)
 	require.Len(t, users, 2)
 
 	count, err := client.User.Query().Where(func(s *sql.Selector) {
-		s.Where(sqljson.HasKey(user.FieldURL, sqljson.Path("Scheme")))
+		s.Where(sqljson.HasKey(user.FieldUrl, sqljson.Path("Scheme")))
 	}).Count(ctx)
 	require.NoError(t, err)
 	require.Equal(t, 2, count)
 
 	count, err = client.User.Query().Where(func(s *sql.Selector) {
-		s.Where(sql.Not(sqljson.HasKey(user.FieldURL, sqljson.Path("Scheme"))))
+		s.Where(sql.Not(sqljson.HasKey(user.FieldUrl, sqljson.Path("Scheme"))))
 	}).Count(ctx)
 	require.NoError(t, err)
 	require.Zero(t, count)
 
 	count, err = client.User.Query().Where(func(s *sql.Selector) {
-		s.Where(sqljson.ValueEQ(user.FieldURL, "https", sqljson.Path("Scheme")))
+		s.Where(sqljson.ValueEQ(user.FieldUrl, "https", sqljson.Path("Scheme")))
 	}).Count(ctx)
 	require.NoError(t, err)
 	require.Equal(t, 1, count)
 
 	count, err = client.User.Query().Where(func(s *sql.Selector) {
-		s.Where(sqljson.ValueNEQ(user.FieldURL, "https", sqljson.Path("Scheme")))
+		s.Where(sqljson.ValueNEQ(user.FieldUrl, "https", sqljson.Path("Scheme")))
 	}).Count(ctx)
 	require.NoError(t, err)
 	require.Equal(t, 1, count)
 
 	t.Run("ValueIn", func(t *testing.T) {
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueIn(user.FieldURL, []any{"https", "http"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueIn(user.FieldUrl, []any{"https", "http"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Equal(t, 1, count)
 
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueIn(user.FieldURL, []any{"https", "ftp"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueIn(user.FieldUrl, []any{"https", "ftp"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Equal(t, 2, count)
 
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueIn(user.FieldURL, []any{"a", "b"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueIn(user.FieldUrl, []any{"a", "b"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Zero(t, count)
@@ -442,19 +442,19 @@ func Predicates(t *testing.T, client *ent.Client) {
 
 	t.Run("ValueNotIn", func(t *testing.T) {
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueNotIn(user.FieldURL, []any{"https", "http"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueNotIn(user.FieldUrl, []any{"https", "http"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Equal(t, 1, count)
 
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueNotIn(user.FieldURL, []any{"https", "ftp"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueNotIn(user.FieldUrl, []any{"https", "ftp"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Equal(t, 0, count)
 
 		count, err = client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueNotIn(user.FieldURL, []any{"a", "b"}, sqljson.Path("Scheme")))
+			s.Where(sqljson.ValueNotIn(user.FieldUrl, []any{"a", "b"}, sqljson.Path("Scheme")))
 		}).Count(ctx)
 		require.NoError(t, err)
 		require.Equal(t, 2, count)
@@ -524,24 +524,24 @@ func Predicates(t *testing.T, client *ent.Client) {
 	t.Run("NullLiteral", func(t *testing.T) {
 		client.User.Delete().ExecX(ctx)
 		users := client.User.CreateBulk(
-			client.User.Create().SetURL(u1),
-			client.User.Create().SetURL(u2),
+			client.User.Create().SetUrl(u1),
+			client.User.Create().SetUrl(u2),
 		).SaveX(ctx)
-		require.Nil(t, users[0].URL.User)
-		require.NotNil(t, users[1].URL.User)
+		require.Nil(t, users[0].Url.User)
+		require.NotNil(t, users[1].Url.User)
 
 		u1 := client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueIsNull(user.FieldURL, sqljson.Path("User")))
+			s.Where(sqljson.ValueIsNull(user.FieldUrl, sqljson.Path("User")))
 		}).OnlyX(ctx)
-		require.Equal(t, users[0].ID, u1.ID)
+		require.Equal(t, users[0].Id, u1.Id)
 
 		u2 := client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.ValueIsNotNull(user.FieldURL, sqljson.Path("User")))
+			s.Where(sqljson.ValueIsNotNull(user.FieldUrl, sqljson.Path("User")))
 		}).OnlyX(ctx)
-		require.Equal(t, users[1].ID, u2.ID)
+		require.Equal(t, users[1].Id, u2.Id)
 
 		n := client.User.Query().Where(func(s *sql.Selector) {
-			s.Where(sqljson.HasKey(user.FieldURL, sqljson.Path("User")))
+			s.Where(sqljson.HasKey(user.FieldUrl, sqljson.Path("User")))
 		}).CountX(ctx)
 		require.Equal(t, 2, n, "both u1 and u2 have a 'User' key")
 	})
@@ -552,7 +552,7 @@ func Predicates(t *testing.T, client *ent.Client) {
 		require.NoError(t, err)
 		dirs := []http.Dir{"/dev/null"}
 		client.User.CreateBulk(
-			client.User.Create().SetURL(u),
+			client.User.Create().SetUrl(u),
 			client.User.Create().SetDirs(dirs),
 			client.User.Create().SetT(&schema.T{S: "foobar", Ls: []string{"foo", "bar"}}),
 		).ExecX(ctx)
@@ -571,13 +571,13 @@ func Predicates(t *testing.T, client *ent.Client) {
 		require.Equal(t, dirs, r.Dirs)
 
 		ps = []*sql.Predicate{
-			sqljson.StringContains(user.FieldURL, "hub", sqljson.Path("Host")),
-			sqljson.StringHasPrefix(user.FieldURL, "github", sqljson.Path("Host")),
-			sqljson.StringHasSuffix(user.FieldURL, "hub.com", sqljson.Path("Host")),
+			sqljson.StringContains(user.FieldUrl, "hub", sqljson.Path("Host")),
+			sqljson.StringHasPrefix(user.FieldUrl, "github", sqljson.Path("Host")),
+			sqljson.StringHasSuffix(user.FieldUrl, "hub.com", sqljson.Path("Host")),
 		}
 		for _, p := range ps {
 			r = client.User.Query().Where(func(s *sql.Selector) { s.Where(p) }).OnlyX(ctx)
-			require.Equal(t, u, r.URL)
+			require.Equal(t, u, r.Url)
 		}
 
 		ps = []*sql.Predicate{
@@ -686,7 +686,7 @@ func Order(t *testing.T, client *ent.Client) {
 		Order(
 			sqljson.OrderValue(user.FieldT, sqljson.Path("i")),
 		).
-		// PostgreSQL doesn't support ORDER BY
+		// PostgreSql doesn't support ORDER BY
 		// expressions with SELECT DISTINCT.
 		Unique(false).
 		AllX(ctx)
@@ -718,17 +718,17 @@ func Order(t *testing.T, client *ent.Client) {
 
 func Scan(t *testing.T, client *ent.Client) {
 	ctx := context.Background()
-	all := client.User.Query().Order(ent.Asc(user.FieldID)).AllX(ctx)
+	all := client.User.Query().Order(ent.Asc(user.FieldId)).AllX(ctx)
 	require.NotEmpty(t, all)
 	var scanned []*ent.User
 	// Select all non-sensitive fields.
-	client.User.Query().Order(ent.Asc(user.FieldID)).Select(user.Columns[:len(user.Columns)-2]...).ScanX(ctx, &scanned)
+	client.User.Query().Order(ent.Asc(user.FieldId)).Select(user.Columns[:len(user.Columns)-2]...).ScanX(ctx, &scanned)
 	require.Equal(t, len(all), len(scanned))
 	for i := range all {
-		require.Equal(t, all[i].ID, scanned[i].ID)
+		require.Equal(t, all[i].Id, scanned[i].Id)
 		require.Equal(t, all[i].T, scanned[i].T)
-		require.Equal(t, all[i].URL, scanned[i].URL)
-		require.Equal(t, all[i].URLs, scanned[i].URLs)
+		require.Equal(t, all[i].Url, scanned[i].Url)
+		require.Equal(t, all[i].Urls, scanned[i].Urls)
 		require.Equal(t, all[i].Dirs, scanned[i].Dirs)
 		require.Equal(t, all[i].Raw, scanned[i].Raw)
 		require.Equal(t, all[i].Ints, scanned[i].Ints)

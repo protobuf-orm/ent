@@ -28,42 +28,42 @@ type PetCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetID sets the "id" field.
-func (_c *PetCreate) SetID(v string) *PetCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *PetCreate) SetId(v string) *PetCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *PetCreate) SetNillableID(v *string) *PetCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *PetCreate) SetNillableId(v *string) *PetCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_c *PetCreate) SetOwnerID(id int) *PetCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_c *PetCreate) SetOwnerId(id int) *PetCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_c *PetCreate) SetNillableOwnerID(id *int) *PetCreate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_c *PetCreate) SetNillableOwnerId(id *int) *PetCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *PetCreate) SetOwner(v *User) *PetCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
-// AddCarsIDs adds the "cars" edge to the Car entity by IDs.
-func (_c *PetCreate) AddCarsIDs(ids ...int) *PetCreate {
-	_c.mutation.AddCarsIDs(ids...)
+// AddCarsIds adds the "cars" edge to the Car entity by Ids.
+func (_c *PetCreate) AddCarsIds(ids ...int) *PetCreate {
+	_c.mutation.AddCarsIds(ids...)
 	return _c
 }
 
@@ -71,14 +71,14 @@ func (_c *PetCreate) AddCarsIDs(ids ...int) *PetCreate {
 func (_c *PetCreate) AddCars(v ...*Car) *PetCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddCarsIDs(ids...)
+	return _c.AddCarsIds(ids...)
 }
 
-// AddFriendsIDs adds the "friends" edge to the Pet entity by IDs.
-func (_c *PetCreate) AddFriendsIDs(ids ...string) *PetCreate {
-	_c.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the Pet entity by Ids.
+func (_c *PetCreate) AddFriendsIds(ids ...string) *PetCreate {
+	_c.mutation.AddFriendsIds(ids...)
 	return _c
 }
 
@@ -86,28 +86,28 @@ func (_c *PetCreate) AddFriendsIDs(ids ...string) *PetCreate {
 func (_c *PetCreate) AddFriends(v ...*Pet) *PetCreate {
 	ids := make([]string, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFriendsIDs(ids...)
+	return _c.AddFriendsIds(ids...)
 }
 
-// SetBestFriendID sets the "best_friend" edge to the Pet entity by ID.
-func (_c *PetCreate) SetBestFriendID(id string) *PetCreate {
-	_c.mutation.SetBestFriendID(id)
+// SetBestFriendId sets the "best_friend" edge to the Pet entity by Id.
+func (_c *PetCreate) SetBestFriendId(id string) *PetCreate {
+	_c.mutation.SetBestFriendId(id)
 	return _c
 }
 
-// SetNillableBestFriendID sets the "best_friend" edge to the Pet entity by ID if the given value is not nil.
-func (_c *PetCreate) SetNillableBestFriendID(id *string) *PetCreate {
+// SetNillableBestFriendId sets the "best_friend" edge to the Pet entity by Id if the given value is not nil.
+func (_c *PetCreate) SetNillableBestFriendId(id *string) *PetCreate {
 	if id != nil {
-		_c = _c.SetBestFriendID(*id)
+		_c = _c.SetBestFriendId(*id)
 	}
 	return _c
 }
 
 // SetBestFriend sets the "best_friend" edge to the Pet entity.
 func (_c *PetCreate) SetBestFriend(v *Pet) *PetCreate {
-	return _c.SetBestFriendID(v.ID)
+	return _c.SetBestFriendId(v.Id)
 }
 
 // Mutation returns the PetMutation object of the builder.
@@ -145,16 +145,16 @@ func (_c *PetCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *PetCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := pet.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := pet.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *PetCreate) check() error {
-	if v, ok := _c.mutation.ID(); ok {
-		if err := pet.IDValidator(v); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := pet.IdValidator(v); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Pet.id": %w`, err)}
 		}
 	}
@@ -172,14 +172,14 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(string); ok {
-			_node.ID = id
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(string); ok {
+			_node.Id = id
 		} else {
-			return nil, fmt.Errorf("unexpected Pet.ID type: %T", _spec.ID.Value)
+			return nil, fmt.Errorf("unexpected Pet.Id type: %T", _spec.Id.Value)
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -187,14 +187,14 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Pet{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString))
+		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -202,7 +202,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -211,7 +211,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		_node.user_pets = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.CarsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CarsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -219,7 +219,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.CarsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -227,7 +227,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -235,7 +235,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: pet.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -243,7 +243,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.BestFriendIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.BestFriendIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -251,7 +251,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -306,22 +306,22 @@ type (
 	}
 )
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Pet.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(pet.FieldID)
+//				u.SetIgnore(pet.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *PetUpsertOne) UpdateNewValues() *PetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(pet.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(pet.FieldId)
 		}
 	}))
 	return u
@@ -339,7 +339,7 @@ func (u *PetUpsertOne) Ignore() *PetUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PetUpsertOne) DoNothing() *PetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -369,23 +369,23 @@ func (u *PetUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *PetUpsertOne) ID(ctx context.Context) (id string, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: PetUpsertOne.ID is not supported by MySQL driver. Use PetUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *PetUpsertOne) Id(ctx context.Context) (id string, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: PetUpsertOne.Id is not supported by MySql driver. Use PetUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *PetUpsertOne) IDX(ctx context.Context) string {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *PetUpsertOne) IdX(ctx context.Context) string {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -438,7 +438,7 @@ func (_c *PetCreateBulk) Save(ctx context.Context) ([]*Pet, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -521,7 +521,7 @@ type PetUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(pet.FieldID)
+//				u.SetIgnore(pet.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -529,8 +529,8 @@ func (u *PetUpsertBulk) UpdateNewValues() *PetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(pet.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(pet.FieldId)
 			}
 		}
 	}))
@@ -549,7 +549,7 @@ func (u *PetUpsertBulk) Ignore() *PetUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *PetUpsertBulk) DoNothing() *PetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

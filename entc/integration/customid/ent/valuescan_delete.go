@@ -44,7 +44,7 @@ func (_d *ValueScanDelete) ExecX(ctx context.Context) int {
 }
 
 func (_d *ValueScanDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(valuescan.Table, sqlgraph.NewFieldSpec(valuescan.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewDeleteSpec(valuescan.Table, sqlgraph.NewFieldSpec(valuescan.FieldId, field.TypeInt))
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {

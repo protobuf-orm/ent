@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the pet type in the database.
 	Label = "pet"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldOwnerID holds the string denoting the owner_id field in the database.
-	FieldOwnerID = "owner_id"
+	// FieldOwnerId holds the string denoting the owner_id field in the database.
+	FieldOwnerId = "owner_id"
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
 	EdgeOwner = "owner"
 	// Table holds the table name of the pet in the database.
@@ -33,11 +33,11 @@ const (
 	OwnerColumn = "owner_id"
 )
 
-// Columns holds all SQL columns for pet fields.
+// Columns holds all Sql columns for pet fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
-	FieldOwnerID,
+	FieldOwnerId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -58,9 +58,9 @@ var (
 // OrderOption defines the ordering options for the Pet queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -68,9 +68,9 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
-// ByOwnerID orders the results by the owner_id field.
-func ByOwnerID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldOwnerID, opts...).ToFunc()
+// ByOwnerId orders the results by the owner_id field.
+func ByOwnerId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOwnerId, opts...).ToFunc()
 }
 
 // ByOwnerField orders the results by owner field.
@@ -81,8 +81,8 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

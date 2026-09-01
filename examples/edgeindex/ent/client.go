@@ -108,7 +108,7 @@ func Driver(driver dialect.Driver) Option {
 // Optional parameters can be added for configuring the client.
 func Open(driverName, dataSourceName string, options ...Option) (*Client, error) {
 	switch driverName {
-	case dialect.MySQL, dialect.Postgres, dialect.SQLite:
+	case dialect.MySql, dialect.Postgres, dialect.SQLite:
 		drv, err := sql.Open(driverName, dataSourceName)
 		if err != nil {
 			return nil, err
@@ -185,9 +185,9 @@ func (c *Client) Close() error {
 	return c.driver.Close()
 }
 
-// Dialect is the name of the SQL this client speaks.
+// Dialect is the name of the Sql this client speaks.
 //
-// Code that writes SQL of its own has to know which SQL it may write, and the
+// Code that writes Sql of its own has to know which Sql it may write, and the
 // connection is what settles that. Asking the client keeps the answer from
 // being a second claim that can disagree with the one made when it was opened.
 func (c *Client) Dialect() string {
@@ -313,9 +313,9 @@ func (c *CityClient) UpdateOne(_m *City) *CityUpdateOne {
 	return &CityUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *CityClient) UpdateOneID(id int) *CityUpdateOne {
-	mutation := newCityMutation(c.config, OpUpdateOne, withCityID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *CityClient) UpdateOneId(id int) *CityUpdateOne {
+	mutation := newCityMutation(c.config, OpUpdateOne, withCityId(id))
 	return &CityUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -327,12 +327,12 @@ func (c *CityClient) Delete() *CityDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *CityClient) DeleteOne(_m *City) *CityDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *CityClient) DeleteOneID(id int) *CityDeleteOne {
-	builder := c.Delete().Where(city.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *CityClient) DeleteOneId(id int) *CityDeleteOne {
+	builder := c.Delete().Where(city.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &CityDeleteOne{builder}
@@ -349,7 +349,7 @@ func (c *CityClient) Query() *CityQuery {
 
 // Get returns a City entity by its id.
 func (c *CityClient) Get(ctx context.Context, id int) (*City, error) {
-	return c.Query().Where(city.ID(id)).Only(ctx)
+	return c.Query().Where(city.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -365,10 +365,10 @@ func (c *CityClient) GetX(ctx context.Context, id int) *City {
 func (c *CityClient) QueryStreets(_m *City) *StreetQuery {
 	query := (&StreetClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(city.Table, city.FieldID, id),
-			sqlgraph.To(street.Table, street.FieldID),
+			sqlgraph.From(city.Table, city.FieldId, id),
+			sqlgraph.To(street.Table, street.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, city.StreetsTable, city.StreetsColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -462,9 +462,9 @@ func (c *StreetClient) UpdateOne(_m *Street) *StreetUpdateOne {
 	return &StreetUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *StreetClient) UpdateOneID(id int) *StreetUpdateOne {
-	mutation := newStreetMutation(c.config, OpUpdateOne, withStreetID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *StreetClient) UpdateOneId(id int) *StreetUpdateOne {
+	mutation := newStreetMutation(c.config, OpUpdateOne, withStreetId(id))
 	return &StreetUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -476,12 +476,12 @@ func (c *StreetClient) Delete() *StreetDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *StreetClient) DeleteOne(_m *Street) *StreetDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *StreetClient) DeleteOneID(id int) *StreetDeleteOne {
-	builder := c.Delete().Where(street.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *StreetClient) DeleteOneId(id int) *StreetDeleteOne {
+	builder := c.Delete().Where(street.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &StreetDeleteOne{builder}
@@ -498,7 +498,7 @@ func (c *StreetClient) Query() *StreetQuery {
 
 // Get returns a Street entity by its id.
 func (c *StreetClient) Get(ctx context.Context, id int) (*Street, error) {
-	return c.Query().Where(street.ID(id)).Only(ctx)
+	return c.Query().Where(street.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -514,10 +514,10 @@ func (c *StreetClient) GetX(ctx context.Context, id int) *Street {
 func (c *StreetClient) QueryCity(_m *Street) *CityQuery {
 	query := (&CityClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(street.Table, street.FieldID, id),
-			sqlgraph.To(city.Table, city.FieldID),
+			sqlgraph.From(street.Table, street.FieldId, id),
+			sqlgraph.To(city.Table, city.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, street.CityTable, street.CityColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)

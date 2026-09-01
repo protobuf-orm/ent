@@ -47,7 +47,7 @@ var (
 	UserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString, Default: "Unknown"},
-		{Name: "foods", Type: field.TypeJSON, Nullable: true},
+		{Name: "foods", Type: field.TypeJson, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeInt},
 	}
 	// UserTable holds the schema information for the "user" table.

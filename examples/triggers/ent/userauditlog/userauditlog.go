@@ -9,8 +9,8 @@ import (
 const (
 	// Label holds the string label denoting the userauditlog type in the database.
 	Label = "user_audit_log"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldOperationType holds the string denoting the operation_type field in the database.
 	FieldOperationType = "operation_type"
 	// FieldOperationTime holds the string denoting the operation_time field in the database.
@@ -23,9 +23,9 @@ const (
 	Table = "user_audit_log"
 )
 
-// Columns holds all SQL columns for userauditlog fields.
+// Columns holds all Sql columns for userauditlog fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldOperationType,
 	FieldOperationTime,
 	FieldOldValue,
@@ -45,9 +45,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the UserAuditLog queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByOperationType orders the results by the operation_type field.

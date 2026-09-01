@@ -19,8 +19,8 @@ import (
 // Car is the model entity for the Car schema.
 type Car struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
 	// Number holds the value of the "number" field.
 	Number string `json:"number,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -55,7 +55,7 @@ func (*Car) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case car.FieldNumber:
 			values[i] = new(sql.NullString)
-		case car.FieldID:
+		case car.FieldId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -72,11 +72,11 @@ func (_m *Car) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case car.FieldID:
+		case car.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case car.FieldNumber:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -124,7 +124,7 @@ func (_m *Car) Unwrap() *Car {
 func (_m *Car) String() string {
 	var builder strings.Builder
 	builder.WriteString("Car(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("number=")
 	builder.WriteString(_m.Number)
 	builder.WriteByte(')')

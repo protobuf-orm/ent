@@ -19,10 +19,10 @@ import (
 // Blob is the model entity for the Blob schema.
 type Blob struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
-	// UUID holds the value of the "uuid" field.
-	UUID uuid.UUID `json:"uuid,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
+	// Uuid holds the value of the "uuid" field.
+	Uuid uuid.UUID `json:"uuid,omitempty"`
 	// Count holds the value of the "count" field.
 	Count int `json:"count,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -81,7 +81,7 @@ func (*Blob) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case blob.FieldCount:
 			values[i] = new(sql.NullInt64)
-		case blob.FieldID, blob.FieldUUID:
+		case blob.FieldId, blob.FieldUuid:
 			values[i] = new(uuid.UUID)
 		case blob.ForeignKeys[0]: // blob_parent
 			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
@@ -100,17 +100,17 @@ func (_m *Blob) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case blob.FieldID:
+		case blob.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
-		case blob.FieldUUID:
+		case blob.FieldUuid:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field uuid", values[i])
 			} else if value != nil {
-				_m.UUID = *value
+				_m.Uuid = *value
 			}
 		case blob.FieldCount:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -175,9 +175,9 @@ func (_m *Blob) Unwrap() *Blob {
 func (_m *Blob) String() string {
 	var builder strings.Builder
 	builder.WriteString("Blob(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("uuid=")
-	builder.WriteString(fmt.Sprintf("%v", _m.UUID))
+	builder.WriteString(fmt.Sprintf("%v", _m.Uuid))
 	builder.WriteString(", ")
 	builder.WriteString("count=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Count))

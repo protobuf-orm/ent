@@ -25,8 +25,8 @@ import (
 // FieldType is the model entity for the FieldType schema.
 type FieldType struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Int holds the value of the "int" field.
 	Int int `json:"int,omitempty"`
 	// Int8 holds the value of the "int8" field.
@@ -85,8 +85,8 @@ type FieldType struct {
 	LinkOther *schema.Link `json:"link_other,omitempty"`
 	// LinkOtherFunc holds the value of the "link_other_func" field.
 	LinkOtherFunc *schema.Link `json:"link_other_func,omitempty"`
-	// MAC holds the value of the "mac" field.
-	MAC schema.MAC `json:"mac,omitempty"`
+	// Mac holds the value of the "mac" field.
+	Mac schema.Mac `json:"mac,omitempty"`
 	// StringArray holds the value of the "string_array" field.
 	StringArray schema.Strings `json:"string_array,omitempty"`
 	// Password holds the value of the "password" field.
@@ -119,8 +119,8 @@ type FieldType struct {
 	RawData []byte `json:"raw_data,omitempty"`
 	// Sensitive holds the value of the "sensitive" field.
 	Sensitive []byte `json:"-"`
-	// IP holds the value of the "ip" field.
-	IP net.IP `json:"ip,omitempty"`
+	// Ip holds the value of the "ip" field.
+	Ip net.IP `json:"ip,omitempty"`
 	// NullInt64 holds the value of the "null_int64" field.
 	NullInt64 *sql.NullInt64 `json:"null_int64,omitempty"`
 	// SchemaInt holds the value of the "schema_int" field.
@@ -139,10 +139,10 @@ type FieldType struct {
 	Role role.Role `json:"role,omitempty"`
 	// Priority holds the value of the "priority" field.
 	Priority role.Priority `json:"priority,omitempty"`
-	// OptionalUUID holds the value of the "optional_uuid" field.
-	OptionalUUID uuid.UUID `json:"optional_uuid,omitempty"`
-	// NillableUUID holds the value of the "nillable_uuid" field.
-	NillableUUID *uuid.UUID `json:"nillable_uuid,omitempty"`
+	// OptionalUuid holds the value of the "optional_uuid" field.
+	OptionalUuid uuid.UUID `json:"optional_uuid,omitempty"`
+	// NillableUuid holds the value of the "nillable_uuid" field.
+	NillableUuid *uuid.UUID `json:"nillable_uuid,omitempty"`
 	// Strings holds the value of the "strings" field.
 	Strings []string `json:"strings,omitempty"`
 	// Pair holds the value of the "pair" field.
@@ -172,9 +172,9 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 			values[i] = &sql.NullScanner{S: new(schema.Pair)}
 		case fieldtype.FieldStringScanner:
 			values[i] = &sql.NullScanner{S: new(schema.StringScanner)}
-		case fieldtype.FieldNillableUUID:
+		case fieldtype.FieldNillableUuid:
 			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
-		case fieldtype.FieldRawData, fieldtype.FieldSensitive, fieldtype.FieldIP, fieldtype.FieldStrings:
+		case fieldtype.FieldRawData, fieldtype.FieldSensitive, fieldtype.FieldIp, fieldtype.FieldStrings:
 			values[i] = new([]byte)
 		case fieldtype.FieldPriority:
 			values[i] = new(role.Priority)
@@ -182,8 +182,8 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 			values[i] = new(schema.BigInt)
 		case fieldtype.FieldLinkOther, fieldtype.FieldLinkOtherFunc, fieldtype.FieldLink:
 			values[i] = new(schema.Link)
-		case fieldtype.FieldMAC:
-			values[i] = new(schema.MAC)
+		case fieldtype.FieldMac:
+			values[i] = new(schema.Mac)
 		case fieldtype.FieldPair:
 			values[i] = new(schema.Pair)
 		case fieldtype.FieldPasswordOther:
@@ -198,13 +198,13 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case fieldtype.FieldOptionalFloat, fieldtype.FieldOptionalFloat32, fieldtype.FieldDecimal, fieldtype.FieldSchemaFloat, fieldtype.FieldSchemaFloat32, fieldtype.FieldNullFloat:
 			values[i] = new(sql.NullFloat64)
-		case fieldtype.FieldID, fieldtype.FieldInt, fieldtype.FieldInt8, fieldtype.FieldInt16, fieldtype.FieldInt32, fieldtype.FieldInt64, fieldtype.FieldOptionalInt, fieldtype.FieldOptionalInt8, fieldtype.FieldOptionalInt16, fieldtype.FieldOptionalInt32, fieldtype.FieldOptionalInt64, fieldtype.FieldNillableInt, fieldtype.FieldNillableInt8, fieldtype.FieldNillableInt16, fieldtype.FieldNillableInt32, fieldtype.FieldNillableInt64, fieldtype.FieldValidateOptionalInt32, fieldtype.FieldOptionalUint, fieldtype.FieldOptionalUint8, fieldtype.FieldOptionalUint16, fieldtype.FieldOptionalUint32, fieldtype.FieldOptionalUint64, fieldtype.FieldDuration, fieldtype.FieldNullInt64, fieldtype.FieldSchemaInt, fieldtype.FieldSchemaInt8, fieldtype.FieldSchemaInt64:
+		case fieldtype.FieldId, fieldtype.FieldInt, fieldtype.FieldInt8, fieldtype.FieldInt16, fieldtype.FieldInt32, fieldtype.FieldInt64, fieldtype.FieldOptionalInt, fieldtype.FieldOptionalInt8, fieldtype.FieldOptionalInt16, fieldtype.FieldOptionalInt32, fieldtype.FieldOptionalInt64, fieldtype.FieldNillableInt, fieldtype.FieldNillableInt8, fieldtype.FieldNillableInt16, fieldtype.FieldNillableInt32, fieldtype.FieldNillableInt64, fieldtype.FieldValidateOptionalInt32, fieldtype.FieldOptionalUint, fieldtype.FieldOptionalUint8, fieldtype.FieldOptionalUint16, fieldtype.FieldOptionalUint32, fieldtype.FieldOptionalUint64, fieldtype.FieldDuration, fieldtype.FieldNullInt64, fieldtype.FieldSchemaInt, fieldtype.FieldSchemaInt8, fieldtype.FieldSchemaInt64:
 			values[i] = new(sql.NullInt64)
 		case fieldtype.FieldState, fieldtype.FieldText, fieldtype.FieldPassword, fieldtype.FieldDir, fieldtype.FieldNdir, fieldtype.FieldStr, fieldtype.FieldNullStr, fieldtype.FieldRole:
 			values[i] = new(sql.NullString)
 		case fieldtype.FieldDatetime, fieldtype.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
-		case fieldtype.FieldOptionalUUID:
+		case fieldtype.FieldOptionalUuid:
 			values[i] = new(uuid.UUID)
 		case fieldtype.ForeignKeys[0]: // file_field
 			values[i] = new(sql.NullInt64)
@@ -223,12 +223,12 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case fieldtype.FieldID:
+		case fieldtype.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case fieldtype.FieldInt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field int", values[i])
@@ -408,11 +408,11 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				_m.LinkOtherFunc = value
 			}
-		case fieldtype.FieldMAC:
-			if value, ok := values[i].(*schema.MAC); !ok {
+		case fieldtype.FieldMac:
+			if value, ok := values[i].(*schema.Mac); !ok {
 				return fmt.Errorf("unexpected type %T for field mac", values[i])
 			} else if value != nil {
-				_m.MAC = *value
+				_m.Mac = *value
 			}
 		case fieldtype.FieldStringArray:
 			if value, ok := values[i].(*schema.Strings); !ok {
@@ -513,11 +513,11 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				_m.Sensitive = *value
 			}
-		case fieldtype.FieldIP:
+		case fieldtype.FieldIp:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field ip", values[i])
 			} else if value != nil {
-				_m.IP = *value
+				_m.Ip = *value
 			}
 		case fieldtype.FieldNullInt64:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -573,18 +573,18 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				_m.Priority = *value
 			}
-		case fieldtype.FieldOptionalUUID:
+		case fieldtype.FieldOptionalUuid:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field optional_uuid", values[i])
 			} else if value != nil {
-				_m.OptionalUUID = *value
+				_m.OptionalUuid = *value
 			}
-		case fieldtype.FieldNillableUUID:
+		case fieldtype.FieldNillableUuid:
 			if value, ok := values[i].(*sql.NullScanner); !ok {
 				return fmt.Errorf("unexpected type %T for field nillable_uuid", values[i])
 			} else if value.Valid {
-				_m.NillableUUID = new(uuid.UUID)
-				*_m.NillableUUID = *value.S.(*uuid.UUID)
+				_m.NillableUuid = new(uuid.UUID)
+				*_m.NillableUuid = *value.S.(*uuid.UUID)
 			}
 		case fieldtype.FieldStrings:
 			if value, ok := values[i].(*[]byte); !ok {
@@ -672,7 +672,7 @@ func (_m *FieldType) Unwrap() *FieldType {
 func (_m *FieldType) String() string {
 	var builder strings.Builder
 	builder.WriteString("FieldType(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("int=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Int))
 	builder.WriteString(", ")
@@ -771,7 +771,7 @@ func (_m *FieldType) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.LinkOtherFunc))
 	builder.WriteString(", ")
 	builder.WriteString("mac=")
-	builder.WriteString(fmt.Sprintf("%v", _m.MAC))
+	builder.WriteString(fmt.Sprintf("%v", _m.Mac))
 	builder.WriteString(", ")
 	builder.WriteString("string_array=")
 	builder.WriteString(fmt.Sprintf("%v", _m.StringArray))
@@ -832,7 +832,7 @@ func (_m *FieldType) String() string {
 	builder.WriteString("sensitive=<sensitive>")
 	builder.WriteString(", ")
 	builder.WriteString("ip=")
-	builder.WriteString(fmt.Sprintf("%v", _m.IP))
+	builder.WriteString(fmt.Sprintf("%v", _m.Ip))
 	builder.WriteString(", ")
 	builder.WriteString("null_int64=")
 	builder.WriteString(fmt.Sprintf("%v", _m.NullInt64))
@@ -862,9 +862,9 @@ func (_m *FieldType) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.Priority))
 	builder.WriteString(", ")
 	builder.WriteString("optional_uuid=")
-	builder.WriteString(fmt.Sprintf("%v", _m.OptionalUUID))
+	builder.WriteString(fmt.Sprintf("%v", _m.OptionalUuid))
 	builder.WriteString(", ")
-	if v := _m.NillableUUID; v != nil {
+	if v := _m.NillableUuid; v != nil {
 		builder.WriteString("nillable_uuid=")
 		builder.WriteString(fmt.Sprintf("%v", *v))
 	}

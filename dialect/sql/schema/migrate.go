@@ -33,15 +33,15 @@ func NewTypesTable() *Table {
 // MigrateOption allows configuring Atlas using functional arguments.
 type MigrateOption func(*Atlas)
 
-// WithGlobalUniqueID sets the universal ids options to the migration.
+// WithGlobalUniqueId sets the universal ids options to the migration.
 // Defaults to false.
-func WithGlobalUniqueID(b bool) MigrateOption {
+func WithGlobalUniqueId(b bool) MigrateOption {
 	return func(a *Atlas) {
-		a.universalID = b
+		a.universalId = b
 	}
 }
 
-// WithIndent sets Atlas to generate SQL statements with indentation.
+// WithIndent sets Atlas to generate Sql statements with indentation.
 // An empty string indicates no indentation.
 func WithIndent(indent string) MigrateOption {
 	return func(a *Atlas) {

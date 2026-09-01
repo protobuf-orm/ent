@@ -9,13 +9,13 @@ in the LICENSE file in the root directory of this source tree.
 {{/* Constants needed for sql dialects. */}}
 {{ define "dialect/sql/meta/constants" }}
 	{{- range $t := $.RelatedTypes }}
-		{{- $withEID := $.HasCompositeID }}
-		{{- if and (not $withEID) $t.HasOneFieldID }}
-			{{- if ne $t.ID.StorageKey $.ID.StorageKey }}{{ $withEID = true }}{{ end }}
+		{{- $withEId := $.HasCompositeId }}
+		{{- if and (not $withEId) $t.HasOneFieldId }}
+			{{- if ne $t.Id.StorageKey $.Id.StorageKey }}{{ $withEId = true }}{{ end }}
 		{{- end }}
-		{{- if $withEID }}
-			// {{ $t.Name }}FieldID holds the string denoting the ID field of the {{ $t.Name }}.
-			{{ $t.Name }}FieldID = "{{ $t.ID.StorageKey }}"
+		{{- if $withEId }}
+			// {{ $t.Name }}FieldId holds the string denoting the Id field of the {{ $t.Name }}.
+			{{ $t.Name }}FieldId = "{{ $t.Id.StorageKey }}"
 		{{- end }}
 	{{- end }}
 	// Table holds the table name of the {{ lower $.Name }} in the database.
@@ -43,10 +43,10 @@ in the LICENSE file in the root directory of this source tree.
 
 {{/* Variables needed for sql dialects. */}}
 {{ define "dialect/sql/meta/variables" }}
-	// Columns holds all SQL columns for {{ lower $.Name }} fields.
+	// Columns holds all Sql columns for {{ lower $.Name }} fields.
 	var Columns = []string{
-		{{- if $.HasOneFieldID }}
-			{{ $.ID.Constant }},
+		{{- if $.HasOneFieldId }}
+			{{ $.Id.Constant }},
 		{{- end }}
 		{{- range $f := $.Fields }}
 			{{- if not $f.IsDeprecated }}
@@ -56,7 +56,7 @@ in the LICENSE file in the root directory of this source tree.
 	}
 	{{/* If any of the edges owns a foreign-key */}}
 	{{ with $.UnexportedForeignKeys }}
-		// ForeignKeys holds the SQL foreign-keys that are owned by the "{{ $.Table }}"
+		// ForeignKeys holds the Sql foreign-keys that are owned by the "{{ $.Table }}"
 		// table and are not defined as standalone fields in the schema.
 		var ForeignKeys = []string{
 			{{- range $fk := . }}
@@ -107,10 +107,10 @@ func ValidColumn(column string) bool {
 
 {{/* Type-safe order-by builders. */}}
 {{ define "dialect/sql/meta/order" }}
-	{{ if $.HasOneFieldID }}
-		// {{ $.ID.OrderName }} orders the results by the {{ $.ID.Name }} field.
-		func {{ $.ID.OrderName }}(opts ...sql.OrderTermOption) OrderOption {
-			return sql.OrderByField({{ $.ID.Constant }}, opts...).ToFunc()
+	{{ if $.HasOneFieldId }}
+		// {{ $.Id.OrderName }} orders the results by the {{ $.Id.Name }} field.
+		func {{ $.Id.OrderName }}(opts ...sql.OrderTermOption) OrderOption {
+			return sql.OrderByField({{ $.Id.Constant }}, opts...).ToFunc()
 		}
 	{{ end }}
 	{{- range $f := $.Fields }}
@@ -148,14 +148,14 @@ func ValidColumn(column string) bool {
 	{{- range $e := $.Edges }}
 		func new{{ pascal $e.Name }}Step() *sqlgraph.Step {
 			return sqlgraph.NewStep(
-				{{- if $.HasCompositeID }}
+				{{- if $.HasCompositeId }}
 					{{- /* Query that goes from the edge schema. */}}
 					sqlgraph.From(Table, {{ $e.ColumnConstant }}),
-					sqlgraph.To({{ $e.InverseTableConstant }}, {{ print $e.Type.Name "FieldID" }}),
+					sqlgraph.To({{ $e.InverseTableConstant }}, {{ print $e.Type.Name "FieldId" }}),
 				{{- else }}
-					sqlgraph.From(Table, {{ $.ID.Constant }}),
-					{{- if $e.Type.HasOneFieldID }}
-						{{- $refid := $.ID.Constant }}{{ if ne $e.Type.ID.StorageKey $.ID.StorageKey }}{{ $refid = print $e.Type.Name "FieldID" }}{{ end }}
+					sqlgraph.From(Table, {{ $.Id.Constant }}),
+					{{- if $e.Type.HasOneFieldId }}
+						{{- $refid := $.Id.Constant }}{{ if ne $e.Type.Id.StorageKey $.Id.StorageKey }}{{ $refid = print $e.Type.Name "FieldId" }}{{ end }}
 						sqlgraph.To({{ if ne $.Table $e.Type.Table }}{{ $e.InverseTableConstant }}{{ else }}Table{{ end }}, {{ $refid }}),
 					{{- else }}
 						{{- /* Query that goes to the edge schema. */}}

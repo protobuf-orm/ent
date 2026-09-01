@@ -33,42 +33,42 @@ func (_u *GroupTagUpdate) Where(ps ...predicate.GroupTag) *GroupTagUpdate {
 	return _u
 }
 
-// SetTagID sets the "tag_id" field.
-func (_u *GroupTagUpdate) SetTagID(v int) *GroupTagUpdate {
-	_u.mutation.SetTagID(v)
+// SetTagId sets the "tag_id" field.
+func (_u *GroupTagUpdate) SetTagId(v int) *GroupTagUpdate {
+	_u.mutation.SetTagId(v)
 	return _u
 }
 
-// SetNillableTagID sets the "tag_id" field if the given value is not nil.
-func (_u *GroupTagUpdate) SetNillableTagID(v *int) *GroupTagUpdate {
+// SetNillableTagId sets the "tag_id" field if the given value is not nil.
+func (_u *GroupTagUpdate) SetNillableTagId(v *int) *GroupTagUpdate {
 	if v != nil {
-		_u.SetTagID(*v)
+		_u.SetTagId(*v)
 	}
 	return _u
 }
 
-// SetGroupID sets the "group_id" field.
-func (_u *GroupTagUpdate) SetGroupID(v int) *GroupTagUpdate {
-	_u.mutation.SetGroupID(v)
+// SetGroupId sets the "group_id" field.
+func (_u *GroupTagUpdate) SetGroupId(v int) *GroupTagUpdate {
+	_u.mutation.SetGroupId(v)
 	return _u
 }
 
-// SetNillableGroupID sets the "group_id" field if the given value is not nil.
-func (_u *GroupTagUpdate) SetNillableGroupID(v *int) *GroupTagUpdate {
+// SetNillableGroupId sets the "group_id" field if the given value is not nil.
+func (_u *GroupTagUpdate) SetNillableGroupId(v *int) *GroupTagUpdate {
 	if v != nil {
-		_u.SetGroupID(*v)
+		_u.SetGroupId(*v)
 	}
 	return _u
 }
 
 // SetTag sets the "tag" edge to the Tag entity.
 func (_u *GroupTagUpdate) SetTag(v *Tag) *GroupTagUpdate {
-	return _u.SetTagID(v.ID)
+	return _u.SetTagId(v.Id)
 }
 
 // SetGroup sets the "group" edge to the Group entity.
 func (_u *GroupTagUpdate) SetGroup(v *Group) *GroupTagUpdate {
-	return _u.SetGroupID(v.ID)
+	return _u.SetGroupId(v.Id)
 }
 
 // Mutation returns the GroupTagMutation object of the builder.
@@ -117,10 +117,10 @@ func (_u *GroupTagUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *GroupTagUpdate) check() error {
-	if _u.mutation.TagCleared() && len(_u.mutation.TagIDs()) > 0 {
+	if _u.mutation.TagCleared() && len(_u.mutation.TagIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "GroupTag.tag"`)
 	}
-	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "GroupTag.group"`)
 	}
 	return nil
@@ -130,7 +130,7 @@ func (_u *GroupTagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(grouptag.Table, grouptag.Columns, sqlgraph.NewFieldSpec(grouptag.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(grouptag.Table, grouptag.Columns, sqlgraph.NewFieldSpec(grouptag.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -146,12 +146,12 @@ func (_u *GroupTagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{grouptag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TagIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TagIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -159,7 +159,7 @@ func (_u *GroupTagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{grouptag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -175,12 +175,12 @@ func (_u *GroupTagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{grouptag.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -188,7 +188,7 @@ func (_u *GroupTagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{grouptag.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -216,42 +216,42 @@ type GroupTagUpdateOne struct {
 	mutation *GroupTagMutation
 }
 
-// SetTagID sets the "tag_id" field.
-func (_u *GroupTagUpdateOne) SetTagID(v int) *GroupTagUpdateOne {
-	_u.mutation.SetTagID(v)
+// SetTagId sets the "tag_id" field.
+func (_u *GroupTagUpdateOne) SetTagId(v int) *GroupTagUpdateOne {
+	_u.mutation.SetTagId(v)
 	return _u
 }
 
-// SetNillableTagID sets the "tag_id" field if the given value is not nil.
-func (_u *GroupTagUpdateOne) SetNillableTagID(v *int) *GroupTagUpdateOne {
+// SetNillableTagId sets the "tag_id" field if the given value is not nil.
+func (_u *GroupTagUpdateOne) SetNillableTagId(v *int) *GroupTagUpdateOne {
 	if v != nil {
-		_u.SetTagID(*v)
+		_u.SetTagId(*v)
 	}
 	return _u
 }
 
-// SetGroupID sets the "group_id" field.
-func (_u *GroupTagUpdateOne) SetGroupID(v int) *GroupTagUpdateOne {
-	_u.mutation.SetGroupID(v)
+// SetGroupId sets the "group_id" field.
+func (_u *GroupTagUpdateOne) SetGroupId(v int) *GroupTagUpdateOne {
+	_u.mutation.SetGroupId(v)
 	return _u
 }
 
-// SetNillableGroupID sets the "group_id" field if the given value is not nil.
-func (_u *GroupTagUpdateOne) SetNillableGroupID(v *int) *GroupTagUpdateOne {
+// SetNillableGroupId sets the "group_id" field if the given value is not nil.
+func (_u *GroupTagUpdateOne) SetNillableGroupId(v *int) *GroupTagUpdateOne {
 	if v != nil {
-		_u.SetGroupID(*v)
+		_u.SetGroupId(*v)
 	}
 	return _u
 }
 
 // SetTag sets the "tag" edge to the Tag entity.
 func (_u *GroupTagUpdateOne) SetTag(v *Tag) *GroupTagUpdateOne {
-	return _u.SetTagID(v.ID)
+	return _u.SetTagId(v.Id)
 }
 
 // SetGroup sets the "group" edge to the Group entity.
 func (_u *GroupTagUpdateOne) SetGroup(v *Group) *GroupTagUpdateOne {
-	return _u.SetGroupID(v.ID)
+	return _u.SetGroupId(v.Id)
 }
 
 // Mutation returns the GroupTagMutation object of the builder.
@@ -313,10 +313,10 @@ func (_u *GroupTagUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *GroupTagUpdateOne) check() error {
-	if _u.mutation.TagCleared() && len(_u.mutation.TagIDs()) > 0 {
+	if _u.mutation.TagCleared() && len(_u.mutation.TagIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "GroupTag.tag"`)
 	}
-	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "GroupTag.group"`)
 	}
 	return nil
@@ -326,20 +326,20 @@ func (_u *GroupTagUpdateOne) sqlSave(ctx context.Context) (_node *GroupTag, err 
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(grouptag.Table, grouptag.Columns, sqlgraph.NewFieldSpec(grouptag.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(grouptag.Table, grouptag.Columns, sqlgraph.NewFieldSpec(grouptag.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "GroupTag.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, grouptag.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, grouptag.FieldId)
 		for _, f := range fields {
 			if !grouptag.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != grouptag.FieldID {
+			if f != grouptag.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -359,12 +359,12 @@ func (_u *GroupTagUpdateOne) sqlSave(ctx context.Context) (_node *GroupTag, err 
 			Columns: []string{grouptag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TagIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TagIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -372,7 +372,7 @@ func (_u *GroupTagUpdateOne) sqlSave(ctx context.Context) (_node *GroupTag, err 
 			Columns: []string{grouptag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -388,12 +388,12 @@ func (_u *GroupTagUpdateOne) sqlSave(ctx context.Context) (_node *GroupTag, err 
 			Columns: []string{grouptag.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -401,7 +401,7 @@ func (_u *GroupTagUpdateOne) sqlSave(ctx context.Context) (_node *GroupTag, err 
 			Columns: []string{grouptag.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

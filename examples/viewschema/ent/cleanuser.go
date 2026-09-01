@@ -14,8 +14,8 @@ import (
 // CleanUser is the model entity for the CleanUser schema.
 type CleanUser struct {
 	config `json:"-"`
-	// ID holds the value of the "id" field.
-	ID int `json:"id,omitempty"`
+	// Id holds the value of the "id" field.
+	Id int `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// PublicInfo holds the value of the "public_info" field.
@@ -28,7 +28,7 @@ func (*CleanUser) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case cleanuser.FieldID:
+		case cleanuser.FieldId:
 			values[i] = new(sql.NullInt64)
 		case cleanuser.FieldName, cleanuser.FieldPublicInfo:
 			values[i] = new(sql.NullString)
@@ -47,11 +47,11 @@ func (_m *CleanUser) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case cleanuser.FieldID:
+		case cleanuser.FieldId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value.Valid {
-				_m.ID = int(value.Int64)
+				_m.Id = int(value.Int64)
 			}
 		case cleanuser.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -94,7 +94,7 @@ func (_m *CleanUser) String() string {
 	var builder strings.Builder
 	builder.WriteString("CleanUser(")
 	builder.WriteString("id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("%v", _m.Id))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(_m.Name)

@@ -22,7 +22,7 @@ func (Zoo) Fields() []ent.Field {
 		field.Int("id").
 			Annotations(
 				entsql.DefaultExprs(map[string]string{
-					dialect.MySQL:    "floor(rand() * ~(1<<31))",
+					dialect.MySql:    "floor(rand() * ~(1<<31))",
 					dialect.SQLite:   "abs(random())",
 					dialect.Postgres: "floor(random() * ~(1<<31))",
 				}),

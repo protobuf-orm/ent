@@ -14,74 +14,74 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldEQ(FieldID, vc), err)
+// Id filters vertices based on their Id field.
+func Id(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldEQ(FieldID, vc), err)
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldNEQ(FieldID, vc), err)
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldNEQ(FieldId, vc), err)
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...uuid.UUID) predicate.User {
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...uuid.UUID) predicate.User {
 	var (
 		err error
 		vcs = make([]any, len(ids))
 	)
 	for i := range vcs {
-		if vcs[i], err = ValueScanner.ID.Value(ids[i]); err != nil {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
 			break
 		}
 	}
-	return predicate.UserOrErr(sql.FieldIn(FieldID, vcs...), err)
+	return predicate.UserOrErr(sql.FieldIn(FieldId, vcs...), err)
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...uuid.UUID) predicate.User {
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...uuid.UUID) predicate.User {
 	var (
 		err error
 		vcs = make([]any, len(ids))
 	)
 	for i := range vcs {
-		if vcs[i], err = ValueScanner.ID.Value(ids[i]); err != nil {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
 			break
 		}
 	}
-	return predicate.UserOrErr(sql.FieldNotIn(FieldID, vcs...), err)
+	return predicate.UserOrErr(sql.FieldNotIn(FieldId, vcs...), err)
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldGT(FieldID, vc), err)
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldGT(FieldId, vc), err)
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldGTE(FieldID, vc), err)
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldGTE(FieldId, vc), err)
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldLT(FieldID, vc), err)
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldLT(FieldId, vc), err)
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.UserOrErr(sql.FieldLTE(FieldID, vc), err)
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id uuid.UUID) predicate.User {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.UserOrErr(sql.FieldLTE(FieldId, vc), err)
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
@@ -238,7 +238,7 @@ func RefNotNil() predicate.User {
 func HasSpouse() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, SpouseTable, SpouseColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

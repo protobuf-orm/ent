@@ -12,49 +12,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Blog {
-	return predicate.Blog(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Blog {
+	return predicate.Blog(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Blog {
-	return predicate.Blog(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Blog {
+	return predicate.Blog(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Blog {
-	return predicate.Blog(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Blog {
+	return predicate.Blog(sql.FieldLTE(FieldId, id))
 }
 
 // Oid applies equality check predicate on the "oid" field. It's identical to OidEQ.
@@ -106,7 +106,7 @@ func OidLTE(v int) predicate.Blog {
 func HasAdmins() predicate.Blog {
 	return predicate.Blog(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, AdminsTable, AdminsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

@@ -16,14 +16,14 @@ import (
 const (
 	// Label holds the string label denoting the rental type in the database.
 	Label = "rental"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldCarID holds the string denoting the car_id field in the database.
-	FieldCarID = "car_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldCarId holds the string denoting the car_id field in the database.
+	FieldCarId = "car_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// EdgeCar holds the string denoting the car edge name in mutations.
@@ -46,12 +46,12 @@ const (
 	CarColumn = "car_id"
 )
 
-// Columns holds all SQL columns for rental fields.
+// Columns holds all Sql columns for rental fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldDate,
-	FieldUserID,
-	FieldCarID,
+	FieldUserId,
+	FieldCarId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -72,9 +72,9 @@ var (
 // OrderOption defines the ordering options for the Rental queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByDate orders the results by the date field.
@@ -82,14 +82,14 @@ func ByDate(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDate, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByCarID orders the results by the car_id field.
-func ByCarID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldCarID, opts...).ToFunc()
+// ByCarId orders the results by the car_id field.
+func ByCarId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCarId, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.
@@ -107,15 +107,15 @@ func ByCarField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, UserTable, UserColumn),
 	)
 }
 func newCarStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CarInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CarInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, CarTable, CarColumn),
 	)
 }

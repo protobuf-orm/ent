@@ -31,85 +31,85 @@ func TestEdgeField(t *testing.T) {
 
 	a8m := client.User.Create().SaveX(ctx)
 	p1 := client.Pet.Create().SetOwner(a8m).SaveX(ctx)
-	require.Equal(t, a8m.ID, p1.OwnerID)
-	f1 := client.Pet.Query().Where(pet.OwnerID(a8m.ID)).OnlyX(ctx)
-	require.Equal(t, p1.ID, f1.ID)
-	require.Equal(t, p1.OwnerID, f1.OwnerID)
+	require.Equal(t, a8m.Id, p1.OwnerId)
+	f1 := client.Pet.Query().Where(pet.OwnerId(a8m.Id)).OnlyX(ctx)
+	require.Equal(t, p1.Id, f1.Id)
+	require.Equal(t, p1.OwnerId, f1.OwnerId)
 
 	c1 := client.User.Create().SetParent(a8m).SaveX(ctx)
-	require.Equal(t, c1.ParentID, a8m.ID)
-	c2 := client.User.Create().SetParentID(a8m.ID).SaveX(ctx)
-	require.Equal(t, c2.ParentID, a8m.ID)
-	pid := a8m.QueryChildren().GroupBy(user.FieldParentID).IntX(ctx)
-	require.Equal(t, pid, a8m.ID)
-	c3 := client.User.Create().SetParentID(c2.ID).SaveX(ctx)
+	require.Equal(t, c1.ParentId, a8m.Id)
+	c2 := client.User.Create().SetParentId(a8m.Id).SaveX(ctx)
+	require.Equal(t, c2.ParentId, a8m.Id)
+	pid := a8m.QueryChildren().GroupBy(user.FieldParentId).IntX(ctx)
+	require.Equal(t, pid, a8m.Id)
+	c3 := client.User.Create().SetParentId(c2.Id).SaveX(ctx)
 	require.Equal(t,
 		client.User.Query().
 			Where(
 				user.HasParentWith(
-					user.ParentID(a8m.ID),
+					user.ParentId(a8m.Id),
 				),
-			).OnlyIDX(ctx),
-		c3.ID,
+			).OnlyIdX(ctx),
+		c3.Id,
 	)
 
 	ps1 := client.Post.Create().SetText("entgo.io").SaveX(ctx)
-	require.Nil(t, ps1.AuthorID)
-	ps1 = ps1.Update().SetAuthorID(a8m.ID).SaveX(ctx)
-	require.NotNil(t, ps1.AuthorID)
-	require.Equal(t, a8m.ID, *ps1.AuthorID)
+	require.Nil(t, ps1.AuthorId)
+	ps1 = ps1.Update().SetAuthorId(a8m.Id).SaveX(ctx)
+	require.NotNil(t, ps1.AuthorId)
+	require.Equal(t, a8m.Id, *ps1.AuthorId)
 	ps1 = client.Post.Query().WithAuthor().OnlyX(ctx)
-	require.NotNil(t, ps1.AuthorID)
-	require.Equal(t, a8m.ID, *ps1.AuthorID)
-	require.Equal(t, a8m.ID, ps1.Edges.Author.ID)
+	require.NotNil(t, ps1.AuthorId)
+	require.Equal(t, a8m.Id, *ps1.AuthorId)
+	require.Equal(t, a8m.Id, ps1.Edges.Author.Id)
 
 	nati := client.User.Create().SetSpouse(a8m).SaveX(ctx)
-	require.Equal(t, nati.SpouseID, a8m.ID)
-	require.Equal(t, nati.ID, a8m.QuerySpouse().OnlyIDX(ctx))
+	require.Equal(t, nati.SpouseId, a8m.Id)
+	require.Equal(t, nati.Id, a8m.QuerySpouse().OnlyIdX(ctx))
 
-	visa := client.Card.Create().SetOwnerID(a8m.ID).SaveX(ctx)
-	require.Equal(t, a8m.ID, visa.OwnerID)
-	require.Equal(t, nati.ID, visa.QueryOwner().QuerySpouse().OnlyIDX(ctx))
-	require.Equal(t, nati.ID, client.Card.Query().QueryOwner().QuerySpouse().OnlyIDX(ctx))
+	visa := client.Card.Create().SetOwnerId(a8m.Id).SaveX(ctx)
+	require.Equal(t, a8m.Id, visa.OwnerId)
+	require.Equal(t, nati.Id, visa.QueryOwner().QuerySpouse().OnlyIdX(ctx))
+	require.Equal(t, nati.Id, client.Card.Query().QueryOwner().QuerySpouse().OnlyIdX(ctx))
 
 	m1 := client.Metadata.Create().SetUser(a8m).SetAge(10).SaveX(ctx)
-	require.Equal(t, a8m.ID, m1.ID)
+	require.Equal(t, a8m.Id, m1.Id)
 	require.Equal(t, 10, m1.Age)
 	m1 = a8m.QueryMetadata().OnlyX(ctx)
-	require.Equal(t, a8m.ID, m1.ID)
-	require.Equal(t, a8m.ID, m1.QueryUser().OnlyIDX(ctx))
-	_, err = client.Metadata.Create().SetID(a8m.ID).SetAge(10).Save(ctx)
+	require.Equal(t, a8m.Id, m1.Id)
+	require.Equal(t, a8m.Id, m1.QueryUser().OnlyIdX(ctx))
+	_, err = client.Metadata.Create().SetId(a8m.Id).SetAge(10).Save(ctx)
 	require.True(t, ent.IsConstraintError(err), "UNIQUE constraint failed: metadata.id")
 	err = m1.Update().ClearUser().Exec(ctx)
 	require.Error(t, err, "clearing primary key is not allowed")
 
 	client.Info.Create().SetUser(a8m).SetContent(json.RawMessage("{}")).SaveX(ctx)
 	inf := a8m.QueryInfo().OnlyX(ctx)
-	require.Equal(t, a8m.ID, inf.ID)
-	_, err = client.Info.Create().SetID(a8m.ID).SetContent(json.RawMessage("10")).Save(ctx)
+	require.Equal(t, a8m.Id, inf.Id)
+	_, err = client.Info.Create().SetId(a8m.Id).SetContent(json.RawMessage("10")).Save(ctx)
 	require.True(t, ent.IsConstraintError(err), "UNIQUE constraint failed: metadata.id")
 
 	require.NotZero(t, client.Pet.Query().QueryOwner().CountX(ctx))
-	client.Pet.Update().ClearOwnerID().ExecX(ctx)
+	client.Pet.Update().ClearOwnerId().ExecX(ctx)
 	require.Zero(t, client.Pet.Query().QueryOwner().CountX(ctx))
 
 	require.False(t, client.Rental.Query().ExistX(ctx))
 	car1 := client.Car.Create().SetNumber("102030").SaveX(ctx)
 	car2 := client.Car.Create().SetNumber("102030").SaveX(ctx)
-	client.Rental.Create().SetUserID(a8m.ID).SetCarID(car1.ID).SaveX(ctx)
-	require.Equal(t, car1.ID, a8m.QueryRentals().QueryCar().OnlyIDX(ctx))
+	client.Rental.Create().SetUserId(a8m.Id).SetCarId(car1.Id).SaveX(ctx)
+	require.Equal(t, car1.Id, a8m.QueryRentals().QueryCar().OnlyIdX(ctx))
 	dt, err := time.Parse(time.RFC3339, "1906-01-02T00:00:00+00:00")
 	require.NoError(t, err)
-	client.Rental.Create().SetUserID(a8m.ID).SetCarID(car2.ID).SetDate(dt).SaveX(ctx)
+	client.Rental.Create().SetUserId(a8m.Id).SetCarId(car2.Id).SetDate(dt).SaveX(ctx)
 	require.Equal(t, 2, a8m.QueryRentals().QueryCar().CountX(ctx))
-	require.Equal(t, car2.ID, a8m.QueryRentals().Where(rental.DateLTE(dt)).QueryCar().OnlyIDX(ctx))
-	_, err = client.Rental.Create().SetUserID(a8m.ID).SetCarID(car2.ID).SetDate(dt).Save(ctx)
+	require.Equal(t, car2.Id, a8m.QueryRentals().Where(rental.DateLTE(dt)).QueryCar().OnlyIdX(ctx))
+	_, err = client.Rental.Create().SetUserId(a8m.Id).SetCarId(car2.Id).SetDate(dt).Save(ctx)
 	require.Error(t, err)
 	require.True(t, ent.IsConstraintError(err))
 
 	curr := client.Node.Create().SaveX(ctx)
 	for i := 0; i < 5; i++ {
-		curr = client.Node.Create().SetPrevID(curr.ID).SetValue(curr.Value + 1).SaveX(ctx)
+		curr = client.Node.Create().SetPrevId(curr.Id).SetValue(curr.Value + 1).SaveX(ctx)
 	}
 	head := client.Node.Query().Where(node.Not(node.HasPrev())).OnlyX(ctx)
 	for i := 0; i < 5; i++ {
@@ -130,16 +130,16 @@ func TestNamedEdges(t *testing.T) {
 
 	u1 = client.User.Query().
 		WithPets(func(q *ent.PetQuery) {
-			q.Select(pet.FieldID)
+			q.Select(pet.FieldId)
 		}).
 		WithNamedPets("Named", func(q *ent.PetQuery) {
-			q.Select(pet.FieldID)
+			q.Select(pet.FieldId)
 		}).
 		OnlyX(ctx)
 	require.Len(t, u1.Edges.Pets, 1)
-	require.Equal(t, u1.Edges.Pets[0].OwnerID, u1.ID)
+	require.Equal(t, u1.Edges.Pets[0].OwnerId, u1.Id)
 	pets, err := u1.NamedPets("Named")
 	require.NoError(t, err)
 	require.Len(t, pets, 1)
-	require.Equal(t, pets[0].OwnerID, u1.ID)
+	require.Equal(t, pets[0].OwnerId, u1.Id)
 }

@@ -112,7 +112,7 @@ func Driver(driver dialect.Driver) Option {
 // Optional parameters can be added for configuring the client.
 func Open(driverName, dataSourceName string, options ...Option) (*Client, error) {
 	switch driverName {
-	case dialect.MySQL, dialect.Postgres, dialect.SQLite:
+	case dialect.MySql, dialect.Postgres, dialect.SQLite:
 		drv, err := sql.Open(driverName, dataSourceName)
 		if err != nil {
 			return nil, err
@@ -191,9 +191,9 @@ func (c *Client) Close() error {
 	return c.driver.Close()
 }
 
-// Dialect is the name of the SQL this client speaks.
+// Dialect is the name of the Sql this client speaks.
 //
-// Code that writes SQL of its own has to know which SQL it may write, and the
+// Code that writes Sql of its own has to know which Sql it may write, and the
 // connection is what settles that. Asking the client keeps the answer from
 // being a second claim that can disagree with the one made when it was opened.
 func (c *Client) Dialect() string {
@@ -323,9 +323,9 @@ func (c *CardClient) UpdateOne(_m *Card) *CardUpdateOne {
 	return &CardUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *CardClient) UpdateOneID(id int) *CardUpdateOne {
-	mutation := newCardMutation(c.config, OpUpdateOne, withCardID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *CardClient) UpdateOneId(id int) *CardUpdateOne {
+	mutation := newCardMutation(c.config, OpUpdateOne, withCardId(id))
 	return &CardUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -337,12 +337,12 @@ func (c *CardClient) Delete() *CardDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *CardClient) DeleteOne(_m *Card) *CardDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *CardClient) DeleteOneID(id int) *CardDeleteOne {
-	builder := c.Delete().Where(card.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *CardClient) DeleteOneId(id int) *CardDeleteOne {
+	builder := c.Delete().Where(card.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &CardDeleteOne{builder}
@@ -359,7 +359,7 @@ func (c *CardClient) Query() *CardQuery {
 
 // Get returns a Card entity by its id.
 func (c *CardClient) Get(ctx context.Context, id int) (*Card, error) {
-	return c.Query().Where(card.ID(id)).Only(ctx)
+	return c.Query().Where(card.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -456,9 +456,9 @@ func (c *PetClient) UpdateOne(_m *Pet) *PetUpdateOne {
 	return &PetUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *PetClient) UpdateOneID(id int) *PetUpdateOne {
-	mutation := newPetMutation(c.config, OpUpdateOne, withPetID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *PetClient) UpdateOneId(id int) *PetUpdateOne {
+	mutation := newPetMutation(c.config, OpUpdateOne, withPetId(id))
 	return &PetUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -470,12 +470,12 @@ func (c *PetClient) Delete() *PetDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *PetClient) DeleteOne(_m *Pet) *PetDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *PetClient) DeleteOneID(id int) *PetDeleteOne {
-	builder := c.Delete().Where(pet.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *PetClient) DeleteOneId(id int) *PetDeleteOne {
+	builder := c.Delete().Where(pet.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &PetDeleteOne{builder}
@@ -492,7 +492,7 @@ func (c *PetClient) Query() *PetQuery {
 
 // Get returns a Pet entity by its id.
 func (c *PetClient) Get(ctx context.Context, id int) (*Pet, error) {
-	return c.Query().Where(pet.ID(id)).Only(ctx)
+	return c.Query().Where(pet.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -508,10 +508,10 @@ func (c *PetClient) GetX(ctx context.Context, id int) *Pet {
 func (c *PetClient) QueryOwner(_m *Pet) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(pet.Table, pet.FieldID, id),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(pet.Table, pet.FieldId, id),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, pet.OwnerTable, pet.OwnerColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -605,9 +605,9 @@ func (c *UserClient) UpdateOne(_m *User) *UserUpdateOne {
 	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *UserClient) UpdateOneID(id int) *UserUpdateOne {
-	mutation := newUserMutation(c.config, OpUpdateOne, withUserID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *UserClient) UpdateOneId(id int) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUserId(id))
 	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -619,12 +619,12 @@ func (c *UserClient) Delete() *UserDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *UserClient) DeleteOne(_m *User) *UserDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *UserClient) DeleteOneID(id int) *UserDeleteOne {
-	builder := c.Delete().Where(user.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *UserClient) DeleteOneId(id int) *UserDeleteOne {
+	builder := c.Delete().Where(user.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &UserDeleteOne{builder}
@@ -641,7 +641,7 @@ func (c *UserClient) Query() *UserQuery {
 
 // Get returns a User entity by its id.
 func (c *UserClient) Get(ctx context.Context, id int) (*User, error) {
-	return c.Query().Where(user.ID(id)).Only(ctx)
+	return c.Query().Where(user.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -657,10 +657,10 @@ func (c *UserClient) GetX(ctx context.Context, id int) *User {
 func (c *UserClient) QueryPets(_m *User) *PetQuery {
 	query := (&PetClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, id),
-			sqlgraph.To(pet.Table, pet.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, id),
+			sqlgraph.To(pet.Table, pet.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, user.PetsTable, user.PetsColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)

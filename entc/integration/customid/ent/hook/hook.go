@@ -97,16 +97,16 @@ func (f GroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.GroupMutation", m)
 }
 
-// The IntSIDFunc type is an adapter to allow the use of ordinary
-// function as IntSID mutator.
-type IntSIDFunc func(context.Context, *ent.IntSIDMutation) (ent.Value, error)
+// The IntSIdFunc type is an adapter to allow the use of ordinary
+// function as IntSId mutator.
+type IntSIdFunc func(context.Context, *ent.IntSIdMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f IntSIDFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.IntSIDMutation); ok {
+func (f IntSIdFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.IntSIdMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.IntSIDMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.IntSIdMutation", m)
 }
 
 // The LinkFunc type is an adapter to allow the use of ordinary
@@ -121,16 +121,16 @@ func (f LinkFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.LinkMutation", m)
 }
 
-// The MixinIDFunc type is an adapter to allow the use of ordinary
-// function as MixinID mutator.
-type MixinIDFunc func(context.Context, *ent.MixinIDMutation) (ent.Value, error)
+// The MixinIdFunc type is an adapter to allow the use of ordinary
+// function as MixinId mutator.
+type MixinIdFunc func(context.Context, *ent.MixinIdMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f MixinIDFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.MixinIDMutation); ok {
+func (f MixinIdFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.MixinIdMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MixinIDMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MixinIdMutation", m)
 }
 
 // The NoteFunc type is an adapter to allow the use of ordinary

@@ -81,8 +81,8 @@ func (_q *UserQuery) QueryPets() *PetQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, selector),
-			sqlgraph.To(pet.Table, pet.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, selector),
+			sqlgraph.To(pet.Table, pet.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, user.PetsTable, user.PetsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -103,8 +103,8 @@ func (_q *UserQuery) QueryFriends() *UserQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, selector),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, user.FriendsTable, user.FriendsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -125,8 +125,8 @@ func (_q *UserQuery) QueryGroups() *GroupQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, selector),
-			sqlgraph.To(group.Table, group.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, selector),
+			sqlgraph.To(group.Table, group.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, user.GroupsTable, user.GroupsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -147,8 +147,8 @@ func (_q *UserQuery) QueryManage() *GroupQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, selector),
-			sqlgraph.To(group.Table, group.FieldID),
+			sqlgraph.From(user.Table, user.FieldId, selector),
+			sqlgraph.To(group.Table, group.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, user.ManageTable, user.ManageColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -179,11 +179,11 @@ func (_q *UserQuery) FirstX(ctx context.Context) *User {
 	return node
 }
 
-// FirstID returns the first User ID from the query.
-// Returns a *NotFoundError when no User ID was found.
-func (_q *UserQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first User Id from the query.
+// Returns a *NotFoundError when no User Id was found.
+func (_q *UserQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -193,9 +193,9 @@ func (_q *UserQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *UserQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *UserQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -229,12 +229,12 @@ func (_q *UserQuery) OnlyX(ctx context.Context) *User {
 	return node
 }
 
-// OnlyID is like Only, but returns the only User ID in the query.
-// Returns a *NotSingularError when more than one User ID is found.
+// OnlyId is like Only, but returns the only User Id in the query.
+// Returns a *NotSingularError when more than one User Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *UserQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *UserQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -248,9 +248,9 @@ func (_q *UserQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *UserQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *UserQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -276,21 +276,21 @@ func (_q *UserQuery) AllX(ctx context.Context) []*User {
 	return nodes
 }
 
-// IDs executes the query and returns a list of User IDs.
-func (_q *UserQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of User Ids.
+func (_q *UserQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(user.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(user.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *UserQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *UserQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -318,7 +318,7 @@ func (_q *UserQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *UserQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -541,8 +541,8 @@ func (_q *UserQuery) loadPets(ctx context.Context, query *PetQuery, nodes []*Use
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*User)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -558,31 +558,31 @@ func (_q *UserQuery) loadPets(ctx context.Context, query *PetQuery, nodes []*Use
 	for _, n := range neighbors {
 		fk := n.user_pets
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "user_pets" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "user_pets" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "user_pets" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "user_pets" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
 	return nil
 }
 func (_q *UserQuery) loadFriends(ctx context.Context, query *UserQuery, nodes []*User, init func(*User), assign func(*User, *User)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*User)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*User)
 	nids := make(map[int]map[*User]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(user.FriendsTable)
-		s.Join(joinT).On(s.C(user.FieldID), joinT.C(user.FriendsPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(user.FriendsPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(user.FieldId), joinT.C(user.FriendsPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(user.FriendsPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(user.FriendsPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -606,10 +606,10 @@ func (_q *UserQuery) loadFriends(ctx context.Context, query *UserQuery, nodes []
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*User]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*User]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -619,9 +619,9 @@ func (_q *UserQuery) loadFriends(ctx context.Context, query *UserQuery, nodes []
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "friends" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "friends" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -630,20 +630,20 @@ func (_q *UserQuery) loadFriends(ctx context.Context, query *UserQuery, nodes []
 	return nil
 }
 func (_q *UserQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []*User, init func(*User), assign func(*User, *Group)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*User)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*User)
 	nids := make(map[int]map[*User]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(user.GroupsTable)
-		s.Join(joinT).On(s.C(group.FieldID), joinT.C(user.GroupsPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(user.GroupsPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(group.FieldId), joinT.C(user.GroupsPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(user.GroupsPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(user.GroupsPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -667,10 +667,10 @@ func (_q *UserQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*User]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*User]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -680,9 +680,9 @@ func (_q *UserQuery) loadGroups(ctx context.Context, query *GroupQuery, nodes []
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "groups" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "groups" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -694,8 +694,8 @@ func (_q *UserQuery) loadManage(ctx context.Context, query *GroupQuery, nodes []
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*User)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -711,11 +711,11 @@ func (_q *UserQuery) loadManage(ctx context.Context, query *GroupQuery, nodes []
 	for _, n := range neighbors {
 		fk := n.group_admin
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "group_admin" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "group_admin" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "group_admin" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "group_admin" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -732,7 +732,7 @@ func (_q *UserQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *UserQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -741,9 +741,9 @@ func (_q *UserQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for i := range fields {
-			if fields[i] != user.FieldID {
+			if fields[i] != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

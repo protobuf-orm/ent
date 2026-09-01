@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldVersion holds the string denoting the version field in the database.
 	FieldVersion = "version"
 	// FieldName holds the string denoting the name field in the database.
@@ -59,9 +59,9 @@ const (
 	BestFriendColumn = "user_best_friend"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldVersion,
 	FieldName,
 	FieldWorth,
@@ -69,7 +69,7 @@ var Columns = []string{
 	FieldActive,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_best_friend",
@@ -112,9 +112,9 @@ var (
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByVersion orders the results by the version field.
@@ -192,29 +192,29 @@ func ByBestFriendField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newCardsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, CardsTable, CardsColumn),
 	)
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 	)
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }
 func newBestFriendStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, BestFriendTable, BestFriendColumn),
 	)
 }

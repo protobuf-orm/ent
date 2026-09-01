@@ -71,7 +71,7 @@ func (_u *BuilderUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *Builde
 }
 
 func (_u *BuilderUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(builder.Table, builder.Columns, sqlgraph.NewFieldSpec(builder.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(builder.Table, builder.Columns, sqlgraph.NewFieldSpec(builder.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -153,20 +153,20 @@ func (_u *BuilderUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *Bui
 }
 
 func (_u *BuilderUpdateOne) sqlSave(ctx context.Context) (_node *Builder, err error) {
-	_spec := sqlgraph.NewUpdateSpec(builder.Table, builder.Columns, sqlgraph.NewFieldSpec(builder.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(builder.Table, builder.Columns, sqlgraph.NewFieldSpec(builder.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Builder.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, builder.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, builder.FieldId)
 		for _, f := range fields {
 			if !builder.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != builder.FieldID {
+			if f != builder.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

@@ -18,16 +18,16 @@ const (
 	Label = "blob_link"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
-	// FieldBlobID holds the string denoting the blob_id field in the database.
-	FieldBlobID = "blob_id"
-	// FieldLinksID holds the string denoting the links_id field in the database.
-	FieldLinksID = "links_id"
+	// FieldBlobId holds the string denoting the blob_id field in the database.
+	FieldBlobId = "blob_id"
+	// FieldLinksId holds the string denoting the links_id field in the database.
+	FieldLinksId = "links_id"
 	// EdgeBlob holds the string denoting the blob edge name in mutations.
 	EdgeBlob = "blob"
 	// EdgeLink holds the string denoting the link edge name in mutations.
 	EdgeLink = "link"
-	// BlobFieldID holds the string denoting the ID field of the Blob.
-	BlobFieldID = "id"
+	// BlobFieldId holds the string denoting the Id field of the Blob.
+	BlobFieldId = "id"
 	// Table holds the table name of the bloblink in the database.
 	Table = "blob_link"
 	// BlobTable is the table that holds the blob relation/edge.
@@ -46,11 +46,11 @@ const (
 	LinkColumn = "links_id"
 )
 
-// Columns holds all SQL columns for bloblink fields.
+// Columns holds all Sql columns for bloblink fields.
 var Columns = []string{
 	FieldCreatedAt,
-	FieldBlobID,
-	FieldLinksID,
+	FieldBlobId,
+	FieldLinksId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -76,14 +76,14 @@ func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
-// ByBlobID orders the results by the blob_id field.
-func ByBlobID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldBlobID, opts...).ToFunc()
+// ByBlobId orders the results by the blob_id field.
+func ByBlobId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBlobId, opts...).ToFunc()
 }
 
-// ByLinksID orders the results by the links_id field.
-func ByLinksID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldLinksID, opts...).ToFunc()
+// ByLinksId orders the results by the links_id field.
+func ByLinksId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLinksId, opts...).ToFunc()
 }
 
 // ByBlobField orders the results by blob field.
@@ -102,14 +102,14 @@ func ByLinkField(field string, opts ...sql.OrderTermOption) OrderOption {
 func newBlobStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, BlobColumn),
-		sqlgraph.To(BlobInverseTable, BlobFieldID),
+		sqlgraph.To(BlobInverseTable, BlobFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, BlobTable, BlobColumn),
 	)
 }
 func newLinkStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, LinkColumn),
-		sqlgraph.To(LinkInverseTable, BlobFieldID),
+		sqlgraph.To(LinkInverseTable, BlobFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, LinkTable, LinkColumn),
 	)
 }

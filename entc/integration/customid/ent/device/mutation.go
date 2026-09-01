@@ -21,10 +21,10 @@ type Mutation struct {
 	op                    ent.Op
 	typ                   string
 	clearedFields         map[string]struct{}
-	active_session        *schema.ID
+	active_session        *schema.Id
 	clearedactive_session bool
-	sessions              map[schema.ID]struct{}
-	removedsessions       map[schema.ID]struct{}
+	sessions              map[schema.Id]struct{}
+	removedsessions       map[schema.Id]struct{}
 	clearedsessions       bool
 	predicates            []predicate.Device
 }
@@ -43,8 +43,8 @@ func (m *Mutation) Predicates() []predicate.Device {
 	return m.predicates
 }
 
-// SetActiveSessionID sets the "active_session" edge to the Session entity by id.
-func (m *Mutation) SetActiveSessionID(id schema.ID) {
+// SetActiveSessionId sets the "active_session" edge to the Session entity by id.
+func (m *Mutation) SetActiveSessionId(id schema.Id) {
 	m.active_session = &id
 }
 
@@ -58,18 +58,18 @@ func (m *Mutation) ActiveSessionCleared() bool {
 	return m.clearedactive_session
 }
 
-// ActiveSessionID returns the "active_session" edge ID in the mutation.
-func (m *Mutation) ActiveSessionID() (id schema.ID, exists bool) {
+// ActiveSessionId returns the "active_session" edge Id in the mutation.
+func (m *Mutation) ActiveSessionId() (id schema.Id, exists bool) {
 	if m.active_session != nil {
 		return *m.active_session, true
 	}
 	return
 }
 
-// ActiveSessionIDs returns the "active_session" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ActiveSessionID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ActiveSessionIDs() (ids []schema.ID) {
+// ActiveSessionIds returns the "active_session" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ActiveSessionId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ActiveSessionIds() (ids []schema.Id) {
 	if id := m.active_session; id != nil {
 		ids = append(ids, *id)
 	}
@@ -82,10 +82,10 @@ func (m *Mutation) ResetActiveSession() {
 	m.clearedactive_session = false
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by ids.
-func (m *Mutation) AddSessionsIDs(ids ...schema.ID) {
+// AddSessionsIds adds the "sessions" edge to the Session entity by ids.
+func (m *Mutation) AddSessionsIds(ids ...schema.Id) {
 	if m.sessions == nil {
-		m.sessions = make(map[schema.ID]struct{})
+		m.sessions = make(map[schema.Id]struct{})
 	}
 	for i := range ids {
 		m.sessions[ids[i]] = struct{}{}
@@ -102,10 +102,10 @@ func (m *Mutation) SessionsCleared() bool {
 	return m.clearedsessions
 }
 
-// RemoveSessionsIDs removes the "sessions" edge to the Session entity by IDs.
-func (m *Mutation) RemoveSessionsIDs(ids ...schema.ID) {
+// RemoveSessionsIds removes the "sessions" edge to the Session entity by Ids.
+func (m *Mutation) RemoveSessionsIds(ids ...schema.Id) {
 	if m.removedsessions == nil {
-		m.removedsessions = make(map[schema.ID]struct{})
+		m.removedsessions = make(map[schema.Id]struct{})
 	}
 	for i := range ids {
 		delete(m.sessions, ids[i])
@@ -113,16 +113,16 @@ func (m *Mutation) RemoveSessionsIDs(ids ...schema.ID) {
 	}
 }
 
-// RemovedSessions returns the removed IDs of the "sessions" edge to the Session entity.
-func (m *Mutation) RemovedSessionsIDs() (ids []schema.ID) {
+// RemovedSessions returns the removed Ids of the "sessions" edge to the Session entity.
+func (m *Mutation) RemovedSessionsIds() (ids []schema.Id) {
 	for id := range m.removedsessions {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// SessionsIDs returns the "sessions" edge IDs in the mutation.
-func (m *Mutation) SessionsIDs() (ids []schema.ID) {
+// SessionsIds returns the "sessions" edge Ids in the mutation.
+func (m *Mutation) SessionsIds() (ids []schema.Id) {
 	for id := range m.sessions {
 		ids = append(ids, id)
 	}
@@ -254,9 +254,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeActiveSession:
 		if id := m.active_session; id != nil {
@@ -281,9 +281,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeSessions:
 		ids := make([]ent.Value, 0, len(m.removedsessions))

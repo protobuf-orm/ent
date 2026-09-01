@@ -15,49 +15,49 @@ import (
 	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldLTE(FieldId, id))
 }
 
 // Active applies equality check predicate on the "active" field. It's identical to ActiveEQ.
@@ -80,9 +80,9 @@ func Token(v string) predicate.Session {
 	return predicate.Session(sql.FieldEQ(FieldToken, v))
 }
 
-// DeviceID applies equality check predicate on the "device_id" field. It's identical to DeviceIDEQ.
-func DeviceID(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldDeviceID, v))
+// DeviceId applies equality check predicate on the "device_id" field. It's identical to DeviceIdEQ.
+func DeviceId(v uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldEQ(FieldDeviceId, v))
 }
 
 // ActiveEQ applies the EQ predicate on the "active" field.
@@ -270,41 +270,41 @@ func MethodNotNil() predicate.Session {
 	return predicate.Session(sql.FieldNotNull(FieldMethod))
 }
 
-// DeviceIDEQ applies the EQ predicate on the "device_id" field.
-func DeviceIDEQ(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldEQ(FieldDeviceID, v))
+// DeviceIdEQ applies the EQ predicate on the "device_id" field.
+func DeviceIdEQ(v uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldEQ(FieldDeviceId, v))
 }
 
-// DeviceIDNEQ applies the NEQ predicate on the "device_id" field.
-func DeviceIDNEQ(v uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNEQ(FieldDeviceID, v))
+// DeviceIdNEQ applies the NEQ predicate on the "device_id" field.
+func DeviceIdNEQ(v uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldNEQ(FieldDeviceId, v))
 }
 
-// DeviceIDIn applies the In predicate on the "device_id" field.
-func DeviceIDIn(vs ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldIn(FieldDeviceID, vs...))
+// DeviceIdIn applies the In predicate on the "device_id" field.
+func DeviceIdIn(vs ...uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldIn(FieldDeviceId, vs...))
 }
 
-// DeviceIDNotIn applies the NotIn predicate on the "device_id" field.
-func DeviceIDNotIn(vs ...uuid.UUID) predicate.Session {
-	return predicate.Session(sql.FieldNotIn(FieldDeviceID, vs...))
+// DeviceIdNotIn applies the NotIn predicate on the "device_id" field.
+func DeviceIdNotIn(vs ...uuid.UUID) predicate.Session {
+	return predicate.Session(sql.FieldNotIn(FieldDeviceId, vs...))
 }
 
-// DeviceIDIsNil applies the IsNil predicate on the "device_id" field.
-func DeviceIDIsNil() predicate.Session {
-	return predicate.Session(sql.FieldIsNull(FieldDeviceID))
+// DeviceIdIsNil applies the IsNil predicate on the "device_id" field.
+func DeviceIdIsNil() predicate.Session {
+	return predicate.Session(sql.FieldIsNull(FieldDeviceId))
 }
 
-// DeviceIDNotNil applies the NotNil predicate on the "device_id" field.
-func DeviceIDNotNil() predicate.Session {
-	return predicate.Session(sql.FieldNotNull(FieldDeviceID))
+// DeviceIdNotNil applies the NotNil predicate on the "device_id" field.
+func DeviceIdNotNil() predicate.Session {
+	return predicate.Session(sql.FieldNotNull(FieldDeviceId))
 }
 
 // HasDevice applies the HasEdge predicate on the "device" edge.
 func HasDevice() predicate.Session {
 	return predicate.Session(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, DeviceTable, DeviceColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

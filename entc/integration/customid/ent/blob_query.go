@@ -81,8 +81,8 @@ func (_q *BlobQuery) QueryParent() *BlobQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(blob.Table, blob.FieldID, selector),
-			sqlgraph.To(blob.Table, blob.FieldID),
+			sqlgraph.From(blob.Table, blob.FieldId, selector),
+			sqlgraph.To(blob.Table, blob.FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, blob.ParentTable, blob.ParentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -103,8 +103,8 @@ func (_q *BlobQuery) QueryLinks() *BlobQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(blob.Table, blob.FieldID, selector),
-			sqlgraph.To(blob.Table, blob.FieldID),
+			sqlgraph.From(blob.Table, blob.FieldId, selector),
+			sqlgraph.To(blob.Table, blob.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, blob.LinksTable, blob.LinksPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -125,7 +125,7 @@ func (_q *BlobQuery) QueryBlobLinks() *BlobLinkQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(blob.Table, blob.FieldID, selector),
+			sqlgraph.From(blob.Table, blob.FieldId, selector),
 			sqlgraph.To(bloblink.Table, bloblink.BlobColumn),
 			sqlgraph.Edge(sqlgraph.O2M, true, blob.BlobLinksTable, blob.BlobLinksColumn),
 		)
@@ -157,11 +157,11 @@ func (_q *BlobQuery) FirstX(ctx context.Context) *Blob {
 	return node
 }
 
-// FirstID returns the first Blob ID from the query.
-// Returns a *NotFoundError when no Blob ID was found.
-func (_q *BlobQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) {
+// FirstId returns the first Blob Id from the query.
+// Returns a *NotFoundError when no Blob Id was found.
+func (_q *BlobQuery) FirstId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -171,9 +171,9 @@ func (_q *BlobQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *BlobQuery) FirstIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *BlobQuery) FirstIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -207,12 +207,12 @@ func (_q *BlobQuery) OnlyX(ctx context.Context) *Blob {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Blob ID in the query.
-// Returns a *NotSingularError when more than one Blob ID is found.
+// OnlyId is like Only, but returns the only Blob Id in the query.
+// Returns a *NotSingularError when more than one Blob Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *BlobQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
+func (_q *BlobQuery) OnlyId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -226,9 +226,9 @@ func (_q *BlobQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *BlobQuery) OnlyIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *BlobQuery) OnlyIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -254,21 +254,21 @@ func (_q *BlobQuery) AllX(ctx context.Context) []*Blob {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Blob IDs.
-func (_q *BlobQuery) IDs(ctx context.Context) (ids []uuid.UUID, err error) {
+// Ids executes the query and returns a list of Blob Ids.
+func (_q *BlobQuery) Ids(ctx context.Context) (ids []uuid.UUID, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(blob.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(blob.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *BlobQuery) IDsX(ctx context.Context) []uuid.UUID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *BlobQuery) IdsX(ctx context.Context) []uuid.UUID {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -296,7 +296,7 @@ func (_q *BlobQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *BlobQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -375,12 +375,12 @@ func (_q *BlobQuery) WithBlobLinks(opts ...func(*BlobLinkQuery)) *BlobQuery {
 // Example:
 //
 //	var v []struct {
-//		UUID uuid.UUID `json:"uuid,omitempty"`
+//		Uuid uuid.UUID `json:"uuid,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Blob.Query().
-//		GroupBy(blob.FieldUUID).
+//		GroupBy(blob.FieldUuid).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *BlobQuery) GroupBy(field string, fields ...string) *BlobGroupBy {
@@ -398,11 +398,11 @@ func (_q *BlobQuery) GroupBy(field string, fields ...string) *BlobGroupBy {
 // Example:
 //
 //	var v []struct {
-//		UUID uuid.UUID `json:"uuid,omitempty"`
+//		Uuid uuid.UUID `json:"uuid,omitempty"`
 //	}
 //
 //	client.Blob.Query().
-//		Select(blob.FieldUUID).
+//		Select(blob.FieldUuid).
 //		Scan(ctx, &v)
 func (_q *BlobQuery) Select(fields ...string) *BlobSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
@@ -517,15 +517,15 @@ func (_q *BlobQuery) loadParent(ctx context.Context, query *BlobQuery, nodes []*
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(blob.IDIn(ids...))
+	query.Where(blob.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "blob_parent" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "blob_parent" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -534,20 +534,20 @@ func (_q *BlobQuery) loadParent(ctx context.Context, query *BlobQuery, nodes []*
 	return nil
 }
 func (_q *BlobQuery) loadLinks(ctx context.Context, query *BlobQuery, nodes []*Blob, init func(*Blob), assign func(*Blob, *Blob)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[uuid.UUID]*Blob)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[uuid.UUID]*Blob)
 	nids := make(map[uuid.UUID]map[*Blob]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(blob.LinksTable)
-		s.Join(joinT).On(s.C(blob.FieldID), joinT.C(blob.LinksPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(blob.LinksPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(blob.FieldId), joinT.C(blob.LinksPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(blob.LinksPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(blob.LinksPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -571,10 +571,10 @@ func (_q *BlobQuery) loadLinks(ctx context.Context, query *BlobQuery, nodes []*B
 				outValue := *values[0].(*uuid.UUID)
 				inValue := *values[1].(*uuid.UUID)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Blob]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Blob]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -584,9 +584,9 @@ func (_q *BlobQuery) loadLinks(ctx context.Context, query *BlobQuery, nodes []*B
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "links" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "links" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -598,14 +598,14 @@ func (_q *BlobQuery) loadBlobLinks(ctx context.Context, query *BlobLinkQuery, no
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uuid.UUID]*Blob)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(bloblink.FieldBlobID)
+		query.ctx.AppendFieldOnce(bloblink.FieldBlobId)
 	}
 	query.Where(predicate.BlobLink(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(blob.BlobLinksColumn), fks...))
@@ -615,7 +615,7 @@ func (_q *BlobQuery) loadBlobLinks(ctx context.Context, query *BlobLinkQuery, no
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.BlobID
+		fk := n.BlobId
 		node, ok := nodeids[fk]
 		if !ok {
 			return fmt.Errorf(`unexpected referenced foreign-key "blob_id" returned %v for node %v`, fk, n)
@@ -635,7 +635,7 @@ func (_q *BlobQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *BlobQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewQuerySpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -644,9 +644,9 @@ func (_q *BlobQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, blob.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, blob.FieldId)
 		for i := range fields {
-			if fields[i] != blob.FieldID {
+			if fields[i] != blob.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

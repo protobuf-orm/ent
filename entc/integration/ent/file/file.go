@@ -14,10 +14,10 @@ import (
 const (
 	// Label holds the string label denoting the file type in the database.
 	Label = "file"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldSetID holds the string denoting the set_id field in the database.
-	FieldSetID = "set_id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldSetId holds the string denoting the set_id field in the database.
+	FieldSetId = "set_id"
 	// FieldSize holds the string denoting the size field in the database.
 	FieldSize = "fsize"
 	// FieldName holds the string denoting the name field in the database.
@@ -28,8 +28,8 @@ const (
 	FieldGroup = "group"
 	// FieldOp holds the string denoting the op field in the database.
 	FieldOp = "op"
-	// FieldFieldID holds the string denoting the field_id field in the database.
-	FieldFieldID = "field_id"
+	// FieldFieldId holds the string denoting the field_id field in the database.
+	FieldFieldId = "field_id"
 	// FieldCreateTime holds the string denoting the create_time field in the database.
 	FieldCreateTime = "create_time"
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
@@ -63,20 +63,20 @@ const (
 	FieldColumn = "file_field"
 )
 
-// Columns holds all SQL columns for file fields.
+// Columns holds all Sql columns for file fields.
 var Columns = []string{
-	FieldID,
-	FieldSetID,
+	FieldId,
+	FieldSetId,
 	FieldSize,
 	FieldName,
 	FieldUser,
 	FieldGroup,
 	FieldOp,
-	FieldFieldID,
+	FieldFieldId,
 	FieldCreateTime,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "file"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "file"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_type_files",
@@ -100,8 +100,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// SetIDValidator is a validator for the "set_id" field. It is called by the builders before save.
-	SetIDValidator func(int) error
+	// SetIdValidator is a validator for the "set_id" field. It is called by the builders before save.
+	SetIdValidator func(int) error
 	// DefaultSize holds the default value on creation for the "size" field.
 	DefaultSize int
 	// SizeValidator is a validator for the "size" field. It is called by the builders before save.
@@ -111,14 +111,14 @@ var (
 // OrderOption defines the ordering options for the File queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// BySetID orders the results by the set_id field.
-func BySetID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldSetID, opts...).ToFunc()
+// BySetId orders the results by the set_id field.
+func BySetId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSetId, opts...).ToFunc()
 }
 
 // BySize orders the results by the size field.
@@ -146,9 +146,9 @@ func ByOp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldOp, opts...).ToFunc()
 }
 
-// ByFieldID orders the results by the field_id field.
-func ByFieldID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldFieldID, opts...).ToFunc()
+// ByFieldId orders the results by the field_id field.
+func ByFieldId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFieldId, opts...).ToFunc()
 }
 
 // ByCreateTime orders the results by the create_time field.
@@ -185,22 +185,22 @@ func ByField(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }
 func newTypeStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TypeInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TypeInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, TypeTable, TypeColumn),
 	)
 }
 func newFieldStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FieldInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FieldInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, FieldTable, FieldColumn),
 	)
 }

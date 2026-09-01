@@ -10,10 +10,10 @@ in the LICENSE file in the root directory of this source tree.
 {{ $receiver := $.Receiver }}
 
 {{ $ctypes := dict }}
-{{ if $.HasOneFieldID }}
-	{{- if not $.ID.HasValueScanner }}
-		{{ $idscantype := $.ID.NewScanType }}
-		{{ $ctypes = set $ctypes $idscantype (list $.ID.Constant) }}
+{{ if $.HasOneFieldId }}
+	{{- if not $.Id.HasValueScanner }}
+		{{ $idscantype := $.Id.NewScanType }}
+		{{ $ctypes = set $ctypes $idscantype (list $.Id.Constant) }}
 	{{- end }}
 {{ end }}
 {{ range $f := $.Fields }}
@@ -33,9 +33,9 @@ func (*{{ $.Name }}) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-			{{- if and $.HasOneFieldID $.ID.HasValueScanner }}
-				case {{ $.Package }}.{{ $.ID.Constant }}:
-					values[i] = {{ $.ID.ScanValueFunc }}()
+			{{- if and $.HasOneFieldId $.Id.HasValueScanner }}
+				case {{ $.Package }}.{{ $.Id.Constant }}:
+					values[i] = {{ $.Id.ScanValueFunc }}()
 			{{- end }}
 			{{- range $type, $columns := $ctypes }}
 				case {{ range $i, $c := $columns }}{{ if ne $i 0 }},{{ end }}{{ $.Package }}.{{ $c }}{{ end }}:
@@ -68,10 +68,10 @@ func ({{ $receiver }} *{{ $.Name }}) assignValues(columns []string, values []any
 	}
 	for i := range columns {
 		switch columns[i] {
-		{{- if $.HasOneFieldID }}
-			case {{ $.Package }}.{{ $.ID.Constant }}:
-				{{- if or $.ID.IsString $.ID.IsBytes $.ID.HasGoType $.ID.HasValueScanner }}
-					{{- with extend $ "Idx" "i" "Field" $.ID "Rec" $receiver }}
+		{{- if $.HasOneFieldId }}
+			case {{ $.Package }}.{{ $.Id.Constant }}:
+				{{- if or $.Id.IsString $.Id.IsBytes $.Id.HasGoType $.Id.HasValueScanner }}
+					{{- with extend $ "Idx" "i" "Field" $.Id "Rec" $receiver }}
 						{{ template "dialect/sql/decode/field" . }}
 					{{- end }}
 				{{- else }}
@@ -79,7 +79,7 @@ func ({{ $receiver }} *{{ $.Name }}) assignValues(columns []string, values []any
 					if !ok {
 						return fmt.Errorf("unexpected type %T for field id", value)
 					}
-					{{ $receiver }}.ID = {{ $.ID.Type }}(value.Int64)
+					{{ $receiver }}.Id = {{ $.Id.Type }}(value.Int64)
 				{{- end }}
 		{{- end }}
 		{{- range  $f := $.Fields }}
@@ -90,7 +90,7 @@ func ({{ $receiver }} *{{ $.Name }}) assignValues(columns []string, values []any
 		{{- end }}
 		{{- range $i, $fk := $.UnexportedForeignKeys }}
 			{{- $f := $fk.Field }}
-			case {{ if $fk.UserDefined }}{{ $.Package }}.{{ $.ID.Constant }}{{ else }}{{ $.Package }}.ForeignKeys[{{ $i }}]{{ end }}:
+			case {{ if $fk.UserDefined }}{{ $.Package }}.{{ $.Id.Constant }}{{ else }}{{ $.Package }}.ForeignKeys[{{ $i }}]{{ end }}:
 				{{- if or $fk.UserDefined (and $f.UserDefined (or $f.IsString $f.IsBytes $f.HasGoType)) }}
 					{{- with extend $ "Idx" "i" "Field" $f "Rec" $receiver "StructField" $fk.StructField }}
 						{{ template "dialect/sql/decode/field" . }}
@@ -130,7 +130,7 @@ func ({{ $receiver }} *{{ $.Name }}) {{ $.ValueName }}(name string) (ent.Value, 
 		} else {
 			{{ $ret }}.{{ $field }} = value
 		}
-	{{- else if $f.IsJSON -}}
+	{{- else if $f.IsJson -}}
 		if value, ok := values[{{ $i }}].(*{{ $f.ScanType }}); !ok {
 			return fmt.Errorf("unexpected type %T for field {{ $f.Name }}", values[{{ $i }}])
 		} else if value != nil && len(*value) > 0 {

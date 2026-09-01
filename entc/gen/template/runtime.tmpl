@@ -158,14 +158,14 @@ func init() {
 				_ = {{ $pkg }}MixinFields{{ $i }}
 			{{- end }}
 		{{- end }}
-		{{- $fields := $n.Fields }}{{ if $n.HasOneFieldID }}{{ if $n.ID.UserDefined }}{{ $fields = append $fields $n.ID }}{{ end }}{{ end }}
+		{{- $fields := $n.Fields }}{{ if $n.HasOneFieldId }}{{ if $n.Id.UserDefined }}{{ $fields = append $fields $n.Id }}{{ end }}{{ end }}
 		{{- with $fields }}
 			{{ $pkg }}Fields := {{ $schema }}.{{ $n.Name }}{}.Fields()
 			_ = {{ $pkg }}Fields
 		{{- end }}
 		{{- range $i, $f := $fields }}
 			{{- $desc := print $pkg "Desc" $f.StructField }}
-			{{- $idscan := and $n.HasOneFieldID (eq $f.Name $n.ID.Name) }}
+			{{- $idscan := and $n.HasOneFieldId (eq $f.Name $n.Id.Name) }}
 			{{- /* enum default values handled near their declarations (in type package). */}}
 			{{- if or (and $f.Default (not $f.IsEnum)) $f.UpdateDefault $f.Validators (and $f.HasValueScanner (or (not $idscan) (eq $n.Storage.Name "sql"))) }}
 				// {{ $desc }} is the schema descriptor for {{ $f.Name }} field.
@@ -180,7 +180,7 @@ func init() {
 				// {{ $default }} holds the default value on creation for the {{ $f.Name }} field.
 				{{- $defaultType := print $f.Type.Type }}{{ if $f.DefaultFunc }}{{ $defaultType = print "func() " $f.Type }}{{ end }}
 				{{- if and $f.HasGoType (not (hasPrefix $defaultType "func")) }}
-					{{- if or $f.IsJSON $f.IsOther }}
+					{{- if or $f.IsJson $f.IsOther }}
 						{{ $default }} = {{ $desc }}.Default.({{ $f.Type }})
 					{{- else }}
 						{{ $default }} = {{ $f.Type }}({{ $desc }}.Default.({{ $defaultType }}))
@@ -201,7 +201,7 @@ func init() {
 			{{- with $f.Validators }}
 				{{- $name := print $pkg "." $f.Validator }}
 				{{- $type := $f.Type.Type.String }}
-				{{- if $f.IsJSON }}
+				{{- if $f.IsJson }}
 					{{- $type = $f.Type.String }}
 				{{- end }}
 				// {{ $name }} is a validator for the "{{ $f.Name }}" field. It is called by the builders before save.

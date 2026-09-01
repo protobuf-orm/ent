@@ -41,26 +41,26 @@ func (_c *RentalCreate) SetNillableDate(v *time.Time) *RentalCreate {
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *RentalCreate) SetUserID(v int) *RentalCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *RentalCreate) SetUserId(v int) *RentalCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetCarID sets the "car_id" field.
-func (_c *RentalCreate) SetCarID(v uuid.UUID) *RentalCreate {
-	_c.mutation.SetCarID(v)
+// SetCarId sets the "car_id" field.
+func (_c *RentalCreate) SetCarId(v uuid.UUID) *RentalCreate {
+	_c.mutation.SetCarId(v)
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *RentalCreate) SetUser(v *User) *RentalCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
 // SetCar sets the "car" edge to the Car entity.
 func (_c *RentalCreate) SetCar(v *Car) *RentalCreate {
-	return _c.SetCarID(v.ID)
+	return _c.SetCarId(v.Id)
 }
 
 // Mutation returns the RentalMutation object of the builder.
@@ -109,16 +109,16 @@ func (_c *RentalCreate) check() error {
 	if _, ok := _c.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New(`ent: missing required field "Rental.date"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "Rental.user_id"`)}
 	}
-	if _, ok := _c.mutation.CarID(); !ok {
+	if _, ok := _c.mutation.CarId(); !ok {
 		return &ValidationError{Name: "car_id", err: errors.New(`ent: missing required field "Rental.car_id"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "Rental.user"`)}
 	}
-	if len(_c.mutation.CarIDs()) == 0 {
+	if len(_c.mutation.CarIds()) == 0 {
 		return &ValidationError{Name: "car", err: errors.New(`ent: missing required edge "Rental.car"`)}
 	}
 	return nil
@@ -135,9 +135,9 @@ func (_c *RentalCreate) sqlSave(ctx context.Context) (*Rental, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -145,13 +145,13 @@ func (_c *RentalCreate) sqlSave(ctx context.Context) (*Rental, error) {
 func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Rental{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(rental.Table, sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(rental.Table, sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Date(); ok {
 		_spec.SetField(rental.FieldDate, field.TypeTime, value)
 		_node.Date = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -159,16 +159,16 @@ func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec) {
 			Columns: []string{rental.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.CarIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CarIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -176,13 +176,13 @@ func (_c *RentalCreate) createSpec() (*Rental, *sqlgraph.CreateSpec) {
 			Columns: []string{rental.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.CarID = nodes[0]
+		_node.CarId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -232,10 +232,10 @@ func (_c *RentalCreateBulk) Save(ctx context.Context) ([]*Rental, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

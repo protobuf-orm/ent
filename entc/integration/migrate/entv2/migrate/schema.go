@@ -159,7 +159,7 @@ var (
 		{Name: "state", Type: field.TypeEnum, Nullable: true, Enums: []string{"logged_in", "logged_out", "online"}, Default: "logged_in"},
 		{Name: "status", Type: field.TypeEnum, Nullable: true, Enums: []string{"done", "pending"}},
 		{Name: "workplace", Type: field.TypeString, Nullable: true},
-		{Name: "roles", Type: field.TypeJSON, Nullable: true, Default: "[]"},
+		{Name: "roles", Type: field.TypeJson, Nullable: true, Default: "[]"},
 		{Name: "default_expr", Type: field.TypeString, Nullable: true, Default: schema.Expr("lower('hello')")},
 		{Name: "default_exprs", Type: field.TypeString, Nullable: true, Default: map[string]schema.Expr{"mysql": "TO_BASE64('ent')", "postgres": "md5('ent')", "sqlite3": "hex('ent')"}},
 		{Name: "created_at", Type: field.TypeTime, Default: "CURRENT_TIMESTAMP"},

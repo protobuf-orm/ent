@@ -17,7 +17,7 @@ import (
 
 func main() {
 	// A usage for custom options to configure the code generator to use
-	// an extension and inject external dependencies in the generated API.
+	// an extension and inject external dependencies in the generated Api.
 	opts := []entc.Option{
 		entc.Dependency(
 			entc.DependencyType(&http.Client{}),

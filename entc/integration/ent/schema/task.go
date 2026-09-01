@@ -25,7 +25,7 @@ func (Task) Fields() []ent.Field {
 		field.Int("priority").
 			GoType(task.Priority(0)).
 			Default(int(task.PriorityMid)),
-		field.JSON("priorities", map[string]task.Priority{}).
+		field.Json("priorities", map[string]task.Priority{}).
 			Optional(),
 		field.Time("created_at").
 			Default(time.Now).

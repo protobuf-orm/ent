@@ -62,13 +62,13 @@ func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
-// SetUserID sets the "user_id" field.
-func (m *Mutation) SetUserID(i int) {
+// SetUserId sets the "user_id" field.
+func (m *Mutation) SetUserId(i int) {
 	m.user = &i
 }
 
-// UserID returns the value of the "user_id" field in the mutation.
-func (m *Mutation) UserID() (r int, exists bool) {
+// UserId returns the value of the "user_id" field in the mutation.
+func (m *Mutation) UserId() (r int, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -76,18 +76,18 @@ func (m *Mutation) UserID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetUserID resets all changes to the "user_id" field.
-func (m *Mutation) ResetUserID() {
+// ResetUserId resets all changes to the "user_id" field.
+func (m *Mutation) ResetUserId() {
 	m.user = nil
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (m *Mutation) SetTweetID(i int) {
+// SetTweetId sets the "tweet_id" field.
+func (m *Mutation) SetTweetId(i int) {
 	m.tweet = &i
 }
 
-// TweetID returns the value of the "tweet_id" field in the mutation.
-func (m *Mutation) TweetID() (r int, exists bool) {
+// TweetId returns the value of the "tweet_id" field in the mutation.
+func (m *Mutation) TweetId() (r int, exists bool) {
 	v := m.tweet
 	if v == nil {
 		return
@@ -95,15 +95,15 @@ func (m *Mutation) TweetID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetTweetID resets all changes to the "tweet_id" field.
-func (m *Mutation) ResetTweetID() {
+// ResetTweetId resets all changes to the "tweet_id" field.
+func (m *Mutation) ResetTweetId() {
 	m.tweet = nil
 }
 
 // ClearUser clears the "user" edge to the User entity.
 func (m *Mutation) ClearUser() {
 	m.cleareduser = true
-	m.clearedFields[FieldUserID] = struct{}{}
+	m.clearedFields[FieldUserId] = struct{}{}
 }
 
 // UserCleared reports if the "user" edge to the User entity was cleared.
@@ -111,10 +111,10 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -130,7 +130,7 @@ func (m *Mutation) ResetUser() {
 // ClearTweet clears the "tweet" edge to the Tweet entity.
 func (m *Mutation) ClearTweet() {
 	m.clearedtweet = true
-	m.clearedFields[FieldTweetID] = struct{}{}
+	m.clearedFields[FieldTweetId] = struct{}{}
 }
 
 // TweetCleared reports if the "tweet" edge to the Tweet entity was cleared.
@@ -138,10 +138,10 @@ func (m *Mutation) TweetCleared() bool {
 	return m.clearedtweet
 }
 
-// TweetIDs returns the "tweet" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TweetID instead. It exists only for internal usage by the builders.
-func (m *Mutation) TweetIDs() (ids []int) {
+// TweetIds returns the "tweet" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// TweetId instead. It exists only for internal usage by the builders.
+func (m *Mutation) TweetIds() (ids []int) {
 	if id := m.tweet; id != nil {
 		ids = append(ids, *id)
 	}
@@ -193,10 +193,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldCreatedAt)
 	}
 	if m.user != nil {
-		fields = append(fields, FieldUserID)
+		fields = append(fields, FieldUserId)
 	}
 	if m.tweet != nil {
-		fields = append(fields, FieldTweetID)
+		fields = append(fields, FieldTweetId)
 	}
 	return fields
 }
@@ -208,10 +208,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldCreatedAt:
 		return m.CreatedAt()
-	case FieldUserID:
-		return m.UserID()
-	case FieldTweetID:
-		return m.TweetID()
+	case FieldUserId:
+		return m.UserId()
+	case FieldTweetId:
+		return m.TweetId()
 	}
 	return nil, false
 }
@@ -235,19 +235,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case FieldUserID:
+	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUserID(v)
+		m.SetUserId(v)
 		return nil
-	case FieldTweetID:
+	case FieldTweetId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetTweetID(v)
+		m.SetTweetId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown UserTweet field %s", name)
@@ -304,11 +304,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case FieldUserID:
-		m.ResetUserID()
+	case FieldUserId:
+		m.ResetUserId()
 		return nil
-	case FieldTweetID:
-		m.ResetTweetID()
+	case FieldTweetId:
+		m.ResetTweetId()
 		return nil
 	}
 	return fmt.Errorf("unknown UserTweet field %s", name)
@@ -326,9 +326,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUser:
 		if id := m.user; id != nil {
@@ -348,9 +348,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -26,7 +26,7 @@ func TestCustomTemplate(t *testing.T) {
 		"sqlite3",
 		"file:ent?mode=memory&cache=shared&_fk=1",
 		// Custom config option.
-		ent.HTTPClient(http.DefaultClient),
+		ent.HttpClient(http.DefaultClient),
 	)
 	require.NoError(t, err)
 	defer client.Close()
@@ -34,8 +34,8 @@ func TestCustomTemplate(t *testing.T) {
 	require.NoError(t, client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)))
 	client.User.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.UserFunc(func(ctx context.Context, m *ent.UserMutation) (ent.Value, error) {
-			// Access the injected HTTP client here.
-			_ = m.HTTPClient
+			// Access the injected Http client here.
+			_ = m.HttpClient
 			return next.Mutate(ctx, m)
 		})
 	})
@@ -44,21 +44,21 @@ func TestCustomTemplate(t *testing.T) {
 	u := client.User.Create().SetName("a8m").AddPets(p).SaveX(ctx)
 	g := client.Group.Create().SetMaxUsers(10).SaveX(ctx)
 
-	node, err := client.Node(ctx, p.ID)
+	node, err := client.Node(ctx, p.Id)
 	require.NoError(t, err)
-	require.Equal(t, p.ID, node.ID)
+	require.Equal(t, p.Id, node.Id)
 	require.Equal(t, &ent.Field{Type: "int", Name: "Age", Value: "1"}, node.Fields[0])
-	require.Equal(t, &ent.Edge{Type: "User", Name: "Owner", IDs: []int{u.ID}}, node.Edges[0])
+	require.Equal(t, &ent.Edge{Type: "User", Name: "Owner", Ids: []int{u.Id}}, node.Edges[0])
 
-	node, err = client.Node(ctx, u.ID)
+	node, err = client.Node(ctx, u.Id)
 	require.NoError(t, err)
-	require.Equal(t, u.ID, node.ID)
+	require.Equal(t, u.Id, node.Id)
 	require.Equal(t, &ent.Field{Type: "string", Name: "Name", Value: "\"a8m\""}, node.Fields[0])
-	require.Equal(t, &ent.Edge{Type: "Pet", Name: "Pets", IDs: []int{p.ID}}, node.Edges[0])
+	require.Equal(t, &ent.Edge{Type: "Pet", Name: "Pets", Ids: []int{p.Id}}, node.Edges[0])
 
-	node, err = client.Node(ctx, g.ID)
+	node, err = client.Node(ctx, g.Id)
 	require.NoError(t, err)
-	require.Equal(t, g.ID, node.ID)
+	require.Equal(t, g.Id, node.Id)
 	require.Equal(t, &ent.Field{Type: "int", Name: "MaxUsers", Value: "10"}, node.Fields[0])
 
 	// check for client additional fields.
@@ -68,17 +68,17 @@ func TestCustomTemplate(t *testing.T) {
 		AllX(ctx)
 	require.Equal(t, 1, len(result))
 
-	var v []struct{ ID, Owner int }
+	var v []struct{ Id, Owner int }
 	client.Pet.Query().
 		Modify(func(s *sql.Selector) {
 			t := sql.Table(user.Table)
-			s.Join(t).On(s.C(pet.OwnerColumn), t.C(user.FieldID))
-			s.Select(s.C(pet.FieldID), sql.As(t.C(user.FieldID), "owner"))
+			s.Join(t).On(s.C(pet.OwnerColumn), t.C(user.FieldId))
+			s.Select(s.C(pet.FieldId), sql.As(t.C(user.FieldId), "owner"))
 		}).
 		Select().
 		ScanX(ctx, &v)
-	require.Equal(t, p.ID, v[0].ID)
-	require.Equal(t, u.ID, v[0].Owner)
+	require.Equal(t, p.Id, v[0].Id)
+	require.Equal(t, u.Id, v[0].Owner)
 
 	var sum int
 	for _, age := range client.Pet.Query().Select(pet.FieldAge).IntsX(ctx) {

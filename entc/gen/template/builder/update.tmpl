@@ -189,7 +189,7 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 {{ $receiver := .Scope.Receiver }}
 {{ $mutation := print $receiver ".mutation" }}
 
-{{ range $e := $.EdgesWithID }}
+{{ range $e := $.EdgesWithId }}
 	{{ if $e.Immutable }}
 		{{/* Skip to the next one as immutable edges cannot be updated. */}}
 		{{continue}}
@@ -201,18 +201,18 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 		return {{ $receiver }}
 	}
 	{{ if not $e.Unique }}
-		{{ $idsFunc := print "Remove" (pascal $e.Name) "IDs" }}
-		// {{ $idsFunc }} removes the "{{ $e.Name }}" edge to {{ $e.Type.Name }} entities by IDs.
-		func ({{ $receiver }} *{{ $builder }}) {{ $idsFunc }}(ids ...{{ $e.Type.ID.Type }}) *{{ $builder }} {
+		{{ $idsFunc := print "Remove" (pascal $e.Name) "Ids" }}
+		// {{ $idsFunc }} removes the "{{ $e.Name }}" edge to {{ $e.Type.Name }} entities by Ids.
+		func ({{ $receiver }} *{{ $builder }}) {{ $idsFunc }}(ids ...{{ $e.Type.Id.Type }}) *{{ $builder }} {
 			{{ $mutation }}.{{ $idsFunc }}(ids...)
 			return {{ $receiver }}
 		}
 		{{ $func := print "Remove" $e.StructField }}
 		// {{ $func }} removes "{{ $e.Name }}" edges to {{ $e.Type.Name }} entities.
 		func ({{ $receiver }} *{{ $builder }}) {{ $func }}(v ...*{{ $e.Type.Name }}) *{{ $builder }} {
-			ids := make([]{{ $e.Type.ID.Type }}, len(v))
+			ids := make([]{{ $e.Type.Id.Type }}, len(v))
 			for i := range v {
-				ids[i] = v[i].ID
+				ids[i] = v[i].Id
 			}
 			return {{ $receiver }}.{{ $idsFunc }}(ids...)
 		}
@@ -265,7 +265,7 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 		{{- end }}
 		{{- range $e := $.Edges }}
 			{{- if and $e.Unique (not $e.Optional) }}
-				if {{ $mutation }}.{{ $e.StructField }}Cleared() && len({{ $mutation }}.{{ $e.StructField }}IDs()) > 0 {
+				if {{ $mutation }}.{{ $e.StructField }}Cleared() && len({{ $mutation }}.{{ $e.StructField }}Ids()) > 0 {
 					return errors.New(`{{ $pkg }}: clearing a required unique edge "{{ $.Name }}.{{ $e.Name }}"`)
 				}
 			{{- end }}

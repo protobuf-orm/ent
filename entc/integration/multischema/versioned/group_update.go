@@ -48,9 +48,9 @@ func (_u *GroupUpdate) SetNillableName(v *string) *GroupUpdate {
 	return _u
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
-	_u.mutation.AddUsersIDs(ids...)
+// AddUsersIds adds the "users" edge to the User entity by Ids.
+func (_u *GroupUpdate) AddUsersIds(ids ...int) *GroupUpdate {
+	_u.mutation.AddUsersIds(ids...)
 	return _u
 }
 
@@ -58,9 +58,9 @@ func (_u *GroupUpdate) AddUsersIDs(ids ...int) *GroupUpdate {
 func (_u *GroupUpdate) AddUsers(v ...*User) *GroupUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddUsersIDs(ids...)
+	return _u.AddUsersIds(ids...)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -74,9 +74,9 @@ func (_u *GroupUpdate) ClearUsers() *GroupUpdate {
 	return _u
 }
 
-// RemoveUsersIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
-	_u.mutation.RemoveUsersIDs(ids...)
+// RemoveUsersIds removes the "users" edge to User entities by Ids.
+func (_u *GroupUpdate) RemoveUsersIds(ids ...int) *GroupUpdate {
+	_u.mutation.RemoveUsersIds(ids...)
 	return _u
 }
 
@@ -84,9 +84,9 @@ func (_u *GroupUpdate) RemoveUsersIDs(ids ...int) *GroupUpdate {
 func (_u *GroupUpdate) RemoveUsers(v ...*User) *GroupUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveUsersIDs(ids...)
+	return _u.RemoveUsersIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -123,7 +123,7 @@ func (_u *GroupUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GroupUpd
 }
 
 func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -142,13 +142,13 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedUsersIDs(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
+	if nodes := _u.mutation.RemovedUsersIds(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -156,7 +156,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers
@@ -165,7 +165,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -173,7 +173,7 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers
@@ -220,9 +220,9 @@ func (_u *GroupUpdateOne) SetNillableName(v *string) *GroupUpdateOne {
 	return _u
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by IDs.
-func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.AddUsersIDs(ids...)
+// AddUsersIds adds the "users" edge to the User entity by Ids.
+func (_u *GroupUpdateOne) AddUsersIds(ids ...int) *GroupUpdateOne {
+	_u.mutation.AddUsersIds(ids...)
 	return _u
 }
 
@@ -230,9 +230,9 @@ func (_u *GroupUpdateOne) AddUsersIDs(ids ...int) *GroupUpdateOne {
 func (_u *GroupUpdateOne) AddUsers(v ...*User) *GroupUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddUsersIDs(ids...)
+	return _u.AddUsersIds(ids...)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -246,9 +246,9 @@ func (_u *GroupUpdateOne) ClearUsers() *GroupUpdateOne {
 	return _u
 }
 
-// RemoveUsersIDs removes the "users" edge to User entities by IDs.
-func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
-	_u.mutation.RemoveUsersIDs(ids...)
+// RemoveUsersIds removes the "users" edge to User entities by Ids.
+func (_u *GroupUpdateOne) RemoveUsersIds(ids ...int) *GroupUpdateOne {
+	_u.mutation.RemoveUsersIds(ids...)
 	return _u
 }
 
@@ -256,9 +256,9 @@ func (_u *GroupUpdateOne) RemoveUsersIDs(ids ...int) *GroupUpdateOne {
 func (_u *GroupUpdateOne) RemoveUsers(v ...*User) *GroupUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveUsersIDs(ids...)
+	return _u.RemoveUsersIds(ids...)
 }
 
 // Where appends a list predicates to the GroupUpdate builder.
@@ -308,20 +308,20 @@ func (_u *GroupUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *Group
 }
 
 func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error) {
-	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`versioned: missing "Group.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldId)
 		for _, f := range fields {
 			if !group.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("versioned: invalid field %q for query", f)}
 			}
-			if f != group.FieldID {
+			if f != group.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -344,13 +344,13 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedUsersIDs(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
+	if nodes := _u.mutation.RemovedUsersIds(); len(nodes) > 0 && !_u.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -358,7 +358,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers
@@ -367,7 +367,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -375,7 +375,7 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.GroupUsers

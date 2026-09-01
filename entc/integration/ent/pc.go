@@ -18,8 +18,8 @@ import (
 // PC is the model entity for the PC schema.
 type PC struct {
 	config
-	// ID of the ent.
-	ID           int `json:"id,omitempty"`
+	// Id of the ent.
+	Id           int `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +28,7 @@ func (*PC) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case pc.FieldID:
+		case pc.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,12 +45,12 @@ func (_m *PC) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case pc.FieldID:
+		case pc.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -86,7 +86,7 @@ func (_m *PC) Unwrap() *PC {
 func (_m *PC) String() string {
 	var builder strings.Builder
 	builder.WriteString("PC(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

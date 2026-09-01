@@ -15,7 +15,7 @@ import (
 	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
-// HasKey return a predicate for checking that a JSON key
+// HasKey return a predicate for checking that a Json key
 // exists and not NULL.
 //
 //	sqljson.HasKey("column", sql.DotPath("a.b[2].c"))
@@ -23,10 +23,10 @@ func HasKey(column string, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
 		switch b.Dialect() {
 		case dialect.SQLite:
-			// JSON_TYPE returns NULL in case the path selects an element
+			// Json_TYPE returns NULL in case the path selects an element
 			// that does not exist. See: https://sqlite.org/json1.html#jtype.
 			path := identPath(column, opts...)
-			path.mysqlFunc("JSON_TYPE", b)
+			path.mysqlFunc("Json_TYPE", b)
 			b.WriteOp(sql.OpNotNull)
 		default:
 			valuePath(b, column, opts...)
@@ -35,19 +35,19 @@ func HasKey(column string, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueIsNull return a predicate for checking that a JSON value
-// (returned by the path) is a null literal (JSON "null").
+// ValueIsNull return a predicate for checking that a Json value
+// (returned by the path) is a null literal (Json "null").
 //
 // In order to check if the column is NULL (database NULL), or if
-// the JSON key exists, use sql.IsNull or sqljson.HasKey.
+// the Json key exists, use sql.IsNull or sqljson.HasKey.
 //
 //	sqljson.ValueIsNull("a", sqljson.Path("b"))
 func ValueIsNull(column string, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
 		switch b.Dialect() {
-		case dialect.MySQL:
+		case dialect.MySql:
 			path := identPath(column, opts...)
-			b.WriteString("JSON_CONTAINS").Wrap(func(b *sql.Builder) {
+			b.WriteString("Json_CONTAINS").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				b.WriteString("'null'").Comma()
 				path.mysqlPath(b)
@@ -57,14 +57,14 @@ func ValueIsNull(column string, opts ...Option) *sql.Predicate {
 			b.WriteOp(sql.OpEQ).WriteString("'null'::jsonb")
 		case dialect.SQLite:
 			path := identPath(column, opts...)
-			path.mysqlFunc("JSON_TYPE", b)
+			path.mysqlFunc("Json_TYPE", b)
 			b.WriteOp(sql.OpEQ).WriteString("'null'")
 		}
 	})
 }
 
-// ValueIsNotNull return a predicate for checking that a JSON value
-// (returned by the path) is not null literal (JSON "null").
+// ValueIsNotNull return a predicate for checking that a Json value
+// (returned by the path) is not null literal (Json "null").
 //
 //	sqljson.ValueIsNotNull("a", sqljson.Path("b"))
 func ValueIsNotNull(column string, opts ...Option) *sql.Predicate {
@@ -75,11 +75,11 @@ func ValueIsNotNull(column string, opts ...Option) *sql.Predicate {
 			b.WriteOp(sql.OpNEQ).WriteString("'null'::jsonb")
 		case dialect.SQLite:
 			path := identPath(column, opts...)
-			path.mysqlFunc("JSON_TYPE", b)
+			path.mysqlFunc("Json_TYPE", b)
 			b.WriteOp(sql.OpNEQ).WriteString("'null'")
-		case dialect.MySQL:
+		case dialect.MySql:
 			path := identPath(column, opts...)
-			b.WriteString("NOT(JSON_CONTAINS").Wrap(func(b *sql.Builder) {
+			b.WriteString("NOT(Json_CONTAINS").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				b.WriteString("'null'").Comma()
 				path.mysqlPath(b)
@@ -88,7 +88,7 @@ func ValueIsNotNull(column string, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueEQ return a predicate for checking that a JSON value
+// ValueEQ return a predicate for checking that a Json value
 // (returned by the path) is equal to the given argument.
 //
 //	sqljson.ValueEQ("a", 1, sqljson.Path("b"))
@@ -97,7 +97,7 @@ func ValueEQ(column string, arg any, opts ...Option) *sql.Predicate {
 		opts = normalizePG(b, arg, opts)
 		valuePath(b, column, opts...)
 		b.WriteOp(sql.OpEQ)
-		// Inline boolean values, as some drivers (e.g., MySQL) encode them as 0/1.
+		// Inline boolean values, as some drivers (e.g., MySql) encode them as 0/1.
 		if v, ok := arg.(bool); ok {
 			b.WriteString(strconv.FormatBool(v))
 		} else {
@@ -106,7 +106,7 @@ func ValueEQ(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueNEQ return a predicate for checking that a JSON value
+// ValueNEQ return a predicate for checking that a Json value
 // (returned by the path) is not equal to the given argument.
 //
 //	sqljson.ValueNEQ("a", 1, sqljson.Path("b"))
@@ -118,7 +118,7 @@ func ValueNEQ(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueGT return a predicate for checking that a JSON value
+// ValueGT return a predicate for checking that a Json value
 // (returned by the path) is greater than the given argument.
 //
 //	sqljson.ValueGT("a", 1, sqljson.Path("b"))
@@ -130,7 +130,7 @@ func ValueGT(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueGTE return a predicate for checking that a JSON value
+// ValueGTE return a predicate for checking that a Json value
 // (returned by the path) is greater than or equal to the given
 // argument.
 //
@@ -143,7 +143,7 @@ func ValueGTE(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueLT return a predicate for checking that a JSON value
+// ValueLT return a predicate for checking that a Json value
 // (returned by the path) is less than the given argument.
 //
 //	sqljson.ValueLT("a", 1, sqljson.Path("b"))
@@ -155,7 +155,7 @@ func ValueLT(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueLTE return a predicate for checking that a JSON value
+// ValueLTE return a predicate for checking that a Json value
 // (returned by the path) is less than or equal to the given
 // argument.
 //
@@ -168,7 +168,7 @@ func ValueLTE(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueContains return a predicate for checking that a JSON
+// ValueContains return a predicate for checking that a Json
 // value (returned by the path) contains the given argument.
 //
 //	sqljson.ValueContains("a", 1, sqljson.Path("b"))
@@ -176,8 +176,8 @@ func ValueContains(column string, arg any, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
 		path := identPath(column, opts...)
 		switch b.Dialect() {
-		case dialect.MySQL:
-			b.WriteString("JSON_CONTAINS").Wrap(func(b *sql.Builder) {
+		case dialect.MySql:
+			b.WriteString("Json_CONTAINS").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				b.Arg(marshalArg(arg)).Comma()
 				path.mysqlPath(b)
@@ -185,7 +185,7 @@ func ValueContains(column string, arg any, opts ...Option) *sql.Predicate {
 			b.WriteOp(sql.OpEQ).Arg(1)
 		case dialect.SQLite:
 			b.WriteString("EXISTS").Wrap(func(b *sql.Builder) {
-				b.WriteString("SELECT * FROM JSON_EACH").Wrap(func(b *sql.Builder) {
+				b.WriteString("SELECT * FROM Json_EACH").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					path.mysqlPath(b)
 				})
@@ -200,7 +200,7 @@ func ValueContains(column string, arg any, opts ...Option) *sql.Predicate {
 	})
 }
 
-// StringHasPrefix return a predicate for checking that a JSON string value
+// StringHasPrefix return a predicate for checking that a Json string value
 // (returned by the path) has the given substring as prefix
 func StringHasPrefix(column string, prefix string, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
@@ -210,7 +210,7 @@ func StringHasPrefix(column string, prefix string, opts ...Option) *sql.Predicat
 	})
 }
 
-// StringHasSuffix return a predicate for checking that a JSON string value
+// StringHasSuffix return a predicate for checking that a Json string value
 // (returned by the path) has the given substring as suffix
 func StringHasSuffix(column string, suffix string, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
@@ -220,7 +220,7 @@ func StringHasSuffix(column string, suffix string, opts ...Option) *sql.Predicat
 	})
 }
 
-// StringContains return a predicate for checking that a JSON string value
+// StringContains return a predicate for checking that a Json string value
 // (returned by the path) contains the given substring
 func StringContains(column string, sub string, opts ...Option) *sql.Predicate {
 	return sql.P(func(b *sql.Builder) {
@@ -230,7 +230,7 @@ func StringContains(column string, sub string, opts ...Option) *sql.Predicate {
 	})
 }
 
-// ValueIn return a predicate for checking that a JSON value
+// ValueIn return a predicate for checking that a Json value
 // (returned by the path) is IN the given arguments.
 //
 //	sqljson.ValueIn("a", []any{1, 2, 3}, sqljson.Path("b"))
@@ -238,7 +238,7 @@ func ValueIn(column string, args []any, opts ...Option) *sql.Predicate {
 	return valueInOp(column, args, opts, sql.OpIn)
 }
 
-// ValueNotIn return a predicate for checking that a JSON value
+// ValueNotIn return a predicate for checking that a Json value
 // (returned by the path) is NOT IN the given arguments.
 //
 //	sqljson.ValueNotIn("a", []any{1, 2, 3}, sqljson.Path("b"))
@@ -270,7 +270,7 @@ func valueInOp(column string, args []any, opts []Option, op sql.Op) *sql.Predica
 }
 
 // LenEQ return a predicate for checking that an array length
-// of a JSON (returned by the path) is equal to the given argument.
+// of a Json (returned by the path) is equal to the given argument.
 //
 //	sqljson.LenEQ("a", 1, sqljson.Path("b"))
 func LenEQ(column string, size int, opts ...Option) *sql.Predicate {
@@ -281,7 +281,7 @@ func LenEQ(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenNEQ return a predicate for checking that an array length
-// of a JSON (returned by the path) is not equal to the given argument.
+// of a Json (returned by the path) is not equal to the given argument.
 //
 //	sqljson.LenEQ("a", 1, sqljson.Path("b"))
 func LenNEQ(column string, size int, opts ...Option) *sql.Predicate {
@@ -292,7 +292,7 @@ func LenNEQ(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenGT return a predicate for checking that an array length
-// of a JSON (returned by the path) is greater than the given
+// of a Json (returned by the path) is greater than the given
 // argument.
 //
 //	sqljson.LenGT("a", 1, sqljson.Path("b"))
@@ -304,7 +304,7 @@ func LenGT(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenGTE return a predicate for checking that an array length
-// of a JSON (returned by the path) is greater than or equal to
+// of a Json (returned by the path) is greater than or equal to
 // the given argument.
 //
 //	sqljson.LenGTE("a", 1, sqljson.Path("b"))
@@ -316,7 +316,7 @@ func LenGTE(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenLT return a predicate for checking that an array length
-// of a JSON (returned by the path) is less than the given
+// of a Json (returned by the path) is less than the given
 // argument.
 //
 //	sqljson.LenLT("a", 1, sqljson.Path("b"))
@@ -328,7 +328,7 @@ func LenLT(column string, size int, opts ...Option) *sql.Predicate {
 }
 
 // LenLTE return a predicate for checking that an array length
-// of a JSON (returned by the path) is less than or equal to
+// of a Json (returned by the path) is less than or equal to
 // the given argument.
 //
 //	sqljson.LenLTE("a", 1, sqljson.Path("b"))
@@ -339,8 +339,8 @@ func LenLTE(column string, size int, opts ...Option) *sql.Predicate {
 	})
 }
 
-// LenPath returns an SQL expression for getting the length
-// of a JSON value (returned by the path).
+// LenPath returns an Sql expression for getting the length
+// of a Json value (returned by the path).
 func LenPath(column string, opts ...Option) sql.Querier {
 	return sql.ExprFunc(func(b *sql.Builder) {
 		lenPath(b, column, opts...)
@@ -348,7 +348,7 @@ func LenPath(column string, opts ...Option) sql.Querier {
 }
 
 // OrderLen returns a custom predicate function (as defined in the doc),
-// that sets the result order by the length of the given JSON value.
+// that sets the result order by the length of the given Json value.
 func OrderLen(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(LenPath(column, opts...))
@@ -356,7 +356,7 @@ func OrderLen(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // OrderLenDesc returns a custom predicate function (as defined in the doc), that
-// sets the result order by the length of the given JSON value, but in descending order.
+// sets the result order by the length of the given Json value, but in descending order.
 func OrderLenDesc(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(
@@ -365,8 +365,8 @@ func OrderLenDesc(column string, opts ...Option) func(*sql.Selector) {
 	}
 }
 
-// LenPath writes to the given SQL builder the JSON path for
-// getting the length of a given JSON path.
+// LenPath writes to the given Sql builder the Json path for
+// getting the length of a given Json path.
 //
 //	sqljson.LenPath(b, Path("a", "b", "[1]", "c"))
 func lenPath(b *sql.Builder, column string, opts ...Option) {
@@ -374,9 +374,9 @@ func lenPath(b *sql.Builder, column string, opts ...Option) {
 	path.length(b)
 }
 
-// Append writes to the given SQL builder the SQL command for appending JSON values
-// into the array, optionally defined as a key. Note, the generated SQL will use the
-// Go semantics, the JSON column/key will be set to the given Array in case it is `null`
+// Append writes to the given Sql builder the Sql command for appending Json values
+// into the array, optionally defined as a key. Note, the generated Sql will use the
+// Go semantics, the Json column/key will be set to the given Array in case it is `null`
 // or NULL. For example:
 //
 //	Append(u, column, []string{"a", "b"})
@@ -405,10 +405,10 @@ func Append[T any](u *sql.UpdateBuilder, column string, elems []T, opts ...Optio
 	drv.Append(u, column, vs, opts...)
 }
 
-// Option allows for calling database JSON paths with functional options.
+// Option allows for calling database Json paths with functional options.
 type Option func(*PathOptions)
 
-// Path sets the path to the JSON value of a column.
+// Path sets the path to the Json value of a column.
 //
 //	ValuePath(b, "column", Path("a", "b", "[1]", "c"))
 func Path(path ...string) Option {
@@ -448,7 +448,7 @@ func Cast(typ string) Option {
 	}
 }
 
-// PathOptions holds the options for accessing a JSON value from an identifier.
+// PathOptions holds the options for accessing a Json value from an identifier.
 type PathOptions struct {
 	Ident   string
 	Path    []string
@@ -469,7 +469,7 @@ func (p *PathOptions) Query() (string, []any) {
 	return p.Ident, nil
 }
 
-// ValuePath returns an SQL expression for getting the JSON
+// ValuePath returns an Sql expression for getting the Json
 // value of a column with an optional path and cast options.
 //
 //	sqljson.ValueEQ(
@@ -484,7 +484,7 @@ func ValuePath(column string, opts ...Option) sql.Querier {
 }
 
 // OrderValue returns a custom predicate function (as defined in the doc),
-// that sets the result order by the given JSON value.
+// that sets the result order by the given Json value.
 func OrderValue(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(ValuePath(column, opts...))
@@ -492,7 +492,7 @@ func OrderValue(column string, opts ...Option) func(*sql.Selector) {
 }
 
 // OrderValueDesc returns a custom predicate function (as defined in the doc),
-// that sets the result order by the given JSON value, but in descending order.
+// that sets the result order by the given Json value, but in descending order.
 func OrderValueDesc(column string, opts ...Option) func(*sql.Selector) {
 	return func(s *sql.Selector) {
 		s.OrderExpr(
@@ -501,15 +501,15 @@ func OrderValueDesc(column string, opts ...Option) func(*sql.Selector) {
 	}
 }
 
-// valuePath writes to the given SQL builder the JSON path for
-// getting the value of a given JSON path.
-// Use sqljson.ValuePath for using a JSON value as an argument.
+// valuePath writes to the given Sql builder the Json path for
+// getting the value of a given Json path.
+// Use sqljson.ValuePath for using a Json value as an argument.
 func valuePath(b *sql.Builder, column string, opts ...Option) {
 	path := identPath(column, opts...)
 	path.value(b)
 }
 
-// value writes the path for getting the JSON value.
+// value writes the path for getting the Json value.
 func (p *PathOptions) value(b *sql.Builder) {
 	switch {
 	case len(p.Path) == 0:
@@ -521,30 +521,30 @@ func (p *PathOptions) value(b *sql.Builder) {
 		}
 		p.pgTextPath(b)
 	default:
-		if p.Unquote && b.Dialect() == dialect.MySQL {
-			b.WriteString("JSON_UNQUOTE(")
+		if p.Unquote && b.Dialect() == dialect.MySql {
+			b.WriteString("Json_UNQUOTE(")
 			defer b.WriteByte(')')
 		}
-		p.mysqlFunc("JSON_EXTRACT", b)
+		p.mysqlFunc("Json_EXTRACT", b)
 	}
 }
 
-// value writes the path for getting the length of a JSON value.
+// value writes the path for getting the length of a Json value.
 func (p *PathOptions) length(b *sql.Builder) {
 	switch {
 	case b.Dialect() == dialect.Postgres:
-		b.WriteString("JSONB_ARRAY_LENGTH(")
+		b.WriteString("JsonB_ARRAY_LENGTH(")
 		p.pgTextPath(b)
 		b.WriteByte(')')
-	case b.Dialect() == dialect.MySQL:
-		p.mysqlFunc("JSON_LENGTH", b)
+	case b.Dialect() == dialect.MySql:
+		p.mysqlFunc("Json_LENGTH", b)
 	default:
-		p.mysqlFunc("JSON_ARRAY_LENGTH", b)
+		p.mysqlFunc("Json_ARRAY_LENGTH", b)
 	}
 }
 
-// mysqlFunc writes the JSON path in MySQL format for the
-// given function. `JSON_EXTRACT("a", '$.b.c')`.
+// mysqlFunc writes the Json path in MySql format for the
+// given function. `Json_EXTRACT("a", '$.b.c')`.
 func (p *PathOptions) mysqlFunc(fn string, b *sql.Builder) {
 	b.WriteString(fn).WriteByte('(')
 	b.Ident(p.Ident).Comma()
@@ -552,11 +552,11 @@ func (p *PathOptions) mysqlFunc(fn string, b *sql.Builder) {
 	b.WriteByte(')')
 }
 
-// mysqlPath writes the JSON path in MySQL (or SQLite) format.
+// mysqlPath writes the Json path in MySql (or SQLite) format.
 func (p *PathOptions) mysqlPath(b *sql.Builder) {
 	b.WriteString(`'$`)
 	for _, p := range p.Path {
-		switch _, isIndex := isJSONIdx(p); {
+		switch _, isIndex := isJsonIdx(p); {
 		case isIndex:
 			b.WriteString(p)
 		case p == "*" || isQuoted(p) || isIdentifier(p):
@@ -568,7 +568,7 @@ func (p *PathOptions) mysqlPath(b *sql.Builder) {
 	b.WriteByte('\'')
 }
 
-// pgTextPath writes the JSON path in PostgreSQL text format: `"a"->'b'->>'c'`.
+// pgTextPath writes the Json path in PostgreSql text format: `"a"->'b'->>'c'`.
 func (p *PathOptions) pgTextPath(b *sql.Builder) {
 	b.Ident(p.Ident)
 	for i, s := range p.Path {
@@ -576,7 +576,7 @@ func (p *PathOptions) pgTextPath(b *sql.Builder) {
 		if p.Unquote && i == len(p.Path)-1 {
 			b.WriteString(">")
 		}
-		if idx, ok := isJSONIdx(s); ok {
+		if idx, ok := isJsonIdx(s); ok {
 			b.WriteString(idx)
 		} else {
 			b.WriteString("'" + s + "'")
@@ -584,14 +584,14 @@ func (p *PathOptions) pgTextPath(b *sql.Builder) {
 	}
 }
 
-// pgArrayPath writes the JSON path in PostgreSQL array text[] format: '{a,1,b}'.
+// pgArrayPath writes the Json path in PostgreSql array text[] format: '{a,1,b}'.
 func (p *PathOptions) pgArrayPath(b *sql.Builder) {
 	b.WriteString("'{")
 	for i, s := range p.Path {
 		if i > 0 {
 			b.Comma()
 		}
-		if idx, ok := isJSONIdx(s); ok {
+		if idx, ok := isJsonIdx(s); ok {
 			s = idx
 		}
 		b.WriteString(s)
@@ -652,7 +652,7 @@ func ParsePath(dotpath string) ([]string, error) {
 	return path, nil
 }
 
-// normalizePG adds cast option to the JSON path is the argument type is
+// normalizePG adds cast option to the Json path is the argument type is
 // not string, in order to avoid "missing type casts" error in Postgres.
 func normalizePG(b *sql.Builder, arg any, opts []Option) []Option {
 	if b.Dialect() != dialect.Postgres {
@@ -690,8 +690,8 @@ func isQuoted(s string) bool {
 	return s[0] == '"' && s[len(s)-1] == '"'
 }
 
-// isJSONIdx reports whether the string represents a JSON index.
-func isJSONIdx(s string) (string, bool) {
+// isJsonIdx reports whether the string represents a Json index.
+func isJsonIdx(s string) (string, bool) {
 	if len(s) > 2 && s[0] == '[' && s[len(s)-1] == ']' && (isNumber(s[1:len(s)-1]) || s[1] == '#' && isNumber(s[2:len(s)-1])) {
 		return s[1 : len(s)-1], true
 	}
@@ -718,7 +718,7 @@ func allString(v []any) bool {
 	return true
 }
 
-// marshalArg stringifies the given argument to a valid JSON document.
+// marshalArg stringifies the given argument to a valid Json document.
 func marshalArg(arg any) any {
 	if buf, err := json.Marshal(arg); err == nil {
 		arg = string(buf)

@@ -163,14 +163,14 @@ func scanType(typ reflect.Type, columns []string) (*rowScan, error) {
 var (
 	timeType     = reflect.TypeOf(time.Time{})
 	scannerType  = reflect.TypeOf((*sql.Scanner)(nil)).Elem()
-	nullJSONType = reflect.TypeOf((*nullJSON)(nil)).Elem()
+	nullJsonType = reflect.TypeOf((*nullJson)(nil)).Elem()
 )
 
-// nullJSON represents a json.RawMessage that may be NULL.
-type nullJSON json.RawMessage
+// nullJson represents a json.RawMessage that may be NULL.
+type nullJson json.RawMessage
 
 // Scan implements the sql.Scanner interface.
-func (j *nullJSON) Scan(v interface{}) error {
+func (j *nullJson) Scan(v interface{}) error {
 	if v == nil {
 		return nil
 	}
@@ -232,9 +232,9 @@ func scanStruct(typ reflect.Type, columns []string) (*rowScan, error) {
 		}
 		switch {
 		// If the field is not support by the standard
-		// convertAssign, assume it is a JSON field.
+		// convertAssign, assume it is a Json field.
 		case !supportsScan(rtype):
-			rtype = nullJSONType
+			rtype = nullJsonType
 		// Create a pointer to the actual reflect
 		// types to accept optional struct fields.
 		case !nillable(rtype):
@@ -256,7 +256,7 @@ func scanStruct(typ reflect.Type, columns []string) (*rowScan, error) {
 				rvalue, ft = rvalue.Field(idx[1]), ft.Type.Field(idx[1])
 			}
 			switch {
-			case rv.Type() == nullJSONType:
+			case rv.Type() == nullJsonType:
 				if rv = reflect.Indirect(rv); rv.IsNil() {
 					continue
 				}

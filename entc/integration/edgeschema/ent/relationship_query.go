@@ -80,7 +80,7 @@ func (_q *RelationshipQuery) QueryUser() *UserQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(relationship.Table, relationship.UserColumn, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, relationship.UserTable, relationship.UserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -102,7 +102,7 @@ func (_q *RelationshipQuery) QueryRelative() *UserQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(relationship.Table, relationship.RelativeColumn, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, relationship.RelativeTable, relationship.RelativeColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -124,7 +124,7 @@ func (_q *RelationshipQuery) QueryInfo() *RelationshipInfoQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(relationship.Table, relationship.InfoColumn, selector),
-			sqlgraph.To(relationshipinfo.Table, relationshipinfo.FieldID),
+			sqlgraph.To(relationshipinfo.Table, relationshipinfo.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, relationship.InfoTable, relationship.InfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -428,7 +428,7 @@ func (_q *RelationshipQuery) loadUser(ctx context.Context, query *UserQuery, nod
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Relationship)
 	for i := range nodes {
-		fk := nodes[i].UserID
+		fk := nodes[i].UserId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -437,15 +437,15 @@ func (_q *RelationshipQuery) loadUser(ctx context.Context, query *UserQuery, nod
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(user.IDIn(ids...))
+	query.Where(user.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -457,7 +457,7 @@ func (_q *RelationshipQuery) loadRelative(ctx context.Context, query *UserQuery,
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Relationship)
 	for i := range nodes {
-		fk := nodes[i].RelativesID
+		fk := nodes[i].RelativesId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -466,15 +466,15 @@ func (_q *RelationshipQuery) loadRelative(ctx context.Context, query *UserQuery,
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(user.IDIn(ids...))
+	query.Where(user.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "relatives_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "relatives_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -486,7 +486,7 @@ func (_q *RelationshipQuery) loadInfo(ctx context.Context, query *RelationshipIn
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*Relationship)
 	for i := range nodes {
-		fk := nodes[i].InfoID
+		fk := nodes[i].InfoId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -495,15 +495,15 @@ func (_q *RelationshipQuery) loadInfo(ctx context.Context, query *RelationshipIn
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(relationshipinfo.IDIn(ids...))
+	query.Where(relationshipinfo.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "info_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "info_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -533,13 +533,13 @@ func (_q *RelationshipQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 		}
 		if _q.withUser != nil {
-			_spec.Node.AddColumnOnce(relationship.FieldUserID)
+			_spec.Node.AddColumnOnce(relationship.FieldUserId)
 		}
 		if _q.withRelative != nil {
-			_spec.Node.AddColumnOnce(relationship.FieldRelativesID)
+			_spec.Node.AddColumnOnce(relationship.FieldRelativesId)
 		}
 		if _q.withInfo != nil {
-			_spec.Node.AddColumnOnce(relationship.FieldInfoID)
+			_spec.Node.AddColumnOnce(relationship.FieldInfoId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

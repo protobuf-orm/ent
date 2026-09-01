@@ -41,67 +41,67 @@ func (_c *DocCreate) SetNillableText(v *string) *DocCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *DocCreate) SetID(v schema.DocID) *DocCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *DocCreate) SetId(v schema.DocId) *DocCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *DocCreate) SetNillableID(v *schema.DocID) *DocCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *DocCreate) SetNillableId(v *schema.DocId) *DocCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetParentID sets the "parent" edge to the Doc entity by ID.
-func (_c *DocCreate) SetParentID(id schema.DocID) *DocCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the Doc entity by Id.
+func (_c *DocCreate) SetParentId(id schema.DocId) *DocCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
-// SetNillableParentID sets the "parent" edge to the Doc entity by ID if the given value is not nil.
-func (_c *DocCreate) SetNillableParentID(id *schema.DocID) *DocCreate {
+// SetNillableParentId sets the "parent" edge to the Doc entity by Id if the given value is not nil.
+func (_c *DocCreate) SetNillableParentId(id *schema.DocId) *DocCreate {
 	if id != nil {
-		_c = _c.SetParentID(*id)
+		_c = _c.SetParentId(*id)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the Doc entity.
 func (_c *DocCreate) SetParent(v *Doc) *DocCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the Doc entity by IDs.
-func (_c *DocCreate) AddChildrenIDs(ids ...schema.DocID) *DocCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the Doc entity by Ids.
+func (_c *DocCreate) AddChildrenIds(ids ...schema.DocId) *DocCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
 // AddChildren adds the "children" edges to the Doc entity.
 func (_c *DocCreate) AddChildren(v ...*Doc) *DocCreate {
-	ids := make([]schema.DocID, len(v))
+	ids := make([]schema.DocId, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
-// AddRelatedIDs adds the "related" edge to the Doc entity by IDs.
-func (_c *DocCreate) AddRelatedIDs(ids ...schema.DocID) *DocCreate {
-	_c.mutation.AddRelatedIDs(ids...)
+// AddRelatedIds adds the "related" edge to the Doc entity by Ids.
+func (_c *DocCreate) AddRelatedIds(ids ...schema.DocId) *DocCreate {
+	_c.mutation.AddRelatedIds(ids...)
 	return _c
 }
 
 // AddRelated adds the "related" edges to the Doc entity.
 func (_c *DocCreate) AddRelated(v ...*Doc) *DocCreate {
-	ids := make([]schema.DocID, len(v))
+	ids := make([]schema.DocId, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddRelatedIDs(ids...)
+	return _c.AddRelatedIds(ids...)
 }
 
 // Mutation returns the DocMutation object of the builder.
@@ -139,16 +139,16 @@ func (_c *DocCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *DocCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := doc.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := doc.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *DocCreate) check() error {
-	if v, ok := _c.mutation.ID(); ok {
-		if err := doc.IDValidator(string(v)); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := doc.IdValidator(string(v)); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Doc.id": %w`, err)}
 		}
 	}
@@ -166,14 +166,14 @@ func (_c *DocCreate) sqlSave(ctx context.Context) (*Doc, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*schema.DocID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*schema.DocId); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -181,18 +181,18 @@ func (_c *DocCreate) sqlSave(ctx context.Context) (*Doc, error) {
 func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Doc{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(doc.Table, sqlgraph.NewFieldSpec(doc.FieldID, field.TypeString))
+		_spec = sqlgraph.NewCreateSpec(doc.Table, sqlgraph.NewFieldSpec(doc.FieldId, field.TypeString))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(doc.FieldText, field.TypeString, value)
 		_node.Text = value
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -200,7 +200,7 @@ func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 			Columns: []string{doc.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(doc.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(doc.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -209,7 +209,7 @@ func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 		_node.doc_children = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -217,7 +217,7 @@ func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 			Columns: []string{doc.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(doc.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(doc.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -225,7 +225,7 @@ func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.RelatedIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RelatedIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -233,7 +233,7 @@ func (_c *DocCreate) createSpec() (*Doc, *sqlgraph.CreateSpec) {
 			Columns: doc.RelatedPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(doc.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(doc.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -311,22 +311,22 @@ func (u *DocUpsert) ClearText() *DocUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Doc.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(doc.FieldID)
+//				u.SetIgnore(doc.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *DocUpsertOne) UpdateNewValues() *DocUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(doc.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(doc.FieldId)
 		}
 	}))
 	return u
@@ -344,7 +344,7 @@ func (u *DocUpsertOne) Ignore() *DocUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DocUpsertOne) DoNothing() *DocUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -395,23 +395,23 @@ func (u *DocUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *DocUpsertOne) ID(ctx context.Context) (id schema.DocID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: DocUpsertOne.ID is not supported by MySQL driver. Use DocUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *DocUpsertOne) Id(ctx context.Context) (id schema.DocId, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: DocUpsertOne.Id is not supported by MySql driver. Use DocUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *DocUpsertOne) IDX(ctx context.Context) schema.DocID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *DocUpsertOne) IdX(ctx context.Context) schema.DocId {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -464,7 +464,7 @@ func (_c *DocCreateBulk) Save(ctx context.Context) ([]*Doc, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -552,7 +552,7 @@ type DocUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(doc.FieldID)
+//				u.SetIgnore(doc.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -560,8 +560,8 @@ func (u *DocUpsertBulk) UpdateNewValues() *DocUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(doc.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(doc.FieldId)
 			}
 		}
 	}))
@@ -580,7 +580,7 @@ func (u *DocUpsertBulk) Ignore() *DocUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DocUpsertBulk) DoNothing() *DocUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

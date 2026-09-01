@@ -27,9 +27,9 @@ type ProcessCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by IDs.
-func (_c *ProcessCreate) AddFilesIDs(ids ...int) *ProcessCreate {
-	_c.mutation.AddFilesIDs(ids...)
+// AddFilesIds adds the "files" edge to the File entity by Ids.
+func (_c *ProcessCreate) AddFilesIds(ids ...int) *ProcessCreate {
+	_c.mutation.AddFilesIds(ids...)
 	return _c
 }
 
@@ -37,14 +37,14 @@ func (_c *ProcessCreate) AddFilesIDs(ids ...int) *ProcessCreate {
 func (_c *ProcessCreate) AddFiles(v ...*File) *ProcessCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFilesIDs(ids...)
+	return _c.AddFilesIds(ids...)
 }
 
-// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by IDs.
-func (_c *ProcessCreate) AddAttachedFilesIDs(ids ...int) *ProcessCreate {
-	_c.mutation.AddAttachedFilesIDs(ids...)
+// AddAttachedFilesIds adds the "attached_files" edge to the AttachedFile entity by Ids.
+func (_c *ProcessCreate) AddAttachedFilesIds(ids ...int) *ProcessCreate {
+	_c.mutation.AddAttachedFilesIds(ids...)
 	return _c
 }
 
@@ -52,9 +52,9 @@ func (_c *ProcessCreate) AddAttachedFilesIDs(ids ...int) *ProcessCreate {
 func (_c *ProcessCreate) AddAttachedFiles(v ...*AttachedFile) *ProcessCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddAttachedFilesIDs(ids...)
+	return _c.AddAttachedFilesIds(ids...)
 }
 
 // Mutation returns the ProcessMutation object of the builder.
@@ -105,9 +105,9 @@ func (_c *ProcessCreate) sqlSave(ctx context.Context) (*Process, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -115,10 +115,10 @@ func (_c *ProcessCreate) sqlSave(ctx context.Context) (*Process, error) {
 func (_c *ProcessCreate) createSpec() (*Process, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Process{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(process.Table, sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(process.Table, sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if nodes := _c.mutation.FilesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FilesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -126,7 +126,7 @@ func (_c *ProcessCreate) createSpec() (*Process, *sqlgraph.CreateSpec) {
 			Columns: process.FilesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -138,7 +138,7 @@ func (_c *ProcessCreate) createSpec() (*Process, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.AttachedFilesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AttachedFilesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -146,7 +146,7 @@ func (_c *ProcessCreate) createSpec() (*Process, *sqlgraph.CreateSpec) {
 			Columns: []string{process.AttachedFilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(attachedfile.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(attachedfile.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -225,7 +225,7 @@ func (u *ProcessUpsertOne) Ignore() *ProcessUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ProcessUpsertOne) DoNothing() *ProcessUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -255,18 +255,18 @@ func (u *ProcessUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *ProcessUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *ProcessUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *ProcessUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *ProcessUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -318,10 +318,10 @@ func (_c *ProcessCreateBulk) Save(ctx context.Context) ([]*Process, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -423,7 +423,7 @@ func (u *ProcessUpsertBulk) Ignore() *ProcessUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ProcessUpsertBulk) DoNothing() *ProcessUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -14,54 +14,54 @@ import (
 	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Payment {
-	return predicate.Payment(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Payment {
+	return predicate.Payment(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Payment {
-	return predicate.Payment(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Payment {
+	return predicate.Payment(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Payment {
-	return predicate.Payment(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Payment {
+	return predicate.Payment(sql.FieldLTE(FieldId, id))
 }
 
-// CardID applies equality check predicate on the "card_id" field. It's identical to CardIDEQ.
-func CardID(v int) predicate.Payment {
-	return predicate.Payment(sql.FieldEQ(FieldCardID, v))
+// CardId applies equality check predicate on the "card_id" field. It's identical to CardIdEQ.
+func CardId(v int) predicate.Payment {
+	return predicate.Payment(sql.FieldEQ(FieldCardId, v))
 }
 
 // Amount applies equality check predicate on the "amount" field. It's identical to AmountEQ.
@@ -79,24 +79,24 @@ func Description(v string) predicate.Payment {
 	return predicate.Payment(sql.FieldEQ(FieldDescription, v))
 }
 
-// CardIDEQ applies the EQ predicate on the "card_id" field.
-func CardIDEQ(v int) predicate.Payment {
-	return predicate.Payment(sql.FieldEQ(FieldCardID, v))
+// CardIdEQ applies the EQ predicate on the "card_id" field.
+func CardIdEQ(v int) predicate.Payment {
+	return predicate.Payment(sql.FieldEQ(FieldCardId, v))
 }
 
-// CardIDNEQ applies the NEQ predicate on the "card_id" field.
-func CardIDNEQ(v int) predicate.Payment {
-	return predicate.Payment(sql.FieldNEQ(FieldCardID, v))
+// CardIdNEQ applies the NEQ predicate on the "card_id" field.
+func CardIdNEQ(v int) predicate.Payment {
+	return predicate.Payment(sql.FieldNEQ(FieldCardId, v))
 }
 
-// CardIDIn applies the In predicate on the "card_id" field.
-func CardIDIn(vs ...int) predicate.Payment {
-	return predicate.Payment(sql.FieldIn(FieldCardID, vs...))
+// CardIdIn applies the In predicate on the "card_id" field.
+func CardIdIn(vs ...int) predicate.Payment {
+	return predicate.Payment(sql.FieldIn(FieldCardId, vs...))
 }
 
-// CardIDNotIn applies the NotIn predicate on the "card_id" field.
-func CardIDNotIn(vs ...int) predicate.Payment {
-	return predicate.Payment(sql.FieldNotIn(FieldCardID, vs...))
+// CardIdNotIn applies the NotIn predicate on the "card_id" field.
+func CardIdNotIn(vs ...int) predicate.Payment {
+	return predicate.Payment(sql.FieldNotIn(FieldCardId, vs...))
 }
 
 // AmountEQ applies the EQ predicate on the "amount" field.
@@ -288,7 +288,7 @@ func StatusNotIn(vs ...Status) predicate.Payment {
 func HasCard() predicate.Payment {
 	return predicate.Payment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, CardTable, CardColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

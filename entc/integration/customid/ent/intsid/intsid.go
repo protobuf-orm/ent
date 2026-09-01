@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the intsid type in the database.
 	Label = "int_sid"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
 	EdgeParent = "parent"
 	// EdgeChildren holds the string denoting the children edge name in mutations.
@@ -32,12 +32,12 @@ const (
 	ChildrenColumn = "int_sid_parent"
 )
 
-// Columns holds all SQL columns for intsid fields.
+// Columns holds all Sql columns for intsid fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "int_sid"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "int_sid"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"int_sid_parent",
@@ -58,12 +58,12 @@ func ValidColumn(column string) bool {
 	return false
 }
 
-// OrderOption defines the ordering options for the IntSID queries.
+// OrderOption defines the ordering options for the IntSId queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByParentField orders the results by parent field.
@@ -88,15 +88,15 @@ func ByChildren(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, ChildrenTable, ChildrenColumn),
 	)
 }

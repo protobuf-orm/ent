@@ -17,22 +17,22 @@ const (
 	Label = "relationship"
 	// FieldWeight holds the string denoting the weight field in the database.
 	FieldWeight = "weight"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldRelativesID holds the string denoting the relatives_id field in the database.
-	FieldRelativesID = "relatives_id"
-	// FieldInfoID holds the string denoting the info_id field in the database.
-	FieldInfoID = "info_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldRelativesId holds the string denoting the relatives_id field in the database.
+	FieldRelativesId = "relatives_id"
+	// FieldInfoId holds the string denoting the info_id field in the database.
+	FieldInfoId = "info_id"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// EdgeRelative holds the string denoting the relative edge name in mutations.
 	EdgeRelative = "relative"
 	// EdgeInfo holds the string denoting the info edge name in mutations.
 	EdgeInfo = "info"
-	// UserFieldID holds the string denoting the ID field of the User.
-	UserFieldID = "id"
-	// RelationshipInfoFieldID holds the string denoting the ID field of the RelationshipInfo.
-	RelationshipInfoFieldID = "id"
+	// UserFieldId holds the string denoting the Id field of the User.
+	UserFieldId = "id"
+	// RelationshipInfoFieldId holds the string denoting the Id field of the RelationshipInfo.
+	RelationshipInfoFieldId = "id"
 	// Table holds the table name of the relationship in the database.
 	Table = "relationship"
 	// UserTable is the table that holds the user relation/edge.
@@ -58,12 +58,12 @@ const (
 	InfoColumn = "info_id"
 )
 
-// Columns holds all SQL columns for relationship fields.
+// Columns holds all Sql columns for relationship fields.
 var Columns = []string{
 	FieldWeight,
-	FieldUserID,
-	FieldRelativesID,
-	FieldInfoID,
+	FieldUserId,
+	FieldRelativesId,
+	FieldInfoId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -96,19 +96,19 @@ func ByWeight(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldWeight, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByRelativesID orders the results by the relatives_id field.
-func ByRelativesID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldRelativesID, opts...).ToFunc()
+// ByRelativesId orders the results by the relatives_id field.
+func ByRelativesId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRelativesId, opts...).ToFunc()
 }
 
-// ByInfoID orders the results by the info_id field.
-func ByInfoID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldInfoID, opts...).ToFunc()
+// ByInfoId orders the results by the info_id field.
+func ByInfoId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldInfoId, opts...).ToFunc()
 }
 
 // ByUserField orders the results by user field.
@@ -134,21 +134,21 @@ func ByInfoField(field string, opts ...sql.OrderTermOption) OrderOption {
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, UserColumn),
-		sqlgraph.To(UserInverseTable, UserFieldID),
+		sqlgraph.To(UserInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }
 func newRelativeStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, RelativeColumn),
-		sqlgraph.To(RelativeInverseTable, UserFieldID),
+		sqlgraph.To(RelativeInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, RelativeTable, RelativeColumn),
 	)
 }
 func newInfoStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, InfoColumn),
-		sqlgraph.To(InfoInverseTable, RelationshipInfoFieldID),
+		sqlgraph.To(InfoInverseTable, RelationshipInfoFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, InfoTable, InfoColumn),
 	)
 }

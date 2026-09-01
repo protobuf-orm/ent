@@ -32,57 +32,57 @@ func (_u *CarUpdate) Where(ps ...predicate.Car) *CarUpdate {
 	return _u
 }
 
-// SetBeforeID sets the "before_id" field.
-func (_u *CarUpdate) SetBeforeID(v float64) *CarUpdate {
-	_u.mutation.ResetBeforeID()
-	_u.mutation.SetBeforeID(v)
+// SetBeforeId sets the "before_id" field.
+func (_u *CarUpdate) SetBeforeId(v float64) *CarUpdate {
+	_u.mutation.ResetBeforeId()
+	_u.mutation.SetBeforeId(v)
 	return _u
 }
 
-// SetNillableBeforeID sets the "before_id" field if the given value is not nil.
-func (_u *CarUpdate) SetNillableBeforeID(v *float64) *CarUpdate {
+// SetNillableBeforeId sets the "before_id" field if the given value is not nil.
+func (_u *CarUpdate) SetNillableBeforeId(v *float64) *CarUpdate {
 	if v != nil {
-		_u.SetBeforeID(*v)
+		_u.SetBeforeId(*v)
 	}
 	return _u
 }
 
-// AddBeforeID adds value to the "before_id" field.
-func (_u *CarUpdate) AddBeforeID(v float64) *CarUpdate {
-	_u.mutation.AddBeforeID(v)
+// AddBeforeId adds value to the "before_id" field.
+func (_u *CarUpdate) AddBeforeId(v float64) *CarUpdate {
+	_u.mutation.AddBeforeId(v)
 	return _u
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (_u *CarUpdate) ClearBeforeID() *CarUpdate {
-	_u.mutation.ClearBeforeID()
+// ClearBeforeId clears the value of the "before_id" field.
+func (_u *CarUpdate) ClearBeforeId() *CarUpdate {
+	_u.mutation.ClearBeforeId()
 	return _u
 }
 
-// SetAfterID sets the "after_id" field.
-func (_u *CarUpdate) SetAfterID(v float64) *CarUpdate {
-	_u.mutation.ResetAfterID()
-	_u.mutation.SetAfterID(v)
+// SetAfterId sets the "after_id" field.
+func (_u *CarUpdate) SetAfterId(v float64) *CarUpdate {
+	_u.mutation.ResetAfterId()
+	_u.mutation.SetAfterId(v)
 	return _u
 }
 
-// SetNillableAfterID sets the "after_id" field if the given value is not nil.
-func (_u *CarUpdate) SetNillableAfterID(v *float64) *CarUpdate {
+// SetNillableAfterId sets the "after_id" field if the given value is not nil.
+func (_u *CarUpdate) SetNillableAfterId(v *float64) *CarUpdate {
 	if v != nil {
-		_u.SetAfterID(*v)
+		_u.SetAfterId(*v)
 	}
 	return _u
 }
 
-// AddAfterID adds value to the "after_id" field.
-func (_u *CarUpdate) AddAfterID(v float64) *CarUpdate {
-	_u.mutation.AddAfterID(v)
+// AddAfterId adds value to the "after_id" field.
+func (_u *CarUpdate) AddAfterId(v float64) *CarUpdate {
+	_u.mutation.AddAfterId(v)
 	return _u
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (_u *CarUpdate) ClearAfterID() *CarUpdate {
-	_u.mutation.ClearAfterID()
+// ClearAfterId clears the value of the "after_id" field.
+func (_u *CarUpdate) ClearAfterId() *CarUpdate {
+	_u.mutation.ClearAfterId()
 	return _u
 }
 
@@ -100,23 +100,23 @@ func (_u *CarUpdate) SetNillableModel(v *string) *CarUpdate {
 	return _u
 }
 
-// SetOwnerID sets the "owner" edge to the Pet entity by ID.
-func (_u *CarUpdate) SetOwnerID(id string) *CarUpdate {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the Pet entity by Id.
+func (_u *CarUpdate) SetOwnerId(id string) *CarUpdate {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the Pet entity by ID if the given value is not nil.
-func (_u *CarUpdate) SetNillableOwnerID(id *string) *CarUpdate {
+// SetNillableOwnerId sets the "owner" edge to the Pet entity by Id if the given value is not nil.
+func (_u *CarUpdate) SetNillableOwnerId(id *string) *CarUpdate {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the Pet entity.
 func (_u *CarUpdate) SetOwner(v *Pet) *CarUpdate {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -159,13 +159,13 @@ func (_u *CarUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *CarUpdate) check() error {
-	if v, ok := _u.mutation.BeforeID(); ok {
-		if err := car.BeforeIDValidator(v); err != nil {
+	if v, ok := _u.mutation.BeforeId(); ok {
+		if err := car.BeforeIdValidator(v); err != nil {
 			return &ValidationError{Name: "before_id", err: fmt.Errorf(`ent: validator failed for field "Car.before_id": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.AfterID(); ok {
-		if err := car.AfterIDValidator(v); err != nil {
+	if v, ok := _u.mutation.AfterId(); ok {
+		if err := car.AfterIdValidator(v); err != nil {
 			return &ValidationError{Name: "after_id", err: fmt.Errorf(`ent: validator failed for field "Car.after_id": %w`, err)}
 		}
 	}
@@ -176,7 +176,7 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -184,23 +184,23 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.BeforeID(); ok {
-		_spec.SetField(car.FieldBeforeID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.BeforeId(); ok {
+		_spec.SetField(car.FieldBeforeId, field.TypeFloat64, value)
 	}
-	if value, ok := _u.mutation.AddedBeforeID(); ok {
-		_spec.AddField(car.FieldBeforeID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AddedBeforeId(); ok {
+		_spec.AddField(car.FieldBeforeId, field.TypeFloat64, value)
 	}
-	if _u.mutation.BeforeIDCleared() {
-		_spec.ClearField(car.FieldBeforeID, field.TypeFloat64)
+	if _u.mutation.BeforeIdCleared() {
+		_spec.ClearField(car.FieldBeforeId, field.TypeFloat64)
 	}
-	if value, ok := _u.mutation.AfterID(); ok {
-		_spec.SetField(car.FieldAfterID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AfterId(); ok {
+		_spec.SetField(car.FieldAfterId, field.TypeFloat64, value)
 	}
-	if value, ok := _u.mutation.AddedAfterID(); ok {
-		_spec.AddField(car.FieldAfterID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AddedAfterId(); ok {
+		_spec.AddField(car.FieldAfterId, field.TypeFloat64, value)
 	}
-	if _u.mutation.AfterIDCleared() {
-		_spec.ClearField(car.FieldAfterID, field.TypeFloat64)
+	if _u.mutation.AfterIdCleared() {
+		_spec.ClearField(car.FieldAfterId, field.TypeFloat64)
 	}
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
@@ -213,12 +213,12 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{car.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -226,7 +226,7 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{car.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -254,57 +254,57 @@ type CarUpdateOne struct {
 	mutation *CarMutation
 }
 
-// SetBeforeID sets the "before_id" field.
-func (_u *CarUpdateOne) SetBeforeID(v float64) *CarUpdateOne {
-	_u.mutation.ResetBeforeID()
-	_u.mutation.SetBeforeID(v)
+// SetBeforeId sets the "before_id" field.
+func (_u *CarUpdateOne) SetBeforeId(v float64) *CarUpdateOne {
+	_u.mutation.ResetBeforeId()
+	_u.mutation.SetBeforeId(v)
 	return _u
 }
 
-// SetNillableBeforeID sets the "before_id" field if the given value is not nil.
-func (_u *CarUpdateOne) SetNillableBeforeID(v *float64) *CarUpdateOne {
+// SetNillableBeforeId sets the "before_id" field if the given value is not nil.
+func (_u *CarUpdateOne) SetNillableBeforeId(v *float64) *CarUpdateOne {
 	if v != nil {
-		_u.SetBeforeID(*v)
+		_u.SetBeforeId(*v)
 	}
 	return _u
 }
 
-// AddBeforeID adds value to the "before_id" field.
-func (_u *CarUpdateOne) AddBeforeID(v float64) *CarUpdateOne {
-	_u.mutation.AddBeforeID(v)
+// AddBeforeId adds value to the "before_id" field.
+func (_u *CarUpdateOne) AddBeforeId(v float64) *CarUpdateOne {
+	_u.mutation.AddBeforeId(v)
 	return _u
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (_u *CarUpdateOne) ClearBeforeID() *CarUpdateOne {
-	_u.mutation.ClearBeforeID()
+// ClearBeforeId clears the value of the "before_id" field.
+func (_u *CarUpdateOne) ClearBeforeId() *CarUpdateOne {
+	_u.mutation.ClearBeforeId()
 	return _u
 }
 
-// SetAfterID sets the "after_id" field.
-func (_u *CarUpdateOne) SetAfterID(v float64) *CarUpdateOne {
-	_u.mutation.ResetAfterID()
-	_u.mutation.SetAfterID(v)
+// SetAfterId sets the "after_id" field.
+func (_u *CarUpdateOne) SetAfterId(v float64) *CarUpdateOne {
+	_u.mutation.ResetAfterId()
+	_u.mutation.SetAfterId(v)
 	return _u
 }
 
-// SetNillableAfterID sets the "after_id" field if the given value is not nil.
-func (_u *CarUpdateOne) SetNillableAfterID(v *float64) *CarUpdateOne {
+// SetNillableAfterId sets the "after_id" field if the given value is not nil.
+func (_u *CarUpdateOne) SetNillableAfterId(v *float64) *CarUpdateOne {
 	if v != nil {
-		_u.SetAfterID(*v)
+		_u.SetAfterId(*v)
 	}
 	return _u
 }
 
-// AddAfterID adds value to the "after_id" field.
-func (_u *CarUpdateOne) AddAfterID(v float64) *CarUpdateOne {
-	_u.mutation.AddAfterID(v)
+// AddAfterId adds value to the "after_id" field.
+func (_u *CarUpdateOne) AddAfterId(v float64) *CarUpdateOne {
+	_u.mutation.AddAfterId(v)
 	return _u
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (_u *CarUpdateOne) ClearAfterID() *CarUpdateOne {
-	_u.mutation.ClearAfterID()
+// ClearAfterId clears the value of the "after_id" field.
+func (_u *CarUpdateOne) ClearAfterId() *CarUpdateOne {
+	_u.mutation.ClearAfterId()
 	return _u
 }
 
@@ -322,23 +322,23 @@ func (_u *CarUpdateOne) SetNillableModel(v *string) *CarUpdateOne {
 	return _u
 }
 
-// SetOwnerID sets the "owner" edge to the Pet entity by ID.
-func (_u *CarUpdateOne) SetOwnerID(id string) *CarUpdateOne {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the Pet entity by Id.
+func (_u *CarUpdateOne) SetOwnerId(id string) *CarUpdateOne {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the Pet entity by ID if the given value is not nil.
-func (_u *CarUpdateOne) SetNillableOwnerID(id *string) *CarUpdateOne {
+// SetNillableOwnerId sets the "owner" edge to the Pet entity by Id if the given value is not nil.
+func (_u *CarUpdateOne) SetNillableOwnerId(id *string) *CarUpdateOne {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the Pet entity.
 func (_u *CarUpdateOne) SetOwner(v *Pet) *CarUpdateOne {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -394,13 +394,13 @@ func (_u *CarUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *CarUpdateOne) check() error {
-	if v, ok := _u.mutation.BeforeID(); ok {
-		if err := car.BeforeIDValidator(v); err != nil {
+	if v, ok := _u.mutation.BeforeId(); ok {
+		if err := car.BeforeIdValidator(v); err != nil {
 			return &ValidationError{Name: "before_id", err: fmt.Errorf(`ent: validator failed for field "Car.before_id": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.AfterID(); ok {
-		if err := car.AfterIDValidator(v); err != nil {
+	if v, ok := _u.mutation.AfterId(); ok {
+		if err := car.AfterIdValidator(v); err != nil {
 			return &ValidationError{Name: "after_id", err: fmt.Errorf(`ent: validator failed for field "Car.after_id": %w`, err)}
 		}
 	}
@@ -411,20 +411,20 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(car.Table, car.Columns, sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Car.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, car.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, car.FieldId)
 		for _, f := range fields {
 			if !car.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != car.FieldID {
+			if f != car.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -436,23 +436,23 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.BeforeID(); ok {
-		_spec.SetField(car.FieldBeforeID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.BeforeId(); ok {
+		_spec.SetField(car.FieldBeforeId, field.TypeFloat64, value)
 	}
-	if value, ok := _u.mutation.AddedBeforeID(); ok {
-		_spec.AddField(car.FieldBeforeID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AddedBeforeId(); ok {
+		_spec.AddField(car.FieldBeforeId, field.TypeFloat64, value)
 	}
-	if _u.mutation.BeforeIDCleared() {
-		_spec.ClearField(car.FieldBeforeID, field.TypeFloat64)
+	if _u.mutation.BeforeIdCleared() {
+		_spec.ClearField(car.FieldBeforeId, field.TypeFloat64)
 	}
-	if value, ok := _u.mutation.AfterID(); ok {
-		_spec.SetField(car.FieldAfterID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AfterId(); ok {
+		_spec.SetField(car.FieldAfterId, field.TypeFloat64, value)
 	}
-	if value, ok := _u.mutation.AddedAfterID(); ok {
-		_spec.AddField(car.FieldAfterID, field.TypeFloat64, value)
+	if value, ok := _u.mutation.AddedAfterId(); ok {
+		_spec.AddField(car.FieldAfterId, field.TypeFloat64, value)
 	}
-	if _u.mutation.AfterIDCleared() {
-		_spec.ClearField(car.FieldAfterID, field.TypeFloat64)
+	if _u.mutation.AfterIdCleared() {
+		_spec.ClearField(car.FieldAfterId, field.TypeFloat64)
 	}
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
@@ -465,12 +465,12 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			Columns: []string{car.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -478,7 +478,7 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 			Columns: []string{car.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {

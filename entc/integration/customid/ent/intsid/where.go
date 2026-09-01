@@ -13,56 +13,56 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id sid.ID) predicate.IntSID {
-	return predicate.IntSID(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id sid.Id) predicate.IntSId {
+	return predicate.IntSId(sql.FieldLTE(FieldId, id))
 }
 
 // HasParent applies the HasEdge predicate on the "parent" edge.
-func HasParent() predicate.IntSID {
-	return predicate.IntSID(func(s *sql.Selector) {
+func HasParent() predicate.IntSId {
+	return predicate.IntSId(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, ParentTable, ParentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -70,8 +70,8 @@ func HasParent() predicate.IntSID {
 }
 
 // HasParentWith applies the HasEdge predicate on the "parent" edge with a given conditions (other predicates).
-func HasParentWith(preds ...predicate.IntSID) predicate.IntSID {
-	return predicate.IntSID(func(s *sql.Selector) {
+func HasParentWith(preds ...predicate.IntSId) predicate.IntSId {
+	return predicate.IntSId(func(s *sql.Selector) {
 		step := newParentStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -82,10 +82,10 @@ func HasParentWith(preds ...predicate.IntSID) predicate.IntSID {
 }
 
 // HasChildren applies the HasEdge predicate on the "children" edge.
-func HasChildren() predicate.IntSID {
-	return predicate.IntSID(func(s *sql.Selector) {
+func HasChildren() predicate.IntSId {
+	return predicate.IntSId(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, ChildrenTable, ChildrenColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -93,8 +93,8 @@ func HasChildren() predicate.IntSID {
 }
 
 // HasChildrenWith applies the HasEdge predicate on the "children" edge with a given conditions (other predicates).
-func HasChildrenWith(preds ...predicate.IntSID) predicate.IntSID {
-	return predicate.IntSID(func(s *sql.Selector) {
+func HasChildrenWith(preds ...predicate.IntSId) predicate.IntSId {
+	return predicate.IntSId(func(s *sql.Selector) {
 		step := newChildrenStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -105,16 +105,16 @@ func HasChildrenWith(preds ...predicate.IntSID) predicate.IntSID {
 }
 
 // And groups predicates with the AND operator between them.
-func And(predicates ...predicate.IntSID) predicate.IntSID {
-	return predicate.IntSID(sql.AndPredicates(predicates...))
+func And(predicates ...predicate.IntSId) predicate.IntSId {
+	return predicate.IntSId(sql.AndPredicates(predicates...))
 }
 
 // Or groups predicates with the OR operator between them.
-func Or(predicates ...predicate.IntSID) predicate.IntSID {
-	return predicate.IntSID(sql.OrPredicates(predicates...))
+func Or(predicates ...predicate.IntSId) predicate.IntSId {
+	return predicate.IntSId(sql.OrPredicates(predicates...))
 }
 
 // Not applies the not operator on the given predicate.
-func Not(p predicate.IntSID) predicate.IntSID {
-	return predicate.IntSID(sql.NotPredicates(p))
+func Not(p predicate.IntSId) predicate.IntSId {
+	return predicate.IntSId(sql.NotPredicates(p))
 }

@@ -40,8 +40,8 @@ func (m *Mutation) Predicates() []predicate.Group {
 	return m.predicates
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by ids.
-func (m *Mutation) AddUsersIDs(ids ...int) {
+// AddUsersIds adds the "users" edge to the User entity by ids.
+func (m *Mutation) AddUsersIds(ids ...int) {
 	if m.users == nil {
 		m.users = make(map[int]struct{})
 	}
@@ -60,8 +60,8 @@ func (m *Mutation) UsersCleared() bool {
 	return m.clearedusers
 }
 
-// RemoveUsersIDs removes the "users" edge to the User entity by IDs.
-func (m *Mutation) RemoveUsersIDs(ids ...int) {
+// RemoveUsersIds removes the "users" edge to the User entity by Ids.
+func (m *Mutation) RemoveUsersIds(ids ...int) {
 	if m.removedusers == nil {
 		m.removedusers = make(map[int]struct{})
 	}
@@ -71,16 +71,16 @@ func (m *Mutation) RemoveUsersIDs(ids ...int) {
 	}
 }
 
-// RemovedUsers returns the removed IDs of the "users" edge to the User entity.
-func (m *Mutation) RemovedUsersIDs() (ids []int) {
+// RemovedUsers returns the removed Ids of the "users" edge to the User entity.
+func (m *Mutation) RemovedUsersIds() (ids []int) {
 	for id := range m.removedusers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// UsersIDs returns the "users" edge IDs in the mutation.
-func (m *Mutation) UsersIDs() (ids []int) {
+// UsersIds returns the "users" edge Ids in the mutation.
+func (m *Mutation) UsersIds() (ids []int) {
 	for id := range m.users {
 		ids = append(ids, id)
 	}
@@ -209,9 +209,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUsers:
 		ids := make([]ent.Value, 0, len(m.users))
@@ -232,9 +232,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUsers:
 		ids := make([]ent.Value, 0, len(m.removedusers))

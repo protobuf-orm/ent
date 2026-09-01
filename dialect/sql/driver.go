@@ -16,7 +16,7 @@ import (
 	"github.com/protobuf-orm/ent/dialect"
 )
 
-// Driver is a dialect.Driver implementation for SQL based databases.
+// Driver is a dialect.Driver implementation for Sql based databases.
 type Driver struct {
 	Conn
 	dialect string
@@ -49,7 +49,7 @@ func (d Driver) DB() *sql.DB {
 // Dialect implements the dialect.Dialect method.
 func (d Driver) Dialect() string {
 	// If the underlying driver is wrapped with a telemetry driver.
-	for _, name := range []string{dialect.MySQL, dialect.SQLite, dialect.Postgres} {
+	for _, name := range []string{dialect.MySql, dialect.SQLite, dialect.Postgres} {
 		if strings.HasPrefix(d.dialect, name) {
 			return name
 		}
@@ -216,7 +216,7 @@ func (c Conn) maySetVars(ctx context.Context) (ExecQuerier, func() error, error)
 			switch c.dialect {
 			case dialect.Postgres:
 				reset = append(reset, fmt.Sprintf("RESET %s", s.k))
-			case dialect.MySQL:
+			case dialect.MySql:
 				reset = append(reset, fmt.Sprintf("SET %s = NULL", s.k))
 			}
 			seen[s.k] = struct{}{}

@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the session type in the database.
 	Label = "session"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldActive holds the string denoting the active field in the database.
 	FieldActive = "active"
 	// FieldIssuedAt holds the string denoting the issued_at field in the database.
@@ -27,8 +27,8 @@ const (
 	FieldToken = "token"
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
-	// FieldDeviceID holds the string denoting the device_id field in the database.
-	FieldDeviceID = "device_id"
+	// FieldDeviceId holds the string denoting the device_id field in the database.
+	FieldDeviceId = "device_id"
 	// EdgeDevice holds the string denoting the device edge name in mutations.
 	EdgeDevice = "device"
 	// Table holds the table name of the session in the database.
@@ -42,15 +42,15 @@ const (
 	DeviceColumn = "device_id"
 )
 
-// Columns holds all SQL columns for session fields.
+// Columns holds all Sql columns for session fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldActive,
 	FieldIssuedAt,
 	FieldExpiresAt,
 	FieldToken,
 	FieldMethod,
-	FieldDeviceID,
+	FieldDeviceId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -66,16 +66,16 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultActive holds the default value on creation for the "active" field.
 	DefaultActive bool
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the Session queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByActive orders the results by the active field.
@@ -98,9 +98,9 @@ func ByToken(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldToken, opts...).ToFunc()
 }
 
-// ByDeviceID orders the results by the device_id field.
-func ByDeviceID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDeviceID, opts...).ToFunc()
+// ByDeviceId orders the results by the device_id field.
+func ByDeviceId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDeviceId, opts...).ToFunc()
 }
 
 // ByDeviceField orders the results by device field.
@@ -111,8 +111,8 @@ func ByDeviceField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newDeviceStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(DeviceInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(DeviceInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, DeviceTable, DeviceColumn),
 	)
 }

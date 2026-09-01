@@ -32,9 +32,9 @@ func (_c *ValueScanCreate) SetName(v string) *ValueScanCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *ValueScanCreate) SetID(v schema.ValueScanID) *ValueScanCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *ValueScanCreate) SetId(v schema.ValueScanId) *ValueScanCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
@@ -92,21 +92,21 @@ func (_c *ValueScanCreate) sqlSave(ctx context.Context) (*ValueScan, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		sv, ok := _spec.ID.Value.(field.ValueScanner)
+	if _spec.Id.Value != nil {
+		sv, ok := _spec.Id.Value.(field.ValueScanner)
 		if !ok {
-			sv = valuescan.ValueScanner.ID.ScanValue()
-			if err := sv.Scan(_spec.ID.Value); err != nil {
+			sv = valuescan.ValueScanner.Id.ScanValue()
+			if err := sv.Scan(_spec.Id.Value); err != nil {
 				return nil, err
 			}
 		}
-		if value, err := valuescan.ValueScanner.ID.FromValue(sv); err != nil {
+		if value, err := valuescan.ValueScanner.Id.FromValue(sv); err != nil {
 			return nil, err
 		} else {
-			_node.ID = value
+			_node.Id = value
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -114,16 +114,16 @@ func (_c *ValueScanCreate) sqlSave(ctx context.Context) (*ValueScan, error) {
 func (_c *ValueScanCreate) createSpec() (*ValueScan, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &ValueScan{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(valuescan.Table, sqlgraph.NewFieldSpec(valuescan.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(valuescan.Table, sqlgraph.NewFieldSpec(valuescan.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		vv, err := valuescan.ValueScanner.ID.Value(id)
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		vv, err := valuescan.ValueScanner.Id.Value(id)
 		if err != nil {
 			return nil, nil, err
 		}
-		_spec.ID.Value = vv
+		_spec.Id.Value = vv
 	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(valuescan.FieldName, field.TypeString, value)
@@ -193,22 +193,22 @@ func (u *ValueScanUpsert) UpdateName() *ValueScanUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.ValueScan.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(valuescan.FieldID)
+//				u.SetIgnore(valuescan.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *ValueScanUpsertOne) UpdateNewValues() *ValueScanUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(valuescan.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(valuescan.FieldId)
 		}
 	}))
 	return u
@@ -226,7 +226,7 @@ func (u *ValueScanUpsertOne) Ignore() *ValueScanUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ValueScanUpsertOne) DoNothing() *ValueScanUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -270,18 +270,18 @@ func (u *ValueScanUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *ValueScanUpsertOne) ID(ctx context.Context) (id schema.ValueScanID, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *ValueScanUpsertOne) Id(ctx context.Context) (id schema.ValueScanId, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *ValueScanUpsertOne) IDX(ctx context.Context) schema.ValueScanID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *ValueScanUpsertOne) IdX(ctx context.Context) schema.ValueScanId {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -336,19 +336,19 @@ func (_c *ValueScanCreateBulk) Save(ctx context.Context) ([]*ValueScan, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					sv, ok := specs[i].ID.Value.(field.ValueScanner)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					sv, ok := specs[i].Id.Value.(field.ValueScanner)
 					if !ok {
-						sv = valuescan.ValueScanner.ID.ScanValue()
-						if err := sv.Scan(specs[i].ID.Value); err != nil {
+						sv = valuescan.ValueScanner.Id.ScanValue()
+						if err := sv.Scan(specs[i].Id.Value); err != nil {
 							return nil, err
 						}
 					}
-					if id, err := valuescan.ValueScanner.ID.FromValue(sv); err != nil {
+					if id, err := valuescan.ValueScanner.Id.FromValue(sv); err != nil {
 						return nil, err
 					} else {
-						nodes[i].ID = id
+						nodes[i].Id = id
 					}
 				}
 				mutation.done = true
@@ -438,7 +438,7 @@ type ValueScanUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(valuescan.FieldID)
+//				u.SetIgnore(valuescan.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -446,8 +446,8 @@ func (u *ValueScanUpsertBulk) UpdateNewValues() *ValueScanUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(valuescan.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(valuescan.FieldId)
 			}
 		}
 	}))
@@ -466,7 +466,7 @@ func (u *ValueScanUpsertBulk) Ignore() *ValueScanUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ValueScanUpsertBulk) DoNothing() *ValueScanUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -30,9 +30,9 @@ func (_c *GroupCreate) SetName(v string) *GroupCreate {
 	return _c
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by IDs.
-func (_c *GroupCreate) AddUsersIDs(ids ...int) *GroupCreate {
-	_c.mutation.AddUsersIDs(ids...)
+// AddUsersIds adds the "users" edge to the User entity by Ids.
+func (_c *GroupCreate) AddUsersIds(ids ...int) *GroupCreate {
+	_c.mutation.AddUsersIds(ids...)
 	return _c
 }
 
@@ -40,28 +40,28 @@ func (_c *GroupCreate) AddUsersIDs(ids ...int) *GroupCreate {
 func (_c *GroupCreate) AddUsers(v ...*User) *GroupCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddUsersIDs(ids...)
+	return _c.AddUsersIds(ids...)
 }
 
-// SetAdminID sets the "admin" edge to the User entity by ID.
-func (_c *GroupCreate) SetAdminID(id int) *GroupCreate {
-	_c.mutation.SetAdminID(id)
+// SetAdminId sets the "admin" edge to the User entity by Id.
+func (_c *GroupCreate) SetAdminId(id int) *GroupCreate {
+	_c.mutation.SetAdminId(id)
 	return _c
 }
 
-// SetNillableAdminID sets the "admin" edge to the User entity by ID if the given value is not nil.
-func (_c *GroupCreate) SetNillableAdminID(id *int) *GroupCreate {
+// SetNillableAdminId sets the "admin" edge to the User entity by Id if the given value is not nil.
+func (_c *GroupCreate) SetNillableAdminId(id *int) *GroupCreate {
 	if id != nil {
-		_c = _c.SetAdminID(*id)
+		_c = _c.SetAdminId(*id)
 	}
 	return _c
 }
 
 // SetAdmin sets the "admin" edge to the User entity.
 func (_c *GroupCreate) SetAdmin(v *User) *GroupCreate {
-	return _c.SetAdminID(v.ID)
+	return _c.SetAdminId(v.Id)
 }
 
 // Mutation returns the GroupMutation object of the builder.
@@ -115,9 +115,9 @@ func (_c *GroupCreate) sqlSave(ctx context.Context) (*Group, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -125,13 +125,13 @@ func (_c *GroupCreate) sqlSave(ctx context.Context) (*Group, error) {
 func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Group{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(group.Table, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(group.Table, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(group.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.UsersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -139,7 +139,7 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 			Columns: group.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -147,7 +147,7 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.AdminIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AdminIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -155,7 +155,7 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 			Columns: []string{group.AdminColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -210,10 +210,10 @@ func (_c *GroupCreateBulk) Save(ctx context.Context) ([]*Group, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

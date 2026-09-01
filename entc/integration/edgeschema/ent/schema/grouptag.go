@@ -18,7 +18,7 @@ type GroupTag struct {
 // Fields of the GroupTag.
 func (GroupTag) Fields() []ent.Field {
 	return []ent.Field{
-		// An edge schema with the builtin ID
+		// An edge schema with the builtin Id
 		// field, but without any other field.
 		field.Int("tag_id"),
 		field.Int("group_id"),

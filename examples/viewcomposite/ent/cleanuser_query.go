@@ -189,12 +189,12 @@ func (_q *CleanUserQuery) Clone() *CleanUserQuery {
 // Example:
 //
 //	var v []struct {
-//		ID int `json:"id,omitempty"`
+//		Id int `json:"id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CleanUser.Query().
-//		GroupBy(cleanuser.FieldID).
+//		GroupBy(cleanuser.FieldId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *CleanUserQuery) GroupBy(field string, fields ...string) *CleanUserGroupBy {
@@ -212,11 +212,11 @@ func (_q *CleanUserQuery) GroupBy(field string, fields ...string) *CleanUserGrou
 // Example:
 //
 //	var v []struct {
-//		ID int `json:"id,omitempty"`
+//		Id int `json:"id,omitempty"`
 //	}
 //
 //	client.CleanUser.Query().
-//		Select(cleanuser.FieldID).
+//		Select(cleanuser.FieldId).
 //		Scan(ctx, &v)
 func (_q *CleanUserQuery) Select(fields ...string) *CleanUserSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)

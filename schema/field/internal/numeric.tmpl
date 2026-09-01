@@ -169,7 +169,7 @@ func (b *{{ $builder }}) Validate(fn func({{ $t }}) error) *{{ $builder }} {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *{{ $builder }}) StorageKey(key string) *{{ $builder }} {
 	b.desc.StorageKey = key
 	return b
@@ -379,7 +379,7 @@ func (b *{{ $builder }}) Validate(fn func({{ $t }}) error) *{{ $builder }} {
 
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *{{ $builder }}) StorageKey(key string) *{{ $builder }} {
 	b.desc.StorageKey = key
 	return b
@@ -390,7 +390,7 @@ func (b *{{ $builder }}) StorageKey(key string) *{{ $builder }} {
 //
 //	field.{{ title $t.String }}("amount").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:		"decimal(5, 2)",
+//			dialect.MySql:		"decimal(5, 2)",
 //			dialect.Postgres: 	"numeric(5, 2)",
 //		})
 //

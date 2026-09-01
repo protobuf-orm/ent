@@ -18,49 +18,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/schema"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLTE(FieldId, id))
 }
 
 // Int applies equality check predicate on the "int" field. It's identical to IntEQ.
@@ -203,9 +203,9 @@ func LinkOtherFunc(v *schema.Link) predicate.FieldType {
 	return predicate.FieldType(sql.FieldEQ(FieldLinkOtherFunc, v))
 }
 
-// MAC applies equality check predicate on the "mac" field. It's identical to MACEQ.
-func MAC(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldMAC, v))
+// Mac applies equality check predicate on the "mac" field. It's identical to MacEQ.
+func Mac(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldMac, v))
 }
 
 // StringArray applies equality check predicate on the "string_array" field. It's identical to StringArrayEQ.
@@ -293,10 +293,10 @@ func Sensitive(v []byte) predicate.FieldType {
 	return predicate.FieldType(sql.FieldEQ(FieldSensitive, v))
 }
 
-// IP applies equality check predicate on the "ip" field. It's identical to IPEQ.
-func IP(v net.IP) predicate.FieldType {
+// Ip applies equality check predicate on the "ip" field. It's identical to IpEQ.
+func Ip(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldEQ(FieldIP, vc))
+	return predicate.FieldType(sql.FieldEQ(FieldIp, vc))
 }
 
 // NullInt64 applies equality check predicate on the "null_int64" field. It's identical to NullInt64EQ.
@@ -339,14 +339,14 @@ func NullFloat(v *sql.NullFloat64) predicate.FieldType {
 	return predicate.FieldType(sql.FieldEQ(FieldNullFloat, v))
 }
 
-// OptionalUUID applies equality check predicate on the "optional_uuid" field. It's identical to OptionalUUIDEQ.
-func OptionalUUID(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldOptionalUUID, v))
+// OptionalUuid applies equality check predicate on the "optional_uuid" field. It's identical to OptionalUuidEQ.
+func OptionalUuid(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldOptionalUuid, v))
 }
 
-// NillableUUID applies equality check predicate on the "nillable_uuid" field. It's identical to NillableUUIDEQ.
-func NillableUUID(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldNillableUUID, v))
+// NillableUuid applies equality check predicate on the "nillable_uuid" field. It's identical to NillableUuidEQ.
+func NillableUuid(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldNillableUuid, v))
 }
 
 // Pair applies equality check predicate on the "pair" field. It's identical to PairEQ.
@@ -1784,84 +1784,84 @@ func LinkOtherFuncNotNil() predicate.FieldType {
 	return predicate.FieldType(sql.FieldNotNull(FieldLinkOtherFunc))
 }
 
-// MACEQ applies the EQ predicate on the "mac" field.
-func MACEQ(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldMAC, v))
+// MacEQ applies the EQ predicate on the "mac" field.
+func MacEQ(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldMac, v))
 }
 
-// MACNEQ applies the NEQ predicate on the "mac" field.
-func MACNEQ(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldMAC, v))
+// MacNEQ applies the NEQ predicate on the "mac" field.
+func MacNEQ(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNEQ(FieldMac, v))
 }
 
-// MACIn applies the In predicate on the "mac" field.
-func MACIn(vs ...schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldMAC, vs...))
+// MacIn applies the In predicate on the "mac" field.
+func MacIn(vs ...schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldIn(FieldMac, vs...))
 }
 
-// MACNotIn applies the NotIn predicate on the "mac" field.
-func MACNotIn(vs ...schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldMAC, vs...))
+// MacNotIn applies the NotIn predicate on the "mac" field.
+func MacNotIn(vs ...schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotIn(FieldMac, vs...))
 }
 
-// MACGT applies the GT predicate on the "mac" field.
-func MACGT(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldMAC, v))
+// MacGT applies the GT predicate on the "mac" field.
+func MacGT(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGT(FieldMac, v))
 }
 
-// MACGTE applies the GTE predicate on the "mac" field.
-func MACGTE(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldMAC, v))
+// MacGTE applies the GTE predicate on the "mac" field.
+func MacGTE(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGTE(FieldMac, v))
 }
 
-// MACLT applies the LT predicate on the "mac" field.
-func MACLT(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldMAC, v))
+// MacLT applies the LT predicate on the "mac" field.
+func MacLT(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLT(FieldMac, v))
 }
 
-// MACLTE applies the LTE predicate on the "mac" field.
-func MACLTE(v schema.MAC) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldMAC, v))
+// MacLTE applies the LTE predicate on the "mac" field.
+func MacLTE(v schema.Mac) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLTE(FieldMac, v))
 }
 
-// MACContains applies the Contains predicate on the "mac" field.
-func MACContains(v schema.MAC) predicate.FieldType {
+// MacContains applies the Contains predicate on the "mac" field.
+func MacContains(v schema.Mac) predicate.FieldType {
 	vc := v.String()
-	return predicate.FieldType(sql.FieldContains(FieldMAC, vc))
+	return predicate.FieldType(sql.FieldContains(FieldMac, vc))
 }
 
-// MACHasPrefix applies the HasPrefix predicate on the "mac" field.
-func MACHasPrefix(v schema.MAC) predicate.FieldType {
+// MacHasPrefix applies the HasPrefix predicate on the "mac" field.
+func MacHasPrefix(v schema.Mac) predicate.FieldType {
 	vc := v.String()
-	return predicate.FieldType(sql.FieldHasPrefix(FieldMAC, vc))
+	return predicate.FieldType(sql.FieldHasPrefix(FieldMac, vc))
 }
 
-// MACHasSuffix applies the HasSuffix predicate on the "mac" field.
-func MACHasSuffix(v schema.MAC) predicate.FieldType {
+// MacHasSuffix applies the HasSuffix predicate on the "mac" field.
+func MacHasSuffix(v schema.Mac) predicate.FieldType {
 	vc := v.String()
-	return predicate.FieldType(sql.FieldHasSuffix(FieldMAC, vc))
+	return predicate.FieldType(sql.FieldHasSuffix(FieldMac, vc))
 }
 
-// MACIsNil applies the IsNil predicate on the "mac" field.
-func MACIsNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldIsNull(FieldMAC))
+// MacIsNil applies the IsNil predicate on the "mac" field.
+func MacIsNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldIsNull(FieldMac))
 }
 
-// MACNotNil applies the NotNil predicate on the "mac" field.
-func MACNotNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotNull(FieldMAC))
+// MacNotNil applies the NotNil predicate on the "mac" field.
+func MacNotNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotNull(FieldMac))
 }
 
-// MACEqualFold applies the EqualFold predicate on the "mac" field.
-func MACEqualFold(v schema.MAC) predicate.FieldType {
+// MacEqualFold applies the EqualFold predicate on the "mac" field.
+func MacEqualFold(v schema.Mac) predicate.FieldType {
 	vc := v.String()
-	return predicate.FieldType(sql.FieldEqualFold(FieldMAC, vc))
+	return predicate.FieldType(sql.FieldEqualFold(FieldMac, vc))
 }
 
-// MACContainsFold applies the ContainsFold predicate on the "mac" field.
-func MACContainsFold(v schema.MAC) predicate.FieldType {
+// MacContainsFold applies the ContainsFold predicate on the "mac" field.
+func MacContainsFold(v schema.Mac) predicate.FieldType {
 	vc := v.String()
-	return predicate.FieldType(sql.FieldContainsFold(FieldMAC, vc))
+	return predicate.FieldType(sql.FieldContainsFold(FieldMac, vc))
 }
 
 // StringArrayEQ applies the EQ predicate on the "string_array" field.
@@ -2845,68 +2845,68 @@ func SensitiveNotNil() predicate.FieldType {
 	return predicate.FieldType(sql.FieldNotNull(FieldSensitive))
 }
 
-// IPEQ applies the EQ predicate on the "ip" field.
-func IPEQ(v net.IP) predicate.FieldType {
+// IpEQ applies the EQ predicate on the "ip" field.
+func IpEQ(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldEQ(FieldIP, vc))
+	return predicate.FieldType(sql.FieldEQ(FieldIp, vc))
 }
 
-// IPNEQ applies the NEQ predicate on the "ip" field.
-func IPNEQ(v net.IP) predicate.FieldType {
+// IpNEQ applies the NEQ predicate on the "ip" field.
+func IpNEQ(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldNEQ(FieldIP, vc))
+	return predicate.FieldType(sql.FieldNEQ(FieldIp, vc))
 }
 
-// IPIn applies the In predicate on the "ip" field.
-func IPIn(vs ...net.IP) predicate.FieldType {
+// IpIn applies the In predicate on the "ip" field.
+func IpIn(vs ...net.IP) predicate.FieldType {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = []byte(vs[i])
 	}
-	return predicate.FieldType(sql.FieldIn(FieldIP, v...))
+	return predicate.FieldType(sql.FieldIn(FieldIp, v...))
 }
 
-// IPNotIn applies the NotIn predicate on the "ip" field.
-func IPNotIn(vs ...net.IP) predicate.FieldType {
+// IpNotIn applies the NotIn predicate on the "ip" field.
+func IpNotIn(vs ...net.IP) predicate.FieldType {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = []byte(vs[i])
 	}
-	return predicate.FieldType(sql.FieldNotIn(FieldIP, v...))
+	return predicate.FieldType(sql.FieldNotIn(FieldIp, v...))
 }
 
-// IPGT applies the GT predicate on the "ip" field.
-func IPGT(v net.IP) predicate.FieldType {
+// IpGT applies the GT predicate on the "ip" field.
+func IpGT(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldGT(FieldIP, vc))
+	return predicate.FieldType(sql.FieldGT(FieldIp, vc))
 }
 
-// IPGTE applies the GTE predicate on the "ip" field.
-func IPGTE(v net.IP) predicate.FieldType {
+// IpGTE applies the GTE predicate on the "ip" field.
+func IpGTE(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldGTE(FieldIP, vc))
+	return predicate.FieldType(sql.FieldGTE(FieldIp, vc))
 }
 
-// IPLT applies the LT predicate on the "ip" field.
-func IPLT(v net.IP) predicate.FieldType {
+// IpLT applies the LT predicate on the "ip" field.
+func IpLT(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldLT(FieldIP, vc))
+	return predicate.FieldType(sql.FieldLT(FieldIp, vc))
 }
 
-// IPLTE applies the LTE predicate on the "ip" field.
-func IPLTE(v net.IP) predicate.FieldType {
+// IpLTE applies the LTE predicate on the "ip" field.
+func IpLTE(v net.IP) predicate.FieldType {
 	vc := []byte(v)
-	return predicate.FieldType(sql.FieldLTE(FieldIP, vc))
+	return predicate.FieldType(sql.FieldLTE(FieldIp, vc))
 }
 
-// IPIsNil applies the IsNil predicate on the "ip" field.
-func IPIsNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldIsNull(FieldIP))
+// IpIsNil applies the IsNil predicate on the "ip" field.
+func IpIsNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldIsNull(FieldIp))
 }
 
-// IPNotNil applies the NotNil predicate on the "ip" field.
-func IPNotNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotNull(FieldIP))
+// IpNotNil applies the NotNil predicate on the "ip" field.
+func IpNotNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotNull(FieldIp))
 }
 
 // NullInt64EQ applies the EQ predicate on the "null_int64" field.
@@ -3389,104 +3389,104 @@ func PriorityNotNil() predicate.FieldType {
 	return predicate.FieldType(sql.FieldNotNull(FieldPriority))
 }
 
-// OptionalUUIDEQ applies the EQ predicate on the "optional_uuid" field.
-func OptionalUUIDEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldOptionalUUID, v))
+// OptionalUuidEQ applies the EQ predicate on the "optional_uuid" field.
+func OptionalUuidEQ(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDNEQ applies the NEQ predicate on the "optional_uuid" field.
-func OptionalUUIDNEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldOptionalUUID, v))
+// OptionalUuidNEQ applies the NEQ predicate on the "optional_uuid" field.
+func OptionalUuidNEQ(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNEQ(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDIn applies the In predicate on the "optional_uuid" field.
-func OptionalUUIDIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldOptionalUUID, vs...))
+// OptionalUuidIn applies the In predicate on the "optional_uuid" field.
+func OptionalUuidIn(vs ...uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldIn(FieldOptionalUuid, vs...))
 }
 
-// OptionalUUIDNotIn applies the NotIn predicate on the "optional_uuid" field.
-func OptionalUUIDNotIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldOptionalUUID, vs...))
+// OptionalUuidNotIn applies the NotIn predicate on the "optional_uuid" field.
+func OptionalUuidNotIn(vs ...uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotIn(FieldOptionalUuid, vs...))
 }
 
-// OptionalUUIDGT applies the GT predicate on the "optional_uuid" field.
-func OptionalUUIDGT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldOptionalUUID, v))
+// OptionalUuidGT applies the GT predicate on the "optional_uuid" field.
+func OptionalUuidGT(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGT(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDGTE applies the GTE predicate on the "optional_uuid" field.
-func OptionalUUIDGTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldOptionalUUID, v))
+// OptionalUuidGTE applies the GTE predicate on the "optional_uuid" field.
+func OptionalUuidGTE(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGTE(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDLT applies the LT predicate on the "optional_uuid" field.
-func OptionalUUIDLT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldOptionalUUID, v))
+// OptionalUuidLT applies the LT predicate on the "optional_uuid" field.
+func OptionalUuidLT(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLT(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDLTE applies the LTE predicate on the "optional_uuid" field.
-func OptionalUUIDLTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldOptionalUUID, v))
+// OptionalUuidLTE applies the LTE predicate on the "optional_uuid" field.
+func OptionalUuidLTE(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLTE(FieldOptionalUuid, v))
 }
 
-// OptionalUUIDIsNil applies the IsNil predicate on the "optional_uuid" field.
-func OptionalUUIDIsNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldIsNull(FieldOptionalUUID))
+// OptionalUuidIsNil applies the IsNil predicate on the "optional_uuid" field.
+func OptionalUuidIsNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldIsNull(FieldOptionalUuid))
 }
 
-// OptionalUUIDNotNil applies the NotNil predicate on the "optional_uuid" field.
-func OptionalUUIDNotNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotNull(FieldOptionalUUID))
+// OptionalUuidNotNil applies the NotNil predicate on the "optional_uuid" field.
+func OptionalUuidNotNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotNull(FieldOptionalUuid))
 }
 
-// NillableUUIDEQ applies the EQ predicate on the "nillable_uuid" field.
-func NillableUUIDEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldEQ(FieldNillableUUID, v))
+// NillableUuidEQ applies the EQ predicate on the "nillable_uuid" field.
+func NillableUuidEQ(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldEQ(FieldNillableUuid, v))
 }
 
-// NillableUUIDNEQ applies the NEQ predicate on the "nillable_uuid" field.
-func NillableUUIDNEQ(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNEQ(FieldNillableUUID, v))
+// NillableUuidNEQ applies the NEQ predicate on the "nillable_uuid" field.
+func NillableUuidNEQ(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNEQ(FieldNillableUuid, v))
 }
 
-// NillableUUIDIn applies the In predicate on the "nillable_uuid" field.
-func NillableUUIDIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldIn(FieldNillableUUID, vs...))
+// NillableUuidIn applies the In predicate on the "nillable_uuid" field.
+func NillableUuidIn(vs ...uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldIn(FieldNillableUuid, vs...))
 }
 
-// NillableUUIDNotIn applies the NotIn predicate on the "nillable_uuid" field.
-func NillableUUIDNotIn(vs ...uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotIn(FieldNillableUUID, vs...))
+// NillableUuidNotIn applies the NotIn predicate on the "nillable_uuid" field.
+func NillableUuidNotIn(vs ...uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotIn(FieldNillableUuid, vs...))
 }
 
-// NillableUUIDGT applies the GT predicate on the "nillable_uuid" field.
-func NillableUUIDGT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGT(FieldNillableUUID, v))
+// NillableUuidGT applies the GT predicate on the "nillable_uuid" field.
+func NillableUuidGT(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGT(FieldNillableUuid, v))
 }
 
-// NillableUUIDGTE applies the GTE predicate on the "nillable_uuid" field.
-func NillableUUIDGTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldGTE(FieldNillableUUID, v))
+// NillableUuidGTE applies the GTE predicate on the "nillable_uuid" field.
+func NillableUuidGTE(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldGTE(FieldNillableUuid, v))
 }
 
-// NillableUUIDLT applies the LT predicate on the "nillable_uuid" field.
-func NillableUUIDLT(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLT(FieldNillableUUID, v))
+// NillableUuidLT applies the LT predicate on the "nillable_uuid" field.
+func NillableUuidLT(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLT(FieldNillableUuid, v))
 }
 
-// NillableUUIDLTE applies the LTE predicate on the "nillable_uuid" field.
-func NillableUUIDLTE(v uuid.UUID) predicate.FieldType {
-	return predicate.FieldType(sql.FieldLTE(FieldNillableUUID, v))
+// NillableUuidLTE applies the LTE predicate on the "nillable_uuid" field.
+func NillableUuidLTE(v uuid.UUID) predicate.FieldType {
+	return predicate.FieldType(sql.FieldLTE(FieldNillableUuid, v))
 }
 
-// NillableUUIDIsNil applies the IsNil predicate on the "nillable_uuid" field.
-func NillableUUIDIsNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldIsNull(FieldNillableUUID))
+// NillableUuidIsNil applies the IsNil predicate on the "nillable_uuid" field.
+func NillableUuidIsNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldIsNull(FieldNillableUuid))
 }
 
-// NillableUUIDNotNil applies the NotNil predicate on the "nillable_uuid" field.
-func NillableUUIDNotNil() predicate.FieldType {
-	return predicate.FieldType(sql.FieldNotNull(FieldNillableUUID))
+// NillableUuidNotNil applies the NotNil predicate on the "nillable_uuid" field.
+func NillableUuidNotNil() predicate.FieldType {
+	return predicate.FieldType(sql.FieldNotNull(FieldNillableUuid))
 }
 
 // StringsIsNil applies the IsNil predicate on the "strings" field.

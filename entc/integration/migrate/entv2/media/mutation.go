@@ -72,13 +72,13 @@ func (m *Mutation) ResetSource() {
 	delete(m.clearedFields, FieldSource)
 }
 
-// SetSourceURI sets the "source_uri" field.
-func (m *Mutation) SetSourceURI(s string) {
+// SetSourceUri sets the "source_uri" field.
+func (m *Mutation) SetSourceUri(s string) {
 	m.source_uri = &s
 }
 
-// SourceURI returns the value of the "source_uri" field in the mutation.
-func (m *Mutation) SourceURI() (r string, exists bool) {
+// SourceUri returns the value of the "source_uri" field in the mutation.
+func (m *Mutation) SourceUri() (r string, exists bool) {
 	v := m.source_uri
 	if v == nil {
 		return
@@ -86,22 +86,22 @@ func (m *Mutation) SourceURI() (r string, exists bool) {
 	return *v, true
 }
 
-// ClearSourceURI clears the value of the "source_uri" field.
-func (m *Mutation) ClearSourceURI() {
+// ClearSourceUri clears the value of the "source_uri" field.
+func (m *Mutation) ClearSourceUri() {
 	m.source_uri = nil
-	m.clearedFields[FieldSourceURI] = struct{}{}
+	m.clearedFields[FieldSourceUri] = struct{}{}
 }
 
-// SourceURICleared returns if the "source_uri" field was cleared in this mutation.
-func (m *Mutation) SourceURICleared() bool {
-	_, ok := m.clearedFields[FieldSourceURI]
+// SourceUriCleared returns if the "source_uri" field was cleared in this mutation.
+func (m *Mutation) SourceUriCleared() bool {
+	_, ok := m.clearedFields[FieldSourceUri]
 	return ok
 }
 
-// ResetSourceURI resets all changes to the "source_uri" field.
-func (m *Mutation) ResetSourceURI() {
+// ResetSourceUri resets all changes to the "source_uri" field.
+func (m *Mutation) ResetSourceUri() {
 	m.source_uri = nil
-	delete(m.clearedFields, FieldSourceURI)
+	delete(m.clearedFields, FieldSourceUri)
 }
 
 // SetText sets the "text" field.
@@ -175,7 +175,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldSource)
 	}
 	if m.source_uri != nil {
-		fields = append(fields, FieldSourceURI)
+		fields = append(fields, FieldSourceUri)
 	}
 	if m.text != nil {
 		fields = append(fields, FieldText)
@@ -190,8 +190,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldSource:
 		return m.Source()
-	case FieldSourceURI:
-		return m.SourceURI()
+	case FieldSourceUri:
+		return m.SourceUri()
 	case FieldText:
 		return m.Text()
 	}
@@ -217,12 +217,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetSource(v)
 		return nil
-	case FieldSourceURI:
+	case FieldSourceUri:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetSourceURI(v)
+		m.SetSourceUri(v)
 		return nil
 	case FieldText:
 		v, ok := value.(string)
@@ -264,8 +264,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldSource) {
 		fields = append(fields, FieldSource)
 	}
-	if m.FieldCleared(FieldSourceURI) {
-		fields = append(fields, FieldSourceURI)
+	if m.FieldCleared(FieldSourceUri) {
+		fields = append(fields, FieldSourceUri)
 	}
 	if m.FieldCleared(FieldText) {
 		fields = append(fields, FieldText)
@@ -287,8 +287,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldSource:
 		m.ClearSource()
 		return nil
-	case FieldSourceURI:
-		m.ClearSourceURI()
+	case FieldSourceUri:
+		m.ClearSourceUri()
 		return nil
 	case FieldText:
 		m.ClearText()
@@ -304,8 +304,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldSource:
 		m.ResetSource()
 		return nil
-	case FieldSourceURI:
-		m.ResetSourceURI()
+	case FieldSourceUri:
+		m.ResetSourceUri()
 		return nil
 	case FieldText:
 		m.ResetText()
@@ -320,9 +320,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	return nil
 }
 
@@ -332,9 +332,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the grouptag type in the database.
 	Label = "group_tag"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldTagID holds the string denoting the tag_id field in the database.
-	FieldTagID = "tag_id"
-	// FieldGroupID holds the string denoting the group_id field in the database.
-	FieldGroupID = "group_id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldTagId holds the string denoting the tag_id field in the database.
+	FieldTagId = "tag_id"
+	// FieldGroupId holds the string denoting the group_id field in the database.
+	FieldGroupId = "group_id"
 	// EdgeTag holds the string denoting the tag edge name in mutations.
 	EdgeTag = "tag"
 	// EdgeGroup holds the string denoting the group edge name in mutations.
@@ -42,11 +42,11 @@ const (
 	GroupColumn = "group_id"
 )
 
-// Columns holds all SQL columns for grouptag fields.
+// Columns holds all Sql columns for grouptag fields.
 var Columns = []string{
-	FieldID,
-	FieldTagID,
-	FieldGroupID,
+	FieldId,
+	FieldTagId,
+	FieldGroupId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -62,19 +62,19 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the GroupTag queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByTagID orders the results by the tag_id field.
-func ByTagID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTagID, opts...).ToFunc()
+// ByTagId orders the results by the tag_id field.
+func ByTagId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTagId, opts...).ToFunc()
 }
 
-// ByGroupID orders the results by the group_id field.
-func ByGroupID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldGroupID, opts...).ToFunc()
+// ByGroupId orders the results by the group_id field.
+func ByGroupId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldGroupId, opts...).ToFunc()
 }
 
 // ByTagField orders the results by tag field.
@@ -92,15 +92,15 @@ func ByGroupField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newTagStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TagInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TagInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, TagTable, TagColumn),
 	)
 }
 func newGroupStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, GroupTable, GroupColumn),
 	)
 }

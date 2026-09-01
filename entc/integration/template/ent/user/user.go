@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgePets holds the string denoting the pets edge name in mutations.
@@ -35,9 +35,9 @@ const (
 	FriendsTable = "user_friends"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
@@ -60,9 +60,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -99,15 +99,15 @@ func ByFriends(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 	)
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }

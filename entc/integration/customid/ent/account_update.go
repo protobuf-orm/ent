@@ -47,19 +47,19 @@ func (_u *AccountUpdate) SetNillableEmail(v *string) *AccountUpdate {
 	return _u
 }
 
-// AddTokenIDs adds the "token" edge to the Token entity by IDs.
-func (_u *AccountUpdate) AddTokenIDs(ids ...sid.ID) *AccountUpdate {
-	_u.mutation.AddTokenIDs(ids...)
+// AddTokenIds adds the "token" edge to the Token entity by Ids.
+func (_u *AccountUpdate) AddTokenIds(ids ...sid.Id) *AccountUpdate {
+	_u.mutation.AddTokenIds(ids...)
 	return _u
 }
 
 // AddToken adds the "token" edges to the Token entity.
 func (_u *AccountUpdate) AddToken(v ...*Token) *AccountUpdate {
-	ids := make([]sid.ID, len(v))
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddTokenIDs(ids...)
+	return _u.AddTokenIds(ids...)
 }
 
 // Mutation returns the AccountMutation object of the builder.
@@ -73,19 +73,19 @@ func (_u *AccountUpdate) ClearToken() *AccountUpdate {
 	return _u
 }
 
-// RemoveTokenIDs removes the "token" edge to Token entities by IDs.
-func (_u *AccountUpdate) RemoveTokenIDs(ids ...sid.ID) *AccountUpdate {
-	_u.mutation.RemoveTokenIDs(ids...)
+// RemoveTokenIds removes the "token" edge to Token entities by Ids.
+func (_u *AccountUpdate) RemoveTokenIds(ids ...sid.Id) *AccountUpdate {
+	_u.mutation.RemoveTokenIds(ids...)
 	return _u
 }
 
 // RemoveToken removes "token" edges to Token entities.
 func (_u *AccountUpdate) RemoveToken(v ...*Token) *AccountUpdate {
-	ids := make([]sid.ID, len(v))
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveTokenIDs(ids...)
+	return _u.RemoveTokenIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -129,7 +129,7 @@ func (_u *AccountUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther))
+	_spec := sqlgraph.NewUpdateSpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -148,12 +148,12 @@ func (_u *AccountUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedTokenIDs(); len(nodes) > 0 && !_u.mutation.TokenCleared() {
+	if nodes := _u.mutation.RemovedTokenIds(); len(nodes) > 0 && !_u.mutation.TokenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -161,7 +161,7 @@ func (_u *AccountUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -169,7 +169,7 @@ func (_u *AccountUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TokenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TokenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -177,7 +177,7 @@ func (_u *AccountUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -219,19 +219,19 @@ func (_u *AccountUpdateOne) SetNillableEmail(v *string) *AccountUpdateOne {
 	return _u
 }
 
-// AddTokenIDs adds the "token" edge to the Token entity by IDs.
-func (_u *AccountUpdateOne) AddTokenIDs(ids ...sid.ID) *AccountUpdateOne {
-	_u.mutation.AddTokenIDs(ids...)
+// AddTokenIds adds the "token" edge to the Token entity by Ids.
+func (_u *AccountUpdateOne) AddTokenIds(ids ...sid.Id) *AccountUpdateOne {
+	_u.mutation.AddTokenIds(ids...)
 	return _u
 }
 
 // AddToken adds the "token" edges to the Token entity.
 func (_u *AccountUpdateOne) AddToken(v ...*Token) *AccountUpdateOne {
-	ids := make([]sid.ID, len(v))
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddTokenIDs(ids...)
+	return _u.AddTokenIds(ids...)
 }
 
 // Mutation returns the AccountMutation object of the builder.
@@ -245,19 +245,19 @@ func (_u *AccountUpdateOne) ClearToken() *AccountUpdateOne {
 	return _u
 }
 
-// RemoveTokenIDs removes the "token" edge to Token entities by IDs.
-func (_u *AccountUpdateOne) RemoveTokenIDs(ids ...sid.ID) *AccountUpdateOne {
-	_u.mutation.RemoveTokenIDs(ids...)
+// RemoveTokenIds removes the "token" edge to Token entities by Ids.
+func (_u *AccountUpdateOne) RemoveTokenIds(ids ...sid.Id) *AccountUpdateOne {
+	_u.mutation.RemoveTokenIds(ids...)
 	return _u
 }
 
 // RemoveToken removes "token" edges to Token entities.
 func (_u *AccountUpdateOne) RemoveToken(v ...*Token) *AccountUpdateOne {
-	ids := make([]sid.ID, len(v))
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveTokenIDs(ids...)
+	return _u.RemoveTokenIds(ids...)
 }
 
 // Where appends a list predicates to the AccountUpdate builder.
@@ -314,20 +314,20 @@ func (_u *AccountUpdateOne) sqlSave(ctx context.Context) (_node *Account, err er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Account.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, account.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, account.FieldId)
 		for _, f := range fields {
 			if !account.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != account.FieldID {
+			if f != account.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -350,12 +350,12 @@ func (_u *AccountUpdateOne) sqlSave(ctx context.Context) (_node *Account, err er
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedTokenIDs(); len(nodes) > 0 && !_u.mutation.TokenCleared() {
+	if nodes := _u.mutation.RemovedTokenIds(); len(nodes) > 0 && !_u.mutation.TokenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -363,7 +363,7 @@ func (_u *AccountUpdateOne) sqlSave(ctx context.Context) (_node *Account, err er
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -371,7 +371,7 @@ func (_u *AccountUpdateOne) sqlSave(ctx context.Context) (_node *Account, err er
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TokenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TokenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -379,7 +379,7 @@ func (_u *AccountUpdateOne) sqlSave(ctx context.Context) (_node *Account, err er
 			Columns: []string{account.TokenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {

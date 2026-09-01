@@ -30,11 +30,11 @@ func Example_optimisticLock() {
 	}
 
 	usr := client.User.Create().SetStatus(user.StatusOnline).SaveX(ctx)
-	fmt.Println(usr.ID, usr.Status)
+	fmt.Println(usr.Id, usr.Status)
 
 	usrCopy := client.User.Query().OnlyX(ctx)
 	affected := client.User.Update().
-		Where(user.ID(usrCopy.ID), user.Version(usrCopy.Version)).
+		Where(user.Id(usrCopy.Id), user.Version(usrCopy.Version)).
 		SetStatus(user.StatusOffline).
 		SetVersion(time.Now().UnixNano()).
 		SaveX(ctx)
@@ -42,7 +42,7 @@ func Example_optimisticLock() {
 
 	// The operation won't updated the database because the user was updated by another process (usrCopy).
 	affected = client.User.Update().
-		Where(user.ID(usr.ID), user.Version(usr.Version)).
+		Where(user.Id(usr.Id), user.Version(usr.Version)).
 		SetStatus(user.StatusOffline).
 		SetVersion(time.Now().UnixNano()).
 		SaveX(ctx)

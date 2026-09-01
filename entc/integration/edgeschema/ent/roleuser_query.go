@@ -78,7 +78,7 @@ func (_q *RoleUserQuery) QueryRole() *RoleQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(roleuser.Table, roleuser.RoleColumn, selector),
-			sqlgraph.To(role.Table, role.FieldID),
+			sqlgraph.To(role.Table, role.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, roleuser.RoleTable, roleuser.RoleColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -100,7 +100,7 @@ func (_q *RoleUserQuery) QueryUser() *UserQuery {
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(roleuser.Table, roleuser.UserColumn, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, roleuser.UserTable, roleuser.UserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -379,7 +379,7 @@ func (_q *RoleUserQuery) loadRole(ctx context.Context, query *RoleQuery, nodes [
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RoleUser)
 	for i := range nodes {
-		fk := nodes[i].RoleID
+		fk := nodes[i].RoleId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -388,15 +388,15 @@ func (_q *RoleUserQuery) loadRole(ctx context.Context, query *RoleQuery, nodes [
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(role.IDIn(ids...))
+	query.Where(role.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "role_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "role_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -408,7 +408,7 @@ func (_q *RoleUserQuery) loadUser(ctx context.Context, query *UserQuery, nodes [
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RoleUser)
 	for i := range nodes {
-		fk := nodes[i].UserID
+		fk := nodes[i].UserId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -417,15 +417,15 @@ func (_q *RoleUserQuery) loadUser(ctx context.Context, query *UserQuery, nodes [
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(user.IDIn(ids...))
+	query.Where(user.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -455,10 +455,10 @@ func (_q *RoleUserQuery) querySpec() *sqlgraph.QuerySpec {
 			_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 		}
 		if _q.withRole != nil {
-			_spec.Node.AddColumnOnce(roleuser.FieldRoleID)
+			_spec.Node.AddColumnOnce(roleuser.FieldRoleId)
 		}
 		if _q.withUser != nil {
-			_spec.Node.AddColumnOnce(roleuser.FieldUserID)
+			_spec.Node.AddColumnOnce(roleuser.FieldUserId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

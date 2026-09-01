@@ -11,49 +11,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/json/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.User {
-	return predicate.User(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.User {
+	return predicate.User(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.User {
-	return predicate.User(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.User {
+	return predicate.User(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldId, id))
 }
 
 // TIsNil applies the IsNil predicate on the "t" field.
@@ -66,24 +66,24 @@ func TNotNil() predicate.User {
 	return predicate.User(sql.FieldNotNull(FieldT))
 }
 
-// URLIsNil applies the IsNil predicate on the "url" field.
-func URLIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldURL))
+// UrlIsNil applies the IsNil predicate on the "url" field.
+func UrlIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldUrl))
 }
 
-// URLNotNil applies the NotNil predicate on the "url" field.
-func URLNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldURL))
+// UrlNotNil applies the NotNil predicate on the "url" field.
+func UrlNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldUrl))
 }
 
-// URLsIsNil applies the IsNil predicate on the "URLs" field.
-func URLsIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldURLs))
+// UrlsIsNil applies the IsNil predicate on the "Urls" field.
+func UrlsIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldUrls))
 }
 
-// URLsNotNil applies the NotNil predicate on the "URLs" field.
-func URLsNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldURLs))
+// UrlsNotNil applies the NotNil predicate on the "Urls" field.
+func UrlsNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldUrls))
 }
 
 // RawIsNil applies the IsNil predicate on the "raw" field.

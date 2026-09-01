@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the group type in the database.
 	Label = "group"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldActive holds the string denoting the active field in the database.
 	FieldActive = "active"
 	// FieldExpire holds the string denoting the expire field in the database.
@@ -64,9 +64,9 @@ const (
 	InfoColumn = "group_info"
 )
 
-// Columns holds all SQL columns for group fields.
+// Columns holds all Sql columns for group fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldActive,
 	FieldExpire,
 	FieldType,
@@ -74,7 +74,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "group"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "group"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_info",
@@ -117,9 +117,9 @@ var (
 // OrderOption defines the ordering options for the Group queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByActive orders the results by the active field.
@@ -197,29 +197,29 @@ func ByInfoField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newFilesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FilesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FilesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, FilesTable, FilesColumn),
 	)
 }
 func newBlockedStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(BlockedInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(BlockedInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, BlockedTable, BlockedColumn),
 	)
 }
 func newUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UsersInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UsersInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
 	)
 }
 func newInfoStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(InfoInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(InfoInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, InfoTable, InfoColumn),
 	)
 }

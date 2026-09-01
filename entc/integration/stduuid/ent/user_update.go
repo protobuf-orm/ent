@@ -66,23 +66,23 @@ func (_u *UserUpdate) ClearRef() *UserUpdate {
 	return _u
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_u *UserUpdate) SetSpouseID(id uuid.UUID) *UserUpdate {
-	_u.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_u *UserUpdate) SetSpouseId(id uuid.UUID) *UserUpdate {
+	_u.mutation.SetSpouseId(id)
 	return _u
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableSpouseID(id *uuid.UUID) *UserUpdate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableSpouseId(id *uuid.UUID) *UserUpdate {
 	if id != nil {
-		_u = _u.SetSpouseID(*id)
+		_u = _u.SetSpouseId(*id)
 	}
 	return _u
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_u *UserUpdate) SetSpouse(v *User) *UserUpdate {
-	return _u.SetSpouseID(v.ID)
+	return _u.SetSpouseId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -124,7 +124,7 @@ func (_u *UserUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -140,10 +140,10 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		if err != nil {
 			return 0, err
 		}
-		_spec.SetField(user.FieldRef, field.TypeUUID, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
 	}
 	if _u.mutation.RefCleared() {
-		_spec.ClearField(user.FieldRef, field.TypeUUID)
+		_spec.ClearField(user.FieldRef, field.TypeUuid)
 	}
 	if _u.mutation.SpouseCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -153,12 +153,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -166,11 +166,11 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.ID.Value(k)
+			vv, err := user.ValueScanner.Id.Value(k)
 			if err != nil {
 				return 0, err
 			}
@@ -232,23 +232,23 @@ func (_u *UserUpdateOne) ClearRef() *UserUpdateOne {
 	return _u
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_u *UserUpdateOne) SetSpouseID(id uuid.UUID) *UserUpdateOne {
-	_u.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_u *UserUpdateOne) SetSpouseId(id uuid.UUID) *UserUpdateOne {
+	_u.mutation.SetSpouseId(id)
 	return _u
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableSpouseID(id *uuid.UUID) *UserUpdateOne {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableSpouseId(id *uuid.UUID) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetSpouseID(*id)
+		_u = _u.SetSpouseId(*id)
 	}
 	return _u
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_u *UserUpdateOne) SetSpouse(v *User) *UserUpdateOne {
-	return _u.SetSpouseID(v.ID)
+	return _u.SetSpouseId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -303,24 +303,24 @@ func (_u *UserUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
-	vv, err := user.ValueScanner.ID.Value(id)
+	vv, err := user.ValueScanner.Id.Value(id)
 	if err != nil {
 		return nil, err
 	}
-	_spec.Node.ID.Value = vv
+	_spec.Node.Id.Value = vv
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != user.FieldID {
+			if f != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -340,10 +340,10 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		if err != nil {
 			return nil, err
 		}
-		_spec.SetField(user.FieldRef, field.TypeUUID, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
 	}
 	if _u.mutation.RefCleared() {
-		_spec.ClearField(user.FieldRef, field.TypeUUID)
+		_spec.ClearField(user.FieldRef, field.TypeUuid)
 	}
 	if _u.mutation.SpouseCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -353,12 +353,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -366,11 +366,11 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.ID.Value(k)
+			vv, err := user.ValueScanner.Id.Value(k)
 			if err != nil {
 				return nil, err
 			}

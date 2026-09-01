@@ -701,23 +701,23 @@ func (_u *FieldTypeUpdate) ClearLinkOtherFunc() *FieldTypeUpdate {
 	return _u
 }
 
-// SetMAC sets the "mac" field.
-func (_u *FieldTypeUpdate) SetMAC(v schema.MAC) *FieldTypeUpdate {
-	_u.mutation.SetMAC(v)
+// SetMac sets the "mac" field.
+func (_u *FieldTypeUpdate) SetMac(v schema.Mac) *FieldTypeUpdate {
+	_u.mutation.SetMac(v)
 	return _u
 }
 
-// SetNillableMAC sets the "mac" field if the given value is not nil.
-func (_u *FieldTypeUpdate) SetNillableMAC(v *schema.MAC) *FieldTypeUpdate {
+// SetNillableMac sets the "mac" field if the given value is not nil.
+func (_u *FieldTypeUpdate) SetNillableMac(v *schema.Mac) *FieldTypeUpdate {
 	if v != nil {
-		_u.SetMAC(*v)
+		_u.SetMac(*v)
 	}
 	return _u
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (_u *FieldTypeUpdate) ClearMAC() *FieldTypeUpdate {
-	_u.mutation.ClearMAC()
+// ClearMac clears the value of the "mac" field.
+func (_u *FieldTypeUpdate) ClearMac() *FieldTypeUpdate {
+	_u.mutation.ClearMac()
 	return _u
 }
 
@@ -978,15 +978,15 @@ func (_u *FieldTypeUpdate) ClearSensitive() *FieldTypeUpdate {
 	return _u
 }
 
-// SetIP sets the "ip" field.
-func (_u *FieldTypeUpdate) SetIP(v net.IP) *FieldTypeUpdate {
-	_u.mutation.SetIP(v)
+// SetIp sets the "ip" field.
+func (_u *FieldTypeUpdate) SetIp(v net.IP) *FieldTypeUpdate {
+	_u.mutation.SetIp(v)
 	return _u
 }
 
-// ClearIP clears the value of the "ip" field.
-func (_u *FieldTypeUpdate) ClearIP() *FieldTypeUpdate {
-	_u.mutation.ClearIP()
+// ClearIp clears the value of the "ip" field.
+func (_u *FieldTypeUpdate) ClearIp() *FieldTypeUpdate {
+	_u.mutation.ClearIp()
 	return _u
 }
 
@@ -1183,43 +1183,43 @@ func (_u *FieldTypeUpdate) ClearPriority() *FieldTypeUpdate {
 	return _u
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (_u *FieldTypeUpdate) SetOptionalUUID(v uuid.UUID) *FieldTypeUpdate {
-	_u.mutation.SetOptionalUUID(v)
+// SetOptionalUuid sets the "optional_uuid" field.
+func (_u *FieldTypeUpdate) SetOptionalUuid(v uuid.UUID) *FieldTypeUpdate {
+	_u.mutation.SetOptionalUuid(v)
 	return _u
 }
 
-// SetNillableOptionalUUID sets the "optional_uuid" field if the given value is not nil.
-func (_u *FieldTypeUpdate) SetNillableOptionalUUID(v *uuid.UUID) *FieldTypeUpdate {
+// SetNillableOptionalUuid sets the "optional_uuid" field if the given value is not nil.
+func (_u *FieldTypeUpdate) SetNillableOptionalUuid(v *uuid.UUID) *FieldTypeUpdate {
 	if v != nil {
-		_u.SetOptionalUUID(*v)
+		_u.SetOptionalUuid(*v)
 	}
 	return _u
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (_u *FieldTypeUpdate) ClearOptionalUUID() *FieldTypeUpdate {
-	_u.mutation.ClearOptionalUUID()
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (_u *FieldTypeUpdate) ClearOptionalUuid() *FieldTypeUpdate {
+	_u.mutation.ClearOptionalUuid()
 	return _u
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (_u *FieldTypeUpdate) SetNillableUUID(v uuid.UUID) *FieldTypeUpdate {
-	_u.mutation.SetNillableUUID(v)
+// SetNillableUuid sets the "nillable_uuid" field.
+func (_u *FieldTypeUpdate) SetNillableUuid(v uuid.UUID) *FieldTypeUpdate {
+	_u.mutation.SetNillableUuid(v)
 	return _u
 }
 
-// SetNillableNillableUUID sets the "nillable_uuid" field if the given value is not nil.
-func (_u *FieldTypeUpdate) SetNillableNillableUUID(v *uuid.UUID) *FieldTypeUpdate {
+// SetNillableNillableUuid sets the "nillable_uuid" field if the given value is not nil.
+func (_u *FieldTypeUpdate) SetNillableNillableUuid(v *uuid.UUID) *FieldTypeUpdate {
 	if v != nil {
-		_u.SetNillableUUID(*v)
+		_u.SetNillableUuid(*v)
 	}
 	return _u
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (_u *FieldTypeUpdate) ClearNillableUUID() *FieldTypeUpdate {
-	_u.mutation.ClearNillableUUID()
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (_u *FieldTypeUpdate) ClearNillableUuid() *FieldTypeUpdate {
+	_u.mutation.ClearNillableUuid()
 	return _u
 }
 
@@ -1403,8 +1403,8 @@ func (_u *FieldTypeUpdate) check() error {
 			return &ValidationError{Name: "state", err: fmt.Errorf(`ent: validator failed for field "FieldType.state": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.MAC(); ok {
-		if err := fieldtype.MACValidator(v.String()); err != nil {
+	if v, ok := _u.mutation.Mac(); ok {
+		if err := fieldtype.MacValidator(v.String()); err != nil {
 			return &ValidationError{Name: "mac", err: fmt.Errorf(`ent: validator failed for field "FieldType.mac": %w`, err)}
 		}
 	}
@@ -1423,8 +1423,8 @@ func (_u *FieldTypeUpdate) check() error {
 			return &ValidationError{Name: "raw_data", err: fmt.Errorf(`ent: validator failed for field "FieldType.raw_data": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.IP(); ok {
-		if err := fieldtype.IPValidator([]byte(v)); err != nil {
+	if v, ok := _u.mutation.Ip(); ok {
+		if err := fieldtype.IpValidator([]byte(v)); err != nil {
 			return &ValidationError{Name: "ip", err: fmt.Errorf(`ent: validator failed for field "FieldType.ip": %w`, err)}
 		}
 	}
@@ -1451,7 +1451,7 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(fieldtype.Table, fieldtype.Columns, sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(fieldtype.Table, fieldtype.Columns, sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -1690,11 +1690,11 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.LinkOtherFuncCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOtherFunc, field.TypeOther)
 	}
-	if value, ok := _u.mutation.MAC(); ok {
-		_spec.SetField(fieldtype.FieldMAC, field.TypeString, value)
+	if value, ok := _u.mutation.Mac(); ok {
+		_spec.SetField(fieldtype.FieldMac, field.TypeString, value)
 	}
-	if _u.mutation.MACCleared() {
-		_spec.ClearField(fieldtype.FieldMAC, field.TypeString)
+	if _u.mutation.MacCleared() {
+		_spec.ClearField(fieldtype.FieldMac, field.TypeString)
 	}
 	if value, ok := _u.mutation.StringArray(); ok {
 		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, value)
@@ -1792,11 +1792,11 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.SensitiveCleared() {
 		_spec.ClearField(fieldtype.FieldSensitive, field.TypeBytes)
 	}
-	if value, ok := _u.mutation.IP(); ok {
-		_spec.SetField(fieldtype.FieldIP, field.TypeBytes, value)
+	if value, ok := _u.mutation.Ip(); ok {
+		_spec.SetField(fieldtype.FieldIp, field.TypeBytes, value)
 	}
-	if _u.mutation.IPCleared() {
-		_spec.ClearField(fieldtype.FieldIP, field.TypeBytes)
+	if _u.mutation.IpCleared() {
+		_spec.ClearField(fieldtype.FieldIp, field.TypeBytes)
 	}
 	if value, ok := _u.mutation.NullInt64(); ok {
 		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, value)
@@ -1864,20 +1864,20 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.PriorityCleared() {
 		_spec.ClearField(fieldtype.FieldPriority, field.TypeEnum)
 	}
-	if value, ok := _u.mutation.OptionalUUID(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.OptionalUuid(); ok {
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.OptionalUUIDCleared() {
-		_spec.ClearField(fieldtype.FieldOptionalUUID, field.TypeUUID)
+	if _u.mutation.OptionalUuidCleared() {
+		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
-	if value, ok := _u.mutation.NillableUUID(); ok {
-		_spec.SetField(fieldtype.FieldNillableUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.NillableUuid(); ok {
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.NillableUUIDCleared() {
-		_spec.ClearField(fieldtype.FieldNillableUUID, field.TypeUUID)
+	if _u.mutation.NillableUuidCleared() {
+		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.Strings(); ok {
-		_spec.SetField(fieldtype.FieldStrings, field.TypeJSON, value)
+		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, value)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -1885,7 +1885,7 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		})
 	}
 	if _u.mutation.StringsCleared() {
-		_spec.ClearField(fieldtype.FieldStrings, field.TypeJSON)
+		_spec.ClearField(fieldtype.FieldStrings, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Pair(); ok {
 		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, value)
@@ -2601,23 +2601,23 @@ func (_u *FieldTypeUpdateOne) ClearLinkOtherFunc() *FieldTypeUpdateOne {
 	return _u
 }
 
-// SetMAC sets the "mac" field.
-func (_u *FieldTypeUpdateOne) SetMAC(v schema.MAC) *FieldTypeUpdateOne {
-	_u.mutation.SetMAC(v)
+// SetMac sets the "mac" field.
+func (_u *FieldTypeUpdateOne) SetMac(v schema.Mac) *FieldTypeUpdateOne {
+	_u.mutation.SetMac(v)
 	return _u
 }
 
-// SetNillableMAC sets the "mac" field if the given value is not nil.
-func (_u *FieldTypeUpdateOne) SetNillableMAC(v *schema.MAC) *FieldTypeUpdateOne {
+// SetNillableMac sets the "mac" field if the given value is not nil.
+func (_u *FieldTypeUpdateOne) SetNillableMac(v *schema.Mac) *FieldTypeUpdateOne {
 	if v != nil {
-		_u.SetMAC(*v)
+		_u.SetMac(*v)
 	}
 	return _u
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (_u *FieldTypeUpdateOne) ClearMAC() *FieldTypeUpdateOne {
-	_u.mutation.ClearMAC()
+// ClearMac clears the value of the "mac" field.
+func (_u *FieldTypeUpdateOne) ClearMac() *FieldTypeUpdateOne {
+	_u.mutation.ClearMac()
 	return _u
 }
 
@@ -2878,15 +2878,15 @@ func (_u *FieldTypeUpdateOne) ClearSensitive() *FieldTypeUpdateOne {
 	return _u
 }
 
-// SetIP sets the "ip" field.
-func (_u *FieldTypeUpdateOne) SetIP(v net.IP) *FieldTypeUpdateOne {
-	_u.mutation.SetIP(v)
+// SetIp sets the "ip" field.
+func (_u *FieldTypeUpdateOne) SetIp(v net.IP) *FieldTypeUpdateOne {
+	_u.mutation.SetIp(v)
 	return _u
 }
 
-// ClearIP clears the value of the "ip" field.
-func (_u *FieldTypeUpdateOne) ClearIP() *FieldTypeUpdateOne {
-	_u.mutation.ClearIP()
+// ClearIp clears the value of the "ip" field.
+func (_u *FieldTypeUpdateOne) ClearIp() *FieldTypeUpdateOne {
+	_u.mutation.ClearIp()
 	return _u
 }
 
@@ -3083,43 +3083,43 @@ func (_u *FieldTypeUpdateOne) ClearPriority() *FieldTypeUpdateOne {
 	return _u
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (_u *FieldTypeUpdateOne) SetOptionalUUID(v uuid.UUID) *FieldTypeUpdateOne {
-	_u.mutation.SetOptionalUUID(v)
+// SetOptionalUuid sets the "optional_uuid" field.
+func (_u *FieldTypeUpdateOne) SetOptionalUuid(v uuid.UUID) *FieldTypeUpdateOne {
+	_u.mutation.SetOptionalUuid(v)
 	return _u
 }
 
-// SetNillableOptionalUUID sets the "optional_uuid" field if the given value is not nil.
-func (_u *FieldTypeUpdateOne) SetNillableOptionalUUID(v *uuid.UUID) *FieldTypeUpdateOne {
+// SetNillableOptionalUuid sets the "optional_uuid" field if the given value is not nil.
+func (_u *FieldTypeUpdateOne) SetNillableOptionalUuid(v *uuid.UUID) *FieldTypeUpdateOne {
 	if v != nil {
-		_u.SetOptionalUUID(*v)
+		_u.SetOptionalUuid(*v)
 	}
 	return _u
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (_u *FieldTypeUpdateOne) ClearOptionalUUID() *FieldTypeUpdateOne {
-	_u.mutation.ClearOptionalUUID()
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (_u *FieldTypeUpdateOne) ClearOptionalUuid() *FieldTypeUpdateOne {
+	_u.mutation.ClearOptionalUuid()
 	return _u
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (_u *FieldTypeUpdateOne) SetNillableUUID(v uuid.UUID) *FieldTypeUpdateOne {
-	_u.mutation.SetNillableUUID(v)
+// SetNillableUuid sets the "nillable_uuid" field.
+func (_u *FieldTypeUpdateOne) SetNillableUuid(v uuid.UUID) *FieldTypeUpdateOne {
+	_u.mutation.SetNillableUuid(v)
 	return _u
 }
 
-// SetNillableNillableUUID sets the "nillable_uuid" field if the given value is not nil.
-func (_u *FieldTypeUpdateOne) SetNillableNillableUUID(v *uuid.UUID) *FieldTypeUpdateOne {
+// SetNillableNillableUuid sets the "nillable_uuid" field if the given value is not nil.
+func (_u *FieldTypeUpdateOne) SetNillableNillableUuid(v *uuid.UUID) *FieldTypeUpdateOne {
 	if v != nil {
-		_u.SetNillableUUID(*v)
+		_u.SetNillableUuid(*v)
 	}
 	return _u
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (_u *FieldTypeUpdateOne) ClearNillableUUID() *FieldTypeUpdateOne {
-	_u.mutation.ClearNillableUUID()
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (_u *FieldTypeUpdateOne) ClearNillableUuid() *FieldTypeUpdateOne {
+	_u.mutation.ClearNillableUuid()
 	return _u
 }
 
@@ -3316,8 +3316,8 @@ func (_u *FieldTypeUpdateOne) check() error {
 			return &ValidationError{Name: "state", err: fmt.Errorf(`ent: validator failed for field "FieldType.state": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.MAC(); ok {
-		if err := fieldtype.MACValidator(v.String()); err != nil {
+	if v, ok := _u.mutation.Mac(); ok {
+		if err := fieldtype.MacValidator(v.String()); err != nil {
 			return &ValidationError{Name: "mac", err: fmt.Errorf(`ent: validator failed for field "FieldType.mac": %w`, err)}
 		}
 	}
@@ -3336,8 +3336,8 @@ func (_u *FieldTypeUpdateOne) check() error {
 			return &ValidationError{Name: "raw_data", err: fmt.Errorf(`ent: validator failed for field "FieldType.raw_data": %w`, err)}
 		}
 	}
-	if v, ok := _u.mutation.IP(); ok {
-		if err := fieldtype.IPValidator([]byte(v)); err != nil {
+	if v, ok := _u.mutation.Ip(); ok {
+		if err := fieldtype.IpValidator([]byte(v)); err != nil {
 			return &ValidationError{Name: "ip", err: fmt.Errorf(`ent: validator failed for field "FieldType.ip": %w`, err)}
 		}
 	}
@@ -3364,20 +3364,20 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(fieldtype.Table, fieldtype.Columns, sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(fieldtype.Table, fieldtype.Columns, sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "FieldType.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, fieldtype.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, fieldtype.FieldId)
 		for _, f := range fields {
 			if !fieldtype.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != fieldtype.FieldID {
+			if f != fieldtype.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -3620,11 +3620,11 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if _u.mutation.LinkOtherFuncCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOtherFunc, field.TypeOther)
 	}
-	if value, ok := _u.mutation.MAC(); ok {
-		_spec.SetField(fieldtype.FieldMAC, field.TypeString, value)
+	if value, ok := _u.mutation.Mac(); ok {
+		_spec.SetField(fieldtype.FieldMac, field.TypeString, value)
 	}
-	if _u.mutation.MACCleared() {
-		_spec.ClearField(fieldtype.FieldMAC, field.TypeString)
+	if _u.mutation.MacCleared() {
+		_spec.ClearField(fieldtype.FieldMac, field.TypeString)
 	}
 	if value, ok := _u.mutation.StringArray(); ok {
 		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, value)
@@ -3722,11 +3722,11 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if _u.mutation.SensitiveCleared() {
 		_spec.ClearField(fieldtype.FieldSensitive, field.TypeBytes)
 	}
-	if value, ok := _u.mutation.IP(); ok {
-		_spec.SetField(fieldtype.FieldIP, field.TypeBytes, value)
+	if value, ok := _u.mutation.Ip(); ok {
+		_spec.SetField(fieldtype.FieldIp, field.TypeBytes, value)
 	}
-	if _u.mutation.IPCleared() {
-		_spec.ClearField(fieldtype.FieldIP, field.TypeBytes)
+	if _u.mutation.IpCleared() {
+		_spec.ClearField(fieldtype.FieldIp, field.TypeBytes)
 	}
 	if value, ok := _u.mutation.NullInt64(); ok {
 		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, value)
@@ -3794,20 +3794,20 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if _u.mutation.PriorityCleared() {
 		_spec.ClearField(fieldtype.FieldPriority, field.TypeEnum)
 	}
-	if value, ok := _u.mutation.OptionalUUID(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.OptionalUuid(); ok {
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.OptionalUUIDCleared() {
-		_spec.ClearField(fieldtype.FieldOptionalUUID, field.TypeUUID)
+	if _u.mutation.OptionalUuidCleared() {
+		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
-	if value, ok := _u.mutation.NillableUUID(); ok {
-		_spec.SetField(fieldtype.FieldNillableUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.NillableUuid(); ok {
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.NillableUUIDCleared() {
-		_spec.ClearField(fieldtype.FieldNillableUUID, field.TypeUUID)
+	if _u.mutation.NillableUuidCleared() {
+		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.Strings(); ok {
-		_spec.SetField(fieldtype.FieldStrings, field.TypeJSON, value)
+		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, value)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -3815,7 +3815,7 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 		})
 	}
 	if _u.mutation.StringsCleared() {
-		_spec.ClearField(fieldtype.FieldStrings, field.TypeJSON)
+		_spec.ClearField(fieldtype.FieldStrings, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Pair(); ok {
 		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, value)

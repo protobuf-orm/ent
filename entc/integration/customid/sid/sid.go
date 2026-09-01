@@ -13,13 +13,13 @@ import (
 	"strconv"
 )
 
-type ID string
+type Id string
 
-func (i ID) String() string {
+func (i Id) String() string {
 	return string(i)
 }
 
-func (i ID) Value() (driver.Value, error) {
+func (i Id) Value() (driver.Value, error) {
 	r, err := strconv.ParseInt(string(i), 10, 64)
 	if err != nil {
 		return nil, err
@@ -28,26 +28,26 @@ func (i ID) Value() (driver.Value, error) {
 	return r, nil
 }
 
-func (i *ID) Scan(src any) error {
+func (i *Id) Scan(src any) error {
 	switch v := src.(type) {
 	case nil:
 		return nil
 	case int64:
-		*i = ID(fmt.Sprint(v))
+		*i = Id(fmt.Sprint(v))
 		return nil
 	}
-	return errors.New("not a valid ID")
+	return errors.New("not a valid Id")
 }
 
-func New() ID {
+func New() Id {
 	return NewLength(10)
 }
 
-func NewLength(l int) ID {
+func NewLength(l int) Id {
 	var out string
 	for len(out) < l {
 		result, _ := rand.Int(rand.Reader, big.NewInt(100))
 		out += fmt.Sprint(result.Uint64() + 1)
 	}
-	return ID(out[:l])
+	return Id(out[:l])
 }

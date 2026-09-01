@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the process type in the database.
 	Label = "process"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeFiles holds the string denoting the files edge name in mutations.
 	EdgeFiles = "files"
 	// EdgeAttachedFiles holds the string denoting the attached_files edge name in mutations.
@@ -36,9 +36,9 @@ const (
 	AttachedFilesColumn = "proc_id"
 )
 
-// Columns holds all SQL columns for process fields.
+// Columns holds all Sql columns for process fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 var (
@@ -60,9 +60,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Process queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByFilesCount orders the results by files count.
@@ -94,15 +94,15 @@ func ByAttachedFiles(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newFilesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FilesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FilesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FilesTable, FilesPrimaryKey...),
 	)
 }
 func newAttachedFilesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(AttachedFilesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(AttachedFilesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, AttachedFilesTable, AttachedFilesColumn),
 	)
 }

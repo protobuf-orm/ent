@@ -51,23 +51,23 @@ func (_u *MediaUpdate) ClearSource() *MediaUpdate {
 	return _u
 }
 
-// SetSourceURI sets the "source_uri" field.
-func (_u *MediaUpdate) SetSourceURI(v string) *MediaUpdate {
-	_u.mutation.SetSourceURI(v)
+// SetSourceUri sets the "source_uri" field.
+func (_u *MediaUpdate) SetSourceUri(v string) *MediaUpdate {
+	_u.mutation.SetSourceUri(v)
 	return _u
 }
 
-// SetNillableSourceURI sets the "source_uri" field if the given value is not nil.
-func (_u *MediaUpdate) SetNillableSourceURI(v *string) *MediaUpdate {
+// SetNillableSourceUri sets the "source_uri" field if the given value is not nil.
+func (_u *MediaUpdate) SetNillableSourceUri(v *string) *MediaUpdate {
 	if v != nil {
-		_u.SetSourceURI(*v)
+		_u.SetSourceUri(*v)
 	}
 	return _u
 }
 
-// ClearSourceURI clears the value of the "source_uri" field.
-func (_u *MediaUpdate) ClearSourceURI() *MediaUpdate {
-	_u.mutation.ClearSourceURI()
+// ClearSourceUri clears the value of the "source_uri" field.
+func (_u *MediaUpdate) ClearSourceUri() *MediaUpdate {
+	_u.mutation.ClearSourceUri()
 	return _u
 }
 
@@ -124,7 +124,7 @@ func (_u *MediaUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *MediaUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(media.Table, media.Columns, sqlgraph.NewFieldSpec(media.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(media.Table, media.Columns, sqlgraph.NewFieldSpec(media.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -138,11 +138,11 @@ func (_u *MediaUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.SourceCleared() {
 		_spec.ClearField(media.FieldSource, field.TypeString)
 	}
-	if value, ok := _u.mutation.SourceURI(); ok {
-		_spec.SetField(media.FieldSourceURI, field.TypeString, value)
+	if value, ok := _u.mutation.SourceUri(); ok {
+		_spec.SetField(media.FieldSourceUri, field.TypeString, value)
 	}
-	if _u.mutation.SourceURICleared() {
-		_spec.ClearField(media.FieldSourceURI, field.TypeString)
+	if _u.mutation.SourceUriCleared() {
+		_spec.ClearField(media.FieldSourceUri, field.TypeString)
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(media.FieldText, field.TypeString, value)
@@ -190,23 +190,23 @@ func (_u *MediaUpdateOne) ClearSource() *MediaUpdateOne {
 	return _u
 }
 
-// SetSourceURI sets the "source_uri" field.
-func (_u *MediaUpdateOne) SetSourceURI(v string) *MediaUpdateOne {
-	_u.mutation.SetSourceURI(v)
+// SetSourceUri sets the "source_uri" field.
+func (_u *MediaUpdateOne) SetSourceUri(v string) *MediaUpdateOne {
+	_u.mutation.SetSourceUri(v)
 	return _u
 }
 
-// SetNillableSourceURI sets the "source_uri" field if the given value is not nil.
-func (_u *MediaUpdateOne) SetNillableSourceURI(v *string) *MediaUpdateOne {
+// SetNillableSourceUri sets the "source_uri" field if the given value is not nil.
+func (_u *MediaUpdateOne) SetNillableSourceUri(v *string) *MediaUpdateOne {
 	if v != nil {
-		_u.SetSourceURI(*v)
+		_u.SetSourceUri(*v)
 	}
 	return _u
 }
 
-// ClearSourceURI clears the value of the "source_uri" field.
-func (_u *MediaUpdateOne) ClearSourceURI() *MediaUpdateOne {
-	_u.mutation.ClearSourceURI()
+// ClearSourceUri clears the value of the "source_uri" field.
+func (_u *MediaUpdateOne) ClearSourceUri() *MediaUpdateOne {
+	_u.mutation.ClearSourceUri()
 	return _u
 }
 
@@ -276,20 +276,20 @@ func (_u *MediaUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *MediaUpdateOne) sqlSave(ctx context.Context) (_node *Media, err error) {
-	_spec := sqlgraph.NewUpdateSpec(media.Table, media.Columns, sqlgraph.NewFieldSpec(media.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(media.Table, media.Columns, sqlgraph.NewFieldSpec(media.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv2: missing "Media.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, media.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, media.FieldId)
 		for _, f := range fields {
 			if !media.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv2: invalid field %q for query", f)}
 			}
-			if f != media.FieldID {
+			if f != media.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -307,11 +307,11 @@ func (_u *MediaUpdateOne) sqlSave(ctx context.Context) (_node *Media, err error)
 	if _u.mutation.SourceCleared() {
 		_spec.ClearField(media.FieldSource, field.TypeString)
 	}
-	if value, ok := _u.mutation.SourceURI(); ok {
-		_spec.SetField(media.FieldSourceURI, field.TypeString, value)
+	if value, ok := _u.mutation.SourceUri(); ok {
+		_spec.SetField(media.FieldSourceUri, field.TypeString, value)
 	}
-	if _u.mutation.SourceURICleared() {
-		_spec.ClearField(media.FieldSourceURI, field.TypeString)
+	if _u.mutation.SourceUriCleared() {
+		_spec.ClearField(media.FieldSourceUri, field.TypeString)
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(media.FieldText, field.TypeString, value)

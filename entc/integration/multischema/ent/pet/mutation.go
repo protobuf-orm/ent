@@ -59,13 +59,13 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (m *Mutation) SetOwnerID(i int) {
+// SetOwnerId sets the "owner_id" field.
+func (m *Mutation) SetOwnerId(i int) {
 	m.owner = &i
 }
 
-// OwnerID returns the value of the "owner_id" field in the mutation.
-func (m *Mutation) OwnerID() (r int, exists bool) {
+// OwnerId returns the value of the "owner_id" field in the mutation.
+func (m *Mutation) OwnerId() (r int, exists bool) {
 	v := m.owner
 	if v == nil {
 		return
@@ -73,39 +73,39 @@ func (m *Mutation) OwnerID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearOwnerID clears the value of the "owner_id" field.
-func (m *Mutation) ClearOwnerID() {
+// ClearOwnerId clears the value of the "owner_id" field.
+func (m *Mutation) ClearOwnerId() {
 	m.owner = nil
-	m.clearedFields[FieldOwnerID] = struct{}{}
+	m.clearedFields[FieldOwnerId] = struct{}{}
 }
 
-// OwnerIDCleared returns if the "owner_id" field was cleared in this mutation.
-func (m *Mutation) OwnerIDCleared() bool {
-	_, ok := m.clearedFields[FieldOwnerID]
+// OwnerIdCleared returns if the "owner_id" field was cleared in this mutation.
+func (m *Mutation) OwnerIdCleared() bool {
+	_, ok := m.clearedFields[FieldOwnerId]
 	return ok
 }
 
-// ResetOwnerID resets all changes to the "owner_id" field.
-func (m *Mutation) ResetOwnerID() {
+// ResetOwnerId resets all changes to the "owner_id" field.
+func (m *Mutation) ResetOwnerId() {
 	m.owner = nil
-	delete(m.clearedFields, FieldOwnerID)
+	delete(m.clearedFields, FieldOwnerId)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.
 func (m *Mutation) ClearOwner() {
 	m.clearedowner = true
-	m.clearedFields[FieldOwnerID] = struct{}{}
+	m.clearedFields[FieldOwnerId] = struct{}{}
 }
 
 // OwnerCleared reports if the "owner" edge to the User entity was cleared.
 func (m *Mutation) OwnerCleared() bool {
-	return m.OwnerIDCleared() || m.clearedowner
+	return m.OwnerIdCleared() || m.clearedowner
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []int) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []int) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -157,7 +157,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldName)
 	}
 	if m.owner != nil {
-		fields = append(fields, FieldOwnerID)
+		fields = append(fields, FieldOwnerId)
 	}
 	return fields
 }
@@ -169,8 +169,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldName:
 		return m.Name()
-	case FieldOwnerID:
-		return m.OwnerID()
+	case FieldOwnerId:
+		return m.OwnerId()
 	}
 	return nil, false
 }
@@ -194,12 +194,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetName(v)
 		return nil
-	case FieldOwnerID:
+	case FieldOwnerId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOwnerID(v)
+		m.SetOwnerId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Pet field %s", name)
@@ -234,8 +234,8 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldOwnerID) {
-		fields = append(fields, FieldOwnerID)
+	if m.FieldCleared(FieldOwnerId) {
+		fields = append(fields, FieldOwnerId)
 	}
 	return fields
 }
@@ -251,8 +251,8 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldOwnerID:
-		m.ClearOwnerID()
+	case FieldOwnerId:
+		m.ClearOwnerId()
 		return nil
 	}
 	return fmt.Errorf("unknown Pet nullable field %s", name)
@@ -265,8 +265,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldName:
 		m.ResetName()
 		return nil
-	case FieldOwnerID:
-		m.ResetOwnerID()
+	case FieldOwnerId:
+		m.ResetOwnerId()
 		return nil
 	}
 	return fmt.Errorf("unknown Pet field %s", name)
@@ -281,9 +281,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeOwner:
 		if id := m.owner; id != nil {
@@ -299,9 +299,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

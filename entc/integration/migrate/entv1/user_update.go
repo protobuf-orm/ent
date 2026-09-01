@@ -247,28 +247,28 @@ func (_u *UserUpdate) ClearDropOptional() *UserUpdate {
 	return _u
 }
 
-// SetParentID sets the "parent" edge to the User entity by ID.
-func (_u *UserUpdate) SetParentID(id int) *UserUpdate {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the User entity by Id.
+func (_u *UserUpdate) SetParentId(id int) *UserUpdate {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableParentID(id *int) *UserUpdate {
+// SetNillableParentId sets the "parent" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableParentId(id *int) *UserUpdate {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
 // SetParent sets the "parent" edge to the User entity.
 func (_u *UserUpdate) SetParent(v *User) *UserUpdate {
-	return _u.SetParentID(v.ID)
+	return _u.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdate) AddChildrenIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the User entity by Ids.
+func (_u *UserUpdate) AddChildrenIds(ids ...int) *UserUpdate {
+	_u.mutation.AddChildrenIds(ids...)
 	return _u
 }
 
@@ -276,47 +276,47 @@ func (_u *UserUpdate) AddChildrenIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) AddChildren(v ...*User) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddChildrenIDs(ids...)
+	return _u.AddChildrenIds(ids...)
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_u *UserUpdate) SetSpouseID(id int) *UserUpdate {
-	_u.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_u *UserUpdate) SetSpouseId(id int) *UserUpdate {
+	_u.mutation.SetSpouseId(id)
 	return _u
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableSpouseID(id *int) *UserUpdate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableSpouseId(id *int) *UserUpdate {
 	if id != nil {
-		_u = _u.SetSpouseID(*id)
+		_u = _u.SetSpouseId(*id)
 	}
 	return _u
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_u *UserUpdate) SetSpouse(v *User) *UserUpdate {
-	return _u.SetSpouseID(v.ID)
+	return _u.SetSpouseId(v.Id)
 }
 
-// SetCarID sets the "car" edge to the Car entity by ID.
-func (_u *UserUpdate) SetCarID(id int) *UserUpdate {
-	_u.mutation.SetCarID(id)
+// SetCarId sets the "car" edge to the Car entity by Id.
+func (_u *UserUpdate) SetCarId(id int) *UserUpdate {
+	_u.mutation.SetCarId(id)
 	return _u
 }
 
-// SetNillableCarID sets the "car" edge to the Car entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableCarID(id *int) *UserUpdate {
+// SetNillableCarId sets the "car" edge to the Car entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableCarId(id *int) *UserUpdate {
 	if id != nil {
-		_u = _u.SetCarID(*id)
+		_u = _u.SetCarId(*id)
 	}
 	return _u
 }
 
 // SetCar sets the "car" edge to the Car entity.
 func (_u *UserUpdate) SetCar(v *Car) *UserUpdate {
-	return _u.SetCarID(v.ID)
+	return _u.SetCarId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -336,9 +336,9 @@ func (_u *UserUpdate) ClearChildren() *UserUpdate {
 	return _u
 }
 
-// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveChildrenIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveChildrenIDs(ids...)
+// RemoveChildrenIds removes the "children" edge to User entities by Ids.
+func (_u *UserUpdate) RemoveChildrenIds(ids ...int) *UserUpdate {
+	_u.mutation.RemoveChildrenIds(ids...)
 	return _u
 }
 
@@ -346,9 +346,9 @@ func (_u *UserUpdate) RemoveChildrenIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) RemoveChildren(v ...*User) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveChildrenIDs(ids...)
+	return _u.RemoveChildrenIds(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.
@@ -419,7 +419,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -498,12 +498,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -511,7 +511,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -527,12 +527,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIds(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -540,7 +540,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -548,7 +548,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -556,7 +556,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -572,12 +572,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -585,7 +585,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -601,12 +601,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CarIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CarIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -614,7 +614,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -857,28 +857,28 @@ func (_u *UserUpdateOne) ClearDropOptional() *UserUpdateOne {
 	return _u
 }
 
-// SetParentID sets the "parent" edge to the User entity by ID.
-func (_u *UserUpdateOne) SetParentID(id int) *UserUpdateOne {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the User entity by Id.
+func (_u *UserUpdateOne) SetParentId(id int) *UserUpdateOne {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableParentID(id *int) *UserUpdateOne {
+// SetNillableParentId sets the "parent" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableParentId(id *int) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
 // SetParent sets the "parent" edge to the User entity.
 func (_u *UserUpdateOne) SetParent(v *User) *UserUpdateOne {
-	return _u.SetParentID(v.ID)
+	return _u.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddChildrenIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the User entity by Ids.
+func (_u *UserUpdateOne) AddChildrenIds(ids ...int) *UserUpdateOne {
+	_u.mutation.AddChildrenIds(ids...)
 	return _u
 }
 
@@ -886,47 +886,47 @@ func (_u *UserUpdateOne) AddChildrenIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) AddChildren(v ...*User) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddChildrenIDs(ids...)
+	return _u.AddChildrenIds(ids...)
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_u *UserUpdateOne) SetSpouseID(id int) *UserUpdateOne {
-	_u.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_u *UserUpdateOne) SetSpouseId(id int) *UserUpdateOne {
+	_u.mutation.SetSpouseId(id)
 	return _u
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableSpouseID(id *int) *UserUpdateOne {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableSpouseId(id *int) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetSpouseID(*id)
+		_u = _u.SetSpouseId(*id)
 	}
 	return _u
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_u *UserUpdateOne) SetSpouse(v *User) *UserUpdateOne {
-	return _u.SetSpouseID(v.ID)
+	return _u.SetSpouseId(v.Id)
 }
 
-// SetCarID sets the "car" edge to the Car entity by ID.
-func (_u *UserUpdateOne) SetCarID(id int) *UserUpdateOne {
-	_u.mutation.SetCarID(id)
+// SetCarId sets the "car" edge to the Car entity by Id.
+func (_u *UserUpdateOne) SetCarId(id int) *UserUpdateOne {
+	_u.mutation.SetCarId(id)
 	return _u
 }
 
-// SetNillableCarID sets the "car" edge to the Car entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableCarID(id *int) *UserUpdateOne {
+// SetNillableCarId sets the "car" edge to the Car entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableCarId(id *int) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetCarID(*id)
+		_u = _u.SetCarId(*id)
 	}
 	return _u
 }
 
 // SetCar sets the "car" edge to the Car entity.
 func (_u *UserUpdateOne) SetCar(v *Car) *UserUpdateOne {
-	return _u.SetCarID(v.ID)
+	return _u.SetCarId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -946,9 +946,9 @@ func (_u *UserUpdateOne) ClearChildren() *UserUpdateOne {
 	return _u
 }
 
-// RemoveChildrenIDs removes the "children" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveChildrenIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveChildrenIDs(ids...)
+// RemoveChildrenIds removes the "children" edge to User entities by Ids.
+func (_u *UserUpdateOne) RemoveChildrenIds(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveChildrenIds(ids...)
 	return _u
 }
 
@@ -956,9 +956,9 @@ func (_u *UserUpdateOne) RemoveChildrenIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) RemoveChildren(v ...*User) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveChildrenIDs(ids...)
+	return _u.RemoveChildrenIds(ids...)
 }
 
 // ClearSpouse clears the "spouse" edge to the User entity.
@@ -1042,20 +1042,20 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv1: missing "User.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv1: invalid field %q for query", f)}
 			}
-			if f != user.FieldID {
+			if f != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -1138,12 +1138,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -1151,7 +1151,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1167,12 +1167,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIds(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1180,7 +1180,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1188,7 +1188,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1196,7 +1196,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1212,12 +1212,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -1225,7 +1225,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1241,12 +1241,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CarIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CarIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -1254,7 +1254,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

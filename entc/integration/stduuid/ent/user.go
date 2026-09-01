@@ -19,8 +19,8 @@ import (
 // User is the model entity for the User schema.
 type User struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Ref holds the value of the "ref" field.
@@ -57,8 +57,8 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID:
-			values[i] = user.ValueScanner.ID.ScanValue()
+		case user.FieldId:
+			values[i] = user.ValueScanner.Id.ScanValue()
 		case user.FieldName:
 			values[i] = new(sql.NullString)
 		case user.FieldRef:
@@ -80,11 +80,11 @@ func (_m *User) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID:
-			if value, err := user.ValueScanner.ID.FromValue(values[i]); err != nil {
+		case user.FieldId:
+			if value, err := user.ValueScanner.Id.FromValue(values[i]); err != nil {
 				return err
 			} else {
-				_m.ID = value
+				_m.Id = value
 			}
 		case user.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -144,7 +144,7 @@ func (_m *User) Unwrap() *User {
 func (_m *User) String() string {
 	var builder strings.Builder
 	builder.WriteString("User(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("name=")
 	builder.WriteString(_m.Name)
 	builder.WriteString(", ")

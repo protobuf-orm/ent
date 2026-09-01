@@ -14,49 +14,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldLTE(FieldId, id))
 }
 
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
@@ -64,14 +64,14 @@ func CreatedAt(v time.Time) predicate.UserTweet {
 	return predicate.UserTweet(sql.FieldEQ(FieldCreatedAt, v))
 }
 
-// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldUserID, v))
+// UserId applies equality check predicate on the "user_id" field. It's identical to UserIdEQ.
+func UserId(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldUserId, v))
 }
 
-// TweetID applies equality check predicate on the "tweet_id" field. It's identical to TweetIDEQ.
-func TweetID(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldTweetID, v))
+// TweetId applies equality check predicate on the "tweet_id" field. It's identical to TweetIdEQ.
+func TweetId(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldTweetId, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -114,51 +114,51 @@ func CreatedAtLTE(v time.Time) predicate.UserTweet {
 	return predicate.UserTweet(sql.FieldLTE(FieldCreatedAt, v))
 }
 
-// UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldUserID, v))
+// UserIdEQ applies the EQ predicate on the "user_id" field.
+func UserIdEQ(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldUserId, v))
 }
 
-// UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNEQ(FieldUserID, v))
+// UserIdNEQ applies the NEQ predicate on the "user_id" field.
+func UserIdNEQ(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNEQ(FieldUserId, v))
 }
 
-// UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldIn(FieldUserID, vs...))
+// UserIdIn applies the In predicate on the "user_id" field.
+func UserIdIn(vs ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldIn(FieldUserId, vs...))
 }
 
-// UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNotIn(FieldUserID, vs...))
+// UserIdNotIn applies the NotIn predicate on the "user_id" field.
+func UserIdNotIn(vs ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNotIn(FieldUserId, vs...))
 }
 
-// TweetIDEQ applies the EQ predicate on the "tweet_id" field.
-func TweetIDEQ(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldEQ(FieldTweetID, v))
+// TweetIdEQ applies the EQ predicate on the "tweet_id" field.
+func TweetIdEQ(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldEQ(FieldTweetId, v))
 }
 
-// TweetIDNEQ applies the NEQ predicate on the "tweet_id" field.
-func TweetIDNEQ(v int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNEQ(FieldTweetID, v))
+// TweetIdNEQ applies the NEQ predicate on the "tweet_id" field.
+func TweetIdNEQ(v int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNEQ(FieldTweetId, v))
 }
 
-// TweetIDIn applies the In predicate on the "tweet_id" field.
-func TweetIDIn(vs ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldIn(FieldTweetID, vs...))
+// TweetIdIn applies the In predicate on the "tweet_id" field.
+func TweetIdIn(vs ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldIn(FieldTweetId, vs...))
 }
 
-// TweetIDNotIn applies the NotIn predicate on the "tweet_id" field.
-func TweetIDNotIn(vs ...int) predicate.UserTweet {
-	return predicate.UserTweet(sql.FieldNotIn(FieldTweetID, vs...))
+// TweetIdNotIn applies the NotIn predicate on the "tweet_id" field.
+func TweetIdNotIn(vs ...int) predicate.UserTweet {
+	return predicate.UserTweet(sql.FieldNotIn(FieldTweetId, vs...))
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.
 func HasUser() predicate.UserTweet {
 	return predicate.UserTweet(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -181,7 +181,7 @@ func HasUserWith(preds ...predicate.User) predicate.UserTweet {
 func HasTweet() predicate.UserTweet {
 	return predicate.UserTweet(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, TweetTable, TweetColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

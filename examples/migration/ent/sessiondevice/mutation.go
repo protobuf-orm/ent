@@ -47,13 +47,13 @@ func (m *Mutation) Predicates() []predicate.SessionDevice {
 	return m.predicates
 }
 
-// SetIPAddress sets the "ip_address" field.
-func (m *Mutation) SetIPAddress(s string) {
+// SetIpAddress sets the "ip_address" field.
+func (m *Mutation) SetIpAddress(s string) {
 	m.ip_address = &s
 }
 
-// IPAddress returns the value of the "ip_address" field in the mutation.
-func (m *Mutation) IPAddress() (r string, exists bool) {
+// IpAddress returns the value of the "ip_address" field in the mutation.
+func (m *Mutation) IpAddress() (r string, exists bool) {
 	v := m.ip_address
 	if v == nil {
 		return
@@ -61,8 +61,8 @@ func (m *Mutation) IPAddress() (r string, exists bool) {
 	return *v, true
 }
 
-// ResetIPAddress resets all changes to the "ip_address" field.
-func (m *Mutation) ResetIPAddress() {
+// ResetIpAddress resets all changes to the "ip_address" field.
+func (m *Mutation) ResetIpAddress() {
 	m.ip_address = nil
 }
 
@@ -155,8 +155,8 @@ func (m *Mutation) ResetUpdatedAt() {
 	delete(m.clearedFields, FieldUpdatedAt)
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by ids.
-func (m *Mutation) AddSessionsIDs(ids ...uuid.UUID) {
+// AddSessionsIds adds the "sessions" edge to the Session entity by ids.
+func (m *Mutation) AddSessionsIds(ids ...uuid.UUID) {
 	if m.sessions == nil {
 		m.sessions = make(map[uuid.UUID]struct{})
 	}
@@ -175,8 +175,8 @@ func (m *Mutation) SessionsCleared() bool {
 	return m.clearedsessions
 }
 
-// RemoveSessionsIDs removes the "sessions" edge to the Session entity by IDs.
-func (m *Mutation) RemoveSessionsIDs(ids ...uuid.UUID) {
+// RemoveSessionsIds removes the "sessions" edge to the Session entity by Ids.
+func (m *Mutation) RemoveSessionsIds(ids ...uuid.UUID) {
 	if m.removedsessions == nil {
 		m.removedsessions = make(map[uuid.UUID]struct{})
 	}
@@ -186,16 +186,16 @@ func (m *Mutation) RemoveSessionsIDs(ids ...uuid.UUID) {
 	}
 }
 
-// RemovedSessions returns the removed IDs of the "sessions" edge to the Session entity.
-func (m *Mutation) RemovedSessionsIDs() (ids []uuid.UUID) {
+// RemovedSessions returns the removed Ids of the "sessions" edge to the Session entity.
+func (m *Mutation) RemovedSessionsIds() (ids []uuid.UUID) {
 	for id := range m.removedsessions {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// SessionsIDs returns the "sessions" edge IDs in the mutation.
-func (m *Mutation) SessionsIDs() (ids []uuid.UUID) {
+// SessionsIds returns the "sessions" edge Ids in the mutation.
+func (m *Mutation) SessionsIds() (ids []uuid.UUID) {
 	for id := range m.sessions {
 		ids = append(ids, id)
 	}
@@ -245,7 +245,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 5)
 	if m.ip_address != nil {
-		fields = append(fields, FieldIPAddress)
+		fields = append(fields, FieldIpAddress)
 	}
 	if m.user_agent != nil {
 		fields = append(fields, FieldUserAgent)
@@ -267,8 +267,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldIPAddress:
-		return m.IPAddress()
+	case FieldIpAddress:
+		return m.IpAddress()
 	case FieldUserAgent:
 		return m.UserAgent()
 	case FieldLocation:
@@ -293,12 +293,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldIPAddress:
+	case FieldIpAddress:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetIPAddress(v)
+		m.SetIpAddress(v)
 		return nil
 	case FieldUserAgent:
 		v, ok := value.(string)
@@ -386,8 +386,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldIPAddress:
-		m.ResetIPAddress()
+	case FieldIpAddress:
+		m.ResetIpAddress()
 		return nil
 	case FieldUserAgent:
 		m.ResetUserAgent()
@@ -414,9 +414,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeSessions:
 		ids := make([]ent.Value, 0, len(m.sessions))
@@ -437,9 +437,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeSessions:
 		ids := make([]ent.Value, 0, len(m.removedsessions))

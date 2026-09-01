@@ -15,49 +15,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldLTE(FieldId, id))
 }
 
 // Weight applies equality check predicate on the "weight" field. It's identical to WeightEQ.
@@ -70,14 +70,14 @@ func CreatedAt(v time.Time) predicate.Friendship {
 	return predicate.Friendship(sql.FieldEQ(FieldCreatedAt, v))
 }
 
-// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldUserID, v))
+// UserId applies equality check predicate on the "user_id" field. It's identical to UserIdEQ.
+func UserId(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldUserId, v))
 }
 
-// FriendsID applies equality check predicate on the "friends_id" field. It's identical to FriendsIDEQ.
-func FriendsID(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldFriendsID, v))
+// FriendsId applies equality check predicate on the "friends_id" field. It's identical to FriendsIdEQ.
+func FriendsId(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldFriendsId, v))
 }
 
 // WeightEQ applies the EQ predicate on the "weight" field.
@@ -160,51 +160,51 @@ func CreatedAtLTE(v time.Time) predicate.Friendship {
 	return predicate.Friendship(sql.FieldLTE(FieldCreatedAt, v))
 }
 
-// UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldUserID, v))
+// UserIdEQ applies the EQ predicate on the "user_id" field.
+func UserIdEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldUserId, v))
 }
 
-// UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNEQ(FieldUserID, v))
+// UserIdNEQ applies the NEQ predicate on the "user_id" field.
+func UserIdNEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNEQ(FieldUserId, v))
 }
 
-// UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldIn(FieldUserID, vs...))
+// UserIdIn applies the In predicate on the "user_id" field.
+func UserIdIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldIn(FieldUserId, vs...))
 }
 
-// UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNotIn(FieldUserID, vs...))
+// UserIdNotIn applies the NotIn predicate on the "user_id" field.
+func UserIdNotIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNotIn(FieldUserId, vs...))
 }
 
-// FriendsIDEQ applies the EQ predicate on the "friends_id" field.
-func FriendsIDEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldEQ(FieldFriendsID, v))
+// FriendsIdEQ applies the EQ predicate on the "friends_id" field.
+func FriendsIdEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldEQ(FieldFriendsId, v))
 }
 
-// FriendsIDNEQ applies the NEQ predicate on the "friends_id" field.
-func FriendsIDNEQ(v int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNEQ(FieldFriendsID, v))
+// FriendsIdNEQ applies the NEQ predicate on the "friends_id" field.
+func FriendsIdNEQ(v int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNEQ(FieldFriendsId, v))
 }
 
-// FriendsIDIn applies the In predicate on the "friends_id" field.
-func FriendsIDIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldIn(FieldFriendsID, vs...))
+// FriendsIdIn applies the In predicate on the "friends_id" field.
+func FriendsIdIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldIn(FieldFriendsId, vs...))
 }
 
-// FriendsIDNotIn applies the NotIn predicate on the "friends_id" field.
-func FriendsIDNotIn(vs ...int) predicate.Friendship {
-	return predicate.Friendship(sql.FieldNotIn(FieldFriendsID, vs...))
+// FriendsIdNotIn applies the NotIn predicate on the "friends_id" field.
+func FriendsIdNotIn(vs ...int) predicate.Friendship {
+	return predicate.Friendship(sql.FieldNotIn(FieldFriendsId, vs...))
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.
 func HasUser() predicate.Friendship {
 	return predicate.Friendship(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 		)
 		schemaConfig := internal.SchemaConfigFromContext(s.Context())
@@ -233,7 +233,7 @@ func HasUserWith(preds ...predicate.User) predicate.Friendship {
 func HasFriend() predicate.Friendship {
 	return predicate.Friendship(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, FriendTable, FriendColumn),
 		)
 		schemaConfig := internal.SchemaConfigFromContext(s.Context())

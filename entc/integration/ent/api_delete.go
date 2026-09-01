@@ -16,26 +16,26 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// APIDelete is the builder for deleting a Api entity.
-type APIDelete struct {
+// ApiDelete is the builder for deleting a Api entity.
+type ApiDelete struct {
 	config
 	hooks    []Hook
-	mutation *APIMutation
+	mutation *ApiMutation
 }
 
-// Where appends a list predicates to the APIDelete builder.
-func (_d *APIDelete) Where(ps ...predicate.Api) *APIDelete {
+// Where appends a list predicates to the ApiDelete builder.
+func (_d *ApiDelete) Where(ps ...predicate.Api) *ApiDelete {
 	_d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (_d *APIDelete) Exec(ctx context.Context) (int, error) {
+func (_d *ApiDelete) Exec(ctx context.Context) (int, error) {
 	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *APIDelete) ExecX(ctx context.Context) int {
+func (_d *ApiDelete) ExecX(ctx context.Context) int {
 	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
@@ -43,8 +43,8 @@ func (_d *APIDelete) ExecX(ctx context.Context) int {
 	return n
 }
 
-func (_d *APIDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldID, field.TypeInt))
+func (_d *ApiDelete) sqlExec(ctx context.Context) (int, error) {
+	_spec := sqlgraph.NewDeleteSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldId, field.TypeInt))
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -60,19 +60,19 @@ func (_d *APIDelete) sqlExec(ctx context.Context) (int, error) {
 	return affected, err
 }
 
-// APIDeleteOne is the builder for deleting a single Api entity.
-type APIDeleteOne struct {
-	_d *APIDelete
+// ApiDeleteOne is the builder for deleting a single Api entity.
+type ApiDeleteOne struct {
+	_d *ApiDelete
 }
 
-// Where appends a list predicates to the APIDelete builder.
-func (_d *APIDeleteOne) Where(ps ...predicate.Api) *APIDeleteOne {
+// Where appends a list predicates to the ApiDelete builder.
+func (_d *ApiDeleteOne) Where(ps ...predicate.Api) *ApiDeleteOne {
 	_d._d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query.
-func (_d *APIDeleteOne) Exec(ctx context.Context) error {
+func (_d *ApiDeleteOne) Exec(ctx context.Context) error {
 	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
@@ -85,7 +85,7 @@ func (_d *APIDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *APIDeleteOne) ExecX(ctx context.Context) {
+func (_d *ApiDeleteOne) ExecX(ctx context.Context) {
 	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}

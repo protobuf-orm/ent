@@ -26,13 +26,13 @@ type Doc struct {
 func (Doc) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("id").
-			GoType(DocID("")).
+			GoType(DocId("")).
 			MaxLen(36).
 			NotEmpty().
 			Unique().
 			Immutable().
-			DefaultFunc(func() DocID {
-				return DocID(uuid.NewString())
+			DefaultFunc(func() DocId {
+				return DocId(uuid.NewString())
 			}).
 			SchemaType(map[string]string{
 				dialect.Postgres: postgres.TypeUUID,
@@ -52,16 +52,16 @@ func (Doc) Edges() []ent.Edge {
 	}
 }
 
-type DocID string
+type DocId string
 
 // Scan implements the Scanner interface.
-func (s *DocID) Scan(value any) (err error) {
+func (s *DocId) Scan(value any) (err error) {
 	switch v := value.(type) {
 	case nil:
 	case []byte:
-		*s = DocID(v)
+		*s = DocId(v)
 	case string:
-		*s = DocID(v)
+		*s = DocId(v)
 	default:
 		err = fmt.Errorf("unexpected type %T", v)
 	}
@@ -69,6 +69,6 @@ func (s *DocID) Scan(value any) (err error) {
 }
 
 // Value implements the driver Valuer interface.
-func (s DocID) Value() (driver.Value, error) {
+func (s DocId) Value() (driver.Value, error) {
 	return string(s), nil
 }

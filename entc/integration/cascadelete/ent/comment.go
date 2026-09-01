@@ -19,12 +19,12 @@ import (
 // Comment is the model entity for the Comment schema.
 type Comment struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Text holds the value of the "text" field.
 	Text string `json:"text,omitempty"`
-	// PostID holds the value of the "post_id" field.
-	PostID int `json:"post_id,omitempty"`
+	// PostId holds the value of the "post_id" field.
+	PostId int `json:"post_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the CommentQuery when eager-loading is set.
 	Edges        CommentEdges `json:"edges"`
@@ -56,7 +56,7 @@ func (*Comment) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case comment.FieldID, comment.FieldPostID:
+		case comment.FieldId, comment.FieldPostId:
 			values[i] = new(sql.NullInt64)
 		case comment.FieldText:
 			values[i] = new(sql.NullString)
@@ -75,23 +75,23 @@ func (_m *Comment) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case comment.FieldID:
+		case comment.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case comment.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field text", values[i])
 			} else if value.Valid {
 				_m.Text = value.String
 			}
-		case comment.FieldPostID:
+		case comment.FieldPostId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field post_id", values[i])
 			} else if value.Valid {
-				_m.PostID = int(value.Int64)
+				_m.PostId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -133,12 +133,12 @@ func (_m *Comment) Unwrap() *Comment {
 func (_m *Comment) String() string {
 	var builder strings.Builder
 	builder.WriteString("Comment(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)
 	builder.WriteString(", ")
 	builder.WriteString("post_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.PostID))
+	builder.WriteString(fmt.Sprintf("%v", _m.PostId))
 	builder.WriteByte(')')
 	return builder.String()
 }

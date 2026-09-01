@@ -69,8 +69,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by ids.
-func (m *Mutation) AddUsersIDs(ids ...int) {
+// AddUsersIds adds the "users" edge to the User entity by ids.
+func (m *Mutation) AddUsersIds(ids ...int) {
 	if m.users == nil {
 		m.users = make(map[int]struct{})
 	}
@@ -89,8 +89,8 @@ func (m *Mutation) UsersCleared() bool {
 	return m.clearedusers
 }
 
-// RemoveUsersIDs removes the "users" edge to the User entity by IDs.
-func (m *Mutation) RemoveUsersIDs(ids ...int) {
+// RemoveUsersIds removes the "users" edge to the User entity by Ids.
+func (m *Mutation) RemoveUsersIds(ids ...int) {
 	if m.removedusers == nil {
 		m.removedusers = make(map[int]struct{})
 	}
@@ -100,16 +100,16 @@ func (m *Mutation) RemoveUsersIDs(ids ...int) {
 	}
 }
 
-// RemovedUsers returns the removed IDs of the "users" edge to the User entity.
-func (m *Mutation) RemovedUsersIDs() (ids []int) {
+// RemovedUsers returns the removed Ids of the "users" edge to the User entity.
+func (m *Mutation) RemovedUsersIds() (ids []int) {
 	for id := range m.removedusers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// UsersIDs returns the "users" edge IDs in the mutation.
-func (m *Mutation) UsersIDs() (ids []int) {
+// UsersIds returns the "users" edge Ids in the mutation.
+func (m *Mutation) UsersIds() (ids []int) {
 	for id := range m.users {
 		ids = append(ids, id)
 	}
@@ -123,8 +123,8 @@ func (m *Mutation) ResetUsers() {
 	m.removedusers = nil
 }
 
-// AddTagsIDs adds the "tags" edge to the Tag entity by ids.
-func (m *Mutation) AddTagsIDs(ids ...int) {
+// AddTagsIds adds the "tags" edge to the Tag entity by ids.
+func (m *Mutation) AddTagsIds(ids ...int) {
 	if m.tags == nil {
 		m.tags = make(map[int]struct{})
 	}
@@ -143,8 +143,8 @@ func (m *Mutation) TagsCleared() bool {
 	return m.clearedtags
 }
 
-// RemoveTagsIDs removes the "tags" edge to the Tag entity by IDs.
-func (m *Mutation) RemoveTagsIDs(ids ...int) {
+// RemoveTagsIds removes the "tags" edge to the Tag entity by Ids.
+func (m *Mutation) RemoveTagsIds(ids ...int) {
 	if m.removedtags == nil {
 		m.removedtags = make(map[int]struct{})
 	}
@@ -154,16 +154,16 @@ func (m *Mutation) RemoveTagsIDs(ids ...int) {
 	}
 }
 
-// RemovedTags returns the removed IDs of the "tags" edge to the Tag entity.
-func (m *Mutation) RemovedTagsIDs() (ids []int) {
+// RemovedTags returns the removed Ids of the "tags" edge to the Tag entity.
+func (m *Mutation) RemovedTagsIds() (ids []int) {
 	for id := range m.removedtags {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TagsIDs returns the "tags" edge IDs in the mutation.
-func (m *Mutation) TagsIDs() (ids []int) {
+// TagsIds returns the "tags" edge Ids in the mutation.
+func (m *Mutation) TagsIds() (ids []int) {
 	for id := range m.tags {
 		ids = append(ids, id)
 	}
@@ -177,8 +177,8 @@ func (m *Mutation) ResetTags() {
 	m.removedtags = nil
 }
 
-// AddJoinedUsersIDs adds the "joined_users" edge to the UserGroup entity by ids.
-func (m *Mutation) AddJoinedUsersIDs(ids ...int) {
+// AddJoinedUsersIds adds the "joined_users" edge to the UserGroup entity by ids.
+func (m *Mutation) AddJoinedUsersIds(ids ...int) {
 	if m.joined_users == nil {
 		m.joined_users = make(map[int]struct{})
 	}
@@ -197,8 +197,8 @@ func (m *Mutation) JoinedUsersCleared() bool {
 	return m.clearedjoined_users
 }
 
-// RemoveJoinedUsersIDs removes the "joined_users" edge to the UserGroup entity by IDs.
-func (m *Mutation) RemoveJoinedUsersIDs(ids ...int) {
+// RemoveJoinedUsersIds removes the "joined_users" edge to the UserGroup entity by Ids.
+func (m *Mutation) RemoveJoinedUsersIds(ids ...int) {
 	if m.removedjoined_users == nil {
 		m.removedjoined_users = make(map[int]struct{})
 	}
@@ -208,16 +208,16 @@ func (m *Mutation) RemoveJoinedUsersIDs(ids ...int) {
 	}
 }
 
-// RemovedJoinedUsers returns the removed IDs of the "joined_users" edge to the UserGroup entity.
-func (m *Mutation) RemovedJoinedUsersIDs() (ids []int) {
+// RemovedJoinedUsers returns the removed Ids of the "joined_users" edge to the UserGroup entity.
+func (m *Mutation) RemovedJoinedUsersIds() (ids []int) {
 	for id := range m.removedjoined_users {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// JoinedUsersIDs returns the "joined_users" edge IDs in the mutation.
-func (m *Mutation) JoinedUsersIDs() (ids []int) {
+// JoinedUsersIds returns the "joined_users" edge Ids in the mutation.
+func (m *Mutation) JoinedUsersIds() (ids []int) {
 	for id := range m.joined_users {
 		ids = append(ids, id)
 	}
@@ -231,8 +231,8 @@ func (m *Mutation) ResetJoinedUsers() {
 	m.removedjoined_users = nil
 }
 
-// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by ids.
-func (m *Mutation) AddGroupTagsIDs(ids ...int) {
+// AddGroupTagsIds adds the "group_tags" edge to the GroupTag entity by ids.
+func (m *Mutation) AddGroupTagsIds(ids ...int) {
 	if m.group_tags == nil {
 		m.group_tags = make(map[int]struct{})
 	}
@@ -251,8 +251,8 @@ func (m *Mutation) GroupTagsCleared() bool {
 	return m.clearedgroup_tags
 }
 
-// RemoveGroupTagsIDs removes the "group_tags" edge to the GroupTag entity by IDs.
-func (m *Mutation) RemoveGroupTagsIDs(ids ...int) {
+// RemoveGroupTagsIds removes the "group_tags" edge to the GroupTag entity by Ids.
+func (m *Mutation) RemoveGroupTagsIds(ids ...int) {
 	if m.removedgroup_tags == nil {
 		m.removedgroup_tags = make(map[int]struct{})
 	}
@@ -262,16 +262,16 @@ func (m *Mutation) RemoveGroupTagsIDs(ids ...int) {
 	}
 }
 
-// RemovedGroupTags returns the removed IDs of the "group_tags" edge to the GroupTag entity.
-func (m *Mutation) RemovedGroupTagsIDs() (ids []int) {
+// RemovedGroupTags returns the removed Ids of the "group_tags" edge to the GroupTag entity.
+func (m *Mutation) RemovedGroupTagsIds() (ids []int) {
 	for id := range m.removedgroup_tags {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// GroupTagsIDs returns the "group_tags" edge IDs in the mutation.
-func (m *Mutation) GroupTagsIDs() (ids []int) {
+// GroupTagsIds returns the "group_tags" edge Ids in the mutation.
+func (m *Mutation) GroupTagsIds() (ids []int) {
 	for id := range m.group_tags {
 		ids = append(ids, id)
 	}
@@ -430,9 +430,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUsers:
 		ids := make([]ent.Value, 0, len(m.users))
@@ -480,9 +480,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUsers:
 		ids := make([]ent.Value, 0, len(m.removedusers))

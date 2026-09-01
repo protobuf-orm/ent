@@ -153,16 +153,16 @@ func (_c *UserCreate) SetNillableEmployment(v *user.Employment) *UserCreate {
 	return _c
 }
 
-// SetSSOCert sets the "SSOCert" field.
-func (_c *UserCreate) SetSSOCert(v string) *UserCreate {
-	_c.mutation.SetSSOCert(v)
+// SetSsoCert sets the "SsoCert" field.
+func (_c *UserCreate) SetSsoCert(v string) *UserCreate {
+	_c.mutation.SetSsoCert(v)
 	return _c
 }
 
-// SetNillableSSOCert sets the "SSOCert" field if the given value is not nil.
-func (_c *UserCreate) SetNillableSSOCert(v *string) *UserCreate {
+// SetNillableSsoCert sets the "SsoCert" field if the given value is not nil.
+func (_c *UserCreate) SetNillableSsoCert(v *string) *UserCreate {
 	if v != nil {
-		_c.SetSSOCert(*v)
+		_c.SetSsoCert(*v)
 	}
 	return _c
 }
@@ -181,28 +181,28 @@ func (_c *UserCreate) SetNillableFilesCount(v *int) *UserCreate {
 	return _c
 }
 
-// SetCardID sets the "card" edge to the Card entity by ID.
-func (_c *UserCreate) SetCardID(id int) *UserCreate {
-	_c.mutation.SetCardID(id)
+// SetCardId sets the "card" edge to the Card entity by Id.
+func (_c *UserCreate) SetCardId(id int) *UserCreate {
+	_c.mutation.SetCardId(id)
 	return _c
 }
 
-// SetNillableCardID sets the "card" edge to the Card entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableCardID(id *int) *UserCreate {
+// SetNillableCardId sets the "card" edge to the Card entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableCardId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetCardID(*id)
+		_c = _c.SetCardId(*id)
 	}
 	return _c
 }
 
 // SetCard sets the "card" edge to the Card entity.
 func (_c *UserCreate) SetCard(v *Card) *UserCreate {
-	return _c.SetCardID(v.ID)
+	return _c.SetCardId(v.Id)
 }
 
-// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
-func (_c *UserCreate) AddPetsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddPetsIDs(ids...)
+// AddPetsIds adds the "pets" edge to the Pet entity by Ids.
+func (_c *UserCreate) AddPetsIds(ids ...int) *UserCreate {
+	_c.mutation.AddPetsIds(ids...)
 	return _c
 }
 
@@ -210,14 +210,14 @@ func (_c *UserCreate) AddPetsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddPets(v ...*Pet) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddPetsIDs(ids...)
+	return _c.AddPetsIds(ids...)
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by IDs.
-func (_c *UserCreate) AddFilesIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFilesIDs(ids...)
+// AddFilesIds adds the "files" edge to the File entity by Ids.
+func (_c *UserCreate) AddFilesIds(ids ...int) *UserCreate {
+	_c.mutation.AddFilesIds(ids...)
 	return _c
 }
 
@@ -225,14 +225,14 @@ func (_c *UserCreate) AddFilesIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFiles(v ...*File) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFilesIDs(ids...)
+	return _c.AddFilesIds(ids...)
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupsIDs(ids...)
+// AddGroupsIds adds the "groups" edge to the Group entity by Ids.
+func (_c *UserCreate) AddGroupsIds(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIds(ids...)
 	return _c
 }
 
@@ -240,14 +240,14 @@ func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddGroupsIDs(ids...)
+	return _c.AddGroupsIds(ids...)
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the User entity by Ids.
+func (_c *UserCreate) AddFriendsIds(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIds(ids...)
 	return _c
 }
 
@@ -255,14 +255,14 @@ func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFriendsIDs(ids...)
+	return _c.AddFriendsIds(ids...)
 }
 
-// AddFollowersIDs adds the "followers" edge to the User entity by IDs.
-func (_c *UserCreate) AddFollowersIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFollowersIDs(ids...)
+// AddFollowersIds adds the "followers" edge to the User entity by Ids.
+func (_c *UserCreate) AddFollowersIds(ids ...int) *UserCreate {
+	_c.mutation.AddFollowersIds(ids...)
 	return _c
 }
 
@@ -270,14 +270,14 @@ func (_c *UserCreate) AddFollowersIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFollowers(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFollowersIDs(ids...)
+	return _c.AddFollowersIds(ids...)
 }
 
-// AddFollowingIDs adds the "following" edge to the User entity by IDs.
-func (_c *UserCreate) AddFollowingIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFollowingIDs(ids...)
+// AddFollowingIds adds the "following" edge to the User entity by Ids.
+func (_c *UserCreate) AddFollowingIds(ids ...int) *UserCreate {
+	_c.mutation.AddFollowingIds(ids...)
 	return _c
 }
 
@@ -285,52 +285,52 @@ func (_c *UserCreate) AddFollowingIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFollowing(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFollowingIDs(ids...)
+	return _c.AddFollowingIds(ids...)
 }
 
-// SetTeamID sets the "team" edge to the Pet entity by ID.
-func (_c *UserCreate) SetTeamID(id int) *UserCreate {
-	_c.mutation.SetTeamID(id)
+// SetTeamId sets the "team" edge to the Pet entity by Id.
+func (_c *UserCreate) SetTeamId(id int) *UserCreate {
+	_c.mutation.SetTeamId(id)
 	return _c
 }
 
-// SetNillableTeamID sets the "team" edge to the Pet entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableTeamID(id *int) *UserCreate {
+// SetNillableTeamId sets the "team" edge to the Pet entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableTeamId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetTeamID(*id)
+		_c = _c.SetTeamId(*id)
 	}
 	return _c
 }
 
 // SetTeam sets the "team" edge to the Pet entity.
 func (_c *UserCreate) SetTeam(v *Pet) *UserCreate {
-	return _c.SetTeamID(v.ID)
+	return _c.SetTeamId(v.Id)
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_c *UserCreate) SetSpouseID(id int) *UserCreate {
-	_c.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_c *UserCreate) SetSpouseId(id int) *UserCreate {
+	_c.mutation.SetSpouseId(id)
 	return _c
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableSpouseID(id *int) *UserCreate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableSpouseId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetSpouseID(*id)
+		_c = _c.SetSpouseId(*id)
 	}
 	return _c
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_c *UserCreate) SetSpouse(v *User) *UserCreate {
-	return _c.SetSpouseID(v.ID)
+	return _c.SetSpouseId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the User entity by Ids.
+func (_c *UserCreate) AddChildrenIds(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
@@ -338,28 +338,28 @@ func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
-// SetParentID sets the "parent" edge to the User entity by ID.
-func (_c *UserCreate) SetParentID(id int) *UserCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the User entity by Id.
+func (_c *UserCreate) SetParentId(id int) *UserCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
-// SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableParentID(id *int) *UserCreate {
+// SetNillableParentId sets the "parent" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableParentId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetParentID(*id)
+		_c = _c.SetParentId(*id)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the User entity.
 func (_c *UserCreate) SetParent(v *User) *UserCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -461,9 +461,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -471,7 +471,7 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.OptionalInt(); ok {
@@ -514,15 +514,15 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldEmployment, field.TypeEnum, value)
 		_node.Employment = value
 	}
-	if value, ok := _c.mutation.SSOCert(); ok {
-		_spec.SetField(user.FieldSSOCert, field.TypeString, value)
-		_node.SSOCert = value
+	if value, ok := _c.mutation.SsoCert(); ok {
+		_spec.SetField(user.FieldSsoCert, field.TypeString, value)
+		_node.SsoCert = value
 	}
 	if value, ok := _c.mutation.FilesCount(); ok {
 		_spec.SetField(user.FieldFilesCount, field.TypeInt, value)
 		_node.FilesCount = value
 	}
-	if nodes := _c.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -530,7 +530,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -538,7 +538,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.PetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.PetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -546,7 +546,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -554,7 +554,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FilesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FilesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -562,7 +562,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -570,7 +570,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.GroupsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -578,7 +578,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.GroupsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -586,7 +586,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -594,7 +594,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -602,7 +602,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FollowersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FollowersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -610,7 +610,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FollowersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -618,7 +618,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FollowingIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FollowingIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -626,7 +626,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FollowingPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -634,7 +634,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TeamIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TeamIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -642,7 +642,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.TeamColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -650,7 +650,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -658,7 +658,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -667,7 +667,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.user_spouse = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -675,7 +675,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -683,7 +683,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -691,7 +691,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -914,21 +914,21 @@ func (u *UserUpsert) UpdateEmployment() *UserUpsert {
 	return u
 }
 
-// SetSSOCert sets the "SSOCert" field.
-func (u *UserUpsert) SetSSOCert(v string) *UserUpsert {
-	u.Set(user.FieldSSOCert, v)
+// SetSsoCert sets the "SsoCert" field.
+func (u *UserUpsert) SetSsoCert(v string) *UserUpsert {
+	u.Set(user.FieldSsoCert, v)
 	return u
 }
 
-// UpdateSSOCert sets the "SSOCert" field to the value that was provided on create.
-func (u *UserUpsert) UpdateSSOCert() *UserUpsert {
-	u.SetExcluded(user.FieldSSOCert)
+// UpdateSsoCert sets the "SsoCert" field to the value that was provided on create.
+func (u *UserUpsert) UpdateSsoCert() *UserUpsert {
+	u.SetExcluded(user.FieldSsoCert)
 	return u
 }
 
-// ClearSSOCert clears the value of the "SSOCert" field.
-func (u *UserUpsert) ClearSSOCert() *UserUpsert {
-	u.SetNull(user.FieldSSOCert)
+// ClearSsoCert clears the value of the "SsoCert" field.
+func (u *UserUpsert) ClearSsoCert() *UserUpsert {
+	u.SetNull(user.FieldSsoCert)
 	return u
 }
 
@@ -981,7 +981,7 @@ func (u *UserUpsertOne) Ignore() *UserUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserUpsertOne) DoNothing() *UserUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -1185,24 +1185,24 @@ func (u *UserUpsertOne) UpdateEmployment() *UserUpsertOne {
 	})
 }
 
-// SetSSOCert sets the "SSOCert" field.
-func (u *UserUpsertOne) SetSSOCert(v string) *UserUpsertOne {
+// SetSsoCert sets the "SsoCert" field.
+func (u *UserUpsertOne) SetSsoCert(v string) *UserUpsertOne {
 	return u.Update(func(s *UserUpsert) {
-		s.SetSSOCert(v)
+		s.SetSsoCert(v)
 	})
 }
 
-// UpdateSSOCert sets the "SSOCert" field to the value that was provided on create.
-func (u *UserUpsertOne) UpdateSSOCert() *UserUpsertOne {
+// UpdateSsoCert sets the "SsoCert" field to the value that was provided on create.
+func (u *UserUpsertOne) UpdateSsoCert() *UserUpsertOne {
 	return u.Update(func(s *UserUpsert) {
-		s.UpdateSSOCert()
+		s.UpdateSsoCert()
 	})
 }
 
-// ClearSSOCert clears the value of the "SSOCert" field.
-func (u *UserUpsertOne) ClearSSOCert() *UserUpsertOne {
+// ClearSsoCert clears the value of the "SsoCert" field.
+func (u *UserUpsertOne) ClearSsoCert() *UserUpsertOne {
 	return u.Update(func(s *UserUpsert) {
-		s.ClearSSOCert()
+		s.ClearSsoCert()
 	})
 }
 
@@ -1249,18 +1249,18 @@ func (u *UserUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *UserUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *UserUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *UserUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *UserUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1313,10 +1313,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -1423,7 +1423,7 @@ func (u *UserUpsertBulk) Ignore() *UserUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserUpsertBulk) DoNothing() *UserUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -1627,24 +1627,24 @@ func (u *UserUpsertBulk) UpdateEmployment() *UserUpsertBulk {
 	})
 }
 
-// SetSSOCert sets the "SSOCert" field.
-func (u *UserUpsertBulk) SetSSOCert(v string) *UserUpsertBulk {
+// SetSsoCert sets the "SsoCert" field.
+func (u *UserUpsertBulk) SetSsoCert(v string) *UserUpsertBulk {
 	return u.Update(func(s *UserUpsert) {
-		s.SetSSOCert(v)
+		s.SetSsoCert(v)
 	})
 }
 
-// UpdateSSOCert sets the "SSOCert" field to the value that was provided on create.
-func (u *UserUpsertBulk) UpdateSSOCert() *UserUpsertBulk {
+// UpdateSsoCert sets the "SsoCert" field to the value that was provided on create.
+func (u *UserUpsertBulk) UpdateSsoCert() *UserUpsertBulk {
 	return u.Update(func(s *UserUpsert) {
-		s.UpdateSSOCert()
+		s.UpdateSsoCert()
 	})
 }
 
-// ClearSSOCert clears the value of the "SSOCert" field.
-func (u *UserUpsertBulk) ClearSSOCert() *UserUpsertBulk {
+// ClearSsoCert clears the value of the "SsoCert" field.
+func (u *UserUpsertBulk) ClearSsoCert() *UserUpsertBulk {
 	return u.Update(func(s *UserUpsert) {
-		s.ClearSSOCert()
+		s.ClearSsoCert()
 	})
 }
 

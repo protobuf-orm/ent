@@ -27,7 +27,7 @@ const (
 	// Cascade defines cascading operations (e.g. cascade deletion).
 	Cascade
 
-	// Migrate defines static schema and migration support (e.g. SQL-based).
+	// Migrate defines static schema and migration support (e.g. Sql-based).
 	Migrate
 )
 
@@ -51,9 +51,9 @@ type Storage struct {
 var drivers = []*Storage{
 	{
 		Name:      "sql",
-		IdentName: "SQL",
+		IdentName: "Sql",
 		Builder:   reflect.TypeOf(&sql.Selector{}),
-		Dialects:  []string{"dialect.SQLite", "dialect.MySQL", "dialect.Postgres"},
+		Dialects:  []string{"dialect.SQLite", "dialect.MySql", "dialect.Postgres"},
 		Imports: []string{
 			"database/sql/driver",
 			"github.com/protobuf-orm/ent/dialect/sql",
@@ -153,7 +153,7 @@ func (g *Graph) TableSchemas() ([]string, error) {
 
 // TableSchema returns the schema name of where the type table resides (intentionally exported).
 func (t *Type) TableSchema() (string, error) {
-	switch ant := t.EntSQL(); {
+	switch ant := t.EntSql(); {
 	case ant == nil || ant.Schema == "":
 		return "", fmt.Errorf("atlas: missing schema annotation for node %q", t.Name)
 	default:
@@ -163,7 +163,7 @@ func (t *Type) TableSchema() (string, error) {
 
 // TableSchema returns the schema name of where the type table resides (intentionally exported).
 func (e *Edge) TableSchema() (string, error) {
-	switch ant := e.EntSQL(); {
+	switch ant := e.EntSql(); {
 	case ant == nil || ant.Schema == "":
 		return e.Owner.TableSchema()
 	default:

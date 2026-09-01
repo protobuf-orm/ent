@@ -20,12 +20,12 @@ import (
 // GroupTag is the model entity for the GroupTag schema.
 type GroupTag struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
-	// TagID holds the value of the "tag_id" field.
-	TagID int `json:"tag_id,omitempty"`
-	// GroupID holds the value of the "group_id" field.
-	GroupID int `json:"group_id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
+	// TagId holds the value of the "tag_id" field.
+	TagId int `json:"tag_id,omitempty"`
+	// GroupId holds the value of the "group_id" field.
+	GroupId int `json:"group_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the GroupTagQuery when eager-loading is set.
 	Edges        GroupTagEdges `json:"edges"`
@@ -70,7 +70,7 @@ func (*GroupTag) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case grouptag.FieldID, grouptag.FieldTagID, grouptag.FieldGroupID:
+		case grouptag.FieldId, grouptag.FieldTagId, grouptag.FieldGroupId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -87,23 +87,23 @@ func (_m *GroupTag) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case grouptag.FieldID:
+		case grouptag.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
-		case grouptag.FieldTagID:
+			_m.Id = int(value.Int64)
+		case grouptag.FieldTagId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field tag_id", values[i])
 			} else if value.Valid {
-				_m.TagID = int(value.Int64)
+				_m.TagId = int(value.Int64)
 			}
-		case grouptag.FieldGroupID:
+		case grouptag.FieldGroupId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field group_id", values[i])
 			} else if value.Valid {
-				_m.GroupID = int(value.Int64)
+				_m.GroupId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -150,12 +150,12 @@ func (_m *GroupTag) Unwrap() *GroupTag {
 func (_m *GroupTag) String() string {
 	var builder strings.Builder
 	builder.WriteString("GroupTag(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("tag_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.TagID))
+	builder.WriteString(fmt.Sprintf("%v", _m.TagId))
 	builder.WriteString(", ")
 	builder.WriteString("group_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.GroupID))
+	builder.WriteString(fmt.Sprintf("%v", _m.GroupId))
 	builder.WriteByte(')')
 	return builder.String()
 }

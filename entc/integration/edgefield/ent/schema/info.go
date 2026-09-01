@@ -20,7 +20,7 @@ type Info struct {
 func (Info) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("id"),
-		field.JSON("content", json.RawMessage{}),
+		field.Json("content", json.RawMessage{}),
 	}
 }
 

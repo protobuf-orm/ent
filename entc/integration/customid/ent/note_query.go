@@ -79,8 +79,8 @@ func (_q *NoteQuery) QueryParent() *NoteQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(note.Table, note.FieldID, selector),
-			sqlgraph.To(note.Table, note.FieldID),
+			sqlgraph.From(note.Table, note.FieldId, selector),
+			sqlgraph.To(note.Table, note.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, note.ParentTable, note.ParentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -101,8 +101,8 @@ func (_q *NoteQuery) QueryChildren() *NoteQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(note.Table, note.FieldID, selector),
-			sqlgraph.To(note.Table, note.FieldID),
+			sqlgraph.From(note.Table, note.FieldId, selector),
+			sqlgraph.To(note.Table, note.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, note.ChildrenTable, note.ChildrenColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -133,11 +133,11 @@ func (_q *NoteQuery) FirstX(ctx context.Context) *Note {
 	return node
 }
 
-// FirstID returns the first Note ID from the query.
-// Returns a *NotFoundError when no Note ID was found.
-func (_q *NoteQuery) FirstID(ctx context.Context) (id schema.NoteID, err error) {
-	var ids []schema.NoteID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+// FirstId returns the first Note Id from the query.
+// Returns a *NotFoundError when no Note Id was found.
+func (_q *NoteQuery) FirstId(ctx context.Context) (id schema.NoteId, err error) {
+	var ids []schema.NoteId
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -147,9 +147,9 @@ func (_q *NoteQuery) FirstID(ctx context.Context) (id schema.NoteID, err error) 
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *NoteQuery) FirstIDX(ctx context.Context) schema.NoteID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *NoteQuery) FirstIdX(ctx context.Context) schema.NoteId {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -183,12 +183,12 @@ func (_q *NoteQuery) OnlyX(ctx context.Context) *Note {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Note ID in the query.
-// Returns a *NotSingularError when more than one Note ID is found.
+// OnlyId is like Only, but returns the only Note Id in the query.
+// Returns a *NotSingularError when more than one Note Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *NoteQuery) OnlyID(ctx context.Context) (id schema.NoteID, err error) {
-	var ids []schema.NoteID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+func (_q *NoteQuery) OnlyId(ctx context.Context) (id schema.NoteId, err error) {
+	var ids []schema.NoteId
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -202,9 +202,9 @@ func (_q *NoteQuery) OnlyID(ctx context.Context) (id schema.NoteID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *NoteQuery) OnlyIDX(ctx context.Context) schema.NoteID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *NoteQuery) OnlyIdX(ctx context.Context) schema.NoteId {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,21 +230,21 @@ func (_q *NoteQuery) AllX(ctx context.Context) []*Note {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Note IDs.
-func (_q *NoteQuery) IDs(ctx context.Context) (ids []schema.NoteID, err error) {
+// Ids executes the query and returns a list of Note Ids.
+func (_q *NoteQuery) Ids(ctx context.Context) (ids []schema.NoteId, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(note.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(note.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *NoteQuery) IDsX(ctx context.Context) []schema.NoteID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *NoteQuery) IdsX(ctx context.Context) []schema.NoteId {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -272,7 +272,7 @@ func (_q *NoteQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *NoteQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -458,8 +458,8 @@ func (_q *NoteQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Note, e
 }
 
 func (_q *NoteQuery) loadParent(ctx context.Context, query *NoteQuery, nodes []*Note, init func(*Note), assign func(*Note, *Note)) error {
-	ids := make([]schema.NoteID, 0, len(nodes))
-	nodeids := make(map[schema.NoteID][]*Note)
+	ids := make([]schema.NoteId, 0, len(nodes))
+	nodeids := make(map[schema.NoteId][]*Note)
 	for i := range nodes {
 		if nodes[i].note_children == nil {
 			continue
@@ -473,15 +473,15 @@ func (_q *NoteQuery) loadParent(ctx context.Context, query *NoteQuery, nodes []*
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(note.IDIn(ids...))
+	query.Where(note.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "note_children" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "note_children" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -491,10 +491,10 @@ func (_q *NoteQuery) loadParent(ctx context.Context, query *NoteQuery, nodes []*
 }
 func (_q *NoteQuery) loadChildren(ctx context.Context, query *NoteQuery, nodes []*Note, init func(*Note), assign func(*Note, *Note)) error {
 	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[schema.NoteID]*Note)
+	nodeids := make(map[schema.NoteId]*Note)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -510,11 +510,11 @@ func (_q *NoteQuery) loadChildren(ctx context.Context, query *NoteQuery, nodes [
 	for _, n := range neighbors {
 		fk := n.note_children
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "note_children" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "note_children" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "note_children" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "note_children" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -531,7 +531,7 @@ func (_q *NoteQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *NoteQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(note.Table, note.Columns, sqlgraph.NewFieldSpec(note.FieldID, field.TypeString))
+	_spec := sqlgraph.NewQuerySpec(note.Table, note.Columns, sqlgraph.NewFieldSpec(note.FieldId, field.TypeString))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -540,9 +540,9 @@ func (_q *NoteQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, note.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, note.FieldId)
 		for i := range fields {
-			if fields[i] != note.FieldID {
+			if fields[i] != note.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

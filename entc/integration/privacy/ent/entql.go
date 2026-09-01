@@ -25,9 +25,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   task.Table,
 			Columns: task.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: task.FieldID,
+				Column: task.FieldId,
 			},
 		},
 		Type: "Task",
@@ -35,16 +35,16 @@ var schemaGraph = func() *sqlgraph.Schema {
 			task.FieldTitle:       {Type: field.TypeString, Column: task.FieldTitle},
 			task.FieldDescription: {Type: field.TypeString, Column: task.FieldDescription},
 			task.FieldStatus:      {Type: field.TypeEnum, Column: task.FieldStatus},
-			task.FieldUUID:        {Type: field.TypeUUID, Column: task.FieldUUID},
+			task.FieldUuid:        {Type: field.TypeUuid, Column: task.FieldUuid},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   team.Table,
 			Columns: team.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: team.FieldID,
+				Column: team.FieldId,
 			},
 		},
 		Type: "Team",
@@ -56,9 +56,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   user.Table,
 			Columns: user.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: user.FieldID,
+				Column: user.FieldId,
 			},
 		},
 		Type: "User",
@@ -183,9 +183,9 @@ func (f *TaskFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TaskFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(task.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TaskFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(task.FieldId))
 }
 
 // WhereTitle applies the entql string predicate on the title field.
@@ -203,9 +203,9 @@ func (f *TaskFilter) WhereStatus(p entql.StringP) {
 	f.Where(p.Field(task.FieldStatus))
 }
 
-// WhereUUID applies the entql [16]byte predicate on the uuid field.
-func (f *TaskFilter) WhereUUID(p entql.ValueP) {
-	f.Where(p.Field(task.FieldUUID))
+// WhereUuid applies the entql [16]byte predicate on the uuid field.
+func (f *TaskFilter) WhereUuid(p entql.ValueP) {
+	f.Where(p.Field(task.FieldUuid))
 }
 
 // WhereHasTeams applies a predicate to check if query has an edge teams.
@@ -271,9 +271,9 @@ func (f *TeamFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TeamFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(team.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TeamFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(team.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -344,9 +344,9 @@ func (f *UserFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(user.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(user.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.

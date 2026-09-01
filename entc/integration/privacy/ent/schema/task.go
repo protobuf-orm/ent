@@ -36,7 +36,7 @@ func (Task) Fields() []ent.Field {
 		field.Enum("status").
 			Values("planned", "in_progress", "closed").
 			Default("planned"),
-		field.UUID("uuid", uuid.UUID{}).
+		field.Uuid("uuid", uuid.UUID{}).
 			Optional(),
 	}
 }

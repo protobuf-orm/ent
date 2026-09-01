@@ -36,30 +36,30 @@ func (_u *FileUpdate) Where(ps ...predicate.File) *FileUpdate {
 	return _u
 }
 
-// SetSetID sets the "set_id" field.
-func (_u *FileUpdate) SetSetID(v int) *FileUpdate {
-	_u.mutation.ResetSetID()
-	_u.mutation.SetSetID(v)
+// SetSetId sets the "set_id" field.
+func (_u *FileUpdate) SetSetId(v int) *FileUpdate {
+	_u.mutation.ResetSetId()
+	_u.mutation.SetSetId(v)
 	return _u
 }
 
-// SetNillableSetID sets the "set_id" field if the given value is not nil.
-func (_u *FileUpdate) SetNillableSetID(v *int) *FileUpdate {
+// SetNillableSetId sets the "set_id" field if the given value is not nil.
+func (_u *FileUpdate) SetNillableSetId(v *int) *FileUpdate {
 	if v != nil {
-		_u.SetSetID(*v)
+		_u.SetSetId(*v)
 	}
 	return _u
 }
 
-// AddSetID adds value to the "set_id" field.
-func (_u *FileUpdate) AddSetID(v int) *FileUpdate {
-	_u.mutation.AddSetID(v)
+// AddSetId adds value to the "set_id" field.
+func (_u *FileUpdate) AddSetId(v int) *FileUpdate {
+	_u.mutation.AddSetId(v)
 	return _u
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (_u *FileUpdate) ClearSetID() *FileUpdate {
-	_u.mutation.ClearSetID()
+// ClearSetId clears the value of the "set_id" field.
+func (_u *FileUpdate) ClearSetId() *FileUpdate {
+	_u.mutation.ClearSetId()
 	return _u
 }
 
@@ -158,30 +158,30 @@ func (_u *FileUpdate) ClearOp() *FileUpdate {
 	return _u
 }
 
-// SetFieldID sets the "field_id" field.
-func (_u *FileUpdate) SetFieldID(v int) *FileUpdate {
-	_u.mutation.ResetFieldID()
-	_u.mutation.SetFieldID(v)
+// SetFieldId sets the "field_id" field.
+func (_u *FileUpdate) SetFieldId(v int) *FileUpdate {
+	_u.mutation.ResetFieldId()
+	_u.mutation.SetFieldId(v)
 	return _u
 }
 
-// SetNillableFieldID sets the "field_id" field if the given value is not nil.
-func (_u *FileUpdate) SetNillableFieldID(v *int) *FileUpdate {
+// SetNillableFieldId sets the "field_id" field if the given value is not nil.
+func (_u *FileUpdate) SetNillableFieldId(v *int) *FileUpdate {
 	if v != nil {
-		_u.SetFieldID(*v)
+		_u.SetFieldId(*v)
 	}
 	return _u
 }
 
-// AddFieldID adds value to the "field_id" field.
-func (_u *FileUpdate) AddFieldID(v int) *FileUpdate {
-	_u.mutation.AddFieldID(v)
+// AddFieldId adds value to the "field_id" field.
+func (_u *FileUpdate) AddFieldId(v int) *FileUpdate {
+	_u.mutation.AddFieldId(v)
 	return _u
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (_u *FileUpdate) ClearFieldID() *FileUpdate {
-	_u.mutation.ClearFieldID()
+// ClearFieldId clears the value of the "field_id" field.
+func (_u *FileUpdate) ClearFieldId() *FileUpdate {
+	_u.mutation.ClearFieldId()
 	return _u
 }
 
@@ -205,47 +205,47 @@ func (_u *FileUpdate) ClearCreateTime() *FileUpdate {
 	return _u
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_u *FileUpdate) SetOwnerID(id int) *FileUpdate {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_u *FileUpdate) SetOwnerId(id int) *FileUpdate {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_u *FileUpdate) SetNillableOwnerID(id *int) *FileUpdate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_u *FileUpdate) SetNillableOwnerId(id *int) *FileUpdate {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *FileUpdate) SetOwner(v *User) *FileUpdate {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
-// SetTypeID sets the "type" edge to the FileType entity by ID.
-func (_u *FileUpdate) SetTypeID(id int) *FileUpdate {
-	_u.mutation.SetTypeID(id)
+// SetTypeId sets the "type" edge to the FileType entity by Id.
+func (_u *FileUpdate) SetTypeId(id int) *FileUpdate {
+	_u.mutation.SetTypeId(id)
 	return _u
 }
 
-// SetNillableTypeID sets the "type" edge to the FileType entity by ID if the given value is not nil.
-func (_u *FileUpdate) SetNillableTypeID(id *int) *FileUpdate {
+// SetNillableTypeId sets the "type" edge to the FileType entity by Id if the given value is not nil.
+func (_u *FileUpdate) SetNillableTypeId(id *int) *FileUpdate {
 	if id != nil {
-		_u = _u.SetTypeID(*id)
+		_u = _u.SetTypeId(*id)
 	}
 	return _u
 }
 
 // SetType sets the "type" edge to the FileType entity.
 func (_u *FileUpdate) SetType(v *FileType) *FileUpdate {
-	return _u.SetTypeID(v.ID)
+	return _u.SetTypeId(v.Id)
 }
 
-// AddFieldIDs adds the "field" edge to the FieldType entity by IDs.
-func (_u *FileUpdate) AddFieldIDs(ids ...int) *FileUpdate {
-	_u.mutation.AddFieldIDs(ids...)
+// AddFieldIds adds the "field" edge to the FieldType entity by Ids.
+func (_u *FileUpdate) AddFieldIds(ids ...int) *FileUpdate {
+	_u.mutation.AddFieldIds(ids...)
 	return _u
 }
 
@@ -253,9 +253,9 @@ func (_u *FileUpdate) AddFieldIDs(ids ...int) *FileUpdate {
 func (_u *FileUpdate) AddField(v ...*FieldType) *FileUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFieldIDs(ids...)
+	return _u.AddFieldIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -281,9 +281,9 @@ func (_u *FileUpdate) ClearFieldEdge() *FileUpdate {
 	return _u
 }
 
-// RemoveFieldIDs removes the "field" edge to FieldType entities by IDs.
-func (_u *FileUpdate) RemoveFieldIDs(ids ...int) *FileUpdate {
-	_u.mutation.RemoveFieldIDs(ids...)
+// RemoveFieldIds removes the "field" edge to FieldType entities by Ids.
+func (_u *FileUpdate) RemoveFieldIds(ids ...int) *FileUpdate {
+	_u.mutation.RemoveFieldIds(ids...)
 	return _u
 }
 
@@ -291,9 +291,9 @@ func (_u *FileUpdate) RemoveFieldIDs(ids ...int) *FileUpdate {
 func (_u *FileUpdate) RemoveField(v ...*FieldType) *FileUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFieldIDs(ids...)
+	return _u.RemoveFieldIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -325,8 +325,8 @@ func (_u *FileUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *FileUpdate) check() error {
-	if v, ok := _u.mutation.SetID(); ok {
-		if err := file.SetIDValidator(v); err != nil {
+	if v, ok := _u.mutation.SetId(); ok {
+		if err := file.SetIdValidator(v); err != nil {
 			return &ValidationError{Name: "set_id", err: fmt.Errorf(`ent: validator failed for field "File.set_id": %w`, err)}
 		}
 	}
@@ -348,7 +348,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -356,14 +356,14 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.SetID(); ok {
-		_spec.SetField(file.FieldSetID, field.TypeInt, value)
+	if value, ok := _u.mutation.SetId(); ok {
+		_spec.SetField(file.FieldSetId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedSetID(); ok {
-		_spec.AddField(file.FieldSetID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedSetId(); ok {
+		_spec.AddField(file.FieldSetId, field.TypeInt, value)
 	}
-	if _u.mutation.SetIDCleared() {
-		_spec.ClearField(file.FieldSetID, field.TypeInt)
+	if _u.mutation.SetIdCleared() {
+		_spec.ClearField(file.FieldSetId, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Size(); ok {
 		_spec.SetField(file.FieldSize, field.TypeInt, value)
@@ -392,14 +392,14 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.OpCleared() {
 		_spec.ClearField(file.FieldOp, field.TypeBool)
 	}
-	if value, ok := _u.mutation.FieldID(); ok {
-		_spec.SetField(file.FieldFieldID, field.TypeInt, value)
+	if value, ok := _u.mutation.FieldId(); ok {
+		_spec.SetField(file.FieldFieldId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedFieldID(); ok {
-		_spec.AddField(file.FieldFieldID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedFieldId(); ok {
+		_spec.AddField(file.FieldFieldId, field.TypeInt, value)
 	}
-	if _u.mutation.FieldIDCleared() {
-		_spec.ClearField(file.FieldFieldID, field.TypeInt)
+	if _u.mutation.FieldIdCleared() {
+		_spec.ClearField(file.FieldFieldId, field.TypeInt)
 	}
 	if value, ok := _u.mutation.CreateTime(); ok {
 		_spec.SetField(file.FieldCreateTime, field.TypeTime, value)
@@ -415,12 +415,12 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -428,7 +428,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -444,12 +444,12 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.TypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TypeIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TypeIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -457,7 +457,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.TypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -473,12 +473,12 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFieldIDs(); len(nodes) > 0 && !_u.mutation.FieldEdgeCleared() {
+	if nodes := _u.mutation.RemovedFieldIds(); len(nodes) > 0 && !_u.mutation.FieldEdgeCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -486,7 +486,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -494,7 +494,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FieldIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FieldIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -502,7 +502,7 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -532,30 +532,30 @@ type FileUpdateOne struct {
 	modifiers []func(*sql.UpdateBuilder)
 }
 
-// SetSetID sets the "set_id" field.
-func (_u *FileUpdateOne) SetSetID(v int) *FileUpdateOne {
-	_u.mutation.ResetSetID()
-	_u.mutation.SetSetID(v)
+// SetSetId sets the "set_id" field.
+func (_u *FileUpdateOne) SetSetId(v int) *FileUpdateOne {
+	_u.mutation.ResetSetId()
+	_u.mutation.SetSetId(v)
 	return _u
 }
 
-// SetNillableSetID sets the "set_id" field if the given value is not nil.
-func (_u *FileUpdateOne) SetNillableSetID(v *int) *FileUpdateOne {
+// SetNillableSetId sets the "set_id" field if the given value is not nil.
+func (_u *FileUpdateOne) SetNillableSetId(v *int) *FileUpdateOne {
 	if v != nil {
-		_u.SetSetID(*v)
+		_u.SetSetId(*v)
 	}
 	return _u
 }
 
-// AddSetID adds value to the "set_id" field.
-func (_u *FileUpdateOne) AddSetID(v int) *FileUpdateOne {
-	_u.mutation.AddSetID(v)
+// AddSetId adds value to the "set_id" field.
+func (_u *FileUpdateOne) AddSetId(v int) *FileUpdateOne {
+	_u.mutation.AddSetId(v)
 	return _u
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (_u *FileUpdateOne) ClearSetID() *FileUpdateOne {
-	_u.mutation.ClearSetID()
+// ClearSetId clears the value of the "set_id" field.
+func (_u *FileUpdateOne) ClearSetId() *FileUpdateOne {
+	_u.mutation.ClearSetId()
 	return _u
 }
 
@@ -654,30 +654,30 @@ func (_u *FileUpdateOne) ClearOp() *FileUpdateOne {
 	return _u
 }
 
-// SetFieldID sets the "field_id" field.
-func (_u *FileUpdateOne) SetFieldID(v int) *FileUpdateOne {
-	_u.mutation.ResetFieldID()
-	_u.mutation.SetFieldID(v)
+// SetFieldId sets the "field_id" field.
+func (_u *FileUpdateOne) SetFieldId(v int) *FileUpdateOne {
+	_u.mutation.ResetFieldId()
+	_u.mutation.SetFieldId(v)
 	return _u
 }
 
-// SetNillableFieldID sets the "field_id" field if the given value is not nil.
-func (_u *FileUpdateOne) SetNillableFieldID(v *int) *FileUpdateOne {
+// SetNillableFieldId sets the "field_id" field if the given value is not nil.
+func (_u *FileUpdateOne) SetNillableFieldId(v *int) *FileUpdateOne {
 	if v != nil {
-		_u.SetFieldID(*v)
+		_u.SetFieldId(*v)
 	}
 	return _u
 }
 
-// AddFieldID adds value to the "field_id" field.
-func (_u *FileUpdateOne) AddFieldID(v int) *FileUpdateOne {
-	_u.mutation.AddFieldID(v)
+// AddFieldId adds value to the "field_id" field.
+func (_u *FileUpdateOne) AddFieldId(v int) *FileUpdateOne {
+	_u.mutation.AddFieldId(v)
 	return _u
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (_u *FileUpdateOne) ClearFieldID() *FileUpdateOne {
-	_u.mutation.ClearFieldID()
+// ClearFieldId clears the value of the "field_id" field.
+func (_u *FileUpdateOne) ClearFieldId() *FileUpdateOne {
+	_u.mutation.ClearFieldId()
 	return _u
 }
 
@@ -701,47 +701,47 @@ func (_u *FileUpdateOne) ClearCreateTime() *FileUpdateOne {
 	return _u
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_u *FileUpdateOne) SetOwnerID(id int) *FileUpdateOne {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_u *FileUpdateOne) SetOwnerId(id int) *FileUpdateOne {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_u *FileUpdateOne) SetNillableOwnerID(id *int) *FileUpdateOne {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_u *FileUpdateOne) SetNillableOwnerId(id *int) *FileUpdateOne {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *FileUpdateOne) SetOwner(v *User) *FileUpdateOne {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
-// SetTypeID sets the "type" edge to the FileType entity by ID.
-func (_u *FileUpdateOne) SetTypeID(id int) *FileUpdateOne {
-	_u.mutation.SetTypeID(id)
+// SetTypeId sets the "type" edge to the FileType entity by Id.
+func (_u *FileUpdateOne) SetTypeId(id int) *FileUpdateOne {
+	_u.mutation.SetTypeId(id)
 	return _u
 }
 
-// SetNillableTypeID sets the "type" edge to the FileType entity by ID if the given value is not nil.
-func (_u *FileUpdateOne) SetNillableTypeID(id *int) *FileUpdateOne {
+// SetNillableTypeId sets the "type" edge to the FileType entity by Id if the given value is not nil.
+func (_u *FileUpdateOne) SetNillableTypeId(id *int) *FileUpdateOne {
 	if id != nil {
-		_u = _u.SetTypeID(*id)
+		_u = _u.SetTypeId(*id)
 	}
 	return _u
 }
 
 // SetType sets the "type" edge to the FileType entity.
 func (_u *FileUpdateOne) SetType(v *FileType) *FileUpdateOne {
-	return _u.SetTypeID(v.ID)
+	return _u.SetTypeId(v.Id)
 }
 
-// AddFieldIDs adds the "field" edge to the FieldType entity by IDs.
-func (_u *FileUpdateOne) AddFieldIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.AddFieldIDs(ids...)
+// AddFieldIds adds the "field" edge to the FieldType entity by Ids.
+func (_u *FileUpdateOne) AddFieldIds(ids ...int) *FileUpdateOne {
+	_u.mutation.AddFieldIds(ids...)
 	return _u
 }
 
@@ -749,9 +749,9 @@ func (_u *FileUpdateOne) AddFieldIDs(ids ...int) *FileUpdateOne {
 func (_u *FileUpdateOne) AddField(v ...*FieldType) *FileUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFieldIDs(ids...)
+	return _u.AddFieldIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -777,9 +777,9 @@ func (_u *FileUpdateOne) ClearFieldEdge() *FileUpdateOne {
 	return _u
 }
 
-// RemoveFieldIDs removes the "field" edge to FieldType entities by IDs.
-func (_u *FileUpdateOne) RemoveFieldIDs(ids ...int) *FileUpdateOne {
-	_u.mutation.RemoveFieldIDs(ids...)
+// RemoveFieldIds removes the "field" edge to FieldType entities by Ids.
+func (_u *FileUpdateOne) RemoveFieldIds(ids ...int) *FileUpdateOne {
+	_u.mutation.RemoveFieldIds(ids...)
 	return _u
 }
 
@@ -787,9 +787,9 @@ func (_u *FileUpdateOne) RemoveFieldIDs(ids ...int) *FileUpdateOne {
 func (_u *FileUpdateOne) RemoveField(v ...*FieldType) *FileUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFieldIDs(ids...)
+	return _u.RemoveFieldIds(ids...)
 }
 
 // Where appends a list predicates to the FileUpdate builder.
@@ -834,8 +834,8 @@ func (_u *FileUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *FileUpdateOne) check() error {
-	if v, ok := _u.mutation.SetID(); ok {
-		if err := file.SetIDValidator(v); err != nil {
+	if v, ok := _u.mutation.SetId(); ok {
+		if err := file.SetIdValidator(v); err != nil {
 			return &ValidationError{Name: "set_id", err: fmt.Errorf(`ent: validator failed for field "File.set_id": %w`, err)}
 		}
 	}
@@ -857,20 +857,20 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "File.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldId)
 		for _, f := range fields {
 			if !file.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != file.FieldID {
+			if f != file.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -882,14 +882,14 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.SetID(); ok {
-		_spec.SetField(file.FieldSetID, field.TypeInt, value)
+	if value, ok := _u.mutation.SetId(); ok {
+		_spec.SetField(file.FieldSetId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedSetID(); ok {
-		_spec.AddField(file.FieldSetID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedSetId(); ok {
+		_spec.AddField(file.FieldSetId, field.TypeInt, value)
 	}
-	if _u.mutation.SetIDCleared() {
-		_spec.ClearField(file.FieldSetID, field.TypeInt)
+	if _u.mutation.SetIdCleared() {
+		_spec.ClearField(file.FieldSetId, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Size(); ok {
 		_spec.SetField(file.FieldSize, field.TypeInt, value)
@@ -918,14 +918,14 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	if _u.mutation.OpCleared() {
 		_spec.ClearField(file.FieldOp, field.TypeBool)
 	}
-	if value, ok := _u.mutation.FieldID(); ok {
-		_spec.SetField(file.FieldFieldID, field.TypeInt, value)
+	if value, ok := _u.mutation.FieldId(); ok {
+		_spec.SetField(file.FieldFieldId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedFieldID(); ok {
-		_spec.AddField(file.FieldFieldID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedFieldId(); ok {
+		_spec.AddField(file.FieldFieldId, field.TypeInt, value)
 	}
-	if _u.mutation.FieldIDCleared() {
-		_spec.ClearField(file.FieldFieldID, field.TypeInt)
+	if _u.mutation.FieldIdCleared() {
+		_spec.ClearField(file.FieldFieldId, field.TypeInt)
 	}
 	if value, ok := _u.mutation.CreateTime(); ok {
 		_spec.SetField(file.FieldCreateTime, field.TypeTime, value)
@@ -941,12 +941,12 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -954,7 +954,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -970,12 +970,12 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.TypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TypeIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TypeIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -983,7 +983,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.TypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -999,12 +999,12 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFieldIDs(); len(nodes) > 0 && !_u.mutation.FieldEdgeCleared() {
+	if nodes := _u.mutation.RemovedFieldIds(); len(nodes) > 0 && !_u.mutation.FieldEdgeCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1012,7 +1012,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1020,7 +1020,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FieldIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FieldIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1028,7 +1028,7 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

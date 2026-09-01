@@ -11,13 +11,13 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// IntSID holds the schema definition for the IntSID entity.
-type IntSID struct {
+// IntSId holds the schema definition for the IntSId entity.
+type IntSId struct {
 	ent.Schema
 }
 
 // Fields of the IntSid.
-func (IntSID) Fields() []ent.Field {
+func (IntSId) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id").
 			GoType(sid.New()).
@@ -27,11 +27,11 @@ func (IntSID) Fields() []ent.Field {
 }
 
 // Edges of the IntSid.
-func (IntSID) Edges() []ent.Edge {
+func (IntSId) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("parent", IntSID.Type).
+		edge.To("parent", IntSId.Type).
 			Unique(),
-		edge.From("children", IntSID.Type).
+		edge.From("children", IntSId.Type).
 			Ref("parent"),
 	}
 }

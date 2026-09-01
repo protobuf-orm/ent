@@ -23,10 +23,10 @@ import (
 func init() {
 	carFields := schema.Car{}.Fields()
 	_ = carFields
-	// carDescID is the schema descriptor for id field.
-	carDescID := carFields[0].Descriptor()
-	// car.DefaultID holds the default value on creation for the id field.
-	car.DefaultID = carDescID.Default.(func() uuid.UUID)
+	// carDescId is the schema descriptor for id field.
+	carDescId := carFields[0].Descriptor()
+	// car.DefaultId holds the default value on creation for the id field.
+	car.DefaultId = carDescId.Default.(func() uuid.UUID)
 	metadataFields := schema.Metadata{}.Fields()
 	_ = metadataFields
 	// metadataDescAge is the schema descriptor for age field.

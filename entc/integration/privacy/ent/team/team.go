@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the team type in the database.
 	Label = "team"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgeTasks holds the string denoting the tasks edge name in mutations.
@@ -37,9 +37,9 @@ const (
 	UsersInverseTable = "user"
 )
 
-// Columns holds all SQL columns for team fields.
+// Columns holds all Sql columns for team fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
@@ -77,9 +77,9 @@ var (
 // OrderOption defines the ordering options for the Team queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -116,15 +116,15 @@ func ByUsers(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newTasksStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TasksInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TasksInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, TasksTable, TasksPrimaryKey...),
 	)
 }
 func newUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UsersInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UsersInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
 	)
 }

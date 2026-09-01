@@ -53,32 +53,32 @@ func (_c *FriendshipCreate) SetNillableCreatedAt(v *time.Time) *FriendshipCreate
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *FriendshipCreate) SetUserID(v int) *FriendshipCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *FriendshipCreate) SetUserId(v int) *FriendshipCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetFriendsID sets the "friends_id" field.
-func (_c *FriendshipCreate) SetFriendsID(v int) *FriendshipCreate {
-	_c.mutation.SetFriendsID(v)
+// SetFriendsId sets the "friends_id" field.
+func (_c *FriendshipCreate) SetFriendsId(v int) *FriendshipCreate {
+	_c.mutation.SetFriendsId(v)
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *FriendshipCreate) SetUser(v *User) *FriendshipCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
-// SetFriendID sets the "friend" edge to the User entity by ID.
-func (_c *FriendshipCreate) SetFriendID(id int) *FriendshipCreate {
-	_c.mutation.SetFriendID(id)
+// SetFriendId sets the "friend" edge to the User entity by Id.
+func (_c *FriendshipCreate) SetFriendId(id int) *FriendshipCreate {
+	_c.mutation.SetFriendId(id)
 	return _c
 }
 
 // SetFriend sets the "friend" edge to the User entity.
 func (_c *FriendshipCreate) SetFriend(v *User) *FriendshipCreate {
-	return _c.SetFriendID(v.ID)
+	return _c.SetFriendId(v.Id)
 }
 
 // Mutation returns the FriendshipMutation object of the builder.
@@ -134,16 +134,16 @@ func (_c *FriendshipCreate) check() error {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`versioned: missing required field "Friendship.created_at"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`versioned: missing required field "Friendship.user_id"`)}
 	}
-	if _, ok := _c.mutation.FriendsID(); !ok {
+	if _, ok := _c.mutation.FriendsId(); !ok {
 		return &ValidationError{Name: "friends_id", err: errors.New(`versioned: missing required field "Friendship.friends_id"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`versioned: missing required edge "Friendship.user"`)}
 	}
-	if len(_c.mutation.FriendIDs()) == 0 {
+	if len(_c.mutation.FriendIds()) == 0 {
 		return &ValidationError{Name: "friend", err: errors.New(`versioned: missing required edge "Friendship.friend"`)}
 	}
 	return nil
@@ -160,9 +160,9 @@ func (_c *FriendshipCreate) sqlSave(ctx context.Context) (*Friendship, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -170,7 +170,7 @@ func (_c *FriendshipCreate) sqlSave(ctx context.Context) (*Friendship, error) {
 func (_c *FriendshipCreate) createSpec() (*Friendship, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Friendship{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(friendship.Table, sqlgraph.NewFieldSpec(friendship.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(friendship.Table, sqlgraph.NewFieldSpec(friendship.FieldId, field.TypeInt))
 	)
 	_spec.Schema = _c.schemaConfig.Friendship
 	if value, ok := _c.mutation.Weight(); ok {
@@ -181,7 +181,7 @@ func (_c *FriendshipCreate) createSpec() (*Friendship, *sqlgraph.CreateSpec) {
 		_spec.SetField(friendship.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -189,17 +189,17 @@ func (_c *FriendshipCreate) createSpec() (*Friendship, *sqlgraph.CreateSpec) {
 			Columns: []string{friendship.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _c.schemaConfig.Friendship
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -207,14 +207,14 @@ func (_c *FriendshipCreate) createSpec() (*Friendship, *sqlgraph.CreateSpec) {
 			Columns: []string{friendship.FriendColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _c.schemaConfig.Friendship
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.FriendsID = nodes[0]
+		_node.FriendsId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -264,10 +264,10 @@ func (_c *FriendshipCreateBulk) Save(ctx context.Context) ([]*Friendship, error)
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

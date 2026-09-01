@@ -30,12 +30,12 @@ type Tx struct {
 	Doc *DocClient
 	// Group is the client for interacting with the Group builders.
 	Group *GroupClient
-	// IntSID is the client for interacting with the IntSID builders.
-	IntSID *IntSIDClient
+	// IntSId is the client for interacting with the IntSId builders.
+	IntSId *IntSIdClient
 	// Link is the client for interacting with the Link builders.
 	Link *LinkClient
-	// MixinID is the client for interacting with the MixinID builders.
-	MixinID *MixinIDClient
+	// MixinId is the client for interacting with the MixinId builders.
+	MixinId *MixinIdClient
 	// Note is the client for interacting with the Note builders.
 	Note *NoteClient
 	// Other is the client for interacting with the Other builders.
@@ -190,9 +190,9 @@ func (tx *Tx) init() {
 	tx.Device = NewDeviceClient(tx.config)
 	tx.Doc = NewDocClient(tx.config)
 	tx.Group = NewGroupClient(tx.config)
-	tx.IntSID = NewIntSIDClient(tx.config)
+	tx.IntSId = NewIntSIdClient(tx.config)
 	tx.Link = NewLinkClient(tx.config)
-	tx.MixinID = NewMixinIDClient(tx.config)
+	tx.MixinId = NewMixinIdClient(tx.config)
 	tx.Note = NewNoteClient(tx.config)
 	tx.Other = NewOtherClient(tx.config)
 	tx.Pet = NewPetClient(tx.config)

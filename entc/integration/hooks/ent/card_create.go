@@ -87,23 +87,23 @@ func (_c *CardCreate) SetNillableExpiredAt(v *time.Time) *CardCreate {
 	return _c
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_c *CardCreate) SetOwnerID(id int) *CardCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_c *CardCreate) SetOwnerId(id int) *CardCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_c *CardCreate) SetNillableOwnerID(id *int) *CardCreate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_c *CardCreate) SetNillableOwnerId(id *int) *CardCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *CardCreate) SetOwner(v *User) *CardCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -187,9 +187,9 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -197,7 +197,7 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Card{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
@@ -219,7 +219,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 		_spec.SetField(card.FieldExpiredAt, field.TypeTime, value)
 		_node.ExpiredAt = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -227,7 +227,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: []string{card.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -283,10 +283,10 @@ func (_c *CardCreateBulk) Save(ctx context.Context) ([]*Card, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

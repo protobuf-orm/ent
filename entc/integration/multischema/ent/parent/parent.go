@@ -14,14 +14,14 @@ import (
 const (
 	// Label holds the string label denoting the parent type in the database.
 	Label = "parent"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldByAdoption holds the string denoting the by_adoption field in the database.
 	FieldByAdoption = "by_adoption"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldParentsID holds the string denoting the parents_id field in the database.
-	FieldParentsID = "parents_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldParentsId holds the string denoting the parents_id field in the database.
+	FieldParentsId = "parents_id"
 	// EdgeChild holds the string denoting the child edge name in mutations.
 	EdgeChild = "child"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -44,12 +44,12 @@ const (
 	ParentColumn = "parents_id"
 )
 
-// Columns holds all SQL columns for parent fields.
+// Columns holds all Sql columns for parent fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldByAdoption,
-	FieldUserID,
-	FieldParentsID,
+	FieldUserId,
+	FieldParentsId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -70,9 +70,9 @@ var (
 // OrderOption defines the ordering options for the Parent queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByByAdoption orders the results by the by_adoption field.
@@ -80,14 +80,14 @@ func ByByAdoption(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldByAdoption, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByParentsID orders the results by the parents_id field.
-func ByParentsID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldParentsID, opts...).ToFunc()
+// ByParentsId orders the results by the parents_id field.
+func ByParentsId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldParentsId, opts...).ToFunc()
 }
 
 // ByChildField orders the results by child field.
@@ -105,15 +105,15 @@ func ByParentField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newChildStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(ChildInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(ChildInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ChildTable, ChildColumn),
 	)
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(ParentInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(ParentInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ParentTable, ParentColumn),
 	)
 }

@@ -17,14 +17,14 @@ import (
 const (
 	// Label holds the string label denoting the tweettag type in the database.
 	Label = "tweet_tag"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldAddedAt holds the string denoting the added_at field in the database.
 	FieldAddedAt = "added_at"
-	// FieldTagID holds the string denoting the tag_id field in the database.
-	FieldTagID = "tag_id"
-	// FieldTweetID holds the string denoting the tweet_id field in the database.
-	FieldTweetID = "tweet_id"
+	// FieldTagId holds the string denoting the tag_id field in the database.
+	FieldTagId = "tag_id"
+	// FieldTweetId holds the string denoting the tweet_id field in the database.
+	FieldTweetId = "tweet_id"
 	// EdgeTag holds the string denoting the tag edge name in mutations.
 	EdgeTag = "tag"
 	// EdgeTweet holds the string denoting the tweet edge name in mutations.
@@ -47,12 +47,12 @@ const (
 	TweetColumn = "tweet_id"
 )
 
-// Columns holds all SQL columns for tweettag fields.
+// Columns holds all Sql columns for tweettag fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldAddedAt,
-	FieldTagID,
-	FieldTweetID,
+	FieldTagId,
+	FieldTweetId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -68,16 +68,16 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultAddedAt holds the default value on creation for the "added_at" field.
 	DefaultAddedAt func() time.Time
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the TweetTag queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByAddedAt orders the results by the added_at field.
@@ -85,14 +85,14 @@ func ByAddedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAddedAt, opts...).ToFunc()
 }
 
-// ByTagID orders the results by the tag_id field.
-func ByTagID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTagID, opts...).ToFunc()
+// ByTagId orders the results by the tag_id field.
+func ByTagId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTagId, opts...).ToFunc()
 }
 
-// ByTweetID orders the results by the tweet_id field.
-func ByTweetID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTweetID, opts...).ToFunc()
+// ByTweetId orders the results by the tweet_id field.
+func ByTweetId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTweetId, opts...).ToFunc()
 }
 
 // ByTagField orders the results by tag field.
@@ -110,15 +110,15 @@ func ByTweetField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newTagStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TagInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TagInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, TagTable, TagColumn),
 	)
 }
 func newTweetStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, TweetTable, TweetColumn),
 	)
 }

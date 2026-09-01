@@ -19,8 +19,8 @@ import (
 // Car is the model entity for the Car schema.
 type Car struct {
 	config
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the CarQuery when eager-loading is set.
 	Edges        CarEdges `json:"edges"`
@@ -53,7 +53,7 @@ func (*Car) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case car.FieldID:
+		case car.FieldId:
 			values[i] = new(sql.NullInt64)
 		case car.ForeignKeys[0]: // user_car
 			values[i] = new(sql.NullInt64)
@@ -72,12 +72,12 @@ func (_m *Car) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case car.FieldID:
+		case car.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case car.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field user_car", value)
@@ -125,7 +125,7 @@ func (_m *Car) Unwrap() *Car {
 func (_m *Car) String() string {
 	var builder strings.Builder
 	builder.WriteString("Car(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

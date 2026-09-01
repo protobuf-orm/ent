@@ -82,29 +82,29 @@ func (_u *TaskUpdate) SetNillableStatus(v *task.Status) *TaskUpdate {
 	return _u
 }
 
-// SetUUID sets the "uuid" field.
-func (_u *TaskUpdate) SetUUID(v uuid.UUID) *TaskUpdate {
-	_u.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_u *TaskUpdate) SetUuid(v uuid.UUID) *TaskUpdate {
+	_u.mutation.SetUuid(v)
 	return _u
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_u *TaskUpdate) SetNillableUUID(v *uuid.UUID) *TaskUpdate {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_u *TaskUpdate) SetNillableUuid(v *uuid.UUID) *TaskUpdate {
 	if v != nil {
-		_u.SetUUID(*v)
+		_u.SetUuid(*v)
 	}
 	return _u
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (_u *TaskUpdate) ClearUUID() *TaskUpdate {
-	_u.mutation.ClearUUID()
+// ClearUuid clears the value of the "uuid" field.
+func (_u *TaskUpdate) ClearUuid() *TaskUpdate {
+	_u.mutation.ClearUuid()
 	return _u
 }
 
-// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
-func (_u *TaskUpdate) AddTeamsIDs(ids ...int) *TaskUpdate {
-	_u.mutation.AddTeamsIDs(ids...)
+// AddTeamsIds adds the "teams" edge to the Team entity by Ids.
+func (_u *TaskUpdate) AddTeamsIds(ids ...int) *TaskUpdate {
+	_u.mutation.AddTeamsIds(ids...)
 	return _u
 }
 
@@ -112,28 +112,28 @@ func (_u *TaskUpdate) AddTeamsIDs(ids ...int) *TaskUpdate {
 func (_u *TaskUpdate) AddTeams(v ...*Team) *TaskUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddTeamsIDs(ids...)
+	return _u.AddTeamsIds(ids...)
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_u *TaskUpdate) SetOwnerID(id int) *TaskUpdate {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_u *TaskUpdate) SetOwnerId(id int) *TaskUpdate {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_u *TaskUpdate) SetNillableOwnerID(id *int) *TaskUpdate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_u *TaskUpdate) SetNillableOwnerId(id *int) *TaskUpdate {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *TaskUpdate) SetOwner(v *User) *TaskUpdate {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the TaskMutation object of the builder.
@@ -147,9 +147,9 @@ func (_u *TaskUpdate) ClearTeams() *TaskUpdate {
 	return _u
 }
 
-// RemoveTeamsIDs removes the "teams" edge to Team entities by IDs.
-func (_u *TaskUpdate) RemoveTeamsIDs(ids ...int) *TaskUpdate {
-	_u.mutation.RemoveTeamsIDs(ids...)
+// RemoveTeamsIds removes the "teams" edge to Team entities by Ids.
+func (_u *TaskUpdate) RemoveTeamsIds(ids ...int) *TaskUpdate {
+	_u.mutation.RemoveTeamsIds(ids...)
 	return _u
 }
 
@@ -157,9 +157,9 @@ func (_u *TaskUpdate) RemoveTeamsIDs(ids ...int) *TaskUpdate {
 func (_u *TaskUpdate) RemoveTeams(v ...*Team) *TaskUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveTeamsIDs(ids...)
+	return _u.RemoveTeamsIds(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.
@@ -214,7 +214,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(task.Table, task.Columns, sqlgraph.NewFieldSpec(task.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(task.Table, task.Columns, sqlgraph.NewFieldSpec(task.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -234,11 +234,11 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
-	if value, ok := _u.mutation.UUID(); ok {
-		_spec.SetField(task.FieldUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.Uuid(); ok {
+		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.UUIDCleared() {
-		_spec.ClearField(task.FieldUUID, field.TypeUUID)
+	if _u.mutation.UuidCleared() {
+		_spec.ClearField(task.FieldUuid, field.TypeUuid)
 	}
 	if _u.mutation.TeamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -248,12 +248,12 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedTeamsIDs(); len(nodes) > 0 && !_u.mutation.TeamsCleared() {
+	if nodes := _u.mutation.RemovedTeamsIds(); len(nodes) > 0 && !_u.mutation.TeamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -261,7 +261,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -269,7 +269,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TeamsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TeamsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -277,7 +277,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -293,12 +293,12 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{task.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -306,7 +306,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{task.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -382,29 +382,29 @@ func (_u *TaskUpdateOne) SetNillableStatus(v *task.Status) *TaskUpdateOne {
 	return _u
 }
 
-// SetUUID sets the "uuid" field.
-func (_u *TaskUpdateOne) SetUUID(v uuid.UUID) *TaskUpdateOne {
-	_u.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_u *TaskUpdateOne) SetUuid(v uuid.UUID) *TaskUpdateOne {
+	_u.mutation.SetUuid(v)
 	return _u
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_u *TaskUpdateOne) SetNillableUUID(v *uuid.UUID) *TaskUpdateOne {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_u *TaskUpdateOne) SetNillableUuid(v *uuid.UUID) *TaskUpdateOne {
 	if v != nil {
-		_u.SetUUID(*v)
+		_u.SetUuid(*v)
 	}
 	return _u
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (_u *TaskUpdateOne) ClearUUID() *TaskUpdateOne {
-	_u.mutation.ClearUUID()
+// ClearUuid clears the value of the "uuid" field.
+func (_u *TaskUpdateOne) ClearUuid() *TaskUpdateOne {
+	_u.mutation.ClearUuid()
 	return _u
 }
 
-// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
-func (_u *TaskUpdateOne) AddTeamsIDs(ids ...int) *TaskUpdateOne {
-	_u.mutation.AddTeamsIDs(ids...)
+// AddTeamsIds adds the "teams" edge to the Team entity by Ids.
+func (_u *TaskUpdateOne) AddTeamsIds(ids ...int) *TaskUpdateOne {
+	_u.mutation.AddTeamsIds(ids...)
 	return _u
 }
 
@@ -412,28 +412,28 @@ func (_u *TaskUpdateOne) AddTeamsIDs(ids ...int) *TaskUpdateOne {
 func (_u *TaskUpdateOne) AddTeams(v ...*Team) *TaskUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddTeamsIDs(ids...)
+	return _u.AddTeamsIds(ids...)
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_u *TaskUpdateOne) SetOwnerID(id int) *TaskUpdateOne {
-	_u.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_u *TaskUpdateOne) SetOwnerId(id int) *TaskUpdateOne {
+	_u.mutation.SetOwnerId(id)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_u *TaskUpdateOne) SetNillableOwnerID(id *int) *TaskUpdateOne {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_u *TaskUpdateOne) SetNillableOwnerId(id *int) *TaskUpdateOne {
 	if id != nil {
-		_u = _u.SetOwnerID(*id)
+		_u = _u.SetOwnerId(*id)
 	}
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *TaskUpdateOne) SetOwner(v *User) *TaskUpdateOne {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the TaskMutation object of the builder.
@@ -447,9 +447,9 @@ func (_u *TaskUpdateOne) ClearTeams() *TaskUpdateOne {
 	return _u
 }
 
-// RemoveTeamsIDs removes the "teams" edge to Team entities by IDs.
-func (_u *TaskUpdateOne) RemoveTeamsIDs(ids ...int) *TaskUpdateOne {
-	_u.mutation.RemoveTeamsIDs(ids...)
+// RemoveTeamsIds removes the "teams" edge to Team entities by Ids.
+func (_u *TaskUpdateOne) RemoveTeamsIds(ids ...int) *TaskUpdateOne {
+	_u.mutation.RemoveTeamsIds(ids...)
 	return _u
 }
 
@@ -457,9 +457,9 @@ func (_u *TaskUpdateOne) RemoveTeamsIDs(ids ...int) *TaskUpdateOne {
 func (_u *TaskUpdateOne) RemoveTeams(v ...*Team) *TaskUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveTeamsIDs(ids...)
+	return _u.RemoveTeamsIds(ids...)
 }
 
 // ClearOwner clears the "owner" edge to the User entity.
@@ -527,20 +527,20 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(task.Table, task.Columns, sqlgraph.NewFieldSpec(task.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(task.Table, task.Columns, sqlgraph.NewFieldSpec(task.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Task.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, task.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, task.FieldId)
 		for _, f := range fields {
 			if !task.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != task.FieldID {
+			if f != task.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -564,11 +564,11 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
-	if value, ok := _u.mutation.UUID(); ok {
-		_spec.SetField(task.FieldUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.Uuid(); ok {
+		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
 	}
-	if _u.mutation.UUIDCleared() {
-		_spec.ClearField(task.FieldUUID, field.TypeUUID)
+	if _u.mutation.UuidCleared() {
+		_spec.ClearField(task.FieldUuid, field.TypeUuid)
 	}
 	if _u.mutation.TeamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -578,12 +578,12 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedTeamsIDs(); len(nodes) > 0 && !_u.mutation.TeamsCleared() {
+	if nodes := _u.mutation.RemovedTeamsIds(); len(nodes) > 0 && !_u.mutation.TeamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -591,7 +591,7 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -599,7 +599,7 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TeamsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TeamsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -607,7 +607,7 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 			Columns: task.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -623,12 +623,12 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 			Columns: []string{task.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -636,7 +636,7 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 			Columns: []string{task.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

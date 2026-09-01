@@ -43,8 +43,8 @@ func (m *Mutation) Predicates() []predicate.Process {
 	return m.predicates
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by ids.
-func (m *Mutation) AddFilesIDs(ids ...int) {
+// AddFilesIds adds the "files" edge to the File entity by ids.
+func (m *Mutation) AddFilesIds(ids ...int) {
 	if m.files == nil {
 		m.files = make(map[int]struct{})
 	}
@@ -63,8 +63,8 @@ func (m *Mutation) FilesCleared() bool {
 	return m.clearedfiles
 }
 
-// RemoveFilesIDs removes the "files" edge to the File entity by IDs.
-func (m *Mutation) RemoveFilesIDs(ids ...int) {
+// RemoveFilesIds removes the "files" edge to the File entity by Ids.
+func (m *Mutation) RemoveFilesIds(ids ...int) {
 	if m.removedfiles == nil {
 		m.removedfiles = make(map[int]struct{})
 	}
@@ -74,16 +74,16 @@ func (m *Mutation) RemoveFilesIDs(ids ...int) {
 	}
 }
 
-// RemovedFiles returns the removed IDs of the "files" edge to the File entity.
-func (m *Mutation) RemovedFilesIDs() (ids []int) {
+// RemovedFiles returns the removed Ids of the "files" edge to the File entity.
+func (m *Mutation) RemovedFilesIds() (ids []int) {
 	for id := range m.removedfiles {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FilesIDs returns the "files" edge IDs in the mutation.
-func (m *Mutation) FilesIDs() (ids []int) {
+// FilesIds returns the "files" edge Ids in the mutation.
+func (m *Mutation) FilesIds() (ids []int) {
 	for id := range m.files {
 		ids = append(ids, id)
 	}
@@ -97,8 +97,8 @@ func (m *Mutation) ResetFiles() {
 	m.removedfiles = nil
 }
 
-// AddAttachedFilesIDs adds the "attached_files" edge to the AttachedFile entity by ids.
-func (m *Mutation) AddAttachedFilesIDs(ids ...int) {
+// AddAttachedFilesIds adds the "attached_files" edge to the AttachedFile entity by ids.
+func (m *Mutation) AddAttachedFilesIds(ids ...int) {
 	if m.attached_files == nil {
 		m.attached_files = make(map[int]struct{})
 	}
@@ -117,8 +117,8 @@ func (m *Mutation) AttachedFilesCleared() bool {
 	return m.clearedattached_files
 }
 
-// RemoveAttachedFilesIDs removes the "attached_files" edge to the AttachedFile entity by IDs.
-func (m *Mutation) RemoveAttachedFilesIDs(ids ...int) {
+// RemoveAttachedFilesIds removes the "attached_files" edge to the AttachedFile entity by Ids.
+func (m *Mutation) RemoveAttachedFilesIds(ids ...int) {
 	if m.removedattached_files == nil {
 		m.removedattached_files = make(map[int]struct{})
 	}
@@ -128,16 +128,16 @@ func (m *Mutation) RemoveAttachedFilesIDs(ids ...int) {
 	}
 }
 
-// RemovedAttachedFiles returns the removed IDs of the "attached_files" edge to the AttachedFile entity.
-func (m *Mutation) RemovedAttachedFilesIDs() (ids []int) {
+// RemovedAttachedFiles returns the removed Ids of the "attached_files" edge to the AttachedFile entity.
+func (m *Mutation) RemovedAttachedFilesIds() (ids []int) {
 	for id := range m.removedattached_files {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// AttachedFilesIDs returns the "attached_files" edge IDs in the mutation.
-func (m *Mutation) AttachedFilesIDs() (ids []int) {
+// AttachedFilesIds returns the "attached_files" edge Ids in the mutation.
+func (m *Mutation) AttachedFilesIds() (ids []int) {
 	for id := range m.attached_files {
 		ids = append(ids, id)
 	}
@@ -269,9 +269,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFiles:
 		ids := make([]ent.Value, 0, len(m.files))
@@ -301,9 +301,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFiles:
 		ids := make([]ent.Value, 0, len(m.removedfiles))

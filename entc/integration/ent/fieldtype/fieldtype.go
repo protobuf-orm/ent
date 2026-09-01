@@ -20,8 +20,8 @@ import (
 const (
 	// Label holds the string label denoting the fieldtype type in the database.
 	Label = "field_type"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldInt holds the string denoting the int field in the database.
 	FieldInt = "int"
 	// FieldInt8 holds the string denoting the int8 field in the database.
@@ -80,8 +80,8 @@ const (
 	FieldLinkOther = "link_other"
 	// FieldLinkOtherFunc holds the string denoting the link_other_func field in the database.
 	FieldLinkOtherFunc = "link_other_func"
-	// FieldMAC holds the string denoting the mac field in the database.
-	FieldMAC = "mac"
+	// FieldMac holds the string denoting the mac field in the database.
+	FieldMac = "mac"
 	// FieldStringArray holds the string denoting the string_array field in the database.
 	FieldStringArray = "string_array"
 	// FieldPassword holds the string denoting the password field in the database.
@@ -114,8 +114,8 @@ const (
 	FieldRawData = "raw_data"
 	// FieldSensitive holds the string denoting the sensitive field in the database.
 	FieldSensitive = "sensitive"
-	// FieldIP holds the string denoting the ip field in the database.
-	FieldIP = "ip"
+	// FieldIp holds the string denoting the ip field in the database.
+	FieldIp = "ip"
 	// FieldNullInt64 holds the string denoting the null_int64 field in the database.
 	FieldNullInt64 = "null_int64"
 	// FieldSchemaInt holds the string denoting the schema_int field in the database.
@@ -134,10 +134,10 @@ const (
 	FieldRole = "role"
 	// FieldPriority holds the string denoting the priority field in the database.
 	FieldPriority = "priority"
-	// FieldOptionalUUID holds the string denoting the optional_uuid field in the database.
-	FieldOptionalUUID = "optional_uuid"
-	// FieldNillableUUID holds the string denoting the nillable_uuid field in the database.
-	FieldNillableUUID = "nillable_uuid"
+	// FieldOptionalUuid holds the string denoting the optional_uuid field in the database.
+	FieldOptionalUuid = "optional_uuid"
+	// FieldNillableUuid holds the string denoting the nillable_uuid field in the database.
+	FieldNillableUuid = "nillable_uuid"
 	// FieldStrings holds the string denoting the strings field in the database.
 	FieldStrings = "strings"
 	// FieldPair holds the string denoting the pair field in the database.
@@ -156,9 +156,9 @@ const (
 	Table = "field_type"
 )
 
-// Columns holds all SQL columns for fieldtype fields.
+// Columns holds all Sql columns for fieldtype fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldInt,
 	FieldInt8,
 	FieldInt16,
@@ -188,7 +188,7 @@ var Columns = []string{
 	FieldDecimal,
 	FieldLinkOther,
 	FieldLinkOtherFunc,
-	FieldMAC,
+	FieldMac,
 	FieldStringArray,
 	FieldPassword,
 	FieldStringScanner,
@@ -205,7 +205,7 @@ var Columns = []string{
 	FieldDeletedAt,
 	FieldRawData,
 	FieldSensitive,
-	FieldIP,
+	FieldIp,
 	FieldNullInt64,
 	FieldSchemaInt,
 	FieldSchemaInt8,
@@ -215,8 +215,8 @@ var Columns = []string{
 	FieldNullFloat,
 	FieldRole,
 	FieldPriority,
-	FieldOptionalUUID,
-	FieldNillableUUID,
+	FieldOptionalUuid,
+	FieldNillableUuid,
 	FieldStrings,
 	FieldPair,
 	FieldNilPair,
@@ -226,7 +226,7 @@ var Columns = []string{
 	FieldPasswordOther,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "field_type"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "field_type"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"file_field",
@@ -256,8 +256,8 @@ var (
 	DefaultLinkOther *schema.Link
 	// DefaultLinkOtherFunc holds the default value on creation for the "link_other_func" field.
 	DefaultLinkOtherFunc func() *schema.Link
-	// MACValidator is a validator for the "mac" field. It is called by the builders before save.
-	MACValidator func(string) error
+	// MacValidator is a validator for the "mac" field. It is called by the builders before save.
+	MacValidator func(string) error
 	// UpdateDefaultDuration holds the default value on update for the "duration" field.
 	UpdateDefaultDuration func() time.Duration
 	// DefaultDir holds the default value on creation for the "dir" field.
@@ -276,10 +276,10 @@ var (
 	UpdateDefaultDeletedAt func() *sql.NullTime
 	// RawDataValidator is a validator for the "raw_data" field. It is called by the builders before save.
 	RawDataValidator func([]byte) error
-	// DefaultIP holds the default value on creation for the "ip" field.
-	DefaultIP func() net.IP
-	// IPValidator is a validator for the "ip" field. It is called by the builders before save.
-	IPValidator func([]byte) error
+	// DefaultIp holds the default value on creation for the "ip" field.
+	DefaultIp func() net.IP
+	// IpValidator is a validator for the "ip" field. It is called by the builders before save.
+	IpValidator func([]byte) error
 	// DefaultPair holds the default value on creation for the "pair" field.
 	DefaultPair func() schema.Pair
 	// DefaultVstring holds the default value on creation for the "vstring" field.
@@ -336,9 +336,9 @@ func PriorityValidator(p role.Priority) error {
 // OrderOption defines the ordering options for the FieldType queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByInt orders the results by the int field.
@@ -486,9 +486,9 @@ func ByLinkOtherFunc(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldLinkOtherFunc, opts...).ToFunc()
 }
 
-// ByMAC orders the results by the mac field.
-func ByMAC(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldMAC, opts...).ToFunc()
+// ByMac orders the results by the mac field.
+func ByMac(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMac, opts...).ToFunc()
 }
 
 // ByStringArray orders the results by the string_array field.
@@ -606,14 +606,14 @@ func ByPriority(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPriority, opts...).ToFunc()
 }
 
-// ByOptionalUUID orders the results by the optional_uuid field.
-func ByOptionalUUID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldOptionalUUID, opts...).ToFunc()
+// ByOptionalUuid orders the results by the optional_uuid field.
+func ByOptionalUuid(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOptionalUuid, opts...).ToFunc()
 }
 
-// ByNillableUUID orders the results by the nillable_uuid field.
-func ByNillableUUID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldNillableUUID, opts...).ToFunc()
+// ByNillableUuid orders the results by the nillable_uuid field.
+func ByNillableUuid(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldNillableUuid, opts...).ToFunc()
 }
 
 // ByVstring orders the results by the vstring field.

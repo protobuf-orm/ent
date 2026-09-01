@@ -23,14 +23,14 @@ in the LICENSE file in the root directory of this source tree.
 {{- end }}
 type {{ $.Name }} struct {
 	config {{ template "model/omittags" $ }}
-	{{- if $.HasOneFieldID }}
-		// ID of the ent.
-		{{- if $.ID.Comment }}
-			{{- range $line := split $.ID.Comment "\n" }}
+	{{- if $.HasOneFieldId }}
+		// Id of the ent.
+		{{- if $.Id.Comment }}
+			{{- range $line := split $.Id.Comment "\n" }}
 				// {{ $line }}
 			{{- end }}
 		{{- end }}
-		ID {{ $.ID.Type }} {{ with $.Annotations.Fields.StructTag.id }}`{{ . }}`{{ else }}`{{ $.ID.StructTag }}`{{ end }}
+		Id {{ $.Id.Type }} {{ with $.Annotations.Fields.StructTag.id }}`{{ . }}`{{ else }}`{{ $.Id.StructTag }}`{{ end }}
 	{{- end }}
 	{{- range $f := $.Fields }}
 		{{- $tag := $f.StructTag }}{{ with $tags := $.Annotations.Fields.StructTag }}{{ with index $tags $f.Name }}{{ $tag = . }}{{ end }}{{ end }}
@@ -142,8 +142,8 @@ type {{ $slice }} []*{{ $.Name }}
 	func ({{ $receiver }} *{{ $.Name }}) String() string {
 		var builder strings.Builder
 		builder.WriteString("{{ $.Name }}(")
-		{{- if $.HasOneFieldID }}
-			builder.WriteString(fmt.Sprintf("id=%v{{ if $.Fields }}, {{ end }}", {{ $receiver }}.ID))
+		{{- if $.HasOneFieldId }}
+			builder.WriteString(fmt.Sprintf("id=%v{{ if $.Fields }}, {{ end }}", {{ $receiver }}.Id))
 		{{- end }}
 		{{- range $i, $f := $.Fields }}
 			{{- if ne $i 0 }}

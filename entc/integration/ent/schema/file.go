@@ -45,8 +45,8 @@ func (File) Fields() []ent.Field {
 			Optional(),
 		field.Bool("op").
 			Optional(),
-		// Skip generating the "FieldID" predicate
-		// as it conflicts with the "FieldID" constant.
+		// Skip generating the "FieldId" predicate
+		// as it conflicts with the "FieldId" constant.
 		field.Int("field_id").
 			Optional(),
 		field.Time("create_time").

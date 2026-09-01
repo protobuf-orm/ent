@@ -27,26 +27,26 @@ type GroupTagCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetTagID sets the "tag_id" field.
-func (_c *GroupTagCreate) SetTagID(v int) *GroupTagCreate {
-	_c.mutation.SetTagID(v)
+// SetTagId sets the "tag_id" field.
+func (_c *GroupTagCreate) SetTagId(v int) *GroupTagCreate {
+	_c.mutation.SetTagId(v)
 	return _c
 }
 
-// SetGroupID sets the "group_id" field.
-func (_c *GroupTagCreate) SetGroupID(v int) *GroupTagCreate {
-	_c.mutation.SetGroupID(v)
+// SetGroupId sets the "group_id" field.
+func (_c *GroupTagCreate) SetGroupId(v int) *GroupTagCreate {
+	_c.mutation.SetGroupId(v)
 	return _c
 }
 
 // SetTag sets the "tag" edge to the Tag entity.
 func (_c *GroupTagCreate) SetTag(v *Tag) *GroupTagCreate {
-	return _c.SetTagID(v.ID)
+	return _c.SetTagId(v.Id)
 }
 
 // SetGroup sets the "group" edge to the Group entity.
 func (_c *GroupTagCreate) SetGroup(v *Group) *GroupTagCreate {
-	return _c.SetGroupID(v.ID)
+	return _c.SetGroupId(v.Id)
 }
 
 // Mutation returns the GroupTagMutation object of the builder.
@@ -83,16 +83,16 @@ func (_c *GroupTagCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *GroupTagCreate) check() error {
-	if _, ok := _c.mutation.TagID(); !ok {
+	if _, ok := _c.mutation.TagId(); !ok {
 		return &ValidationError{Name: "tag_id", err: errors.New(`ent: missing required field "GroupTag.tag_id"`)}
 	}
-	if _, ok := _c.mutation.GroupID(); !ok {
+	if _, ok := _c.mutation.GroupId(); !ok {
 		return &ValidationError{Name: "group_id", err: errors.New(`ent: missing required field "GroupTag.group_id"`)}
 	}
-	if len(_c.mutation.TagIDs()) == 0 {
+	if len(_c.mutation.TagIds()) == 0 {
 		return &ValidationError{Name: "tag", err: errors.New(`ent: missing required edge "GroupTag.tag"`)}
 	}
-	if len(_c.mutation.GroupIDs()) == 0 {
+	if len(_c.mutation.GroupIds()) == 0 {
 		return &ValidationError{Name: "group", err: errors.New(`ent: missing required edge "GroupTag.group"`)}
 	}
 	return nil
@@ -109,9 +109,9 @@ func (_c *GroupTagCreate) sqlSave(ctx context.Context) (*GroupTag, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -119,10 +119,10 @@ func (_c *GroupTagCreate) sqlSave(ctx context.Context) (*GroupTag, error) {
 func (_c *GroupTagCreate) createSpec() (*GroupTag, *sqlgraph.CreateSpec) {
 	var (
 		_node = &GroupTag{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(grouptag.Table, sqlgraph.NewFieldSpec(grouptag.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(grouptag.Table, sqlgraph.NewFieldSpec(grouptag.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if nodes := _c.mutation.TagIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TagIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -130,16 +130,16 @@ func (_c *GroupTagCreate) createSpec() (*GroupTag, *sqlgraph.CreateSpec) {
 			Columns: []string{grouptag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.TagID = nodes[0]
+		_node.TagId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -147,13 +147,13 @@ func (_c *GroupTagCreate) createSpec() (*GroupTag, *sqlgraph.CreateSpec) {
 			Columns: []string{grouptag.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.GroupID = nodes[0]
+		_node.GroupId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -163,7 +163,7 @@ func (_c *GroupTagCreate) createSpec() (*GroupTag, *sqlgraph.CreateSpec) {
 // of the `INSERT` statement. For example:
 //
 //	client.GroupTag.Create().
-//		SetTagID(v).
+//		SetTagId(v).
 //		OnConflict(
 //			// Update the row with the new values
 //			// the was proposed for insertion.
@@ -172,7 +172,7 @@ func (_c *GroupTagCreate) createSpec() (*GroupTag, *sqlgraph.CreateSpec) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.GroupTagUpsert) {
-//			SetTagID(v+v).
+//			SetTagId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *GroupTagCreate) OnConflict(opts ...sql.ConflictOption) *GroupTagUpsertOne {
@@ -208,27 +208,27 @@ type (
 	}
 )
 
-// SetTagID sets the "tag_id" field.
-func (u *GroupTagUpsert) SetTagID(v int) *GroupTagUpsert {
-	u.Set(grouptag.FieldTagID, v)
+// SetTagId sets the "tag_id" field.
+func (u *GroupTagUpsert) SetTagId(v int) *GroupTagUpsert {
+	u.Set(grouptag.FieldTagId, v)
 	return u
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *GroupTagUpsert) UpdateTagID() *GroupTagUpsert {
-	u.SetExcluded(grouptag.FieldTagID)
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *GroupTagUpsert) UpdateTagId() *GroupTagUpsert {
+	u.SetExcluded(grouptag.FieldTagId)
 	return u
 }
 
-// SetGroupID sets the "group_id" field.
-func (u *GroupTagUpsert) SetGroupID(v int) *GroupTagUpsert {
-	u.Set(grouptag.FieldGroupID, v)
+// SetGroupId sets the "group_id" field.
+func (u *GroupTagUpsert) SetGroupId(v int) *GroupTagUpsert {
+	u.Set(grouptag.FieldGroupId, v)
 	return u
 }
 
-// UpdateGroupID sets the "group_id" field to the value that was provided on create.
-func (u *GroupTagUpsert) UpdateGroupID() *GroupTagUpsert {
-	u.SetExcluded(grouptag.FieldGroupID)
+// UpdateGroupId sets the "group_id" field to the value that was provided on create.
+func (u *GroupTagUpsert) UpdateGroupId() *GroupTagUpsert {
+	u.SetExcluded(grouptag.FieldGroupId)
 	return u
 }
 
@@ -257,7 +257,7 @@ func (u *GroupTagUpsertOne) Ignore() *GroupTagUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *GroupTagUpsertOne) DoNothing() *GroupTagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -272,31 +272,31 @@ func (u *GroupTagUpsertOne) Update(set func(*GroupTagUpsert)) *GroupTagUpsertOne
 	return u
 }
 
-// SetTagID sets the "tag_id" field.
-func (u *GroupTagUpsertOne) SetTagID(v int) *GroupTagUpsertOne {
+// SetTagId sets the "tag_id" field.
+func (u *GroupTagUpsertOne) SetTagId(v int) *GroupTagUpsertOne {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.SetTagID(v)
+		s.SetTagId(v)
 	})
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *GroupTagUpsertOne) UpdateTagID() *GroupTagUpsertOne {
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *GroupTagUpsertOne) UpdateTagId() *GroupTagUpsertOne {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.UpdateTagID()
+		s.UpdateTagId()
 	})
 }
 
-// SetGroupID sets the "group_id" field.
-func (u *GroupTagUpsertOne) SetGroupID(v int) *GroupTagUpsertOne {
+// SetGroupId sets the "group_id" field.
+func (u *GroupTagUpsertOne) SetGroupId(v int) *GroupTagUpsertOne {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.SetGroupID(v)
+		s.SetGroupId(v)
 	})
 }
 
-// UpdateGroupID sets the "group_id" field to the value that was provided on create.
-func (u *GroupTagUpsertOne) UpdateGroupID() *GroupTagUpsertOne {
+// UpdateGroupId sets the "group_id" field to the value that was provided on create.
+func (u *GroupTagUpsertOne) UpdateGroupId() *GroupTagUpsertOne {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.UpdateGroupID()
+		s.UpdateGroupId()
 	})
 }
 
@@ -315,18 +315,18 @@ func (u *GroupTagUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *GroupTagUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *GroupTagUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *GroupTagUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *GroupTagUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -378,10 +378,10 @@ func (_c *GroupTagCreateBulk) Save(ctx context.Context) ([]*GroupTag, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -434,7 +434,7 @@ func (_c *GroupTagCreateBulk) ExecX(ctx context.Context) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.GroupTagUpsert) {
-//			SetTagID(v+v).
+//			SetTagId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *GroupTagCreateBulk) OnConflict(opts ...sql.ConflictOption) *GroupTagUpsertBulk {
@@ -488,7 +488,7 @@ func (u *GroupTagUpsertBulk) Ignore() *GroupTagUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *GroupTagUpsertBulk) DoNothing() *GroupTagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -503,31 +503,31 @@ func (u *GroupTagUpsertBulk) Update(set func(*GroupTagUpsert)) *GroupTagUpsertBu
 	return u
 }
 
-// SetTagID sets the "tag_id" field.
-func (u *GroupTagUpsertBulk) SetTagID(v int) *GroupTagUpsertBulk {
+// SetTagId sets the "tag_id" field.
+func (u *GroupTagUpsertBulk) SetTagId(v int) *GroupTagUpsertBulk {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.SetTagID(v)
+		s.SetTagId(v)
 	})
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *GroupTagUpsertBulk) UpdateTagID() *GroupTagUpsertBulk {
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *GroupTagUpsertBulk) UpdateTagId() *GroupTagUpsertBulk {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.UpdateTagID()
+		s.UpdateTagId()
 	})
 }
 
-// SetGroupID sets the "group_id" field.
-func (u *GroupTagUpsertBulk) SetGroupID(v int) *GroupTagUpsertBulk {
+// SetGroupId sets the "group_id" field.
+func (u *GroupTagUpsertBulk) SetGroupId(v int) *GroupTagUpsertBulk {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.SetGroupID(v)
+		s.SetGroupId(v)
 	})
 }
 
-// UpdateGroupID sets the "group_id" field to the value that was provided on create.
-func (u *GroupTagUpsertBulk) UpdateGroupID() *GroupTagUpsertBulk {
+// UpdateGroupId sets the "group_id" field to the value that was provided on create.
+func (u *GroupTagUpsertBulk) UpdateGroupId() *GroupTagUpsertBulk {
 	return u.Update(func(s *GroupTagUpsert) {
-		s.UpdateGroupID()
+		s.UpdateGroupId()
 	})
 }
 

@@ -13,17 +13,17 @@ import (
 const (
 	// Label holds the string label denoting the group type in the database.
 	Label = "group"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldMaxUsers holds the string denoting the max_users field in the database.
 	FieldMaxUsers = "max_users"
 	// Table holds the table name of the group in the database.
 	Table = "group"
 )
 
-// Columns holds all SQL columns for group fields.
+// Columns holds all Sql columns for group fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldMaxUsers,
 }
 
@@ -40,9 +40,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Group queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByMaxUsers orders the results by the max_users field.

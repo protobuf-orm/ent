@@ -72,7 +72,7 @@ func ({{ $receiver }} *{{ $builder }}) ExecX(ctx context.Context) {
 	}
 }
 
-{{- $fields := $.Fields }}{{ if $.HasOneFieldID }}{{ if $.ID.UserDefined }}{{ $fields = append $fields $.ID }}{{ end }}{{ end }}
+{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
 {{ if $.HasDefault }}
 	// defaults sets the default values of the builder before save.
 	func ({{ $receiver }} *{{ $builder }}) defaults() {{ if $runtimeRequired }}error{{ end }}{
@@ -98,7 +98,7 @@ func ({{ $receiver }} *{{ $builder }}) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func ({{ $receiver }} *{{ $builder }}) check() error {
 	{{- range $f := $fields }}
-		{{- $skip := false }}{{ if $.HasOneFieldID }}{{ if eq $f.Name $.ID.Name }}{{ $skip = true }}{{ end }}{{ end }}
+		{{- $skip := false }}{{ if $.HasOneFieldId }}{{ if eq $f.Name $.Id.Name }}{{ $skip = true }}{{ end }}{{ end }}
 		{{- if and (not $f.Optional) (not $skip) }}
 			{{- $dialects := $f.RequiredFor }}
 			{{- $n := len $dialects }}
@@ -125,9 +125,9 @@ func ({{ $receiver }} *{{ $builder }}) check() error {
 			}
 		{{- end }}
 	{{- end }}
-	{{- range $e := $.EdgesWithID }}
+	{{- range $e := $.EdgesWithId }}
 		{{- if not $e.Optional }}
-			if len({{ $mutation }}.{{ $e.StructField }}IDs()) == 0 {
+			if len({{ $mutation }}.{{ $e.StructField }}Ids()) == 0 {
 				return &ValidationError{Name: "{{ $e.Name }}", err: errors.New(`{{ $pkg }}: missing required edge "{{ $.Name }}.{{ $e.Name }}"`)}
 			}
 		{{- end }}

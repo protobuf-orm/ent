@@ -12,74 +12,74 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldEQ(FieldID, vc), err)
+// Id filters vertices based on their Id field.
+func Id(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldEQ(FieldID, vc), err)
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldEQ(FieldId, vc), err)
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldNEQ(FieldID, vc), err)
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldNEQ(FieldId, vc), err)
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...schema.ValueScanID) predicate.ValueScan {
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...schema.ValueScanId) predicate.ValueScan {
 	var (
 		err error
 		vcs = make([]any, len(ids))
 	)
 	for i := range vcs {
-		if vcs[i], err = ValueScanner.ID.Value(ids[i]); err != nil {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
 			break
 		}
 	}
-	return predicate.ValueScanOrErr(sql.FieldIn(FieldID, vcs...), err)
+	return predicate.ValueScanOrErr(sql.FieldIn(FieldId, vcs...), err)
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...schema.ValueScanID) predicate.ValueScan {
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...schema.ValueScanId) predicate.ValueScan {
 	var (
 		err error
 		vcs = make([]any, len(ids))
 	)
 	for i := range vcs {
-		if vcs[i], err = ValueScanner.ID.Value(ids[i]); err != nil {
+		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
 			break
 		}
 	}
-	return predicate.ValueScanOrErr(sql.FieldNotIn(FieldID, vcs...), err)
+	return predicate.ValueScanOrErr(sql.FieldNotIn(FieldId, vcs...), err)
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldGT(FieldID, vc), err)
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldGT(FieldId, vc), err)
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldGTE(FieldID, vc), err)
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldGTE(FieldId, vc), err)
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldLT(FieldID, vc), err)
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldLT(FieldId, vc), err)
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id schema.ValueScanID) predicate.ValueScan {
-	vc, err := ValueScanner.ID.Value(id)
-	return predicate.ValueScanOrErr(sql.FieldLTE(FieldID, vc), err)
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id schema.ValueScanId) predicate.ValueScan {
+	vc, err := ValueScanner.Id.Value(id)
+	return predicate.ValueScanOrErr(sql.FieldLTE(FieldId, vc), err)
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.

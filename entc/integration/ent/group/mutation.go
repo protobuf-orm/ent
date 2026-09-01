@@ -197,8 +197,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by ids.
-func (m *Mutation) AddFilesIDs(ids ...int) {
+// AddFilesIds adds the "files" edge to the File entity by ids.
+func (m *Mutation) AddFilesIds(ids ...int) {
 	if m.files == nil {
 		m.files = make(map[int]struct{})
 	}
@@ -217,8 +217,8 @@ func (m *Mutation) FilesCleared() bool {
 	return m.clearedfiles
 }
 
-// RemoveFilesIDs removes the "files" edge to the File entity by IDs.
-func (m *Mutation) RemoveFilesIDs(ids ...int) {
+// RemoveFilesIds removes the "files" edge to the File entity by Ids.
+func (m *Mutation) RemoveFilesIds(ids ...int) {
 	if m.removedfiles == nil {
 		m.removedfiles = make(map[int]struct{})
 	}
@@ -228,16 +228,16 @@ func (m *Mutation) RemoveFilesIDs(ids ...int) {
 	}
 }
 
-// RemovedFiles returns the removed IDs of the "files" edge to the File entity.
-func (m *Mutation) RemovedFilesIDs() (ids []int) {
+// RemovedFiles returns the removed Ids of the "files" edge to the File entity.
+func (m *Mutation) RemovedFilesIds() (ids []int) {
 	for id := range m.removedfiles {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FilesIDs returns the "files" edge IDs in the mutation.
-func (m *Mutation) FilesIDs() (ids []int) {
+// FilesIds returns the "files" edge Ids in the mutation.
+func (m *Mutation) FilesIds() (ids []int) {
 	for id := range m.files {
 		ids = append(ids, id)
 	}
@@ -251,8 +251,8 @@ func (m *Mutation) ResetFiles() {
 	m.removedfiles = nil
 }
 
-// AddBlockedIDs adds the "blocked" edge to the User entity by ids.
-func (m *Mutation) AddBlockedIDs(ids ...int) {
+// AddBlockedIds adds the "blocked" edge to the User entity by ids.
+func (m *Mutation) AddBlockedIds(ids ...int) {
 	if m.blocked == nil {
 		m.blocked = make(map[int]struct{})
 	}
@@ -271,8 +271,8 @@ func (m *Mutation) BlockedCleared() bool {
 	return m.clearedblocked
 }
 
-// RemoveBlockedIDs removes the "blocked" edge to the User entity by IDs.
-func (m *Mutation) RemoveBlockedIDs(ids ...int) {
+// RemoveBlockedIds removes the "blocked" edge to the User entity by Ids.
+func (m *Mutation) RemoveBlockedIds(ids ...int) {
 	if m.removedblocked == nil {
 		m.removedblocked = make(map[int]struct{})
 	}
@@ -282,16 +282,16 @@ func (m *Mutation) RemoveBlockedIDs(ids ...int) {
 	}
 }
 
-// RemovedBlocked returns the removed IDs of the "blocked" edge to the User entity.
-func (m *Mutation) RemovedBlockedIDs() (ids []int) {
+// RemovedBlocked returns the removed Ids of the "blocked" edge to the User entity.
+func (m *Mutation) RemovedBlockedIds() (ids []int) {
 	for id := range m.removedblocked {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// BlockedIDs returns the "blocked" edge IDs in the mutation.
-func (m *Mutation) BlockedIDs() (ids []int) {
+// BlockedIds returns the "blocked" edge Ids in the mutation.
+func (m *Mutation) BlockedIds() (ids []int) {
 	for id := range m.blocked {
 		ids = append(ids, id)
 	}
@@ -305,8 +305,8 @@ func (m *Mutation) ResetBlocked() {
 	m.removedblocked = nil
 }
 
-// AddUsersIDs adds the "users" edge to the User entity by ids.
-func (m *Mutation) AddUsersIDs(ids ...int) {
+// AddUsersIds adds the "users" edge to the User entity by ids.
+func (m *Mutation) AddUsersIds(ids ...int) {
 	if m.users == nil {
 		m.users = make(map[int]struct{})
 	}
@@ -325,8 +325,8 @@ func (m *Mutation) UsersCleared() bool {
 	return m.clearedusers
 }
 
-// RemoveUsersIDs removes the "users" edge to the User entity by IDs.
-func (m *Mutation) RemoveUsersIDs(ids ...int) {
+// RemoveUsersIds removes the "users" edge to the User entity by Ids.
+func (m *Mutation) RemoveUsersIds(ids ...int) {
 	if m.removedusers == nil {
 		m.removedusers = make(map[int]struct{})
 	}
@@ -336,16 +336,16 @@ func (m *Mutation) RemoveUsersIDs(ids ...int) {
 	}
 }
 
-// RemovedUsers returns the removed IDs of the "users" edge to the User entity.
-func (m *Mutation) RemovedUsersIDs() (ids []int) {
+// RemovedUsers returns the removed Ids of the "users" edge to the User entity.
+func (m *Mutation) RemovedUsersIds() (ids []int) {
 	for id := range m.removedusers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// UsersIDs returns the "users" edge IDs in the mutation.
-func (m *Mutation) UsersIDs() (ids []int) {
+// UsersIds returns the "users" edge Ids in the mutation.
+func (m *Mutation) UsersIds() (ids []int) {
 	for id := range m.users {
 		ids = append(ids, id)
 	}
@@ -359,8 +359,8 @@ func (m *Mutation) ResetUsers() {
 	m.removedusers = nil
 }
 
-// SetInfoID sets the "info" edge to the GroupInfo entity by id.
-func (m *Mutation) SetInfoID(id int) {
+// SetInfoId sets the "info" edge to the GroupInfo entity by id.
+func (m *Mutation) SetInfoId(id int) {
 	m.info = &id
 }
 
@@ -374,18 +374,18 @@ func (m *Mutation) InfoCleared() bool {
 	return m.clearedinfo
 }
 
-// InfoID returns the "info" edge ID in the mutation.
-func (m *Mutation) InfoID() (id int, exists bool) {
+// InfoId returns the "info" edge Id in the mutation.
+func (m *Mutation) InfoId() (id int, exists bool) {
 	if m.info != nil {
 		return *m.info, true
 	}
 	return
 }
 
-// InfoIDs returns the "info" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// InfoID instead. It exists only for internal usage by the builders.
-func (m *Mutation) InfoIDs() (ids []int) {
+// InfoIds returns the "info" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// InfoId instead. It exists only for internal usage by the builders.
+func (m *Mutation) InfoIds() (ids []int) {
 	if id := m.info; id != nil {
 		ids = append(ids, *id)
 	}
@@ -633,9 +633,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFiles:
 		ids := make([]ent.Value, 0, len(m.files))
@@ -678,9 +678,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFiles:
 		ids := make([]ent.Value, 0, len(m.removedfiles))

@@ -67,23 +67,23 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// SetCardID sets the "card" edge to the Card entity by ID.
-func (_u *UserUpdate) SetCardID(id int) *UserUpdate {
-	_u.mutation.SetCardID(id)
+// SetCardId sets the "card" edge to the Card entity by Id.
+func (_u *UserUpdate) SetCardId(id int) *UserUpdate {
+	_u.mutation.SetCardId(id)
 	return _u
 }
 
-// SetNillableCardID sets the "card" edge to the Card entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableCardID(id *int) *UserUpdate {
+// SetNillableCardId sets the "card" edge to the Card entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableCardId(id *int) *UserUpdate {
 	if id != nil {
-		_u = _u.SetCardID(*id)
+		_u = _u.SetCardId(*id)
 	}
 	return _u
 }
 
 // SetCard sets the "card" edge to the Card entity.
 func (_u *UserUpdate) SetCard(v *Card) *UserUpdate {
-	return _u.SetCardID(v.ID)
+	return _u.SetCardId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -125,7 +125,7 @@ func (_u *UserUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -150,12 +150,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -163,7 +163,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -226,23 +226,23 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// SetCardID sets the "card" edge to the Card entity by ID.
-func (_u *UserUpdateOne) SetCardID(id int) *UserUpdateOne {
-	_u.mutation.SetCardID(id)
+// SetCardId sets the "card" edge to the Card entity by Id.
+func (_u *UserUpdateOne) SetCardId(id int) *UserUpdateOne {
+	_u.mutation.SetCardId(id)
 	return _u
 }
 
-// SetNillableCardID sets the "card" edge to the Card entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableCardID(id *int) *UserUpdateOne {
+// SetNillableCardId sets the "card" edge to the Card entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableCardId(id *int) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetCardID(*id)
+		_u = _u.SetCardId(*id)
 	}
 	return _u
 }
 
 // SetCard sets the "card" edge to the Card entity.
 func (_u *UserUpdateOne) SetCard(v *Card) *UserUpdateOne {
-	return _u.SetCardID(v.ID)
+	return _u.SetCardId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -297,20 +297,20 @@ func (_u *UserUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != user.FieldID {
+			if f != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -339,12 +339,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -352,7 +352,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

@@ -34,16 +34,16 @@ func (_c *LinkCreate) SetLinkInformation(v map[string]schema.LinkInformation) *L
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *LinkCreate) SetID(v uuidc.UUIDC) *LinkCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *LinkCreate) SetId(v uuidc.UuidC) *LinkCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *LinkCreate) SetNillableID(v *uuidc.UUIDC) *LinkCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *LinkCreate) SetNillableId(v *uuidc.UuidC) *LinkCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
@@ -87,9 +87,9 @@ func (_c *LinkCreate) defaults() {
 		v := link.DefaultLinkInformation
 		_c.mutation.SetLinkInformation(v)
 	}
-	if _, ok := _c.mutation.ID(); !ok {
-		v := link.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := link.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -112,14 +112,14 @@ func (_c *LinkCreate) sqlSave(ctx context.Context) (*Link, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuidc.UUIDC); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuidc.UuidC); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -127,15 +127,15 @@ func (_c *LinkCreate) sqlSave(ctx context.Context) (*Link, error) {
 func (_c *LinkCreate) createSpec() (*Link, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Link{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(link.Table, sqlgraph.NewFieldSpec(link.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(link.Table, sqlgraph.NewFieldSpec(link.FieldId, field.TypeUuid))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.LinkInformation(); ok {
-		_spec.SetField(link.FieldLinkInformation, field.TypeJSON, value)
+		_spec.SetField(link.FieldLinkInformation, field.TypeJson, value)
 		_node.LinkInformation = value
 	}
 	return _node, _spec
@@ -202,22 +202,22 @@ func (u *LinkUpsert) UpdateLinkInformation() *LinkUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Link.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(link.FieldID)
+//				u.SetIgnore(link.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *LinkUpsertOne) UpdateNewValues() *LinkUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(link.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(link.FieldId)
 		}
 	}))
 	return u
@@ -235,7 +235,7 @@ func (u *LinkUpsertOne) Ignore() *LinkUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LinkUpsertOne) DoNothing() *LinkUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -279,23 +279,23 @@ func (u *LinkUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *LinkUpsertOne) ID(ctx context.Context) (id uuidc.UUIDC, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: LinkUpsertOne.ID is not supported by MySQL driver. Use LinkUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *LinkUpsertOne) Id(ctx context.Context) (id uuidc.UuidC, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: LinkUpsertOne.Id is not supported by MySql driver. Use LinkUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *LinkUpsertOne) IDX(ctx context.Context) uuidc.UUIDC {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *LinkUpsertOne) IdX(ctx context.Context) uuidc.UuidC {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -348,7 +348,7 @@ func (_c *LinkCreateBulk) Save(ctx context.Context) ([]*Link, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -436,7 +436,7 @@ type LinkUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(link.FieldID)
+//				u.SetIgnore(link.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -444,8 +444,8 @@ func (u *LinkUpsertBulk) UpdateNewValues() *LinkUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(link.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(link.FieldId)
 			}
 		}
 	}))
@@ -464,7 +464,7 @@ func (u *LinkUpsertBulk) Ignore() *LinkUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LinkUpsertBulk) DoNothing() *LinkUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

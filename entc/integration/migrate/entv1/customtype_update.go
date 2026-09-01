@@ -84,7 +84,7 @@ func (_u *CustomTypeUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *CustomTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(customtype.Table, customtype.Columns, sqlgraph.NewFieldSpec(customtype.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(customtype.Table, customtype.Columns, sqlgraph.NewFieldSpec(customtype.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -184,20 +184,20 @@ func (_u *CustomTypeUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *CustomTypeUpdateOne) sqlSave(ctx context.Context) (_node *CustomType, err error) {
-	_spec := sqlgraph.NewUpdateSpec(customtype.Table, customtype.Columns, sqlgraph.NewFieldSpec(customtype.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(customtype.Table, customtype.Columns, sqlgraph.NewFieldSpec(customtype.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv1: missing "CustomType.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, customtype.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, customtype.FieldId)
 		for _, f := range fields {
 			if !customtype.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv1: invalid field %q for query", f)}
 			}
-			if f != customtype.FieldID {
+			if f != customtype.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

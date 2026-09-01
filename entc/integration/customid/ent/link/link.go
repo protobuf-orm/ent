@@ -15,17 +15,17 @@ import (
 const (
 	// Label holds the string label denoting the link type in the database.
 	Label = "link"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldLinkInformation holds the string denoting the link_information field in the database.
 	FieldLinkInformation = "link_information"
 	// Table holds the table name of the link in the database.
 	Table = "link"
 )
 
-// Columns holds all SQL columns for link fields.
+// Columns holds all Sql columns for link fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldLinkInformation,
 }
 
@@ -42,14 +42,14 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultLinkInformation holds the default value on creation for the "link_information" field.
 	DefaultLinkInformation map[string]schema.LinkInformation
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuidc.UUIDC
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuidc.UuidC
 )
 
 // OrderOption defines the ordering options for the Link queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }

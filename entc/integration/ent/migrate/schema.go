@@ -13,15 +13,15 @@ import (
 )
 
 var (
-	// APIColumns holds the columns for the "api" table.
-	APIColumns = []*schema.Column{
+	// ApiColumns holds the columns for the "api" table.
+	ApiColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 	}
-	// APITable holds the schema information for the "api" table.
-	APITable = &schema.Table{
+	// ApiTable holds the schema information for the "api" table.
+	ApiTable = &schema.Table{
 		Name:       "api",
-		Columns:    APIColumns,
-		PrimaryKey: []*schema.Column{APIColumns[0]},
+		Columns:    ApiColumns,
+		PrimaryKey: []*schema.Column{ApiColumns[0]},
 	}
 	// BuilderColumns holds the columns for the "builder" table.
 	BuilderColumns = []*schema.Column{
@@ -81,7 +81,7 @@ var (
 		{Name: "unique_float", Type: field.TypeFloat64, Unique: true},
 		{Name: "nillable_int", Type: field.TypeInt, Nullable: true},
 		{Name: "table", Type: field.TypeString, Nullable: true},
-		{Name: "dir", Type: field.TypeJSON, Nullable: true},
+		{Name: "dir", Type: field.TypeJson, Nullable: true},
 		{Name: "client", Type: field.TypeString, Nullable: true},
 	}
 	// CommentTable holds the schema information for the "comment" table.
@@ -167,9 +167,9 @@ var (
 		{Name: "null_float", Type: field.TypeFloat64, Nullable: true},
 		{Name: "role", Type: field.TypeEnum, Enums: []string{"ADMIN", "OWNER", "USER", "READ", "WRITE", "READ+WRITE"}, Default: "READ"},
 		{Name: "priority", Type: field.TypeEnum, Nullable: true, Enums: []string{"UNKNOWN", "LOW", "HIGH"}},
-		{Name: "optional_uuid", Type: field.TypeUUID, Nullable: true},
-		{Name: "nillable_uuid", Type: field.TypeUUID, Nullable: true},
-		{Name: "strings", Type: field.TypeJSON, Nullable: true},
+		{Name: "optional_uuid", Type: field.TypeUuid, Nullable: true},
+		{Name: "nillable_uuid", Type: field.TypeUuid, Nullable: true},
+		{Name: "strings", Type: field.TypeJson, Nullable: true},
 		{Name: "pair", Type: field.TypeBytes},
 		{Name: "nil_pair", Type: field.TypeBytes, Nullable: true},
 		{Name: "vstring", Type: field.TypeString},
@@ -378,7 +378,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "age", Type: field.TypeFloat64, Default: 0},
 		{Name: "name", Type: field.TypeString},
-		{Name: "uuid", Type: field.TypeUUID, Nullable: true},
+		{Name: "uuid", Type: field.TypeUuid, Nullable: true},
 		{Name: "nickname", Type: field.TypeString, Nullable: true},
 		{Name: "trained", Type: field.TypeBool, Default: false},
 		{Name: "optional_time", Type: field.TypeTime, Nullable: true},
@@ -431,7 +431,7 @@ var (
 	TaskColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "priority", Type: field.TypeInt, Default: 1},
-		{Name: "priorities", Type: field.TypeJSON, Nullable: true},
+		{Name: "priorities", Type: field.TypeJson, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "owner", Type: field.TypeString, Nullable: true},
@@ -599,7 +599,7 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		APITable,
+		ApiTable,
 		BuilderTable,
 		CardTable,
 		CommentTable,
@@ -626,7 +626,7 @@ var (
 )
 
 func init() {
-	APITable.Annotation = &entsql.Annotation{
+	ApiTable.Annotation = &entsql.Annotation{
 		IncrementStart: func(i int) *int { return &i }(12884901888),
 	}
 	BuilderTable.Annotation = &entsql.Annotation{

@@ -231,7 +231,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(enttask.Table, enttask.Columns, sqlgraph.NewFieldSpec(enttask.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(enttask.Table, enttask.Columns, sqlgraph.NewFieldSpec(enttask.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -246,10 +246,10 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.AddField(enttask.FieldPriority, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Priorities(); ok {
-		_spec.SetField(enttask.FieldPriorities, field.TypeJSON, value)
+		_spec.SetField(enttask.FieldPriorities, field.TypeJson, value)
 	}
 	if _u.mutation.PrioritiesCleared() {
-		_spec.ClearField(enttask.FieldPriorities, field.TypeJSON)
+		_spec.ClearField(enttask.FieldPriorities, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(enttask.FieldName, field.TypeString, value)
@@ -517,20 +517,20 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(enttask.Table, enttask.Columns, sqlgraph.NewFieldSpec(enttask.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(enttask.Table, enttask.Columns, sqlgraph.NewFieldSpec(enttask.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Task.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, enttask.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, enttask.FieldId)
 		for _, f := range fields {
 			if !enttask.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != enttask.FieldID {
+			if f != enttask.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -549,10 +549,10 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 		_spec.AddField(enttask.FieldPriority, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Priorities(); ok {
-		_spec.SetField(enttask.FieldPriorities, field.TypeJSON, value)
+		_spec.SetField(enttask.FieldPriorities, field.TypeJson, value)
 	}
 	if _u.mutation.PrioritiesCleared() {
-		_spec.ClearField(enttask.FieldPriorities, field.TypeJSON)
+		_spec.ClearField(enttask.FieldPriorities, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(enttask.FieldName, field.TypeString, value)

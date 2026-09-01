@@ -48,42 +48,42 @@ func (_u *TweetLikeUpdate) SetNillableLikedAt(v *time.Time) *TweetLikeUpdate {
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *TweetLikeUpdate) SetUserID(v int) *TweetLikeUpdate {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *TweetLikeUpdate) SetUserId(v int) *TweetLikeUpdate {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *TweetLikeUpdate) SetNillableUserID(v *int) *TweetLikeUpdate {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *TweetLikeUpdate) SetNillableUserId(v *int) *TweetLikeUpdate {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (_u *TweetLikeUpdate) SetTweetID(v int) *TweetLikeUpdate {
-	_u.mutation.SetTweetID(v)
+// SetTweetId sets the "tweet_id" field.
+func (_u *TweetLikeUpdate) SetTweetId(v int) *TweetLikeUpdate {
+	_u.mutation.SetTweetId(v)
 	return _u
 }
 
-// SetNillableTweetID sets the "tweet_id" field if the given value is not nil.
-func (_u *TweetLikeUpdate) SetNillableTweetID(v *int) *TweetLikeUpdate {
+// SetNillableTweetId sets the "tweet_id" field if the given value is not nil.
+func (_u *TweetLikeUpdate) SetNillableTweetId(v *int) *TweetLikeUpdate {
 	if v != nil {
-		_u.SetTweetID(*v)
+		_u.SetTweetId(*v)
 	}
 	return _u
 }
 
 // SetTweet sets the "tweet" edge to the Tweet entity.
 func (_u *TweetLikeUpdate) SetTweet(v *Tweet) *TweetLikeUpdate {
-	return _u.SetTweetID(v.ID)
+	return _u.SetTweetId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *TweetLikeUpdate) SetUser(v *User) *TweetLikeUpdate {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the TweetLikeMutation object of the builder.
@@ -132,10 +132,10 @@ func (_u *TweetLikeUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *TweetLikeUpdate) check() error {
-	if _u.mutation.TweetCleared() && len(_u.mutation.TweetIDs()) > 0 {
+	if _u.mutation.TweetCleared() && len(_u.mutation.TweetIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TweetLike.tweet"`)
 	}
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TweetLike.user"`)
 	}
 	return nil
@@ -145,7 +145,7 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(tweetlike.Table, tweetlike.Columns, sqlgraph.NewFieldSpec(tweetlike.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(tweetlike.FieldTweetID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(tweetlike.Table, tweetlike.Columns, sqlgraph.NewFieldSpec(tweetlike.FieldUserId, field.TypeInt), sqlgraph.NewFieldSpec(tweetlike.FieldTweetId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -164,12 +164,12 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{tweetlike.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TweetIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TweetIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -177,7 +177,7 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{tweetlike.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -193,12 +193,12 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{tweetlike.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -206,7 +206,7 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{tweetlike.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -248,42 +248,42 @@ func (_u *TweetLikeUpdateOne) SetNillableLikedAt(v *time.Time) *TweetLikeUpdateO
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *TweetLikeUpdateOne) SetUserID(v int) *TweetLikeUpdateOne {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *TweetLikeUpdateOne) SetUserId(v int) *TweetLikeUpdateOne {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *TweetLikeUpdateOne) SetNillableUserID(v *int) *TweetLikeUpdateOne {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *TweetLikeUpdateOne) SetNillableUserId(v *int) *TweetLikeUpdateOne {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (_u *TweetLikeUpdateOne) SetTweetID(v int) *TweetLikeUpdateOne {
-	_u.mutation.SetTweetID(v)
+// SetTweetId sets the "tweet_id" field.
+func (_u *TweetLikeUpdateOne) SetTweetId(v int) *TweetLikeUpdateOne {
+	_u.mutation.SetTweetId(v)
 	return _u
 }
 
-// SetNillableTweetID sets the "tweet_id" field if the given value is not nil.
-func (_u *TweetLikeUpdateOne) SetNillableTweetID(v *int) *TweetLikeUpdateOne {
+// SetNillableTweetId sets the "tweet_id" field if the given value is not nil.
+func (_u *TweetLikeUpdateOne) SetNillableTweetId(v *int) *TweetLikeUpdateOne {
 	if v != nil {
-		_u.SetTweetID(*v)
+		_u.SetTweetId(*v)
 	}
 	return _u
 }
 
 // SetTweet sets the "tweet" edge to the Tweet entity.
 func (_u *TweetLikeUpdateOne) SetTweet(v *Tweet) *TweetLikeUpdateOne {
-	return _u.SetTweetID(v.ID)
+	return _u.SetTweetId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *TweetLikeUpdateOne) SetUser(v *User) *TweetLikeUpdateOne {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // Mutation returns the TweetLikeMutation object of the builder.
@@ -345,10 +345,10 @@ func (_u *TweetLikeUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *TweetLikeUpdateOne) check() error {
-	if _u.mutation.TweetCleared() && len(_u.mutation.TweetIDs()) > 0 {
+	if _u.mutation.TweetCleared() && len(_u.mutation.TweetIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TweetLike.tweet"`)
 	}
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TweetLike.user"`)
 	}
 	return nil
@@ -358,16 +358,16 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(tweetlike.Table, tweetlike.Columns, sqlgraph.NewFieldSpec(tweetlike.FieldUserID, field.TypeInt), sqlgraph.NewFieldSpec(tweetlike.FieldTweetID, field.TypeInt))
-	if id, ok := _u.mutation.UserID(); !ok {
+	_spec := sqlgraph.NewUpdateSpec(tweetlike.Table, tweetlike.Columns, sqlgraph.NewFieldSpec(tweetlike.FieldUserId, field.TypeInt), sqlgraph.NewFieldSpec(tweetlike.FieldTweetId, field.TypeInt))
+	if id, ok := _u.mutation.UserId(); !ok {
 		return nil, &ValidationError{Name: "user_id", err: errors.New(`ent: missing "TweetLike.user_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[0].Value = id
+		_spec.Node.CompositeId[0].Value = id
 	}
-	if id, ok := _u.mutation.TweetID(); !ok {
+	if id, ok := _u.mutation.TweetId(); !ok {
 		return nil, &ValidationError{Name: "tweet_id", err: errors.New(`ent: missing "TweetLike.tweet_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[1].Value = id
+		_spec.Node.CompositeId[1].Value = id
 	}
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, len(fields))
@@ -396,12 +396,12 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 			Columns: []string{tweetlike.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.TweetIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TweetIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -409,7 +409,7 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 			Columns: []string{tweetlike.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -425,12 +425,12 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 			Columns: []string{tweetlike.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -438,7 +438,7 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 			Columns: []string{tweetlike.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

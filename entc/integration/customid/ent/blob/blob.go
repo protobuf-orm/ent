@@ -15,10 +15,10 @@ import (
 const (
 	// Label holds the string label denoting the blob type in the database.
 	Label = "blob"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldUUID holds the string denoting the uuid field in the database.
-	FieldUUID = "uuid"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldUuid holds the string denoting the uuid field in the database.
+	FieldUuid = "uuid"
 	// FieldCount holds the string denoting the count field in the database.
 	FieldCount = "count"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -44,14 +44,14 @@ const (
 	BlobLinksColumn = "blob_id"
 )
 
-// Columns holds all SQL columns for blob fields.
+// Columns holds all Sql columns for blob fields.
 var Columns = []string{
-	FieldID,
-	FieldUUID,
+	FieldId,
+	FieldUuid,
 	FieldCount,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "blob"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "blob"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blob_parent",
@@ -79,25 +79,25 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultUUID holds the default value on creation for the "uuid" field.
-	DefaultUUID func() uuid.UUID
+	// DefaultUuid holds the default value on creation for the "uuid" field.
+	DefaultUuid func() uuid.UUID
 	// DefaultCount holds the default value on creation for the "count" field.
 	DefaultCount int
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the Blob queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByUUID orders the results by the uuid field.
-func ByUUID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUUID, opts...).ToFunc()
+// ByUuid orders the results by the uuid field.
+func ByUuid(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUuid, opts...).ToFunc()
 }
 
 // ByCount orders the results by the count field.
@@ -141,21 +141,21 @@ func ByBlobLinks(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, ParentTable, ParentColumn),
 	)
 }
 func newLinksStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, LinksTable, LinksPrimaryKey...),
 	)
 }
 func newBlobLinksStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(BlobLinksInverseTable, BlobLinksColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, BlobLinksTable, BlobLinksColumn),
 	)

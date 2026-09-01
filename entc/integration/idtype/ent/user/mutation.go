@@ -65,8 +65,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by id.
-func (m *Mutation) SetSpouseID(id uint64) {
+// SetSpouseId sets the "spouse" edge to the User entity by id.
+func (m *Mutation) SetSpouseId(id uint64) {
 	m.spouse = &id
 }
 
@@ -80,18 +80,18 @@ func (m *Mutation) SpouseCleared() bool {
 	return m.clearedspouse
 }
 
-// SpouseID returns the "spouse" edge ID in the mutation.
-func (m *Mutation) SpouseID() (id uint64, exists bool) {
+// SpouseId returns the "spouse" edge Id in the mutation.
+func (m *Mutation) SpouseId() (id uint64, exists bool) {
 	if m.spouse != nil {
 		return *m.spouse, true
 	}
 	return
 }
 
-// SpouseIDs returns the "spouse" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// SpouseID instead. It exists only for internal usage by the builders.
-func (m *Mutation) SpouseIDs() (ids []uint64) {
+// SpouseIds returns the "spouse" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// SpouseId instead. It exists only for internal usage by the builders.
+func (m *Mutation) SpouseIds() (ids []uint64) {
 	if id := m.spouse; id != nil {
 		ids = append(ids, *id)
 	}
@@ -104,8 +104,8 @@ func (m *Mutation) ResetSpouse() {
 	m.clearedspouse = false
 }
 
-// AddFollowersIDs adds the "followers" edge to the User entity by ids.
-func (m *Mutation) AddFollowersIDs(ids ...uint64) {
+// AddFollowersIds adds the "followers" edge to the User entity by ids.
+func (m *Mutation) AddFollowersIds(ids ...uint64) {
 	if m.followers == nil {
 		m.followers = make(map[uint64]struct{})
 	}
@@ -124,8 +124,8 @@ func (m *Mutation) FollowersCleared() bool {
 	return m.clearedfollowers
 }
 
-// RemoveFollowersIDs removes the "followers" edge to the User entity by IDs.
-func (m *Mutation) RemoveFollowersIDs(ids ...uint64) {
+// RemoveFollowersIds removes the "followers" edge to the User entity by Ids.
+func (m *Mutation) RemoveFollowersIds(ids ...uint64) {
 	if m.removedfollowers == nil {
 		m.removedfollowers = make(map[uint64]struct{})
 	}
@@ -135,16 +135,16 @@ func (m *Mutation) RemoveFollowersIDs(ids ...uint64) {
 	}
 }
 
-// RemovedFollowers returns the removed IDs of the "followers" edge to the User entity.
-func (m *Mutation) RemovedFollowersIDs() (ids []uint64) {
+// RemovedFollowers returns the removed Ids of the "followers" edge to the User entity.
+func (m *Mutation) RemovedFollowersIds() (ids []uint64) {
 	for id := range m.removedfollowers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FollowersIDs returns the "followers" edge IDs in the mutation.
-func (m *Mutation) FollowersIDs() (ids []uint64) {
+// FollowersIds returns the "followers" edge Ids in the mutation.
+func (m *Mutation) FollowersIds() (ids []uint64) {
 	for id := range m.followers {
 		ids = append(ids, id)
 	}
@@ -158,8 +158,8 @@ func (m *Mutation) ResetFollowers() {
 	m.removedfollowers = nil
 }
 
-// AddFollowingIDs adds the "following" edge to the User entity by ids.
-func (m *Mutation) AddFollowingIDs(ids ...uint64) {
+// AddFollowingIds adds the "following" edge to the User entity by ids.
+func (m *Mutation) AddFollowingIds(ids ...uint64) {
 	if m.following == nil {
 		m.following = make(map[uint64]struct{})
 	}
@@ -178,8 +178,8 @@ func (m *Mutation) FollowingCleared() bool {
 	return m.clearedfollowing
 }
 
-// RemoveFollowingIDs removes the "following" edge to the User entity by IDs.
-func (m *Mutation) RemoveFollowingIDs(ids ...uint64) {
+// RemoveFollowingIds removes the "following" edge to the User entity by Ids.
+func (m *Mutation) RemoveFollowingIds(ids ...uint64) {
 	if m.removedfollowing == nil {
 		m.removedfollowing = make(map[uint64]struct{})
 	}
@@ -189,16 +189,16 @@ func (m *Mutation) RemoveFollowingIDs(ids ...uint64) {
 	}
 }
 
-// RemovedFollowing returns the removed IDs of the "following" edge to the User entity.
-func (m *Mutation) RemovedFollowingIDs() (ids []uint64) {
+// RemovedFollowing returns the removed Ids of the "following" edge to the User entity.
+func (m *Mutation) RemovedFollowingIds() (ids []uint64) {
 	for id := range m.removedfollowing {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FollowingIDs returns the "following" edge IDs in the mutation.
-func (m *Mutation) FollowingIDs() (ids []uint64) {
+// FollowingIds returns the "following" edge Ids in the mutation.
+func (m *Mutation) FollowingIds() (ids []uint64) {
 	for id := range m.following {
 		ids = append(ids, id)
 	}
@@ -354,9 +354,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeSpouse:
 		if id := m.spouse; id != nil {
@@ -390,9 +390,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFollowers:
 		ids := make([]ent.Value, 0, len(m.removedfollowers))

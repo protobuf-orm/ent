@@ -21,7 +21,7 @@ type TweetTag struct {
 // Fields of the TweetTag.
 func (TweetTag) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.UUID{}).
+		field.Uuid("id", uuid.UUID{}).
 			Default(uuid.New),
 		field.Time("added_at").
 			Default(time.Now),

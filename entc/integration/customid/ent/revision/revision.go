@@ -13,15 +13,15 @@ import (
 const (
 	// Label holds the string label denoting the revision type in the database.
 	Label = "revision"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// Table holds the table name of the revision in the database.
 	Table = "revision"
 )
 
-// Columns holds all SQL columns for revision fields.
+// Columns holds all Sql columns for revision fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -37,7 +37,7 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Revision queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }

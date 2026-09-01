@@ -14,14 +14,14 @@ import (
 const (
 	// Label holds the string label denoting the file type in the database.
 	Label = "file"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldDeleted holds the string denoting the deleted field in the database.
 	FieldDeleted = "deleted"
-	// FieldParentID holds the string denoting the parent_id field in the database.
-	FieldParentID = "parent_id"
+	// FieldParentId holds the string denoting the parent_id field in the database.
+	FieldParentId = "parent_id"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
 	EdgeParent = "parent"
 	// EdgeChildren holds the string denoting the children edge name in mutations.
@@ -38,12 +38,12 @@ const (
 	ChildrenColumn = "parent_id"
 )
 
-// Columns holds all SQL columns for file fields.
+// Columns holds all Sql columns for file fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 	FieldDeleted,
-	FieldParentID,
+	FieldParentId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -64,9 +64,9 @@ var (
 // OrderOption defines the ordering options for the File queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -79,9 +79,9 @@ func ByDeleted(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDeleted, opts...).ToFunc()
 }
 
-// ByParentID orders the results by the parent_id field.
-func ByParentID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldParentID, opts...).ToFunc()
+// ByParentId orders the results by the parent_id field.
+func ByParentId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldParentId, opts...).ToFunc()
 }
 
 // ByParentField orders the results by parent field.
@@ -106,15 +106,15 @@ func ByChildren(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 	)
 }

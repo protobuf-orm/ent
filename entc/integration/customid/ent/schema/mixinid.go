@@ -20,25 +20,25 @@ type BaseMixin struct {
 // Fields of the Mixin.
 func (BaseMixin) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.UUID{}).Default(uuid.New),
+		field.Uuid("id", uuid.UUID{}).Default(uuid.New),
 		field.String("some_field"),
 	}
 }
 
-// MixinID holds the schema definition for the MixinID entity.
-type MixinID struct {
+// MixinId holds the schema definition for the MixinId entity.
+type MixinId struct {
 	ent.Schema
 }
 
-// Fields of the MixinID.
-func (MixinID) Fields() []ent.Field {
+// Fields of the MixinId.
+func (MixinId) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("mixin_field"),
 	}
 }
 
-// Indexes of the MixinID
-func (MixinID) Indexes() []ent.Index {
+// Indexes of the MixinId
+func (MixinId) Indexes() []ent.Index {
 	return []ent.Index{
 		index.Fields("id"),
 		index.Fields("id", "some_field"),
@@ -47,8 +47,8 @@ func (MixinID) Indexes() []ent.Index {
 	}
 }
 
-// Mixin of MixinID
-func (MixinID) Mixin() []ent.Mixin {
+// Mixin of MixinId
+func (MixinId) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		BaseMixin{},
 	}

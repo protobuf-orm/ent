@@ -47,8 +47,8 @@ const (
 type {{ $mutation }} struct {
 	{{ $baseMutation }}
 	config
-	{{- with $n.HasOneFieldID }}
-		{{ $n.ID.BuilderField }} *{{ $n.ID.Type }}
+	{{- with $n.HasOneFieldId }}
+		{{ $n.Id.BuilderField }} *{{ $n.Id.Type }}
 	{{- end }}
 	done bool
 	oldValue func(context.Context) (*{{ $n.Name }}, error)
@@ -72,27 +72,27 @@ func new{{ $mutation }}(c config, op Op, opts ...{{ $mutationOption }}) *{{ $mut
 	return m
 }
 
-{{ with $n.HasOneFieldID }}
-	{{ if $n.ID.UserDefined }}
-		// SetID sets the value of the id field. Note that this
+{{ with $n.HasOneFieldId }}
+	{{ if $n.Id.UserDefined }}
+		// SetId sets the value of the id field. Note that this
 		// operation is only accepted on creation of {{ $n.Name }} entities.
-		func (m *{{ $mutation }}) SetID(id {{ $n.ID.Type }}) {
-			m.{{ $n.ID.BuilderField }} = &id
+		func (m *{{ $mutation }}) SetId(id {{ $n.Id.Type }}) {
+			m.{{ $n.Id.BuilderField }} = &id
 		}
 	{{ end }}
 
-	// ID returns the ID value in the mutation. Note that the ID is only available
+	// Id returns the Id value in the mutation. Note that the Id is only available
 	// if it was provided to the builder or after it was returned from the database.
-	func (m *{{ $mutation }}) ID() (id {{ $n.ID.Type }}, exists bool) {
-		if m.{{ $n.ID.BuilderField }} == nil {
+	func (m *{{ $mutation }}) Id() (id {{ $n.Id.Type }}, exists bool) {
+		if m.{{ $n.Id.BuilderField }} == nil {
 			return
 		}
-		return *m.{{ $n.ID.BuilderField }}, true
+		return *m.{{ $n.Id.BuilderField }}, true
 	}
 
-	{{ $opt := print "with" $n.Name "ID" }}
-	// {{ $opt }} sets the ID field of the mutation.
-	func {{ $opt }}(id {{ $n.ID.Type }}) {{ $mutationOption }} {
+	{{ $opt := print "with" $n.Name "Id" }}
+	// {{ $opt }} sets the Id field of the mutation.
+	func {{ $opt }}(id {{ $n.Id.Type }}) {{ $mutationOption }} {
 		return func(m *{{ $mutation }}) {
 			var (
 				err error
@@ -109,7 +109,7 @@ func new{{ $mutation }}(c config, op Op, opts ...{{ $mutationOption }}) *{{ $mut
 				})
 				return value, err
 			}
-			m.{{ $n.ID.BuilderField }} = &id
+			m.{{ $n.Id.BuilderField }} = &id
 		}
 	}
 
@@ -120,7 +120,7 @@ func new{{ $mutation }}(c config, op Op, opts ...{{ $mutationOption }}) *{{ $mut
 			m.oldValue = func(context.Context) (*{{ $n.Name }}, error) {
 				return node, nil
 			}
-			m.{{ $n.ID.BuilderField }} = &node.ID
+			m.{{ $n.Id.BuilderField }} = &node.Id
 		}
 	}
 {{ end }}
@@ -144,29 +144,29 @@ func (m {{ $mutation }}) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-{{ with $n.HasOneFieldID }}
-	// IDs queries the database and returns the entity ids that match the mutation's predicate.
+{{ with $n.HasOneFieldId }}
+	// Ids queries the database and returns the entity ids that match the mutation's predicate.
 	// That means, if the mutation is applied within a transaction with an isolation level such
 	// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 	// or updated by the mutation.
-	func (m *{{ $mutation }}) IDs(ctx context.Context) ([]{{ $n.ID.Type }}, error) {
+	func (m *{{ $mutation }}) Ids(ctx context.Context) ([]{{ $n.Id.Type }}, error) {
 		switch {
 		case m.Op().Is(OpUpdateOne | OpDeleteOne):
-			id, exists := m.ID()
+			id, exists := m.Id()
 			if exists {
-				return []{{ $n.ID.Type }}{id}, nil
+				return []{{ $n.Id.Type }}{id}, nil
 			}
 			fallthrough
 		case m.Op().Is(OpUpdate | OpDelete):
-			return m.Client().{{ $n.Name }}.Query().Where(m.Predicates()...).IDs(ctx)
+			return m.Client().{{ $n.Name }}.Query().Where(m.Predicates()...).Ids(ctx)
 		default:
-			return nil, fmt.Errorf("IDs is not allowed on %s operations", m.Op())
+			return nil, fmt.Errorf("Ids is not allowed on %s operations", m.Op())
 		}
 	}
 {{ end }}
 
 {{ range $f := $n.Fields }}
-	{{ if $n.HasOneFieldID }}
+	{{ if $n.HasOneFieldId }}
 		{{ $const := print $n.Package "." $f.Constant }}
 		// {{ $f.MutationGetOld }} returns the old "{{ $f.Name }}" field's value of the {{ $n.Name }} entity.
 		// If the {{ $n.Name }} object wasn't provided to the builder, the object is fetched from the database.
@@ -175,8 +175,8 @@ func (m {{ $mutation }}) Tx() (*Tx, error) {
 			if !m.Op().Is(OpUpdateOne) {
 				return v, errors.New("{{ $f.MutationGetOld }} is only allowed on UpdateOne operations")
 			}
-			if _, exists := m.ID(); !exists || m.oldValue == nil {
-				return v, errors.New("{{ $f.MutationGetOld }} requires an ID field in the mutation")
+			if _, exists := m.Id(); !exists || m.oldValue == nil {
+				return v, errors.New("{{ $f.MutationGetOld }} requires an Id field in the mutation")
 			}
 			oldValue, err := m.oldValue(ctx)
 			if err != nil {
@@ -191,7 +191,7 @@ func (m {{ $mutation }}) Tx() (*Tx, error) {
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
 func (m *{{ $mutation }}) OldField(ctx context.Context, name string) (ent.Value, error) {
-	{{- if $n.HasCompositeID }}
+	{{- if $n.HasCompositeId }}
 		return nil, errors.New("edge schema {{ $n.Name }} does not support getting old values")
 	{{- else }}
 		{{- with $n.Fields }}

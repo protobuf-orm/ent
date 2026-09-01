@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the car type in the database.
 	Label = "car"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldModel holds the string denoting the model field in the database.
 	FieldModel = "model"
 	// FieldRegisteredAt holds the string denoting the registered_at field in the database.
@@ -33,14 +33,14 @@ const (
 	OwnerColumn = "user_cars"
 )
 
-// Columns holds all SQL columns for car fields.
+// Columns holds all Sql columns for car fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldModel,
 	FieldRegisteredAt,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "car"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "car"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_cars",
@@ -64,9 +64,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Car queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByModel orders the results by the model field.
@@ -87,8 +87,8 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

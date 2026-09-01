@@ -22,7 +22,7 @@ type Mutation struct {
 	typ            string
 	body           *string
 	clearedFields  map[string]struct{}
-	account        *sid.ID
+	account        *sid.Id
 	clearedaccount bool
 	predicates     []predicate.Token
 }
@@ -60,8 +60,8 @@ func (m *Mutation) ResetBody() {
 	m.body = nil
 }
 
-// SetAccountID sets the "account" edge to the Account entity by id.
-func (m *Mutation) SetAccountID(id sid.ID) {
+// SetAccountId sets the "account" edge to the Account entity by id.
+func (m *Mutation) SetAccountId(id sid.Id) {
 	m.account = &id
 }
 
@@ -75,18 +75,18 @@ func (m *Mutation) AccountCleared() bool {
 	return m.clearedaccount
 }
 
-// AccountID returns the "account" edge ID in the mutation.
-func (m *Mutation) AccountID() (id sid.ID, exists bool) {
+// AccountId returns the "account" edge Id in the mutation.
+func (m *Mutation) AccountId() (id sid.Id, exists bool) {
 	if m.account != nil {
 		return *m.account, true
 	}
 	return
 }
 
-// AccountIDs returns the "account" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// AccountID instead. It exists only for internal usage by the builders.
-func (m *Mutation) AccountIDs() (ids []sid.ID) {
+// AccountIds returns the "account" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// AccountId instead. It exists only for internal usage by the builders.
+func (m *Mutation) AccountIds() (ids []sid.Id) {
 	if id := m.account; id != nil {
 		ids = append(ids, *id)
 	}
@@ -235,9 +235,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeAccount:
 		if id := m.account; id != nil {
@@ -253,9 +253,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -12,49 +12,49 @@ import (
 	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id uuidc.UUIDC) predicate.Link {
-	return predicate.Link(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id uuidc.UuidC) predicate.Link {
+	return predicate.Link(sql.FieldLTE(FieldId, id))
 }
 
 // And groups predicates with the AND operator between them.

@@ -10,20 +10,20 @@ import (
 	"github.com/google/uuid"
 )
 
-type UUIDC struct {
+type UuidC struct {
 	uuid uuid.UUID
 }
 
-func NewUUIDC() UUIDC {
-	return UUIDC{
+func NewUuidC() UuidC {
+	return UuidC{
 		uuid: uuid.New(),
 	}
 }
 
-func (u *UUIDC) Scan(src any) error {
+func (u *UuidC) Scan(src any) error {
 	return u.uuid.Scan(src)
 }
 
-func (u UUIDC) Value() (driver.Value, error) {
+func (u UuidC) Value() (driver.Value, error) {
 	return u.uuid.Value()
 }

@@ -272,15 +272,15 @@ func (_c *UserCreate) SetNillableDropOptional(v *string) *UserCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *UserCreate) SetID(v int) *UserCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *UserCreate) SetId(v int) *UserCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// AddCarIDs adds the "car" edge to the Car entity by IDs.
-func (_c *UserCreate) AddCarIDs(ids ...int) *UserCreate {
-	_c.mutation.AddCarIDs(ids...)
+// AddCarIds adds the "car" edge to the Car entity by Ids.
+func (_c *UserCreate) AddCarIds(ids ...int) *UserCreate {
+	_c.mutation.AddCarIds(ids...)
 	return _c
 }
 
@@ -288,33 +288,33 @@ func (_c *UserCreate) AddCarIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddCar(v ...*Car) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddCarIDs(ids...)
+	return _c.AddCarIds(ids...)
 }
 
-// SetPetsID sets the "pets" edge to the Pet entity by ID.
-func (_c *UserCreate) SetPetsID(id int) *UserCreate {
-	_c.mutation.SetPetsID(id)
+// SetPetsId sets the "pets" edge to the Pet entity by Id.
+func (_c *UserCreate) SetPetsId(id int) *UserCreate {
+	_c.mutation.SetPetsId(id)
 	return _c
 }
 
-// SetNillablePetsID sets the "pets" edge to the Pet entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillablePetsID(id *int) *UserCreate {
+// SetNillablePetsId sets the "pets" edge to the Pet entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillablePetsId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetPetsID(*id)
+		_c = _c.SetPetsId(*id)
 	}
 	return _c
 }
 
 // SetPets sets the "pets" edge to the Pet entity.
 func (_c *UserCreate) SetPets(v *Pet) *UserCreate {
-	return _c.SetPetsID(v.ID)
+	return _c.SetPetsId(v.Id)
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the User entity by Ids.
+func (_c *UserCreate) AddFriendsIds(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIds(ids...)
 	return _c
 }
 
@@ -322,9 +322,9 @@ func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFriendsIDs(ids...)
+	return _c.AddFriendsIds(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -478,11 +478,11 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -490,11 +490,11 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.MixedString(); ok {
 		_spec.SetField(user.FieldMixedString, field.TypeString, value)
@@ -561,7 +561,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.Workplace = value
 	}
 	if value, ok := _c.mutation.Roles(); ok {
-		_spec.SetField(user.FieldRoles, field.TypeJSON, value)
+		_spec.SetField(user.FieldRoles, field.TypeJson, value)
 		_node.Roles = value
 	}
 	if value, ok := _c.mutation.DefaultExpr(); ok {
@@ -580,7 +580,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldDropOptional, field.TypeString, value)
 		_node.DropOptional = value
 	}
-	if nodes := _c.mutation.CarIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CarIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -588,7 +588,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -596,7 +596,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.PetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.PetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -604,7 +604,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -612,7 +612,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -620,7 +620,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -675,10 +675,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

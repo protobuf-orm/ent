@@ -33,9 +33,9 @@ func (_u *SpecUpdate) Where(ps ...predicate.Spec) *SpecUpdate {
 	return _u
 }
 
-// AddCardIDs adds the "card" edge to the Card entity by IDs.
-func (_u *SpecUpdate) AddCardIDs(ids ...int) *SpecUpdate {
-	_u.mutation.AddCardIDs(ids...)
+// AddCardIds adds the "card" edge to the Card entity by Ids.
+func (_u *SpecUpdate) AddCardIds(ids ...int) *SpecUpdate {
+	_u.mutation.AddCardIds(ids...)
 	return _u
 }
 
@@ -43,9 +43,9 @@ func (_u *SpecUpdate) AddCardIDs(ids ...int) *SpecUpdate {
 func (_u *SpecUpdate) AddCard(v ...*Card) *SpecUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddCardIDs(ids...)
+	return _u.AddCardIds(ids...)
 }
 
 // Mutation returns the SpecMutation object of the builder.
@@ -59,9 +59,9 @@ func (_u *SpecUpdate) ClearCard() *SpecUpdate {
 	return _u
 }
 
-// RemoveCardIDs removes the "card" edge to Card entities by IDs.
-func (_u *SpecUpdate) RemoveCardIDs(ids ...int) *SpecUpdate {
-	_u.mutation.RemoveCardIDs(ids...)
+// RemoveCardIds removes the "card" edge to Card entities by Ids.
+func (_u *SpecUpdate) RemoveCardIds(ids ...int) *SpecUpdate {
+	_u.mutation.RemoveCardIds(ids...)
 	return _u
 }
 
@@ -69,9 +69,9 @@ func (_u *SpecUpdate) RemoveCardIDs(ids ...int) *SpecUpdate {
 func (_u *SpecUpdate) RemoveCard(v ...*Card) *SpecUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveCardIDs(ids...)
+	return _u.RemoveCardIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -108,7 +108,7 @@ func (_u *SpecUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SpecUpdat
 }
 
 func (_u *SpecUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -124,12 +124,12 @@ func (_u *SpecUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedCardIDs(); len(nodes) > 0 && !_u.mutation.CardCleared() {
+	if nodes := _u.mutation.RemovedCardIds(); len(nodes) > 0 && !_u.mutation.CardCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -137,7 +137,7 @@ func (_u *SpecUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -145,7 +145,7 @@ func (_u *SpecUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -153,7 +153,7 @@ func (_u *SpecUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -183,9 +183,9 @@ type SpecUpdateOne struct {
 	modifiers []func(*sql.UpdateBuilder)
 }
 
-// AddCardIDs adds the "card" edge to the Card entity by IDs.
-func (_u *SpecUpdateOne) AddCardIDs(ids ...int) *SpecUpdateOne {
-	_u.mutation.AddCardIDs(ids...)
+// AddCardIds adds the "card" edge to the Card entity by Ids.
+func (_u *SpecUpdateOne) AddCardIds(ids ...int) *SpecUpdateOne {
+	_u.mutation.AddCardIds(ids...)
 	return _u
 }
 
@@ -193,9 +193,9 @@ func (_u *SpecUpdateOne) AddCardIDs(ids ...int) *SpecUpdateOne {
 func (_u *SpecUpdateOne) AddCard(v ...*Card) *SpecUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddCardIDs(ids...)
+	return _u.AddCardIds(ids...)
 }
 
 // Mutation returns the SpecMutation object of the builder.
@@ -209,9 +209,9 @@ func (_u *SpecUpdateOne) ClearCard() *SpecUpdateOne {
 	return _u
 }
 
-// RemoveCardIDs removes the "card" edge to Card entities by IDs.
-func (_u *SpecUpdateOne) RemoveCardIDs(ids ...int) *SpecUpdateOne {
-	_u.mutation.RemoveCardIDs(ids...)
+// RemoveCardIds removes the "card" edge to Card entities by Ids.
+func (_u *SpecUpdateOne) RemoveCardIds(ids ...int) *SpecUpdateOne {
+	_u.mutation.RemoveCardIds(ids...)
 	return _u
 }
 
@@ -219,9 +219,9 @@ func (_u *SpecUpdateOne) RemoveCardIDs(ids ...int) *SpecUpdateOne {
 func (_u *SpecUpdateOne) RemoveCard(v ...*Card) *SpecUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveCardIDs(ids...)
+	return _u.RemoveCardIds(ids...)
 }
 
 // Where appends a list predicates to the SpecUpdate builder.
@@ -271,20 +271,20 @@ func (_u *SpecUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SpecUp
 }
 
 func (_u *SpecUpdateOne) sqlSave(ctx context.Context) (_node *Spec, err error) {
-	_spec := sqlgraph.NewUpdateSpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Spec.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, spec.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, spec.FieldId)
 		for _, f := range fields {
 			if !spec.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != spec.FieldID {
+			if f != spec.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -304,12 +304,12 @@ func (_u *SpecUpdateOne) sqlSave(ctx context.Context) (_node *Spec, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedCardIDs(); len(nodes) > 0 && !_u.mutation.CardCleared() {
+	if nodes := _u.mutation.RemovedCardIds(); len(nodes) > 0 && !_u.mutation.CardCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -317,7 +317,7 @@ func (_u *SpecUpdateOne) sqlSave(ctx context.Context) (_node *Spec, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -325,7 +325,7 @@ func (_u *SpecUpdateOne) sqlSave(ctx context.Context) (_node *Spec, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -333,7 +333,7 @@ func (_u *SpecUpdateOne) sqlSave(ctx context.Context) (_node *Spec, err error) {
 			Columns: spec.CardPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

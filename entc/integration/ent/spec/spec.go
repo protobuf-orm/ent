@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the spec type in the database.
 	Label = "spec"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeCard holds the string denoting the card edge name in mutations.
 	EdgeCard = "card"
 	// Table holds the table name of the spec in the database.
@@ -27,9 +27,9 @@ const (
 	CardInverseTable = "card"
 )
 
-// Columns holds all SQL columns for spec fields.
+// Columns holds all Sql columns for spec fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 var (
@@ -51,9 +51,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Spec queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByCardCount orders the results by card count.
@@ -71,8 +71,8 @@ func ByCard(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newCardStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, CardTable, CardPrimaryKey...),
 	)
 }

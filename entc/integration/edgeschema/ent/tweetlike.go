@@ -23,10 +23,10 @@ type TweetLike struct {
 	config `json:"-"`
 	// LikedAt holds the value of the "liked_at" field.
 	LikedAt time.Time `json:"liked_at,omitempty"`
-	// UserID holds the value of the "user_id" field.
-	UserID int `json:"user_id,omitempty"`
-	// TweetID holds the value of the "tweet_id" field.
-	TweetID int `json:"tweet_id,omitempty"`
+	// UserId holds the value of the "user_id" field.
+	UserId int `json:"user_id,omitempty"`
+	// TweetId holds the value of the "tweet_id" field.
+	TweetId int `json:"tweet_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TweetLikeQuery when eager-loading is set.
 	Edges        TweetLikeEdges `json:"edges"`
@@ -71,7 +71,7 @@ func (*TweetLike) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case tweetlike.FieldUserID, tweetlike.FieldTweetID:
+		case tweetlike.FieldUserId, tweetlike.FieldTweetId:
 			values[i] = new(sql.NullInt64)
 		case tweetlike.FieldLikedAt:
 			values[i] = new(sql.NullTime)
@@ -96,17 +96,17 @@ func (_m *TweetLike) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.LikedAt = value.Time
 			}
-		case tweetlike.FieldUserID:
+		case tweetlike.FieldUserId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
 			} else if value.Valid {
-				_m.UserID = int(value.Int64)
+				_m.UserId = int(value.Int64)
 			}
-		case tweetlike.FieldTweetID:
+		case tweetlike.FieldTweetId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field tweet_id", values[i])
 			} else if value.Valid {
-				_m.TweetID = int(value.Int64)
+				_m.TweetId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -157,10 +157,10 @@ func (_m *TweetLike) String() string {
 	builder.WriteString(_m.LikedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("user_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
+	builder.WriteString(fmt.Sprintf("%v", _m.UserId))
 	builder.WriteString(", ")
 	builder.WriteString("tweet_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.TweetID))
+	builder.WriteString(fmt.Sprintf("%v", _m.TweetId))
 	builder.WriteByte(')')
 	return builder.String()
 }

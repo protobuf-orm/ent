@@ -48,42 +48,42 @@ func (_u *UserGroupUpdate) SetNillableJoinedAt(v *time.Time) *UserGroupUpdate {
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *UserGroupUpdate) SetUserID(v int) *UserGroupUpdate {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *UserGroupUpdate) SetUserId(v int) *UserGroupUpdate {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *UserGroupUpdate) SetNillableUserID(v *int) *UserGroupUpdate {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableUserId(v *int) *UserGroupUpdate {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
-// SetGroupID sets the "group_id" field.
-func (_u *UserGroupUpdate) SetGroupID(v int) *UserGroupUpdate {
-	_u.mutation.SetGroupID(v)
+// SetGroupId sets the "group_id" field.
+func (_u *UserGroupUpdate) SetGroupId(v int) *UserGroupUpdate {
+	_u.mutation.SetGroupId(v)
 	return _u
 }
 
-// SetNillableGroupID sets the "group_id" field if the given value is not nil.
-func (_u *UserGroupUpdate) SetNillableGroupID(v *int) *UserGroupUpdate {
+// SetNillableGroupId sets the "group_id" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableGroupId(v *int) *UserGroupUpdate {
 	if v != nil {
-		_u.SetGroupID(*v)
+		_u.SetGroupId(*v)
 	}
 	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *UserGroupUpdate) SetUser(v *User) *UserGroupUpdate {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // SetGroup sets the "group" edge to the Group entity.
 func (_u *UserGroupUpdate) SetGroup(v *Group) *UserGroupUpdate {
-	return _u.SetGroupID(v.ID)
+	return _u.SetGroupId(v.Id)
 }
 
 // Mutation returns the UserGroupMutation object of the builder.
@@ -132,10 +132,10 @@ func (_u *UserGroupUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *UserGroupUpdate) check() error {
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "UserGroup.user"`)
 	}
-	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "UserGroup.group"`)
 	}
 	return nil
@@ -145,7 +145,7 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(usergroup.Table, usergroup.Columns, sqlgraph.NewFieldSpec(usergroup.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(usergroup.Table, usergroup.Columns, sqlgraph.NewFieldSpec(usergroup.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -164,12 +164,12 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{usergroup.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -177,7 +177,7 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{usergroup.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -193,12 +193,12 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{usergroup.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -206,7 +206,7 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{usergroup.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -248,42 +248,42 @@ func (_u *UserGroupUpdateOne) SetNillableJoinedAt(v *time.Time) *UserGroupUpdate
 	return _u
 }
 
-// SetUserID sets the "user_id" field.
-func (_u *UserGroupUpdateOne) SetUserID(v int) *UserGroupUpdateOne {
-	_u.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_u *UserGroupUpdateOne) SetUserId(v int) *UserGroupUpdateOne {
+	_u.mutation.SetUserId(v)
 	return _u
 }
 
-// SetNillableUserID sets the "user_id" field if the given value is not nil.
-func (_u *UserGroupUpdateOne) SetNillableUserID(v *int) *UserGroupUpdateOne {
+// SetNillableUserId sets the "user_id" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableUserId(v *int) *UserGroupUpdateOne {
 	if v != nil {
-		_u.SetUserID(*v)
+		_u.SetUserId(*v)
 	}
 	return _u
 }
 
-// SetGroupID sets the "group_id" field.
-func (_u *UserGroupUpdateOne) SetGroupID(v int) *UserGroupUpdateOne {
-	_u.mutation.SetGroupID(v)
+// SetGroupId sets the "group_id" field.
+func (_u *UserGroupUpdateOne) SetGroupId(v int) *UserGroupUpdateOne {
+	_u.mutation.SetGroupId(v)
 	return _u
 }
 
-// SetNillableGroupID sets the "group_id" field if the given value is not nil.
-func (_u *UserGroupUpdateOne) SetNillableGroupID(v *int) *UserGroupUpdateOne {
+// SetNillableGroupId sets the "group_id" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableGroupId(v *int) *UserGroupUpdateOne {
 	if v != nil {
-		_u.SetGroupID(*v)
+		_u.SetGroupId(*v)
 	}
 	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_u *UserGroupUpdateOne) SetUser(v *User) *UserGroupUpdateOne {
-	return _u.SetUserID(v.ID)
+	return _u.SetUserId(v.Id)
 }
 
 // SetGroup sets the "group" edge to the Group entity.
 func (_u *UserGroupUpdateOne) SetGroup(v *Group) *UserGroupUpdateOne {
-	return _u.SetGroupID(v.ID)
+	return _u.SetGroupId(v.Id)
 }
 
 // Mutation returns the UserGroupMutation object of the builder.
@@ -345,10 +345,10 @@ func (_u *UserGroupUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *UserGroupUpdateOne) check() error {
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "UserGroup.user"`)
 	}
-	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "UserGroup.group"`)
 	}
 	return nil
@@ -358,20 +358,20 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(usergroup.Table, usergroup.Columns, sqlgraph.NewFieldSpec(usergroup.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(usergroup.Table, usergroup.Columns, sqlgraph.NewFieldSpec(usergroup.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "UserGroup.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, usergroup.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, usergroup.FieldId)
 		for _, f := range fields {
 			if !usergroup.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != usergroup.FieldID {
+			if f != usergroup.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -394,12 +394,12 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 			Columns: []string{usergroup.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -407,7 +407,7 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 			Columns: []string{usergroup.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -423,12 +423,12 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 			Columns: []string{usergroup.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -436,7 +436,7 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 			Columns: []string{usergroup.GroupColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

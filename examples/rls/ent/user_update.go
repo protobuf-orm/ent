@@ -41,24 +41,24 @@ func (_u *UserUpdate) SetNillableName(v *string) *UserUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *UserUpdate) SetTenantID(v int) *UserUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
+// SetTenantId sets the "tenant_id" field.
+func (_u *UserUpdate) SetTenantId(v int) *UserUpdate {
+	_u.mutation.ResetTenantId()
+	_u.mutation.SetTenantId(v)
 	return _u
 }
 
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UserUpdate) SetNillableTenantID(v *int) *UserUpdate {
+// SetNillableTenantId sets the "tenant_id" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableTenantId(v *int) *UserUpdate {
 	if v != nil {
-		_u.SetTenantID(*v)
+		_u.SetTenantId(*v)
 	}
 	return _u
 }
 
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UserUpdate) AddTenantID(v int) *UserUpdate {
-	_u.mutation.AddTenantID(v)
+// AddTenantId adds value to the "tenant_id" field.
+func (_u *UserUpdate) AddTenantId(v int) *UserUpdate {
+	_u.mutation.AddTenantId(v)
 	return _u
 }
 
@@ -95,7 +95,7 @@ func (_u *UserUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -106,11 +106,11 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(user.FieldTenantID, field.TypeInt, value)
+	if value, ok := _u.mutation.TenantId(); ok {
+		_spec.SetField(user.FieldTenantId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(user.FieldTenantID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedTenantId(); ok {
+		_spec.AddField(user.FieldTenantId, field.TypeInt, value)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -146,24 +146,24 @@ func (_u *UserUpdateOne) SetNillableName(v *string) *UserUpdateOne {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *UserUpdateOne) SetTenantID(v int) *UserUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
+// SetTenantId sets the "tenant_id" field.
+func (_u *UserUpdateOne) SetTenantId(v int) *UserUpdateOne {
+	_u.mutation.ResetTenantId()
+	_u.mutation.SetTenantId(v)
 	return _u
 }
 
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableTenantID(v *int) *UserUpdateOne {
+// SetNillableTenantId sets the "tenant_id" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableTenantId(v *int) *UserUpdateOne {
 	if v != nil {
-		_u.SetTenantID(*v)
+		_u.SetTenantId(*v)
 	}
 	return _u
 }
 
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UserUpdateOne) AddTenantID(v int) *UserUpdateOne {
-	_u.mutation.AddTenantID(v)
+// AddTenantId adds value to the "tenant_id" field.
+func (_u *UserUpdateOne) AddTenantId(v int) *UserUpdateOne {
+	_u.mutation.AddTenantId(v)
 	return _u
 }
 
@@ -213,20 +213,20 @@ func (_u *UserUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != user.FieldID {
+			if f != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -241,11 +241,11 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(user.FieldTenantID, field.TypeInt, value)
+	if value, ok := _u.mutation.TenantId(); ok {
+		_spec.SetField(user.FieldTenantId, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(user.FieldTenantID, field.TypeInt, value)
+	if value, ok := _u.mutation.AddedTenantId(); ok {
+		_spec.AddField(user.FieldTenantId, field.TypeInt, value)
 	}
 	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues

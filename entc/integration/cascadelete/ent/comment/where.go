@@ -12,49 +12,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Comment {
-	return predicate.Comment(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Comment {
+	return predicate.Comment(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Comment {
-	return predicate.Comment(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Comment {
+	return predicate.Comment(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Comment {
-	return predicate.Comment(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Comment {
+	return predicate.Comment(sql.FieldLTE(FieldId, id))
 }
 
 // Text applies equality check predicate on the "text" field. It's identical to TextEQ.
@@ -62,9 +62,9 @@ func Text(v string) predicate.Comment {
 	return predicate.Comment(sql.FieldEQ(FieldText, v))
 }
 
-// PostID applies equality check predicate on the "post_id" field. It's identical to PostIDEQ.
-func PostID(v int) predicate.Comment {
-	return predicate.Comment(sql.FieldEQ(FieldPostID, v))
+// PostId applies equality check predicate on the "post_id" field. It's identical to PostIdEQ.
+func PostId(v int) predicate.Comment {
+	return predicate.Comment(sql.FieldEQ(FieldPostId, v))
 }
 
 // TextEQ applies the EQ predicate on the "text" field.
@@ -132,31 +132,31 @@ func TextContainsFold(v string) predicate.Comment {
 	return predicate.Comment(sql.FieldContainsFold(FieldText, v))
 }
 
-// PostIDEQ applies the EQ predicate on the "post_id" field.
-func PostIDEQ(v int) predicate.Comment {
-	return predicate.Comment(sql.FieldEQ(FieldPostID, v))
+// PostIdEQ applies the EQ predicate on the "post_id" field.
+func PostIdEQ(v int) predicate.Comment {
+	return predicate.Comment(sql.FieldEQ(FieldPostId, v))
 }
 
-// PostIDNEQ applies the NEQ predicate on the "post_id" field.
-func PostIDNEQ(v int) predicate.Comment {
-	return predicate.Comment(sql.FieldNEQ(FieldPostID, v))
+// PostIdNEQ applies the NEQ predicate on the "post_id" field.
+func PostIdNEQ(v int) predicate.Comment {
+	return predicate.Comment(sql.FieldNEQ(FieldPostId, v))
 }
 
-// PostIDIn applies the In predicate on the "post_id" field.
-func PostIDIn(vs ...int) predicate.Comment {
-	return predicate.Comment(sql.FieldIn(FieldPostID, vs...))
+// PostIdIn applies the In predicate on the "post_id" field.
+func PostIdIn(vs ...int) predicate.Comment {
+	return predicate.Comment(sql.FieldIn(FieldPostId, vs...))
 }
 
-// PostIDNotIn applies the NotIn predicate on the "post_id" field.
-func PostIDNotIn(vs ...int) predicate.Comment {
-	return predicate.Comment(sql.FieldNotIn(FieldPostID, vs...))
+// PostIdNotIn applies the NotIn predicate on the "post_id" field.
+func PostIdNotIn(vs ...int) predicate.Comment {
+	return predicate.Comment(sql.FieldNotIn(FieldPostId, vs...))
 }
 
 // HasPost applies the HasEdge predicate on the "post" edge.
 func HasPost() predicate.Comment {
 	return predicate.Comment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, PostTable, PostColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

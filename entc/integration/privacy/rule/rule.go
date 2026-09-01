@@ -77,8 +77,8 @@ func AllowTaskCreateIfOwner() privacy.MutationRule {
 		if !ok {
 			return privacy.Skip
 		}
-		id, exists := m.OwnerID()
-		if exists && view.User.ID == id {
+		id, exists := m.OwnerId()
+		if exists && view.User.Id == id {
 			return privacy.Allow
 		}
 		// Skip to the next privacy rule, that may accept or reject this operation.
@@ -115,7 +115,7 @@ func FilterUsesDep() privacy.QueryRule {
 			return privacy.Denyf("unexpected filter type %T", f)
 		}
 		// Access the dependency after the type is resolved.
-		_ = u.HTTPClient
+		_ = u.HttpClient
 		return privacy.Skip
 	})
 }
@@ -133,17 +133,17 @@ func DenyIfStatusChangedByOther() privacy.MutationRule {
 		if !ok || view.Admin() {
 			return privacy.Skip
 		}
-		id, ok := m.ID()
+		id, ok := m.Id()
 		if !ok {
 			return fmt.Errorf("missing task id")
 		}
-		owner, err := m.Client().User.Query().Where(user.HasTasksWith(task.ID(id))).Only(ctx)
+		owner, err := m.Client().User.Query().Where(user.HasTasksWith(task.Id(id))).Only(ctx)
 		if err != nil {
 			return err
 		}
 		// Deny the mutation, if the viewer is not the owner.
-		if owner.ID != view.User.ID {
-			return privacy.Denyf("viewer %d is not allowed to change the task status", view.User.ID)
+		if owner.Id != view.User.Id {
+			return privacy.Denyf("viewer %d is not allowed to change the task status", view.User.Id)
 		}
 		return privacy.Skip
 	})
@@ -162,7 +162,7 @@ func AllowIfViewerInTheSameTeam() privacy.MutationRule {
 		if err != nil {
 			return privacy.Denyf("getting team names: %w", err)
 		}
-		id, ok := m.ID()
+		id, ok := m.Id()
 		if !ok {
 			return fmt.Errorf("missing task id")
 		}
@@ -170,7 +170,7 @@ func AllowIfViewerInTheSameTeam() privacy.MutationRule {
 		// does not belong to the task namespace/team.
 		if _, err = m.Client().Task.Query().
 			Where(
-				task.ID(id),
+				task.Id(id),
 				task.HasTeamsWith(team.NameIn(teams...)),
 			).
 			Only(ctx); err != nil {

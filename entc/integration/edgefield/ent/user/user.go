@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldParentID holds the string denoting the parent_id field in the database.
-	FieldParentID = "parent_id"
-	// FieldSpouseID holds the string denoting the spouse_id field in the database.
-	FieldSpouseID = "spouse_id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldParentId holds the string denoting the parent_id field in the database.
+	FieldParentId = "parent_id"
+	// FieldSpouseId holds the string denoting the spouse_id field in the database.
+	FieldSpouseId = "spouse_id"
 	// EdgePets holds the string denoting the pets edge name in mutations.
 	EdgePets = "pets"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -87,11 +87,11 @@ const (
 	RentalsColumn = "user_id"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
-	FieldParentID,
-	FieldSpouseID,
+	FieldId,
+	FieldParentId,
+	FieldSpouseId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -107,19 +107,19 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByParentID orders the results by the parent_id field.
-func ByParentID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldParentID, opts...).ToFunc()
+// ByParentId orders the results by the parent_id field.
+func ByParentId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldParentId, opts...).ToFunc()
 }
 
-// BySpouseID orders the results by the spouse_id field.
-func BySpouseID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldSpouseID, opts...).ToFunc()
+// BySpouseId orders the results by the spouse_id field.
+func BySpouseId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSpouseId, opts...).ToFunc()
 }
 
 // ByPetsCount orders the results by pets count.
@@ -207,57 +207,57 @@ func ByRentals(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 	)
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 	)
 }
 func newSpouseStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, SpouseTable, SpouseColumn),
 	)
 }
 func newCardStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, CardTable, CardColumn),
 	)
 }
 func newMetadataStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(MetadataInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(MetadataInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, MetadataTable, MetadataColumn),
 	)
 }
 func newInfoStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(InfoInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(InfoInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, InfoTable, InfoColumn),
 	)
 }
 func newRentalsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(RentalsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(RentalsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, RentalsTable, RentalsColumn),
 	)
 }

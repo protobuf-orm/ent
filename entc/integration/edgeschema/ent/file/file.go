@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the file type in the database.
 	Label = "file"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgeProcesses holds the string denoting the processes edge name in mutations.
@@ -29,9 +29,9 @@ const (
 	ProcessesInverseTable = "process"
 )
 
-// Columns holds all SQL columns for file fields.
+// Columns holds all Sql columns for file fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
@@ -54,9 +54,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the File queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -79,8 +79,8 @@ func ByProcesses(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newProcessesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(ProcessesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(ProcessesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, ProcessesTable, ProcessesPrimaryKey...),
 	)
 }

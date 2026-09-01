@@ -16,24 +16,24 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
 )
 
-// IntSID is the model entity for the IntSID schema.
-type IntSID struct {
+// IntSId is the model entity for the IntSId schema.
+type IntSId struct {
 	config
-	// ID of the ent.
-	ID sid.ID `json:"id,omitempty"`
+	// Id of the ent.
+	Id sid.Id `json:"id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
-	// The values are being populated by the IntSIDQuery when eager-loading is set.
-	Edges          IntSIDEdges `json:"edges"`
-	int_sid_parent *sid.ID
+	// The values are being populated by the IntSIdQuery when eager-loading is set.
+	Edges          IntSIdEdges `json:"edges"`
+	int_sid_parent *sid.Id
 	selectValues   sql.SelectValues
 }
 
-// IntSIDEdges holds the relations/edges for other nodes in the graph.
-type IntSIDEdges struct {
+// IntSIdEdges holds the relations/edges for other nodes in the graph.
+type IntSIdEdges struct {
 	// Parent holds the value of the parent edge.
-	Parent *IntSID `json:"parent,omitempty"`
+	Parent *IntSId `json:"parent,omitempty"`
 	// Children holds the value of the children edge.
-	Children []*IntSID `json:"children,omitempty"`
+	Children []*IntSId `json:"children,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
@@ -41,7 +41,7 @@ type IntSIDEdges struct {
 
 // ParentOrErr returns the Parent value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e IntSIDEdges) ParentOrErr() (*IntSID, error) {
+func (e IntSIdEdges) ParentOrErr() (*IntSId, error) {
 	if e.Parent != nil {
 		return e.Parent, nil
 	} else if e.loadedTypes[0] {
@@ -52,7 +52,7 @@ func (e IntSIDEdges) ParentOrErr() (*IntSID, error) {
 
 // ChildrenOrErr returns the Children value or an error if the edge
 // was not loaded in eager-loading.
-func (e IntSIDEdges) ChildrenOrErr() ([]*IntSID, error) {
+func (e IntSIdEdges) ChildrenOrErr() ([]*IntSId, error) {
 	if e.loadedTypes[1] {
 		return e.Children, nil
 	}
@@ -60,14 +60,14 @@ func (e IntSIDEdges) ChildrenOrErr() ([]*IntSID, error) {
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
-func (*IntSID) scanValues(columns []string) ([]any, error) {
+func (*IntSId) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case intsid.FieldID:
-			values[i] = new(sid.ID)
+		case intsid.FieldId:
+			values[i] = new(sid.Id)
 		case intsid.ForeignKeys[0]: // int_sid_parent
-			values[i] = &sql.NullScanner{S: new(sid.ID)}
+			values[i] = &sql.NullScanner{S: new(sid.Id)}
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -76,25 +76,25 @@ func (*IntSID) scanValues(columns []string) ([]any, error) {
 }
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
-// to the IntSID fields.
-func (_m *IntSID) assignValues(columns []string, values []any) error {
+// to the IntSId fields.
+func (_m *IntSId) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
 	for i := range columns {
 		switch columns[i] {
-		case intsid.FieldID:
-			if value, ok := values[i].(*sid.ID); !ok {
+		case intsid.FieldId:
+			if value, ok := values[i].(*sid.Id); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case intsid.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullScanner); !ok {
 				return fmt.Errorf("unexpected type %T for field int_sid_parent", values[i])
 			} else if value.Valid {
-				_m.int_sid_parent = new(sid.ID)
-				*_m.int_sid_parent = *value.S.(*sid.ID)
+				_m.int_sid_parent = new(sid.Id)
+				*_m.int_sid_parent = *value.S.(*sid.Id)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -103,48 +103,48 @@ func (_m *IntSID) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// Value returns the ent.Value that was dynamically selected and assigned to the IntSID.
+// Value returns the ent.Value that was dynamically selected and assigned to the IntSId.
 // This includes values selected through modifiers, order, etc.
-func (_m *IntSID) Value(name string) (ent.Value, error) {
+func (_m *IntSId) Value(name string) (ent.Value, error) {
 	return _m.selectValues.Get(name)
 }
 
-// QueryParent queries the "parent" edge of the IntSID entity.
-func (_m *IntSID) QueryParent() *IntSIDQuery {
-	return NewIntSIDClient(_m.config).QueryParent(_m)
+// QueryParent queries the "parent" edge of the IntSId entity.
+func (_m *IntSId) QueryParent() *IntSIdQuery {
+	return NewIntSIdClient(_m.config).QueryParent(_m)
 }
 
-// QueryChildren queries the "children" edge of the IntSID entity.
-func (_m *IntSID) QueryChildren() *IntSIDQuery {
-	return NewIntSIDClient(_m.config).QueryChildren(_m)
+// QueryChildren queries the "children" edge of the IntSId entity.
+func (_m *IntSId) QueryChildren() *IntSIdQuery {
+	return NewIntSIdClient(_m.config).QueryChildren(_m)
 }
 
-// Update returns a builder for updating this IntSID.
-// Note that you need to call IntSID.Unwrap() before calling this method if this IntSID
+// Update returns a builder for updating this IntSId.
+// Note that you need to call IntSId.Unwrap() before calling this method if this IntSId
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (_m *IntSID) Update() *IntSIDUpdateOne {
-	return NewIntSIDClient(_m.config).UpdateOne(_m)
+func (_m *IntSId) Update() *IntSIdUpdateOne {
+	return NewIntSIdClient(_m.config).UpdateOne(_m)
 }
 
-// Unwrap unwraps the IntSID entity that was returned from a transaction after it was closed,
+// Unwrap unwraps the IntSId entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (_m *IntSID) Unwrap() *IntSID {
+func (_m *IntSId) Unwrap() *IntSId {
 	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: IntSID is not a transactional entity")
+		panic("ent: IntSId is not a transactional entity")
 	}
 	_m.config.driver = _tx.drv
 	return _m
 }
 
 // String implements the fmt.Stringer.
-func (_m *IntSID) String() string {
+func (_m *IntSId) String() string {
 	var builder strings.Builder
-	builder.WriteString("IntSID(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString("IntSId(")
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }
 
-// IntSIDList is a parsable slice of IntSID.
-type IntSIDList []*IntSID
+// IntSIdList is a parsable slice of IntSId.
+type IntSIdList []*IntSId

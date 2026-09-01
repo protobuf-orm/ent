@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the groupinfo type in the database.
 	Label = "group_info"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldDesc holds the string denoting the desc field in the database.
 	FieldDesc = "desc"
 	// FieldMaxUsers holds the string denoting the max_users field in the database.
@@ -33,9 +33,9 @@ const (
 	GroupsColumn = "group_info"
 )
 
-// Columns holds all SQL columns for groupinfo fields.
+// Columns holds all Sql columns for groupinfo fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldDesc,
 	FieldMaxUsers,
 }
@@ -58,9 +58,9 @@ var (
 // OrderOption defines the ordering options for the GroupInfo queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByDesc orders the results by the desc field.
@@ -88,8 +88,8 @@ func ByGroups(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, GroupsTable, GroupsColumn),
 	)
 }

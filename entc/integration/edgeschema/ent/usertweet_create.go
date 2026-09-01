@@ -42,26 +42,26 @@ func (_c *UserTweetCreate) SetNillableCreatedAt(v *time.Time) *UserTweetCreate {
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *UserTweetCreate) SetUserID(v int) *UserTweetCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *UserTweetCreate) SetUserId(v int) *UserTweetCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (_c *UserTweetCreate) SetTweetID(v int) *UserTweetCreate {
-	_c.mutation.SetTweetID(v)
+// SetTweetId sets the "tweet_id" field.
+func (_c *UserTweetCreate) SetTweetId(v int) *UserTweetCreate {
+	_c.mutation.SetTweetId(v)
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *UserTweetCreate) SetUser(v *User) *UserTweetCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
 // SetTweet sets the "tweet" edge to the Tweet entity.
 func (_c *UserTweetCreate) SetTweet(v *Tweet) *UserTweetCreate {
-	return _c.SetTweetID(v.ID)
+	return _c.SetTweetId(v.Id)
 }
 
 // Mutation returns the UserTweetMutation object of the builder.
@@ -110,16 +110,16 @@ func (_c *UserTweetCreate) check() error {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "UserTweet.created_at"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "UserTweet.user_id"`)}
 	}
-	if _, ok := _c.mutation.TweetID(); !ok {
+	if _, ok := _c.mutation.TweetId(); !ok {
 		return &ValidationError{Name: "tweet_id", err: errors.New(`ent: missing required field "UserTweet.tweet_id"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "UserTweet.user"`)}
 	}
-	if len(_c.mutation.TweetIDs()) == 0 {
+	if len(_c.mutation.TweetIds()) == 0 {
 		return &ValidationError{Name: "tweet", err: errors.New(`ent: missing required edge "UserTweet.tweet"`)}
 	}
 	return nil
@@ -136,9 +136,9 @@ func (_c *UserTweetCreate) sqlSave(ctx context.Context) (*UserTweet, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -146,14 +146,14 @@ func (_c *UserTweetCreate) sqlSave(ctx context.Context) (*UserTweet, error) {
 func (_c *UserTweetCreate) createSpec() (*UserTweet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &UserTweet{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(usertweet.Table, sqlgraph.NewFieldSpec(usertweet.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(usertweet.Table, sqlgraph.NewFieldSpec(usertweet.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(usertweet.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -161,16 +161,16 @@ func (_c *UserTweetCreate) createSpec() (*UserTweet, *sqlgraph.CreateSpec) {
 			Columns: []string{usertweet.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -178,13 +178,13 @@ func (_c *UserTweetCreate) createSpec() (*UserTweet, *sqlgraph.CreateSpec) {
 			Columns: []string{usertweet.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.TweetID = nodes[0]
+		_node.TweetId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -251,27 +251,27 @@ func (u *UserTweetUpsert) UpdateCreatedAt() *UserTweetUpsert {
 	return u
 }
 
-// SetUserID sets the "user_id" field.
-func (u *UserTweetUpsert) SetUserID(v int) *UserTweetUpsert {
-	u.Set(usertweet.FieldUserID, v)
+// SetUserId sets the "user_id" field.
+func (u *UserTweetUpsert) SetUserId(v int) *UserTweetUpsert {
+	u.Set(usertweet.FieldUserId, v)
 	return u
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *UserTweetUpsert) UpdateUserID() *UserTweetUpsert {
-	u.SetExcluded(usertweet.FieldUserID)
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *UserTweetUpsert) UpdateUserId() *UserTweetUpsert {
+	u.SetExcluded(usertweet.FieldUserId)
 	return u
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *UserTweetUpsert) SetTweetID(v int) *UserTweetUpsert {
-	u.Set(usertweet.FieldTweetID, v)
+// SetTweetId sets the "tweet_id" field.
+func (u *UserTweetUpsert) SetTweetId(v int) *UserTweetUpsert {
+	u.Set(usertweet.FieldTweetId, v)
 	return u
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *UserTweetUpsert) UpdateTweetID() *UserTweetUpsert {
-	u.SetExcluded(usertweet.FieldTweetID)
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *UserTweetUpsert) UpdateTweetId() *UserTweetUpsert {
+	u.SetExcluded(usertweet.FieldTweetId)
 	return u
 }
 
@@ -300,7 +300,7 @@ func (u *UserTweetUpsertOne) Ignore() *UserTweetUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserTweetUpsertOne) DoNothing() *UserTweetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -329,31 +329,31 @@ func (u *UserTweetUpsertOne) UpdateCreatedAt() *UserTweetUpsertOne {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *UserTweetUpsertOne) SetUserID(v int) *UserTweetUpsertOne {
+// SetUserId sets the "user_id" field.
+func (u *UserTweetUpsertOne) SetUserId(v int) *UserTweetUpsertOne {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *UserTweetUpsertOne) UpdateUserID() *UserTweetUpsertOne {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *UserTweetUpsertOne) UpdateUserId() *UserTweetUpsertOne {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *UserTweetUpsertOne) SetTweetID(v int) *UserTweetUpsertOne {
+// SetTweetId sets the "tweet_id" field.
+func (u *UserTweetUpsertOne) SetTweetId(v int) *UserTweetUpsertOne {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *UserTweetUpsertOne) UpdateTweetID() *UserTweetUpsertOne {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *UserTweetUpsertOne) UpdateTweetId() *UserTweetUpsertOne {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 
@@ -372,18 +372,18 @@ func (u *UserTweetUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *UserTweetUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *UserTweetUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *UserTweetUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *UserTweetUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -436,10 +436,10 @@ func (_c *UserTweetCreateBulk) Save(ctx context.Context) ([]*UserTweet, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -546,7 +546,7 @@ func (u *UserTweetUpsertBulk) Ignore() *UserTweetUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserTweetUpsertBulk) DoNothing() *UserTweetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -575,31 +575,31 @@ func (u *UserTweetUpsertBulk) UpdateCreatedAt() *UserTweetUpsertBulk {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *UserTweetUpsertBulk) SetUserID(v int) *UserTweetUpsertBulk {
+// SetUserId sets the "user_id" field.
+func (u *UserTweetUpsertBulk) SetUserId(v int) *UserTweetUpsertBulk {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *UserTweetUpsertBulk) UpdateUserID() *UserTweetUpsertBulk {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *UserTweetUpsertBulk) UpdateUserId() *UserTweetUpsertBulk {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *UserTweetUpsertBulk) SetTweetID(v int) *UserTweetUpsertBulk {
+// SetTweetId sets the "tweet_id" field.
+func (u *UserTweetUpsertBulk) SetTweetId(v int) *UserTweetUpsertBulk {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *UserTweetUpsertBulk) UpdateTweetID() *UserTweetUpsertBulk {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *UserTweetUpsertBulk) UpdateTweetId() *UserTweetUpsertBulk {
 	return u.Update(func(s *UserTweetUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 

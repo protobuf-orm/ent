@@ -21,15 +21,15 @@ import (
 	"ariga.io/atlas/sql/schema"
 )
 
-// MySQL adapter for Atlas migration engine.
-type MySQL struct {
+// MySql adapter for Atlas migration engine.
+type MySql struct {
 	dialect.Driver
 	schema  string
 	version string
 }
 
-// init loads the MySQL version from the database for later use in the migration process.
-func (d *MySQL) init(ctx context.Context) error {
+// init loads the MySql version from the database for later use in the migration process.
+func (d *MySql) init(ctx context.Context) error {
 	if d.version != "" {
 		return nil // already initialized.
 	}
@@ -52,7 +52,7 @@ func (d *MySQL) init(ctx context.Context) error {
 	return nil
 }
 
-func (d *MySQL) tableExist(ctx context.Context, conn dialect.ExecQuerier, name string) (bool, error) {
+func (d *MySql) tableExist(ctx context.Context, conn dialect.ExecQuerier, name string) (bool, error) {
 	query, args := sql.Select(sql.Count("*")).From(sql.Table("TABLES").Schema("INFORMATION_SCHEMA")).
 		Where(sql.And(
 			d.matchSchema(),
@@ -62,7 +62,7 @@ func (d *MySQL) tableExist(ctx context.Context, conn dialect.ExecQuerier, name s
 }
 
 // matchSchema returns the predicate for matching table schema.
-func (d *MySQL) matchSchema(columns ...string) *sql.Predicate {
+func (d *MySql) matchSchema(columns ...string) *sql.Predicate {
 	column := "TABLE_SCHEMA"
 	if len(columns) > 0 {
 		column = columns[0]
@@ -73,11 +73,11 @@ func (d *MySQL) matchSchema(columns ...string) *sql.Predicate {
 	return sql.EQ(column, sql.Raw("(SELECT DATABASE())"))
 }
 
-func (d *MySQL) atOpen(conn dialect.ExecQuerier) (migrate.Driver, error) {
+func (d *MySql) atOpen(conn dialect.ExecQuerier) (migrate.Driver, error) {
 	return mysql.Open(&db{ExecQuerier: conn})
 }
 
-func (d *MySQL) atTable(t1 *Table, t2 *schema.Table) {
+func (d *MySql) atTable(t1 *Table, t2 *schema.Table) {
 	t2.SetCharset("utf8mb4").SetCollation("utf8mb4_bin")
 	if t1.Annotation == nil {
 		return
@@ -94,7 +94,7 @@ func (d *MySQL) atTable(t1 *Table, t2 *schema.Table) {
 		})
 	}
 	// Check if the connected database supports the CHECK clause.
-	// For MySQL, is >= "8.0.16" and for MariaDB it is "10.2.1".
+	// For MySql, is >= "8.0.16" and for MariaDB it is "10.2.1".
 	v1, v2 := d.version, "8.0.16"
 	if v, ok := d.mariadb(); ok {
 		v1, v2 = v, "10.2.1"
@@ -104,7 +104,7 @@ func (d *MySQL) atTable(t1 *Table, t2 *schema.Table) {
 	}
 }
 
-func (d *MySQL) supportsDefault(c *Column) bool {
+func (d *MySql) supportsDefault(c *Column) bool {
 	_, maria := d.mariadb()
 	switch c.Default.(type) {
 	case Expr, map[string]Expr:
@@ -117,14 +117,14 @@ func (d *MySQL) supportsDefault(c *Column) bool {
 	}
 }
 
-func (d *MySQL) supportsUUID() bool {
+func (d *MySql) supportsUuid() bool {
 	_, maria := d.mariadb()
 	return maria && compareVersions(d.version, "10.7.0") >= 0
 }
 
-func (d *MySQL) atTypeC(c1 *Column, c2 *schema.Column) error {
-	if c1.SchemaType != nil && c1.SchemaType[dialect.MySQL] != "" {
-		t, err := mysql.ParseType(strings.ToLower(c1.SchemaType[dialect.MySQL]))
+func (d *MySql) atTypeC(c1 *Column, c2 *schema.Column) error {
+	if c1.SchemaType != nil && c1.SchemaType[dialect.MySql] != "" {
+		t, err := mysql.ParseType(strings.ToLower(c1.SchemaType[dialect.MySql]))
 		if err != nil {
 			return err
 		}
@@ -166,7 +166,7 @@ func (d *MySQL) atTypeC(c1 *Column, c2 *schema.Column) error {
 		case size <= math.MaxUint32:
 			t = &schema.BinaryType{T: mysql.TypeLongBlob}
 		}
-	case field.TypeJSON:
+	case field.TypeJson:
 		t = &schema.JSONType{T: mysql.TypeJSON}
 		if compareVersions(d.version, "5.7.8") == -1 {
 			t = &schema.BinaryType{T: mysql.TypeLongBlob}
@@ -190,7 +190,7 @@ func (d *MySQL) atTypeC(c1 *Column, c2 *schema.Column) error {
 		t = &schema.FloatType{T: c1.scanTypeOr(mysql.TypeDouble)}
 	case field.TypeTime:
 		t = &schema.TimeType{T: c1.scanTypeOr(mysql.TypeTimestamp)}
-		// In MariaDB or in MySQL < v8.0.2, the TIMESTAMP column has both `DEFAULT CURRENT_TIMESTAMP`
+		// In MariaDB or in MySql < v8.0.2, the TIMESTAMP column has both `DEFAULT CURRENT_TIMESTAMP`
 		// and `ON UPDATE CURRENT_TIMESTAMP` if neither is specified explicitly. this behavior is
 		// suppressed if the column is defined with a `DEFAULT` clause or with the `NULL` attribute.
 		if _, maria := d.mariadb(); maria || compareVersions(d.version, "8.0.2") == -1 && c1.Default == nil {
@@ -198,13 +198,13 @@ func (d *MySQL) atTypeC(c1 *Column, c2 *schema.Column) error {
 		}
 	case field.TypeEnum:
 		t = &schema.EnumType{T: mysql.TypeEnum, Values: c1.Enums}
-	case field.TypeUUID:
-		if d.supportsUUID() {
+	case field.TypeUuid:
+		if d.supportsUuid() {
 			// Native support for the uuid type
 			t = &schema.UUIDType{T: mysql.TypeUUID}
 		} else {
-			// "CHAR(X) BINARY" is treated as "CHAR(X) COLLATE latin1_bin", and in MySQL < 8,
-			// and "COLLATE utf8mb4_bin" in MySQL >= 8. However we already set the table to
+			// "CHAR(X) BINARY" is treated as "CHAR(X) COLLATE latin1_bin", and in MySql < 8,
+			// and "COLLATE utf8mb4_bin" in MySql >= 8. However we already set the table to
 			t = &schema.StringType{T: mysql.TypeChar, Size: 36}
 			c2.SetCollation("utf8mb4_bin")
 		}
@@ -219,8 +219,8 @@ func (d *MySQL) atTypeC(c1 *Column, c2 *schema.Column) error {
 	return nil
 }
 
-func (d *MySQL) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Column) {
-	// For UNIQUE columns, MySQL create an implicit index
+func (d *MySql) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Column) {
+	// For UNIQUE columns, MySql create an implicit index
 	// named as the column with an extra index in case the
 	// name is already taken (<e.g. c>, <c_2>, <c_3>, ...).
 	for _, idx := range t1.Indexes {
@@ -232,7 +232,7 @@ func (d *MySQL) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Co
 	t2.AddIndexes(schema.NewUniqueIndex(c1.Name).AddColumns(c2))
 }
 
-func (d *MySQL) atIncrementC(t *schema.Table, c *schema.Column) {
+func (d *MySql) atIncrementC(t *schema.Table, c *schema.Column) {
 	if c.Default != nil {
 		t.Attrs = removeAttr(t.Attrs, reflect.TypeOf(&mysql.AutoIncrement{}))
 	} else {
@@ -240,13 +240,13 @@ func (d *MySQL) atIncrementC(t *schema.Table, c *schema.Column) {
 	}
 }
 
-func (d *MySQL) atIncrementT(t *schema.Table, v int64) {
+func (d *MySql) atIncrementT(t *schema.Table, v int64) {
 	if v >= 0 {
 		t.AddAttrs(mysql.NewAutoIncrement(uint64(v)))
 	}
 }
 
-func (d *MySQL) atImplicitIndexName(idx *Index, c1 *Column) bool {
+func (d *MySql) atImplicitIndexName(idx *Index, c1 *Column) bool {
 	if idx.Name == c1.Name {
 		return true
 	}
@@ -257,7 +257,7 @@ func (d *MySQL) atImplicitIndexName(idx *Index, c1 *Column) bool {
 	return err == nil && i > 1
 }
 
-func (d *MySQL) atIndex(idx1 *Index, t2 *schema.Table, idx2 *schema.Index) error {
+func (d *MySql) atIndex(idx1 *Index, t2 *schema.Table, idx2 *schema.Index) error {
 	prefix := indexParts(idx1)
 	for _, c1 := range idx1.Columns {
 		c2, ok := t2.Column(c1.Name)
@@ -270,13 +270,13 @@ func (d *MySQL) atIndex(idx1 *Index, t2 *schema.Table, idx2 *schema.Index) error
 		}
 		idx2.AddParts(part)
 	}
-	if t, ok := indexType(idx1, dialect.MySQL); ok {
+	if t, ok := indexType(idx1, dialect.MySql); ok {
 		idx2.AddAttrs(&mysql.IndexType{T: t})
 	}
 	return nil
 }
 
-func (*MySQL) atTypeRangeSQL(ts ...string) string {
+func (*MySql) atTypeRangeSql(ts ...string) string {
 	for i := range ts {
 		ts[i] = fmt.Sprintf("('%s')", ts[i])
 	}
@@ -284,7 +284,7 @@ func (*MySQL) atTypeRangeSQL(ts ...string) string {
 }
 
 // mariadb reports if the migration runs on MariaDB and returns the semver string.
-func (d *MySQL) mariadb() (string, bool) {
+func (d *MySql) mariadb() (string, bool) {
 	idx := strings.Index(d.version, "MariaDB")
 	if idx == -1 {
 		return "", false
@@ -292,17 +292,17 @@ func (d *MySQL) mariadb() (string, bool) {
 	return d.version[:idx-1], true
 }
 
-// defaultSize returns the default size for MySQL/MariaDB varchar type
+// defaultSize returns the default size for MySql/MariaDB varchar type
 // based on column size, charset and table indexes, in order to avoid
-// index prefix key limit (767) for older versions of MySQL/MariaDB.
-func (d *MySQL) defaultSize(c *Column) int64 {
+// index prefix key limit (767) for older versions of MySql/MariaDB.
+func (d *MySql) defaultSize(c *Column) int64 {
 	size := DefaultStringLen
 	version, checked := d.version, "5.7.0"
 	if v, ok := d.mariadb(); ok {
 		version, checked = v, "10.2.2"
 	}
 	switch {
-	// Version is >= 5.7 for MySQL, or >= 10.2.2 for MariaDB.
+	// Version is >= 5.7 for MySql, or >= 10.2.2 for MariaDB.
 	case compareVersions(version, checked) != -1:
 	// Column is non-unique, or not part of any index (reaching
 	// the error 1071).

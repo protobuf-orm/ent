@@ -30,15 +30,15 @@ func (_c *CommentCreate) SetText(v string) *CommentCreate {
 	return _c
 }
 
-// SetPostID sets the "post_id" field.
-func (_c *CommentCreate) SetPostID(v int) *CommentCreate {
-	_c.mutation.SetPostID(v)
+// SetPostId sets the "post_id" field.
+func (_c *CommentCreate) SetPostId(v int) *CommentCreate {
+	_c.mutation.SetPostId(v)
 	return _c
 }
 
 // SetPost sets the "post" edge to the Post entity.
 func (_c *CommentCreate) SetPost(v *Post) *CommentCreate {
-	return _c.SetPostID(v.ID)
+	return _c.SetPostId(v.Id)
 }
 
 // Mutation returns the CommentMutation object of the builder.
@@ -78,10 +78,10 @@ func (_c *CommentCreate) check() error {
 	if _, ok := _c.mutation.Text(); !ok {
 		return &ValidationError{Name: "text", err: errors.New(`ent: missing required field "Comment.text"`)}
 	}
-	if _, ok := _c.mutation.PostID(); !ok {
+	if _, ok := _c.mutation.PostId(); !ok {
 		return &ValidationError{Name: "post_id", err: errors.New(`ent: missing required field "Comment.post_id"`)}
 	}
-	if len(_c.mutation.PostIDs()) == 0 {
+	if len(_c.mutation.PostIds()) == 0 {
 		return &ValidationError{Name: "post", err: errors.New(`ent: missing required edge "Comment.post"`)}
 	}
 	return nil
@@ -98,9 +98,9 @@ func (_c *CommentCreate) sqlSave(ctx context.Context) (*Comment, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -108,13 +108,13 @@ func (_c *CommentCreate) sqlSave(ctx context.Context) (*Comment, error) {
 func (_c *CommentCreate) createSpec() (*Comment, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Comment{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(comment.Table, sqlgraph.NewFieldSpec(comment.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(comment.Table, sqlgraph.NewFieldSpec(comment.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(comment.FieldText, field.TypeString, value)
 		_node.Text = value
 	}
-	if nodes := _c.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.PostIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -122,13 +122,13 @@ func (_c *CommentCreate) createSpec() (*Comment, *sqlgraph.CreateSpec) {
 			Columns: []string{comment.PostColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.PostID = nodes[0]
+		_node.PostId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -177,10 +177,10 @@ func (_c *CommentCreateBulk) Save(ctx context.Context) ([]*Comment, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

@@ -36,9 +36,9 @@ func (_c *TweetCreate) SetText(v string) *TweetCreate {
 	return _c
 }
 
-// AddLikedUsersIDs adds the "liked_users" edge to the User entity by IDs.
-func (_c *TweetCreate) AddLikedUsersIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddLikedUsersIDs(ids...)
+// AddLikedUsersIds adds the "liked_users" edge to the User entity by Ids.
+func (_c *TweetCreate) AddLikedUsersIds(ids ...int) *TweetCreate {
+	_c.mutation.AddLikedUsersIds(ids...)
 	return _c
 }
 
@@ -46,14 +46,14 @@ func (_c *TweetCreate) AddLikedUsersIDs(ids ...int) *TweetCreate {
 func (_c *TweetCreate) AddLikedUsers(v ...*User) *TweetCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddLikedUsersIDs(ids...)
+	return _c.AddLikedUsersIds(ids...)
 }
 
-// AddUserIDs adds the "user" edge to the User entity by IDs.
-func (_c *TweetCreate) AddUserIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddUserIDs(ids...)
+// AddUserIds adds the "user" edge to the User entity by Ids.
+func (_c *TweetCreate) AddUserIds(ids ...int) *TweetCreate {
+	_c.mutation.AddUserIds(ids...)
 	return _c
 }
 
@@ -61,14 +61,14 @@ func (_c *TweetCreate) AddUserIDs(ids ...int) *TweetCreate {
 func (_c *TweetCreate) AddUser(v ...*User) *TweetCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddUserIDs(ids...)
+	return _c.AddUserIds(ids...)
 }
 
-// AddTagsIDs adds the "tags" edge to the Tag entity by IDs.
-func (_c *TweetCreate) AddTagsIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddTagsIDs(ids...)
+// AddTagsIds adds the "tags" edge to the Tag entity by Ids.
+func (_c *TweetCreate) AddTagsIds(ids ...int) *TweetCreate {
+	_c.mutation.AddTagsIds(ids...)
 	return _c
 }
 
@@ -76,14 +76,14 @@ func (_c *TweetCreate) AddTagsIDs(ids ...int) *TweetCreate {
 func (_c *TweetCreate) AddTags(v ...*Tag) *TweetCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTagsIDs(ids...)
+	return _c.AddTagsIds(ids...)
 }
 
-// AddTweetUserIDs adds the "tweet_user" edge to the UserTweet entity by IDs.
-func (_c *TweetCreate) AddTweetUserIDs(ids ...int) *TweetCreate {
-	_c.mutation.AddTweetUserIDs(ids...)
+// AddTweetUserIds adds the "tweet_user" edge to the UserTweet entity by Ids.
+func (_c *TweetCreate) AddTweetUserIds(ids ...int) *TweetCreate {
+	_c.mutation.AddTweetUserIds(ids...)
 	return _c
 }
 
@@ -91,14 +91,14 @@ func (_c *TweetCreate) AddTweetUserIDs(ids ...int) *TweetCreate {
 func (_c *TweetCreate) AddTweetUser(v ...*UserTweet) *TweetCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTweetUserIDs(ids...)
+	return _c.AddTweetUserIds(ids...)
 }
 
-// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_c *TweetCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TweetCreate {
-	_c.mutation.AddTweetTagsIDs(ids...)
+// AddTweetTagsIds adds the "tweet_tags" edge to the TweetTag entity by Ids.
+func (_c *TweetCreate) AddTweetTagsIds(ids ...uuid.UUID) *TweetCreate {
+	_c.mutation.AddTweetTagsIds(ids...)
 	return _c
 }
 
@@ -106,9 +106,9 @@ func (_c *TweetCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TweetCreate {
 func (_c *TweetCreate) AddTweetTags(v ...*TweetTag) *TweetCreate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTweetTagsIDs(ids...)
+	return _c.AddTweetTagsIds(ids...)
 }
 
 // Mutation returns the TweetMutation object of the builder.
@@ -162,9 +162,9 @@ func (_c *TweetCreate) sqlSave(ctx context.Context) (*Tweet, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -172,14 +172,14 @@ func (_c *TweetCreate) sqlSave(ctx context.Context) (*Tweet, error) {
 func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Tweet{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(tweet.Table, sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(tweet.Table, sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(tweet.FieldText, field.TypeString, value)
 		_node.Text = value
 	}
-	if nodes := _c.mutation.LikedUsersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.LikedUsersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -187,7 +187,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 			Columns: tweet.LikedUsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -199,7 +199,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -207,7 +207,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 			Columns: tweet.UserPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -219,7 +219,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TagsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TagsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -227,7 +227,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 			Columns: tweet.TagsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -237,12 +237,12 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 		createE.defaults()
 		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
-		if specE.ID.Value != nil {
-			edge.Target.Fields = append(edge.Target.Fields, specE.ID)
+		if specE.Id.Value != nil {
+			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetUserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetUserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -250,7 +250,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 			Columns: []string{tweet.TweetUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(usertweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(usertweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -258,7 +258,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetTagsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetTagsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -266,7 +266,7 @@ func (_c *TweetCreate) createSpec() (*Tweet, *sqlgraph.CreateSpec) {
 			Columns: []string{tweet.TweetTagsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweettag.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(tweettag.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -363,7 +363,7 @@ func (u *TweetUpsertOne) Ignore() *TweetUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetUpsertOne) DoNothing() *TweetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -407,18 +407,18 @@ func (u *TweetUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *TweetUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *TweetUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *TweetUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *TweetUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -470,10 +470,10 @@ func (_c *TweetCreateBulk) Save(ctx context.Context) ([]*Tweet, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -580,7 +580,7 @@ func (u *TweetUpsertBulk) Ignore() *TweetUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetUpsertBulk) DoNothing() *TweetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

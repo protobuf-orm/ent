@@ -17,8 +17,8 @@ import (
 const (
 	// Label holds the string label denoting the exvaluescan type in the database.
 	Label = "ex_value_scan"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldBinary holds the string denoting the binary field in the database.
 	FieldBinary = "binary"
 	// FieldBinaryBytes holds the string denoting the binary_bytes field in the database.
@@ -39,9 +39,9 @@ const (
 	Table = "ex_value_scan"
 )
 
-// Columns holds all SQL columns for exvaluescan fields.
+// Columns holds all Sql columns for exvaluescan fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldBinary,
 	FieldBinaryBytes,
 	FieldBinaryOptional,
@@ -79,9 +79,9 @@ var (
 // OrderOption defines the ordering options for the ExValueScan queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByBinary orders the results by the binary field.

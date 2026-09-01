@@ -80,8 +80,8 @@ func (_q *NodeQuery) QueryPrev() *NodeQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(node.Table, node.FieldID, selector),
-			sqlgraph.To(node.Table, node.FieldID),
+			sqlgraph.From(node.Table, node.FieldId, selector),
+			sqlgraph.To(node.Table, node.FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, true, node.PrevTable, node.PrevColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -102,8 +102,8 @@ func (_q *NodeQuery) QueryNext() *NodeQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(node.Table, node.FieldID, selector),
-			sqlgraph.To(node.Table, node.FieldID),
+			sqlgraph.From(node.Table, node.FieldId, selector),
+			sqlgraph.To(node.Table, node.FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, node.NextTable, node.NextColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -134,11 +134,11 @@ func (_q *NodeQuery) FirstX(ctx context.Context) *Node {
 	return node
 }
 
-// FirstID returns the first Node ID from the query.
-// Returns a *NotFoundError when no Node ID was found.
-func (_q *NodeQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Node Id from the query.
+// Returns a *NotFoundError when no Node Id was found.
+func (_q *NodeQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -148,9 +148,9 @@ func (_q *NodeQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *NodeQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *NodeQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -184,12 +184,12 @@ func (_q *NodeQuery) OnlyX(ctx context.Context) *Node {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Node ID in the query.
-// Returns a *NotSingularError when more than one Node ID is found.
+// OnlyId is like Only, but returns the only Node Id in the query.
+// Returns a *NotSingularError when more than one Node Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *NodeQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *NodeQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -203,9 +203,9 @@ func (_q *NodeQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *NodeQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *NodeQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -231,21 +231,21 @@ func (_q *NodeQuery) AllX(ctx context.Context) []*Node {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Node IDs.
-func (_q *NodeQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Node Ids.
+func (_q *NodeQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(node.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(node.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *NodeQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *NodeQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -273,7 +273,7 @@ func (_q *NodeQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *NodeQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -487,15 +487,15 @@ func (_q *NodeQuery) loadPrev(ctx context.Context, query *NodeQuery, nodes []*No
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(node.IDIn(ids...))
+	query.Where(node.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "node_next" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "node_next" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -507,8 +507,8 @@ func (_q *NodeQuery) loadNext(ctx context.Context, query *NodeQuery, nodes []*No
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Node)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 	}
 	query.withFKs = true
 	query.Where(predicate.Node(func(s *sql.Selector) {
@@ -521,11 +521,11 @@ func (_q *NodeQuery) loadNext(ctx context.Context, query *NodeQuery, nodes []*No
 	for _, n := range neighbors {
 		fk := n.node_next
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "node_next" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "node_next" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "node_next" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "node_next" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -545,7 +545,7 @@ func (_q *NodeQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *NodeQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -554,9 +554,9 @@ func (_q *NodeQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, node.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, node.FieldId)
 		for i := range fields {
-			if fields[i] != node.FieldID {
+			if fields[i] != node.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

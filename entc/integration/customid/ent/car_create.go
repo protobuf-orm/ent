@@ -26,30 +26,30 @@ type CarCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetBeforeID sets the "before_id" field.
-func (_c *CarCreate) SetBeforeID(v float64) *CarCreate {
-	_c.mutation.SetBeforeID(v)
+// SetBeforeId sets the "before_id" field.
+func (_c *CarCreate) SetBeforeId(v float64) *CarCreate {
+	_c.mutation.SetBeforeId(v)
 	return _c
 }
 
-// SetNillableBeforeID sets the "before_id" field if the given value is not nil.
-func (_c *CarCreate) SetNillableBeforeID(v *float64) *CarCreate {
+// SetNillableBeforeId sets the "before_id" field if the given value is not nil.
+func (_c *CarCreate) SetNillableBeforeId(v *float64) *CarCreate {
 	if v != nil {
-		_c.SetBeforeID(*v)
+		_c.SetBeforeId(*v)
 	}
 	return _c
 }
 
-// SetAfterID sets the "after_id" field.
-func (_c *CarCreate) SetAfterID(v float64) *CarCreate {
-	_c.mutation.SetAfterID(v)
+// SetAfterId sets the "after_id" field.
+func (_c *CarCreate) SetAfterId(v float64) *CarCreate {
+	_c.mutation.SetAfterId(v)
 	return _c
 }
 
-// SetNillableAfterID sets the "after_id" field if the given value is not nil.
-func (_c *CarCreate) SetNillableAfterID(v *float64) *CarCreate {
+// SetNillableAfterId sets the "after_id" field if the given value is not nil.
+func (_c *CarCreate) SetNillableAfterId(v *float64) *CarCreate {
 	if v != nil {
-		_c.SetAfterID(*v)
+		_c.SetAfterId(*v)
 	}
 	return _c
 }
@@ -60,29 +60,29 @@ func (_c *CarCreate) SetModel(v string) *CarCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *CarCreate) SetID(v int) *CarCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *CarCreate) SetId(v int) *CarCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetOwnerID sets the "owner" edge to the Pet entity by ID.
-func (_c *CarCreate) SetOwnerID(id string) *CarCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the Pet entity by Id.
+func (_c *CarCreate) SetOwnerId(id string) *CarCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the Pet entity by ID if the given value is not nil.
-func (_c *CarCreate) SetNillableOwnerID(id *string) *CarCreate {
+// SetNillableOwnerId sets the "owner" edge to the Pet entity by Id if the given value is not nil.
+func (_c *CarCreate) SetNillableOwnerId(id *string) *CarCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the Pet entity.
 func (_c *CarCreate) SetOwner(v *Pet) *CarCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -119,21 +119,21 @@ func (_c *CarCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *CarCreate) check() error {
-	if v, ok := _c.mutation.BeforeID(); ok {
-		if err := car.BeforeIDValidator(v); err != nil {
+	if v, ok := _c.mutation.BeforeId(); ok {
+		if err := car.BeforeIdValidator(v); err != nil {
 			return &ValidationError{Name: "before_id", err: fmt.Errorf(`ent: validator failed for field "Car.before_id": %w`, err)}
 		}
 	}
-	if v, ok := _c.mutation.AfterID(); ok {
-		if err := car.AfterIDValidator(v); err != nil {
+	if v, ok := _c.mutation.AfterId(); ok {
+		if err := car.AfterIdValidator(v); err != nil {
 			return &ValidationError{Name: "after_id", err: fmt.Errorf(`ent: validator failed for field "Car.after_id": %w`, err)}
 		}
 	}
 	if _, ok := _c.mutation.Model(); !ok {
 		return &ValidationError{Name: "model", err: errors.New(`ent: missing required field "Car.model"`)}
 	}
-	if v, ok := _c.mutation.ID(); ok {
-		if err := car.IDValidator(v); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := car.IdValidator(v); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Car.id": %w`, err)}
 		}
 	}
@@ -151,11 +151,11 @@ func (_c *CarCreate) sqlSave(ctx context.Context) (*Car, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -163,26 +163,26 @@ func (_c *CarCreate) sqlSave(ctx context.Context) (*Car, error) {
 func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Car{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(car.Table, sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(car.Table, sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
-	if value, ok := _c.mutation.BeforeID(); ok {
-		_spec.SetField(car.FieldBeforeID, field.TypeFloat64, value)
-		_node.BeforeID = value
+	if value, ok := _c.mutation.BeforeId(); ok {
+		_spec.SetField(car.FieldBeforeId, field.TypeFloat64, value)
+		_node.BeforeId = value
 	}
-	if value, ok := _c.mutation.AfterID(); ok {
-		_spec.SetField(car.FieldAfterID, field.TypeFloat64, value)
-		_node.AfterID = value
+	if value, ok := _c.mutation.AfterId(); ok {
+		_spec.SetField(car.FieldAfterId, field.TypeFloat64, value)
+		_node.AfterId = value
 	}
 	if value, ok := _c.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
 		_node.Model = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -190,7 +190,7 @@ func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 			Columns: []string{car.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -206,7 +206,7 @@ func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 // of the `INSERT` statement. For example:
 //
 //	client.Car.Create().
-//		SetBeforeID(v).
+//		SetBeforeId(v).
 //		OnConflict(
 //			// Update the row with the new values
 //			// the was proposed for insertion.
@@ -215,7 +215,7 @@ func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.CarUpsert) {
-//			SetBeforeID(v+v).
+//			SetBeforeId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *CarCreate) OnConflict(opts ...sql.ConflictOption) *CarUpsertOne {
@@ -251,51 +251,51 @@ type (
 	}
 )
 
-// SetBeforeID sets the "before_id" field.
-func (u *CarUpsert) SetBeforeID(v float64) *CarUpsert {
-	u.Set(car.FieldBeforeID, v)
+// SetBeforeId sets the "before_id" field.
+func (u *CarUpsert) SetBeforeId(v float64) *CarUpsert {
+	u.Set(car.FieldBeforeId, v)
 	return u
 }
 
-// UpdateBeforeID sets the "before_id" field to the value that was provided on create.
-func (u *CarUpsert) UpdateBeforeID() *CarUpsert {
-	u.SetExcluded(car.FieldBeforeID)
+// UpdateBeforeId sets the "before_id" field to the value that was provided on create.
+func (u *CarUpsert) UpdateBeforeId() *CarUpsert {
+	u.SetExcluded(car.FieldBeforeId)
 	return u
 }
 
-// AddBeforeID adds v to the "before_id" field.
-func (u *CarUpsert) AddBeforeID(v float64) *CarUpsert {
-	u.Add(car.FieldBeforeID, v)
+// AddBeforeId adds v to the "before_id" field.
+func (u *CarUpsert) AddBeforeId(v float64) *CarUpsert {
+	u.Add(car.FieldBeforeId, v)
 	return u
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (u *CarUpsert) ClearBeforeID() *CarUpsert {
-	u.SetNull(car.FieldBeforeID)
+// ClearBeforeId clears the value of the "before_id" field.
+func (u *CarUpsert) ClearBeforeId() *CarUpsert {
+	u.SetNull(car.FieldBeforeId)
 	return u
 }
 
-// SetAfterID sets the "after_id" field.
-func (u *CarUpsert) SetAfterID(v float64) *CarUpsert {
-	u.Set(car.FieldAfterID, v)
+// SetAfterId sets the "after_id" field.
+func (u *CarUpsert) SetAfterId(v float64) *CarUpsert {
+	u.Set(car.FieldAfterId, v)
 	return u
 }
 
-// UpdateAfterID sets the "after_id" field to the value that was provided on create.
-func (u *CarUpsert) UpdateAfterID() *CarUpsert {
-	u.SetExcluded(car.FieldAfterID)
+// UpdateAfterId sets the "after_id" field to the value that was provided on create.
+func (u *CarUpsert) UpdateAfterId() *CarUpsert {
+	u.SetExcluded(car.FieldAfterId)
 	return u
 }
 
-// AddAfterID adds v to the "after_id" field.
-func (u *CarUpsert) AddAfterID(v float64) *CarUpsert {
-	u.Add(car.FieldAfterID, v)
+// AddAfterId adds v to the "after_id" field.
+func (u *CarUpsert) AddAfterId(v float64) *CarUpsert {
+	u.Add(car.FieldAfterId, v)
 	return u
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (u *CarUpsert) ClearAfterID() *CarUpsert {
-	u.SetNull(car.FieldAfterID)
+// ClearAfterId clears the value of the "after_id" field.
+func (u *CarUpsert) ClearAfterId() *CarUpsert {
+	u.SetNull(car.FieldAfterId)
 	return u
 }
 
@@ -311,22 +311,22 @@ func (u *CarUpsert) UpdateModel() *CarUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Car.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(car.FieldID)
+//				u.SetIgnore(car.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *CarUpsertOne) UpdateNewValues() *CarUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(car.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(car.FieldId)
 		}
 	}))
 	return u
@@ -344,7 +344,7 @@ func (u *CarUpsertOne) Ignore() *CarUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *CarUpsertOne) DoNothing() *CarUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -359,59 +359,59 @@ func (u *CarUpsertOne) Update(set func(*CarUpsert)) *CarUpsertOne {
 	return u
 }
 
-// SetBeforeID sets the "before_id" field.
-func (u *CarUpsertOne) SetBeforeID(v float64) *CarUpsertOne {
+// SetBeforeId sets the "before_id" field.
+func (u *CarUpsertOne) SetBeforeId(v float64) *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.SetBeforeID(v)
+		s.SetBeforeId(v)
 	})
 }
 
-// AddBeforeID adds v to the "before_id" field.
-func (u *CarUpsertOne) AddBeforeID(v float64) *CarUpsertOne {
+// AddBeforeId adds v to the "before_id" field.
+func (u *CarUpsertOne) AddBeforeId(v float64) *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.AddBeforeID(v)
+		s.AddBeforeId(v)
 	})
 }
 
-// UpdateBeforeID sets the "before_id" field to the value that was provided on create.
-func (u *CarUpsertOne) UpdateBeforeID() *CarUpsertOne {
+// UpdateBeforeId sets the "before_id" field to the value that was provided on create.
+func (u *CarUpsertOne) UpdateBeforeId() *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.UpdateBeforeID()
+		s.UpdateBeforeId()
 	})
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (u *CarUpsertOne) ClearBeforeID() *CarUpsertOne {
+// ClearBeforeId clears the value of the "before_id" field.
+func (u *CarUpsertOne) ClearBeforeId() *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.ClearBeforeID()
+		s.ClearBeforeId()
 	})
 }
 
-// SetAfterID sets the "after_id" field.
-func (u *CarUpsertOne) SetAfterID(v float64) *CarUpsertOne {
+// SetAfterId sets the "after_id" field.
+func (u *CarUpsertOne) SetAfterId(v float64) *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.SetAfterID(v)
+		s.SetAfterId(v)
 	})
 }
 
-// AddAfterID adds v to the "after_id" field.
-func (u *CarUpsertOne) AddAfterID(v float64) *CarUpsertOne {
+// AddAfterId adds v to the "after_id" field.
+func (u *CarUpsertOne) AddAfterId(v float64) *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.AddAfterID(v)
+		s.AddAfterId(v)
 	})
 }
 
-// UpdateAfterID sets the "after_id" field to the value that was provided on create.
-func (u *CarUpsertOne) UpdateAfterID() *CarUpsertOne {
+// UpdateAfterId sets the "after_id" field to the value that was provided on create.
+func (u *CarUpsertOne) UpdateAfterId() *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.UpdateAfterID()
+		s.UpdateAfterId()
 	})
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (u *CarUpsertOne) ClearAfterID() *CarUpsertOne {
+// ClearAfterId clears the value of the "after_id" field.
+func (u *CarUpsertOne) ClearAfterId() *CarUpsertOne {
 	return u.Update(func(s *CarUpsert) {
-		s.ClearAfterID()
+		s.ClearAfterId()
 	})
 }
 
@@ -444,18 +444,18 @@ func (u *CarUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *CarUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *CarUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *CarUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *CarUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -507,10 +507,10 @@ func (_c *CarCreateBulk) Save(ctx context.Context) ([]*Car, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -563,7 +563,7 @@ func (_c *CarCreateBulk) ExecX(ctx context.Context) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.CarUpsert) {
-//			SetBeforeID(v+v).
+//			SetBeforeId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *CarCreateBulk) OnConflict(opts ...sql.ConflictOption) *CarUpsertBulk {
@@ -599,7 +599,7 @@ type CarUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(car.FieldID)
+//				u.SetIgnore(car.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -607,8 +607,8 @@ func (u *CarUpsertBulk) UpdateNewValues() *CarUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(car.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(car.FieldId)
 			}
 		}
 	}))
@@ -627,7 +627,7 @@ func (u *CarUpsertBulk) Ignore() *CarUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *CarUpsertBulk) DoNothing() *CarUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -642,59 +642,59 @@ func (u *CarUpsertBulk) Update(set func(*CarUpsert)) *CarUpsertBulk {
 	return u
 }
 
-// SetBeforeID sets the "before_id" field.
-func (u *CarUpsertBulk) SetBeforeID(v float64) *CarUpsertBulk {
+// SetBeforeId sets the "before_id" field.
+func (u *CarUpsertBulk) SetBeforeId(v float64) *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.SetBeforeID(v)
+		s.SetBeforeId(v)
 	})
 }
 
-// AddBeforeID adds v to the "before_id" field.
-func (u *CarUpsertBulk) AddBeforeID(v float64) *CarUpsertBulk {
+// AddBeforeId adds v to the "before_id" field.
+func (u *CarUpsertBulk) AddBeforeId(v float64) *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.AddBeforeID(v)
+		s.AddBeforeId(v)
 	})
 }
 
-// UpdateBeforeID sets the "before_id" field to the value that was provided on create.
-func (u *CarUpsertBulk) UpdateBeforeID() *CarUpsertBulk {
+// UpdateBeforeId sets the "before_id" field to the value that was provided on create.
+func (u *CarUpsertBulk) UpdateBeforeId() *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.UpdateBeforeID()
+		s.UpdateBeforeId()
 	})
 }
 
-// ClearBeforeID clears the value of the "before_id" field.
-func (u *CarUpsertBulk) ClearBeforeID() *CarUpsertBulk {
+// ClearBeforeId clears the value of the "before_id" field.
+func (u *CarUpsertBulk) ClearBeforeId() *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.ClearBeforeID()
+		s.ClearBeforeId()
 	})
 }
 
-// SetAfterID sets the "after_id" field.
-func (u *CarUpsertBulk) SetAfterID(v float64) *CarUpsertBulk {
+// SetAfterId sets the "after_id" field.
+func (u *CarUpsertBulk) SetAfterId(v float64) *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.SetAfterID(v)
+		s.SetAfterId(v)
 	})
 }
 
-// AddAfterID adds v to the "after_id" field.
-func (u *CarUpsertBulk) AddAfterID(v float64) *CarUpsertBulk {
+// AddAfterId adds v to the "after_id" field.
+func (u *CarUpsertBulk) AddAfterId(v float64) *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.AddAfterID(v)
+		s.AddAfterId(v)
 	})
 }
 
-// UpdateAfterID sets the "after_id" field to the value that was provided on create.
-func (u *CarUpsertBulk) UpdateAfterID() *CarUpsertBulk {
+// UpdateAfterId sets the "after_id" field to the value that was provided on create.
+func (u *CarUpsertBulk) UpdateAfterId() *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.UpdateAfterID()
+		s.UpdateAfterId()
 	})
 }
 
-// ClearAfterID clears the value of the "after_id" field.
-func (u *CarUpsertBulk) ClearAfterID() *CarUpsertBulk {
+// ClearAfterId clears the value of the "after_id" field.
+func (u *CarUpsertBulk) ClearAfterId() *CarUpsertBulk {
 	return u.Update(func(s *CarUpsert) {
-		s.ClearAfterID()
+		s.ClearAfterId()
 	})
 }
 

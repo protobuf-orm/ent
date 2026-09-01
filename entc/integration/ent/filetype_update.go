@@ -75,9 +75,9 @@ func (_u *FileTypeUpdate) SetNillableState(v *filetype.State) *FileTypeUpdate {
 	return _u
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by IDs.
-func (_u *FileTypeUpdate) AddFilesIDs(ids ...int) *FileTypeUpdate {
-	_u.mutation.AddFilesIDs(ids...)
+// AddFilesIds adds the "files" edge to the File entity by Ids.
+func (_u *FileTypeUpdate) AddFilesIds(ids ...int) *FileTypeUpdate {
+	_u.mutation.AddFilesIds(ids...)
 	return _u
 }
 
@@ -85,9 +85,9 @@ func (_u *FileTypeUpdate) AddFilesIDs(ids ...int) *FileTypeUpdate {
 func (_u *FileTypeUpdate) AddFiles(v ...*File) *FileTypeUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFilesIDs(ids...)
+	return _u.AddFilesIds(ids...)
 }
 
 // Mutation returns the FileTypeMutation object of the builder.
@@ -101,9 +101,9 @@ func (_u *FileTypeUpdate) ClearFiles() *FileTypeUpdate {
 	return _u
 }
 
-// RemoveFilesIDs removes the "files" edge to File entities by IDs.
-func (_u *FileTypeUpdate) RemoveFilesIDs(ids ...int) *FileTypeUpdate {
-	_u.mutation.RemoveFilesIDs(ids...)
+// RemoveFilesIds removes the "files" edge to File entities by Ids.
+func (_u *FileTypeUpdate) RemoveFilesIds(ids ...int) *FileTypeUpdate {
+	_u.mutation.RemoveFilesIds(ids...)
 	return _u
 }
 
@@ -111,9 +111,9 @@ func (_u *FileTypeUpdate) RemoveFilesIDs(ids ...int) *FileTypeUpdate {
 func (_u *FileTypeUpdate) RemoveFiles(v ...*File) *FileTypeUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFilesIDs(ids...)
+	return _u.RemoveFilesIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -168,7 +168,7 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -193,12 +193,12 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFilesIDs(); len(nodes) > 0 && !_u.mutation.FilesCleared() {
+	if nodes := _u.mutation.RemovedFilesIds(); len(nodes) > 0 && !_u.mutation.FilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -206,7 +206,7 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -214,7 +214,7 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FilesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FilesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -222,7 +222,7 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -294,9 +294,9 @@ func (_u *FileTypeUpdateOne) SetNillableState(v *filetype.State) *FileTypeUpdate
 	return _u
 }
 
-// AddFilesIDs adds the "files" edge to the File entity by IDs.
-func (_u *FileTypeUpdateOne) AddFilesIDs(ids ...int) *FileTypeUpdateOne {
-	_u.mutation.AddFilesIDs(ids...)
+// AddFilesIds adds the "files" edge to the File entity by Ids.
+func (_u *FileTypeUpdateOne) AddFilesIds(ids ...int) *FileTypeUpdateOne {
+	_u.mutation.AddFilesIds(ids...)
 	return _u
 }
 
@@ -304,9 +304,9 @@ func (_u *FileTypeUpdateOne) AddFilesIDs(ids ...int) *FileTypeUpdateOne {
 func (_u *FileTypeUpdateOne) AddFiles(v ...*File) *FileTypeUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFilesIDs(ids...)
+	return _u.AddFilesIds(ids...)
 }
 
 // Mutation returns the FileTypeMutation object of the builder.
@@ -320,9 +320,9 @@ func (_u *FileTypeUpdateOne) ClearFiles() *FileTypeUpdateOne {
 	return _u
 }
 
-// RemoveFilesIDs removes the "files" edge to File entities by IDs.
-func (_u *FileTypeUpdateOne) RemoveFilesIDs(ids ...int) *FileTypeUpdateOne {
-	_u.mutation.RemoveFilesIDs(ids...)
+// RemoveFilesIds removes the "files" edge to File entities by Ids.
+func (_u *FileTypeUpdateOne) RemoveFilesIds(ids ...int) *FileTypeUpdateOne {
+	_u.mutation.RemoveFilesIds(ids...)
 	return _u
 }
 
@@ -330,9 +330,9 @@ func (_u *FileTypeUpdateOne) RemoveFilesIDs(ids ...int) *FileTypeUpdateOne {
 func (_u *FileTypeUpdateOne) RemoveFiles(v ...*File) *FileTypeUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFilesIDs(ids...)
+	return _u.RemoveFilesIds(ids...)
 }
 
 // Where appends a list predicates to the FileTypeUpdate builder.
@@ -400,20 +400,20 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "FileType.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, filetype.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, filetype.FieldId)
 		for _, f := range fields {
 			if !filetype.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != filetype.FieldID {
+			if f != filetype.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -442,12 +442,12 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFilesIDs(); len(nodes) > 0 && !_u.mutation.FilesCleared() {
+	if nodes := _u.mutation.RemovedFilesIds(); len(nodes) > 0 && !_u.mutation.FilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -455,7 +455,7 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -463,7 +463,7 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FilesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FilesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -471,7 +471,7 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 			Columns: []string{filetype.FilesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

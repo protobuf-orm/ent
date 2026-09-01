@@ -14,16 +14,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestUUIDTextValueScanner covers a UUID type that marshals to text but
+// TestUuidTextValueScanner covers a Uuid type that marshals to text but
 // implements neither driver.Valuer nor sql.Scanner, as the one in the
 // standard library does.
-func TestUUIDTextValueScanner(t *testing.T) {
-	fd := field.UUID("id", uuid.UUID{}).
+func TestUuidTextValueScanner(t *testing.T) {
+	fd := field.Uuid("id", uuid.UUID{}).
 		Default(uuid.New).
 		ValueScanner(field.TextValueScannerOf[uuid.UUID]()).
 		Descriptor()
 	require.NoError(t, fd.Err)
-	assert.Equal(t, field.TypeUUID, fd.Info.Type)
+	assert.Equal(t, field.TypeUuid, fd.Info.Type)
 	assert.Equal(t, "uuid.UUID", fd.Info.Ident)
 
 	vs, ok := fd.ValueScanner.(field.TypeValueScanner[uuid.UUID])
@@ -47,10 +47,10 @@ func TestUUIDTextValueScanner(t *testing.T) {
 	assert.Equal(t, uuid.Nil(), back)
 }
 
-// TestUUIDWithoutValueScanner keeps the requirement that a UUID type without
+// TestUuidWithoutValueScanner keeps the requirement that a Uuid type without
 // an external ValueScanner must implement the database interfaces itself.
-func TestUUIDWithoutValueScanner(t *testing.T) {
-	fd := field.UUID("id", uuid.UUID{}).Descriptor()
+func TestUuidWithoutValueScanner(t *testing.T) {
+	fd := field.Uuid("id", uuid.UUID{}).Descriptor()
 	require.EqualError(t, fd.Err,
 		`GoType must be a "field.ValueScanner" type, ValueScanner or provide an external ValueScanner`)
 }

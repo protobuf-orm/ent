@@ -14,14 +14,14 @@ import (
 const (
 	// Label holds the string label denoting the pet type in the database.
 	Label = "pet"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldUUID holds the string denoting the uuid field in the database.
-	FieldUUID = "uuid"
+	// FieldUuid holds the string denoting the uuid field in the database.
+	FieldUuid = "uuid"
 	// FieldNickname holds the string denoting the nickname field in the database.
 	FieldNickname = "nickname"
 	// FieldTrained holds the string denoting the trained field in the database.
@@ -50,18 +50,18 @@ const (
 	OwnerColumn = "user_pets"
 )
 
-// Columns holds all SQL columns for pet fields.
+// Columns holds all Sql columns for pet fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldAge,
 	FieldName,
-	FieldUUID,
+	FieldUuid,
 	FieldNickname,
 	FieldTrained,
 	FieldOptionalTime,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "pet"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "pet"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_pets",
@@ -93,9 +93,9 @@ var (
 // OrderOption defines the ordering options for the Pet queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByAge orders the results by the age field.
@@ -108,9 +108,9 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
-// ByUUID orders the results by the uuid field.
-func ByUUID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUUID, opts...).ToFunc()
+// ByUuid orders the results by the uuid field.
+func ByUuid(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUuid, opts...).ToFunc()
 }
 
 // ByNickname orders the results by the nickname field.
@@ -143,15 +143,15 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newTeamStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TeamInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TeamInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, true, TeamTable, TeamColumn),
 	)
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

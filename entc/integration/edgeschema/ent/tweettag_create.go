@@ -44,40 +44,40 @@ func (_c *TweetTagCreate) SetNillableAddedAt(v *time.Time) *TweetTagCreate {
 	return _c
 }
 
-// SetTagID sets the "tag_id" field.
-func (_c *TweetTagCreate) SetTagID(v int) *TweetTagCreate {
-	_c.mutation.SetTagID(v)
+// SetTagId sets the "tag_id" field.
+func (_c *TweetTagCreate) SetTagId(v int) *TweetTagCreate {
+	_c.mutation.SetTagId(v)
 	return _c
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (_c *TweetTagCreate) SetTweetID(v int) *TweetTagCreate {
-	_c.mutation.SetTweetID(v)
+// SetTweetId sets the "tweet_id" field.
+func (_c *TweetTagCreate) SetTweetId(v int) *TweetTagCreate {
+	_c.mutation.SetTweetId(v)
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *TweetTagCreate) SetID(v uuid.UUID) *TweetTagCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *TweetTagCreate) SetId(v uuid.UUID) *TweetTagCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *TweetTagCreate) SetNillableID(v *uuid.UUID) *TweetTagCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *TweetTagCreate) SetNillableId(v *uuid.UUID) *TweetTagCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
 // SetTag sets the "tag" edge to the Tag entity.
 func (_c *TweetTagCreate) SetTag(v *Tag) *TweetTagCreate {
-	return _c.SetTagID(v.ID)
+	return _c.SetTagId(v.Id)
 }
 
 // SetTweet sets the "tweet" edge to the Tweet entity.
 func (_c *TweetTagCreate) SetTweet(v *Tweet) *TweetTagCreate {
-	return _c.SetTweetID(v.ID)
+	return _c.SetTweetId(v.Id)
 }
 
 // Mutation returns the TweetTagMutation object of the builder.
@@ -119,9 +119,9 @@ func (_c *TweetTagCreate) defaults() {
 		v := tweettag.DefaultAddedAt()
 		_c.mutation.SetAddedAt(v)
 	}
-	if _, ok := _c.mutation.ID(); !ok {
-		v := tweettag.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := tweettag.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -130,16 +130,16 @@ func (_c *TweetTagCreate) check() error {
 	if _, ok := _c.mutation.AddedAt(); !ok {
 		return &ValidationError{Name: "added_at", err: errors.New(`ent: missing required field "TweetTag.added_at"`)}
 	}
-	if _, ok := _c.mutation.TagID(); !ok {
+	if _, ok := _c.mutation.TagId(); !ok {
 		return &ValidationError{Name: "tag_id", err: errors.New(`ent: missing required field "TweetTag.tag_id"`)}
 	}
-	if _, ok := _c.mutation.TweetID(); !ok {
+	if _, ok := _c.mutation.TweetId(); !ok {
 		return &ValidationError{Name: "tweet_id", err: errors.New(`ent: missing required field "TweetTag.tweet_id"`)}
 	}
-	if len(_c.mutation.TagIDs()) == 0 {
+	if len(_c.mutation.TagIds()) == 0 {
 		return &ValidationError{Name: "tag", err: errors.New(`ent: missing required edge "TweetTag.tag"`)}
 	}
-	if len(_c.mutation.TweetIDs()) == 0 {
+	if len(_c.mutation.TweetIds()) == 0 {
 		return &ValidationError{Name: "tweet", err: errors.New(`ent: missing required edge "TweetTag.tweet"`)}
 	}
 	return nil
@@ -156,14 +156,14 @@ func (_c *TweetTagCreate) sqlSave(ctx context.Context) (*TweetTag, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -171,18 +171,18 @@ func (_c *TweetTagCreate) sqlSave(ctx context.Context) (*TweetTag, error) {
 func (_c *TweetTagCreate) createSpec() (*TweetTag, *sqlgraph.CreateSpec) {
 	var (
 		_node = &TweetTag{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(tweettag.Table, sqlgraph.NewFieldSpec(tweettag.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(tweettag.Table, sqlgraph.NewFieldSpec(tweettag.FieldId, field.TypeUuid))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.AddedAt(); ok {
 		_spec.SetField(tweettag.FieldAddedAt, field.TypeTime, value)
 		_node.AddedAt = value
 	}
-	if nodes := _c.mutation.TagIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TagIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -190,16 +190,16 @@ func (_c *TweetTagCreate) createSpec() (*TweetTag, *sqlgraph.CreateSpec) {
 			Columns: []string{tweettag.TagColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.TagID = nodes[0]
+		_node.TagId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -207,13 +207,13 @@ func (_c *TweetTagCreate) createSpec() (*TweetTag, *sqlgraph.CreateSpec) {
 			Columns: []string{tweettag.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.TweetID = nodes[0]
+		_node.TweetId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -280,46 +280,46 @@ func (u *TweetTagUpsert) UpdateAddedAt() *TweetTagUpsert {
 	return u
 }
 
-// SetTagID sets the "tag_id" field.
-func (u *TweetTagUpsert) SetTagID(v int) *TweetTagUpsert {
-	u.Set(tweettag.FieldTagID, v)
+// SetTagId sets the "tag_id" field.
+func (u *TweetTagUpsert) SetTagId(v int) *TweetTagUpsert {
+	u.Set(tweettag.FieldTagId, v)
 	return u
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *TweetTagUpsert) UpdateTagID() *TweetTagUpsert {
-	u.SetExcluded(tweettag.FieldTagID)
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *TweetTagUpsert) UpdateTagId() *TweetTagUpsert {
+	u.SetExcluded(tweettag.FieldTagId)
 	return u
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetTagUpsert) SetTweetID(v int) *TweetTagUpsert {
-	u.Set(tweettag.FieldTweetID, v)
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetTagUpsert) SetTweetId(v int) *TweetTagUpsert {
+	u.Set(tweettag.FieldTweetId, v)
 	return u
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetTagUpsert) UpdateTweetID() *TweetTagUpsert {
-	u.SetExcluded(tweettag.FieldTweetID)
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetTagUpsert) UpdateTweetId() *TweetTagUpsert {
+	u.SetExcluded(tweettag.FieldTweetId)
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.TweetTag.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(tweettag.FieldID)
+//				u.SetIgnore(tweettag.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *TweetTagUpsertOne) UpdateNewValues() *TweetTagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(tweettag.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(tweettag.FieldId)
 		}
 	}))
 	return u
@@ -337,7 +337,7 @@ func (u *TweetTagUpsertOne) Ignore() *TweetTagUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetTagUpsertOne) DoNothing() *TweetTagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -366,31 +366,31 @@ func (u *TweetTagUpsertOne) UpdateAddedAt() *TweetTagUpsertOne {
 	})
 }
 
-// SetTagID sets the "tag_id" field.
-func (u *TweetTagUpsertOne) SetTagID(v int) *TweetTagUpsertOne {
+// SetTagId sets the "tag_id" field.
+func (u *TweetTagUpsertOne) SetTagId(v int) *TweetTagUpsertOne {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.SetTagID(v)
+		s.SetTagId(v)
 	})
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *TweetTagUpsertOne) UpdateTagID() *TweetTagUpsertOne {
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *TweetTagUpsertOne) UpdateTagId() *TweetTagUpsertOne {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.UpdateTagID()
+		s.UpdateTagId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetTagUpsertOne) SetTweetID(v int) *TweetTagUpsertOne {
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetTagUpsertOne) SetTweetId(v int) *TweetTagUpsertOne {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetTagUpsertOne) UpdateTweetID() *TweetTagUpsertOne {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetTagUpsertOne) UpdateTweetId() *TweetTagUpsertOne {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 
@@ -409,23 +409,23 @@ func (u *TweetTagUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *TweetTagUpsertOne) ID(ctx context.Context) (id uuid.UUID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: TweetTagUpsertOne.ID is not supported by MySQL driver. Use TweetTagUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *TweetTagUpsertOne) Id(ctx context.Context) (id uuid.UUID, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: TweetTagUpsertOne.Id is not supported by MySql driver. Use TweetTagUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *TweetTagUpsertOne) IDX(ctx context.Context) uuid.UUID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *TweetTagUpsertOne) IdX(ctx context.Context) uuid.UUID {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -478,7 +478,7 @@ func (_c *TweetTagCreateBulk) Save(ctx context.Context) ([]*TweetTag, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -566,7 +566,7 @@ type TweetTagUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(tweettag.FieldID)
+//				u.SetIgnore(tweettag.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -574,8 +574,8 @@ func (u *TweetTagUpsertBulk) UpdateNewValues() *TweetTagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(tweettag.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(tweettag.FieldId)
 			}
 		}
 	}))
@@ -594,7 +594,7 @@ func (u *TweetTagUpsertBulk) Ignore() *TweetTagUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetTagUpsertBulk) DoNothing() *TweetTagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -623,31 +623,31 @@ func (u *TweetTagUpsertBulk) UpdateAddedAt() *TweetTagUpsertBulk {
 	})
 }
 
-// SetTagID sets the "tag_id" field.
-func (u *TweetTagUpsertBulk) SetTagID(v int) *TweetTagUpsertBulk {
+// SetTagId sets the "tag_id" field.
+func (u *TweetTagUpsertBulk) SetTagId(v int) *TweetTagUpsertBulk {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.SetTagID(v)
+		s.SetTagId(v)
 	})
 }
 
-// UpdateTagID sets the "tag_id" field to the value that was provided on create.
-func (u *TweetTagUpsertBulk) UpdateTagID() *TweetTagUpsertBulk {
+// UpdateTagId sets the "tag_id" field to the value that was provided on create.
+func (u *TweetTagUpsertBulk) UpdateTagId() *TweetTagUpsertBulk {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.UpdateTagID()
+		s.UpdateTagId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetTagUpsertBulk) SetTweetID(v int) *TweetTagUpsertBulk {
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetTagUpsertBulk) SetTweetId(v int) *TweetTagUpsertBulk {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetTagUpsertBulk) UpdateTweetID() *TweetTagUpsertBulk {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetTagUpsertBulk) UpdateTweetId() *TweetTagUpsertBulk {
 	return u.Update(func(s *TweetTagUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 

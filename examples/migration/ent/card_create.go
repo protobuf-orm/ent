@@ -66,28 +66,28 @@ func (_c *CardCreate) SetNillableExpiresAt(v *time.Time) *CardCreate {
 	return _c
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (_c *CardCreate) SetOwnerID(v int) *CardCreate {
-	_c.mutation.SetOwnerID(v)
+// SetOwnerId sets the "owner_id" field.
+func (_c *CardCreate) SetOwnerId(v int) *CardCreate {
+	_c.mutation.SetOwnerId(v)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (_c *CardCreate) SetNillableOwnerID(v *int) *CardCreate {
+// SetNillableOwnerId sets the "owner_id" field if the given value is not nil.
+func (_c *CardCreate) SetNillableOwnerId(v *int) *CardCreate {
 	if v != nil {
-		_c.SetOwnerID(*v)
+		_c.SetOwnerId(*v)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *CardCreate) SetOwner(v *User) *CardCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
-// AddPaymentsIDs adds the "payments" edge to the Payment entity by IDs.
-func (_c *CardCreate) AddPaymentsIDs(ids ...int) *CardCreate {
-	_c.mutation.AddPaymentsIDs(ids...)
+// AddPaymentsIds adds the "payments" edge to the Payment entity by Ids.
+func (_c *CardCreate) AddPaymentsIds(ids ...int) *CardCreate {
+	_c.mutation.AddPaymentsIds(ids...)
 	return _c
 }
 
@@ -95,9 +95,9 @@ func (_c *CardCreate) AddPaymentsIDs(ids ...int) *CardCreate {
 func (_c *CardCreate) AddPayments(v ...*Payment) *CardCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddPaymentsIDs(ids...)
+	return _c.AddPaymentsIds(ids...)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -139,9 +139,9 @@ func (_c *CardCreate) defaults() {
 		v := card.DefaultType
 		_c.mutation.SetType(v)
 	}
-	if _, ok := _c.mutation.OwnerID(); !ok {
-		v := card.DefaultOwnerID
-		_c.mutation.SetOwnerID(v)
+	if _, ok := _c.mutation.OwnerId(); !ok {
+		v := card.DefaultOwnerId
+		_c.mutation.SetOwnerId(v)
 	}
 }
 
@@ -156,10 +156,10 @@ func (_c *CardCreate) check() error {
 	if _, ok := _c.mutation.CvvHash(); !ok {
 		return &ValidationError{Name: "cvv_hash", err: errors.New(`ent: missing required field "Card.cvv_hash"`)}
 	}
-	if _, ok := _c.mutation.OwnerID(); !ok {
+	if _, ok := _c.mutation.OwnerId(); !ok {
 		return &ValidationError{Name: "owner_id", err: errors.New(`ent: missing required field "Card.owner_id"`)}
 	}
-	if len(_c.mutation.OwnerIDs()) == 0 {
+	if len(_c.mutation.OwnerIds()) == 0 {
 		return &ValidationError{Name: "owner", err: errors.New(`ent: missing required edge "Card.owner"`)}
 	}
 	return nil
@@ -176,9 +176,9 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -186,7 +186,7 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Card{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.GetType(); ok {
 		_spec.SetField(card.FieldType, field.TypeString, value)
@@ -204,7 +204,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 		_spec.SetField(card.FieldExpiresAt, field.TypeTime, value)
 		_node.ExpiresAt = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -212,16 +212,16 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: []string{card.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.OwnerID = nodes[0]
+		_node.OwnerId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.PaymentsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.PaymentsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -229,7 +229,7 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: []string{card.PaymentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(payment.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(payment.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -284,10 +284,10 @@ func (_c *CardCreateBulk) Save(ctx context.Context) ([]*Card, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

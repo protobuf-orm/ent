@@ -48,29 +48,29 @@ func (_u *PetUpdate) SetNillableName(v *string) *PetUpdate {
 	return _u
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (_u *PetUpdate) SetOwnerID(v int) *PetUpdate {
-	_u.mutation.SetOwnerID(v)
+// SetOwnerId sets the "owner_id" field.
+func (_u *PetUpdate) SetOwnerId(v int) *PetUpdate {
+	_u.mutation.SetOwnerId(v)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (_u *PetUpdate) SetNillableOwnerID(v *int) *PetUpdate {
+// SetNillableOwnerId sets the "owner_id" field if the given value is not nil.
+func (_u *PetUpdate) SetNillableOwnerId(v *int) *PetUpdate {
 	if v != nil {
-		_u.SetOwnerID(*v)
+		_u.SetOwnerId(*v)
 	}
 	return _u
 }
 
-// ClearOwnerID clears the value of the "owner_id" field.
-func (_u *PetUpdate) ClearOwnerID() *PetUpdate {
-	_u.mutation.ClearOwnerID()
+// ClearOwnerId clears the value of the "owner_id" field.
+func (_u *PetUpdate) ClearOwnerId() *PetUpdate {
+	_u.mutation.ClearOwnerId()
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *PetUpdate) SetOwner(v *User) *PetUpdate {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the PetMutation object of the builder.
@@ -118,7 +118,7 @@ func (_u *PetUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PetUpdate 
 }
 
 func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(pet.Table, pet.Columns, sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(pet.Table, pet.Columns, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -137,13 +137,13 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.Pet
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -151,7 +151,7 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.Pet
@@ -198,29 +198,29 @@ func (_u *PetUpdateOne) SetNillableName(v *string) *PetUpdateOne {
 	return _u
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (_u *PetUpdateOne) SetOwnerID(v int) *PetUpdateOne {
-	_u.mutation.SetOwnerID(v)
+// SetOwnerId sets the "owner_id" field.
+func (_u *PetUpdateOne) SetOwnerId(v int) *PetUpdateOne {
+	_u.mutation.SetOwnerId(v)
 	return _u
 }
 
-// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (_u *PetUpdateOne) SetNillableOwnerID(v *int) *PetUpdateOne {
+// SetNillableOwnerId sets the "owner_id" field if the given value is not nil.
+func (_u *PetUpdateOne) SetNillableOwnerId(v *int) *PetUpdateOne {
 	if v != nil {
-		_u.SetOwnerID(*v)
+		_u.SetOwnerId(*v)
 	}
 	return _u
 }
 
-// ClearOwnerID clears the value of the "owner_id" field.
-func (_u *PetUpdateOne) ClearOwnerID() *PetUpdateOne {
-	_u.mutation.ClearOwnerID()
+// ClearOwnerId clears the value of the "owner_id" field.
+func (_u *PetUpdateOne) ClearOwnerId() *PetUpdateOne {
+	_u.mutation.ClearOwnerId()
 	return _u
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_u *PetUpdateOne) SetOwner(v *User) *PetUpdateOne {
-	return _u.SetOwnerID(v.ID)
+	return _u.SetOwnerId(v.Id)
 }
 
 // Mutation returns the PetMutation object of the builder.
@@ -281,20 +281,20 @@ func (_u *PetUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PetUpda
 }
 
 func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
-	_spec := sqlgraph.NewUpdateSpec(pet.Table, pet.Columns, sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(pet.Table, pet.Columns, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Pet.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, pet.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, pet.FieldId)
 		for _, f := range fields {
 			if !pet.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != pet.FieldID {
+			if f != pet.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -317,13 +317,13 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.Pet
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -331,7 +331,7 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _u.schemaConfig.Pet

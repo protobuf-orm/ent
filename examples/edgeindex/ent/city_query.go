@@ -77,8 +77,8 @@ func (_q *CityQuery) QueryStreets() *StreetQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(city.Table, city.FieldID, selector),
-			sqlgraph.To(street.Table, street.FieldID),
+			sqlgraph.From(city.Table, city.FieldId, selector),
+			sqlgraph.To(street.Table, street.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, city.StreetsTable, city.StreetsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -109,11 +109,11 @@ func (_q *CityQuery) FirstX(ctx context.Context) *City {
 	return node
 }
 
-// FirstID returns the first City ID from the query.
-// Returns a *NotFoundError when no City ID was found.
-func (_q *CityQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first City Id from the query.
+// Returns a *NotFoundError when no City Id was found.
+func (_q *CityQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -123,9 +123,9 @@ func (_q *CityQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *CityQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *CityQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -159,12 +159,12 @@ func (_q *CityQuery) OnlyX(ctx context.Context) *City {
 	return node
 }
 
-// OnlyID is like Only, but returns the only City ID in the query.
-// Returns a *NotSingularError when more than one City ID is found.
+// OnlyId is like Only, but returns the only City Id in the query.
+// Returns a *NotSingularError when more than one City Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *CityQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *CityQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -178,9 +178,9 @@ func (_q *CityQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *CityQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *CityQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -206,21 +206,21 @@ func (_q *CityQuery) AllX(ctx context.Context) []*City {
 	return nodes
 }
 
-// IDs executes the query and returns a list of City IDs.
-func (_q *CityQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of City Ids.
+func (_q *CityQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(city.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(city.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *CityQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *CityQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -248,7 +248,7 @@ func (_q *CityQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *CityQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -411,8 +411,8 @@ func (_q *CityQuery) loadStreets(ctx context.Context, query *StreetQuery, nodes 
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*City)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -428,11 +428,11 @@ func (_q *CityQuery) loadStreets(ctx context.Context, query *StreetQuery, nodes 
 	for _, n := range neighbors {
 		fk := n.city_streets
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "city_streets" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "city_streets" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "city_streets" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "city_streets" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -449,7 +449,7 @@ func (_q *CityQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *CityQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(city.Table, city.Columns, sqlgraph.NewFieldSpec(city.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(city.Table, city.Columns, sqlgraph.NewFieldSpec(city.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -458,9 +458,9 @@ func (_q *CityQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, city.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, city.FieldId)
 		for i := range fields {
-			if fields[i] != city.FieldID {
+			if fields[i] != city.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

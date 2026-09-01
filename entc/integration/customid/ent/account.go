@@ -19,8 +19,8 @@ import (
 // Account is the model entity for the Account schema.
 type Account struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID sid.ID `json:"id,omitempty"`
+	// Id of the ent.
+	Id sid.Id `json:"id,omitempty"`
 	// Email holds the value of the "email" field.
 	Email string `json:"email,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -52,8 +52,8 @@ func (*Account) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case account.FieldID:
-			values[i] = new(sid.ID)
+		case account.FieldId:
+			values[i] = new(sid.Id)
 		case account.FieldEmail:
 			values[i] = new(sql.NullString)
 		default:
@@ -71,11 +71,11 @@ func (_m *Account) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case account.FieldID:
-			if value, ok := values[i].(*sid.ID); !ok {
+		case account.FieldId:
+			if value, ok := values[i].(*sid.Id); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case account.FieldEmail:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -123,7 +123,7 @@ func (_m *Account) Unwrap() *Account {
 func (_m *Account) String() string {
 	var builder strings.Builder
 	builder.WriteString("Account(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("email=")
 	builder.WriteString(_m.Email)
 	builder.WriteByte(')')

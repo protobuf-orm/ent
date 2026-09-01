@@ -29,28 +29,28 @@ func (_c *UserCreate) SetName(v string) *UserCreate {
 	return _c
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_c *UserCreate) SetSpouseID(id uint64) *UserCreate {
-	_c.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_c *UserCreate) SetSpouseId(id uint64) *UserCreate {
+	_c.mutation.SetSpouseId(id)
 	return _c
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableSpouseID(id *uint64) *UserCreate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableSpouseId(id *uint64) *UserCreate {
 	if id != nil {
-		_c = _c.SetSpouseID(*id)
+		_c = _c.SetSpouseId(*id)
 	}
 	return _c
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_c *UserCreate) SetSpouse(v *User) *UserCreate {
-	return _c.SetSpouseID(v.ID)
+	return _c.SetSpouseId(v.Id)
 }
 
-// AddFollowersIDs adds the "followers" edge to the User entity by IDs.
-func (_c *UserCreate) AddFollowersIDs(ids ...uint64) *UserCreate {
-	_c.mutation.AddFollowersIDs(ids...)
+// AddFollowersIds adds the "followers" edge to the User entity by Ids.
+func (_c *UserCreate) AddFollowersIds(ids ...uint64) *UserCreate {
+	_c.mutation.AddFollowersIds(ids...)
 	return _c
 }
 
@@ -58,14 +58,14 @@ func (_c *UserCreate) AddFollowersIDs(ids ...uint64) *UserCreate {
 func (_c *UserCreate) AddFollowers(v ...*User) *UserCreate {
 	ids := make([]uint64, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFollowersIDs(ids...)
+	return _c.AddFollowersIds(ids...)
 }
 
-// AddFollowingIDs adds the "following" edge to the User entity by IDs.
-func (_c *UserCreate) AddFollowingIDs(ids ...uint64) *UserCreate {
-	_c.mutation.AddFollowingIDs(ids...)
+// AddFollowingIds adds the "following" edge to the User entity by Ids.
+func (_c *UserCreate) AddFollowingIds(ids ...uint64) *UserCreate {
+	_c.mutation.AddFollowingIds(ids...)
 	return _c
 }
 
@@ -73,9 +73,9 @@ func (_c *UserCreate) AddFollowingIDs(ids ...uint64) *UserCreate {
 func (_c *UserCreate) AddFollowing(v ...*User) *UserCreate {
 	ids := make([]uint64, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFollowingIDs(ids...)
+	return _c.AddFollowingIds(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -129,9 +129,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = uint64(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = uint64(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -139,13 +139,13 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUint64))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeUint64))
 	)
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -153,7 +153,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUint64),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -162,7 +162,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.user_spouse = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FollowersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FollowersIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -170,7 +170,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FollowersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUint64),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -178,7 +178,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FollowingIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FollowingIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -186,7 +186,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FollowingPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUint64),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -240,10 +240,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = uint64(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = uint64(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

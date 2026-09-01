@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the session type in the database.
 	Label = "session"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeDevice holds the string denoting the device edge name in mutations.
 	EdgeDevice = "device"
 	// Table holds the table name of the session in the database.
@@ -30,12 +30,12 @@ const (
 	DeviceColumn = "device_sessions"
 )
 
-// Columns holds all SQL columns for session fields.
+// Columns holds all Sql columns for session fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "session"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "session"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"device_sessions",
@@ -57,18 +57,18 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() schema.ID
-	// IDValidator is a validator for the "id" field. It is called by the builders before save.
-	IDValidator func([]byte) error
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() schema.Id
+	// IdValidator is a validator for the "id" field. It is called by the builders before save.
+	IdValidator func([]byte) error
 )
 
 // OrderOption defines the ordering options for the Session queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByDeviceField orders the results by device field.
@@ -79,8 +79,8 @@ func ByDeviceField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newDeviceStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(DeviceInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(DeviceInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, DeviceTable, DeviceColumn),
 	)
 }

@@ -16,11 +16,11 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/mixinid"
 )
 
-// MixinID is the model entity for the MixinID schema.
-type MixinID struct {
+// MixinId is the model entity for the MixinId schema.
+type MixinId struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
 	// SomeField holds the value of the "some_field" field.
 	SomeField string `json:"some_field,omitempty"`
 	// MixinField holds the value of the "mixin_field" field.
@@ -29,13 +29,13 @@ type MixinID struct {
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
-func (*MixinID) scanValues(columns []string) ([]any, error) {
+func (*MixinId) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
 		case mixinid.FieldSomeField, mixinid.FieldMixinField:
 			values[i] = new(sql.NullString)
-		case mixinid.FieldID:
+		case mixinid.FieldId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,18 +45,18 @@ func (*MixinID) scanValues(columns []string) ([]any, error) {
 }
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
-// to the MixinID fields.
-func (_m *MixinID) assignValues(columns []string, values []any) error {
+// to the MixinId fields.
+func (_m *MixinId) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
 	for i := range columns {
 		switch columns[i] {
-		case mixinid.FieldID:
+		case mixinid.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case mixinid.FieldSomeField:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -77,35 +77,35 @@ func (_m *MixinID) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// Value returns the ent.Value that was dynamically selected and assigned to the MixinID.
+// Value returns the ent.Value that was dynamically selected and assigned to the MixinId.
 // This includes values selected through modifiers, order, etc.
-func (_m *MixinID) Value(name string) (ent.Value, error) {
+func (_m *MixinId) Value(name string) (ent.Value, error) {
 	return _m.selectValues.Get(name)
 }
 
-// Update returns a builder for updating this MixinID.
-// Note that you need to call MixinID.Unwrap() before calling this method if this MixinID
+// Update returns a builder for updating this MixinId.
+// Note that you need to call MixinId.Unwrap() before calling this method if this MixinId
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (_m *MixinID) Update() *MixinIDUpdateOne {
-	return NewMixinIDClient(_m.config).UpdateOne(_m)
+func (_m *MixinId) Update() *MixinIdUpdateOne {
+	return NewMixinIdClient(_m.config).UpdateOne(_m)
 }
 
-// Unwrap unwraps the MixinID entity that was returned from a transaction after it was closed,
+// Unwrap unwraps the MixinId entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (_m *MixinID) Unwrap() *MixinID {
+func (_m *MixinId) Unwrap() *MixinId {
 	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: MixinID is not a transactional entity")
+		panic("ent: MixinId is not a transactional entity")
 	}
 	_m.config.driver = _tx.drv
 	return _m
 }
 
 // String implements the fmt.Stringer.
-func (_m *MixinID) String() string {
+func (_m *MixinId) String() string {
 	var builder strings.Builder
-	builder.WriteString("MixinID(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString("MixinId(")
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("some_field=")
 	builder.WriteString(_m.SomeField)
 	builder.WriteString(", ")
@@ -115,5 +115,5 @@ func (_m *MixinID) String() string {
 	return builder.String()
 }
 
-// MixinIDList is a parsable slice of MixinID.
-type MixinIDList []*MixinID
+// MixinIdList is a parsable slice of MixinId.
+type MixinIdList []*MixinId

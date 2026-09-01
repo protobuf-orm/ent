@@ -45,13 +45,13 @@ func (m *Mutation) Predicates() []predicate.User {
 	return m.predicates
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (m *Mutation) SetTenantID(i int) {
+// SetTenantId sets the "tenant_id" field.
+func (m *Mutation) SetTenantId(i int) {
 	m.tenant = &i
 }
 
-// TenantID returns the value of the "tenant_id" field in the mutation.
-func (m *Mutation) TenantID() (r int, exists bool) {
+// TenantId returns the value of the "tenant_id" field in the mutation.
+func (m *Mutation) TenantId() (r int, exists bool) {
 	v := m.tenant
 	if v == nil {
 		return
@@ -59,8 +59,8 @@ func (m *Mutation) TenantID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetTenantID resets all changes to the "tenant_id" field.
-func (m *Mutation) ResetTenantID() {
+// ResetTenantId resets all changes to the "tenant_id" field.
+func (m *Mutation) ResetTenantId() {
 	m.tenant = nil
 }
 
@@ -134,7 +134,7 @@ func (m *Mutation) ResetFoods() {
 // ClearTenant clears the "tenant" edge to the Tenant entity.
 func (m *Mutation) ClearTenant() {
 	m.clearedtenant = true
-	m.clearedFields[FieldTenantID] = struct{}{}
+	m.clearedFields[FieldTenantId] = struct{}{}
 }
 
 // TenantCleared reports if the "tenant" edge to the Tenant entity was cleared.
@@ -142,10 +142,10 @@ func (m *Mutation) TenantCleared() bool {
 	return m.clearedtenant
 }
 
-// TenantIDs returns the "tenant" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TenantID instead. It exists only for internal usage by the builders.
-func (m *Mutation) TenantIDs() (ids []int) {
+// TenantIds returns the "tenant" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// TenantId instead. It exists only for internal usage by the builders.
+func (m *Mutation) TenantIds() (ids []int) {
 	if id := m.tenant; id != nil {
 		ids = append(ids, *id)
 	}
@@ -158,8 +158,8 @@ func (m *Mutation) ResetTenant() {
 	m.clearedtenant = false
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by ids.
-func (m *Mutation) AddGroupsIDs(ids ...int) {
+// AddGroupsIds adds the "groups" edge to the Group entity by ids.
+func (m *Mutation) AddGroupsIds(ids ...int) {
 	if m.groups == nil {
 		m.groups = make(map[int]struct{})
 	}
@@ -178,8 +178,8 @@ func (m *Mutation) GroupsCleared() bool {
 	return m.clearedgroups
 }
 
-// RemoveGroupsIDs removes the "groups" edge to the Group entity by IDs.
-func (m *Mutation) RemoveGroupsIDs(ids ...int) {
+// RemoveGroupsIds removes the "groups" edge to the Group entity by Ids.
+func (m *Mutation) RemoveGroupsIds(ids ...int) {
 	if m.removedgroups == nil {
 		m.removedgroups = make(map[int]struct{})
 	}
@@ -189,16 +189,16 @@ func (m *Mutation) RemoveGroupsIDs(ids ...int) {
 	}
 }
 
-// RemovedGroups returns the removed IDs of the "groups" edge to the Group entity.
-func (m *Mutation) RemovedGroupsIDs() (ids []int) {
+// RemovedGroups returns the removed Ids of the "groups" edge to the Group entity.
+func (m *Mutation) RemovedGroupsIds() (ids []int) {
 	for id := range m.removedgroups {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// GroupsIDs returns the "groups" edge IDs in the mutation.
-func (m *Mutation) GroupsIDs() (ids []int) {
+// GroupsIds returns the "groups" edge Ids in the mutation.
+func (m *Mutation) GroupsIds() (ids []int) {
 	for id := range m.groups {
 		ids = append(ids, id)
 	}
@@ -248,7 +248,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 3)
 	if m.tenant != nil {
-		fields = append(fields, FieldTenantID)
+		fields = append(fields, FieldTenantId)
 	}
 	if m.name != nil {
 		fields = append(fields, FieldName)
@@ -264,8 +264,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldTenantID:
-		return m.TenantID()
+	case FieldTenantId:
+		return m.TenantId()
 	case FieldName:
 		return m.Name()
 	case FieldFoods:
@@ -286,12 +286,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldTenantID:
+	case FieldTenantId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetTenantID(v)
+		m.SetTenantId(v)
 		return nil
 	case FieldName:
 		v, ok := value.(string)
@@ -368,8 +368,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldTenantID:
-		m.ResetTenantID()
+	case FieldTenantId:
+		m.ResetTenantId()
 		return nil
 	case FieldName:
 		m.ResetName()
@@ -393,9 +393,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTenant:
 		if id := m.tenant; id != nil {
@@ -420,9 +420,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeGroups:
 		ids := make([]ent.Value, 0, len(m.removedgroups))

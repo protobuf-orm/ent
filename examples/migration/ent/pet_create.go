@@ -43,48 +43,48 @@ func (_c *PetCreate) SetWeight(v float64) *PetCreate {
 	return _c
 }
 
-// SetBestFriendID sets the "best_friend_id" field.
-func (_c *PetCreate) SetBestFriendID(v uuid.UUID) *PetCreate {
-	_c.mutation.SetBestFriendID(v)
+// SetBestFriendId sets the "best_friend_id" field.
+func (_c *PetCreate) SetBestFriendId(v uuid.UUID) *PetCreate {
+	_c.mutation.SetBestFriendId(v)
 	return _c
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (_c *PetCreate) SetOwnerID(v int) *PetCreate {
-	_c.mutation.SetOwnerID(v)
+// SetOwnerId sets the "owner_id" field.
+func (_c *PetCreate) SetOwnerId(v int) *PetCreate {
+	_c.mutation.SetOwnerId(v)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (_c *PetCreate) SetNillableOwnerID(v *int) *PetCreate {
+// SetNillableOwnerId sets the "owner_id" field if the given value is not nil.
+func (_c *PetCreate) SetNillableOwnerId(v *int) *PetCreate {
 	if v != nil {
-		_c.SetOwnerID(*v)
+		_c.SetOwnerId(*v)
 	}
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *PetCreate) SetID(v uuid.UUID) *PetCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *PetCreate) SetId(v uuid.UUID) *PetCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *PetCreate) SetNillableID(v *uuid.UUID) *PetCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *PetCreate) SetNillableId(v *uuid.UUID) *PetCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
 // SetBestFriend sets the "best_friend" edge to the Pet entity.
 func (_c *PetCreate) SetBestFriend(v *Pet) *PetCreate {
-	return _c.SetBestFriendID(v.ID)
+	return _c.SetBestFriendId(v.Id)
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *PetCreate) SetOwner(v *User) *PetCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
 // Mutation returns the PetMutation object of the builder.
@@ -122,13 +122,13 @@ func (_c *PetCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *PetCreate) defaults() {
-	if _, ok := _c.mutation.OwnerID(); !ok {
-		v := pet.DefaultOwnerID
-		_c.mutation.SetOwnerID(v)
+	if _, ok := _c.mutation.OwnerId(); !ok {
+		v := pet.DefaultOwnerId
+		_c.mutation.SetOwnerId(v)
 	}
-	if _, ok := _c.mutation.ID(); !ok {
-		v := pet.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := pet.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -143,16 +143,16 @@ func (_c *PetCreate) check() error {
 	if _, ok := _c.mutation.Weight(); !ok {
 		return &ValidationError{Name: "weight", err: errors.New(`ent: missing required field "Pet.weight"`)}
 	}
-	if _, ok := _c.mutation.BestFriendID(); !ok {
+	if _, ok := _c.mutation.BestFriendId(); !ok {
 		return &ValidationError{Name: "best_friend_id", err: errors.New(`ent: missing required field "Pet.best_friend_id"`)}
 	}
-	if _, ok := _c.mutation.OwnerID(); !ok {
+	if _, ok := _c.mutation.OwnerId(); !ok {
 		return &ValidationError{Name: "owner_id", err: errors.New(`ent: missing required field "Pet.owner_id"`)}
 	}
-	if len(_c.mutation.BestFriendIDs()) == 0 {
+	if len(_c.mutation.BestFriendIds()) == 0 {
 		return &ValidationError{Name: "best_friend", err: errors.New(`ent: missing required edge "Pet.best_friend"`)}
 	}
-	if len(_c.mutation.OwnerIDs()) == 0 {
+	if len(_c.mutation.OwnerIds()) == 0 {
 		return &ValidationError{Name: "owner", err: errors.New(`ent: missing required edge "Pet.owner"`)}
 	}
 	return nil
@@ -169,14 +169,14 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -184,11 +184,11 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Pet{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeUuid))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
@@ -202,7 +202,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 		_spec.SetField(pet.FieldWeight, field.TypeFloat64, value)
 		_node.Weight = value
 	}
-	if nodes := _c.mutation.BestFriendIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.BestFriendIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -210,16 +210,16 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.BestFriendID = nodes[0]
+		_node.BestFriendId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -227,13 +227,13 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 			Columns: []string{pet.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.OwnerID = nodes[0]
+		_node.OwnerId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -283,7 +283,7 @@ func (_c *PetCreateBulk) Save(ctx context.Context) ([]*Pet, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})

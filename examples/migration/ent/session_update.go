@@ -114,29 +114,29 @@ func (_u *SessionUpdate) ClearMethod() *SessionUpdate {
 	return _u
 }
 
-// SetDeviceID sets the "device_id" field.
-func (_u *SessionUpdate) SetDeviceID(v uuid.UUID) *SessionUpdate {
-	_u.mutation.SetDeviceID(v)
+// SetDeviceId sets the "device_id" field.
+func (_u *SessionUpdate) SetDeviceId(v uuid.UUID) *SessionUpdate {
+	_u.mutation.SetDeviceId(v)
 	return _u
 }
 
-// SetNillableDeviceID sets the "device_id" field if the given value is not nil.
-func (_u *SessionUpdate) SetNillableDeviceID(v *uuid.UUID) *SessionUpdate {
+// SetNillableDeviceId sets the "device_id" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableDeviceId(v *uuid.UUID) *SessionUpdate {
 	if v != nil {
-		_u.SetDeviceID(*v)
+		_u.SetDeviceId(*v)
 	}
 	return _u
 }
 
-// ClearDeviceID clears the value of the "device_id" field.
-func (_u *SessionUpdate) ClearDeviceID() *SessionUpdate {
-	_u.mutation.ClearDeviceID()
+// ClearDeviceId clears the value of the "device_id" field.
+func (_u *SessionUpdate) ClearDeviceId() *SessionUpdate {
+	_u.mutation.ClearDeviceId()
 	return _u
 }
 
 // SetDevice sets the "device" edge to the SessionDevice entity.
 func (_u *SessionUpdate) SetDevice(v *SessionDevice) *SessionUpdate {
-	return _u.SetDeviceID(v.ID)
+	return _u.SetDeviceId(v.Id)
 }
 
 // Mutation returns the SessionMutation object of the builder.
@@ -178,7 +178,7 @@ func (_u *SessionUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(session.Table, session.Columns, sqlgraph.NewFieldSpec(session.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(session.Table, session.Columns, sqlgraph.NewFieldSpec(session.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -205,10 +205,10 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.ClearField(session.FieldToken, field.TypeString)
 	}
 	if value, ok := _u.mutation.Method(); ok {
-		_spec.SetField(session.FieldMethod, field.TypeJSON, value)
+		_spec.SetField(session.FieldMethod, field.TypeJson, value)
 	}
 	if _u.mutation.MethodCleared() {
-		_spec.ClearField(session.FieldMethod, field.TypeJSON)
+		_spec.ClearField(session.FieldMethod, field.TypeJson)
 	}
 	if _u.mutation.DeviceCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -218,12 +218,12 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{session.DeviceColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.DeviceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DeviceIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -231,7 +231,7 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{session.DeviceColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -339,29 +339,29 @@ func (_u *SessionUpdateOne) ClearMethod() *SessionUpdateOne {
 	return _u
 }
 
-// SetDeviceID sets the "device_id" field.
-func (_u *SessionUpdateOne) SetDeviceID(v uuid.UUID) *SessionUpdateOne {
-	_u.mutation.SetDeviceID(v)
+// SetDeviceId sets the "device_id" field.
+func (_u *SessionUpdateOne) SetDeviceId(v uuid.UUID) *SessionUpdateOne {
+	_u.mutation.SetDeviceId(v)
 	return _u
 }
 
-// SetNillableDeviceID sets the "device_id" field if the given value is not nil.
-func (_u *SessionUpdateOne) SetNillableDeviceID(v *uuid.UUID) *SessionUpdateOne {
+// SetNillableDeviceId sets the "device_id" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableDeviceId(v *uuid.UUID) *SessionUpdateOne {
 	if v != nil {
-		_u.SetDeviceID(*v)
+		_u.SetDeviceId(*v)
 	}
 	return _u
 }
 
-// ClearDeviceID clears the value of the "device_id" field.
-func (_u *SessionUpdateOne) ClearDeviceID() *SessionUpdateOne {
-	_u.mutation.ClearDeviceID()
+// ClearDeviceId clears the value of the "device_id" field.
+func (_u *SessionUpdateOne) ClearDeviceId() *SessionUpdateOne {
+	_u.mutation.ClearDeviceId()
 	return _u
 }
 
 // SetDevice sets the "device" edge to the SessionDevice entity.
 func (_u *SessionUpdateOne) SetDevice(v *SessionDevice) *SessionUpdateOne {
-	return _u.SetDeviceID(v.ID)
+	return _u.SetDeviceId(v.Id)
 }
 
 // Mutation returns the SessionMutation object of the builder.
@@ -416,20 +416,20 @@ func (_u *SessionUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err error) {
-	_spec := sqlgraph.NewUpdateSpec(session.Table, session.Columns, sqlgraph.NewFieldSpec(session.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(session.Table, session.Columns, sqlgraph.NewFieldSpec(session.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Session.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, session.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, session.FieldId)
 		for _, f := range fields {
 			if !session.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != session.FieldID {
+			if f != session.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -460,10 +460,10 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 		_spec.ClearField(session.FieldToken, field.TypeString)
 	}
 	if value, ok := _u.mutation.Method(); ok {
-		_spec.SetField(session.FieldMethod, field.TypeJSON, value)
+		_spec.SetField(session.FieldMethod, field.TypeJson, value)
 	}
 	if _u.mutation.MethodCleared() {
-		_spec.ClearField(session.FieldMethod, field.TypeJSON)
+		_spec.ClearField(session.FieldMethod, field.TypeJson)
 	}
 	if _u.mutation.DeviceCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -473,12 +473,12 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 			Columns: []string{session.DeviceColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.DeviceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DeviceIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -486,7 +486,7 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 			Columns: []string{session.DeviceColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {

@@ -32,9 +32,9 @@ func (_c *FileCreate) SetName(v string) *FileCreate {
 	return _c
 }
 
-// AddProcessesIDs adds the "processes" edge to the Process entity by IDs.
-func (_c *FileCreate) AddProcessesIDs(ids ...int) *FileCreate {
-	_c.mutation.AddProcessesIDs(ids...)
+// AddProcessesIds adds the "processes" edge to the Process entity by Ids.
+func (_c *FileCreate) AddProcessesIds(ids ...int) *FileCreate {
+	_c.mutation.AddProcessesIds(ids...)
 	return _c
 }
 
@@ -42,9 +42,9 @@ func (_c *FileCreate) AddProcessesIDs(ids ...int) *FileCreate {
 func (_c *FileCreate) AddProcesses(v ...*Process) *FileCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddProcessesIDs(ids...)
+	return _c.AddProcessesIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -98,9 +98,9 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -108,14 +108,14 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 	var (
 		_node = &File{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.ProcessesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProcessesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -123,7 +123,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: file.ProcessesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -220,7 +220,7 @@ func (u *FileUpsertOne) Ignore() *FileUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FileUpsertOne) DoNothing() *FileUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -264,18 +264,18 @@ func (u *FileUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *FileUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *FileUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *FileUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *FileUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -327,10 +327,10 @@ func (_c *FileCreateBulk) Save(ctx context.Context) ([]*File, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -437,7 +437,7 @@ func (u *FileUpsertBulk) Ignore() *FileUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FileUpsertBulk) DoNothing() *FileUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

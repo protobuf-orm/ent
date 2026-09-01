@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the doc type in the database.
 	Label = "doc"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -39,13 +39,13 @@ const (
 	RelatedTable = "doc_related"
 )
 
-// Columns holds all SQL columns for doc fields.
+// Columns holds all Sql columns for doc fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "doc"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "doc"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"doc_children",
@@ -73,18 +73,18 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() schema.DocID
-	// IDValidator is a validator for the "id" field. It is called by the builders before save.
-	IDValidator func(string) error
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() schema.DocId
+	// IdValidator is a validator for the "id" field. It is called by the builders before save.
+	IdValidator func(string) error
 )
 
 // OrderOption defines the ordering options for the Doc queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.
@@ -128,22 +128,22 @@ func ByRelated(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 	)
 }
 func newRelatedStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, RelatedTable, RelatedPrimaryKey...),
 	)
 }

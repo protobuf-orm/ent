@@ -21,8 +21,8 @@ import (
 // Task is the model entity for the Task schema.
 type Task struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Priority holds the value of the "priority" field.
 	Priority task.Priority `json:"priority,omitempty"`
 	// Priorities holds the value of the "priorities" field.
@@ -51,7 +51,7 @@ func (*Task) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case enttask.FieldPriorities:
 			values[i] = new([]byte)
-		case enttask.FieldID, enttask.FieldPriority, enttask.FieldOrder, enttask.FieldOrderOption:
+		case enttask.FieldId, enttask.FieldPriority, enttask.FieldOrder, enttask.FieldOrderOption:
 			values[i] = new(sql.NullInt64)
 		case enttask.FieldName, enttask.FieldOwner, enttask.FieldOp:
 			values[i] = new(sql.NullString)
@@ -72,12 +72,12 @@ func (_m *Task) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case enttask.FieldID:
+		case enttask.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case enttask.FieldPriority:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field priority", values[i])
@@ -164,7 +164,7 @@ func (_m *Task) Unwrap() *Task {
 func (_m *Task) String() string {
 	var builder strings.Builder
 	builder.WriteString("Task(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("priority=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Priority))
 	builder.WriteString(", ")

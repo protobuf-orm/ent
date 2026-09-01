@@ -41,9 +41,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   api.Table,
 			Columns: api.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: api.FieldID,
+				Column: api.FieldId,
 			},
 		},
 		Type:   "Api",
@@ -53,9 +53,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   builder.Table,
 			Columns: builder.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: builder.FieldID,
+				Column: builder.FieldId,
 			},
 		},
 		Type:   "Builder",
@@ -65,9 +65,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   card.Table,
 			Columns: card.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: card.FieldID,
+				Column: card.FieldId,
 			},
 		},
 		Type: "Card",
@@ -83,9 +83,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   comment.Table,
 			Columns: comment.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: comment.FieldID,
+				Column: comment.FieldId,
 			},
 		},
 		Type: "Comment",
@@ -94,7 +94,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			comment.FieldUniqueFloat: {Type: field.TypeFloat64, Column: comment.FieldUniqueFloat},
 			comment.FieldNillableInt: {Type: field.TypeInt, Column: comment.FieldNillableInt},
 			comment.FieldTable:       {Type: field.TypeString, Column: comment.FieldTable},
-			comment.FieldDir:         {Type: field.TypeJSON, Column: comment.FieldDir},
+			comment.FieldDir:         {Type: field.TypeJson, Column: comment.FieldDir},
 			comment.FieldClient:      {Type: field.TypeString, Column: comment.FieldClient},
 		},
 	}
@@ -102,9 +102,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   exvaluescan.Table,
 			Columns: exvaluescan.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: exvaluescan.FieldID,
+				Column: exvaluescan.FieldId,
 			},
 		},
 		Type: "ExValueScan",
@@ -123,9 +123,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   fieldtype.Table,
 			Columns: fieldtype.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: fieldtype.FieldID,
+				Column: fieldtype.FieldId,
 			},
 		},
 		Type: "FieldType",
@@ -159,7 +159,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			fieldtype.FieldDecimal:               {Type: field.TypeFloat64, Column: fieldtype.FieldDecimal},
 			fieldtype.FieldLinkOther:             {Type: field.TypeOther, Column: fieldtype.FieldLinkOther},
 			fieldtype.FieldLinkOtherFunc:         {Type: field.TypeOther, Column: fieldtype.FieldLinkOtherFunc},
-			fieldtype.FieldMAC:                   {Type: field.TypeString, Column: fieldtype.FieldMAC},
+			fieldtype.FieldMac:                   {Type: field.TypeString, Column: fieldtype.FieldMac},
 			fieldtype.FieldStringArray:           {Type: field.TypeOther, Column: fieldtype.FieldStringArray},
 			fieldtype.FieldPassword:              {Type: field.TypeString, Column: fieldtype.FieldPassword},
 			fieldtype.FieldStringScanner:         {Type: field.TypeString, Column: fieldtype.FieldStringScanner},
@@ -176,7 +176,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			fieldtype.FieldDeletedAt:             {Type: field.TypeTime, Column: fieldtype.FieldDeletedAt},
 			fieldtype.FieldRawData:               {Type: field.TypeBytes, Column: fieldtype.FieldRawData},
 			fieldtype.FieldSensitive:             {Type: field.TypeBytes, Column: fieldtype.FieldSensitive},
-			fieldtype.FieldIP:                    {Type: field.TypeBytes, Column: fieldtype.FieldIP},
+			fieldtype.FieldIp:                    {Type: field.TypeBytes, Column: fieldtype.FieldIp},
 			fieldtype.FieldNullInt64:             {Type: field.TypeInt, Column: fieldtype.FieldNullInt64},
 			fieldtype.FieldSchemaInt:             {Type: field.TypeInt, Column: fieldtype.FieldSchemaInt},
 			fieldtype.FieldSchemaInt8:            {Type: field.TypeInt8, Column: fieldtype.FieldSchemaInt8},
@@ -186,9 +186,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 			fieldtype.FieldNullFloat:             {Type: field.TypeFloat64, Column: fieldtype.FieldNullFloat},
 			fieldtype.FieldRole:                  {Type: field.TypeEnum, Column: fieldtype.FieldRole},
 			fieldtype.FieldPriority:              {Type: field.TypeEnum, Column: fieldtype.FieldPriority},
-			fieldtype.FieldOptionalUUID:          {Type: field.TypeUUID, Column: fieldtype.FieldOptionalUUID},
-			fieldtype.FieldNillableUUID:          {Type: field.TypeUUID, Column: fieldtype.FieldNillableUUID},
-			fieldtype.FieldStrings:               {Type: field.TypeJSON, Column: fieldtype.FieldStrings},
+			fieldtype.FieldOptionalUuid:          {Type: field.TypeUuid, Column: fieldtype.FieldOptionalUuid},
+			fieldtype.FieldNillableUuid:          {Type: field.TypeUuid, Column: fieldtype.FieldNillableUuid},
+			fieldtype.FieldStrings:               {Type: field.TypeJson, Column: fieldtype.FieldStrings},
 			fieldtype.FieldPair:                  {Type: field.TypeBytes, Column: fieldtype.FieldPair},
 			fieldtype.FieldNilPair:               {Type: field.TypeBytes, Column: fieldtype.FieldNilPair},
 			fieldtype.FieldVstring:               {Type: field.TypeString, Column: fieldtype.FieldVstring},
@@ -201,20 +201,20 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   file.Table,
 			Columns: file.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: file.FieldID,
+				Column: file.FieldId,
 			},
 		},
 		Type: "File",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			file.FieldSetID:      {Type: field.TypeInt, Column: file.FieldSetID},
+			file.FieldSetId:      {Type: field.TypeInt, Column: file.FieldSetId},
 			file.FieldSize:       {Type: field.TypeInt, Column: file.FieldSize},
 			file.FieldName:       {Type: field.TypeString, Column: file.FieldName},
 			file.FieldUser:       {Type: field.TypeString, Column: file.FieldUser},
 			file.FieldGroup:      {Type: field.TypeString, Column: file.FieldGroup},
 			file.FieldOp:         {Type: field.TypeBool, Column: file.FieldOp},
-			file.FieldFieldID:    {Type: field.TypeInt, Column: file.FieldFieldID},
+			file.FieldFieldId:    {Type: field.TypeInt, Column: file.FieldFieldId},
 			file.FieldCreateTime: {Type: field.TypeTime, Column: file.FieldCreateTime},
 		},
 	}
@@ -222,9 +222,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   filetype.Table,
 			Columns: filetype.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: filetype.FieldID,
+				Column: filetype.FieldId,
 			},
 		},
 		Type: "FileType",
@@ -238,9 +238,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   goods.Table,
 			Columns: goods.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: goods.FieldID,
+				Column: goods.FieldId,
 			},
 		},
 		Type:   "Goods",
@@ -250,9 +250,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   group.Table,
 			Columns: group.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: group.FieldID,
+				Column: group.FieldId,
 			},
 		},
 		Type: "Group",
@@ -268,9 +268,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   groupinfo.Table,
 			Columns: groupinfo.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: groupinfo.FieldID,
+				Column: groupinfo.FieldId,
 			},
 		},
 		Type: "GroupInfo",
@@ -283,9 +283,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   item.Table,
 			Columns: item.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeString,
-				Column: item.FieldID,
+				Column: item.FieldId,
 			},
 		},
 		Type: "Item",
@@ -297,9 +297,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   license.Table,
 			Columns: license.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: license.FieldID,
+				Column: license.FieldId,
 			},
 		},
 		Type: "License",
@@ -312,9 +312,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   node.Table,
 			Columns: node.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: node.FieldID,
+				Column: node.FieldId,
 			},
 		},
 		Type: "Node",
@@ -327,9 +327,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   pc.Table,
 			Columns: pc.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: pc.FieldID,
+				Column: pc.FieldId,
 			},
 		},
 		Type:   "PC",
@@ -339,16 +339,16 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   pet.Table,
 			Columns: pet.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: pet.FieldID,
+				Column: pet.FieldId,
 			},
 		},
 		Type: "Pet",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			pet.FieldAge:          {Type: field.TypeFloat64, Column: pet.FieldAge},
 			pet.FieldName:         {Type: field.TypeString, Column: pet.FieldName},
-			pet.FieldUUID:         {Type: field.TypeUUID, Column: pet.FieldUUID},
+			pet.FieldUuid:         {Type: field.TypeUuid, Column: pet.FieldUuid},
 			pet.FieldNickname:     {Type: field.TypeString, Column: pet.FieldNickname},
 			pet.FieldTrained:      {Type: field.TypeBool, Column: pet.FieldTrained},
 			pet.FieldOptionalTime: {Type: field.TypeTime, Column: pet.FieldOptionalTime},
@@ -358,9 +358,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   spec.Table,
 			Columns: spec.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: spec.FieldID,
+				Column: spec.FieldId,
 			},
 		},
 		Type:   "Spec",
@@ -370,15 +370,15 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   enttask.Table,
 			Columns: enttask.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: enttask.FieldID,
+				Column: enttask.FieldId,
 			},
 		},
 		Type: "Task",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			enttask.FieldPriority:    {Type: field.TypeInt, Column: enttask.FieldPriority},
-			enttask.FieldPriorities:  {Type: field.TypeJSON, Column: enttask.FieldPriorities},
+			enttask.FieldPriorities:  {Type: field.TypeJson, Column: enttask.FieldPriorities},
 			enttask.FieldCreatedAt:   {Type: field.TypeTime, Column: enttask.FieldCreatedAt},
 			enttask.FieldName:        {Type: field.TypeString, Column: enttask.FieldName},
 			enttask.FieldOwner:       {Type: field.TypeString, Column: enttask.FieldOwner},
@@ -391,9 +391,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   user.Table,
 			Columns: user.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: user.FieldID,
+				Column: user.FieldId,
 			},
 		},
 		Type: "User",
@@ -408,7 +408,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			user.FieldPassword:    {Type: field.TypeString, Column: user.FieldPassword},
 			user.FieldRole:        {Type: field.TypeEnum, Column: user.FieldRole},
 			user.FieldEmployment:  {Type: field.TypeEnum, Column: user.FieldEmployment},
-			user.FieldSSOCert:     {Type: field.TypeString, Column: user.FieldSSOCert},
+			user.FieldSsoCert:     {Type: field.TypeString, Column: user.FieldSsoCert},
 			user.FieldFilesCount:  {Type: field.TypeInt, Column: user.FieldFilesCount},
 		},
 	}
@@ -746,33 +746,33 @@ type predicateAdder interface {
 }
 
 // addPredicate implements the predicateAdder interface.
-func (_q *APIQuery) addPredicate(pred func(s *sql.Selector)) {
+func (_q *ApiQuery) addPredicate(pred func(s *sql.Selector)) {
 	_q.predicates = append(_q.predicates, pred)
 }
 
-// Filter returns a Filter implementation to apply filters on the APIQuery builder.
-func (_q *APIQuery) Filter() *APIFilter {
-	return &APIFilter{config: _q.config, predicateAdder: _q}
+// Filter returns a Filter implementation to apply filters on the ApiQuery builder.
+func (_q *ApiQuery) Filter() *ApiFilter {
+	return &ApiFilter{config: _q.config, predicateAdder: _q}
 }
 
 // addPredicate implements the predicateAdder interface.
-func (m *APIMutation) addPredicate(pred func(s *sql.Selector)) {
+func (m *ApiMutation) addPredicate(pred func(s *sql.Selector)) {
 	m.Where(pred)
 }
 
-// Filter returns an entql.Where implementation to apply filters on the APIMutation builder.
-func (m *APIMutation) Filter() *APIFilter {
-	return &APIFilter{config: m.config, predicateAdder: m}
+// Filter returns an entql.Where implementation to apply filters on the ApiMutation builder.
+func (m *ApiMutation) Filter() *ApiFilter {
+	return &ApiFilter{config: m.config, predicateAdder: m}
 }
 
-// APIFilter provides a generic filtering capability at runtime for APIQuery.
-type APIFilter struct {
+// ApiFilter provides a generic filtering capability at runtime for ApiQuery.
+type ApiFilter struct {
 	predicateAdder
 	config
 }
 
 // Where applies the entql predicate on the query filter.
-func (f *APIFilter) Where(p entql.P) {
+func (f *ApiFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
 		if err := schemaGraph.EvalP(schemaGraph.Nodes[0].Type, p, s); err != nil {
 			s.AddError(err)
@@ -780,9 +780,9 @@ func (f *APIFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *APIFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(api.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *ApiFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(api.FieldId))
 }
 
 // addPredicate implements the predicateAdder interface.
@@ -820,9 +820,9 @@ func (f *BuilderFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *BuilderFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(builder.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *BuilderFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(builder.FieldId))
 }
 
 // addPredicate implements the predicateAdder interface.
@@ -860,9 +860,9 @@ func (f *CardFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *CardFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(card.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *CardFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(card.FieldId))
 }
 
 // WhereCreateTime applies the entql time.Time predicate on the create_time field.
@@ -953,9 +953,9 @@ func (f *CommentFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *CommentFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(comment.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *CommentFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(comment.FieldId))
 }
 
 // WhereUniqueInt applies the entql int predicate on the unique_int field.
@@ -1023,9 +1023,9 @@ func (f *ExValueScanFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *ExValueScanFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(exvaluescan.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *ExValueScanFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(exvaluescan.FieldId))
 }
 
 // WhereBinary applies the entql string predicate on the binary field.
@@ -1103,9 +1103,9 @@ func (f *FieldTypeFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *FieldTypeFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(fieldtype.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *FieldTypeFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(fieldtype.FieldId))
 }
 
 // WhereInt applies the entql int predicate on the int field.
@@ -1253,9 +1253,9 @@ func (f *FieldTypeFilter) WhereLinkOtherFunc(p entql.OtherP) {
 	f.Where(p.Field(fieldtype.FieldLinkOtherFunc))
 }
 
-// WhereMAC applies the entql string predicate on the mac field.
-func (f *FieldTypeFilter) WhereMAC(p entql.StringP) {
-	f.Where(p.Field(fieldtype.FieldMAC))
+// WhereMac applies the entql string predicate on the mac field.
+func (f *FieldTypeFilter) WhereMac(p entql.StringP) {
+	f.Where(p.Field(fieldtype.FieldMac))
 }
 
 // WhereStringArray applies the entql other predicate on the string_array field.
@@ -1338,9 +1338,9 @@ func (f *FieldTypeFilter) WhereSensitive(p entql.BytesP) {
 	f.Where(p.Field(fieldtype.FieldSensitive))
 }
 
-// WhereIP applies the entql []byte predicate on the ip field.
-func (f *FieldTypeFilter) WhereIP(p entql.BytesP) {
-	f.Where(p.Field(fieldtype.FieldIP))
+// WhereIp applies the entql []byte predicate on the ip field.
+func (f *FieldTypeFilter) WhereIp(p entql.BytesP) {
+	f.Where(p.Field(fieldtype.FieldIp))
 }
 
 // WhereNullInt64 applies the entql int predicate on the null_int64 field.
@@ -1388,14 +1388,14 @@ func (f *FieldTypeFilter) WherePriority(p entql.StringP) {
 	f.Where(p.Field(fieldtype.FieldPriority))
 }
 
-// WhereOptionalUUID applies the entql [16]byte predicate on the optional_uuid field.
-func (f *FieldTypeFilter) WhereOptionalUUID(p entql.ValueP) {
-	f.Where(p.Field(fieldtype.FieldOptionalUUID))
+// WhereOptionalUuid applies the entql [16]byte predicate on the optional_uuid field.
+func (f *FieldTypeFilter) WhereOptionalUuid(p entql.ValueP) {
+	f.Where(p.Field(fieldtype.FieldOptionalUuid))
 }
 
-// WhereNillableUUID applies the entql [16]byte predicate on the nillable_uuid field.
-func (f *FieldTypeFilter) WhereNillableUUID(p entql.ValueP) {
-	f.Where(p.Field(fieldtype.FieldNillableUUID))
+// WhereNillableUuid applies the entql [16]byte predicate on the nillable_uuid field.
+func (f *FieldTypeFilter) WhereNillableUuid(p entql.ValueP) {
+	f.Where(p.Field(fieldtype.FieldNillableUuid))
 }
 
 // WhereStrings applies the entql json.RawMessage predicate on the strings field.
@@ -1468,14 +1468,14 @@ func (f *FileFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *FileFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(file.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *FileFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(file.FieldId))
 }
 
-// WhereSetID applies the entql int predicate on the set_id field.
-func (f *FileFilter) WhereSetID(p entql.IntP) {
-	f.Where(p.Field(file.FieldSetID))
+// WhereSetId applies the entql int predicate on the set_id field.
+func (f *FileFilter) WhereSetId(p entql.IntP) {
+	f.Where(p.Field(file.FieldSetId))
 }
 
 // WhereSize applies the entql int predicate on the size field.
@@ -1503,9 +1503,9 @@ func (f *FileFilter) WhereOp(p entql.BoolP) {
 	f.Where(p.Field(file.FieldOp))
 }
 
-// WhereFieldID applies the entql int predicate on the field_id field.
-func (f *FileFilter) WhereFieldID(p entql.IntP) {
-	f.Where(p.Field(file.FieldFieldID))
+// WhereFieldId applies the entql int predicate on the field_id field.
+func (f *FileFilter) WhereFieldId(p entql.IntP) {
+	f.Where(p.Field(file.FieldFieldId))
 }
 
 // WhereCreateTime applies the entql time.Time predicate on the create_time field.
@@ -1590,9 +1590,9 @@ func (f *FileTypeFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *FileTypeFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(filetype.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *FileTypeFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(filetype.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -1659,9 +1659,9 @@ func (f *GoodsFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GoodsFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(goods.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GoodsFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(goods.FieldId))
 }
 
 // addPredicate implements the predicateAdder interface.
@@ -1699,9 +1699,9 @@ func (f *GroupFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GroupFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(group.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GroupFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(group.FieldId))
 }
 
 // WhereActive applies the entql bool predicate on the active field.
@@ -1820,9 +1820,9 @@ func (f *GroupInfoFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GroupInfoFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(groupinfo.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GroupInfoFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(groupinfo.FieldId))
 }
 
 // WhereDesc applies the entql string predicate on the desc field.
@@ -1884,9 +1884,9 @@ func (f *ItemFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql string predicate on the id field.
-func (f *ItemFilter) WhereID(p entql.StringP) {
-	f.Where(p.Field(item.FieldID))
+// WhereId applies the entql string predicate on the id field.
+func (f *ItemFilter) WhereId(p entql.StringP) {
+	f.Where(p.Field(item.FieldId))
 }
 
 // WhereText applies the entql string predicate on the text field.
@@ -1929,9 +1929,9 @@ func (f *LicenseFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *LicenseFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(license.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *LicenseFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(license.FieldId))
 }
 
 // WhereCreateTime applies the entql time.Time predicate on the create_time field.
@@ -1979,9 +1979,9 @@ func (f *NodeFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *NodeFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(node.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *NodeFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(node.FieldId))
 }
 
 // WhereValue applies the entql int predicate on the value field.
@@ -2057,9 +2057,9 @@ func (f *PCFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *PCFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(pc.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *PCFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(pc.FieldId))
 }
 
 // addPredicate implements the predicateAdder interface.
@@ -2097,9 +2097,9 @@ func (f *PetFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *PetFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(pet.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *PetFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(pet.FieldId))
 }
 
 // WhereAge applies the entql float64 predicate on the age field.
@@ -2112,9 +2112,9 @@ func (f *PetFilter) WhereName(p entql.StringP) {
 	f.Where(p.Field(pet.FieldName))
 }
 
-// WhereUUID applies the entql [16]byte predicate on the uuid field.
-func (f *PetFilter) WhereUUID(p entql.ValueP) {
-	f.Where(p.Field(pet.FieldUUID))
+// WhereUuid applies the entql [16]byte predicate on the uuid field.
+func (f *PetFilter) WhereUuid(p entql.ValueP) {
+	f.Where(p.Field(pet.FieldUuid))
 }
 
 // WhereNickname applies the entql string predicate on the nickname field.
@@ -2195,9 +2195,9 @@ func (f *SpecFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *SpecFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(spec.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *SpecFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(spec.FieldId))
 }
 
 // WhereHasCard applies a predicate to check if query has an edge card.
@@ -2249,9 +2249,9 @@ func (f *TaskFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TaskFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(enttask.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TaskFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(enttask.FieldId))
 }
 
 // WherePriority applies the entql int predicate on the priority field.
@@ -2329,9 +2329,9 @@ func (f *UserFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(user.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(user.FieldId))
 }
 
 // WhereOptionalInt applies the entql int predicate on the optional_int field.
@@ -2384,9 +2384,9 @@ func (f *UserFilter) WhereEmployment(p entql.StringP) {
 	f.Where(p.Field(user.FieldEmployment))
 }
 
-// WhereSSOCert applies the entql string predicate on the SSOCert field.
-func (f *UserFilter) WhereSSOCert(p entql.StringP) {
-	f.Where(p.Field(user.FieldSSOCert))
+// WhereSsoCert applies the entql string predicate on the SsoCert field.
+func (f *UserFilter) WhereSsoCert(p entql.StringP) {
+	f.Where(p.Field(user.FieldSsoCert))
 }
 
 // WhereFilesCount applies the entql int predicate on the files_count field.

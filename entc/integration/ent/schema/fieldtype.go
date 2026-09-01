@@ -97,24 +97,24 @@ func (FieldType) Fields() []ent.Field { //nolint:funlen
 		field.Text("text").
 			Optional().
 			SchemaType(map[string]string{
-				dialect.MySQL: "mediumtext",
+				dialect.MySql: "mediumtext",
 			}),
 		field.Time("datetime").
 			Optional().
 			SchemaType(map[string]string{
-				dialect.MySQL:    "datetime",
+				dialect.MySql:    "datetime",
 				dialect.Postgres: "date",
 			}),
 		field.Float("decimal").
 			Optional().
 			SchemaType(map[string]string{
-				dialect.MySQL:    "decimal(6,2)",
+				dialect.MySql:    "decimal(6,2)",
 				dialect.Postgres: "numeric",
 			}),
 		field.Other("link_other", &Link{}).
 			SchemaType(map[string]string{
 				dialect.Postgres: "varchar",
-				dialect.MySQL:    "varchar(255)",
+				dialect.MySql:    "varchar(255)",
 				dialect.SQLite:   "varchar(255)",
 			}).
 			Optional().
@@ -122,14 +122,14 @@ func (FieldType) Fields() []ent.Field { //nolint:funlen
 		field.Other("link_other_func", &Link{}).
 			SchemaType(map[string]string{
 				dialect.Postgres: "varchar",
-				dialect.MySQL:    "varchar(255)",
+				dialect.MySql:    "varchar(255)",
 				dialect.SQLite:   "varchar(255)",
 			}).
 			Optional().
 			Default(DefaultLink),
 		field.String("mac").
 			Optional().
-			GoType(MAC{}).
+			GoType(Mac{}).
 			SchemaType(map[string]string{
 				dialect.Postgres: "macaddr",
 			}).
@@ -142,13 +142,13 @@ func (FieldType) Fields() []ent.Field { //nolint:funlen
 			SchemaType(map[string]string{
 				dialect.Postgres: "text[]",
 				dialect.SQLite:   "json",
-				dialect.MySQL:    "blob",
+				dialect.MySql:    "blob",
 			}),
 		field.String("password").
 			Optional().
 			Sensitive().
 			SchemaType(map[string]string{
-				dialect.MySQL: "char(32)",
+				dialect.MySql: "char(32)",
 			}),
 
 		// ----------------------------------------------------------------------------
@@ -261,9 +261,9 @@ func (FieldType) Fields() []ent.Field { //nolint:funlen
 		field.Enum("priority").
 			Optional().
 			GoType(role.Priority(0)),
-		field.UUID("optional_uuid", uuid.UUID{}).
+		field.Uuid("optional_uuid", uuid.UUID{}).
 			Optional(),
-		field.UUID("nillable_uuid", uuid.UUID{}).
+		field.Uuid("nillable_uuid", uuid.UUID{}).
 			Optional().
 			Nillable(),
 		field.Strings("strings").
@@ -294,7 +294,7 @@ func (FieldType) Fields() []ent.Field { //nolint:funlen
 			Optional().
 			Sensitive().
 			SchemaType(map[string]string{
-				dialect.MySQL:    "char(32)",
+				dialect.MySql:    "char(32)",
 				dialect.SQLite:   "char(32)",
 				dialect.Postgres: "varchar",
 			}),
@@ -461,12 +461,12 @@ func (l Link) Value() (driver.Value, error) {
 	return l.String(), nil
 }
 
-type MAC struct {
+type Mac struct {
 	net.HardwareAddr
 }
 
 // Scan implements the Scanner interface.
-func (m *MAC) Scan(value any) (err error) {
+func (m *Mac) Scan(value any) (err error) {
 	switch v := value.(type) {
 	case nil:
 	case []byte:
@@ -480,7 +480,7 @@ func (m *MAC) Scan(value any) (err error) {
 }
 
 // Value implements the driver Valuer interface.
-func (m MAC) Value() (driver.Value, error) {
+func (m Mac) Value() (driver.Value, error) {
 	return m.HardwareAddr.String(), nil
 }
 

@@ -12,59 +12,59 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Car {
-	return predicate.Car(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Car {
+	return predicate.Car(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Car {
-	return predicate.Car(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Car {
+	return predicate.Car(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Car {
-	return predicate.Car(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Car {
+	return predicate.Car(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Car {
-	return predicate.Car(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Car {
+	return predicate.Car(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Car {
-	return predicate.Car(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Car {
+	return predicate.Car(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Car {
-	return predicate.Car(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Car {
+	return predicate.Car(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Car {
-	return predicate.Car(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Car {
+	return predicate.Car(sql.FieldLTE(FieldId, id))
 }
 
-// BeforeID applies equality check predicate on the "before_id" field. It's identical to BeforeIDEQ.
-func BeforeID(v float64) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldBeforeID, v))
+// BeforeId applies equality check predicate on the "before_id" field. It's identical to BeforeIdEQ.
+func BeforeId(v float64) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldBeforeId, v))
 }
 
-// AfterID applies equality check predicate on the "after_id" field. It's identical to AfterIDEQ.
-func AfterID(v float64) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldAfterID, v))
+// AfterId applies equality check predicate on the "after_id" field. It's identical to AfterIdEQ.
+func AfterId(v float64) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldAfterId, v))
 }
 
 // Model applies equality check predicate on the "model" field. It's identical to ModelEQ.
@@ -72,104 +72,104 @@ func Model(v string) predicate.Car {
 	return predicate.Car(sql.FieldEQ(FieldModel, v))
 }
 
-// BeforeIDEQ applies the EQ predicate on the "before_id" field.
-func BeforeIDEQ(v float64) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldBeforeID, v))
+// BeforeIdEQ applies the EQ predicate on the "before_id" field.
+func BeforeIdEQ(v float64) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldBeforeId, v))
 }
 
-// BeforeIDNEQ applies the NEQ predicate on the "before_id" field.
-func BeforeIDNEQ(v float64) predicate.Car {
-	return predicate.Car(sql.FieldNEQ(FieldBeforeID, v))
+// BeforeIdNEQ applies the NEQ predicate on the "before_id" field.
+func BeforeIdNEQ(v float64) predicate.Car {
+	return predicate.Car(sql.FieldNEQ(FieldBeforeId, v))
 }
 
-// BeforeIDIn applies the In predicate on the "before_id" field.
-func BeforeIDIn(vs ...float64) predicate.Car {
-	return predicate.Car(sql.FieldIn(FieldBeforeID, vs...))
+// BeforeIdIn applies the In predicate on the "before_id" field.
+func BeforeIdIn(vs ...float64) predicate.Car {
+	return predicate.Car(sql.FieldIn(FieldBeforeId, vs...))
 }
 
-// BeforeIDNotIn applies the NotIn predicate on the "before_id" field.
-func BeforeIDNotIn(vs ...float64) predicate.Car {
-	return predicate.Car(sql.FieldNotIn(FieldBeforeID, vs...))
+// BeforeIdNotIn applies the NotIn predicate on the "before_id" field.
+func BeforeIdNotIn(vs ...float64) predicate.Car {
+	return predicate.Car(sql.FieldNotIn(FieldBeforeId, vs...))
 }
 
-// BeforeIDGT applies the GT predicate on the "before_id" field.
-func BeforeIDGT(v float64) predicate.Car {
-	return predicate.Car(sql.FieldGT(FieldBeforeID, v))
+// BeforeIdGT applies the GT predicate on the "before_id" field.
+func BeforeIdGT(v float64) predicate.Car {
+	return predicate.Car(sql.FieldGT(FieldBeforeId, v))
 }
 
-// BeforeIDGTE applies the GTE predicate on the "before_id" field.
-func BeforeIDGTE(v float64) predicate.Car {
-	return predicate.Car(sql.FieldGTE(FieldBeforeID, v))
+// BeforeIdGTE applies the GTE predicate on the "before_id" field.
+func BeforeIdGTE(v float64) predicate.Car {
+	return predicate.Car(sql.FieldGTE(FieldBeforeId, v))
 }
 
-// BeforeIDLT applies the LT predicate on the "before_id" field.
-func BeforeIDLT(v float64) predicate.Car {
-	return predicate.Car(sql.FieldLT(FieldBeforeID, v))
+// BeforeIdLT applies the LT predicate on the "before_id" field.
+func BeforeIdLT(v float64) predicate.Car {
+	return predicate.Car(sql.FieldLT(FieldBeforeId, v))
 }
 
-// BeforeIDLTE applies the LTE predicate on the "before_id" field.
-func BeforeIDLTE(v float64) predicate.Car {
-	return predicate.Car(sql.FieldLTE(FieldBeforeID, v))
+// BeforeIdLTE applies the LTE predicate on the "before_id" field.
+func BeforeIdLTE(v float64) predicate.Car {
+	return predicate.Car(sql.FieldLTE(FieldBeforeId, v))
 }
 
-// BeforeIDIsNil applies the IsNil predicate on the "before_id" field.
-func BeforeIDIsNil() predicate.Car {
-	return predicate.Car(sql.FieldIsNull(FieldBeforeID))
+// BeforeIdIsNil applies the IsNil predicate on the "before_id" field.
+func BeforeIdIsNil() predicate.Car {
+	return predicate.Car(sql.FieldIsNull(FieldBeforeId))
 }
 
-// BeforeIDNotNil applies the NotNil predicate on the "before_id" field.
-func BeforeIDNotNil() predicate.Car {
-	return predicate.Car(sql.FieldNotNull(FieldBeforeID))
+// BeforeIdNotNil applies the NotNil predicate on the "before_id" field.
+func BeforeIdNotNil() predicate.Car {
+	return predicate.Car(sql.FieldNotNull(FieldBeforeId))
 }
 
-// AfterIDEQ applies the EQ predicate on the "after_id" field.
-func AfterIDEQ(v float64) predicate.Car {
-	return predicate.Car(sql.FieldEQ(FieldAfterID, v))
+// AfterIdEQ applies the EQ predicate on the "after_id" field.
+func AfterIdEQ(v float64) predicate.Car {
+	return predicate.Car(sql.FieldEQ(FieldAfterId, v))
 }
 
-// AfterIDNEQ applies the NEQ predicate on the "after_id" field.
-func AfterIDNEQ(v float64) predicate.Car {
-	return predicate.Car(sql.FieldNEQ(FieldAfterID, v))
+// AfterIdNEQ applies the NEQ predicate on the "after_id" field.
+func AfterIdNEQ(v float64) predicate.Car {
+	return predicate.Car(sql.FieldNEQ(FieldAfterId, v))
 }
 
-// AfterIDIn applies the In predicate on the "after_id" field.
-func AfterIDIn(vs ...float64) predicate.Car {
-	return predicate.Car(sql.FieldIn(FieldAfterID, vs...))
+// AfterIdIn applies the In predicate on the "after_id" field.
+func AfterIdIn(vs ...float64) predicate.Car {
+	return predicate.Car(sql.FieldIn(FieldAfterId, vs...))
 }
 
-// AfterIDNotIn applies the NotIn predicate on the "after_id" field.
-func AfterIDNotIn(vs ...float64) predicate.Car {
-	return predicate.Car(sql.FieldNotIn(FieldAfterID, vs...))
+// AfterIdNotIn applies the NotIn predicate on the "after_id" field.
+func AfterIdNotIn(vs ...float64) predicate.Car {
+	return predicate.Car(sql.FieldNotIn(FieldAfterId, vs...))
 }
 
-// AfterIDGT applies the GT predicate on the "after_id" field.
-func AfterIDGT(v float64) predicate.Car {
-	return predicate.Car(sql.FieldGT(FieldAfterID, v))
+// AfterIdGT applies the GT predicate on the "after_id" field.
+func AfterIdGT(v float64) predicate.Car {
+	return predicate.Car(sql.FieldGT(FieldAfterId, v))
 }
 
-// AfterIDGTE applies the GTE predicate on the "after_id" field.
-func AfterIDGTE(v float64) predicate.Car {
-	return predicate.Car(sql.FieldGTE(FieldAfterID, v))
+// AfterIdGTE applies the GTE predicate on the "after_id" field.
+func AfterIdGTE(v float64) predicate.Car {
+	return predicate.Car(sql.FieldGTE(FieldAfterId, v))
 }
 
-// AfterIDLT applies the LT predicate on the "after_id" field.
-func AfterIDLT(v float64) predicate.Car {
-	return predicate.Car(sql.FieldLT(FieldAfterID, v))
+// AfterIdLT applies the LT predicate on the "after_id" field.
+func AfterIdLT(v float64) predicate.Car {
+	return predicate.Car(sql.FieldLT(FieldAfterId, v))
 }
 
-// AfterIDLTE applies the LTE predicate on the "after_id" field.
-func AfterIDLTE(v float64) predicate.Car {
-	return predicate.Car(sql.FieldLTE(FieldAfterID, v))
+// AfterIdLTE applies the LTE predicate on the "after_id" field.
+func AfterIdLTE(v float64) predicate.Car {
+	return predicate.Car(sql.FieldLTE(FieldAfterId, v))
 }
 
-// AfterIDIsNil applies the IsNil predicate on the "after_id" field.
-func AfterIDIsNil() predicate.Car {
-	return predicate.Car(sql.FieldIsNull(FieldAfterID))
+// AfterIdIsNil applies the IsNil predicate on the "after_id" field.
+func AfterIdIsNil() predicate.Car {
+	return predicate.Car(sql.FieldIsNull(FieldAfterId))
 }
 
-// AfterIDNotNil applies the NotNil predicate on the "after_id" field.
-func AfterIDNotNil() predicate.Car {
-	return predicate.Car(sql.FieldNotNull(FieldAfterID))
+// AfterIdNotNil applies the NotNil predicate on the "after_id" field.
+func AfterIdNotNil() predicate.Car {
+	return predicate.Car(sql.FieldNotNull(FieldAfterId))
 }
 
 // ModelEQ applies the EQ predicate on the "model" field.
@@ -241,7 +241,7 @@ func ModelContainsFold(v string) predicate.Car {
 func HasOwner() predicate.Car {
 	return predicate.Car(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

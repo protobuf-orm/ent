@@ -114,7 +114,7 @@ func VersionHook() ent.Hook {
 			if curV != oldV+1 {
 				return nil, fmt.Errorf("version field must be incremented by 1")
 			}
-			// Add an SQL predicate that validates the "version" column is equal
+			// Add an Sql predicate that validates the "version" column is equal
 			// to "oldV" (it wasn't changed during the mutation by other process).
 			return next.Mutate(ctx, m)
 		})

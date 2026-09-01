@@ -85,11 +85,11 @@ func (_q *OtherQuery) FirstX(ctx context.Context) *Other {
 	return node
 }
 
-// FirstID returns the first Other ID from the query.
-// Returns a *NotFoundError when no Other ID was found.
-func (_q *OtherQuery) FirstID(ctx context.Context) (id sid.ID, err error) {
-	var ids []sid.ID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+// FirstId returns the first Other Id from the query.
+// Returns a *NotFoundError when no Other Id was found.
+func (_q *OtherQuery) FirstId(ctx context.Context) (id sid.Id, err error) {
+	var ids []sid.Id
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -99,9 +99,9 @@ func (_q *OtherQuery) FirstID(ctx context.Context) (id sid.ID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *OtherQuery) FirstIDX(ctx context.Context) sid.ID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *OtherQuery) FirstIdX(ctx context.Context) sid.Id {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -135,12 +135,12 @@ func (_q *OtherQuery) OnlyX(ctx context.Context) *Other {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Other ID in the query.
-// Returns a *NotSingularError when more than one Other ID is found.
+// OnlyId is like Only, but returns the only Other Id in the query.
+// Returns a *NotSingularError when more than one Other Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *OtherQuery) OnlyID(ctx context.Context) (id sid.ID, err error) {
-	var ids []sid.ID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+func (_q *OtherQuery) OnlyId(ctx context.Context) (id sid.Id, err error) {
+	var ids []sid.Id
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -154,9 +154,9 @@ func (_q *OtherQuery) OnlyID(ctx context.Context) (id sid.ID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *OtherQuery) OnlyIDX(ctx context.Context) sid.ID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *OtherQuery) OnlyIdX(ctx context.Context) sid.Id {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -182,21 +182,21 @@ func (_q *OtherQuery) AllX(ctx context.Context) []*Other {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Other IDs.
-func (_q *OtherQuery) IDs(ctx context.Context) (ids []sid.ID, err error) {
+// Ids executes the query and returns a list of Other Ids.
+func (_q *OtherQuery) Ids(ctx context.Context) (ids []sid.Id, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(other.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(other.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *OtherQuery) IDsX(ctx context.Context) []sid.ID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *OtherQuery) IdsX(ctx context.Context) []sid.Id {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,7 +224,7 @@ func (_q *OtherQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *OtherQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -348,7 +348,7 @@ func (_q *OtherQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *OtherQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(other.Table, other.Columns, sqlgraph.NewFieldSpec(other.FieldID, field.TypeOther))
+	_spec := sqlgraph.NewQuerySpec(other.Table, other.Columns, sqlgraph.NewFieldSpec(other.FieldId, field.TypeOther))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -357,9 +357,9 @@ func (_q *OtherQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, other.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, other.FieldId)
 		for i := range fields {
-			if fields[i] != other.FieldID {
+			if fields[i] != other.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

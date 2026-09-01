@@ -18,8 +18,8 @@ const (
 	TypeInvalid Type = iota
 	TypeBool
 	TypeTime
-	TypeJSON
-	TypeUUID
+	TypeJson
+	TypeUuid
 	TypeBytes
 	TypeEnum
 	TypeString
@@ -81,7 +81,7 @@ func (t Type) ConstName() string {
 }
 
 // TypeInfo holds the information regarding field type.
-// Used by complex types like JSON and  Bytes.
+// Used by complex types like Json and  Bytes.
 type TypeInfo struct {
 	Type     Type
 	Ident    string
@@ -136,7 +136,7 @@ func (t TypeInfo) Valuer() bool {
 // Comparable reports whether values of this type are comparable.
 func (t TypeInfo) Comparable() bool {
 	switch t.Type {
-	case TypeBool, TypeTime, TypeUUID, TypeEnum, TypeString:
+	case TypeBool, TypeTime, TypeUuid, TypeEnum, TypeString:
 		return true
 	case TypeOther:
 		// Always accept custom types as comparable on the database side.
@@ -160,8 +160,8 @@ var (
 		TypeInvalid: "invalid",
 		TypeBool:    "bool",
 		TypeTime:    "time.Time",
-		TypeJSON:    "json.RawMessage",
-		TypeUUID:    "[16]byte",
+		TypeJson:    "json.RawMessage",
+		TypeUuid:    "[16]byte",
 		TypeBytes:   "[]byte",
 		TypeEnum:    "string",
 		TypeString:  "string",
@@ -180,8 +180,8 @@ var (
 		TypeFloat64: "float64",
 	}
 	constNames = [...]string{
-		TypeJSON:  "TypeJSON",
-		TypeUUID:  "TypeUUID",
+		TypeJson:  "TypeJson",
+		TypeUuid:  "TypeUuid",
 		TypeTime:  "TypeTime",
 		TypeEnum:  "TypeEnum",
 		TypeBytes: "TypeBytes",

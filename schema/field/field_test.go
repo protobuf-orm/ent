@@ -257,21 +257,21 @@ func TestBytes(t *testing.T) {
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
 
-	fd = field.Bytes("uuid").GoType(uuidtest.UUID{}).DefaultFunc(uuidtest.New).Descriptor()
+	fd = field.Bytes("uuid").GoType(uuidtest.Uuid{}).DefaultFunc(uuidtest.New).Descriptor()
 	assert.NoError(t, fd.Err)
-	assert.Equal(t, "uuidtest.UUID", fd.Info.Ident)
+	assert.Equal(t, "uuidtest.Uuid", fd.Info.Ident)
 	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
-	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
+	assert.Equal(t, "uuidtest.Uuid", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
-	assert.NotEmpty(t, fd.Default.(func() uuidtest.UUID)())
+	assert.NotEmpty(t, fd.Default.(func() uuidtest.Uuid)())
 
 	fd = field.Bytes("uuid").
-		GoType(uuidtest.UUID{}).
+		GoType(uuidtest.Uuid{}).
 		DefaultFunc(uuidtest.New).
 		Descriptor()
 	assert.NoError(t, fd.Err)
-	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
+	assert.Equal(t, "uuidtest.Uuid", fd.Info.String())
 	fd = field.Bytes("pair").
 		GoType(&Pair{}).
 		Descriptor()
@@ -433,7 +433,7 @@ func TestSlices(t *testing.T) {
 		}).
 		Descriptor()
 	assert.Equal(t, "strings", fd.Name)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.NotNil(t, fd.Default)
 	assert.Equal(t, []string{}, fd.Default)
 	assert.Equal(t, "comment", fd.Comment)
@@ -447,7 +447,7 @@ func TestSlices(t *testing.T) {
 		}).
 		Descriptor()
 	assert.Equal(t, "ints", fd.Name)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.NotNil(t, fd.Default)
 	assert.Equal(t, []int{}, fd.Default)
 	assert.Equal(t, "comment", fd.Comment)
@@ -461,7 +461,7 @@ func TestSlices(t *testing.T) {
 		}).
 		Descriptor()
 	assert.Equal(t, "floats", fd.Name)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.NotNil(t, fd.Default)
 	assert.Equal(t, []float64{}, fd.Default)
 	assert.Equal(t, "comment", fd.Comment)
@@ -530,14 +530,14 @@ func TestString(t *testing.T) {
 	assert.True(t, fd.Info.ValueScanner())
 	assert.False(t, fd.Info.Stringer())
 
-	type tURL struct {
+	type tUrl struct {
 		field.ValueScanner
 		*url.URL
 	}
-	fd = field.String("nullable_url").GoType(&tURL{}).Descriptor()
-	assert.Equal(t, "*field_test.tURL", fd.Info.Ident)
+	fd = field.String("nullable_url").GoType(&tUrl{}).Descriptor()
+	assert.Equal(t, "*field_test.tUrl", fd.Info.Ident)
 	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
-	assert.Equal(t, "*field_test.tURL", fd.Info.String())
+	assert.Equal(t, "*field_test.tUrl", fd.Info.String())
 	assert.True(t, fd.Info.ValueScanner())
 	assert.True(t, fd.Info.Stringer())
 	assert.Equal(t, "field_test", fd.Info.PkgName)
@@ -601,15 +601,15 @@ func TestTime(t *testing.T) {
 	assert.Error(t, fd.Err)
 }
 
-func TestJSON(t *testing.T) {
-	fd := field.JSON("name", map[string]string{}).
+func TestJson(t *testing.T) {
+	fd := field.Json("name", map[string]string{}).
 		Optional().
 		Comment("comment").
 		Descriptor()
 	assert.True(t, fd.Optional)
 	assert.Empty(t, fd.Info.PkgPath)
 	assert.Equal(t, "name", fd.Name)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.Equal(t, "map[string]string", fd.Info.String())
 	assert.Equal(t, "comment", fd.Comment)
 	assert.True(t, fd.Info.Nillable)
@@ -617,7 +617,7 @@ func TestJSON(t *testing.T) {
 	assert.Empty(t, fd.Info.PkgName)
 
 	type T struct{ S string }
-	fd = field.JSON("name", &T{}).
+	fd = field.Json("name", &T{}).
 		Descriptor()
 	assert.True(t, fd.Info.Nillable)
 	assert.Equal(t, "*field_test.T", fd.Info.Ident)
@@ -626,11 +626,11 @@ func TestJSON(t *testing.T) {
 	assert.Equal(t, "T", fd.Info.RType.Name)
 	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.RType.PkgPath)
 
-	fd = field.JSON("dir", http.Dir("dir")).
+	fd = field.Json("dir", http.Dir("dir")).
 		Optional().
 		Descriptor()
 	assert.True(t, fd.Optional)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.Equal(t, "dir", fd.Name)
 	assert.Equal(t, "net/http", fd.Info.PkgPath)
 	assert.Equal(t, "http.Dir", fd.Info.String())
@@ -647,23 +647,23 @@ func TestJSON(t *testing.T) {
 	assert.Empty(t, fd.Info.PkgPath)
 	assert.Equal(t, "strings", fd.Name)
 	assert.Equal(t, []string{"a", "b"}, fd.Default)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.Equal(t, "[]string", fd.Info.String())
 
-	fd = field.JSON("dirs", []http.Dir{}).
+	fd = field.Json("dirs", []http.Dir{}).
 		Default([]http.Dir{"a", "b"}).
 		Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "http", fd.Info.PkgName)
 
-	fd = field.JSON("dirs", []http.Dir{}).
+	fd = field.Json("dirs", []http.Dir{}).
 		Default(func() []http.Dir {
 			return []http.Dir{"/tmp"}
 		}).
 		Descriptor()
 	assert.NoError(t, fd.Err)
 
-	fd = field.JSON("dirs", []http.Dir{}).
+	fd = field.Json("dirs", []http.Dir{}).
 		Default([]string{"a", "b"}).
 		Descriptor()
 	assert.Error(t, fd.Err)
@@ -671,27 +671,27 @@ func TestJSON(t *testing.T) {
 	fd = field.Any("unknown").
 		Descriptor()
 	assert.NoError(t, fd.Err)
-	assert.Equal(t, field.TypeJSON, fd.Info.Type)
+	assert.Equal(t, field.TypeJson, fd.Info.Type)
 	assert.Equal(t, "unknown", fd.Name)
 	assert.Equal(t, "any", fd.Info.String())
 
-	fd = field.JSON("values", &url.Values{}).Descriptor()
+	fd = field.Json("values", &url.Values{}).Descriptor()
 	assert.Equal(t, "net/url", fd.Info.PkgPath)
 	assert.Equal(t, "url", fd.Info.PkgName)
-	fd = field.JSON("values", []url.Values{}).Descriptor()
+	fd = field.Json("values", []url.Values{}).Descriptor()
 	assert.Equal(t, "net/url", fd.Info.PkgPath)
 	assert.Equal(t, "url", fd.Info.PkgName)
-	fd = field.JSON("values", []*url.Values{}).Descriptor()
+	fd = field.Json("values", []*url.Values{}).Descriptor()
 	assert.Equal(t, "net/url", fd.Info.PkgPath)
 	assert.Equal(t, "url", fd.Info.PkgName)
-	fd = field.JSON("values", map[string]url.Values{}).Descriptor()
+	fd = field.Json("values", map[string]url.Values{}).Descriptor()
 	assert.Equal(t, "net/url", fd.Info.PkgPath)
 	assert.Equal(t, "url", fd.Info.PkgName)
-	fd = field.JSON("values", map[string]*url.Values{}).Descriptor()
+	fd = field.Json("values", map[string]*url.Values{}).Descriptor()
 	assert.Equal(t, "net/url", fd.Info.PkgPath)
 	assert.Equal(t, "url", fd.Info.PkgName)
-	fd = field.JSON("addr", net.Addr(nil)).Descriptor()
-	assert.EqualError(t, fd.Err, "expect a Go value as JSON type but got nil")
+	fd = field.Json("addr", net.Addr(nil)).Descriptor()
+	assert.EqualError(t, fd.Err, "expect a Go value as Json type but got nil")
 }
 
 func TestField_Tag(t *testing.T) {
@@ -795,8 +795,8 @@ func TestField_Enums(t *testing.T) {
 	assert.True(t, fd.Info.Stringer())
 }
 
-func TestField_UUID(t *testing.T) {
-	fd := field.UUID("id", uuidtest.UUID{}).
+func TestField_Uuid(t *testing.T) {
+	fd := field.Uuid("id", uuidtest.Uuid{}).
 		Unique().
 		Default(uuidtest.New).
 		Comment("comment").
@@ -804,21 +804,21 @@ func TestField_UUID(t *testing.T) {
 		Descriptor()
 	assert.Equal(t, "id", fd.Name)
 	assert.True(t, fd.Unique)
-	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
+	assert.Equal(t, "uuidtest.Uuid", fd.Info.String())
 	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
 	assert.NotNil(t, fd.Default)
-	assert.NotEmpty(t, fd.Default.(func() uuidtest.UUID)())
+	assert.NotEmpty(t, fd.Default.(func() uuidtest.Uuid)())
 	assert.Equal(t, "comment", fd.Comment)
 	assert.True(t, fd.Nillable)
 
-	fd = field.UUID("id", &uuidtest.UUID{}).
+	fd = field.Uuid("id", &uuidtest.Uuid{}).
 		Descriptor()
 	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
 
-	fd = field.UUID("id", uuidtest.UUID{}).
-		Default(uuidtest.UUID{}).
+	fd = field.Uuid("id", uuidtest.Uuid{}).
+		Default(uuidtest.Uuid{}).
 		Descriptor()
-	assert.EqualError(t, fd.Err, "expect type (func() uuidtest.UUID) for uuid default value")
+	assert.EqualError(t, fd.Err, "expect type (func() uuidtest.Uuid) for uuid default value")
 }
 
 type custom struct {
@@ -965,8 +965,8 @@ func TestTypeValid(t *testing.T) {
 }
 
 func TestTypeConstName(t *testing.T) {
-	typ := field.TypeJSON
-	assert.Equal(t, "TypeJSON", typ.ConstName())
+	typ := field.TypeJson
+	assert.Equal(t, "TypeJson", typ.ConstName())
 	typ = field.TypeInt
 	assert.Equal(t, "TypeInt", typ.ConstName())
 	typ = field.TypeInt64
@@ -1017,8 +1017,8 @@ func TestString_MaxRuneLen(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestJSONValueScanner(t *testing.T) {
-	// A JSON column is written through encoding/json, so whatever an
+func TestJsonValueScanner(t *testing.T) {
+	// A Json column is written through encoding/json, so whatever an
 	// external ValueScanner returns has to say it is already encoded.
 	for _, tt := range []struct {
 		in   driver.Value
@@ -1029,10 +1029,10 @@ func TestJSONValueScanner(t *testing.T) {
 		{`{"a":1}`, json.RawMessage(`{"a":1}`)},
 		{nil, nil},
 	} {
-		got, err := field.JSONValue(tt.in)
+		got, err := field.JsonValue(tt.in)
 		require.NoError(t, err)
 		require.Equal(t, tt.want, got)
 	}
-	_, err := field.JSONValue(42)
+	_, err := field.JsonValue(42)
 	require.ErrorContains(t, err, "must return the encoded value")
 }

@@ -30,23 +30,23 @@ func (_c *PostCreate) SetText(v string) *PostCreate {
 	return _c
 }
 
-// SetAuthorID sets the "author_id" field.
-func (_c *PostCreate) SetAuthorID(v int) *PostCreate {
-	_c.mutation.SetAuthorID(v)
+// SetAuthorId sets the "author_id" field.
+func (_c *PostCreate) SetAuthorId(v int) *PostCreate {
+	_c.mutation.SetAuthorId(v)
 	return _c
 }
 
-// SetNillableAuthorID sets the "author_id" field if the given value is not nil.
-func (_c *PostCreate) SetNillableAuthorID(v *int) *PostCreate {
+// SetNillableAuthorId sets the "author_id" field if the given value is not nil.
+func (_c *PostCreate) SetNillableAuthorId(v *int) *PostCreate {
 	if v != nil {
-		_c.SetAuthorID(*v)
+		_c.SetAuthorId(*v)
 	}
 	return _c
 }
 
 // SetAuthor sets the "author" edge to the User entity.
 func (_c *PostCreate) SetAuthor(v *User) *PostCreate {
-	return _c.SetAuthorID(v.ID)
+	return _c.SetAuthorId(v.Id)
 }
 
 // Mutation returns the PostMutation object of the builder.
@@ -100,9 +100,9 @@ func (_c *PostCreate) sqlSave(ctx context.Context) (*Post, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -110,13 +110,13 @@ func (_c *PostCreate) sqlSave(ctx context.Context) (*Post, error) {
 func (_c *PostCreate) createSpec() (*Post, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Post{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(post.Table, sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(post.Table, sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(post.FieldText, field.TypeString, value)
 		_node.Text = value
 	}
-	if nodes := _c.mutation.AuthorIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AuthorIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -124,13 +124,13 @@ func (_c *PostCreate) createSpec() (*Post, *sqlgraph.CreateSpec) {
 			Columns: []string{post.AuthorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.AuthorID = &nodes[0]
+		_node.AuthorId = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -179,10 +179,10 @@ func (_c *PostCreateBulk) Save(ctx context.Context) ([]*Post, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

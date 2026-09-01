@@ -34,29 +34,29 @@ func (_c *TokenCreate) SetBody(v string) *TokenCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *TokenCreate) SetID(v sid.ID) *TokenCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *TokenCreate) SetId(v sid.Id) *TokenCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *TokenCreate) SetNillableID(v *sid.ID) *TokenCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *TokenCreate) SetNillableId(v *sid.Id) *TokenCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetAccountID sets the "account" edge to the Account entity by ID.
-func (_c *TokenCreate) SetAccountID(id sid.ID) *TokenCreate {
-	_c.mutation.SetAccountID(id)
+// SetAccountId sets the "account" edge to the Account entity by Id.
+func (_c *TokenCreate) SetAccountId(id sid.Id) *TokenCreate {
+	_c.mutation.SetAccountId(id)
 	return _c
 }
 
 // SetAccount sets the "account" edge to the Account entity.
 func (_c *TokenCreate) SetAccount(v *Account) *TokenCreate {
-	return _c.SetAccountID(v.ID)
+	return _c.SetAccountId(v.Id)
 }
 
 // Mutation returns the TokenMutation object of the builder.
@@ -94,9 +94,9 @@ func (_c *TokenCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *TokenCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := token.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := token.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -110,7 +110,7 @@ func (_c *TokenCreate) check() error {
 			return &ValidationError{Name: "body", err: fmt.Errorf(`ent: validator failed for field "Token.body": %w`, err)}
 		}
 	}
-	if len(_c.mutation.AccountIDs()) == 0 {
+	if len(_c.mutation.AccountIds()) == 0 {
 		return &ValidationError{Name: "account", err: errors.New(`ent: missing required edge "Token.account"`)}
 	}
 	return nil
@@ -127,14 +127,14 @@ func (_c *TokenCreate) sqlSave(ctx context.Context) (*Token, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*sid.ID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*sid.Id); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -142,18 +142,18 @@ func (_c *TokenCreate) sqlSave(ctx context.Context) (*Token, error) {
 func (_c *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Token{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(token.Table, sqlgraph.NewFieldSpec(token.FieldID, field.TypeOther))
+		_spec = sqlgraph.NewCreateSpec(token.Table, sqlgraph.NewFieldSpec(token.FieldId, field.TypeOther))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Body(); ok {
 		_spec.SetField(token.FieldBody, field.TypeString, value)
 		_node.Body = value
 	}
-	if nodes := _c.mutation.AccountIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AccountIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -161,7 +161,7 @@ func (_c *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 			Columns: []string{token.AccountColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther),
+				IdSpec: sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther),
 			},
 		}
 		for _, k := range nodes {
@@ -234,22 +234,22 @@ func (u *TokenUpsert) UpdateBody() *TokenUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Token.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(token.FieldID)
+//				u.SetIgnore(token.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *TokenUpsertOne) UpdateNewValues() *TokenUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(token.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(token.FieldId)
 		}
 	}))
 	return u
@@ -267,7 +267,7 @@ func (u *TokenUpsertOne) Ignore() *TokenUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TokenUpsertOne) DoNothing() *TokenUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -311,23 +311,23 @@ func (u *TokenUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *TokenUpsertOne) ID(ctx context.Context) (id sid.ID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: TokenUpsertOne.ID is not supported by MySQL driver. Use TokenUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *TokenUpsertOne) Id(ctx context.Context) (id sid.Id, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: TokenUpsertOne.Id is not supported by MySql driver. Use TokenUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *TokenUpsertOne) IDX(ctx context.Context) sid.ID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *TokenUpsertOne) IdX(ctx context.Context) sid.Id {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -380,7 +380,7 @@ func (_c *TokenCreateBulk) Save(ctx context.Context) ([]*Token, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -468,7 +468,7 @@ type TokenUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(token.FieldID)
+//				u.SetIgnore(token.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -476,8 +476,8 @@ func (u *TokenUpsertBulk) UpdateNewValues() *TokenUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(token.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(token.FieldId)
 			}
 		}
 	}))
@@ -496,7 +496,7 @@ func (u *TokenUpsertBulk) Ignore() *TokenUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TokenUpsertBulk) DoNothing() *TokenUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

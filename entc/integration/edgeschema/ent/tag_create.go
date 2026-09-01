@@ -36,9 +36,9 @@ func (_c *TagCreate) SetValue(v string) *TagCreate {
 	return _c
 }
 
-// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_c *TagCreate) AddTweetsIDs(ids ...int) *TagCreate {
-	_c.mutation.AddTweetsIDs(ids...)
+// AddTweetsIds adds the "tweets" edge to the Tweet entity by Ids.
+func (_c *TagCreate) AddTweetsIds(ids ...int) *TagCreate {
+	_c.mutation.AddTweetsIds(ids...)
 	return _c
 }
 
@@ -46,14 +46,14 @@ func (_c *TagCreate) AddTweetsIDs(ids ...int) *TagCreate {
 func (_c *TagCreate) AddTweets(v ...*Tweet) *TagCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTweetsIDs(ids...)
+	return _c.AddTweetsIds(ids...)
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *TagCreate) AddGroupsIDs(ids ...int) *TagCreate {
-	_c.mutation.AddGroupsIDs(ids...)
+// AddGroupsIds adds the "groups" edge to the Group entity by Ids.
+func (_c *TagCreate) AddGroupsIds(ids ...int) *TagCreate {
+	_c.mutation.AddGroupsIds(ids...)
 	return _c
 }
 
@@ -61,14 +61,14 @@ func (_c *TagCreate) AddGroupsIDs(ids ...int) *TagCreate {
 func (_c *TagCreate) AddGroups(v ...*Group) *TagCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddGroupsIDs(ids...)
+	return _c.AddGroupsIds(ids...)
 }
 
-// AddTweetTagsIDs adds the "tweet_tags" edge to the TweetTag entity by IDs.
-func (_c *TagCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TagCreate {
-	_c.mutation.AddTweetTagsIDs(ids...)
+// AddTweetTagsIds adds the "tweet_tags" edge to the TweetTag entity by Ids.
+func (_c *TagCreate) AddTweetTagsIds(ids ...uuid.UUID) *TagCreate {
+	_c.mutation.AddTweetTagsIds(ids...)
 	return _c
 }
 
@@ -76,14 +76,14 @@ func (_c *TagCreate) AddTweetTagsIDs(ids ...uuid.UUID) *TagCreate {
 func (_c *TagCreate) AddTweetTags(v ...*TweetTag) *TagCreate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTweetTagsIDs(ids...)
+	return _c.AddTweetTagsIds(ids...)
 }
 
-// AddGroupTagsIDs adds the "group_tags" edge to the GroupTag entity by IDs.
-func (_c *TagCreate) AddGroupTagsIDs(ids ...int) *TagCreate {
-	_c.mutation.AddGroupTagsIDs(ids...)
+// AddGroupTagsIds adds the "group_tags" edge to the GroupTag entity by Ids.
+func (_c *TagCreate) AddGroupTagsIds(ids ...int) *TagCreate {
+	_c.mutation.AddGroupTagsIds(ids...)
 	return _c
 }
 
@@ -91,9 +91,9 @@ func (_c *TagCreate) AddGroupTagsIDs(ids ...int) *TagCreate {
 func (_c *TagCreate) AddGroupTags(v ...*GroupTag) *TagCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddGroupTagsIDs(ids...)
+	return _c.AddGroupTagsIds(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.
@@ -147,9 +147,9 @@ func (_c *TagCreate) sqlSave(ctx context.Context) (*Tag, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -157,14 +157,14 @@ func (_c *TagCreate) sqlSave(ctx context.Context) (*Tag, error) {
 func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Tag{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(tag.Table, sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(tag.Table, sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Value(); ok {
 		_spec.SetField(tag.FieldValue, field.TypeString, value)
 		_node.Value = value
 	}
-	if nodes := _c.mutation.TweetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -172,7 +172,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 			Columns: tag.TweetsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -182,12 +182,12 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 		createE.defaults()
 		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
-		if specE.ID.Value != nil {
-			edge.Target.Fields = append(edge.Target.Fields, specE.ID)
+		if specE.Id.Value != nil {
+			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.GroupsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -195,7 +195,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 			Columns: tag.GroupsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -203,7 +203,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetTagsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetTagsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -211,7 +211,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 			Columns: []string{tag.TweetTagsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweettag.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(tweettag.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -219,7 +219,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.GroupTagsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupTagsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -227,7 +227,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 			Columns: []string{tag.GroupTagsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(grouptag.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(grouptag.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -324,7 +324,7 @@ func (u *TagUpsertOne) Ignore() *TagUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TagUpsertOne) DoNothing() *TagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -368,18 +368,18 @@ func (u *TagUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *TagUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *TagUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *TagUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *TagUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -431,10 +431,10 @@ func (_c *TagCreateBulk) Save(ctx context.Context) ([]*Tag, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -541,7 +541,7 @@ func (u *TagUpsertBulk) Ignore() *TagUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TagUpsertBulk) DoNothing() *TagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

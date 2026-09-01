@@ -48,9 +48,9 @@ func (_c *UserCreate) SetTags(v []string) *UserCreate {
 	return _c
 }
 
-// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
-func (_c *UserCreate) AddCardsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddCardsIDs(ids...)
+// AddCardsIds adds the "cards" edge to the Card entity by Ids.
+func (_c *UserCreate) AddCardsIds(ids ...int) *UserCreate {
+	_c.mutation.AddCardsIds(ids...)
 	return _c
 }
 
@@ -58,9 +58,9 @@ func (_c *UserCreate) AddCardsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddCards(v ...*Card) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddCardsIDs(ids...)
+	return _c.AddCardsIds(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -120,9 +120,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -130,7 +130,7 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeFloat64, value)
@@ -145,10 +145,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.LastName = value
 	}
 	if value, ok := _c.mutation.Tags(); ok {
-		_spec.SetField(user.FieldTags, field.TypeJSON, value)
+		_spec.SetField(user.FieldTags, field.TypeJson, value)
 		_node.Tags = value
 	}
-	if nodes := _c.mutation.CardsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CardsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -156,7 +156,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -210,10 +210,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

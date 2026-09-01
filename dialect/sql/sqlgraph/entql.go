@@ -16,14 +16,14 @@ type (
 	// represents a single schema-type and its relations in the graph (storage).
 	//
 	// It is used for translating common graph traversal operations to the
-	// underlying SQL storage. For example, an operation like `has_edge(E)`,
-	// will be translated to an SQL lookup based on the relation type and the
+	// underlying Sql storage. For example, an operation like `has_edge(E)`,
+	// will be translated to an Sql lookup based on the relation type and the
 	// FK configuration.
 	Schema struct {
 		Nodes []*Node
 	}
 
-	// A Node in the graph holds the SQL information for an ent/schema.
+	// A Node in the graph holds the Sql information for an ent/schema.
 	Node struct {
 		NodeSpec
 
@@ -157,7 +157,7 @@ type state struct {
 	selector *sql.Selector
 }
 
-// evalExpr evaluates the entql expression and returns a new SQL predicate to be applied on the database.
+// evalExpr evaluates the entql expression and returns a new Sql predicate to be applied on the database.
 func evalExpr(context *Node, selector *sql.Selector, expr entql.Expr) (p *sql.Predicate, err error) {
 	ex := &state{
 		context:  context,
@@ -245,21 +245,21 @@ func (e *state) evalEdge(name string, exprs ...entql.Expr) *sql.Predicate {
 	expect(ok, "edge %q was not found for node %q", name, e.context.Type)
 	var fromC, toC string
 	switch {
-	case edge.To.ID != nil:
-		toC = edge.To.ID.Column
+	case edge.To.Id != nil:
+		toC = edge.To.Id.Column
 	// Edge-owner points to its edge schema.
-	case edge.To.CompositeID != nil && !edge.Spec.Inverse:
-		toC = edge.To.CompositeID[0].Column
+	case edge.To.CompositeId != nil && !edge.Spec.Inverse:
+		toC = edge.To.CompositeId[0].Column
 	// Edge-backref points to its edge schema.
-	case edge.To.CompositeID != nil && edge.Spec.Inverse:
-		toC = edge.To.CompositeID[1].Column
+	case edge.To.CompositeId != nil && edge.Spec.Inverse:
+		toC = edge.To.CompositeId[1].Column
 	default:
 		panic(evalError{fmt.Sprintf("expect id definition for edge %q", name)})
 	}
 	switch {
-	case e.context.ID != nil:
-		fromC = e.context.ID.Column
-	case e.context.CompositeID != nil && (edge.Spec.Rel == M2O || (edge.Spec.Rel == O2O && edge.Spec.Inverse)):
+	case e.context.Id != nil:
+		fromC = e.context.Id.Column
+	case e.context.CompositeId != nil && (edge.Spec.Rel == M2O || (edge.Spec.Rel == O2O && edge.Spec.Inverse)):
 		// An edge-schema with a composite id can query
 		// only edges that it owns (holds the foreign-key).
 	default:
@@ -295,7 +295,7 @@ func (e *state) evalEdge(name string, exprs ...entql.Expr) *sql.Predicate {
 
 func (e *state) field(f *entql.Field) string {
 	_, ok := e.context.Fields[f.Name]
-	expect(ok || e.context.ID.Column == f.Name, "field %q was not found for node %q", f.Name, e.context.Type)
+	expect(ok || e.context.Id.Column == f.Name, "field %q was not found for node %q", f.Name, e.context.Type)
 	return e.selector.C(f.Name)
 }
 

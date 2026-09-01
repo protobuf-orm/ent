@@ -36,11 +36,11 @@ func EntQL(t *testing.T, client *ent.Client) {
 			entql.HasEdge("friends"),
 		),
 	)
-	require.Equal(nati.ID, uq.OnlyIDX(ctx))
+	require.Equal(nati.Id, uq.OnlyIdX(ctx))
 
 	u1, u2 := uuid.New(), uuid.New()
-	xabi := client.Pet.Create().SetName("xabi").SetOwner(a8m).SetUUID(u1).SaveX(ctx)
-	luna := client.Pet.Create().SetName("luna").SetOwner(nati).SetUUID(u2).SaveX(ctx)
+	xabi := client.Pet.Create().SetName("xabi").SetOwner(a8m).SetUuid(u1).SaveX(ctx)
+	luna := client.Pet.Create().SetName("luna").SetOwner(nati).SetUuid(u2).SaveX(ctx)
 	uq = client.User.Query()
 	uq.Filter().Where(
 		entql.And(
@@ -50,7 +50,7 @@ func EntQL(t *testing.T, client *ent.Client) {
 			entql.HasEdgeWith("friends", entql.FieldIn("name", "nati", "a8m")),
 		),
 	)
-	require.Equal(a8m.ID, uq.OnlyIDX(ctx))
+	require.Equal(a8m.Id, uq.OnlyIdX(ctx))
 	uq = client.User.Query()
 	uq.Filter().Where(
 		entql.And(
@@ -58,27 +58,27 @@ func EntQL(t *testing.T, client *ent.Client) {
 			entql.HasEdge("friends"),
 		),
 	)
-	require.Equal(nati.ID, uq.OnlyIDX(ctx))
+	require.Equal(nati.Id, uq.OnlyIdX(ctx))
 
 	pq := client.Pet.Query()
-	pq.Filter().WhereUUID(entql.ValueEQ(u1))
-	require.Equal(xabi.ID, pq.OnlyIDX(ctx))
+	pq.Filter().WhereUuid(entql.ValueEQ(u1))
+	require.Equal(xabi.Id, pq.OnlyIdX(ctx))
 	pq = client.Pet.Query()
-	pq.Filter().WhereUUID(entql.ValueEQ(u2))
-	require.Equal(luna.ID, pq.OnlyIDX(ctx))
+	pq.Filter().WhereUuid(entql.ValueEQ(u2))
+	require.Equal(luna.Id, pq.OnlyIdX(ctx))
 
 	uq = client.User.Query()
 	uq.Filter().WhereName(entql.StringEQ("a8m"))
-	require.Equal(a8m.ID, uq.OnlyIDX(ctx))
+	require.Equal(a8m.Id, uq.OnlyIdX(ctx))
 	pq = client.Pet.Query()
 	pq.Filter().WhereName(entql.StringOr(entql.StringEQ("xabi"), entql.StringEQ("luna")))
-	require.Equal([]int{luna.ID, xabi.ID}, pq.Order(ent.Asc(pet.FieldName)).IDsX(ctx))
+	require.Equal([]int{luna.Id, xabi.Id}, pq.Order(ent.Asc(pet.FieldName)).IdsX(ctx))
 
 	pq = client.Pet.Query()
-	pq.Where(pet.Name(luna.Name)).Filter().WhereID(entql.IntEQ(luna.ID))
-	require.Equal(luna.ID, pq.Order(ent.Asc(pet.FieldName)).OnlyIDX(ctx))
+	pq.Where(pet.Name(luna.Name)).Filter().WhereId(entql.IntEQ(luna.Id))
+	require.Equal(luna.Id, pq.Order(ent.Asc(pet.FieldName)).OnlyIdX(ctx))
 	pq = client.Pet.Query()
-	pq.Where(pet.Name(luna.Name)).Filter().WhereID(entql.IntEQ(xabi.ID))
+	pq.Where(pet.Name(luna.Name)).Filter().WhereId(entql.IntEQ(xabi.Id))
 	require.False(pq.ExistX(ctx))
 
 	update := client.User.Update().SetRole(user.RoleAdmin)
@@ -87,11 +87,11 @@ func EntQL(t *testing.T, client *ent.Client) {
 	require.Equal(1, updated)
 	uq = client.User.Query()
 	uq.Filter().WhereRole(entql.StringEQ(string(user.RoleAdmin)))
-	require.Equal(a8m.ID, uq.OnlyIDX(ctx))
+	require.Equal(a8m.Id, uq.OnlyIdX(ctx))
 
 	uq = client.User.Query()
 	uq.Filter().WhereName(entql.StringEQ(a8m.Name))
 	uq = uq.QueryFriends()
 	uq.Filter().WhereName(entql.StringEQ(nati.Name))
-	require.Equal(luna.ID, uq.QueryPets().OnlyIDX(ctx))
+	require.Equal(luna.Id, uq.QueryPets().OnlyIdX(ctx))
 }

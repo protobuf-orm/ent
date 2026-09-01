@@ -40,8 +40,8 @@ func (m *Mutation) Predicates() []predicate.Spec {
 	return m.predicates
 }
 
-// AddCardIDs adds the "card" edge to the Card entity by ids.
-func (m *Mutation) AddCardIDs(ids ...int) {
+// AddCardIds adds the "card" edge to the Card entity by ids.
+func (m *Mutation) AddCardIds(ids ...int) {
 	if m.card == nil {
 		m.card = make(map[int]struct{})
 	}
@@ -60,8 +60,8 @@ func (m *Mutation) CardCleared() bool {
 	return m.clearedcard
 }
 
-// RemoveCardIDs removes the "card" edge to the Card entity by IDs.
-func (m *Mutation) RemoveCardIDs(ids ...int) {
+// RemoveCardIds removes the "card" edge to the Card entity by Ids.
+func (m *Mutation) RemoveCardIds(ids ...int) {
 	if m.removedcard == nil {
 		m.removedcard = make(map[int]struct{})
 	}
@@ -71,16 +71,16 @@ func (m *Mutation) RemoveCardIDs(ids ...int) {
 	}
 }
 
-// RemovedCard returns the removed IDs of the "card" edge to the Card entity.
-func (m *Mutation) RemovedCardIDs() (ids []int) {
+// RemovedCard returns the removed Ids of the "card" edge to the Card entity.
+func (m *Mutation) RemovedCardIds() (ids []int) {
 	for id := range m.removedcard {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// CardIDs returns the "card" edge IDs in the mutation.
-func (m *Mutation) CardIDs() (ids []int) {
+// CardIds returns the "card" edge Ids in the mutation.
+func (m *Mutation) CardIds() (ids []int) {
 	for id := range m.card {
 		ids = append(ids, id)
 	}
@@ -209,9 +209,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCard:
 		ids := make([]ent.Value, 0, len(m.card))
@@ -232,9 +232,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCard:
 		ids := make([]ent.Value, 0, len(m.removedcard))

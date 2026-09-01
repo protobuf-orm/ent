@@ -46,9 +46,9 @@ func (_c *GroupInfoCreate) SetNillableMaxUsers(v *int) *GroupInfoCreate {
 	return _c
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *GroupInfoCreate) AddGroupsIDs(ids ...int) *GroupInfoCreate {
-	_c.mutation.AddGroupsIDs(ids...)
+// AddGroupsIds adds the "groups" edge to the Group entity by Ids.
+func (_c *GroupInfoCreate) AddGroupsIds(ids ...int) *GroupInfoCreate {
+	_c.mutation.AddGroupsIds(ids...)
 	return _c
 }
 
@@ -56,9 +56,9 @@ func (_c *GroupInfoCreate) AddGroupsIDs(ids ...int) *GroupInfoCreate {
 func (_c *GroupInfoCreate) AddGroups(v ...*Group) *GroupInfoCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddGroupsIDs(ids...)
+	return _c.AddGroupsIds(ids...)
 }
 
 // Mutation returns the GroupInfoMutation object of the builder.
@@ -124,9 +124,9 @@ func (_c *GroupInfoCreate) sqlSave(ctx context.Context) (*GroupInfo, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -134,7 +134,7 @@ func (_c *GroupInfoCreate) sqlSave(ctx context.Context) (*GroupInfo, error) {
 func (_c *GroupInfoCreate) createSpec() (*GroupInfo, *sqlgraph.CreateSpec) {
 	var (
 		_node = &GroupInfo{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(groupinfo.Table, sqlgraph.NewFieldSpec(groupinfo.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(groupinfo.Table, sqlgraph.NewFieldSpec(groupinfo.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Desc(); ok {
@@ -145,7 +145,7 @@ func (_c *GroupInfoCreate) createSpec() (*GroupInfo, *sqlgraph.CreateSpec) {
 		_spec.SetField(groupinfo.FieldMaxUsers, field.TypeInt, value)
 		_node.MaxUsers = value
 	}
-	if nodes := _c.mutation.GroupsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -153,7 +153,7 @@ func (_c *GroupInfoCreate) createSpec() (*GroupInfo, *sqlgraph.CreateSpec) {
 			Columns: []string{groupinfo.GroupsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -268,7 +268,7 @@ func (u *GroupInfoUpsertOne) Ignore() *GroupInfoUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *GroupInfoUpsertOne) DoNothing() *GroupInfoUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -333,18 +333,18 @@ func (u *GroupInfoUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *GroupInfoUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *GroupInfoUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *GroupInfoUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *GroupInfoUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -397,10 +397,10 @@ func (_c *GroupInfoCreateBulk) Save(ctx context.Context) ([]*GroupInfo, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -507,7 +507,7 @@ func (u *GroupInfoUpsertBulk) Ignore() *GroupInfoUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *GroupInfoUpsertBulk) DoNothing() *GroupInfoUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

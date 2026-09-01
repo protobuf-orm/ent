@@ -19,8 +19,8 @@ import (
 // Other is the model entity for the Other schema.
 type Other struct {
 	config
-	// ID of the ent.
-	ID           sid.ID `json:"id,omitempty"`
+	// Id of the ent.
+	Id           sid.Id `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -29,8 +29,8 @@ func (*Other) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case other.FieldID:
-			values[i] = new(sid.ID)
+		case other.FieldId:
+			values[i] = new(sid.Id)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -46,11 +46,11 @@ func (_m *Other) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case other.FieldID:
-			if value, ok := values[i].(*sid.ID); !ok {
+		case other.FieldId:
+			if value, ok := values[i].(*sid.Id); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -87,7 +87,7 @@ func (_m *Other) Unwrap() *Other {
 func (_m *Other) String() string {
 	var builder strings.Builder
 	builder.WriteString("Other(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

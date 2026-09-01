@@ -107,10 +107,10 @@ func init() {
 	fieldtypeDescLinkOtherFunc := fieldtypeFields[28].Descriptor()
 	// fieldtype.DefaultLinkOtherFunc holds the default value on creation for the link_other_func field.
 	fieldtype.DefaultLinkOtherFunc = fieldtypeDescLinkOtherFunc.Default.(func() *schema.Link)
-	// fieldtypeDescMAC is the schema descriptor for mac field.
-	fieldtypeDescMAC := fieldtypeFields[29].Descriptor()
-	// fieldtype.MACValidator is a validator for the "mac" field. It is called by the builders before save.
-	fieldtype.MACValidator = fieldtypeDescMAC.Validators[0].(func(string) error)
+	// fieldtypeDescMac is the schema descriptor for mac field.
+	fieldtypeDescMac := fieldtypeFields[29].Descriptor()
+	// fieldtype.MacValidator is a validator for the "mac" field. It is called by the builders before save.
+	fieldtype.MacValidator = fieldtypeDescMac.Validators[0].(func(string) error)
 	// fieldtypeDescDuration is the schema descriptor for duration field.
 	fieldtypeDescDuration := fieldtypeFields[33].Descriptor()
 	// fieldtype.UpdateDefaultDuration holds the default value on update for the duration field.
@@ -159,12 +159,12 @@ func init() {
 			return nil
 		}
 	}()
-	// fieldtypeDescIP is the schema descriptor for ip field.
-	fieldtypeDescIP := fieldtypeFields[46].Descriptor()
-	// fieldtype.DefaultIP holds the default value on creation for the ip field.
-	fieldtype.DefaultIP = fieldtypeDescIP.Default.(func() net.IP)
-	// fieldtype.IPValidator is a validator for the "ip" field. It is called by the builders before save.
-	fieldtype.IPValidator = fieldtypeDescIP.Validators[0].(func([]byte) error)
+	// fieldtypeDescIp is the schema descriptor for ip field.
+	fieldtypeDescIp := fieldtypeFields[46].Descriptor()
+	// fieldtype.DefaultIp holds the default value on creation for the ip field.
+	fieldtype.DefaultIp = fieldtypeDescIp.Default.(func() net.IP)
+	// fieldtype.IpValidator is a validator for the "ip" field. It is called by the builders before save.
+	fieldtype.IpValidator = fieldtypeDescIp.Validators[0].(func([]byte) error)
 	// fieldtypeDescPair is the schema descriptor for pair field.
 	fieldtypeDescPair := fieldtypeFields[59].Descriptor()
 	// fieldtype.DefaultPair holds the default value on creation for the pair field.
@@ -179,10 +179,10 @@ func init() {
 	fieldtype.DefaultTriple = fieldtypeDescTriple.Default.(func() schema.Triple)
 	fileFields := schema.File{}.Fields()
 	_ = fileFields
-	// fileDescSetID is the schema descriptor for set_id field.
-	fileDescSetID := fileFields[0].Descriptor()
-	// file.SetIDValidator is a validator for the "set_id" field. It is called by the builders before save.
-	file.SetIDValidator = fileDescSetID.Validators[0].(func(int) error)
+	// fileDescSetId is the schema descriptor for set_id field.
+	fileDescSetId := fileFields[0].Descriptor()
+	// file.SetIdValidator is a validator for the "set_id" field. It is called by the builders before save.
+	file.SetIdValidator = fileDescSetId.Validators[0].(func(int) error)
 	// fileDescSize is the schema descriptor for size field.
 	fileDescSize := fileFields[1].Descriptor()
 	// file.DefaultSize holds the default value on creation for the size field.
@@ -251,12 +251,12 @@ func init() {
 	itemDescText := itemFields[1].Descriptor()
 	// item.TextValidator is a validator for the "text" field. It is called by the builders before save.
 	item.TextValidator = itemDescText.Validators[0].(func(string) error)
-	// itemDescID is the schema descriptor for id field.
-	itemDescID := itemFields[0].Descriptor()
-	// item.DefaultID holds the default value on creation for the id field.
-	item.DefaultID = itemDescID.Default.(func() string)
-	// item.IDValidator is a validator for the "id" field. It is called by the builders before save.
-	item.IDValidator = itemDescID.Validators[0].(func(string) error)
+	// itemDescId is the schema descriptor for id field.
+	itemDescId := itemFields[0].Descriptor()
+	// item.DefaultId holds the default value on creation for the id field.
+	item.DefaultId = itemDescId.Default.(func() string)
+	// item.IdValidator is a validator for the "id" field. It is called by the builders before save.
+	item.IdValidator = itemDescId.Validators[0].(func(string) error)
 	licenseMixin := schema.License{}.Mixin()
 	licenseMixinFields0 := licenseMixin[0].Fields()
 	_ = licenseMixinFields0

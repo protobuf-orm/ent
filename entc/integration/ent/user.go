@@ -20,8 +20,8 @@ import (
 // User is the model entity for the User schema.
 type User struct {
 	config `graphql:"-" json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// OptionalInt holds the value of the "optional_int" field.
 	OptionalInt int `json:"optional_int,omitempty"`
 	// Age holds the value of the "age" field.
@@ -42,8 +42,8 @@ type User struct {
 	Role user.Role `json:"role,omitempty"`
 	// Employment holds the value of the "employment" field.
 	Employment user.Employment `json:"employment,omitempty"`
-	// SSOCert holds the value of the "SSOCert" field.
-	SSOCert string `json:"SSOCert,omitempty"`
+	// SsoCert holds the value of the "SsoCert" field.
+	SsoCert string `json:"SsoCert,omitempty"`
 	// FilesCount holds the value of the "files_count" field.
 	FilesCount int `json:"files_count,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -203,9 +203,9 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID, user.FieldOptionalInt, user.FieldAge, user.FieldFilesCount:
+		case user.FieldId, user.FieldOptionalInt, user.FieldAge, user.FieldFilesCount:
 			values[i] = new(sql.NullInt64)
-		case user.FieldName, user.FieldLast, user.FieldNickname, user.FieldAddress, user.FieldPhone, user.FieldPassword, user.FieldRole, user.FieldEmployment, user.FieldSSOCert:
+		case user.FieldName, user.FieldLast, user.FieldNickname, user.FieldAddress, user.FieldPhone, user.FieldPassword, user.FieldRole, user.FieldEmployment, user.FieldSsoCert:
 			values[i] = new(sql.NullString)
 		case user.ForeignKeys[0]: // group_blocked
 			values[i] = new(sql.NullInt64)
@@ -228,12 +228,12 @@ func (_m *User) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID:
+		case user.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case user.FieldOptionalInt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field optional_int", values[i])
@@ -294,11 +294,11 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Employment = user.Employment(value.String)
 			}
-		case user.FieldSSOCert:
+		case user.FieldSsoCert:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field SSOCert", values[i])
+				return fmt.Errorf("unexpected type %T for field SsoCert", values[i])
 			} else if value.Valid {
-				_m.SSOCert = value.String
+				_m.SsoCert = value.String
 			}
 		case user.FieldFilesCount:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -417,7 +417,7 @@ func (_m *User) Unwrap() *User {
 func (_m *User) String() string {
 	var builder strings.Builder
 	builder.WriteString("User(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("optional_int=")
 	builder.WriteString(fmt.Sprintf("%v", _m.OptionalInt))
 	builder.WriteString(", ")
@@ -447,8 +447,8 @@ func (_m *User) String() string {
 	builder.WriteString("employment=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Employment))
 	builder.WriteString(", ")
-	builder.WriteString("SSOCert=")
-	builder.WriteString(_m.SSOCert)
+	builder.WriteString("SsoCert=")
+	builder.WriteString(_m.SsoCert)
 	builder.WriteString(", ")
 	builder.WriteString("files_count=")
 	builder.WriteString(fmt.Sprintf("%v", _m.FilesCount))

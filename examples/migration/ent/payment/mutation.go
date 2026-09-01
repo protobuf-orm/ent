@@ -46,13 +46,13 @@ func (m *Mutation) Predicates() []predicate.Payment {
 	return m.predicates
 }
 
-// SetCardID sets the "card_id" field.
-func (m *Mutation) SetCardID(i int) {
+// SetCardId sets the "card_id" field.
+func (m *Mutation) SetCardId(i int) {
 	m.card = &i
 }
 
-// CardID returns the value of the "card_id" field in the mutation.
-func (m *Mutation) CardID() (r int, exists bool) {
+// CardId returns the value of the "card_id" field in the mutation.
+func (m *Mutation) CardId() (r int, exists bool) {
 	v := m.card
 	if v == nil {
 		return
@@ -60,8 +60,8 @@ func (m *Mutation) CardID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetCardID resets all changes to the "card_id" field.
-func (m *Mutation) ResetCardID() {
+// ResetCardId resets all changes to the "card_id" field.
+func (m *Mutation) ResetCardId() {
 	m.card = nil
 }
 
@@ -183,7 +183,7 @@ func (m *Mutation) ResetStatus() {
 // ClearCard clears the "card" edge to the Card entity.
 func (m *Mutation) ClearCard() {
 	m.clearedcard = true
-	m.clearedFields[FieldCardID] = struct{}{}
+	m.clearedFields[FieldCardId] = struct{}{}
 }
 
 // CardCleared reports if the "card" edge to the Card entity was cleared.
@@ -191,10 +191,10 @@ func (m *Mutation) CardCleared() bool {
 	return m.clearedcard
 }
 
-// CardIDs returns the "card" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// CardID instead. It exists only for internal usage by the builders.
-func (m *Mutation) CardIDs() (ids []int) {
+// CardIds returns the "card" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// CardId instead. It exists only for internal usage by the builders.
+func (m *Mutation) CardIds() (ids []int) {
 	if id := m.card; id != nil {
 		ids = append(ids, *id)
 	}
@@ -243,7 +243,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 6)
 	if m.card != nil {
-		fields = append(fields, FieldCardID)
+		fields = append(fields, FieldCardId)
 	}
 	if m.amount != nil {
 		fields = append(fields, FieldAmount)
@@ -268,8 +268,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldCardID:
-		return m.CardID()
+	case FieldCardId:
+		return m.CardId()
 	case FieldAmount:
 		return m.Amount()
 	case FieldCurrency:
@@ -296,12 +296,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldCardID:
+	case FieldCardId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCardID(v)
+		m.SetCardId(v)
 		return nil
 	case FieldAmount:
 		v, ok := value.(float64)
@@ -402,8 +402,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldCardID:
-		m.ResetCardID()
+	case FieldCardId:
+		m.ResetCardId()
 		return nil
 	case FieldAmount:
 		m.ResetAmount()
@@ -433,9 +433,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCard:
 		if id := m.card; id != nil {
@@ -451,9 +451,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -60,15 +60,15 @@ func Example_recursiveTraversal() {
 	names := client.File.Query().
 		Where(func(s *sql.Selector) {
 			t1, t2 := sql.Table(file.Table), sql.Table(file.Table)
-			with := sql.WithRecursive("undeleted", file.FieldID, file.FieldParentID)
+			with := sql.WithRecursive("undeleted", file.FieldId, file.FieldParentId)
 			with.As(
 				// The initial `SELECT` statement executed once at the start,
 				// and produces the initial row or rows for the recursion.
-				sql.Select(t1.Columns(file.FieldID, file.FieldParentID)...).
+				sql.Select(t1.Columns(file.FieldId, file.FieldParentId)...).
 					From(t1).
 					Where(
 						sql.And(
-							sql.IsNull(t1.C(file.FieldParentID)),
+							sql.IsNull(t1.C(file.FieldParentId)),
 							sql.EQ(t1.C(file.FieldDeleted), false),
 						),
 					).
@@ -76,17 +76,17 @@ func Example_recursiveTraversal() {
 					UnionAll(
 						// A `SELECT` statement that produces additional rows and recurses by referring
 						// to the CTE name (e.g. "undeleted"), and ends when there are no more new rows.
-						sql.Select(t2.Columns(file.FieldID, file.FieldParentID)...).
+						sql.Select(t2.Columns(file.FieldId, file.FieldParentId)...).
 							From(t2).
 							Join(with).
-							On(t2.C(file.FieldParentID), with.C(file.FieldID)).
+							On(t2.C(file.FieldParentId), with.C(file.FieldId)).
 							Where(
 								sql.EQ(t1.C(file.FieldDeleted), false),
 							),
 					),
 			)
 			// Join the root `SELECT` query with the CTE result (`WITH` clause).
-			s.Prefix(with).Join(with).On(s.C(file.FieldID), with.C(file.FieldID))
+			s.Prefix(with).Join(with).On(s.C(file.FieldId), with.C(file.FieldId))
 		}).
 		Select(file.FieldName).
 		StringsX(ctx)

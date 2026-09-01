@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the node type in the database.
 	Label = "node"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
-	// FieldPrevID holds the string denoting the prev_id field in the database.
-	FieldPrevID = "prev_id"
+	// FieldPrevId holds the string denoting the prev_id field in the database.
+	FieldPrevId = "prev_id"
 	// EdgePrev holds the string denoting the prev edge name in mutations.
 	EdgePrev = "prev"
 	// EdgeNext holds the string denoting the next edge name in mutations.
@@ -36,11 +36,11 @@ const (
 	NextColumn = "prev_id"
 )
 
-// Columns holds all SQL columns for node fields.
+// Columns holds all Sql columns for node fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldValue,
-	FieldPrevID,
+	FieldPrevId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -56,9 +56,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Node queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByValue orders the results by the value field.
@@ -66,9 +66,9 @@ func ByValue(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldValue, opts...).ToFunc()
 }
 
-// ByPrevID orders the results by the prev_id field.
-func ByPrevID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPrevID, opts...).ToFunc()
+// ByPrevId orders the results by the prev_id field.
+func ByPrevId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPrevId, opts...).ToFunc()
 }
 
 // ByPrevField orders the results by prev field.
@@ -86,15 +86,15 @@ func ByNextField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newPrevStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, true, PrevTable, PrevColumn),
 	)
 }
 func newNextStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, NextTable, NextColumn),
 	)
 }

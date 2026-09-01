@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the card type in the database.
 	Label = "card"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldCreateTime holds the string denoting the create_time field in the database.
 	FieldCreateTime = "create_time"
 	// FieldUpdateTime holds the string denoting the update_time field in the database.
@@ -48,9 +48,9 @@ const (
 	SpecInverseTable = "spec"
 )
 
-// Columns holds all SQL columns for card fields.
+// Columns holds all Sql columns for card fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldCreateTime,
 	FieldUpdateTime,
 	FieldBalance,
@@ -58,7 +58,7 @@ var Columns = []string{
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "card"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "card"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_card",
@@ -103,9 +103,9 @@ var (
 // OrderOption defines the ordering options for the Card queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByCreateTime orders the results by the create_time field.
@@ -155,15 +155,15 @@ func BySpec(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, true, OwnerTable, OwnerColumn),
 	)
 }
 func newSpecStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(SpecInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(SpecInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, SpecTable, SpecPrimaryKey...),
 	)
 }

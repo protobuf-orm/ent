@@ -80,8 +80,8 @@ func (_q *SpecQuery) QueryCard() *CardQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(spec.Table, spec.FieldID, selector),
-			sqlgraph.To(card.Table, card.FieldID),
+			sqlgraph.From(spec.Table, spec.FieldId, selector),
+			sqlgraph.To(card.Table, card.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, spec.CardTable, spec.CardPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -112,11 +112,11 @@ func (_q *SpecQuery) FirstX(ctx context.Context) *Spec {
 	return node
 }
 
-// FirstID returns the first Spec ID from the query.
-// Returns a *NotFoundError when no Spec ID was found.
-func (_q *SpecQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Spec Id from the query.
+// Returns a *NotFoundError when no Spec Id was found.
+func (_q *SpecQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -126,9 +126,9 @@ func (_q *SpecQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *SpecQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *SpecQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -162,12 +162,12 @@ func (_q *SpecQuery) OnlyX(ctx context.Context) *Spec {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Spec ID in the query.
-// Returns a *NotSingularError when more than one Spec ID is found.
+// OnlyId is like Only, but returns the only Spec Id in the query.
+// Returns a *NotSingularError when more than one Spec Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *SpecQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *SpecQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -181,9 +181,9 @@ func (_q *SpecQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *SpecQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *SpecQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -209,21 +209,21 @@ func (_q *SpecQuery) AllX(ctx context.Context) []*Spec {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Spec IDs.
-func (_q *SpecQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Spec Ids.
+func (_q *SpecQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(spec.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(spec.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *SpecQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *SpecQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -251,7 +251,7 @@ func (_q *SpecQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *SpecQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -400,20 +400,20 @@ func (_q *SpecQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Spec, e
 }
 
 func (_q *SpecQuery) loadCard(ctx context.Context, query *CardQuery, nodes []*Spec, init func(*Spec), assign func(*Spec, *Card)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Spec)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Spec)
 	nids := make(map[int]map[*Spec]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(spec.CardTable)
-		s.Join(joinT).On(s.C(card.FieldID), joinT.C(spec.CardPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(spec.CardPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(card.FieldId), joinT.C(spec.CardPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(spec.CardPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(spec.CardPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -437,10 +437,10 @@ func (_q *SpecQuery) loadCard(ctx context.Context, query *CardQuery, nodes []*Sp
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Spec]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Spec]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -450,9 +450,9 @@ func (_q *SpecQuery) loadCard(ctx context.Context, query *CardQuery, nodes []*Sp
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "card" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "card" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -474,7 +474,7 @@ func (_q *SpecQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *SpecQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(spec.Table, spec.Columns, sqlgraph.NewFieldSpec(spec.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -483,9 +483,9 @@ func (_q *SpecQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, spec.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, spec.FieldId)
 		for i := range fields {
-			if fields[i] != spec.FieldID {
+			if fields[i] != spec.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

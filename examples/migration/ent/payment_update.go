@@ -33,16 +33,16 @@ func (_u *PaymentUpdate) Where(ps ...predicate.Payment) *PaymentUpdate {
 	return _u
 }
 
-// SetCardID sets the "card_id" field.
-func (_u *PaymentUpdate) SetCardID(v int) *PaymentUpdate {
-	_u.mutation.SetCardID(v)
+// SetCardId sets the "card_id" field.
+func (_u *PaymentUpdate) SetCardId(v int) *PaymentUpdate {
+	_u.mutation.SetCardId(v)
 	return _u
 }
 
-// SetNillableCardID sets the "card_id" field if the given value is not nil.
-func (_u *PaymentUpdate) SetNillableCardID(v *int) *PaymentUpdate {
+// SetNillableCardId sets the "card_id" field if the given value is not nil.
+func (_u *PaymentUpdate) SetNillableCardId(v *int) *PaymentUpdate {
 	if v != nil {
-		_u.SetCardID(*v)
+		_u.SetCardId(*v)
 	}
 	return _u
 }
@@ -126,7 +126,7 @@ func (_u *PaymentUpdate) SetNillableStatus(v *payment.Status) *PaymentUpdate {
 
 // SetCard sets the "card" edge to the Card entity.
 func (_u *PaymentUpdate) SetCard(v *Card) *PaymentUpdate {
-	return _u.SetCardID(v.ID)
+	return _u.SetCardId(v.Id)
 }
 
 // Mutation returns the PaymentMutation object of the builder.
@@ -184,7 +184,7 @@ func (_u *PaymentUpdate) check() error {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "Payment.status": %w`, err)}
 		}
 	}
-	if _u.mutation.CardCleared() && len(_u.mutation.CardIDs()) > 0 {
+	if _u.mutation.CardCleared() && len(_u.mutation.CardIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Payment.card"`)
 	}
 	return nil
@@ -194,7 +194,7 @@ func (_u *PaymentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -228,12 +228,12 @@ func (_u *PaymentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{payment.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -241,7 +241,7 @@ func (_u *PaymentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{payment.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -269,16 +269,16 @@ type PaymentUpdateOne struct {
 	mutation *PaymentMutation
 }
 
-// SetCardID sets the "card_id" field.
-func (_u *PaymentUpdateOne) SetCardID(v int) *PaymentUpdateOne {
-	_u.mutation.SetCardID(v)
+// SetCardId sets the "card_id" field.
+func (_u *PaymentUpdateOne) SetCardId(v int) *PaymentUpdateOne {
+	_u.mutation.SetCardId(v)
 	return _u
 }
 
-// SetNillableCardID sets the "card_id" field if the given value is not nil.
-func (_u *PaymentUpdateOne) SetNillableCardID(v *int) *PaymentUpdateOne {
+// SetNillableCardId sets the "card_id" field if the given value is not nil.
+func (_u *PaymentUpdateOne) SetNillableCardId(v *int) *PaymentUpdateOne {
 	if v != nil {
-		_u.SetCardID(*v)
+		_u.SetCardId(*v)
 	}
 	return _u
 }
@@ -362,7 +362,7 @@ func (_u *PaymentUpdateOne) SetNillableStatus(v *payment.Status) *PaymentUpdateO
 
 // SetCard sets the "card" edge to the Card entity.
 func (_u *PaymentUpdateOne) SetCard(v *Card) *PaymentUpdateOne {
-	return _u.SetCardID(v.ID)
+	return _u.SetCardId(v.Id)
 }
 
 // Mutation returns the PaymentMutation object of the builder.
@@ -433,7 +433,7 @@ func (_u *PaymentUpdateOne) check() error {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "Payment.status": %w`, err)}
 		}
 	}
-	if _u.mutation.CardCleared() && len(_u.mutation.CardIDs()) > 0 {
+	if _u.mutation.CardCleared() && len(_u.mutation.CardIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Payment.card"`)
 	}
 	return nil
@@ -443,20 +443,20 @@ func (_u *PaymentUpdateOne) sqlSave(ctx context.Context) (_node *Payment, err er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(payment.Table, payment.Columns, sqlgraph.NewFieldSpec(payment.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Payment.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, payment.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, payment.FieldId)
 		for _, f := range fields {
 			if !payment.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != payment.FieldID {
+			if f != payment.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -494,12 +494,12 @@ func (_u *PaymentUpdateOne) sqlSave(ctx context.Context) (_node *Payment, err er
 			Columns: []string{payment.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -507,7 +507,7 @@ func (_u *PaymentUpdateOne) sqlSave(ctx context.Context) (_node *Payment, err er
 			Columns: []string{payment.CardColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

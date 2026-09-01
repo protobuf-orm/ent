@@ -300,7 +300,7 @@ func (_u *ConversionUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(conversion.Table, conversion.Columns, sqlgraph.NewFieldSpec(conversion.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(conversion.Table, conversion.Columns, sqlgraph.NewFieldSpec(conversion.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -688,20 +688,20 @@ func (_u *ConversionUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, err error) {
-	_spec := sqlgraph.NewUpdateSpec(conversion.Table, conversion.Columns, sqlgraph.NewFieldSpec(conversion.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(conversion.Table, conversion.Columns, sqlgraph.NewFieldSpec(conversion.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv1: missing "Conversion.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, conversion.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, conversion.FieldId)
 		for _, f := range fields {
 			if !conversion.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv1: invalid field %q for query", f)}
 			}
-			if f != conversion.FieldID {
+			if f != conversion.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

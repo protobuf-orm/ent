@@ -36,8 +36,8 @@ var idTypes = []field.Type{
 	field.TypeString,
 }
 
-// parseIDType resolves the --idtype flag value.
-func parseIDType(s string) (field.Type, error) {
+// parseIdType resolves the --idtype flag value.
+func parseIdType(s string) (field.Type, error) {
 	for _, t := range idTypes {
 		if t.String() == s {
 			return t, nil
@@ -167,7 +167,7 @@ func GenerateCmd(postRun ...func(*gen.Config)) *xli.Command {
 			templates, _ := flg.Get[[]string](cmd, "template")
 			features, templates = commas(features), commas(templates)
 
-			idtype, err := parseIDType(flg.MustGet[string](cmd, "idtype"))
+			idtype, err := parseIdType(flg.MustGet[string](cmd, "idtype"))
 			if err != nil {
 				return err
 			}
@@ -200,7 +200,7 @@ func GenerateCmd(postRun ...func(*gen.Config)) *xli.Command {
 				}
 				cfg.Package = pkgPath
 			}
-			cfg.IDType = &field.TypeInfo{Type: idtype}
+			cfg.IdType = &field.TypeInfo{Type: idtype}
 			if err := entc.Generate(arg.MustGet[string](cmd, "PATH"), &cfg, opts...); err != nil {
 				return err
 			}

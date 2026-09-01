@@ -79,8 +79,8 @@ func (_q *ProcessQuery) QueryFiles() *FileQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(process.Table, process.FieldID, selector),
-			sqlgraph.To(file.Table, file.FieldID),
+			sqlgraph.From(process.Table, process.FieldId, selector),
+			sqlgraph.To(file.Table, file.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, process.FilesTable, process.FilesPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -101,8 +101,8 @@ func (_q *ProcessQuery) QueryAttachedFiles() *AttachedFileQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(process.Table, process.FieldID, selector),
-			sqlgraph.To(attachedfile.Table, attachedfile.FieldID),
+			sqlgraph.From(process.Table, process.FieldId, selector),
+			sqlgraph.To(attachedfile.Table, attachedfile.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, process.AttachedFilesTable, process.AttachedFilesColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -133,11 +133,11 @@ func (_q *ProcessQuery) FirstX(ctx context.Context) *Process {
 	return node
 }
 
-// FirstID returns the first Process ID from the query.
-// Returns a *NotFoundError when no Process ID was found.
-func (_q *ProcessQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Process Id from the query.
+// Returns a *NotFoundError when no Process Id was found.
+func (_q *ProcessQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -147,9 +147,9 @@ func (_q *ProcessQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *ProcessQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *ProcessQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -183,12 +183,12 @@ func (_q *ProcessQuery) OnlyX(ctx context.Context) *Process {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Process ID in the query.
-// Returns a *NotSingularError when more than one Process ID is found.
+// OnlyId is like Only, but returns the only Process Id in the query.
+// Returns a *NotSingularError when more than one Process Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *ProcessQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *ProcessQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -202,9 +202,9 @@ func (_q *ProcessQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *ProcessQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *ProcessQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,21 +230,21 @@ func (_q *ProcessQuery) AllX(ctx context.Context) []*Process {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Process IDs.
-func (_q *ProcessQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Process Ids.
+func (_q *ProcessQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(process.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(process.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *ProcessQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *ProcessQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -272,7 +272,7 @@ func (_q *ProcessQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *ProcessQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -430,20 +430,20 @@ func (_q *ProcessQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Proc
 }
 
 func (_q *ProcessQuery) loadFiles(ctx context.Context, query *FileQuery, nodes []*Process, init func(*Process), assign func(*Process, *File)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Process)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Process)
 	nids := make(map[int]map[*Process]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(process.FilesTable)
-		s.Join(joinT).On(s.C(file.FieldID), joinT.C(process.FilesPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(process.FilesPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(file.FieldId), joinT.C(process.FilesPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(process.FilesPrimaryKey[0]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(process.FilesPrimaryKey[0]))
 		s.AppendSelect(columns...)
@@ -467,10 +467,10 @@ func (_q *ProcessQuery) loadFiles(ctx context.Context, query *FileQuery, nodes [
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Process]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Process]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -480,9 +480,9 @@ func (_q *ProcessQuery) loadFiles(ctx context.Context, query *FileQuery, nodes [
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "files" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "files" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -494,14 +494,14 @@ func (_q *ProcessQuery) loadAttachedFiles(ctx context.Context, query *AttachedFi
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Process)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(attachedfile.FieldProcID)
+		query.ctx.AppendFieldOnce(attachedfile.FieldProcId)
 	}
 	query.Where(predicate.AttachedFile(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(process.AttachedFilesColumn), fks...))
@@ -511,10 +511,10 @@ func (_q *ProcessQuery) loadAttachedFiles(ctx context.Context, query *AttachedFi
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.ProcID
+		fk := n.ProcId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "proc_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "proc_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -531,7 +531,7 @@ func (_q *ProcessQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *ProcessQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(process.Table, process.Columns, sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(process.Table, process.Columns, sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -540,9 +540,9 @@ func (_q *ProcessQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, process.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, process.FieldId)
 		for i := range fields {
-			if fields[i] != process.FieldID {
+			if fields[i] != process.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

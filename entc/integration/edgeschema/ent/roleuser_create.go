@@ -42,26 +42,26 @@ func (_c *RoleUserCreate) SetNillableCreatedAt(v *time.Time) *RoleUserCreate {
 	return _c
 }
 
-// SetRoleID sets the "role_id" field.
-func (_c *RoleUserCreate) SetRoleID(v int) *RoleUserCreate {
-	_c.mutation.SetRoleID(v)
+// SetRoleId sets the "role_id" field.
+func (_c *RoleUserCreate) SetRoleId(v int) *RoleUserCreate {
+	_c.mutation.SetRoleId(v)
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *RoleUserCreate) SetUserID(v int) *RoleUserCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *RoleUserCreate) SetUserId(v int) *RoleUserCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
 // SetRole sets the "role" edge to the Role entity.
 func (_c *RoleUserCreate) SetRole(v *Role) *RoleUserCreate {
-	return _c.SetRoleID(v.ID)
+	return _c.SetRoleId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *RoleUserCreate) SetUser(v *User) *RoleUserCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
 // Mutation returns the RoleUserMutation object of the builder.
@@ -110,16 +110,16 @@ func (_c *RoleUserCreate) check() error {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "RoleUser.created_at"`)}
 	}
-	if _, ok := _c.mutation.RoleID(); !ok {
+	if _, ok := _c.mutation.RoleId(); !ok {
 		return &ValidationError{Name: "role_id", err: errors.New(`ent: missing required field "RoleUser.role_id"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "RoleUser.user_id"`)}
 	}
-	if len(_c.mutation.RoleIDs()) == 0 {
+	if len(_c.mutation.RoleIds()) == 0 {
 		return &ValidationError{Name: "role", err: errors.New(`ent: missing required edge "RoleUser.role"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "RoleUser.user"`)}
 	}
 	return nil
@@ -149,7 +149,7 @@ func (_c *RoleUserCreate) createSpec() (*RoleUser, *sqlgraph.CreateSpec) {
 		_spec.SetField(roleuser.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := _c.mutation.RoleIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RoleIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -157,16 +157,16 @@ func (_c *RoleUserCreate) createSpec() (*RoleUser, *sqlgraph.CreateSpec) {
 			Columns: []string{roleuser.RoleColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.RoleID = nodes[0]
+		_node.RoleId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -174,13 +174,13 @@ func (_c *RoleUserCreate) createSpec() (*RoleUser, *sqlgraph.CreateSpec) {
 			Columns: []string{roleuser.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -247,27 +247,27 @@ func (u *RoleUserUpsert) UpdateCreatedAt() *RoleUserUpsert {
 	return u
 }
 
-// SetRoleID sets the "role_id" field.
-func (u *RoleUserUpsert) SetRoleID(v int) *RoleUserUpsert {
-	u.Set(roleuser.FieldRoleID, v)
+// SetRoleId sets the "role_id" field.
+func (u *RoleUserUpsert) SetRoleId(v int) *RoleUserUpsert {
+	u.Set(roleuser.FieldRoleId, v)
 	return u
 }
 
-// UpdateRoleID sets the "role_id" field to the value that was provided on create.
-func (u *RoleUserUpsert) UpdateRoleID() *RoleUserUpsert {
-	u.SetExcluded(roleuser.FieldRoleID)
+// UpdateRoleId sets the "role_id" field to the value that was provided on create.
+func (u *RoleUserUpsert) UpdateRoleId() *RoleUserUpsert {
+	u.SetExcluded(roleuser.FieldRoleId)
 	return u
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RoleUserUpsert) SetUserID(v int) *RoleUserUpsert {
-	u.Set(roleuser.FieldUserID, v)
+// SetUserId sets the "user_id" field.
+func (u *RoleUserUpsert) SetUserId(v int) *RoleUserUpsert {
+	u.Set(roleuser.FieldUserId, v)
 	return u
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RoleUserUpsert) UpdateUserID() *RoleUserUpsert {
-	u.SetExcluded(roleuser.FieldUserID)
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RoleUserUpsert) UpdateUserId() *RoleUserUpsert {
+	u.SetExcluded(roleuser.FieldUserId)
 	return u
 }
 
@@ -296,7 +296,7 @@ func (u *RoleUserUpsertOne) Ignore() *RoleUserUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUserUpsertOne) DoNothing() *RoleUserUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -325,31 +325,31 @@ func (u *RoleUserUpsertOne) UpdateCreatedAt() *RoleUserUpsertOne {
 	})
 }
 
-// SetRoleID sets the "role_id" field.
-func (u *RoleUserUpsertOne) SetRoleID(v int) *RoleUserUpsertOne {
+// SetRoleId sets the "role_id" field.
+func (u *RoleUserUpsertOne) SetRoleId(v int) *RoleUserUpsertOne {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.SetRoleID(v)
+		s.SetRoleId(v)
 	})
 }
 
-// UpdateRoleID sets the "role_id" field to the value that was provided on create.
-func (u *RoleUserUpsertOne) UpdateRoleID() *RoleUserUpsertOne {
+// UpdateRoleId sets the "role_id" field to the value that was provided on create.
+func (u *RoleUserUpsertOne) UpdateRoleId() *RoleUserUpsertOne {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.UpdateRoleID()
+		s.UpdateRoleId()
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RoleUserUpsertOne) SetUserID(v int) *RoleUserUpsertOne {
+// SetUserId sets the "user_id" field.
+func (u *RoleUserUpsertOne) SetUserId(v int) *RoleUserUpsertOne {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RoleUserUpsertOne) UpdateUserID() *RoleUserUpsertOne {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RoleUserUpsertOne) UpdateUserId() *RoleUserUpsertOne {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
@@ -519,7 +519,7 @@ func (u *RoleUserUpsertBulk) Ignore() *RoleUserUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUserUpsertBulk) DoNothing() *RoleUserUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -548,31 +548,31 @@ func (u *RoleUserUpsertBulk) UpdateCreatedAt() *RoleUserUpsertBulk {
 	})
 }
 
-// SetRoleID sets the "role_id" field.
-func (u *RoleUserUpsertBulk) SetRoleID(v int) *RoleUserUpsertBulk {
+// SetRoleId sets the "role_id" field.
+func (u *RoleUserUpsertBulk) SetRoleId(v int) *RoleUserUpsertBulk {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.SetRoleID(v)
+		s.SetRoleId(v)
 	})
 }
 
-// UpdateRoleID sets the "role_id" field to the value that was provided on create.
-func (u *RoleUserUpsertBulk) UpdateRoleID() *RoleUserUpsertBulk {
+// UpdateRoleId sets the "role_id" field to the value that was provided on create.
+func (u *RoleUserUpsertBulk) UpdateRoleId() *RoleUserUpsertBulk {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.UpdateRoleID()
+		s.UpdateRoleId()
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RoleUserUpsertBulk) SetUserID(v int) *RoleUserUpsertBulk {
+// SetUserId sets the "user_id" field.
+func (u *RoleUserUpsertBulk) SetUserId(v int) *RoleUserUpsertBulk {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RoleUserUpsertBulk) UpdateUserID() *RoleUserUpsertBulk {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RoleUserUpsertBulk) UpdateUserId() *RoleUserUpsertBulk {
 	return u.Update(func(s *RoleUserUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 

@@ -26,9 +26,9 @@ type RevisionCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetID sets the "id" field.
-func (_c *RevisionCreate) SetID(v string) *RevisionCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *RevisionCreate) SetId(v string) *RevisionCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
@@ -80,14 +80,14 @@ func (_c *RevisionCreate) sqlSave(ctx context.Context) (*Revision, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(string); ok {
-			_node.ID = id
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(string); ok {
+			_node.Id = id
 		} else {
-			return nil, fmt.Errorf("unexpected Revision.ID type: %T", _spec.ID.Value)
+			return nil, fmt.Errorf("unexpected Revision.Id type: %T", _spec.Id.Value)
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -95,12 +95,12 @@ func (_c *RevisionCreate) sqlSave(ctx context.Context) (*Revision, error) {
 func (_c *RevisionCreate) createSpec() (*Revision, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Revision{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(revision.Table, sqlgraph.NewFieldSpec(revision.FieldID, field.TypeString))
+		_spec = sqlgraph.NewCreateSpec(revision.Table, sqlgraph.NewFieldSpec(revision.FieldId, field.TypeString))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	return _node, _spec
 }
@@ -148,22 +148,22 @@ type (
 	}
 )
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Revision.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(revision.FieldID)
+//				u.SetIgnore(revision.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *RevisionUpsertOne) UpdateNewValues() *RevisionUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(revision.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(revision.FieldId)
 		}
 	}))
 	return u
@@ -181,7 +181,7 @@ func (u *RevisionUpsertOne) Ignore() *RevisionUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RevisionUpsertOne) DoNothing() *RevisionUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -211,23 +211,23 @@ func (u *RevisionUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *RevisionUpsertOne) ID(ctx context.Context) (id string, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: RevisionUpsertOne.ID is not supported by MySQL driver. Use RevisionUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *RevisionUpsertOne) Id(ctx context.Context) (id string, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: RevisionUpsertOne.Id is not supported by MySql driver. Use RevisionUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *RevisionUpsertOne) IDX(ctx context.Context) string {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *RevisionUpsertOne) IdX(ctx context.Context) string {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -279,7 +279,7 @@ func (_c *RevisionCreateBulk) Save(ctx context.Context) ([]*Revision, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -362,7 +362,7 @@ type RevisionUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(revision.FieldID)
+//				u.SetIgnore(revision.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -370,8 +370,8 @@ func (u *RevisionUpsertBulk) UpdateNewValues() *RevisionUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(revision.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(revision.FieldId)
 			}
 		}
 	}))
@@ -390,7 +390,7 @@ func (u *RevisionUpsertBulk) Ignore() *RevisionUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RevisionUpsertBulk) DoNothing() *RevisionUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

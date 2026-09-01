@@ -104,8 +104,8 @@ func (m *Mutation) ResetName() {
 	m.name = nil
 }
 
-// AddFollowersIDs adds the "followers" edge to the User entity by ids.
-func (m *Mutation) AddFollowersIDs(ids ...int) {
+// AddFollowersIds adds the "followers" edge to the User entity by ids.
+func (m *Mutation) AddFollowersIds(ids ...int) {
 	if m.followers == nil {
 		m.followers = make(map[int]struct{})
 	}
@@ -124,8 +124,8 @@ func (m *Mutation) FollowersCleared() bool {
 	return m.clearedfollowers
 }
 
-// RemoveFollowersIDs removes the "followers" edge to the User entity by IDs.
-func (m *Mutation) RemoveFollowersIDs(ids ...int) {
+// RemoveFollowersIds removes the "followers" edge to the User entity by Ids.
+func (m *Mutation) RemoveFollowersIds(ids ...int) {
 	if m.removedfollowers == nil {
 		m.removedfollowers = make(map[int]struct{})
 	}
@@ -135,16 +135,16 @@ func (m *Mutation) RemoveFollowersIDs(ids ...int) {
 	}
 }
 
-// RemovedFollowers returns the removed IDs of the "followers" edge to the User entity.
-func (m *Mutation) RemovedFollowersIDs() (ids []int) {
+// RemovedFollowers returns the removed Ids of the "followers" edge to the User entity.
+func (m *Mutation) RemovedFollowersIds() (ids []int) {
 	for id := range m.removedfollowers {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FollowersIDs returns the "followers" edge IDs in the mutation.
-func (m *Mutation) FollowersIDs() (ids []int) {
+// FollowersIds returns the "followers" edge Ids in the mutation.
+func (m *Mutation) FollowersIds() (ids []int) {
 	for id := range m.followers {
 		ids = append(ids, id)
 	}
@@ -158,8 +158,8 @@ func (m *Mutation) ResetFollowers() {
 	m.removedfollowers = nil
 }
 
-// AddFollowingIDs adds the "following" edge to the User entity by ids.
-func (m *Mutation) AddFollowingIDs(ids ...int) {
+// AddFollowingIds adds the "following" edge to the User entity by ids.
+func (m *Mutation) AddFollowingIds(ids ...int) {
 	if m.following == nil {
 		m.following = make(map[int]struct{})
 	}
@@ -178,8 +178,8 @@ func (m *Mutation) FollowingCleared() bool {
 	return m.clearedfollowing
 }
 
-// RemoveFollowingIDs removes the "following" edge to the User entity by IDs.
-func (m *Mutation) RemoveFollowingIDs(ids ...int) {
+// RemoveFollowingIds removes the "following" edge to the User entity by Ids.
+func (m *Mutation) RemoveFollowingIds(ids ...int) {
 	if m.removedfollowing == nil {
 		m.removedfollowing = make(map[int]struct{})
 	}
@@ -189,16 +189,16 @@ func (m *Mutation) RemoveFollowingIDs(ids ...int) {
 	}
 }
 
-// RemovedFollowing returns the removed IDs of the "following" edge to the User entity.
-func (m *Mutation) RemovedFollowingIDs() (ids []int) {
+// RemovedFollowing returns the removed Ids of the "following" edge to the User entity.
+func (m *Mutation) RemovedFollowingIds() (ids []int) {
 	for id := range m.removedfollowing {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FollowingIDs returns the "following" edge IDs in the mutation.
-func (m *Mutation) FollowingIDs() (ids []int) {
+// FollowingIds returns the "following" edge Ids in the mutation.
+func (m *Mutation) FollowingIds() (ids []int) {
 	for id := range m.following {
 		ids = append(ids, id)
 	}
@@ -381,9 +381,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFollowers:
 		ids := make([]ent.Value, 0, len(m.followers))
@@ -413,9 +413,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFollowers:
 		ids := make([]ent.Value, 0, len(m.removedfollowers))

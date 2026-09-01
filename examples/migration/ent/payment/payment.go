@@ -16,10 +16,10 @@ import (
 const (
 	// Label holds the string label denoting the payment type in the database.
 	Label = "payment"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldCardID holds the string denoting the card_id field in the database.
-	FieldCardID = "card_id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldCardId holds the string denoting the card_id field in the database.
+	FieldCardId = "card_id"
 	// FieldAmount holds the string denoting the amount field in the database.
 	FieldAmount = "amount"
 	// FieldCurrency holds the string denoting the currency field in the database.
@@ -43,10 +43,10 @@ const (
 	CardColumn = "card_id"
 )
 
-// Columns holds all SQL columns for payment fields.
+// Columns holds all Sql columns for payment fields.
 var Columns = []string{
-	FieldID,
-	FieldCardID,
+	FieldId,
+	FieldCardId,
 	FieldAmount,
 	FieldCurrency,
 	FieldTime,
@@ -121,14 +121,14 @@ func StatusValidator(s Status) error {
 // OrderOption defines the ordering options for the Payment queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByCardID orders the results by the card_id field.
-func ByCardID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldCardID, opts...).ToFunc()
+// ByCardId orders the results by the card_id field.
+func ByCardId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCardId, opts...).ToFunc()
 }
 
 // ByAmount orders the results by the amount field.
@@ -164,8 +164,8 @@ func ByCardField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newCardStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, CardTable, CardColumn),
 	)
 }

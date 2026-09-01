@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the mixinid type in the database.
 	Label = "mixin_id"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldSomeField holds the string denoting the some_field field in the database.
 	FieldSomeField = "some_field"
 	// FieldMixinField holds the string denoting the mixin_field field in the database.
@@ -24,9 +24,9 @@ const (
 	Table = "mixin_id"
 )
 
-// Columns holds all SQL columns for mixinid fields.
+// Columns holds all Sql columns for mixinid fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldSomeField,
 	FieldMixinField,
 }
@@ -42,16 +42,16 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
-// OrderOption defines the ordering options for the MixinID queries.
+// OrderOption defines the ordering options for the MixinId queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // BySomeField orders the results by the some_field field.

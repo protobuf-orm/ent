@@ -15,27 +15,27 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
 )
 
-// Mutation represents an operation that mutates the MixinID nodes in the graph.
+// Mutation represents an operation that mutates the MixinId nodes in the graph.
 type Mutation struct {
 	op            ent.Op
 	typ           string
 	some_field    *string
 	mixin_field   *string
 	clearedFields map[string]struct{}
-	predicates    []predicate.MixinID
+	predicates    []predicate.MixinId
 }
 
-// NewMutation creates a new Mutation for the MixinID entity.
+// NewMutation creates a new Mutation for the MixinId entity.
 func NewMutation(op ent.Op) *Mutation {
 	return &Mutation{
 		op:            op,
-		typ:           "MixinID",
+		typ:           "MixinId",
 		clearedFields: make(map[string]struct{}),
 	}
 }
 
 // Predicates returns the list of predicates set on the mutation.
-func (m *Mutation) Predicates() []predicate.MixinID {
+func (m *Mutation) Predicates() []predicate.MixinId {
 	return m.predicates
 }
 
@@ -78,14 +78,14 @@ func (m *Mutation) ResetMixinField() {
 }
 
 // Where appends a list predicates to the Mutation builder.
-func (m *Mutation) Where(ps ...predicate.MixinID) {
+func (m *Mutation) Where(ps ...predicate.MixinId) {
 	m.predicates = append(m.predicates, ps...)
 }
 
 // WhereP appends storage-level predicates to the Mutation builder. Using this method,
 // users can use type-assertion to append predicates that do not depend on any generated package.
 func (m *Mutation) WhereP(ps ...func(*sql.Selector)) {
-	p := make([]predicate.MixinID, len(ps))
+	p := make([]predicate.MixinId, len(ps))
 	for i := range ps {
 		p[i] = ps[i]
 	}
@@ -102,7 +102,7 @@ func (m *Mutation) SetOp(op ent.Op) {
 	m.op = op
 }
 
-// Type returns the node type of this mutation (MixinID).
+// Type returns the node type of this mutation (MixinId).
 func (m *Mutation) Type() string {
 	return m.typ
 }
@@ -138,7 +138,7 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
 func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	return nil, fmt.Errorf("unknown MixinID field %s", name)
+	return nil, fmt.Errorf("unknown MixinId field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
@@ -161,7 +161,7 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		m.SetMixinField(v)
 		return nil
 	}
-	return fmt.Errorf("unknown MixinID field %s", name)
+	return fmt.Errorf("unknown MixinId field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
@@ -183,7 +183,7 @@ func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 func (m *Mutation) AddField(name string, value ent.Value) error {
 	switch name {
 	}
-	return fmt.Errorf("unknown MixinID numeric field %s", name)
+	return fmt.Errorf("unknown MixinId numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
@@ -202,7 +202,7 @@ func (m *Mutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
-	return fmt.Errorf("unknown MixinID nullable field %s", name)
+	return fmt.Errorf("unknown MixinId nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
@@ -216,7 +216,7 @@ func (m *Mutation) ResetField(name string) error {
 		m.ResetMixinField()
 		return nil
 	}
-	return fmt.Errorf("unknown MixinID field %s", name)
+	return fmt.Errorf("unknown MixinId field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
@@ -225,9 +225,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	return nil
 }
 
@@ -237,9 +237,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 
@@ -258,11 +258,11 @@ func (m *Mutation) EdgeCleared(name string) bool {
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
 func (m *Mutation) ClearEdge(name string) error {
-	return fmt.Errorf("unknown MixinID unique edge %s", name)
+	return fmt.Errorf("unknown MixinId unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
 func (m *Mutation) ResetEdge(name string) error {
-	return fmt.Errorf("unknown MixinID edge %s", name)
+	return fmt.Errorf("unknown MixinId edge %s", name)
 }

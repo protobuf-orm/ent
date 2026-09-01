@@ -16,60 +16,60 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
 )
 
-// Mutation represents an operation that mutates the IntSID nodes in the graph.
+// Mutation represents an operation that mutates the IntSId nodes in the graph.
 type Mutation struct {
 	op              ent.Op
 	typ             string
 	clearedFields   map[string]struct{}
-	parent          *sid.ID
+	parent          *sid.Id
 	clearedparent   bool
-	children        map[sid.ID]struct{}
-	removedchildren map[sid.ID]struct{}
+	children        map[sid.Id]struct{}
+	removedchildren map[sid.Id]struct{}
 	clearedchildren bool
-	predicates      []predicate.IntSID
+	predicates      []predicate.IntSId
 }
 
-// NewMutation creates a new Mutation for the IntSID entity.
+// NewMutation creates a new Mutation for the IntSId entity.
 func NewMutation(op ent.Op) *Mutation {
 	return &Mutation{
 		op:            op,
-		typ:           "IntSID",
+		typ:           "IntSId",
 		clearedFields: make(map[string]struct{}),
 	}
 }
 
 // Predicates returns the list of predicates set on the mutation.
-func (m *Mutation) Predicates() []predicate.IntSID {
+func (m *Mutation) Predicates() []predicate.IntSId {
 	return m.predicates
 }
 
-// SetParentID sets the "parent" edge to the IntSID entity by id.
-func (m *Mutation) SetParentID(id sid.ID) {
+// SetParentId sets the "parent" edge to the IntSId entity by id.
+func (m *Mutation) SetParentId(id sid.Id) {
 	m.parent = &id
 }
 
-// ClearParent clears the "parent" edge to the IntSID entity.
+// ClearParent clears the "parent" edge to the IntSId entity.
 func (m *Mutation) ClearParent() {
 	m.clearedparent = true
 }
 
-// ParentCleared reports if the "parent" edge to the IntSID entity was cleared.
+// ParentCleared reports if the "parent" edge to the IntSId entity was cleared.
 func (m *Mutation) ParentCleared() bool {
 	return m.clearedparent
 }
 
-// ParentID returns the "parent" edge ID in the mutation.
-func (m *Mutation) ParentID() (id sid.ID, exists bool) {
+// ParentId returns the "parent" edge Id in the mutation.
+func (m *Mutation) ParentId() (id sid.Id, exists bool) {
 	if m.parent != nil {
 		return *m.parent, true
 	}
 	return
 }
 
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ParentIDs() (ids []sid.ID) {
+// ParentIds returns the "parent" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ParentId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ParentIds() (ids []sid.Id) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
@@ -82,30 +82,30 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildrenIDs adds the "children" edge to the IntSID entity by ids.
-func (m *Mutation) AddChildrenIDs(ids ...sid.ID) {
+// AddChildrenIds adds the "children" edge to the IntSId entity by ids.
+func (m *Mutation) AddChildrenIds(ids ...sid.Id) {
 	if m.children == nil {
-		m.children = make(map[sid.ID]struct{})
+		m.children = make(map[sid.Id]struct{})
 	}
 	for i := range ids {
 		m.children[ids[i]] = struct{}{}
 	}
 }
 
-// ClearChildren clears the "children" edge to the IntSID entity.
+// ClearChildren clears the "children" edge to the IntSId entity.
 func (m *Mutation) ClearChildren() {
 	m.clearedchildren = true
 }
 
-// ChildrenCleared reports if the "children" edge to the IntSID entity was cleared.
+// ChildrenCleared reports if the "children" edge to the IntSId entity was cleared.
 func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildrenIDs removes the "children" edge to the IntSID entity by IDs.
-func (m *Mutation) RemoveChildrenIDs(ids ...sid.ID) {
+// RemoveChildrenIds removes the "children" edge to the IntSId entity by Ids.
+func (m *Mutation) RemoveChildrenIds(ids ...sid.Id) {
 	if m.removedchildren == nil {
-		m.removedchildren = make(map[sid.ID]struct{})
+		m.removedchildren = make(map[sid.Id]struct{})
 	}
 	for i := range ids {
 		delete(m.children, ids[i])
@@ -113,16 +113,16 @@ func (m *Mutation) RemoveChildrenIDs(ids ...sid.ID) {
 	}
 }
 
-// RemovedChildren returns the removed IDs of the "children" edge to the IntSID entity.
-func (m *Mutation) RemovedChildrenIDs() (ids []sid.ID) {
+// RemovedChildren returns the removed Ids of the "children" edge to the IntSId entity.
+func (m *Mutation) RemovedChildrenIds() (ids []sid.Id) {
 	for id := range m.removedchildren {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ChildrenIDs returns the "children" edge IDs in the mutation.
-func (m *Mutation) ChildrenIDs() (ids []sid.ID) {
+// ChildrenIds returns the "children" edge Ids in the mutation.
+func (m *Mutation) ChildrenIds() (ids []sid.Id) {
 	for id := range m.children {
 		ids = append(ids, id)
 	}
@@ -137,14 +137,14 @@ func (m *Mutation) ResetChildren() {
 }
 
 // Where appends a list predicates to the Mutation builder.
-func (m *Mutation) Where(ps ...predicate.IntSID) {
+func (m *Mutation) Where(ps ...predicate.IntSId) {
 	m.predicates = append(m.predicates, ps...)
 }
 
 // WhereP appends storage-level predicates to the Mutation builder. Using this method,
 // users can use type-assertion to append predicates that do not depend on any generated package.
 func (m *Mutation) WhereP(ps ...func(*sql.Selector)) {
-	p := make([]predicate.IntSID, len(ps))
+	p := make([]predicate.IntSId, len(ps))
 	for i := range ps {
 		p[i] = ps[i]
 	}
@@ -161,7 +161,7 @@ func (m *Mutation) SetOp(op ent.Op) {
 	m.op = op
 }
 
-// Type returns the node type of this mutation (IntSID).
+// Type returns the node type of this mutation (IntSId).
 func (m *Mutation) Type() string {
 	return m.typ
 }
@@ -185,7 +185,7 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
 func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	return nil, fmt.Errorf("unknown IntSID field %s", name)
+	return nil, fmt.Errorf("unknown IntSId field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
@@ -194,7 +194,7 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	}
-	return fmt.Errorf("unknown IntSID field %s", name)
+	return fmt.Errorf("unknown IntSId field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
@@ -214,7 +214,7 @@ func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
 func (m *Mutation) AddField(name string, value ent.Value) error {
-	return fmt.Errorf("unknown IntSID numeric field %s", name)
+	return fmt.Errorf("unknown IntSId numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
@@ -233,13 +233,13 @@ func (m *Mutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
-	return fmt.Errorf("unknown IntSID nullable field %s", name)
+	return fmt.Errorf("unknown IntSId nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
-	return fmt.Errorf("unknown IntSID field %s", name)
+	return fmt.Errorf("unknown IntSId field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
@@ -254,9 +254,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeParent:
 		if id := m.parent; id != nil {
@@ -281,9 +281,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeChildren:
 		ids := make([]ent.Value, 0, len(m.removedchildren))
@@ -327,7 +327,7 @@ func (m *Mutation) ClearEdge(name string) error {
 		m.ClearParent()
 		return nil
 	}
-	return fmt.Errorf("unknown IntSID unique edge %s", name)
+	return fmt.Errorf("unknown IntSId unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
@@ -341,5 +341,5 @@ func (m *Mutation) ResetEdge(name string) error {
 		m.ResetChildren()
 		return nil
 	}
-	return fmt.Errorf("unknown IntSID edge %s", name)
+	return fmt.Errorf("unknown IntSId edge %s", name)
 }

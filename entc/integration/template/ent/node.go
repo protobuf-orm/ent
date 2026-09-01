@@ -29,7 +29,7 @@ type Noder interface {
 
 // Node in the graph.
 type Node struct {
-	ID     int      `json:"id,omitemty"`      // node id.
+	Id     int      `json:"id,omitemty"`      // node id.
 	Type   string   `json:"type,omitempty"`   // node type.
 	Fields []*Field `json:"fields,omitempty"` // node fields.
 	Edges  []*Edge  `json:"edges,omitempty"`  // node edges.
@@ -46,12 +46,12 @@ type Field struct {
 type Edge struct {
 	Type string `json:"type,omitempty"` // edge type.
 	Name string `json:"name,omitempty"` // edge name.
-	IDs  []int  `json:"ids,omitempty"`  // node ids (where this edge point to).
+	Ids  []int  `json:"ids,omitempty"`  // node ids (where this edge point to).
 }
 
 func (_m *Group) Node(ctx context.Context) (node *Node, err error) {
 	node = &Node{
-		ID:     _m.ID,
+		Id:     _m.Id,
 		Type:   "Group",
 		Fields: make([]*Field, 1),
 		Edges:  make([]*Edge, 0),
@@ -70,7 +70,7 @@ func (_m *Group) Node(ctx context.Context) (node *Node, err error) {
 
 func (_m *Pet) Node(ctx context.Context) (node *Node, err error) {
 	node = &Node{
-		ID:     _m.ID,
+		Id:     _m.Id,
 		Type:   "Pet",
 		Fields: make([]*Field, 2),
 		Edges:  make([]*Edge, 1),
@@ -94,13 +94,13 @@ func (_m *Pet) Node(ctx context.Context) (node *Node, err error) {
 	}
 	var ids []int
 	ids, err = _m.QueryOwner().
-		Select(user.FieldID).
+		Select(user.FieldId).
 		Ints(ctx)
 	if err != nil {
 		return nil, err
 	}
 	node.Edges[0] = &Edge{
-		IDs:  ids,
+		Ids:  ids,
 		Type: "User",
 		Name: "Owner",
 	}
@@ -109,7 +109,7 @@ func (_m *Pet) Node(ctx context.Context) (node *Node, err error) {
 
 func (_m *User) Node(ctx context.Context) (node *Node, err error) {
 	node = &Node{
-		ID:     _m.ID,
+		Id:     _m.Id,
 		Type:   "User",
 		Fields: make([]*Field, 1),
 		Edges:  make([]*Edge, 2),
@@ -125,24 +125,24 @@ func (_m *User) Node(ctx context.Context) (node *Node, err error) {
 	}
 	var ids []int
 	ids, err = _m.QueryPets().
-		Select(pet.FieldID).
+		Select(pet.FieldId).
 		Ints(ctx)
 	if err != nil {
 		return nil, err
 	}
 	node.Edges[0] = &Edge{
-		IDs:  ids,
+		Ids:  ids,
 		Type: "Pet",
 		Name: "Pets",
 	}
 	ids, err = _m.QueryFriends().
-		Select(user.FieldID).
+		Select(user.FieldId).
 		Ints(ctx)
 	if err != nil {
 		return nil, err
 	}
 	node.Edges[1] = &Edge{
-		IDs:  ids,
+		Ids:  ids,
 		Type: "User",
 		Name: "Friends",
 	}

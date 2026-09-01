@@ -20,14 +20,14 @@ func CreatedAt(v time.Time) predicate.BlobLink {
 	return predicate.BlobLink(sql.FieldEQ(FieldCreatedAt, v))
 }
 
-// BlobID applies equality check predicate on the "blob_id" field. It's identical to BlobIDEQ.
-func BlobID(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldBlobID, v))
+// BlobId applies equality check predicate on the "blob_id" field. It's identical to BlobIdEQ.
+func BlobId(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
 }
 
-// LinksID applies equality check predicate on the "links_id" field. It's identical to LinksIDEQ.
-func LinksID(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinksID, v))
+// LinksId applies equality check predicate on the "links_id" field. It's identical to LinksIdEQ.
+func LinksId(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -70,44 +70,44 @@ func CreatedAtLTE(v time.Time) predicate.BlobLink {
 	return predicate.BlobLink(sql.FieldLTE(FieldCreatedAt, v))
 }
 
-// BlobIDEQ applies the EQ predicate on the "blob_id" field.
-func BlobIDEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldBlobID, v))
+// BlobIdEQ applies the EQ predicate on the "blob_id" field.
+func BlobIdEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
 }
 
-// BlobIDNEQ applies the NEQ predicate on the "blob_id" field.
-func BlobIDNEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNEQ(FieldBlobID, v))
+// BlobIdNEQ applies the NEQ predicate on the "blob_id" field.
+func BlobIdNEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNEQ(FieldBlobId, v))
 }
 
-// BlobIDIn applies the In predicate on the "blob_id" field.
-func BlobIDIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldIn(FieldBlobID, vs...))
+// BlobIdIn applies the In predicate on the "blob_id" field.
+func BlobIdIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldIn(FieldBlobId, vs...))
 }
 
-// BlobIDNotIn applies the NotIn predicate on the "blob_id" field.
-func BlobIDNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNotIn(FieldBlobID, vs...))
+// BlobIdNotIn applies the NotIn predicate on the "blob_id" field.
+func BlobIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNotIn(FieldBlobId, vs...))
 }
 
-// LinksIDEQ applies the EQ predicate on the "links_id" field.
-func LinksIDEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldEQ(FieldLinksID, v))
+// LinksIdEQ applies the EQ predicate on the "links_id" field.
+func LinksIdEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
 }
 
-// LinksIDNEQ applies the NEQ predicate on the "links_id" field.
-func LinksIDNEQ(v uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNEQ(FieldLinksID, v))
+// LinksIdNEQ applies the NEQ predicate on the "links_id" field.
+func LinksIdNEQ(v uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNEQ(FieldLinksId, v))
 }
 
-// LinksIDIn applies the In predicate on the "links_id" field.
-func LinksIDIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldIn(FieldLinksID, vs...))
+// LinksIdIn applies the In predicate on the "links_id" field.
+func LinksIdIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldIn(FieldLinksId, vs...))
 }
 
-// LinksIDNotIn applies the NotIn predicate on the "links_id" field.
-func LinksIDNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	return predicate.BlobLink(sql.FieldNotIn(FieldLinksID, vs...))
+// LinksIdNotIn applies the NotIn predicate on the "links_id" field.
+func LinksIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
+	return predicate.BlobLink(sql.FieldNotIn(FieldLinksId, vs...))
 }
 
 // HasBlob applies the HasEdge predicate on the "blob" edge.

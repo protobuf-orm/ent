@@ -101,7 +101,7 @@ func TestScanSlice(t *testing.T) {
 	mock = sqlmock.NewRows([]string{"ids"}).
 		AddRow([]byte(u1)).
 		AddRow([]byte(u2))
-	var ids []uuidtest.UUID
+	var ids []uuidtest.Uuid
 	require.NoError(t, ScanSlice(toRows(mock), &ids))
 	require.Equal(t, u1, ids[0].String())
 	require.Equal(t, u2, ids[1].String())
@@ -109,7 +109,7 @@ func TestScanSlice(t *testing.T) {
 	mock = sqlmock.NewRows([]string{"pids"}).
 		AddRow([]byte(u1)).
 		AddRow([]byte(u2))
-	var pids []*uuidtest.UUID
+	var pids []*uuidtest.Uuid
 	require.NoError(t, ScanSlice(toRows(mock), &pids))
 	require.Equal(t, u1, pids[0].String())
 	require.Equal(t, u2, pids[1].String())
@@ -120,7 +120,7 @@ func TestScanSlice(t *testing.T) {
 	require.EqualError(t, err, "sql/scan: ScanSlice(nil)")
 	type P struct {
 		_     int
-		ID    int
+		Id    int
 		First string
 		Last  string
 	}
@@ -129,7 +129,7 @@ func TestScanSlice(t *testing.T) {
 	require.EqualError(t, err, "sql/scan: ScanSlice(non-pointer []sql.P)")
 
 	require.NoError(t, ScanSlice(toRows(mock), &p))
-	require.Equal(t, 10, p[0].ID)
+	require.Equal(t, 10, p[0].Id)
 	require.Equal(t, "Ariel", p[0].First)
 	require.Equal(t, "Mashraki", p[0].Last)
 
@@ -152,7 +152,7 @@ func TestScanSlice_CamelTags(t *testing.T) {
 	require.Equal(t, "foo", v[0].NickName)
 }
 
-func TestScanJSON(t *testing.T) {
+func TestScanJson(t *testing.T) {
 	mock := sqlmock.NewRows([]string{"v", "p"}).
 		AddRow([]byte(`{"i": 1, "s":"a8m"}`), []byte(`{"i": 1, "s":"a8m"}`)).
 		AddRow([]byte(`{"i": 2, "s":"tmr"}`), []byte(`{"i": 2, "s":"tmr"}`)).

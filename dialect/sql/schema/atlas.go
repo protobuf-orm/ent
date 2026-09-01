@@ -34,7 +34,7 @@ type Atlas struct {
 	schema          string // schema to use
 	indent          string // plan indentation
 	errNoPlan       bool   // no plan error enabled
-	universalID     bool   // global unique ids
+	universalId     bool   // global unique ids
 	dropColumns     bool   // drop deleted columns
 	dropIndexes     bool   // drop deleted indexes
 	withForeignKeys bool   // with foreign keys
@@ -48,7 +48,7 @@ type Atlas struct {
 	dir             migrate.Dir         // the migration directory to read from
 	fmt             migrate.Formatter   // how to format the plan into migration files
 
-	driver  dialect.Driver // driver passed in when not using an atlas URL
+	driver  dialect.Driver // driver passed in when not using an atlas Url
 	url     *url.URL       // url of database connection
 	dialect string         // Ent dialect to use when generating migration files
 
@@ -58,7 +58,7 @@ type Atlas struct {
 // Diff compares the state read from a database connection or migration directory with the state defined by the Ent
 // schema. Changes will be written to new migration files.
 func Diff(ctx context.Context, u, name string, tables []*Table, opts ...MigrateOption) (err error) {
-	m, err := NewMigrateURL(u, opts...)
+	m, err := NewMigrateUrl(u, opts...)
 	if err != nil {
 		return err
 	}
@@ -78,8 +78,8 @@ func NewMigrate(drv dialect.Driver, opts ...MigrateOption) (*Atlas, error) {
 	return a, nil
 }
 
-// NewMigrateURL create a new Atlas from the given url.
-func NewMigrateURL(u string, opts ...MigrateOption) (*Atlas, error) {
+// NewMigrateUrl create a new Atlas from the given url.
+func NewMigrateUrl(u string, opts ...MigrateOption) (*Atlas, error) {
 	parsed, err := url.Parse(u)
 	if err != nil {
 		return nil, err
@@ -160,7 +160,7 @@ func (a *Atlas) NamedDiff(ctx context.Context, name string, tables ...*Table) er
 	if err := a.sqlDialect.init(ctx); err != nil {
 		return err
 	}
-	if a.universalID {
+	if a.universalId {
 		tables = append(tables, NewTypesTable())
 	}
 	var (
@@ -206,10 +206,10 @@ func (a *Atlas) cleanSchema(ctx context.Context, name string, err0 error) (err e
 }
 
 // VerifyTableRange ensures, that the defined autoincrement starting value is set for each table as defined by the
-// TypTable. This is necessary for MySQL versions < 8.0. In those versions the defined starting value for AUTOINCREMENT
+// TypTable. This is necessary for MySql versions < 8.0. In those versions the defined starting value for AUTOINCREMENT
 // columns was stored in memory, and when a server restarts happens and there are no rows yet in a table, the defined
 // starting value is lost, which will result in incorrect behavior when working with global unique ids. Calling this
-// method on service start ensures the information are correct and are set again, if they aren't. For MySQL versions > 8
+// method on service start ensures the information are correct and are set again, if they aren't. For MySql versions > 8
 // calling this method is only required once after the upgrade.
 func (a *Atlas) VerifyTableRange(ctx context.Context, tables []*Table) error {
 	if a.driver != nil {
@@ -492,7 +492,7 @@ func WithFormatter(fmt migrate.Formatter) MigrateOption {
 }
 
 // WithDialect configures the Ent dialect to use when migrating for an Atlas supported dialect flavor.
-// As an example, Ent can work with TiDB in MySQL dialect and Atlas can handle TiDB migrations.
+// As an example, Ent can work with TiDB in MySql dialect and Atlas can handle TiDB migrations.
 func WithDialect(d string) MigrateOption {
 	return func(a *Atlas) {
 		a.dialect = d
@@ -547,7 +547,7 @@ type atBuilder interface {
 	atIncrementC(*schema.Table, *schema.Column)
 	atIncrementT(*schema.Table, int64)
 	atIndex(*Index, *schema.Table, *schema.Index) error
-	atTypeRangeSQL(t ...string) string
+	atTypeRangeSql(t ...string) string
 }
 
 // init initializes the configuration object based on the options passed in.
@@ -591,7 +591,7 @@ func (a *Atlas) init() error {
 
 // create is the Atlas engine based online migration.
 func (a *Atlas) create(ctx context.Context, tables ...*Table) (err error) {
-	if a.universalID {
+	if a.universalId {
 		tables = append(tables, NewTypesTable())
 	}
 	if a.driver != nil {
@@ -682,7 +682,7 @@ func (a *Atlas) planInspect(ctx context.Context, conn dialect.ExecQuerier, name 
 		return nil, err
 	}
 	var types []string
-	if a.universalID {
+	if a.universalId {
 		types, err = a.loadTypes(ctx, conn)
 		if err != nil && !errors.Is(err, errTypeTableNotFound) {
 			return nil, err
@@ -727,7 +727,7 @@ func (a *Atlas) planReplay(ctx context.Context, name string, tables []*Table) (*
 		return nil, a.cleanSchema(ctx, a.schema, err)
 	}
 	var types []string
-	if a.universalID {
+	if a.universalId {
 		if types, err = a.loadTypes(ctx, a.sqlDialect); err != nil && !errors.Is(err, errTypeTableNotFound) {
 			return nil, a.cleanSchema(ctx, a.schema, err)
 		}
@@ -773,8 +773,8 @@ func (a *Atlas) diff(ctx context.Context, name string, current, desired *schema.
 	for _, c := range changes {
 		switch c.(type) {
 		// Select only table creation and modification. The reason we may encounter this, even though specific tables
-		// are passed to Inspect, is if the MySQL system variable 'lower_case_table_names' is set to 1. In such a case,
-		// the given tables will be returned from inspection because MySQL compares case-insensitive, but they won't
+		// are passed to Inspect, is if the MySql system variable 'lower_case_table_names' is set to 1. In such a case,
+		// the given tables will be returned from inspection because MySql compares case-insensitive, but they won't
 		// match when compare them in code.
 		case *schema.AddTable, *schema.ModifyTable:
 			filtered = append(filtered, c)
@@ -791,7 +791,7 @@ func (a *Atlas) diff(ctx context.Context, name string, current, desired *schema.
 	}
 	if len(newTypes) > 0 {
 		plan.Changes = append(plan.Changes, &migrate.Change{
-			Cmd:     a.sqlDialect.atTypeRangeSQL(newTypes...),
+			Cmd:     a.sqlDialect.atTypeRangeSql(newTypes...),
 			Comment: fmt.Sprintf("add pk ranges for %s tables", strings.Join(newTypes, ",")),
 		})
 	}
@@ -879,12 +879,12 @@ func (a *Atlas) realm(tables []*Table) (*schema.Realm, error) {
 			at.SetComment(et.Comment)
 		}
 		a.sqlDialect.atTable(et, at)
-		// universalID is the old implementation of the global unique id, relying on a table in the database.
+		// universalId is the old implementation of the global unique id, relying on a table in the database.
 		// The new implementation is based on annotations attached to the schema. Only one can be enabled.
 		switch {
-		case a.universalID && et.Annotation != nil && et.Annotation.IncrementStart != nil:
+		case a.universalId && et.Annotation != nil && et.Annotation.IncrementStart != nil:
 			return nil, errors.New("universal id and increment start annotation are mutually exclusive")
-		case a.universalID && et.Name != TypeTable && len(et.PrimaryKey) == 1:
+		case a.universalId && et.Name != TypeTable && len(et.PrimaryKey) == 1:
 			r, err := a.pkRange(et)
 			if err != nil {
 				return nil, err
@@ -1028,16 +1028,16 @@ func (a *Atlas) atDefault(c1 *Column, c2 *schema.Column) error {
 		c2.SetDefault(&schema.RawExpr{X: string(d)})
 	default:
 		switch {
-		case c1.Type == field.TypeJSON:
+		case c1.Type == field.TypeJson:
 			s, ok := c1.Default.(string)
 			if !ok {
-				return fmt.Errorf("invalid default value for JSON column %q: %v", c1.Name, c1.Default)
+				return fmt.Errorf("invalid default value for Json column %q: %v", c1.Name, c1.Default)
 			}
 			c2.SetDefault(&schema.Literal{V: strings.ReplaceAll(s, "'", "''")})
 		default:
 			// Keep backwards compatibility with the old default value format.
 			x := fmt.Sprint(c1.Default)
-			if v, ok := c1.Default.(string); ok && c1.Type != field.TypeUUID && c1.Type != field.TypeTime {
+			if v, ok := c1.Default.(string); ok && c1.Type != field.TypeUuid && c1.Type != field.TypeTime {
 				// Escape single quote by replacing each with 2.
 				x = fmt.Sprintf("'%s'", strings.ReplaceAll(v, "'", "''"))
 			}
@@ -1125,8 +1125,8 @@ func (a *Atlas) symbol(name string) string {
 func (a *Atlas) entDialect(ctx context.Context, drv dialect.Driver) (sqlDialect, error) {
 	var d sqlDialect
 	switch a.dialect {
-	case dialect.MySQL:
-		d = &MySQL{Driver: drv}
+	case dialect.MySql:
+		d = &MySql{Driver: drv}
 	case dialect.SQLite:
 		d = &SQLite{Driver: drv, WithForeignKeys: a.withForeignKeys}
 	case dialect.Postgres:

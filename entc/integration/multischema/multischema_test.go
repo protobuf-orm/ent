@@ -30,7 +30,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMySQL(t *testing.T) {
+func TestMySql(t *testing.T) {
 	db, err := sql.Open("mysql", "root:pass@tcp(localhost:3308)/?parseTime=true&multiStatements=true")
 	require.NoError(t, err)
 	ctx := context.Background()
@@ -49,7 +49,7 @@ func TestMySQL(t *testing.T) {
 	migrate.GroupUsersTable.Schema = "db2"
 	migrate.FriendshipTable.Schema = "db2"
 
-	pl, err := schema.Dump(ctx, dialect.MySQL, "8.0.19", migrate.Tables)
+	pl, err := schema.Dump(ctx, dialect.MySql, "8.0.19", migrate.Tables)
 	require.NoError(t, err)
 	_, err = db.ExecContext(ctx, pl)
 	require.NoError(t, err)
@@ -93,7 +93,7 @@ func TestMySQL(t *testing.T) {
 			// template defined in ent/template/config.tmpl.
 			cfg := ent.SchemaConfigFromContext(s.Context())
 			t := sql.Table(user.Table).Schema(cfg.User)
-			s.Join(t).On(s.C(pet.FieldOwnerID), t.C(user.FieldID))
+			s.Join(t).On(s.C(pet.FieldOwnerId), t.C(user.FieldId))
 			s.Select(
 				sql.As(t.C(user.FieldName), "user_name"),
 				sql.As(s.C(pet.FieldName), "pet_name"),
@@ -105,12 +105,12 @@ func TestMySQL(t *testing.T) {
 	require.Equal(t, "Pedro", names[0].Pet)
 
 	id := client.Group.Query().
-		Where(group.HasUsersWith(user.ID(a8m.ID))).
+		Where(group.HasUsersWith(user.Id(a8m.Id))).
 		Limit(1).
 		QueryUsers().
 		QueryPets().
-		OnlyIDX(ctx)
-	require.Equal(t, pedro.ID, id)
+		OnlyIdX(ctx)
+	require.Equal(t, pedro.Id, id)
 
 	affected := client.Group.
 		Update().
@@ -168,7 +168,7 @@ func TestMySQL(t *testing.T) {
 	// Cross-schema edge predicate: QueryGroups().Where(HasUsersWith(...))
 	// must qualify group_users with db2, since the connection defaults to db1.
 	got := a8m.QueryGroups().
-		Where(group.HasUsersWith(user.ID(a8m.ID))).
+		Where(group.HasUsersWith(user.Id(a8m.Id))).
 		CountX(ctx)
 	require.Equal(t, 1, got) // a8m was removed from GitHub above; only GitLab remains
 }
@@ -192,7 +192,7 @@ func TestVersionedMigration(t *testing.T) {
 	}
 	// Run `atlas migrate apply` on a SQLite database under /tmp.
 	res, err := ac.MigrateApply(context.Background(), &atlasexec.MigrateApplyParams{
-		URL:        "mysql://root:pass@:3308/",
+		Url:        "mysql://root:pass@:3308/",
 		AllowDirty: true,
 	})
 	if err != nil {
@@ -225,7 +225,7 @@ func TestVersionedMigration(t *testing.T) {
 			// template defined in ent/template/config.tmpl.
 			cfg := versioned.DefaultSchemaConfig
 			t := sql.Table(user.Table).Schema(cfg.User)
-			s.Join(t).On(s.C(pet.FieldOwnerID), t.C(user.FieldID))
+			s.Join(t).On(s.C(pet.FieldOwnerId), t.C(user.FieldId))
 			s.Select(
 				sql.As(t.C(user.FieldName), "user_name"),
 				sql.As(s.C(pet.FieldName), "pet_name"),
@@ -237,12 +237,12 @@ func TestVersionedMigration(t *testing.T) {
 	require.Equal(t, "Pedro", names[0].Pet)
 
 	id := client.Group.Query().
-		Where(vgroup.HasUsersWith(vuser.ID(a8m.ID))).
+		Where(vgroup.HasUsersWith(vuser.Id(a8m.Id))).
 		Limit(1).
 		QueryUsers().
 		QueryPets().
-		OnlyIDX(ctx)
-	require.Equal(t, pedro.ID, id)
+		OnlyIdX(ctx)
+	require.Equal(t, pedro.Id, id)
 
 	affected := client.Group.
 		Update().

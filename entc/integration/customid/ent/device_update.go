@@ -33,38 +33,38 @@ func (_u *DeviceUpdate) Where(ps ...predicate.Device) *DeviceUpdate {
 	return _u
 }
 
-// SetActiveSessionID sets the "active_session" edge to the Session entity by ID.
-func (_u *DeviceUpdate) SetActiveSessionID(id schema.ID) *DeviceUpdate {
-	_u.mutation.SetActiveSessionID(id)
+// SetActiveSessionId sets the "active_session" edge to the Session entity by Id.
+func (_u *DeviceUpdate) SetActiveSessionId(id schema.Id) *DeviceUpdate {
+	_u.mutation.SetActiveSessionId(id)
 	return _u
 }
 
-// SetNillableActiveSessionID sets the "active_session" edge to the Session entity by ID if the given value is not nil.
-func (_u *DeviceUpdate) SetNillableActiveSessionID(id *schema.ID) *DeviceUpdate {
+// SetNillableActiveSessionId sets the "active_session" edge to the Session entity by Id if the given value is not nil.
+func (_u *DeviceUpdate) SetNillableActiveSessionId(id *schema.Id) *DeviceUpdate {
 	if id != nil {
-		_u = _u.SetActiveSessionID(*id)
+		_u = _u.SetActiveSessionId(*id)
 	}
 	return _u
 }
 
 // SetActiveSession sets the "active_session" edge to the Session entity.
 func (_u *DeviceUpdate) SetActiveSession(v *Session) *DeviceUpdate {
-	return _u.SetActiveSessionID(v.ID)
+	return _u.SetActiveSessionId(v.Id)
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
-func (_u *DeviceUpdate) AddSessionsIDs(ids ...schema.ID) *DeviceUpdate {
-	_u.mutation.AddSessionsIDs(ids...)
+// AddSessionsIds adds the "sessions" edge to the Session entity by Ids.
+func (_u *DeviceUpdate) AddSessionsIds(ids ...schema.Id) *DeviceUpdate {
+	_u.mutation.AddSessionsIds(ids...)
 	return _u
 }
 
 // AddSessions adds the "sessions" edges to the Session entity.
 func (_u *DeviceUpdate) AddSessions(v ...*Session) *DeviceUpdate {
-	ids := make([]schema.ID, len(v))
+	ids := make([]schema.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddSessionsIDs(ids...)
+	return _u.AddSessionsIds(ids...)
 }
 
 // Mutation returns the DeviceMutation object of the builder.
@@ -84,19 +84,19 @@ func (_u *DeviceUpdate) ClearSessions() *DeviceUpdate {
 	return _u
 }
 
-// RemoveSessionsIDs removes the "sessions" edge to Session entities by IDs.
-func (_u *DeviceUpdate) RemoveSessionsIDs(ids ...schema.ID) *DeviceUpdate {
-	_u.mutation.RemoveSessionsIDs(ids...)
+// RemoveSessionsIds removes the "sessions" edge to Session entities by Ids.
+func (_u *DeviceUpdate) RemoveSessionsIds(ids ...schema.Id) *DeviceUpdate {
+	_u.mutation.RemoveSessionsIds(ids...)
 	return _u
 }
 
 // RemoveSessions removes "sessions" edges to Session entities.
 func (_u *DeviceUpdate) RemoveSessions(v ...*Session) *DeviceUpdate {
-	ids := make([]schema.ID, len(v))
+	ids := make([]schema.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveSessionsIDs(ids...)
+	return _u.RemoveSessionsIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -127,7 +127,7 @@ func (_u *DeviceUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldID, field.TypeBytes))
+	_spec := sqlgraph.NewUpdateSpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldId, field.TypeBytes))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -143,12 +143,12 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{device.ActiveSessionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ActiveSessionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ActiveSessionIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -156,7 +156,7 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{device.ActiveSessionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -172,12 +172,12 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedSessionsIDs(); len(nodes) > 0 && !_u.mutation.SessionsCleared() {
+	if nodes := _u.mutation.RemovedSessionsIds(); len(nodes) > 0 && !_u.mutation.SessionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -185,7 +185,7 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -193,7 +193,7 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SessionsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SessionsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -201,7 +201,7 @@ func (_u *DeviceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -229,38 +229,38 @@ type DeviceUpdateOne struct {
 	mutation *DeviceMutation
 }
 
-// SetActiveSessionID sets the "active_session" edge to the Session entity by ID.
-func (_u *DeviceUpdateOne) SetActiveSessionID(id schema.ID) *DeviceUpdateOne {
-	_u.mutation.SetActiveSessionID(id)
+// SetActiveSessionId sets the "active_session" edge to the Session entity by Id.
+func (_u *DeviceUpdateOne) SetActiveSessionId(id schema.Id) *DeviceUpdateOne {
+	_u.mutation.SetActiveSessionId(id)
 	return _u
 }
 
-// SetNillableActiveSessionID sets the "active_session" edge to the Session entity by ID if the given value is not nil.
-func (_u *DeviceUpdateOne) SetNillableActiveSessionID(id *schema.ID) *DeviceUpdateOne {
+// SetNillableActiveSessionId sets the "active_session" edge to the Session entity by Id if the given value is not nil.
+func (_u *DeviceUpdateOne) SetNillableActiveSessionId(id *schema.Id) *DeviceUpdateOne {
 	if id != nil {
-		_u = _u.SetActiveSessionID(*id)
+		_u = _u.SetActiveSessionId(*id)
 	}
 	return _u
 }
 
 // SetActiveSession sets the "active_session" edge to the Session entity.
 func (_u *DeviceUpdateOne) SetActiveSession(v *Session) *DeviceUpdateOne {
-	return _u.SetActiveSessionID(v.ID)
+	return _u.SetActiveSessionId(v.Id)
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
-func (_u *DeviceUpdateOne) AddSessionsIDs(ids ...schema.ID) *DeviceUpdateOne {
-	_u.mutation.AddSessionsIDs(ids...)
+// AddSessionsIds adds the "sessions" edge to the Session entity by Ids.
+func (_u *DeviceUpdateOne) AddSessionsIds(ids ...schema.Id) *DeviceUpdateOne {
+	_u.mutation.AddSessionsIds(ids...)
 	return _u
 }
 
 // AddSessions adds the "sessions" edges to the Session entity.
 func (_u *DeviceUpdateOne) AddSessions(v ...*Session) *DeviceUpdateOne {
-	ids := make([]schema.ID, len(v))
+	ids := make([]schema.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddSessionsIDs(ids...)
+	return _u.AddSessionsIds(ids...)
 }
 
 // Mutation returns the DeviceMutation object of the builder.
@@ -280,19 +280,19 @@ func (_u *DeviceUpdateOne) ClearSessions() *DeviceUpdateOne {
 	return _u
 }
 
-// RemoveSessionsIDs removes the "sessions" edge to Session entities by IDs.
-func (_u *DeviceUpdateOne) RemoveSessionsIDs(ids ...schema.ID) *DeviceUpdateOne {
-	_u.mutation.RemoveSessionsIDs(ids...)
+// RemoveSessionsIds removes the "sessions" edge to Session entities by Ids.
+func (_u *DeviceUpdateOne) RemoveSessionsIds(ids ...schema.Id) *DeviceUpdateOne {
+	_u.mutation.RemoveSessionsIds(ids...)
 	return _u
 }
 
 // RemoveSessions removes "sessions" edges to Session entities.
 func (_u *DeviceUpdateOne) RemoveSessions(v ...*Session) *DeviceUpdateOne {
-	ids := make([]schema.ID, len(v))
+	ids := make([]schema.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveSessionsIDs(ids...)
+	return _u.RemoveSessionsIds(ids...)
 }
 
 // Where appends a list predicates to the DeviceUpdate builder.
@@ -336,20 +336,20 @@ func (_u *DeviceUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err error) {
-	_spec := sqlgraph.NewUpdateSpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldID, field.TypeBytes))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(device.Table, device.Columns, sqlgraph.NewFieldSpec(device.FieldId, field.TypeBytes))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Device.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, device.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, device.FieldId)
 		for _, f := range fields {
 			if !device.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != device.FieldID {
+			if f != device.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -369,12 +369,12 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 			Columns: []string{device.ActiveSessionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ActiveSessionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ActiveSessionIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -382,7 +382,7 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 			Columns: []string{device.ActiveSessionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -398,12 +398,12 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedSessionsIDs(); len(nodes) > 0 && !_u.mutation.SessionsCleared() {
+	if nodes := _u.mutation.RemovedSessionsIds(); len(nodes) > 0 && !_u.mutation.SessionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -411,7 +411,7 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -419,7 +419,7 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.SessionsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SessionsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -427,7 +427,7 @@ func (_u *DeviceUpdateOne) sqlSave(ctx context.Context) (_node *Device, err erro
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {

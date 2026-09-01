@@ -79,8 +79,8 @@ func (_q *TweetTagQuery) QueryTag() *TagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweettag.Table, tweettag.FieldID, selector),
-			sqlgraph.To(tag.Table, tag.FieldID),
+			sqlgraph.From(tweettag.Table, tweettag.FieldId, selector),
+			sqlgraph.To(tag.Table, tag.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, tweettag.TagTable, tweettag.TagColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -101,8 +101,8 @@ func (_q *TweetTagQuery) QueryTweet() *TweetQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweettag.Table, tweettag.FieldID, selector),
-			sqlgraph.To(tweet.Table, tweet.FieldID),
+			sqlgraph.From(tweettag.Table, tweettag.FieldId, selector),
+			sqlgraph.To(tweet.Table, tweet.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, tweettag.TweetTable, tweettag.TweetColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -133,11 +133,11 @@ func (_q *TweetTagQuery) FirstX(ctx context.Context) *TweetTag {
 	return node
 }
 
-// FirstID returns the first TweetTag ID from the query.
-// Returns a *NotFoundError when no TweetTag ID was found.
-func (_q *TweetTagQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) {
+// FirstId returns the first TweetTag Id from the query.
+// Returns a *NotFoundError when no TweetTag Id was found.
+func (_q *TweetTagQuery) FirstId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -147,9 +147,9 @@ func (_q *TweetTagQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) 
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *TweetTagQuery) FirstIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *TweetTagQuery) FirstIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -183,12 +183,12 @@ func (_q *TweetTagQuery) OnlyX(ctx context.Context) *TweetTag {
 	return node
 }
 
-// OnlyID is like Only, but returns the only TweetTag ID in the query.
-// Returns a *NotSingularError when more than one TweetTag ID is found.
+// OnlyId is like Only, but returns the only TweetTag Id in the query.
+// Returns a *NotSingularError when more than one TweetTag Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *TweetTagQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
+func (_q *TweetTagQuery) OnlyId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -202,9 +202,9 @@ func (_q *TweetTagQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *TweetTagQuery) OnlyIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *TweetTagQuery) OnlyIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,21 +230,21 @@ func (_q *TweetTagQuery) AllX(ctx context.Context) []*TweetTag {
 	return nodes
 }
 
-// IDs executes the query and returns a list of TweetTag IDs.
-func (_q *TweetTagQuery) IDs(ctx context.Context) (ids []uuid.UUID, err error) {
+// Ids executes the query and returns a list of TweetTag Ids.
+func (_q *TweetTagQuery) Ids(ctx context.Context) (ids []uuid.UUID, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(tweettag.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(tweettag.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *TweetTagQuery) IDsX(ctx context.Context) []uuid.UUID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *TweetTagQuery) IdsX(ctx context.Context) []uuid.UUID {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -272,7 +272,7 @@ func (_q *TweetTagQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *TweetTagQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -453,7 +453,7 @@ func (_q *TweetTagQuery) loadTag(ctx context.Context, query *TagQuery, nodes []*
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TweetTag)
 	for i := range nodes {
-		fk := nodes[i].TagID
+		fk := nodes[i].TagId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -462,15 +462,15 @@ func (_q *TweetTagQuery) loadTag(ctx context.Context, query *TagQuery, nodes []*
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(tag.IDIn(ids...))
+	query.Where(tag.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "tag_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "tag_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -482,7 +482,7 @@ func (_q *TweetTagQuery) loadTweet(ctx context.Context, query *TweetQuery, nodes
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TweetTag)
 	for i := range nodes {
-		fk := nodes[i].TweetID
+		fk := nodes[i].TweetId
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -491,15 +491,15 @@ func (_q *TweetTagQuery) loadTweet(ctx context.Context, query *TweetQuery, nodes
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(tweet.IDIn(ids...))
+	query.Where(tweet.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "tweet_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "tweet_id" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -518,7 +518,7 @@ func (_q *TweetTagQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *TweetTagQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(tweettag.Table, tweettag.Columns, sqlgraph.NewFieldSpec(tweettag.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewQuerySpec(tweettag.Table, tweettag.Columns, sqlgraph.NewFieldSpec(tweettag.FieldId, field.TypeUuid))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -527,17 +527,17 @@ func (_q *TweetTagQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, tweettag.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, tweettag.FieldId)
 		for i := range fields {
-			if fields[i] != tweettag.FieldID {
+			if fields[i] != tweettag.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 		if _q.withTag != nil {
-			_spec.Node.AddColumnOnce(tweettag.FieldTagID)
+			_spec.Node.AddColumnOnce(tweettag.FieldTagId)
 		}
 		if _q.withTweet != nil {
-			_spec.Node.AddColumnOnce(tweettag.FieldTweetID)
+			_spec.Node.AddColumnOnce(tweettag.FieldTweetId)
 		}
 	}
 	if ps := _q.predicates; len(ps) > 0 {

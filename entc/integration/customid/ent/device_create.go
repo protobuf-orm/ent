@@ -28,52 +28,52 @@ type DeviceCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetID sets the "id" field.
-func (_c *DeviceCreate) SetID(v schema.ID) *DeviceCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *DeviceCreate) SetId(v schema.Id) *DeviceCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *DeviceCreate) SetNillableID(v *schema.ID) *DeviceCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *DeviceCreate) SetNillableId(v *schema.Id) *DeviceCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetActiveSessionID sets the "active_session" edge to the Session entity by ID.
-func (_c *DeviceCreate) SetActiveSessionID(id schema.ID) *DeviceCreate {
-	_c.mutation.SetActiveSessionID(id)
+// SetActiveSessionId sets the "active_session" edge to the Session entity by Id.
+func (_c *DeviceCreate) SetActiveSessionId(id schema.Id) *DeviceCreate {
+	_c.mutation.SetActiveSessionId(id)
 	return _c
 }
 
-// SetNillableActiveSessionID sets the "active_session" edge to the Session entity by ID if the given value is not nil.
-func (_c *DeviceCreate) SetNillableActiveSessionID(id *schema.ID) *DeviceCreate {
+// SetNillableActiveSessionId sets the "active_session" edge to the Session entity by Id if the given value is not nil.
+func (_c *DeviceCreate) SetNillableActiveSessionId(id *schema.Id) *DeviceCreate {
 	if id != nil {
-		_c = _c.SetActiveSessionID(*id)
+		_c = _c.SetActiveSessionId(*id)
 	}
 	return _c
 }
 
 // SetActiveSession sets the "active_session" edge to the Session entity.
 func (_c *DeviceCreate) SetActiveSession(v *Session) *DeviceCreate {
-	return _c.SetActiveSessionID(v.ID)
+	return _c.SetActiveSessionId(v.Id)
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
-func (_c *DeviceCreate) AddSessionsIDs(ids ...schema.ID) *DeviceCreate {
-	_c.mutation.AddSessionsIDs(ids...)
+// AddSessionsIds adds the "sessions" edge to the Session entity by Ids.
+func (_c *DeviceCreate) AddSessionsIds(ids ...schema.Id) *DeviceCreate {
+	_c.mutation.AddSessionsIds(ids...)
 	return _c
 }
 
 // AddSessions adds the "sessions" edges to the Session entity.
 func (_c *DeviceCreate) AddSessions(v ...*Session) *DeviceCreate {
-	ids := make([]schema.ID, len(v))
+	ids := make([]schema.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddSessionsIDs(ids...)
+	return _c.AddSessionsIds(ids...)
 }
 
 // Mutation returns the DeviceMutation object of the builder.
@@ -111,16 +111,16 @@ func (_c *DeviceCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *DeviceCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := device.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := device.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *DeviceCreate) check() error {
-	if v, ok := _c.mutation.ID(); ok {
-		if err := device.IDValidator(v[:]); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := device.IdValidator(v[:]); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Device.id": %w`, err)}
 		}
 	}
@@ -138,14 +138,14 @@ func (_c *DeviceCreate) sqlSave(ctx context.Context) (*Device, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*schema.ID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*schema.Id); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -153,14 +153,14 @@ func (_c *DeviceCreate) sqlSave(ctx context.Context) (*Device, error) {
 func (_c *DeviceCreate) createSpec() (*Device, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Device{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(device.Table, sqlgraph.NewFieldSpec(device.FieldID, field.TypeBytes))
+		_spec = sqlgraph.NewCreateSpec(device.Table, sqlgraph.NewFieldSpec(device.FieldId, field.TypeBytes))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
-	if nodes := _c.mutation.ActiveSessionIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ActiveSessionIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -168,7 +168,7 @@ func (_c *DeviceCreate) createSpec() (*Device, *sqlgraph.CreateSpec) {
 			Columns: []string{device.ActiveSessionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -177,7 +177,7 @@ func (_c *DeviceCreate) createSpec() (*Device, *sqlgraph.CreateSpec) {
 		_node.device_active_session = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.SessionsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SessionsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -185,7 +185,7 @@ func (_c *DeviceCreate) createSpec() (*Device, *sqlgraph.CreateSpec) {
 			Columns: []string{device.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeBytes),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeBytes),
 			},
 		}
 		for _, k := range nodes {
@@ -239,22 +239,22 @@ type (
 	}
 )
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Device.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(device.FieldID)
+//				u.SetIgnore(device.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *DeviceUpsertOne) UpdateNewValues() *DeviceUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(device.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(device.FieldId)
 		}
 	}))
 	return u
@@ -272,7 +272,7 @@ func (u *DeviceUpsertOne) Ignore() *DeviceUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DeviceUpsertOne) DoNothing() *DeviceUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -302,23 +302,23 @@ func (u *DeviceUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *DeviceUpsertOne) ID(ctx context.Context) (id schema.ID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: DeviceUpsertOne.ID is not supported by MySQL driver. Use DeviceUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *DeviceUpsertOne) Id(ctx context.Context) (id schema.Id, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: DeviceUpsertOne.Id is not supported by MySql driver. Use DeviceUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *DeviceUpsertOne) IDX(ctx context.Context) schema.ID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *DeviceUpsertOne) IdX(ctx context.Context) schema.Id {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -371,7 +371,7 @@ func (_c *DeviceCreateBulk) Save(ctx context.Context) ([]*Device, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -454,7 +454,7 @@ type DeviceUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(device.FieldID)
+//				u.SetIgnore(device.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -462,8 +462,8 @@ func (u *DeviceUpsertBulk) UpdateNewValues() *DeviceUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(device.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(device.FieldId)
 			}
 		}
 	}))
@@ -482,7 +482,7 @@ func (u *DeviceUpsertBulk) Ignore() *DeviceUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DeviceUpsertBulk) DoNothing() *DeviceUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

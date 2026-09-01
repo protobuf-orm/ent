@@ -20,9 +20,9 @@ type Token struct {
 // Fields of the Token.
 func (Token) Fields() []ent.Field {
 	return []ent.Field{
-		field.Other("id", sid.ID("")).
+		field.Other("id", sid.Id("")).
 			SchemaType(map[string]string{
-				dialect.MySQL:    "bigint",
+				dialect.MySql:    "bigint",
 				dialect.Postgres: "bigint",
 				dialect.SQLite:   "integer",
 			}).

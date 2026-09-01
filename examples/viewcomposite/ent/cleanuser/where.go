@@ -7,9 +7,9 @@ import (
 	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/predicate"
 )
 
-// ID applies equality check predicate on the "id" field. It's identical to IDEQ.
-func ID(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldEQ(FieldID, v))
+// Id applies equality check predicate on the "id" field. It's identical to IdEQ.
+func Id(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldEQ(FieldId, v))
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
@@ -22,44 +22,44 @@ func PublicInfo(v string) predicate.CleanUser {
 	return predicate.CleanUser(sql.FieldEQ(FieldPublicInfo, v))
 }
 
-// IDEQ applies the EQ predicate on the "id" field.
-func IDEQ(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldEQ(FieldID, v))
+// IdEQ applies the EQ predicate on the "id" field.
+func IdEQ(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldEQ(FieldId, v))
 }
 
-// IDNEQ applies the NEQ predicate on the "id" field.
-func IDNEQ(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldNEQ(FieldID, v))
+// IdNEQ applies the NEQ predicate on the "id" field.
+func IdNEQ(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldNEQ(FieldId, v))
 }
 
-// IDIn applies the In predicate on the "id" field.
-func IDIn(vs ...int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldIn(FieldID, vs...))
+// IdIn applies the In predicate on the "id" field.
+func IdIn(vs ...int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldIn(FieldId, vs...))
 }
 
-// IDNotIn applies the NotIn predicate on the "id" field.
-func IDNotIn(vs ...int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldNotIn(FieldID, vs...))
+// IdNotIn applies the NotIn predicate on the "id" field.
+func IdNotIn(vs ...int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldNotIn(FieldId, vs...))
 }
 
-// IDGT applies the GT predicate on the "id" field.
-func IDGT(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldGT(FieldID, v))
+// IdGT applies the GT predicate on the "id" field.
+func IdGT(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldGT(FieldId, v))
 }
 
-// IDGTE applies the GTE predicate on the "id" field.
-func IDGTE(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldGTE(FieldID, v))
+// IdGTE applies the GTE predicate on the "id" field.
+func IdGTE(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldGTE(FieldId, v))
 }
 
-// IDLT applies the LT predicate on the "id" field.
-func IDLT(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldLT(FieldID, v))
+// IdLT applies the LT predicate on the "id" field.
+func IdLT(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldLT(FieldId, v))
 }
 
-// IDLTE applies the LTE predicate on the "id" field.
-func IDLTE(v int) predicate.CleanUser {
-	return predicate.CleanUser(sql.FieldLTE(FieldID, v))
+// IdLTE applies the LTE predicate on the "id" field.
+func IdLTE(v int) predicate.CleanUser {
+	return predicate.CleanUser(sql.FieldLTE(FieldId, v))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.

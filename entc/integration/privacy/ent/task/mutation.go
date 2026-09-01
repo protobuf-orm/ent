@@ -117,13 +117,13 @@ func (m *Mutation) ResetStatus() {
 	m.status = nil
 }
 
-// SetUUID sets the "uuid" field.
-func (m *Mutation) SetUUID(u uuid.UUID) {
+// SetUuid sets the "uuid" field.
+func (m *Mutation) SetUuid(u uuid.UUID) {
 	m.uuid = &u
 }
 
-// UUID returns the value of the "uuid" field in the mutation.
-func (m *Mutation) UUID() (r uuid.UUID, exists bool) {
+// Uuid returns the value of the "uuid" field in the mutation.
+func (m *Mutation) Uuid() (r uuid.UUID, exists bool) {
 	v := m.uuid
 	if v == nil {
 		return
@@ -131,26 +131,26 @@ func (m *Mutation) UUID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ClearUUID clears the value of the "uuid" field.
-func (m *Mutation) ClearUUID() {
+// ClearUuid clears the value of the "uuid" field.
+func (m *Mutation) ClearUuid() {
 	m.uuid = nil
-	m.clearedFields[FieldUUID] = struct{}{}
+	m.clearedFields[FieldUuid] = struct{}{}
 }
 
-// UUIDCleared returns if the "uuid" field was cleared in this mutation.
-func (m *Mutation) UUIDCleared() bool {
-	_, ok := m.clearedFields[FieldUUID]
+// UuidCleared returns if the "uuid" field was cleared in this mutation.
+func (m *Mutation) UuidCleared() bool {
+	_, ok := m.clearedFields[FieldUuid]
 	return ok
 }
 
-// ResetUUID resets all changes to the "uuid" field.
-func (m *Mutation) ResetUUID() {
+// ResetUuid resets all changes to the "uuid" field.
+func (m *Mutation) ResetUuid() {
 	m.uuid = nil
-	delete(m.clearedFields, FieldUUID)
+	delete(m.clearedFields, FieldUuid)
 }
 
-// AddTeamsIDs adds the "teams" edge to the Team entity by ids.
-func (m *Mutation) AddTeamsIDs(ids ...int) {
+// AddTeamsIds adds the "teams" edge to the Team entity by ids.
+func (m *Mutation) AddTeamsIds(ids ...int) {
 	if m.teams == nil {
 		m.teams = make(map[int]struct{})
 	}
@@ -169,8 +169,8 @@ func (m *Mutation) TeamsCleared() bool {
 	return m.clearedteams
 }
 
-// RemoveTeamsIDs removes the "teams" edge to the Team entity by IDs.
-func (m *Mutation) RemoveTeamsIDs(ids ...int) {
+// RemoveTeamsIds removes the "teams" edge to the Team entity by Ids.
+func (m *Mutation) RemoveTeamsIds(ids ...int) {
 	if m.removedteams == nil {
 		m.removedteams = make(map[int]struct{})
 	}
@@ -180,16 +180,16 @@ func (m *Mutation) RemoveTeamsIDs(ids ...int) {
 	}
 }
 
-// RemovedTeams returns the removed IDs of the "teams" edge to the Team entity.
-func (m *Mutation) RemovedTeamsIDs() (ids []int) {
+// RemovedTeams returns the removed Ids of the "teams" edge to the Team entity.
+func (m *Mutation) RemovedTeamsIds() (ids []int) {
 	for id := range m.removedteams {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TeamsIDs returns the "teams" edge IDs in the mutation.
-func (m *Mutation) TeamsIDs() (ids []int) {
+// TeamsIds returns the "teams" edge Ids in the mutation.
+func (m *Mutation) TeamsIds() (ids []int) {
 	for id := range m.teams {
 		ids = append(ids, id)
 	}
@@ -203,8 +203,8 @@ func (m *Mutation) ResetTeams() {
 	m.removedteams = nil
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by id.
-func (m *Mutation) SetOwnerID(id int) {
+// SetOwnerId sets the "owner" edge to the User entity by id.
+func (m *Mutation) SetOwnerId(id int) {
 	m.owner = &id
 }
 
@@ -218,18 +218,18 @@ func (m *Mutation) OwnerCleared() bool {
 	return m.clearedowner
 }
 
-// OwnerID returns the "owner" edge ID in the mutation.
-func (m *Mutation) OwnerID() (id int, exists bool) {
+// OwnerId returns the "owner" edge Id in the mutation.
+func (m *Mutation) OwnerId() (id int, exists bool) {
 	if m.owner != nil {
 		return *m.owner, true
 	}
 	return
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []int) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []int) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -287,7 +287,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldStatus)
 	}
 	if m.uuid != nil {
-		fields = append(fields, FieldUUID)
+		fields = append(fields, FieldUuid)
 	}
 	return fields
 }
@@ -303,8 +303,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Description()
 	case FieldStatus:
 		return m.Status()
-	case FieldUUID:
-		return m.UUID()
+	case FieldUuid:
+		return m.Uuid()
 	}
 	return nil, false
 }
@@ -342,12 +342,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetStatus(v)
 		return nil
-	case FieldUUID:
+	case FieldUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUUID(v)
+		m.SetUuid(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Task field %s", name)
@@ -382,8 +382,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldDescription) {
 		fields = append(fields, FieldDescription)
 	}
-	if m.FieldCleared(FieldUUID) {
-		fields = append(fields, FieldUUID)
+	if m.FieldCleared(FieldUuid) {
+		fields = append(fields, FieldUuid)
 	}
 	return fields
 }
@@ -402,8 +402,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldDescription:
 		m.ClearDescription()
 		return nil
-	case FieldUUID:
-		m.ClearUUID()
+	case FieldUuid:
+		m.ClearUuid()
 		return nil
 	}
 	return fmt.Errorf("unknown Task nullable field %s", name)
@@ -422,8 +422,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldStatus:
 		m.ResetStatus()
 		return nil
-	case FieldUUID:
-		m.ResetUUID()
+	case FieldUuid:
+		m.ResetUuid()
 		return nil
 	}
 	return fmt.Errorf("unknown Task field %s", name)
@@ -441,9 +441,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTeams:
 		ids := make([]ent.Value, 0, len(m.teams))
@@ -468,9 +468,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTeams:
 		ids := make([]ent.Value, 0, len(m.removedteams))

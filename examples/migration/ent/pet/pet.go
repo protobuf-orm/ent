@@ -15,18 +15,18 @@ import (
 const (
 	// Label holds the string label denoting the pet type in the database.
 	Label = "pet"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
 	// FieldWeight holds the string denoting the weight field in the database.
 	FieldWeight = "weight"
-	// FieldBestFriendID holds the string denoting the best_friend_id field in the database.
-	FieldBestFriendID = "best_friend_id"
-	// FieldOwnerID holds the string denoting the owner_id field in the database.
-	FieldOwnerID = "owner_id"
+	// FieldBestFriendId holds the string denoting the best_friend_id field in the database.
+	FieldBestFriendId = "best_friend_id"
+	// FieldOwnerId holds the string denoting the owner_id field in the database.
+	FieldOwnerId = "owner_id"
 	// EdgeBestFriend holds the string denoting the best_friend edge name in mutations.
 	EdgeBestFriend = "best_friend"
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
@@ -46,14 +46,14 @@ const (
 	OwnerColumn = "owner_id"
 )
 
-// Columns holds all SQL columns for pet fields.
+// Columns holds all Sql columns for pet fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 	FieldAge,
 	FieldWeight,
-	FieldBestFriendID,
-	FieldOwnerID,
+	FieldBestFriendId,
+	FieldOwnerId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -67,18 +67,18 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultOwnerID holds the default value on creation for the "owner_id" field.
-	DefaultOwnerID int
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultOwnerId holds the default value on creation for the "owner_id" field.
+	DefaultOwnerId int
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the Pet queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -96,14 +96,14 @@ func ByWeight(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldWeight, opts...).ToFunc()
 }
 
-// ByBestFriendID orders the results by the best_friend_id field.
-func ByBestFriendID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldBestFriendID, opts...).ToFunc()
+// ByBestFriendId orders the results by the best_friend_id field.
+func ByBestFriendId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBestFriendId, opts...).ToFunc()
 }
 
-// ByOwnerID orders the results by the owner_id field.
-func ByOwnerID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldOwnerID, opts...).ToFunc()
+// ByOwnerId orders the results by the owner_id field.
+func ByOwnerId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOwnerId, opts...).ToFunc()
 }
 
 // ByBestFriendField orders the results by best_friend field.
@@ -121,15 +121,15 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newBestFriendStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, BestFriendTable, BestFriendColumn),
 	)
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, OwnerTable, OwnerColumn),
 	)
 }

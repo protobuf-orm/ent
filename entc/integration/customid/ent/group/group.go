@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the group type in the database.
 	Label = "group"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// EdgeUsers holds the string denoting the users edge name in mutations.
 	EdgeUsers = "users"
-	// UserFieldID holds the string denoting the ID field of the User.
-	UserFieldID = "oid"
+	// UserFieldId holds the string denoting the Id field of the User.
+	UserFieldId = "oid"
 	// Table holds the table name of the group in the database.
 	Table = "group"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
@@ -29,9 +29,9 @@ const (
 	UsersInverseTable = "user"
 )
 
-// Columns holds all SQL columns for group fields.
+// Columns holds all Sql columns for group fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 var (
@@ -53,9 +53,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Group queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByUsersCount orders the results by users count.
@@ -73,8 +73,8 @@ func ByUsers(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UsersInverseTable, UserFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UsersInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, UsersTable, UsersPrimaryKey...),
 	)
 }

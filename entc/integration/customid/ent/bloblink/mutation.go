@@ -64,13 +64,13 @@ func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
-// SetBlobID sets the "blob_id" field.
-func (m *Mutation) SetBlobID(u uuid.UUID) {
+// SetBlobId sets the "blob_id" field.
+func (m *Mutation) SetBlobId(u uuid.UUID) {
 	m.blob = &u
 }
 
-// BlobID returns the value of the "blob_id" field in the mutation.
-func (m *Mutation) BlobID() (r uuid.UUID, exists bool) {
+// BlobId returns the value of the "blob_id" field in the mutation.
+func (m *Mutation) BlobId() (r uuid.UUID, exists bool) {
 	v := m.blob
 	if v == nil {
 		return
@@ -78,18 +78,18 @@ func (m *Mutation) BlobID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetBlobID resets all changes to the "blob_id" field.
-func (m *Mutation) ResetBlobID() {
+// ResetBlobId resets all changes to the "blob_id" field.
+func (m *Mutation) ResetBlobId() {
 	m.blob = nil
 }
 
-// SetLinksID sets the "links_id" field.
-func (m *Mutation) SetLinksID(u uuid.UUID) {
+// SetLinksId sets the "links_id" field.
+func (m *Mutation) SetLinksId(u uuid.UUID) {
 	m.link = &u
 }
 
-// LinksID returns the value of the "links_id" field in the mutation.
-func (m *Mutation) LinksID() (r uuid.UUID, exists bool) {
+// LinksId returns the value of the "links_id" field in the mutation.
+func (m *Mutation) LinksId() (r uuid.UUID, exists bool) {
 	v := m.link
 	if v == nil {
 		return
@@ -97,15 +97,15 @@ func (m *Mutation) LinksID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetLinksID resets all changes to the "links_id" field.
-func (m *Mutation) ResetLinksID() {
+// ResetLinksId resets all changes to the "links_id" field.
+func (m *Mutation) ResetLinksId() {
 	m.link = nil
 }
 
 // ClearBlob clears the "blob" edge to the Blob entity.
 func (m *Mutation) ClearBlob() {
 	m.clearedblob = true
-	m.clearedFields[FieldBlobID] = struct{}{}
+	m.clearedFields[FieldBlobId] = struct{}{}
 }
 
 // BlobCleared reports if the "blob" edge to the Blob entity was cleared.
@@ -113,10 +113,10 @@ func (m *Mutation) BlobCleared() bool {
 	return m.clearedblob
 }
 
-// BlobIDs returns the "blob" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// BlobID instead. It exists only for internal usage by the builders.
-func (m *Mutation) BlobIDs() (ids []uuid.UUID) {
+// BlobIds returns the "blob" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// BlobId instead. It exists only for internal usage by the builders.
+func (m *Mutation) BlobIds() (ids []uuid.UUID) {
 	if id := m.blob; id != nil {
 		ids = append(ids, *id)
 	}
@@ -129,15 +129,15 @@ func (m *Mutation) ResetBlob() {
 	m.clearedblob = false
 }
 
-// SetLinkID sets the "link" edge to the Blob entity by id.
-func (m *Mutation) SetLinkID(id uuid.UUID) {
+// SetLinkId sets the "link" edge to the Blob entity by id.
+func (m *Mutation) SetLinkId(id uuid.UUID) {
 	m.link = &id
 }
 
 // ClearLink clears the "link" edge to the Blob entity.
 func (m *Mutation) ClearLink() {
 	m.clearedlink = true
-	m.clearedFields[FieldLinksID] = struct{}{}
+	m.clearedFields[FieldLinksId] = struct{}{}
 }
 
 // LinkCleared reports if the "link" edge to the Blob entity was cleared.
@@ -145,18 +145,18 @@ func (m *Mutation) LinkCleared() bool {
 	return m.clearedlink
 }
 
-// LinkID returns the "link" edge ID in the mutation.
-func (m *Mutation) LinkID() (id uuid.UUID, exists bool) {
+// LinkId returns the "link" edge Id in the mutation.
+func (m *Mutation) LinkId() (id uuid.UUID, exists bool) {
 	if m.link != nil {
 		return *m.link, true
 	}
 	return
 }
 
-// LinkIDs returns the "link" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// LinkID instead. It exists only for internal usage by the builders.
-func (m *Mutation) LinkIDs() (ids []uuid.UUID) {
+// LinkIds returns the "link" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// LinkId instead. It exists only for internal usage by the builders.
+func (m *Mutation) LinkIds() (ids []uuid.UUID) {
 	if id := m.link; id != nil {
 		ids = append(ids, *id)
 	}
@@ -208,10 +208,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldCreatedAt)
 	}
 	if m.blob != nil {
-		fields = append(fields, FieldBlobID)
+		fields = append(fields, FieldBlobId)
 	}
 	if m.link != nil {
-		fields = append(fields, FieldLinksID)
+		fields = append(fields, FieldLinksId)
 	}
 	return fields
 }
@@ -223,10 +223,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldCreatedAt:
 		return m.CreatedAt()
-	case FieldBlobID:
-		return m.BlobID()
-	case FieldLinksID:
-		return m.LinksID()
+	case FieldBlobId:
+		return m.BlobId()
+	case FieldLinksId:
+		return m.LinksId()
 	}
 	return nil, false
 }
@@ -250,19 +250,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case FieldBlobID:
+	case FieldBlobId:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetBlobID(v)
+		m.SetBlobId(v)
 		return nil
-	case FieldLinksID:
+	case FieldLinksId:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetLinksID(v)
+		m.SetLinksId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown BlobLink field %s", name)
@@ -316,11 +316,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case FieldBlobID:
-		m.ResetBlobID()
+	case FieldBlobId:
+		m.ResetBlobId()
 		return nil
-	case FieldLinksID:
-		m.ResetLinksID()
+	case FieldLinksId:
+		m.ResetLinksId()
 		return nil
 	}
 	return fmt.Errorf("unknown BlobLink field %s", name)
@@ -338,9 +338,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeBlob:
 		if id := m.blob; id != nil {
@@ -360,9 +360,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

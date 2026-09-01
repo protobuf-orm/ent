@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the task type in the database.
 	Label = "task"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldPriority holds the string denoting the priority field in the database.
 	FieldPriority = "priority"
 	// FieldPriorities holds the string denoting the priorities field in the database.
@@ -38,9 +38,9 @@ const (
 	Table = "task"
 )
 
-// Columns holds all SQL columns for task fields.
+// Columns holds all Sql columns for task fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldPriority,
 	FieldPriorities,
 	FieldCreatedAt,
@@ -79,9 +79,9 @@ var (
 // OrderOption defines the ordering options for the Task queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByPriority orders the results by the priority field.

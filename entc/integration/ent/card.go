@@ -20,8 +20,8 @@ import (
 // Card is the model entity for the Card schema.
 type Card struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"-"`
+	// Id of the ent.
+	Id int `json:"-"`
 	// CreateTime holds the value of the "create_time" field.
 	CreateTime time.Time `json:"create_time,omitempty"`
 	// UpdateTime holds the value of the "update_time" field.
@@ -81,7 +81,7 @@ func (*Card) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case card.FieldBalance:
 			values[i] = new(sql.NullFloat64)
-		case card.FieldID:
+		case card.FieldId:
 			values[i] = new(sql.NullInt64)
 		case card.FieldNumber, card.FieldName:
 			values[i] = new(sql.NullString)
@@ -104,12 +104,12 @@ func (_m *Card) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case card.FieldID:
+		case card.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case card.FieldCreateTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field create_time", values[i])
@@ -192,7 +192,7 @@ func (_m *Card) Unwrap() *Card {
 func (_m *Card) String() string {
 	var builder strings.Builder
 	builder.WriteString("Card(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("create_time=")
 	builder.WriteString(_m.CreateTime.Format(time.ANSIC))
 	builder.WriteString(", ")

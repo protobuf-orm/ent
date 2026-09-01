@@ -62,13 +62,13 @@ func (m *Mutation) ResetAttachTime() {
 	m.attach_time = nil
 }
 
-// SetFID sets the "f_id" field.
-func (m *Mutation) SetFID(i int) {
+// SetFId sets the "f_id" field.
+func (m *Mutation) SetFId(i int) {
 	m.fi = &i
 }
 
-// FID returns the value of the "f_id" field in the mutation.
-func (m *Mutation) FID() (r int, exists bool) {
+// FId returns the value of the "f_id" field in the mutation.
+func (m *Mutation) FId() (r int, exists bool) {
 	v := m.fi
 	if v == nil {
 		return
@@ -76,18 +76,18 @@ func (m *Mutation) FID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetFID resets all changes to the "f_id" field.
-func (m *Mutation) ResetFID() {
+// ResetFId resets all changes to the "f_id" field.
+func (m *Mutation) ResetFId() {
 	m.fi = nil
 }
 
-// SetProcID sets the "proc_id" field.
-func (m *Mutation) SetProcID(i int) {
+// SetProcId sets the "proc_id" field.
+func (m *Mutation) SetProcId(i int) {
 	m.proc = &i
 }
 
-// ProcID returns the value of the "proc_id" field in the mutation.
-func (m *Mutation) ProcID() (r int, exists bool) {
+// ProcId returns the value of the "proc_id" field in the mutation.
+func (m *Mutation) ProcId() (r int, exists bool) {
 	v := m.proc
 	if v == nil {
 		return
@@ -95,20 +95,20 @@ func (m *Mutation) ProcID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetProcID resets all changes to the "proc_id" field.
-func (m *Mutation) ResetProcID() {
+// ResetProcId resets all changes to the "proc_id" field.
+func (m *Mutation) ResetProcId() {
 	m.proc = nil
 }
 
-// SetFiID sets the "fi" edge to the File entity by id.
-func (m *Mutation) SetFiID(id int) {
+// SetFiId sets the "fi" edge to the File entity by id.
+func (m *Mutation) SetFiId(id int) {
 	m.fi = &id
 }
 
 // ClearFi clears the "fi" edge to the File entity.
 func (m *Mutation) ClearFi() {
 	m.clearedfi = true
-	m.clearedFields[FieldFID] = struct{}{}
+	m.clearedFields[FieldFId] = struct{}{}
 }
 
 // FiCleared reports if the "fi" edge to the File entity was cleared.
@@ -116,18 +116,18 @@ func (m *Mutation) FiCleared() bool {
 	return m.clearedfi
 }
 
-// FiID returns the "fi" edge ID in the mutation.
-func (m *Mutation) FiID() (id int, exists bool) {
+// FiId returns the "fi" edge Id in the mutation.
+func (m *Mutation) FiId() (id int, exists bool) {
 	if m.fi != nil {
 		return *m.fi, true
 	}
 	return
 }
 
-// FiIDs returns the "fi" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// FiID instead. It exists only for internal usage by the builders.
-func (m *Mutation) FiIDs() (ids []int) {
+// FiIds returns the "fi" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// FiId instead. It exists only for internal usage by the builders.
+func (m *Mutation) FiIds() (ids []int) {
 	if id := m.fi; id != nil {
 		ids = append(ids, *id)
 	}
@@ -143,7 +143,7 @@ func (m *Mutation) ResetFi() {
 // ClearProc clears the "proc" edge to the Process entity.
 func (m *Mutation) ClearProc() {
 	m.clearedproc = true
-	m.clearedFields[FieldProcID] = struct{}{}
+	m.clearedFields[FieldProcId] = struct{}{}
 }
 
 // ProcCleared reports if the "proc" edge to the Process entity was cleared.
@@ -151,10 +151,10 @@ func (m *Mutation) ProcCleared() bool {
 	return m.clearedproc
 }
 
-// ProcIDs returns the "proc" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ProcID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ProcIDs() (ids []int) {
+// ProcIds returns the "proc" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ProcId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ProcIds() (ids []int) {
 	if id := m.proc; id != nil {
 		ids = append(ids, *id)
 	}
@@ -206,10 +206,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldAttachTime)
 	}
 	if m.fi != nil {
-		fields = append(fields, FieldFID)
+		fields = append(fields, FieldFId)
 	}
 	if m.proc != nil {
-		fields = append(fields, FieldProcID)
+		fields = append(fields, FieldProcId)
 	}
 	return fields
 }
@@ -221,10 +221,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldAttachTime:
 		return m.AttachTime()
-	case FieldFID:
-		return m.FID()
-	case FieldProcID:
-		return m.ProcID()
+	case FieldFId:
+		return m.FId()
+	case FieldProcId:
+		return m.ProcId()
 	}
 	return nil, false
 }
@@ -248,19 +248,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAttachTime(v)
 		return nil
-	case FieldFID:
+	case FieldFId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetFID(v)
+		m.SetFId(v)
 		return nil
-	case FieldProcID:
+	case FieldProcId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetProcID(v)
+		m.SetProcId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AttachedFile field %s", name)
@@ -317,11 +317,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldAttachTime:
 		m.ResetAttachTime()
 		return nil
-	case FieldFID:
-		m.ResetFID()
+	case FieldFId:
+		m.ResetFId()
 		return nil
-	case FieldProcID:
-		m.ResetProcID()
+	case FieldProcId:
+		m.ResetProcId()
 		return nil
 	}
 	return fmt.Errorf("unknown AttachedFile field %s", name)
@@ -339,9 +339,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeFi:
 		if id := m.fi; id != nil {
@@ -361,9 +361,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

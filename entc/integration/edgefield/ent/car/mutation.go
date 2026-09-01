@@ -73,8 +73,8 @@ func (m *Mutation) ResetNumber() {
 	delete(m.clearedFields, FieldNumber)
 }
 
-// AddRentalsIDs adds the "rentals" edge to the Rental entity by ids.
-func (m *Mutation) AddRentalsIDs(ids ...int) {
+// AddRentalsIds adds the "rentals" edge to the Rental entity by ids.
+func (m *Mutation) AddRentalsIds(ids ...int) {
 	if m.rentals == nil {
 		m.rentals = make(map[int]struct{})
 	}
@@ -93,8 +93,8 @@ func (m *Mutation) RentalsCleared() bool {
 	return m.clearedrentals
 }
 
-// RemoveRentalsIDs removes the "rentals" edge to the Rental entity by IDs.
-func (m *Mutation) RemoveRentalsIDs(ids ...int) {
+// RemoveRentalsIds removes the "rentals" edge to the Rental entity by Ids.
+func (m *Mutation) RemoveRentalsIds(ids ...int) {
 	if m.removedrentals == nil {
 		m.removedrentals = make(map[int]struct{})
 	}
@@ -104,16 +104,16 @@ func (m *Mutation) RemoveRentalsIDs(ids ...int) {
 	}
 }
 
-// RemovedRentals returns the removed IDs of the "rentals" edge to the Rental entity.
-func (m *Mutation) RemovedRentalsIDs() (ids []int) {
+// RemovedRentals returns the removed Ids of the "rentals" edge to the Rental entity.
+func (m *Mutation) RemovedRentalsIds() (ids []int) {
 	for id := range m.removedrentals {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// RentalsIDs returns the "rentals" edge IDs in the mutation.
-func (m *Mutation) RentalsIDs() (ids []int) {
+// RentalsIds returns the "rentals" edge Ids in the mutation.
+func (m *Mutation) RentalsIds() (ids []int) {
 	for id := range m.rentals {
 		ids = append(ids, id)
 	}
@@ -272,9 +272,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeRentals:
 		ids := make([]ent.Value, 0, len(m.rentals))
@@ -295,9 +295,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeRentals:
 		ids := make([]ent.Value, 0, len(m.removedrentals))

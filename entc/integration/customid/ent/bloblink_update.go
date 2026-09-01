@@ -48,48 +48,48 @@ func (_u *BlobLinkUpdate) SetNillableCreatedAt(v *time.Time) *BlobLinkUpdate {
 	return _u
 }
 
-// SetBlobID sets the "blob_id" field.
-func (_u *BlobLinkUpdate) SetBlobID(v uuid.UUID) *BlobLinkUpdate {
-	_u.mutation.SetBlobID(v)
+// SetBlobId sets the "blob_id" field.
+func (_u *BlobLinkUpdate) SetBlobId(v uuid.UUID) *BlobLinkUpdate {
+	_u.mutation.SetBlobId(v)
 	return _u
 }
 
-// SetNillableBlobID sets the "blob_id" field if the given value is not nil.
-func (_u *BlobLinkUpdate) SetNillableBlobID(v *uuid.UUID) *BlobLinkUpdate {
+// SetNillableBlobId sets the "blob_id" field if the given value is not nil.
+func (_u *BlobLinkUpdate) SetNillableBlobId(v *uuid.UUID) *BlobLinkUpdate {
 	if v != nil {
-		_u.SetBlobID(*v)
+		_u.SetBlobId(*v)
 	}
 	return _u
 }
 
-// SetLinksID sets the "links_id" field.
-func (_u *BlobLinkUpdate) SetLinksID(v uuid.UUID) *BlobLinkUpdate {
-	_u.mutation.SetLinksID(v)
+// SetLinksId sets the "links_id" field.
+func (_u *BlobLinkUpdate) SetLinksId(v uuid.UUID) *BlobLinkUpdate {
+	_u.mutation.SetLinksId(v)
 	return _u
 }
 
-// SetNillableLinksID sets the "links_id" field if the given value is not nil.
-func (_u *BlobLinkUpdate) SetNillableLinksID(v *uuid.UUID) *BlobLinkUpdate {
+// SetNillableLinksId sets the "links_id" field if the given value is not nil.
+func (_u *BlobLinkUpdate) SetNillableLinksId(v *uuid.UUID) *BlobLinkUpdate {
 	if v != nil {
-		_u.SetLinksID(*v)
+		_u.SetLinksId(*v)
 	}
 	return _u
 }
 
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_u *BlobLinkUpdate) SetBlob(v *Blob) *BlobLinkUpdate {
-	return _u.SetBlobID(v.ID)
+	return _u.SetBlobId(v.Id)
 }
 
-// SetLinkID sets the "link" edge to the Blob entity by ID.
-func (_u *BlobLinkUpdate) SetLinkID(id uuid.UUID) *BlobLinkUpdate {
-	_u.mutation.SetLinkID(id)
+// SetLinkId sets the "link" edge to the Blob entity by Id.
+func (_u *BlobLinkUpdate) SetLinkId(id uuid.UUID) *BlobLinkUpdate {
+	_u.mutation.SetLinkId(id)
 	return _u
 }
 
 // SetLink sets the "link" edge to the Blob entity.
 func (_u *BlobLinkUpdate) SetLink(v *Blob) *BlobLinkUpdate {
-	return _u.SetLinkID(v.ID)
+	return _u.SetLinkId(v.Id)
 }
 
 // Mutation returns the BlobLinkMutation object of the builder.
@@ -138,10 +138,10 @@ func (_u *BlobLinkUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *BlobLinkUpdate) check() error {
-	if _u.mutation.BlobCleared() && len(_u.mutation.BlobIDs()) > 0 {
+	if _u.mutation.BlobCleared() && len(_u.mutation.BlobIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "BlobLink.blob"`)
 	}
-	if _u.mutation.LinkCleared() && len(_u.mutation.LinkIDs()) > 0 {
+	if _u.mutation.LinkCleared() && len(_u.mutation.LinkIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "BlobLink.link"`)
 	}
 	return nil
@@ -151,7 +151,7 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinksID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobId, field.TypeUuid), sqlgraph.NewFieldSpec(bloblink.FieldLinksId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -170,12 +170,12 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{bloblink.BlobColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.BlobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.BlobIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -183,7 +183,7 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{bloblink.BlobColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -199,12 +199,12 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{bloblink.LinkColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.LinkIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LinkIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -212,7 +212,7 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{bloblink.LinkColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -254,48 +254,48 @@ func (_u *BlobLinkUpdateOne) SetNillableCreatedAt(v *time.Time) *BlobLinkUpdateO
 	return _u
 }
 
-// SetBlobID sets the "blob_id" field.
-func (_u *BlobLinkUpdateOne) SetBlobID(v uuid.UUID) *BlobLinkUpdateOne {
-	_u.mutation.SetBlobID(v)
+// SetBlobId sets the "blob_id" field.
+func (_u *BlobLinkUpdateOne) SetBlobId(v uuid.UUID) *BlobLinkUpdateOne {
+	_u.mutation.SetBlobId(v)
 	return _u
 }
 
-// SetNillableBlobID sets the "blob_id" field if the given value is not nil.
-func (_u *BlobLinkUpdateOne) SetNillableBlobID(v *uuid.UUID) *BlobLinkUpdateOne {
+// SetNillableBlobId sets the "blob_id" field if the given value is not nil.
+func (_u *BlobLinkUpdateOne) SetNillableBlobId(v *uuid.UUID) *BlobLinkUpdateOne {
 	if v != nil {
-		_u.SetBlobID(*v)
+		_u.SetBlobId(*v)
 	}
 	return _u
 }
 
-// SetLinksID sets the "links_id" field.
-func (_u *BlobLinkUpdateOne) SetLinksID(v uuid.UUID) *BlobLinkUpdateOne {
-	_u.mutation.SetLinksID(v)
+// SetLinksId sets the "links_id" field.
+func (_u *BlobLinkUpdateOne) SetLinksId(v uuid.UUID) *BlobLinkUpdateOne {
+	_u.mutation.SetLinksId(v)
 	return _u
 }
 
-// SetNillableLinksID sets the "links_id" field if the given value is not nil.
-func (_u *BlobLinkUpdateOne) SetNillableLinksID(v *uuid.UUID) *BlobLinkUpdateOne {
+// SetNillableLinksId sets the "links_id" field if the given value is not nil.
+func (_u *BlobLinkUpdateOne) SetNillableLinksId(v *uuid.UUID) *BlobLinkUpdateOne {
 	if v != nil {
-		_u.SetLinksID(*v)
+		_u.SetLinksId(*v)
 	}
 	return _u
 }
 
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_u *BlobLinkUpdateOne) SetBlob(v *Blob) *BlobLinkUpdateOne {
-	return _u.SetBlobID(v.ID)
+	return _u.SetBlobId(v.Id)
 }
 
-// SetLinkID sets the "link" edge to the Blob entity by ID.
-func (_u *BlobLinkUpdateOne) SetLinkID(id uuid.UUID) *BlobLinkUpdateOne {
-	_u.mutation.SetLinkID(id)
+// SetLinkId sets the "link" edge to the Blob entity by Id.
+func (_u *BlobLinkUpdateOne) SetLinkId(id uuid.UUID) *BlobLinkUpdateOne {
+	_u.mutation.SetLinkId(id)
 	return _u
 }
 
 // SetLink sets the "link" edge to the Blob entity.
 func (_u *BlobLinkUpdateOne) SetLink(v *Blob) *BlobLinkUpdateOne {
-	return _u.SetLinkID(v.ID)
+	return _u.SetLinkId(v.Id)
 }
 
 // Mutation returns the BlobLinkMutation object of the builder.
@@ -357,10 +357,10 @@ func (_u *BlobLinkUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *BlobLinkUpdateOne) check() error {
-	if _u.mutation.BlobCleared() && len(_u.mutation.BlobIDs()) > 0 {
+	if _u.mutation.BlobCleared() && len(_u.mutation.BlobIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "BlobLink.blob"`)
 	}
-	if _u.mutation.LinkCleared() && len(_u.mutation.LinkIDs()) > 0 {
+	if _u.mutation.LinkCleared() && len(_u.mutation.LinkIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "BlobLink.link"`)
 	}
 	return nil
@@ -370,16 +370,16 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobID, field.TypeUUID), sqlgraph.NewFieldSpec(bloblink.FieldLinksID, field.TypeUUID))
-	if id, ok := _u.mutation.BlobID(); !ok {
+	_spec := sqlgraph.NewUpdateSpec(bloblink.Table, bloblink.Columns, sqlgraph.NewFieldSpec(bloblink.FieldBlobId, field.TypeUuid), sqlgraph.NewFieldSpec(bloblink.FieldLinksId, field.TypeUuid))
+	if id, ok := _u.mutation.BlobId(); !ok {
 		return nil, &ValidationError{Name: "blob_id", err: errors.New(`ent: missing "BlobLink.blob_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[0].Value = id
+		_spec.Node.CompositeId[0].Value = id
 	}
-	if id, ok := _u.mutation.LinksID(); !ok {
+	if id, ok := _u.mutation.LinksId(); !ok {
 		return nil, &ValidationError{Name: "links_id", err: errors.New(`ent: missing "BlobLink.links_id" for update`)}
 	} else {
-		_spec.Node.CompositeID[1].Value = id
+		_spec.Node.CompositeId[1].Value = id
 	}
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, len(fields))
@@ -408,12 +408,12 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 			Columns: []string{bloblink.BlobColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.BlobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.BlobIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -421,7 +421,7 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 			Columns: []string{bloblink.BlobColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -437,12 +437,12 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 			Columns: []string{bloblink.LinkColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.LinkIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LinkIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -450,7 +450,7 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 			Columns: []string{bloblink.LinkColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {

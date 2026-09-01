@@ -142,17 +142,17 @@ type (
 	{{ end }}
 {{ end }}
 
-{{ $udfID := false }}{{ if $.HasOneFieldID }}{{ $udfID = $.ID.UserDefined }}{{ end }}
+{{ $udfId := false }}{{ if $.HasOneFieldId }}{{ $udfId = $.Id.UserDefined }}{{ end }}
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create{{ if $udfID }} except the ID field{{ end }}.
+// UpdateNewValues updates the mutable fields using the new values that were set on create{{ if $udfId }} except the Id field{{ end }}.
 // Using this option is equivalent to using:
 //
 //	client.{{ $.Name }}.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
-{{- if $udfID }}
+{{- if $udfId }}
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore({{ $.Package }}.{{ $.ID.Constant }})
+//				u.SetIgnore({{ $.Package }}.{{ $.Id.Constant }})
 //			}),
 {{- end }}
 //		).
@@ -160,11 +160,11 @@ type (
 //
 func (u *{{ $upsertOne }}) UpdateNewValues() *{{ $upsertOne }} {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
-	{{- if or $udfID $.ImmutableFields }}
+	{{- if or $udfId $.ImmutableFields }}
 		u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-			{{- if $udfID }}
-				if _, exists := u.create.mutation.ID(); exists {
-					s.SetIgnore({{ $.Package }}.{{ $.ID.Constant }})
+			{{- if $udfId }}
+				if _, exists := u.create.mutation.Id(); exists {
+					s.SetIgnore({{ $.Package }}.{{ $.Id.Constant }})
 				}
 			{{- end }}
 			{{- range $f := $.ImmutableFields }}
@@ -190,7 +190,7 @@ func (u *{{ $upsertOne }}) Ignore() *{{ $upsertOne }} {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *{{ $upsertOne }}) DoNothing() *{{ $upsertOne }} {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -224,26 +224,26 @@ func (u *{{ $upsertOne }}) ExecX(ctx context.Context) {
 	}
 }
 
-{{ if $.HasOneFieldID }}
-	// Exec executes the UPSERT query and returns the inserted/updated ID.
-	func (u *{{ $upsertOne }}) ID(ctx context.Context) (id {{ $.ID.Type }}, err error) {
-		{{- if and $udfID (not $.ID.Type.Numeric) }}
-			if u.create.driver.Dialect() == dialect.MySQL {
-				// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-				// fields from the database since MySQL does not support the RETURNING clause.
-				return id, errors.New("{{ $pkg }}: {{ $upsertOne }}.ID is not supported by MySQL driver. Use {{ $upsertOne }}.Exec instead")
+{{ if $.HasOneFieldId }}
+	// Exec executes the UPSERT query and returns the inserted/updated Id.
+	func (u *{{ $upsertOne }}) Id(ctx context.Context) (id {{ $.Id.Type }}, err error) {
+		{{- if and $udfId (not $.Id.Type.Numeric) }}
+			if u.create.driver.Dialect() == dialect.MySql {
+				// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+				// fields from the database since MySql does not support the RETURNING clause.
+				return id, errors.New("{{ $pkg }}: {{ $upsertOne }}.Id is not supported by MySql driver. Use {{ $upsertOne }}.Exec instead")
 			}
 		{{- end }}
 		node, err := u.create.Save(ctx)
 		if err != nil {
 			return id, err
 		}
-		return node.ID, nil
+		return node.Id, nil
 	}
 
-	// IDX is like ID, but panics if an error occurs.
-	func (u *{{ $upsertOne }}) IDX(ctx context.Context) {{ $.ID.Type }} {
-		id, err := u.ID(ctx)
+	// IdX is like Id, but panics if an error occurs.
+	func (u *{{ $upsertOne }}) IdX(ctx context.Context) {{ $.Id.Type }} {
+		id, err := u.Id(ctx)
 		if err != nil {
 			panic(err)
 		}
@@ -267,7 +267,7 @@ func (u *{{ $upsertOne }}) ExecX(ctx context.Context) {
 {{ $receiver := $.Scope.Receiver }}
 {{ $upsertBulk := print $.Name "UpsertBulk" }}
 {{ $upsertSet := print $.Name "Upsert" }}
-{{ $udfID := false }}{{ if $.HasOneFieldID }}{{ $udfID = $.ID.UserDefined }}{{ end }}
+{{ $udfId := false }}{{ if $.HasOneFieldId }}{{ $udfId = $.Id.UserDefined }}{{ end }}
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
 // of the `INSERT` statement. For example:
@@ -322,9 +322,9 @@ type {{ $upsertBulk }} struct {
 //	client.{{ $.Name }}.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
-{{- if $udfID }}
+{{- if $udfId }}
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore({{ $.Package }}.{{ $.ID.Constant }})
+//				u.SetIgnore({{ $.Package }}.{{ $.Id.Constant }})
 //			}),
 {{- end }}
 //		).
@@ -332,12 +332,12 @@ type {{ $upsertBulk }} struct {
 //
 func (u *{{ $upsertBulk }}) UpdateNewValues() *{{ $upsertBulk }} {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
-	{{- if or $udfID $.ImmutableFields }}
+	{{- if or $udfId $.ImmutableFields }}
 		u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 			for _, b := range u.create.builders {
-				{{- if $udfID }}
-					if _, exists := b.mutation.ID(); exists {
-						s.SetIgnore({{ $.Package }}.{{ $.ID.Constant }})
+				{{- if $udfId }}
+					if _, exists := b.mutation.Id(); exists {
+						s.SetIgnore({{ $.Package }}.{{ $.Id.Constant }})
 					}
 				{{- end }}
 				{{- range $f := $.ImmutableFields }}
@@ -364,7 +364,7 @@ func (u *{{ $upsertBulk }}) Ignore() *{{ $upsertBulk }} {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *{{ $upsertBulk }}) DoNothing() *{{ $upsertBulk }} {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

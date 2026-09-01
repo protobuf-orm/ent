@@ -23,7 +23,7 @@ func BenchmarkGraph_Gen(b *testing.B) {
 	require.NoError(b, err)
 	graph, err := entc.LoadGraph("../integration/ent/schema", &gen.Config{
 		Storage: storage,
-		IDType:  &field.TypeInfo{Type: field.TypeInt},
+		IdType:  &field.TypeInfo{Type: field.TypeInt},
 		Target:  target,
 		Package: "github.com/protobuf-orm/ent/entc/integration/ent",
 		Templates: []*gen.Template{

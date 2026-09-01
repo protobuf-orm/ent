@@ -11,7 +11,7 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-type NoteID string
+type NoteId string
 
 // Note holds the schema definition for the Note entity.
 type Note struct {
@@ -22,13 +22,13 @@ type Note struct {
 func (Note) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("id").
-			GoType(NoteID("")).
+			GoType(NoteId("")).
 			MaxLen(36).
 			NotEmpty().
 			Unique().
 			Immutable().
-			DefaultFunc(func() NoteID {
-				return NoteID(uuid.NewString())
+			DefaultFunc(func() NoteId {
+				return NoteId(uuid.NewString())
 			}),
 		field.String("text").
 			Optional(),

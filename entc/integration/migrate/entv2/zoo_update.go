@@ -64,7 +64,7 @@ func (_u *ZooUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *ZooUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(zoo.Table, zoo.Columns, sqlgraph.NewFieldSpec(zoo.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(zoo.Table, zoo.Columns, sqlgraph.NewFieldSpec(zoo.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -138,20 +138,20 @@ func (_u *ZooUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *ZooUpdateOne) sqlSave(ctx context.Context) (_node *Zoo, err error) {
-	_spec := sqlgraph.NewUpdateSpec(zoo.Table, zoo.Columns, sqlgraph.NewFieldSpec(zoo.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(zoo.Table, zoo.Columns, sqlgraph.NewFieldSpec(zoo.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv2: missing "Zoo.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, zoo.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, zoo.FieldId)
 		for _, f := range fields {
 			if !zoo.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv2: invalid field %q for query", f)}
 			}
-			if f != zoo.FieldID {
+			if f != zoo.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

@@ -16,26 +16,26 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// IntSIDDelete is the builder for deleting a IntSID entity.
-type IntSIDDelete struct {
+// IntSIdDelete is the builder for deleting a IntSId entity.
+type IntSIdDelete struct {
 	config
 	hooks    []Hook
-	mutation *IntSIDMutation
+	mutation *IntSIdMutation
 }
 
-// Where appends a list predicates to the IntSIDDelete builder.
-func (_d *IntSIDDelete) Where(ps ...predicate.IntSID) *IntSIDDelete {
+// Where appends a list predicates to the IntSIdDelete builder.
+func (_d *IntSIdDelete) Where(ps ...predicate.IntSId) *IntSIdDelete {
 	_d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (_d *IntSIDDelete) Exec(ctx context.Context) (int, error) {
+func (_d *IntSIdDelete) Exec(ctx context.Context) (int, error) {
 	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *IntSIDDelete) ExecX(ctx context.Context) int {
+func (_d *IntSIdDelete) ExecX(ctx context.Context) int {
 	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
@@ -43,8 +43,8 @@ func (_d *IntSIDDelete) ExecX(ctx context.Context) int {
 	return n
 }
 
-func (_d *IntSIDDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(intsid.Table, sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64))
+func (_d *IntSIdDelete) sqlExec(ctx context.Context) (int, error) {
+	_spec := sqlgraph.NewDeleteSpec(intsid.Table, sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64))
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -60,19 +60,19 @@ func (_d *IntSIDDelete) sqlExec(ctx context.Context) (int, error) {
 	return affected, err
 }
 
-// IntSIDDeleteOne is the builder for deleting a single IntSID entity.
-type IntSIDDeleteOne struct {
-	_d *IntSIDDelete
+// IntSIdDeleteOne is the builder for deleting a single IntSId entity.
+type IntSIdDeleteOne struct {
+	_d *IntSIdDelete
 }
 
-// Where appends a list predicates to the IntSIDDelete builder.
-func (_d *IntSIDDeleteOne) Where(ps ...predicate.IntSID) *IntSIDDeleteOne {
+// Where appends a list predicates to the IntSIdDelete builder.
+func (_d *IntSIdDeleteOne) Where(ps ...predicate.IntSId) *IntSIdDeleteOne {
 	_d._d.mutation.Where(ps...)
 	return _d
 }
 
 // Exec executes the deletion query.
-func (_d *IntSIDDeleteOne) Exec(ctx context.Context) error {
+func (_d *IntSIdDeleteOne) Exec(ctx context.Context) error {
 	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
@@ -85,7 +85,7 @@ func (_d *IntSIDDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_d *IntSIDDeleteOne) ExecX(ctx context.Context) {
+func (_d *IntSIdDeleteOne) ExecX(ctx context.Context) {
 	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}

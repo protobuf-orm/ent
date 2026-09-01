@@ -19,8 +19,8 @@ import (
 // ValueScan is the model entity for the ValueScan schema.
 type ValueScan struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID schema.ValueScanID `json:"id,omitempty"`
+	// Id of the ent.
+	Id schema.ValueScanId `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name         string `json:"name,omitempty"`
 	selectValues sql.SelectValues
@@ -31,8 +31,8 @@ func (*ValueScan) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case valuescan.FieldID:
-			values[i] = valuescan.ValueScanner.ID.ScanValue()
+		case valuescan.FieldId:
+			values[i] = valuescan.ValueScanner.Id.ScanValue()
 		case valuescan.FieldName:
 			values[i] = new(sql.NullString)
 		default:
@@ -50,11 +50,11 @@ func (_m *ValueScan) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case valuescan.FieldID:
-			if value, err := valuescan.ValueScanner.ID.FromValue(values[i]); err != nil {
+		case valuescan.FieldId:
+			if value, err := valuescan.ValueScanner.Id.FromValue(values[i]); err != nil {
 				return err
 			} else {
-				_m.ID = value
+				_m.Id = value
 			}
 		case valuescan.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -97,7 +97,7 @@ func (_m *ValueScan) Unwrap() *ValueScan {
 func (_m *ValueScan) String() string {
 	var builder strings.Builder
 	builder.WriteString("ValueScan(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("name=")
 	builder.WriteString(_m.Name)
 	builder.WriteByte(')')

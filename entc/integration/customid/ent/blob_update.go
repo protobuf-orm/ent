@@ -32,16 +32,16 @@ func (_u *BlobUpdate) Where(ps ...predicate.Blob) *BlobUpdate {
 	return _u
 }
 
-// SetUUID sets the "uuid" field.
-func (_u *BlobUpdate) SetUUID(v uuid.UUID) *BlobUpdate {
-	_u.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_u *BlobUpdate) SetUuid(v uuid.UUID) *BlobUpdate {
+	_u.mutation.SetUuid(v)
 	return _u
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_u *BlobUpdate) SetNillableUUID(v *uuid.UUID) *BlobUpdate {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_u *BlobUpdate) SetNillableUuid(v *uuid.UUID) *BlobUpdate {
 	if v != nil {
-		_u.SetUUID(*v)
+		_u.SetUuid(*v)
 	}
 	return _u
 }
@@ -67,28 +67,28 @@ func (_u *BlobUpdate) AddCount(v int) *BlobUpdate {
 	return _u
 }
 
-// SetParentID sets the "parent" edge to the Blob entity by ID.
-func (_u *BlobUpdate) SetParentID(id uuid.UUID) *BlobUpdate {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the Blob entity by Id.
+func (_u *BlobUpdate) SetParentId(id uuid.UUID) *BlobUpdate {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the Blob entity by ID if the given value is not nil.
-func (_u *BlobUpdate) SetNillableParentID(id *uuid.UUID) *BlobUpdate {
+// SetNillableParentId sets the "parent" edge to the Blob entity by Id if the given value is not nil.
+func (_u *BlobUpdate) SetNillableParentId(id *uuid.UUID) *BlobUpdate {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
 // SetParent sets the "parent" edge to the Blob entity.
 func (_u *BlobUpdate) SetParent(v *Blob) *BlobUpdate {
-	return _u.SetParentID(v.ID)
+	return _u.SetParentId(v.Id)
 }
 
-// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
-func (_u *BlobUpdate) AddLinksIDs(ids ...uuid.UUID) *BlobUpdate {
-	_u.mutation.AddLinksIDs(ids...)
+// AddLinksIds adds the "links" edge to the Blob entity by Ids.
+func (_u *BlobUpdate) AddLinksIds(ids ...uuid.UUID) *BlobUpdate {
+	_u.mutation.AddLinksIds(ids...)
 	return _u
 }
 
@@ -96,9 +96,9 @@ func (_u *BlobUpdate) AddLinksIDs(ids ...uuid.UUID) *BlobUpdate {
 func (_u *BlobUpdate) AddLinks(v ...*Blob) *BlobUpdate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddLinksIDs(ids...)
+	return _u.AddLinksIds(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.
@@ -118,9 +118,9 @@ func (_u *BlobUpdate) ClearLinks() *BlobUpdate {
 	return _u
 }
 
-// RemoveLinksIDs removes the "links" edge to Blob entities by IDs.
-func (_u *BlobUpdate) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdate {
-	_u.mutation.RemoveLinksIDs(ids...)
+// RemoveLinksIds removes the "links" edge to Blob entities by Ids.
+func (_u *BlobUpdate) RemoveLinksIds(ids ...uuid.UUID) *BlobUpdate {
+	_u.mutation.RemoveLinksIds(ids...)
 	return _u
 }
 
@@ -128,9 +128,9 @@ func (_u *BlobUpdate) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdate {
 func (_u *BlobUpdate) RemoveLinks(v ...*Blob) *BlobUpdate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveLinksIDs(ids...)
+	return _u.RemoveLinksIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -161,7 +161,7 @@ func (_u *BlobUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID))
+	_spec := sqlgraph.NewUpdateSpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -169,8 +169,8 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.UUID(); ok {
-		_spec.SetField(blob.FieldUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.Uuid(); ok {
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
@@ -186,12 +186,12 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{blob.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -199,7 +199,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{blob.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -215,7 +215,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
@@ -224,7 +224,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedLinksIDs(); len(nodes) > 0 && !_u.mutation.LinksCleared() {
+	if nodes := _u.mutation.RemovedLinksIds(); len(nodes) > 0 && !_u.mutation.LinksCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -232,7 +232,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -244,7 +244,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.LinksIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LinksIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -252,7 +252,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -284,16 +284,16 @@ type BlobUpdateOne struct {
 	mutation *BlobMutation
 }
 
-// SetUUID sets the "uuid" field.
-func (_u *BlobUpdateOne) SetUUID(v uuid.UUID) *BlobUpdateOne {
-	_u.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_u *BlobUpdateOne) SetUuid(v uuid.UUID) *BlobUpdateOne {
+	_u.mutation.SetUuid(v)
 	return _u
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_u *BlobUpdateOne) SetNillableUUID(v *uuid.UUID) *BlobUpdateOne {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_u *BlobUpdateOne) SetNillableUuid(v *uuid.UUID) *BlobUpdateOne {
 	if v != nil {
-		_u.SetUUID(*v)
+		_u.SetUuid(*v)
 	}
 	return _u
 }
@@ -319,28 +319,28 @@ func (_u *BlobUpdateOne) AddCount(v int) *BlobUpdateOne {
 	return _u
 }
 
-// SetParentID sets the "parent" edge to the Blob entity by ID.
-func (_u *BlobUpdateOne) SetParentID(id uuid.UUID) *BlobUpdateOne {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the Blob entity by Id.
+func (_u *BlobUpdateOne) SetParentId(id uuid.UUID) *BlobUpdateOne {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the Blob entity by ID if the given value is not nil.
-func (_u *BlobUpdateOne) SetNillableParentID(id *uuid.UUID) *BlobUpdateOne {
+// SetNillableParentId sets the "parent" edge to the Blob entity by Id if the given value is not nil.
+func (_u *BlobUpdateOne) SetNillableParentId(id *uuid.UUID) *BlobUpdateOne {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
 // SetParent sets the "parent" edge to the Blob entity.
 func (_u *BlobUpdateOne) SetParent(v *Blob) *BlobUpdateOne {
-	return _u.SetParentID(v.ID)
+	return _u.SetParentId(v.Id)
 }
 
-// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
-func (_u *BlobUpdateOne) AddLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
-	_u.mutation.AddLinksIDs(ids...)
+// AddLinksIds adds the "links" edge to the Blob entity by Ids.
+func (_u *BlobUpdateOne) AddLinksIds(ids ...uuid.UUID) *BlobUpdateOne {
+	_u.mutation.AddLinksIds(ids...)
 	return _u
 }
 
@@ -348,9 +348,9 @@ func (_u *BlobUpdateOne) AddLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
 func (_u *BlobUpdateOne) AddLinks(v ...*Blob) *BlobUpdateOne {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddLinksIDs(ids...)
+	return _u.AddLinksIds(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.
@@ -370,9 +370,9 @@ func (_u *BlobUpdateOne) ClearLinks() *BlobUpdateOne {
 	return _u
 }
 
-// RemoveLinksIDs removes the "links" edge to Blob entities by IDs.
-func (_u *BlobUpdateOne) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
-	_u.mutation.RemoveLinksIDs(ids...)
+// RemoveLinksIds removes the "links" edge to Blob entities by Ids.
+func (_u *BlobUpdateOne) RemoveLinksIds(ids ...uuid.UUID) *BlobUpdateOne {
+	_u.mutation.RemoveLinksIds(ids...)
 	return _u
 }
 
@@ -380,9 +380,9 @@ func (_u *BlobUpdateOne) RemoveLinksIDs(ids ...uuid.UUID) *BlobUpdateOne {
 func (_u *BlobUpdateOne) RemoveLinks(v ...*Blob) *BlobUpdateOne {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveLinksIDs(ids...)
+	return _u.RemoveLinksIds(ids...)
 }
 
 // Where appends a list predicates to the BlobUpdate builder.
@@ -426,20 +426,20 @@ func (_u *BlobUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
-	_spec := sqlgraph.NewUpdateSpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(blob.Table, blob.Columns, sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Blob.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, blob.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, blob.FieldId)
 		for _, f := range fields {
 			if !blob.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != blob.FieldID {
+			if f != blob.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -451,8 +451,8 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.UUID(); ok {
-		_spec.SetField(blob.FieldUUID, field.TypeUUID, value)
+	if value, ok := _u.mutation.Uuid(); ok {
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
@@ -468,12 +468,12 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			Columns: []string{blob.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -481,7 +481,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			Columns: []string{blob.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -497,7 +497,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
@@ -506,7 +506,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedLinksIDs(); len(nodes) > 0 && !_u.mutation.LinksCleared() {
+	if nodes := _u.mutation.RemovedLinksIds(); len(nodes) > 0 && !_u.mutation.LinksCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -514,7 +514,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -526,7 +526,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.LinksIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LinksIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -534,7 +534,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {

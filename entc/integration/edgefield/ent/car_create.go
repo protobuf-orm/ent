@@ -38,23 +38,23 @@ func (_c *CarCreate) SetNillableNumber(v *string) *CarCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *CarCreate) SetID(v uuid.UUID) *CarCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *CarCreate) SetId(v uuid.UUID) *CarCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *CarCreate) SetNillableID(v *uuid.UUID) *CarCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *CarCreate) SetNillableId(v *uuid.UUID) *CarCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// AddRentalsIDs adds the "rentals" edge to the Rental entity by IDs.
-func (_c *CarCreate) AddRentalsIDs(ids ...int) *CarCreate {
-	_c.mutation.AddRentalsIDs(ids...)
+// AddRentalsIds adds the "rentals" edge to the Rental entity by Ids.
+func (_c *CarCreate) AddRentalsIds(ids ...int) *CarCreate {
+	_c.mutation.AddRentalsIds(ids...)
 	return _c
 }
 
@@ -62,9 +62,9 @@ func (_c *CarCreate) AddRentalsIDs(ids ...int) *CarCreate {
 func (_c *CarCreate) AddRentals(v ...*Rental) *CarCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddRentalsIDs(ids...)
+	return _c.AddRentalsIds(ids...)
 }
 
 // Mutation returns the CarMutation object of the builder.
@@ -102,9 +102,9 @@ func (_c *CarCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *CarCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := car.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := car.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -124,14 +124,14 @@ func (_c *CarCreate) sqlSave(ctx context.Context) (*Car, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -139,17 +139,17 @@ func (_c *CarCreate) sqlSave(ctx context.Context) (*Car, error) {
 func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Car{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(car.Table, sqlgraph.NewFieldSpec(car.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(car.Table, sqlgraph.NewFieldSpec(car.FieldId, field.TypeUuid))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Number(); ok {
 		_spec.SetField(car.FieldNumber, field.TypeString, value)
 		_node.Number = value
 	}
-	if nodes := _c.mutation.RentalsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RentalsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -157,7 +157,7 @@ func (_c *CarCreate) createSpec() (*Car, *sqlgraph.CreateSpec) {
 			Columns: []string{car.RentalsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -212,7 +212,7 @@ func (_c *CarCreateBulk) Save(ctx context.Context) ([]*Car, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})

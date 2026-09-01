@@ -37,23 +37,23 @@ func (_c *CardCreate) SetNillableNumber(v *string) *CardCreate {
 	return _c
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (_c *CardCreate) SetOwnerID(v int) *CardCreate {
-	_c.mutation.SetOwnerID(v)
+// SetOwnerId sets the "owner_id" field.
+func (_c *CardCreate) SetOwnerId(v int) *CardCreate {
+	_c.mutation.SetOwnerId(v)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (_c *CardCreate) SetNillableOwnerID(v *int) *CardCreate {
+// SetNillableOwnerId sets the "owner_id" field if the given value is not nil.
+func (_c *CardCreate) SetNillableOwnerId(v *int) *CardCreate {
 	if v != nil {
-		_c.SetOwnerID(*v)
+		_c.SetOwnerId(*v)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *CardCreate) SetOwner(v *User) *CardCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
 // Mutation returns the CardMutation object of the builder.
@@ -104,9 +104,9 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -114,13 +114,13 @@ func (_c *CardCreate) sqlSave(ctx context.Context) (*Card, error) {
 func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Card{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(card.Table, sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
 		_node.Number = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -128,13 +128,13 @@ func (_c *CardCreate) createSpec() (*Card, *sqlgraph.CreateSpec) {
 			Columns: []string{card.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.OwnerID = nodes[0]
+		_node.OwnerId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -183,10 +183,10 @@ func (_c *CardCreateBulk) Save(ctx context.Context) ([]*Card, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

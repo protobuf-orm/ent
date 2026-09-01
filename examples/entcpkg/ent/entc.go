@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("creating extension: %v", err)
 	}
 	// A usage for custom options to configure the code generator to use
-	// an extension and inject external dependencies in the generated API.
+	// an extension and inject external dependencies in the generated Api.
 	opts := []entc.Option{
 		entc.Extensions(ex),
 		entc.Dependency(

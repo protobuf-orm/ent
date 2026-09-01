@@ -20,12 +20,12 @@ import (
 // Session is the model entity for the Session schema.
 type Session struct {
 	config
-	// ID of the ent.
-	ID schema.ID `json:"id,omitempty"`
+	// Id of the ent.
+	Id schema.Id `json:"id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the SessionQuery when eager-loading is set.
 	Edges           SessionEdges `json:"edges"`
-	device_sessions *schema.ID
+	device_sessions *schema.Id
 	selectValues    sql.SelectValues
 }
 
@@ -54,10 +54,10 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case session.FieldID:
-			values[i] = new(schema.ID)
+		case session.FieldId:
+			values[i] = new(schema.Id)
 		case session.ForeignKeys[0]: // device_sessions
-			values[i] = &sql.NullScanner{S: new(schema.ID)}
+			values[i] = &sql.NullScanner{S: new(schema.Id)}
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -73,18 +73,18 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case session.FieldID:
-			if value, ok := values[i].(*schema.ID); !ok {
+		case session.FieldId:
+			if value, ok := values[i].(*schema.Id); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case session.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullScanner); !ok {
 				return fmt.Errorf("unexpected type %T for field device_sessions", values[i])
 			} else if value.Valid {
-				_m.device_sessions = new(schema.ID)
-				*_m.device_sessions = *value.S.(*schema.ID)
+				_m.device_sessions = new(schema.Id)
+				*_m.device_sessions = *value.S.(*schema.Id)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -126,7 +126,7 @@ func (_m *Session) Unwrap() *Session {
 func (_m *Session) String() string {
 	var builder strings.Builder
 	builder.WriteString("Session(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

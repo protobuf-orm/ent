@@ -58,9 +58,9 @@ type (
 		// Storage configuration for the codegen. Defaults to sql.
 		Storage *Storage
 
-		// IDType specifies the type of the id field in the codegen.
+		// IdType specifies the type of the id field in the codegen.
 		// The supported types are string and int, which also the default.
-		IDType *field.TypeInfo
+		IdType *field.TypeInfo
 
 		// Templates specifies a list of alternative templates to execute or
 		// to override the default. If nil, the default template is used.
@@ -91,7 +91,7 @@ type (
 		//		{{/* Annotation usage goes here. */}}
 		//	{{- end }}
 		//
-		// Note that the mapping is from the annotation-name (e.g. "GQL") to a JSON decoded object.
+		// Note that the mapping is from the annotation-name (e.g. "GQL") to a Json decoded object.
 		Annotations Annotations
 
 		// BuildFlags holds a list of custom build flags to use
@@ -137,7 +137,7 @@ type (
 	// It can be defined on most elements in the schema (node, field, edge), or globally
 	// on the Config object.
 	// The mapping is from the annotation name (e.g. "EntGQL") to the annotation itself.
-	// Note that, annotations that are defined in the schema must be JSON encoded/decoded.
+	// Note that, annotations that are defined in the schema must be Json encoded/decoded.
 	Annotations map[string]any
 )
 
@@ -181,7 +181,7 @@ func NewGraph(c *Config, schemas ...*load.Schema) (g *Graph, err error) {
 	if c.Storage != nil && c.Storage.Init != nil {
 		check(c.Storage.Init(g), "storage driver init")
 	}
-	if enabled, _ := g.Config.FeatureEnabled(FeatureGlobalID.Name); enabled {
+	if enabled, _ := g.Config.FeatureEnabled(FeatureGlobalId.Name); enabled {
 		if err := IncrementStartAnnotation(g); err != nil {
 			return nil, err
 		}
@@ -200,33 +200,33 @@ func (g *Graph) MutableNodes() []*Type {
 	return nodes
 }
 
-// defaultIDType holds the default value for IDType.
-var defaultIDType = &field.TypeInfo{Type: field.TypeInt}
+// defaultIdType holds the default value for IdType.
+var defaultIdType = &field.TypeInfo{Type: field.TypeInt}
 
-// defaults sets the default value of the IDType. The IDType field is used
-// by multiple templates. If the IDType was not provided, it falls back to
-// int, or the one used in the schema (if all schemas share the same IDType).
+// defaults sets the default value of the IdType. The IdType field is used
+// by multiple templates. If the IdType was not provided, it falls back to
+// int, or the one used in the schema (if all schemas share the same IdType).
 func (g *Graph) defaults() {
-	if g.IDType != nil {
+	if g.IdType != nil {
 		return
 	}
-	g.IDType = defaultIDType
+	g.IdType = defaultIdType
 	if len(g.Nodes) == 0 {
 		return
 	}
 	idTypes := make([]*field.TypeInfo, 0, len(g.Nodes))
 	for _, n := range g.Nodes {
-		if n.HasOneFieldID() {
-			idTypes = append(idTypes, n.ID.Type)
+		if n.HasOneFieldId() {
+			idTypes = append(idTypes, n.Id.Type)
 		}
 	}
-	// Check that all nodes have the same type for the ID field.
+	// Check that all nodes have the same type for the Id field.
 	for i := 0; i < len(idTypes)-1; i++ {
 		if idTypes[i].Type != idTypes[i+1].Type {
 			return
 		}
 	}
-	g.IDType = idTypes[0]
+	g.IdType = idTypes[0]
 }
 
 // Gen generates the artifacts for the graph.
@@ -597,17 +597,17 @@ func (g *Graph) edgeSchemas() error {
 				},
 			})
 			// Edge schema contains a composite primary key, and it was not resolved in previous iterations.
-			if ant := fieldAnnotate(edgeT.Annotations); ant != nil && len(ant.ID) > 0 && len(edgeT.EdgeSchema.ID) == 0 {
+			if ant := fieldAnnotate(edgeT.Annotations); ant != nil && len(ant.Id) > 0 && len(edgeT.EdgeSchema.Id) == 0 {
 				r1, r2 := e.Rel.Columns[0], e.Rel.Columns[1]
-				if len(ant.ID) != 2 || ant.ID[0] != r1 || ant.ID[1] != r2 {
+				if len(ant.Id) != 2 || ant.Id[0] != r1 || ant.Id[1] != r2 {
 					return fmt.Errorf(`edge schema primary key can only be defined on "id" or (%q, %q) in the same order`, r1, r2)
 				}
-				edgeT.ID = nil
-				for _, f := range ant.ID {
-					edgeT.EdgeSchema.ID = append(edgeT.EdgeSchema.ID, edgeT.fields[f])
+				edgeT.Id = nil
+				for _, f := range ant.Id {
+					edgeT.EdgeSchema.Id = append(edgeT.EdgeSchema.Id, edgeT.fields[f])
 				}
 			}
-			if edgeT.HasCompositeID() {
+			if edgeT.HasCompositeId() {
 				continue
 			}
 			hasI := func() bool {
@@ -633,17 +633,17 @@ func (g *Graph) edgeSchemas() error {
 	return nil
 }
 
-// Tables returns the schema definitions of SQL tables for the graph.
+// Tables returns the schema definitions of Sql tables for the graph.
 func (g *Graph) Tables() (all []*schema.Table, err error) {
 	tables := make(map[string]*schema.Table)
 	for _, n := range g.MutableNodes() {
 		table := schema.NewTable(n.Table()).
 			SetComment(n.sqlComment()).
 			SetPos(n.Pos())
-		if n.HasOneFieldID() {
-			table.AddPrimary(n.ID.PK())
+		if n.HasOneFieldId() {
+			table.AddPrimary(n.Id.PK())
 		}
-		switch ant := n.EntSQL(); {
+		switch ant := n.EntSql(); {
 		case ant == nil:
 		case ant.Skip:
 			continue
@@ -651,7 +651,7 @@ func (g *Graph) Tables() (all []*schema.Table, err error) {
 			table.SetAnnotation(ant).SetSchema(ant.Schema)
 		}
 		for _, f := range n.Fields {
-			if a := f.EntSQL(); a != nil && a.Skip {
+			if a := f.EntSql(); a != nil && a.Skip {
 				continue
 			}
 			if !f.IsEdgeField() {
@@ -715,17 +715,17 @@ func (g *Graph) Tables() (all []*schema.Table, err error) {
 					continue
 				}
 				t1, t2 := tables[n.Table()], tables[e.Type.Table()]
-				c1 := &schema.Column{Name: e.Rel.Columns[0], Type: field.TypeInt, SchemaType: n.ID.def.SchemaType}
-				if ref := n.ID; ref.UserDefined {
+				c1 := &schema.Column{Name: e.Rel.Columns[0], Type: field.TypeInt, SchemaType: n.Id.def.SchemaType}
+				if ref := n.Id; ref.UserDefined {
 					c1.Type = ref.Type.Type
 					c1.Size = ref.size()
 				}
-				c2 := &schema.Column{Name: e.Rel.Columns[1], Type: field.TypeInt, SchemaType: e.Type.ID.def.SchemaType}
-				if ref := e.Type.ID; ref.UserDefined {
+				c2 := &schema.Column{Name: e.Rel.Columns[1], Type: field.TypeInt, SchemaType: e.Type.Id.def.SchemaType}
+				if ref := e.Type.Id; ref.UserDefined {
 					c2.Type = ref.Type.Type
 					c2.Size = ref.size()
 				}
-				ant := e.EntSQL()
+				ant := e.EntSql()
 				s1, s2 := fkSymbols(e, c1, c2)
 				all = append(all, &schema.Table{
 					Name: e.Rel.Table,
@@ -737,7 +737,7 @@ func (g *Graph) Tables() (all []*schema.Table, err error) {
 						if ant != nil && ant.Schema != "" {
 							return ant.Schema
 						}
-						if ant := n.EntSQL(); ant != nil && ant.Schema != "" {
+						if ant := n.EntSql(); ant != nil && ant.Schema != "" {
 							return ant.Schema
 						}
 						return ""
@@ -764,7 +764,7 @@ func (g *Graph) Tables() (all []*schema.Table, err error) {
 				})
 			}
 		}
-		if n.HasCompositeID() {
+		if n.HasCompositeId() {
 			if err := addCompositePK(tables[n.Table()], n); err != nil {
 				return nil, err
 			}
@@ -795,7 +795,7 @@ func (g *Graph) Views() (views []*schema.Table, err error) {
 		view := schema.NewView(n.Table()).
 			SetComment(n.sqlComment()).
 			SetPos(n.Pos())
-		switch ant := n.EntSQL(); {
+		switch ant := n.EntSql(); {
 		case ant == nil:
 		case ant.Skip:
 			continue
@@ -803,7 +803,7 @@ func (g *Graph) Views() (views []*schema.Table, err error) {
 			view.SetAnnotation(ant).SetSchema(ant.Schema)
 		}
 		for _, f := range n.Fields {
-			if a := f.EntSQL(); a != nil && a.Skip {
+			if a := f.EntSql(); a != nil && a.Skip {
 				continue
 			}
 			view.AddColumn(f.Column())
@@ -836,8 +836,8 @@ func fkColumn(e *Edge, owner *schema.Table, refPK *schema.Column) *schema.Column
 }
 
 func addCompositePK(t *schema.Table, n *Type) error {
-	columns := make([]*schema.Column, 0, len(n.EdgeSchema.ID))
-	for _, id := range n.EdgeSchema.ID {
+	columns := make([]*schema.Column, 0, len(n.EdgeSchema.Id))
+	for _, id := range n.EdgeSchema.Id {
 		for _, f := range n.Fields {
 			if !f.IsEdgeField() || id != f {
 				continue
@@ -906,7 +906,7 @@ func deleteAction(e *Edge, c *schema.Column) schema.ReferenceOption {
 	if c.Nullable {
 		action = schema.SetNull
 	}
-	if ant := e.EntSQL(); ant != nil && ant.OnDelete != "" {
+	if ant := e.EntSql(); ant != nil && ant.OnDelete != "" {
 		action = schema.ReferenceOption(ant.OnDelete)
 	}
 	return action
@@ -925,7 +925,7 @@ type Snapshot struct {
 	Features []string
 }
 
-// SchemaSnapshot returns a JSON string represents the graph schema in loadable format.
+// SchemaSnapshot returns a Json string represents the graph schema in loadable format.
 func (g *Graph) SchemaSnapshot() (string, error) {
 	schemas := make([]*load.Schema, len(g.Nodes))
 	for i := range g.Nodes {

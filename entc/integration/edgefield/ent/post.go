@@ -19,12 +19,12 @@ import (
 // Post is the model entity for the Post schema.
 type Post struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Text holds the value of the "text" field.
 	Text string `json:"text,omitempty"`
-	// AuthorID holds the value of the "author_id" field.
-	AuthorID *int `json:"author_id,omitempty"`
+	// AuthorId holds the value of the "author_id" field.
+	AuthorId *int `json:"author_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PostQuery when eager-loading is set.
 	Edges        PostEdges `json:"edges"`
@@ -56,7 +56,7 @@ func (*Post) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case post.FieldID, post.FieldAuthorID:
+		case post.FieldId, post.FieldAuthorId:
 			values[i] = new(sql.NullInt64)
 		case post.FieldText:
 			values[i] = new(sql.NullString)
@@ -75,24 +75,24 @@ func (_m *Post) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case post.FieldID:
+		case post.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case post.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field text", values[i])
 			} else if value.Valid {
 				_m.Text = value.String
 			}
-		case post.FieldAuthorID:
+		case post.FieldAuthorId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field author_id", values[i])
 			} else if value.Valid {
-				_m.AuthorID = new(int)
-				*_m.AuthorID = int(value.Int64)
+				_m.AuthorId = new(int)
+				*_m.AuthorId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -134,11 +134,11 @@ func (_m *Post) Unwrap() *Post {
 func (_m *Post) String() string {
 	var builder strings.Builder
 	builder.WriteString("Post(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)
 	builder.WriteString(", ")
-	if v := _m.AuthorID; v != nil {
+	if v := _m.AuthorId; v != nil {
 		builder.WriteString("author_id=")
 		builder.WriteString(fmt.Sprintf("%v", *v))
 	}

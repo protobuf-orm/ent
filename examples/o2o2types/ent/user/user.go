@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
 	// FieldName holds the string denoting the name field in the database.
@@ -33,9 +33,9 @@ const (
 	CardColumn = "user_card"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldAge,
 	FieldName,
 }
@@ -53,9 +53,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByAge orders the results by the age field.
@@ -76,8 +76,8 @@ func ByCardField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newCardStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, CardTable, CardColumn),
 	)
 }

@@ -18,8 +18,8 @@ import (
 // Tweet is the model entity for the Tweet schema.
 type Tweet struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Text holds the value of the "text" field.
 	Text string `json:"text,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -106,7 +106,7 @@ func (*Tweet) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case tweet.FieldID:
+		case tweet.FieldId:
 			values[i] = new(sql.NullInt64)
 		case tweet.FieldText:
 			values[i] = new(sql.NullString)
@@ -125,12 +125,12 @@ func (_m *Tweet) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case tweet.FieldID:
+		case tweet.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case tweet.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field text", values[i])
@@ -202,7 +202,7 @@ func (_m *Tweet) Unwrap() *Tweet {
 func (_m *Tweet) String() string {
 	var builder strings.Builder
 	builder.WriteString("Tweet(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)
 	builder.WriteByte(')')

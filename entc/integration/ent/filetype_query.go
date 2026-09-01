@@ -80,8 +80,8 @@ func (_q *FileTypeQuery) QueryFiles() *FileQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(filetype.Table, filetype.FieldID, selector),
-			sqlgraph.To(file.Table, file.FieldID),
+			sqlgraph.From(filetype.Table, filetype.FieldId, selector),
+			sqlgraph.To(file.Table, file.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, filetype.FilesTable, filetype.FilesColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -112,11 +112,11 @@ func (_q *FileTypeQuery) FirstX(ctx context.Context) *FileType {
 	return node
 }
 
-// FirstID returns the first FileType ID from the query.
-// Returns a *NotFoundError when no FileType ID was found.
-func (_q *FileTypeQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first FileType Id from the query.
+// Returns a *NotFoundError when no FileType Id was found.
+func (_q *FileTypeQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -126,9 +126,9 @@ func (_q *FileTypeQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *FileTypeQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *FileTypeQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -162,12 +162,12 @@ func (_q *FileTypeQuery) OnlyX(ctx context.Context) *FileType {
 	return node
 }
 
-// OnlyID is like Only, but returns the only FileType ID in the query.
-// Returns a *NotSingularError when more than one FileType ID is found.
+// OnlyId is like Only, but returns the only FileType Id in the query.
+// Returns a *NotSingularError when more than one FileType Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *FileTypeQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *FileTypeQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -181,9 +181,9 @@ func (_q *FileTypeQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *FileTypeQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *FileTypeQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -209,21 +209,21 @@ func (_q *FileTypeQuery) AllX(ctx context.Context) []*FileType {
 	return nodes
 }
 
-// IDs executes the query and returns a list of FileType IDs.
-func (_q *FileTypeQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of FileType Ids.
+func (_q *FileTypeQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(filetype.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(filetype.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *FileTypeQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *FileTypeQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -251,7 +251,7 @@ func (_q *FileTypeQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *FileTypeQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -435,8 +435,8 @@ func (_q *FileTypeQuery) loadFiles(ctx context.Context, query *FileQuery, nodes 
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*FileType)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -452,11 +452,11 @@ func (_q *FileTypeQuery) loadFiles(ctx context.Context, query *FileQuery, nodes 
 	for _, n := range neighbors {
 		fk := n.file_type_files
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "file_type_files" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "file_type_files" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "file_type_files" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "file_type_files" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -476,7 +476,7 @@ func (_q *FileTypeQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *FileTypeQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(filetype.Table, filetype.Columns, sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -485,9 +485,9 @@ func (_q *FileTypeQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, filetype.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, filetype.FieldId)
 		for i := range fields {
-			if fields[i] != filetype.FieldID {
+			if fields[i] != filetype.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

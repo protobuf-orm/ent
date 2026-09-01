@@ -160,34 +160,34 @@ func (_c *UserCreate) SetNillableDropOptional(v *string) *UserCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *UserCreate) SetID(v int) *UserCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *UserCreate) SetId(v int) *UserCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetParentID sets the "parent" edge to the User entity by ID.
-func (_c *UserCreate) SetParentID(id int) *UserCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the User entity by Id.
+func (_c *UserCreate) SetParentId(id int) *UserCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
-// SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableParentID(id *int) *UserCreate {
+// SetNillableParentId sets the "parent" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableParentId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetParentID(*id)
+		_c = _c.SetParentId(*id)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the User entity.
 func (_c *UserCreate) SetParent(v *User) *UserCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by IDs.
-func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the User entity by Ids.
+func (_c *UserCreate) AddChildrenIds(ids ...int) *UserCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
@@ -195,47 +195,47 @@ func (_c *UserCreate) AddChildrenIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddChildren(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_c *UserCreate) SetSpouseID(id int) *UserCreate {
-	_c.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_c *UserCreate) SetSpouseId(id int) *UserCreate {
+	_c.mutation.SetSpouseId(id)
 	return _c
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableSpouseID(id *int) *UserCreate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableSpouseId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetSpouseID(*id)
+		_c = _c.SetSpouseId(*id)
 	}
 	return _c
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_c *UserCreate) SetSpouse(v *User) *UserCreate {
-	return _c.SetSpouseID(v.ID)
+	return _c.SetSpouseId(v.Id)
 }
 
-// SetCarID sets the "car" edge to the Car entity by ID.
-func (_c *UserCreate) SetCarID(id int) *UserCreate {
-	_c.mutation.SetCarID(id)
+// SetCarId sets the "car" edge to the Car entity by Id.
+func (_c *UserCreate) SetCarId(id int) *UserCreate {
+	_c.mutation.SetCarId(id)
 	return _c
 }
 
-// SetNillableCarID sets the "car" edge to the Car entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableCarID(id *int) *UserCreate {
+// SetNillableCarId sets the "car" edge to the Car entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableCarId(id *int) *UserCreate {
 	if id != nil {
-		_c = _c.SetCarID(*id)
+		_c = _c.SetCarId(*id)
 	}
 	return _c
 }
 
 // SetCar sets the "car" edge to the Car entity.
 func (_c *UserCreate) SetCar(v *Car) *UserCreate {
-	return _c.SetCarID(v.ID)
+	return _c.SetCarId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -331,11 +331,11 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -343,11 +343,11 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt32, value)
@@ -397,7 +397,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldDropOptional, field.TypeString, value)
 		_node.DropOptional = value
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -405,7 +405,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -414,7 +414,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.user_children = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -422,7 +422,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -430,7 +430,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -438,7 +438,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -447,7 +447,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.user_spouse = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.CarIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CarIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -455,7 +455,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.CarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(car.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(car.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -510,10 +510,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

@@ -18,7 +18,7 @@ type Session struct {
 // Fields of the Session.
 func (Session) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.Nil).
+		field.Uuid("id", uuid.Nil).
 			Default(uuid.New),
 		field.Bool("active").
 			Default(false),
@@ -27,9 +27,9 @@ func (Session) Fields() []ent.Field {
 			Optional(),
 		field.String("token").
 			Optional(),
-		field.JSON("method", map[string]any{}).
+		field.Json("method", map[string]any{}).
 			Optional(),
-		field.UUID("device_id", uuid.Nil).
+		field.Uuid("device_id", uuid.Nil).
 			Optional(),
 	}
 }
@@ -70,7 +70,7 @@ type SessionDevice struct {
 // Fields of the SessionDevice.
 func (SessionDevice) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.Nil).
+		field.Uuid("id", uuid.Nil).
 			Default(uuid.New),
 		field.String("ip_address").
 			MaxLen(50),

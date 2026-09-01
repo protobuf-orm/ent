@@ -43,28 +43,28 @@ func (_c *FileCreate) SetNillableDeleted(v *bool) *FileCreate {
 	return _c
 }
 
-// SetParentID sets the "parent_id" field.
-func (_c *FileCreate) SetParentID(v int) *FileCreate {
-	_c.mutation.SetParentID(v)
+// SetParentId sets the "parent_id" field.
+func (_c *FileCreate) SetParentId(v int) *FileCreate {
+	_c.mutation.SetParentId(v)
 	return _c
 }
 
-// SetNillableParentID sets the "parent_id" field if the given value is not nil.
-func (_c *FileCreate) SetNillableParentID(v *int) *FileCreate {
+// SetNillableParentId sets the "parent_id" field if the given value is not nil.
+func (_c *FileCreate) SetNillableParentId(v *int) *FileCreate {
 	if v != nil {
-		_c.SetParentID(*v)
+		_c.SetParentId(*v)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the File entity.
 func (_c *FileCreate) SetParent(v *File) *FileCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the File entity by IDs.
-func (_c *FileCreate) AddChildrenIDs(ids ...int) *FileCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the File entity by Ids.
+func (_c *FileCreate) AddChildrenIds(ids ...int) *FileCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
@@ -72,9 +72,9 @@ func (_c *FileCreate) AddChildrenIDs(ids ...int) *FileCreate {
 func (_c *FileCreate) AddChildren(v ...*File) *FileCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -140,9 +140,9 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -150,7 +150,7 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 	var (
 		_node = &File{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
@@ -160,7 +160,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		_spec.SetField(file.FieldDeleted, field.TypeBool, value)
 		_node.Deleted = value
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -168,16 +168,16 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: []string{file.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ParentID = nodes[0]
+		_node.ParentId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -185,7 +185,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: []string{file.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -240,10 +240,10 @@ func (_c *FileCreateBulk) Save(ctx context.Context) ([]*File, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

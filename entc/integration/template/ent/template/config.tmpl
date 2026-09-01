@@ -3,15 +3,15 @@
 
 {{/* A template for adding additional config fields/options. */}}
 {{ define "config/fields/httpclient" -}}
-	// HTTPClient field added by a test template.
-	HTTPClient *http.Client
+	// HttpClient field added by a test template.
+	HttpClient *http.Client
 {{ end }}
 
 {{ define "config/options/httpclient" }}
-	// HTTPClient option added by a test template.
-	func HTTPClient(hc *http.Client) Option {
+	// HttpClient option added by a test template.
+	func HttpClient(hc *http.Client) Option {
 		return func(c *config) {
-			c.HTTPClient = hc
+			c.HttpClient = hc
 		}
 	}
 {{ end }}

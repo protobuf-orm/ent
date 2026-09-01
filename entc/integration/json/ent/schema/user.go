@@ -24,17 +24,17 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.JSON("t", &T{}).
+		field.Json("t", &T{}).
 			Optional(),
-		field.JSON("url", &url.URL{}).
+		field.Json("url", &url.URL{}).
 			Optional(),
-		field.JSON("URLs", []*url.URL{}).
+		field.Json("Urls", []*url.URL{}).
 			StorageKey("urls").
 			StructTag(`json:"urls,omitempty"`).
 			Optional(),
-		field.JSON("raw", json.RawMessage{}).
+		field.Json("raw", json.RawMessage{}).
 			Optional(),
-		field.JSON("dirs", []http.Dir{}).
+		field.Json("dirs", []http.Dir{}).
 			Default(func() []http.Dir {
 				return []http.Dir{"/tmp"}
 			}),
@@ -54,7 +54,7 @@ func (User) Fields() []ent.Field {
 		field.Strings("strings_validate").
 			Optional().
 			Validate(validate[string]),
-		field.JSON("addr", Addr{}).
+		field.Json("addr", Addr{}).
 			Sensitive().
 			Optional(),
 		field.Any("unknown").
@@ -76,35 +76,35 @@ type T struct {
 
 type Addr struct{ net.Addr }
 
-func (a *Addr) UnmarshalJSON(data []byte) error {
+func (a *Addr) UnmarshalJson(data []byte) error {
 	var types struct {
-		TCP *net.TCPAddr `json:"tcp,omitempty"`
-		UDP *net.UDPAddr `json:"udp,omitempty"`
+		Tcp *net.TCPAddr `json:"tcp,omitempty"`
+		Udp *net.UDPAddr `json:"udp,omitempty"`
 	}
 	if err := json.Unmarshal(data, &types); err != nil {
 		return err
 	}
 	switch {
-	case types.TCP != nil && types.UDP != nil:
-		return errors.New("TCP and UDP addresses are mutually exclusive")
-	case types.TCP != nil:
-		a.Addr = types.TCP
-	case types.UDP != nil:
-		a.Addr = types.UDP
+	case types.Tcp != nil && types.Udp != nil:
+		return errors.New("Tcp and Udp addresses are mutually exclusive")
+	case types.Tcp != nil:
+		a.Addr = types.Tcp
+	case types.Udp != nil:
+		a.Addr = types.Udp
 	}
 	return nil
 }
 
-func (a Addr) MarshalJSON() ([]byte, error) {
+func (a Addr) MarshalJson() ([]byte, error) {
 	var types struct {
-		TCP *net.TCPAddr `json:"tcp,omitempty"`
-		UDP *net.UDPAddr `json:"udp,omitempty"`
+		Tcp *net.TCPAddr `json:"tcp,omitempty"`
+		Udp *net.UDPAddr `json:"udp,omitempty"`
 	}
 	switch a := a.Addr.(type) {
 	case *net.TCPAddr:
-		types.TCP = a
+		types.Tcp = a
 	case *net.UDPAddr:
-		types.UDP = a
+		types.Udp = a
 	default:
 		return nil, fmt.Errorf("unsupported address type: %T", a)
 	}

@@ -17,9 +17,9 @@ in the LICENSE file in the root directory of this source tree.
 const (
 	// Label holds the string label denoting the {{ lower $.Name }} type in the database.
 	Label = "{{ $.Label }}"
-	{{- if $.HasOneFieldID }}
-		// {{ $.ID.Constant }} holds the string denoting the id field in the database.
-		{{ $.ID.Constant }} = "{{ $.ID.StorageKey }}"
+	{{- if $.HasOneFieldId }}
+		// {{ $.Id.Constant }} holds the string denoting the id field in the database.
+		{{ $.Id.Constant }} = "{{ $.Id.StorageKey }}"
 	{{- end }}
 	{{- range $f := $.Fields }}
 		{{- $field := $f.Constant }}
@@ -46,7 +46,7 @@ const (
 {{ end }}
 
 {{/* Has at least one field (not enum) with default value */}}
-{{ $fields := $.Fields }}{{ if $.HasOneFieldID }}{{ if $.ID.UserDefined }}{{ $fields = append $fields $.ID }}{{ end }}{{ end }}
+{{ $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
 {{ $hasDefault := false }}{{ range $f := $fields }}{{ if and $f.Default (not $f.IsEnum) }}{{ $hasDefault = true }}{{ end }}{{ end }}
 
 {{/* Generate global variables for hooks, validators and policy checkers */}}
@@ -73,7 +73,7 @@ const (
 		{{- if $.NumPolicy }}
 			Policy ent.Policy
 		{{- end }}
-		{{- $fields := $.Fields }}{{ if $.HasOneFieldID }}{{ if $.ID.UserDefined }}{{ $fields = append $fields $.ID }}{{ end }}{{ end }}
+		{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
 		{{- range $f := $fields }}
 			{{- if and $f.Default (not $f.IsEnum) }}
 				{{- $default := $f.DefaultName }}
@@ -88,7 +88,7 @@ const (
 			{{- with $f.Validators }}
 				{{- $name := $f.Validator }}
 				{{- $type := $f.Type.Type.String }}
-				{{- if $f.IsJSON }}
+				{{- if $f.IsJson }}
 					{{- $type = $f.Type.String }}
 				{{- end }}
 				// {{ $name }} is a validator for the "{{ $f.Name }}" field. It is called by the builders before save.
@@ -98,9 +98,9 @@ const (
 		{{- if $.HasValueScanner }}
 		// ValueScanner of all {{ $.Name }} fields.
 		ValueScanner struct {
-			{{- $fields := $.Fields }}{{ if $.HasOneFieldID }}{{ if $.ID.UserDefined }}{{ $fields = append $fields $.ID }}{{ end }}{{ end }}
+			{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
 			{{- range $f := $fields }}
-				{{- $idscan := and $.HasOneFieldID (eq $f.Name $.ID.Name) }}
+				{{- $idscan := and $.HasOneFieldId (eq $f.Name $.Id.Name) }}
 				{{- if and $f.HasValueScanner (or (not $idscan) (eq $.Storage.Name "sql")) }}
 					{{ $f.StructField }} field.TypeValueScanner[{{ $f.Type }}]
 				{{- end }}

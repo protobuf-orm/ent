@@ -101,7 +101,7 @@ func TestColumn_ScanDefault(t *testing.T) {
 	require.Equal(t, false, c1.Default)
 	require.Error(t, c1.ScanDefault("foo"))
 
-	c1 = &Column{Type: field.TypeUUID}
+	c1 = &Column{Type: field.TypeUuid}
 	require.NoError(t, c1.ScanDefault("gen_random_uuid()"))
 	require.Equal(t, nil, c1.Default)
 	require.NoError(t, c1.ScanDefault("00000000-0000-0000-0000-000000000000"))
@@ -318,10 +318,10 @@ CREATE UNIQUE INDEX $%s$ ON $pets$ ($name$ DESC);
 CREATE VIEW $pets_without_fur$ ($id$, $name$, $owner_id$) AS SELECT id, name, owner_id FROM pets;
 `, "$", "`"), idx, idx), false,
 		},
-		{dialect.MySQL, "5.6", my(255, idx), false},
-		{dialect.MySQL, "5.6", my(191, hashMY), true},
-		{dialect.MySQL, "5.7", my(255, idx), false},
-		{dialect.MySQL, "8", my(255, hashMY), true},
+		{dialect.MySql, "5.6", my(255, idx), false},
+		{dialect.MySql, "5.6", my(191, hashMY), true},
+		{dialect.MySql, "5.7", my(255, idx), false},
+		{dialect.MySql, "8", my(255, hashMY), true},
 		{dialect.Postgres, "12", pg(idx), false},
 		{dialect.Postgres, "13", pg(idx), false},
 		{dialect.Postgres, "14", pg(hashPG), true},

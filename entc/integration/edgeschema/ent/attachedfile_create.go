@@ -42,32 +42,32 @@ func (_c *AttachedFileCreate) SetNillableAttachTime(v *time.Time) *AttachedFileC
 	return _c
 }
 
-// SetFID sets the "f_id" field.
-func (_c *AttachedFileCreate) SetFID(v int) *AttachedFileCreate {
-	_c.mutation.SetFID(v)
+// SetFId sets the "f_id" field.
+func (_c *AttachedFileCreate) SetFId(v int) *AttachedFileCreate {
+	_c.mutation.SetFId(v)
 	return _c
 }
 
-// SetProcID sets the "proc_id" field.
-func (_c *AttachedFileCreate) SetProcID(v int) *AttachedFileCreate {
-	_c.mutation.SetProcID(v)
+// SetProcId sets the "proc_id" field.
+func (_c *AttachedFileCreate) SetProcId(v int) *AttachedFileCreate {
+	_c.mutation.SetProcId(v)
 	return _c
 }
 
-// SetFiID sets the "fi" edge to the File entity by ID.
-func (_c *AttachedFileCreate) SetFiID(id int) *AttachedFileCreate {
-	_c.mutation.SetFiID(id)
+// SetFiId sets the "fi" edge to the File entity by Id.
+func (_c *AttachedFileCreate) SetFiId(id int) *AttachedFileCreate {
+	_c.mutation.SetFiId(id)
 	return _c
 }
 
 // SetFi sets the "fi" edge to the File entity.
 func (_c *AttachedFileCreate) SetFi(v *File) *AttachedFileCreate {
-	return _c.SetFiID(v.ID)
+	return _c.SetFiId(v.Id)
 }
 
 // SetProc sets the "proc" edge to the Process entity.
 func (_c *AttachedFileCreate) SetProc(v *Process) *AttachedFileCreate {
-	return _c.SetProcID(v.ID)
+	return _c.SetProcId(v.Id)
 }
 
 // Mutation returns the AttachedFileMutation object of the builder.
@@ -116,16 +116,16 @@ func (_c *AttachedFileCreate) check() error {
 	if _, ok := _c.mutation.AttachTime(); !ok {
 		return &ValidationError{Name: "attach_time", err: errors.New(`ent: missing required field "AttachedFile.attach_time"`)}
 	}
-	if _, ok := _c.mutation.FID(); !ok {
+	if _, ok := _c.mutation.FId(); !ok {
 		return &ValidationError{Name: "f_id", err: errors.New(`ent: missing required field "AttachedFile.f_id"`)}
 	}
-	if _, ok := _c.mutation.ProcID(); !ok {
+	if _, ok := _c.mutation.ProcId(); !ok {
 		return &ValidationError{Name: "proc_id", err: errors.New(`ent: missing required field "AttachedFile.proc_id"`)}
 	}
-	if len(_c.mutation.FiIDs()) == 0 {
+	if len(_c.mutation.FiIds()) == 0 {
 		return &ValidationError{Name: "fi", err: errors.New(`ent: missing required edge "AttachedFile.fi"`)}
 	}
-	if len(_c.mutation.ProcIDs()) == 0 {
+	if len(_c.mutation.ProcIds()) == 0 {
 		return &ValidationError{Name: "proc", err: errors.New(`ent: missing required edge "AttachedFile.proc"`)}
 	}
 	return nil
@@ -142,9 +142,9 @@ func (_c *AttachedFileCreate) sqlSave(ctx context.Context) (*AttachedFile, error
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -152,14 +152,14 @@ func (_c *AttachedFileCreate) sqlSave(ctx context.Context) (*AttachedFile, error
 func (_c *AttachedFileCreate) createSpec() (*AttachedFile, *sqlgraph.CreateSpec) {
 	var (
 		_node = &AttachedFile{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(attachedfile.Table, sqlgraph.NewFieldSpec(attachedfile.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(attachedfile.Table, sqlgraph.NewFieldSpec(attachedfile.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.AttachTime(); ok {
 		_spec.SetField(attachedfile.FieldAttachTime, field.TypeTime, value)
 		_node.AttachTime = value
 	}
-	if nodes := _c.mutation.FiIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FiIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -167,16 +167,16 @@ func (_c *AttachedFileCreate) createSpec() (*AttachedFile, *sqlgraph.CreateSpec)
 			Columns: []string{attachedfile.FiColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.FID = nodes[0]
+		_node.FId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ProcIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProcIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -184,13 +184,13 @@ func (_c *AttachedFileCreate) createSpec() (*AttachedFile, *sqlgraph.CreateSpec)
 			Columns: []string{attachedfile.ProcColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(process.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(process.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ProcID = nodes[0]
+		_node.ProcId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -257,27 +257,27 @@ func (u *AttachedFileUpsert) UpdateAttachTime() *AttachedFileUpsert {
 	return u
 }
 
-// SetFID sets the "f_id" field.
-func (u *AttachedFileUpsert) SetFID(v int) *AttachedFileUpsert {
-	u.Set(attachedfile.FieldFID, v)
+// SetFId sets the "f_id" field.
+func (u *AttachedFileUpsert) SetFId(v int) *AttachedFileUpsert {
+	u.Set(attachedfile.FieldFId, v)
 	return u
 }
 
-// UpdateFID sets the "f_id" field to the value that was provided on create.
-func (u *AttachedFileUpsert) UpdateFID() *AttachedFileUpsert {
-	u.SetExcluded(attachedfile.FieldFID)
+// UpdateFId sets the "f_id" field to the value that was provided on create.
+func (u *AttachedFileUpsert) UpdateFId() *AttachedFileUpsert {
+	u.SetExcluded(attachedfile.FieldFId)
 	return u
 }
 
-// SetProcID sets the "proc_id" field.
-func (u *AttachedFileUpsert) SetProcID(v int) *AttachedFileUpsert {
-	u.Set(attachedfile.FieldProcID, v)
+// SetProcId sets the "proc_id" field.
+func (u *AttachedFileUpsert) SetProcId(v int) *AttachedFileUpsert {
+	u.Set(attachedfile.FieldProcId, v)
 	return u
 }
 
-// UpdateProcID sets the "proc_id" field to the value that was provided on create.
-func (u *AttachedFileUpsert) UpdateProcID() *AttachedFileUpsert {
-	u.SetExcluded(attachedfile.FieldProcID)
+// UpdateProcId sets the "proc_id" field to the value that was provided on create.
+func (u *AttachedFileUpsert) UpdateProcId() *AttachedFileUpsert {
+	u.SetExcluded(attachedfile.FieldProcId)
 	return u
 }
 
@@ -306,7 +306,7 @@ func (u *AttachedFileUpsertOne) Ignore() *AttachedFileUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *AttachedFileUpsertOne) DoNothing() *AttachedFileUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -335,31 +335,31 @@ func (u *AttachedFileUpsertOne) UpdateAttachTime() *AttachedFileUpsertOne {
 	})
 }
 
-// SetFID sets the "f_id" field.
-func (u *AttachedFileUpsertOne) SetFID(v int) *AttachedFileUpsertOne {
+// SetFId sets the "f_id" field.
+func (u *AttachedFileUpsertOne) SetFId(v int) *AttachedFileUpsertOne {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.SetFID(v)
+		s.SetFId(v)
 	})
 }
 
-// UpdateFID sets the "f_id" field to the value that was provided on create.
-func (u *AttachedFileUpsertOne) UpdateFID() *AttachedFileUpsertOne {
+// UpdateFId sets the "f_id" field to the value that was provided on create.
+func (u *AttachedFileUpsertOne) UpdateFId() *AttachedFileUpsertOne {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.UpdateFID()
+		s.UpdateFId()
 	})
 }
 
-// SetProcID sets the "proc_id" field.
-func (u *AttachedFileUpsertOne) SetProcID(v int) *AttachedFileUpsertOne {
+// SetProcId sets the "proc_id" field.
+func (u *AttachedFileUpsertOne) SetProcId(v int) *AttachedFileUpsertOne {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.SetProcID(v)
+		s.SetProcId(v)
 	})
 }
 
-// UpdateProcID sets the "proc_id" field to the value that was provided on create.
-func (u *AttachedFileUpsertOne) UpdateProcID() *AttachedFileUpsertOne {
+// UpdateProcId sets the "proc_id" field to the value that was provided on create.
+func (u *AttachedFileUpsertOne) UpdateProcId() *AttachedFileUpsertOne {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.UpdateProcID()
+		s.UpdateProcId()
 	})
 }
 
@@ -378,18 +378,18 @@ func (u *AttachedFileUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *AttachedFileUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *AttachedFileUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *AttachedFileUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *AttachedFileUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -442,10 +442,10 @@ func (_c *AttachedFileCreateBulk) Save(ctx context.Context) ([]*AttachedFile, er
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -552,7 +552,7 @@ func (u *AttachedFileUpsertBulk) Ignore() *AttachedFileUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *AttachedFileUpsertBulk) DoNothing() *AttachedFileUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -581,31 +581,31 @@ func (u *AttachedFileUpsertBulk) UpdateAttachTime() *AttachedFileUpsertBulk {
 	})
 }
 
-// SetFID sets the "f_id" field.
-func (u *AttachedFileUpsertBulk) SetFID(v int) *AttachedFileUpsertBulk {
+// SetFId sets the "f_id" field.
+func (u *AttachedFileUpsertBulk) SetFId(v int) *AttachedFileUpsertBulk {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.SetFID(v)
+		s.SetFId(v)
 	})
 }
 
-// UpdateFID sets the "f_id" field to the value that was provided on create.
-func (u *AttachedFileUpsertBulk) UpdateFID() *AttachedFileUpsertBulk {
+// UpdateFId sets the "f_id" field to the value that was provided on create.
+func (u *AttachedFileUpsertBulk) UpdateFId() *AttachedFileUpsertBulk {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.UpdateFID()
+		s.UpdateFId()
 	})
 }
 
-// SetProcID sets the "proc_id" field.
-func (u *AttachedFileUpsertBulk) SetProcID(v int) *AttachedFileUpsertBulk {
+// SetProcId sets the "proc_id" field.
+func (u *AttachedFileUpsertBulk) SetProcId(v int) *AttachedFileUpsertBulk {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.SetProcID(v)
+		s.SetProcId(v)
 	})
 }
 
-// UpdateProcID sets the "proc_id" field to the value that was provided on create.
-func (u *AttachedFileUpsertBulk) UpdateProcID() *AttachedFileUpsertBulk {
+// UpdateProcId sets the "proc_id" field to the value that was provided on create.
+func (u *AttachedFileUpsertBulk) UpdateProcId() *AttachedFileUpsertBulk {
 	return u.Update(func(s *AttachedFileUpsert) {
-		s.UpdateProcID()
+		s.UpdateProcId()
 	})
 }
 

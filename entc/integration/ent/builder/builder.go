@@ -13,15 +13,15 @@ import (
 const (
 	// Label holds the string label denoting the builder type in the database.
 	Label = "builder"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// Table holds the table name of the builder in the database.
 	Table = "builder"
 )
 
-// Columns holds all SQL columns for builder fields.
+// Columns holds all Sql columns for builder fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -37,9 +37,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Builder queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // comment from another template.

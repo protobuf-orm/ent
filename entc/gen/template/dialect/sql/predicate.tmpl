@@ -11,7 +11,7 @@ in the LICENSE file in the root directory of this source tree.
 	{{- with $.Scope.Arg }}
 		{{- $arg = . }}
 	{{- end -}}
-	sql.FieldEQ({{ $.ID.Constant }}, {{ $arg }})
+	sql.FieldEQ({{ $.Id.Constant }}, {{ $arg }})
 {{- end }}
 
 {{ define "dialect/sql/predicate/id/ops" -}}
@@ -22,7 +22,7 @@ in the LICENSE file in the root directory of this source tree.
 	{{- with $.Scope.Arg -}}
 		{{- $arg = . -}}
 	{{- end -}}
-	sql.Field{{ call $storage.OpCode $op }}({{ $.ID.Constant }}{{ if not $op.Niladic }}, {{ $arg }}{{ if $op.Variadic }}...{{ end }}{{ end }})
+	sql.Field{{ call $storage.OpCode $op }}({{ $.Id.Constant }}{{ if not $op.Niladic }}, {{ $arg }}{{ if $op.Variadic }}...{{ end }}{{ end }})
 {{- end }}
 
 {{ define "dialect/sql/predicate/field" -}}
@@ -43,11 +43,11 @@ in the LICENSE file in the root directory of this source tree.
 	{{- $e := $.Scope.Edge -}}
 	func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			{{- if $.HasCompositeID }}
+			{{- if $.HasCompositeId }}
 				{{- /* Query that goes from the edge schema. */}}
 				sqlgraph.From(Table, {{ $e.ColumnConstant }}),
 			{{- else }}
-				sqlgraph.From(Table, {{ $.ID.Constant }}),
+				sqlgraph.From(Table, {{ $.Id.Constant }}),
 			{{- end }}
 			sqlgraph.Edge(sqlgraph.{{ $e.Rel.Type }}, {{ $e.IsInverse }}, {{ $e.TableConstant }},
 				{{- if $e.M2M -}}

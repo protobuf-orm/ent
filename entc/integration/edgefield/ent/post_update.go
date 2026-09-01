@@ -46,29 +46,29 @@ func (_u *PostUpdate) SetNillableText(v *string) *PostUpdate {
 	return _u
 }
 
-// SetAuthorID sets the "author_id" field.
-func (_u *PostUpdate) SetAuthorID(v int) *PostUpdate {
-	_u.mutation.SetAuthorID(v)
+// SetAuthorId sets the "author_id" field.
+func (_u *PostUpdate) SetAuthorId(v int) *PostUpdate {
+	_u.mutation.SetAuthorId(v)
 	return _u
 }
 
-// SetNillableAuthorID sets the "author_id" field if the given value is not nil.
-func (_u *PostUpdate) SetNillableAuthorID(v *int) *PostUpdate {
+// SetNillableAuthorId sets the "author_id" field if the given value is not nil.
+func (_u *PostUpdate) SetNillableAuthorId(v *int) *PostUpdate {
 	if v != nil {
-		_u.SetAuthorID(*v)
+		_u.SetAuthorId(*v)
 	}
 	return _u
 }
 
-// ClearAuthorID clears the value of the "author_id" field.
-func (_u *PostUpdate) ClearAuthorID() *PostUpdate {
-	_u.mutation.ClearAuthorID()
+// ClearAuthorId clears the value of the "author_id" field.
+func (_u *PostUpdate) ClearAuthorId() *PostUpdate {
+	_u.mutation.ClearAuthorId()
 	return _u
 }
 
 // SetAuthor sets the "author" edge to the User entity.
 func (_u *PostUpdate) SetAuthor(v *User) *PostUpdate {
-	return _u.SetAuthorID(v.ID)
+	return _u.SetAuthorId(v.Id)
 }
 
 // Mutation returns the PostMutation object of the builder.
@@ -110,7 +110,7 @@ func (_u *PostUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *PostUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(post.Table, post.Columns, sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(post.Table, post.Columns, sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -129,12 +129,12 @@ func (_u *PostUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{post.AuthorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AuthorIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AuthorIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -142,7 +142,7 @@ func (_u *PostUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{post.AuthorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -184,29 +184,29 @@ func (_u *PostUpdateOne) SetNillableText(v *string) *PostUpdateOne {
 	return _u
 }
 
-// SetAuthorID sets the "author_id" field.
-func (_u *PostUpdateOne) SetAuthorID(v int) *PostUpdateOne {
-	_u.mutation.SetAuthorID(v)
+// SetAuthorId sets the "author_id" field.
+func (_u *PostUpdateOne) SetAuthorId(v int) *PostUpdateOne {
+	_u.mutation.SetAuthorId(v)
 	return _u
 }
 
-// SetNillableAuthorID sets the "author_id" field if the given value is not nil.
-func (_u *PostUpdateOne) SetNillableAuthorID(v *int) *PostUpdateOne {
+// SetNillableAuthorId sets the "author_id" field if the given value is not nil.
+func (_u *PostUpdateOne) SetNillableAuthorId(v *int) *PostUpdateOne {
 	if v != nil {
-		_u.SetAuthorID(*v)
+		_u.SetAuthorId(*v)
 	}
 	return _u
 }
 
-// ClearAuthorID clears the value of the "author_id" field.
-func (_u *PostUpdateOne) ClearAuthorID() *PostUpdateOne {
-	_u.mutation.ClearAuthorID()
+// ClearAuthorId clears the value of the "author_id" field.
+func (_u *PostUpdateOne) ClearAuthorId() *PostUpdateOne {
+	_u.mutation.ClearAuthorId()
 	return _u
 }
 
 // SetAuthor sets the "author" edge to the User entity.
 func (_u *PostUpdateOne) SetAuthor(v *User) *PostUpdateOne {
-	return _u.SetAuthorID(v.ID)
+	return _u.SetAuthorId(v.Id)
 }
 
 // Mutation returns the PostMutation object of the builder.
@@ -261,20 +261,20 @@ func (_u *PostUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *PostUpdateOne) sqlSave(ctx context.Context) (_node *Post, err error) {
-	_spec := sqlgraph.NewUpdateSpec(post.Table, post.Columns, sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(post.Table, post.Columns, sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Post.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, post.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, post.FieldId)
 		for _, f := range fields {
 			if !post.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != post.FieldID {
+			if f != post.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -297,12 +297,12 @@ func (_u *PostUpdateOne) sqlSave(ctx context.Context) (_node *Post, err error) {
 			Columns: []string{post.AuthorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AuthorIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AuthorIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -310,7 +310,7 @@ func (_u *PostUpdateOne) sqlSave(ctx context.Context) (_node *Post, err error) {
 			Columns: []string{post.AuthorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

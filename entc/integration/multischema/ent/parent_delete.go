@@ -45,7 +45,7 @@ func (_d *ParentDelete) ExecX(ctx context.Context) int {
 }
 
 func (_d *ParentDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(parent.Table, sqlgraph.NewFieldSpec(parent.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewDeleteSpec(parent.Table, sqlgraph.NewFieldSpec(parent.FieldId, field.TypeInt))
 	_spec.Node.Schema = _d.schemaConfig.Parent
 	ctx = internal.NewSchemaConfigContext(ctx, _d.schemaConfig)
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {

@@ -45,9 +45,9 @@ func (_c *UserCreate) SetNillableName(v *string) *UserCreate {
 	return _c
 }
 
-// AddGroupsIDs adds the "groups" edge to the Group entity by IDs.
-func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddGroupsIDs(ids...)
+// AddGroupsIds adds the "groups" edge to the Group entity by Ids.
+func (_c *UserCreate) AddGroupsIds(ids ...int) *UserCreate {
+	_c.mutation.AddGroupsIds(ids...)
 	return _c
 }
 
@@ -55,14 +55,14 @@ func (_c *UserCreate) AddGroupsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddGroups(v ...*Group) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddGroupsIDs(ids...)
+	return _c.AddGroupsIds(ids...)
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
-func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the User entity by Ids.
+func (_c *UserCreate) AddFriendsIds(ids ...int) *UserCreate {
+	_c.mutation.AddFriendsIds(ids...)
 	return _c
 }
 
@@ -70,14 +70,14 @@ func (_c *UserCreate) AddFriendsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFriends(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFriendsIDs(ids...)
+	return _c.AddFriendsIds(ids...)
 }
 
-// AddRelativesIDs adds the "relatives" edge to the User entity by IDs.
-func (_c *UserCreate) AddRelativesIDs(ids ...int) *UserCreate {
-	_c.mutation.AddRelativesIDs(ids...)
+// AddRelativesIds adds the "relatives" edge to the User entity by Ids.
+func (_c *UserCreate) AddRelativesIds(ids ...int) *UserCreate {
+	_c.mutation.AddRelativesIds(ids...)
 	return _c
 }
 
@@ -85,14 +85,14 @@ func (_c *UserCreate) AddRelativesIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddRelatives(v ...*User) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddRelativesIDs(ids...)
+	return _c.AddRelativesIds(ids...)
 }
 
-// AddLikedTweetsIDs adds the "liked_tweets" edge to the Tweet entity by IDs.
-func (_c *UserCreate) AddLikedTweetsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddLikedTweetsIDs(ids...)
+// AddLikedTweetsIds adds the "liked_tweets" edge to the Tweet entity by Ids.
+func (_c *UserCreate) AddLikedTweetsIds(ids ...int) *UserCreate {
+	_c.mutation.AddLikedTweetsIds(ids...)
 	return _c
 }
 
@@ -100,14 +100,14 @@ func (_c *UserCreate) AddLikedTweetsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddLikedTweets(v ...*Tweet) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddLikedTweetsIDs(ids...)
+	return _c.AddLikedTweetsIds(ids...)
 }
 
-// AddTweetsIDs adds the "tweets" edge to the Tweet entity by IDs.
-func (_c *UserCreate) AddTweetsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTweetsIDs(ids...)
+// AddTweetsIds adds the "tweets" edge to the Tweet entity by Ids.
+func (_c *UserCreate) AddTweetsIds(ids ...int) *UserCreate {
+	_c.mutation.AddTweetsIds(ids...)
 	return _c
 }
 
@@ -115,14 +115,14 @@ func (_c *UserCreate) AddTweetsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddTweets(v ...*Tweet) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTweetsIDs(ids...)
+	return _c.AddTweetsIds(ids...)
 }
 
-// AddRolesIDs adds the "roles" edge to the Role entity by IDs.
-func (_c *UserCreate) AddRolesIDs(ids ...int) *UserCreate {
-	_c.mutation.AddRolesIDs(ids...)
+// AddRolesIds adds the "roles" edge to the Role entity by Ids.
+func (_c *UserCreate) AddRolesIds(ids ...int) *UserCreate {
+	_c.mutation.AddRolesIds(ids...)
 	return _c
 }
 
@@ -130,14 +130,14 @@ func (_c *UserCreate) AddRolesIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddRoles(v ...*Role) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddRolesIDs(ids...)
+	return _c.AddRolesIds(ids...)
 }
 
-// AddJoinedGroupsIDs adds the "joined_groups" edge to the UserGroup entity by IDs.
-func (_c *UserCreate) AddJoinedGroupsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddJoinedGroupsIDs(ids...)
+// AddJoinedGroupsIds adds the "joined_groups" edge to the UserGroup entity by Ids.
+func (_c *UserCreate) AddJoinedGroupsIds(ids ...int) *UserCreate {
+	_c.mutation.AddJoinedGroupsIds(ids...)
 	return _c
 }
 
@@ -145,14 +145,14 @@ func (_c *UserCreate) AddJoinedGroupsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddJoinedGroups(v ...*UserGroup) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddJoinedGroupsIDs(ids...)
+	return _c.AddJoinedGroupsIds(ids...)
 }
 
-// AddFriendshipsIDs adds the "friendships" edge to the Friendship entity by IDs.
-func (_c *UserCreate) AddFriendshipsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddFriendshipsIDs(ids...)
+// AddFriendshipsIds adds the "friendships" edge to the Friendship entity by Ids.
+func (_c *UserCreate) AddFriendshipsIds(ids ...int) *UserCreate {
+	_c.mutation.AddFriendshipsIds(ids...)
 	return _c
 }
 
@@ -160,14 +160,14 @@ func (_c *UserCreate) AddFriendshipsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddFriendships(v ...*Friendship) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFriendshipsIDs(ids...)
+	return _c.AddFriendshipsIds(ids...)
 }
 
-// AddUserTweetsIDs adds the "user_tweets" edge to the UserTweet entity by IDs.
-func (_c *UserCreate) AddUserTweetsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddUserTweetsIDs(ids...)
+// AddUserTweetsIds adds the "user_tweets" edge to the UserTweet entity by Ids.
+func (_c *UserCreate) AddUserTweetsIds(ids ...int) *UserCreate {
+	_c.mutation.AddUserTweetsIds(ids...)
 	return _c
 }
 
@@ -175,9 +175,9 @@ func (_c *UserCreate) AddUserTweetsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddUserTweets(v ...*UserTweet) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddUserTweetsIDs(ids...)
+	return _c.AddUserTweetsIds(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -243,9 +243,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -253,14 +253,14 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.GroupsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.GroupsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -268,7 +268,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.GroupsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -280,7 +280,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -288,7 +288,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -300,7 +300,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.RelativesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RelativesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -308,7 +308,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.RelativesPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -320,7 +320,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.LikedTweetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.LikedTweetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -328,7 +328,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.LikedTweetsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -340,7 +340,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TweetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -348,7 +348,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.TweetsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -360,7 +360,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.RolesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RolesIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -368,7 +368,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.RolesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(role.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -380,7 +380,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.JoinedGroupsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.JoinedGroupsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -388,7 +388,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.JoinedGroupsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(usergroup.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(usergroup.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -396,7 +396,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FriendshipsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FriendshipsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -404,7 +404,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.FriendshipsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(friendship.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(friendship.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -412,7 +412,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.UserTweetsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserTweetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -420,7 +420,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.UserTweetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(usertweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(usertweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -517,7 +517,7 @@ func (u *UserUpsertOne) Ignore() *UserUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserUpsertOne) DoNothing() *UserUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -561,18 +561,18 @@ func (u *UserUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *UserUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *UserUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *UserUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *UserUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -625,10 +625,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -735,7 +735,7 @@ func (u *UserUpsertBulk) Ignore() *UserUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *UserUpsertBulk) DoNothing() *UserUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

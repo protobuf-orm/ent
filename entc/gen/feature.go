@@ -48,7 +48,7 @@ var (
 		Name:        "namedges",
 		Stage:       Experimental,
 		Default:     false,
-		Description: "NamedEdges provides an API for eager-loading edges with dynamic names",
+		Description: "NamedEdges provides an Api for eager-loading edges with dynamic names",
 	}
 
 	// FeatureBidiEdgeRefs provides a feature-flag for sql dialect to set two-way
@@ -79,13 +79,13 @@ var (
 	}
 
 	// FeatureSchemaConfig allows users to pass init time alternate schema names
-	// for each ent model. This is useful if your SQL tables are spread out against
+	// for each ent model. This is useful if your Sql tables are spread out against
 	// multiple databases.
 	FeatureSchemaConfig = Feature{
 		Name:        "sql/schemaconfig",
 		Stage:       Stable,
 		Default:     false,
-		Description: "Allows alternate schema names for each ent model. Useful if SQL tables are spread out against multiple databases",
+		Description: "Allows alternate schema names for each ent model. Useful if Sql tables are spread out against multiple databases",
 		GraphTemplates: []GraphTemplate{
 			{
 				Name:   "dialect/sql/internal/schemaconfig",
@@ -110,7 +110,7 @@ var (
 		Name:        "sql/lock",
 		Stage:       Experimental,
 		Default:     false,
-		Description: "Allows users to use row-level locking in SQL using the 'FOR {UPDATE|SHARE}' clauses",
+		Description: "Allows users to use row-level locking in Sql using the 'FOR {UPDATE|SHARE}' clauses",
 	}
 
 	// FeatureModifier provides a feature-flag for adding query modifiers.
@@ -121,7 +121,7 @@ var (
 		Description: "Allows users to attach custom modifiers to queries",
 	}
 
-	// FeatureExecQuery provides a feature-flag for exposing the ExecContext/QueryContext methods of the underlying SQL drivers.
+	// FeatureExecQuery provides a feature-flag for exposing the ExecContext/QueryContext methods of the underlying Sql drivers.
 	FeatureExecQuery = Feature{
 		Name:        "sql/execquery",
 		Stage:       Experimental,
@@ -144,7 +144,7 @@ var (
 		Description: "Allows users to work with versioned migrations / migration files",
 	}
 
-	FeatureGlobalID = Feature{
+	FeatureGlobalId = Feature{
 		Name:        "sql/globalid",
 		Stage:       Experimental,
 		Default:     false,
@@ -173,7 +173,7 @@ var (
 		FeatureExecQuery,
 		FeatureUpsert,
 		FeatureVersionedMigration,
-		FeatureGlobalID,
+		FeatureGlobalId,
 	}
 	// allFeatures includes all public and private features.
 	allFeatures = append(AllFeatures, featureMultiSchema)
@@ -190,7 +190,7 @@ const (
 	Experimental
 
 	// Alpha features are features whose initial development was finished, tested
-	// on the infra of the ent team, but we expect breaking-changes to their APIs.
+	// on the infra of the ent team, but we expect breaking-changes to their Apis.
 	Alpha
 
 	// Beta features are Alpha features that were added to the entgo.io

@@ -41,52 +41,52 @@ func (_c *NoteCreate) SetNillableText(v *string) *NoteCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *NoteCreate) SetID(v schema.NoteID) *NoteCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *NoteCreate) SetId(v schema.NoteId) *NoteCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *NoteCreate) SetNillableID(v *schema.NoteID) *NoteCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *NoteCreate) SetNillableId(v *schema.NoteId) *NoteCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetParentID sets the "parent" edge to the Note entity by ID.
-func (_c *NoteCreate) SetParentID(id schema.NoteID) *NoteCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the Note entity by Id.
+func (_c *NoteCreate) SetParentId(id schema.NoteId) *NoteCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
-// SetNillableParentID sets the "parent" edge to the Note entity by ID if the given value is not nil.
-func (_c *NoteCreate) SetNillableParentID(id *schema.NoteID) *NoteCreate {
+// SetNillableParentId sets the "parent" edge to the Note entity by Id if the given value is not nil.
+func (_c *NoteCreate) SetNillableParentId(id *schema.NoteId) *NoteCreate {
 	if id != nil {
-		_c = _c.SetParentID(*id)
+		_c = _c.SetParentId(*id)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the Note entity.
 func (_c *NoteCreate) SetParent(v *Note) *NoteCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the Note entity by IDs.
-func (_c *NoteCreate) AddChildrenIDs(ids ...schema.NoteID) *NoteCreate {
-	_c.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the Note entity by Ids.
+func (_c *NoteCreate) AddChildrenIds(ids ...schema.NoteId) *NoteCreate {
+	_c.mutation.AddChildrenIds(ids...)
 	return _c
 }
 
 // AddChildren adds the "children" edges to the Note entity.
 func (_c *NoteCreate) AddChildren(v ...*Note) *NoteCreate {
-	ids := make([]schema.NoteID, len(v))
+	ids := make([]schema.NoteId, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddChildrenIDs(ids...)
+	return _c.AddChildrenIds(ids...)
 }
 
 // Mutation returns the NoteMutation object of the builder.
@@ -124,16 +124,16 @@ func (_c *NoteCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *NoteCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := note.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := note.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *NoteCreate) check() error {
-	if v, ok := _c.mutation.ID(); ok {
-		if err := note.IDValidator(string(v)); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := note.IdValidator(string(v)); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Note.id": %w`, err)}
 		}
 	}
@@ -151,14 +151,14 @@ func (_c *NoteCreate) sqlSave(ctx context.Context) (*Note, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(schema.NoteID); ok {
-			_node.ID = id
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(schema.NoteId); ok {
+			_node.Id = id
 		} else {
-			return nil, fmt.Errorf("unexpected Note.ID type: %T", _spec.ID.Value)
+			return nil, fmt.Errorf("unexpected Note.Id type: %T", _spec.Id.Value)
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -166,18 +166,18 @@ func (_c *NoteCreate) sqlSave(ctx context.Context) (*Note, error) {
 func (_c *NoteCreate) createSpec() (*Note, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Note{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(note.Table, sqlgraph.NewFieldSpec(note.FieldID, field.TypeString))
+		_spec = sqlgraph.NewCreateSpec(note.Table, sqlgraph.NewFieldSpec(note.FieldId, field.TypeString))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(note.FieldText, field.TypeString, value)
 		_node.Text = value
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -185,7 +185,7 @@ func (_c *NoteCreate) createSpec() (*Note, *sqlgraph.CreateSpec) {
 			Columns: []string{note.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(note.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(note.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -194,7 +194,7 @@ func (_c *NoteCreate) createSpec() (*Note, *sqlgraph.CreateSpec) {
 		_node.note_children = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -202,7 +202,7 @@ func (_c *NoteCreate) createSpec() (*Note, *sqlgraph.CreateSpec) {
 			Columns: []string{note.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(note.FieldID, field.TypeString),
+				IdSpec: sqlgraph.NewFieldSpec(note.FieldId, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -280,22 +280,22 @@ func (u *NoteUpsert) ClearText() *NoteUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Note.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(note.FieldID)
+//				u.SetIgnore(note.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *NoteUpsertOne) UpdateNewValues() *NoteUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(note.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(note.FieldId)
 		}
 	}))
 	return u
@@ -313,7 +313,7 @@ func (u *NoteUpsertOne) Ignore() *NoteUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NoteUpsertOne) DoNothing() *NoteUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -364,23 +364,23 @@ func (u *NoteUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *NoteUpsertOne) ID(ctx context.Context) (id schema.NoteID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: NoteUpsertOne.ID is not supported by MySQL driver. Use NoteUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *NoteUpsertOne) Id(ctx context.Context) (id schema.NoteId, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: NoteUpsertOne.Id is not supported by MySql driver. Use NoteUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *NoteUpsertOne) IDX(ctx context.Context) schema.NoteID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *NoteUpsertOne) IdX(ctx context.Context) schema.NoteId {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -433,7 +433,7 @@ func (_c *NoteCreateBulk) Save(ctx context.Context) ([]*Note, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -521,7 +521,7 @@ type NoteUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(note.FieldID)
+//				u.SetIgnore(note.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -529,8 +529,8 @@ func (u *NoteUpsertBulk) UpdateNewValues() *NoteUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(note.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(note.FieldId)
 			}
 		}
 	}))
@@ -549,7 +549,7 @@ func (u *NoteUpsertBulk) Ignore() *NoteUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NoteUpsertBulk) DoNothing() *NoteUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

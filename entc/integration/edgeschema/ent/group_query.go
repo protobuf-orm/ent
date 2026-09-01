@@ -83,8 +83,8 @@ func (_q *GroupQuery) QueryUsers() *UserQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(group.Table, group.FieldID, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(group.Table, group.FieldId, selector),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, group.UsersTable, group.UsersPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -105,8 +105,8 @@ func (_q *GroupQuery) QueryTags() *TagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(group.Table, group.FieldID, selector),
-			sqlgraph.To(tag.Table, tag.FieldID),
+			sqlgraph.From(group.Table, group.FieldId, selector),
+			sqlgraph.To(tag.Table, tag.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, group.TagsTable, group.TagsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -127,8 +127,8 @@ func (_q *GroupQuery) QueryJoinedUsers() *UserGroupQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(group.Table, group.FieldID, selector),
-			sqlgraph.To(usergroup.Table, usergroup.FieldID),
+			sqlgraph.From(group.Table, group.FieldId, selector),
+			sqlgraph.To(usergroup.Table, usergroup.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, group.JoinedUsersTable, group.JoinedUsersColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -149,8 +149,8 @@ func (_q *GroupQuery) QueryGroupTags() *GroupTagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(group.Table, group.FieldID, selector),
-			sqlgraph.To(grouptag.Table, grouptag.FieldID),
+			sqlgraph.From(group.Table, group.FieldId, selector),
+			sqlgraph.To(grouptag.Table, grouptag.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, group.GroupTagsTable, group.GroupTagsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -181,11 +181,11 @@ func (_q *GroupQuery) FirstX(ctx context.Context) *Group {
 	return node
 }
 
-// FirstID returns the first Group ID from the query.
-// Returns a *NotFoundError when no Group ID was found.
-func (_q *GroupQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Group Id from the query.
+// Returns a *NotFoundError when no Group Id was found.
+func (_q *GroupQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -195,9 +195,9 @@ func (_q *GroupQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *GroupQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *GroupQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -231,12 +231,12 @@ func (_q *GroupQuery) OnlyX(ctx context.Context) *Group {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Group ID in the query.
-// Returns a *NotSingularError when more than one Group ID is found.
+// OnlyId is like Only, but returns the only Group Id in the query.
+// Returns a *NotSingularError when more than one Group Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *GroupQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *GroupQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -250,9 +250,9 @@ func (_q *GroupQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *GroupQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *GroupQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -278,21 +278,21 @@ func (_q *GroupQuery) AllX(ctx context.Context) []*Group {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Group IDs.
-func (_q *GroupQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Group Ids.
+func (_q *GroupQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(group.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(group.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *GroupQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *GroupQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -320,7 +320,7 @@ func (_q *GroupQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *GroupQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -540,20 +540,20 @@ func (_q *GroupQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Group,
 }
 
 func (_q *GroupQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*Group, init func(*Group), assign func(*Group, *User)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Group)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Group)
 	nids := make(map[int]map[*Group]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(group.UsersTable)
-		s.Join(joinT).On(s.C(user.FieldID), joinT.C(group.UsersPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(group.UsersPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(user.FieldId), joinT.C(group.UsersPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(group.UsersPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(group.UsersPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -577,10 +577,10 @@ func (_q *GroupQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Group]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Group]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -590,9 +590,9 @@ func (_q *GroupQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "users" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "users" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -601,20 +601,20 @@ func (_q *GroupQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*
 	return nil
 }
 func (_q *GroupQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Group, init func(*Group), assign func(*Group, *Tag)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Group)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Group)
 	nids := make(map[int]map[*Group]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(group.TagsTable)
-		s.Join(joinT).On(s.C(tag.FieldID), joinT.C(group.TagsPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(group.TagsPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(tag.FieldId), joinT.C(group.TagsPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(group.TagsPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(group.TagsPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -638,10 +638,10 @@ func (_q *GroupQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Gr
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Group]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Group]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -651,9 +651,9 @@ func (_q *GroupQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Gr
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "tags" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "tags" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -665,14 +665,14 @@ func (_q *GroupQuery) loadJoinedUsers(ctx context.Context, query *UserGroupQuery
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Group)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(usergroup.FieldGroupID)
+		query.ctx.AppendFieldOnce(usergroup.FieldGroupId)
 	}
 	query.Where(predicate.UserGroup(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(group.JoinedUsersColumn), fks...))
@@ -682,10 +682,10 @@ func (_q *GroupQuery) loadJoinedUsers(ctx context.Context, query *UserGroupQuery
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.GroupID
+		fk := n.GroupId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "group_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "group_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -695,14 +695,14 @@ func (_q *GroupQuery) loadGroupTags(ctx context.Context, query *GroupTagQuery, n
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Group)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(grouptag.FieldGroupID)
+		query.ctx.AppendFieldOnce(grouptag.FieldGroupId)
 	}
 	query.Where(predicate.GroupTag(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(group.GroupTagsColumn), fks...))
@@ -712,10 +712,10 @@ func (_q *GroupQuery) loadGroupTags(ctx context.Context, query *GroupTagQuery, n
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.GroupID
+		fk := n.GroupId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "group_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "group_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -732,7 +732,7 @@ func (_q *GroupQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *GroupQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(group.Table, group.Columns, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -741,9 +741,9 @@ func (_q *GroupQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, group.FieldId)
 		for i := range fields {
-			if fields[i] != group.FieldID {
+			if fields[i] != group.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

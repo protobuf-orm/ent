@@ -69,11 +69,11 @@ var (
 	}
 	// PetColumns holds the columns for the "pet" table.
 	PetColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "name", Type: field.TypeString},
 		{Name: "age", Type: field.TypeFloat64},
 		{Name: "weight", Type: field.TypeFloat64},
-		{Name: "best_friend_id", Type: field.TypeUUID, Unique: true, Nullable: true, Default: "00000000-0000-0000-0000-000000000000"},
+		{Name: "best_friend_id", Type: field.TypeUuid, Unique: true, Nullable: true, Default: "00000000-0000-0000-0000-000000000000"},
 		{Name: "owner_id", Type: field.TypeInt, Default: 0},
 	}
 	// PetTable holds the schema information for the "pet" table.
@@ -105,13 +105,13 @@ var (
 	}
 	// SessionColumns holds the columns for the "session" table.
 	SessionColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "active", Type: field.TypeBool, Default: false},
 		{Name: "issued_at", Type: field.TypeTime},
 		{Name: "expires_at", Type: field.TypeTime, Nullable: true},
 		{Name: "token", Type: field.TypeString, Nullable: true},
-		{Name: "method", Type: field.TypeJSON, Nullable: true},
-		{Name: "device_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "method", Type: field.TypeJson, Nullable: true},
+		{Name: "device_id", Type: field.TypeUuid, Nullable: true},
 	}
 	// SessionTable holds the schema information for the "session" table.
 	SessionTable = &schema.Table{
@@ -136,7 +136,7 @@ var (
 	}
 	// SessionDeviceColumns holds the columns for the "session_device" table.
 	SessionDeviceColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "ip_address", Type: field.TypeString, Size: 50},
 		{Name: "user_agent", Type: field.TypeString, Size: 512},
 		{Name: "location", Type: field.TypeString, Size: 512},
@@ -167,7 +167,7 @@ var (
 		{Name: "age", Type: field.TypeFloat64},
 		{Name: "first_name", Type: field.TypeString},
 		{Name: "last_name", Type: field.TypeString},
-		{Name: "tags", Type: field.TypeJSON, Nullable: true},
+		{Name: "tags", Type: field.TypeJson, Nullable: true},
 	}
 	// UserTable holds the schema information for the "user" table.
 	UserTable = &schema.Table{

@@ -46,13 +46,13 @@ func (m *Mutation) Predicates() []predicate.Blob {
 	return m.predicates
 }
 
-// SetUUID sets the "uuid" field.
-func (m *Mutation) SetUUID(u uuid.UUID) {
+// SetUuid sets the "uuid" field.
+func (m *Mutation) SetUuid(u uuid.UUID) {
 	m.uuid = &u
 }
 
-// UUID returns the value of the "uuid" field in the mutation.
-func (m *Mutation) UUID() (r uuid.UUID, exists bool) {
+// Uuid returns the value of the "uuid" field in the mutation.
+func (m *Mutation) Uuid() (r uuid.UUID, exists bool) {
 	v := m.uuid
 	if v == nil {
 		return
@@ -60,8 +60,8 @@ func (m *Mutation) UUID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetUUID resets all changes to the "uuid" field.
-func (m *Mutation) ResetUUID() {
+// ResetUuid resets all changes to the "uuid" field.
+func (m *Mutation) ResetUuid() {
 	m.uuid = nil
 }
 
@@ -104,8 +104,8 @@ func (m *Mutation) ResetCount() {
 	m.addcount = nil
 }
 
-// SetParentID sets the "parent" edge to the Blob entity by id.
-func (m *Mutation) SetParentID(id uuid.UUID) {
+// SetParentId sets the "parent" edge to the Blob entity by id.
+func (m *Mutation) SetParentId(id uuid.UUID) {
 	m.parent = &id
 }
 
@@ -119,18 +119,18 @@ func (m *Mutation) ParentCleared() bool {
 	return m.clearedparent
 }
 
-// ParentID returns the "parent" edge ID in the mutation.
-func (m *Mutation) ParentID() (id uuid.UUID, exists bool) {
+// ParentId returns the "parent" edge Id in the mutation.
+func (m *Mutation) ParentId() (id uuid.UUID, exists bool) {
 	if m.parent != nil {
 		return *m.parent, true
 	}
 	return
 }
 
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ParentIDs() (ids []uuid.UUID) {
+// ParentIds returns the "parent" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ParentId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ParentIds() (ids []uuid.UUID) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
@@ -143,8 +143,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddLinksIDs adds the "links" edge to the Blob entity by ids.
-func (m *Mutation) AddLinksIDs(ids ...uuid.UUID) {
+// AddLinksIds adds the "links" edge to the Blob entity by ids.
+func (m *Mutation) AddLinksIds(ids ...uuid.UUID) {
 	if m.links == nil {
 		m.links = make(map[uuid.UUID]struct{})
 	}
@@ -163,8 +163,8 @@ func (m *Mutation) LinksCleared() bool {
 	return m.clearedlinks
 }
 
-// RemoveLinksIDs removes the "links" edge to the Blob entity by IDs.
-func (m *Mutation) RemoveLinksIDs(ids ...uuid.UUID) {
+// RemoveLinksIds removes the "links" edge to the Blob entity by Ids.
+func (m *Mutation) RemoveLinksIds(ids ...uuid.UUID) {
 	if m.removedlinks == nil {
 		m.removedlinks = make(map[uuid.UUID]struct{})
 	}
@@ -174,16 +174,16 @@ func (m *Mutation) RemoveLinksIDs(ids ...uuid.UUID) {
 	}
 }
 
-// RemovedLinks returns the removed IDs of the "links" edge to the Blob entity.
-func (m *Mutation) RemovedLinksIDs() (ids []uuid.UUID) {
+// RemovedLinks returns the removed Ids of the "links" edge to the Blob entity.
+func (m *Mutation) RemovedLinksIds() (ids []uuid.UUID) {
 	for id := range m.removedlinks {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// LinksIDs returns the "links" edge IDs in the mutation.
-func (m *Mutation) LinksIDs() (ids []uuid.UUID) {
+// LinksIds returns the "links" edge Ids in the mutation.
+func (m *Mutation) LinksIds() (ids []uuid.UUID) {
 	for id := range m.links {
 		ids = append(ids, id)
 	}
@@ -233,7 +233,7 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 2)
 	if m.uuid != nil {
-		fields = append(fields, FieldUUID)
+		fields = append(fields, FieldUuid)
 	}
 	if m.count != nil {
 		fields = append(fields, FieldCount)
@@ -246,8 +246,8 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldUUID:
-		return m.UUID()
+	case FieldUuid:
+		return m.Uuid()
 	case FieldCount:
 		return m.Count()
 	}
@@ -266,12 +266,12 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldUUID:
+	case FieldUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUUID(v)
+		m.SetUuid(v)
 		return nil
 	case FieldCount:
 		v, ok := value.(int)
@@ -344,8 +344,8 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldUUID:
-		m.ResetUUID()
+	case FieldUuid:
+		m.ResetUuid()
 		return nil
 	case FieldCount:
 		m.ResetCount()
@@ -366,9 +366,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeParent:
 		if id := m.parent; id != nil {
@@ -393,9 +393,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeLinks:
 		ids := make([]ent.Value, 0, len(m.removedlinks))

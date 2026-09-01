@@ -29,16 +29,16 @@ type FileCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetSetID sets the "set_id" field.
-func (_c *FileCreate) SetSetID(v int) *FileCreate {
-	_c.mutation.SetSetID(v)
+// SetSetId sets the "set_id" field.
+func (_c *FileCreate) SetSetId(v int) *FileCreate {
+	_c.mutation.SetSetId(v)
 	return _c
 }
 
-// SetNillableSetID sets the "set_id" field if the given value is not nil.
-func (_c *FileCreate) SetNillableSetID(v *int) *FileCreate {
+// SetNillableSetId sets the "set_id" field if the given value is not nil.
+func (_c *FileCreate) SetNillableSetId(v *int) *FileCreate {
 	if v != nil {
-		_c.SetSetID(*v)
+		_c.SetSetId(*v)
 	}
 	return _c
 }
@@ -105,16 +105,16 @@ func (_c *FileCreate) SetNillableOp(v *bool) *FileCreate {
 	return _c
 }
 
-// SetFieldID sets the "field_id" field.
-func (_c *FileCreate) SetFieldID(v int) *FileCreate {
-	_c.mutation.SetFieldID(v)
+// SetFieldId sets the "field_id" field.
+func (_c *FileCreate) SetFieldId(v int) *FileCreate {
+	_c.mutation.SetFieldId(v)
 	return _c
 }
 
-// SetNillableFieldID sets the "field_id" field if the given value is not nil.
-func (_c *FileCreate) SetNillableFieldID(v *int) *FileCreate {
+// SetNillableFieldId sets the "field_id" field if the given value is not nil.
+func (_c *FileCreate) SetNillableFieldId(v *int) *FileCreate {
 	if v != nil {
-		_c.SetFieldID(*v)
+		_c.SetFieldId(*v)
 	}
 	return _c
 }
@@ -133,47 +133,47 @@ func (_c *FileCreate) SetNillableCreateTime(v *time.Time) *FileCreate {
 	return _c
 }
 
-// SetOwnerID sets the "owner" edge to the User entity by ID.
-func (_c *FileCreate) SetOwnerID(id int) *FileCreate {
-	_c.mutation.SetOwnerID(id)
+// SetOwnerId sets the "owner" edge to the User entity by Id.
+func (_c *FileCreate) SetOwnerId(id int) *FileCreate {
+	_c.mutation.SetOwnerId(id)
 	return _c
 }
 
-// SetNillableOwnerID sets the "owner" edge to the User entity by ID if the given value is not nil.
-func (_c *FileCreate) SetNillableOwnerID(id *int) *FileCreate {
+// SetNillableOwnerId sets the "owner" edge to the User entity by Id if the given value is not nil.
+func (_c *FileCreate) SetNillableOwnerId(id *int) *FileCreate {
 	if id != nil {
-		_c = _c.SetOwnerID(*id)
+		_c = _c.SetOwnerId(*id)
 	}
 	return _c
 }
 
 // SetOwner sets the "owner" edge to the User entity.
 func (_c *FileCreate) SetOwner(v *User) *FileCreate {
-	return _c.SetOwnerID(v.ID)
+	return _c.SetOwnerId(v.Id)
 }
 
-// SetTypeID sets the "type" edge to the FileType entity by ID.
-func (_c *FileCreate) SetTypeID(id int) *FileCreate {
-	_c.mutation.SetTypeID(id)
+// SetTypeId sets the "type" edge to the FileType entity by Id.
+func (_c *FileCreate) SetTypeId(id int) *FileCreate {
+	_c.mutation.SetTypeId(id)
 	return _c
 }
 
-// SetNillableTypeID sets the "type" edge to the FileType entity by ID if the given value is not nil.
-func (_c *FileCreate) SetNillableTypeID(id *int) *FileCreate {
+// SetNillableTypeId sets the "type" edge to the FileType entity by Id if the given value is not nil.
+func (_c *FileCreate) SetNillableTypeId(id *int) *FileCreate {
 	if id != nil {
-		_c = _c.SetTypeID(*id)
+		_c = _c.SetTypeId(*id)
 	}
 	return _c
 }
 
 // SetType sets the "type" edge to the FileType entity.
 func (_c *FileCreate) SetType(v *FileType) *FileCreate {
-	return _c.SetTypeID(v.ID)
+	return _c.SetTypeId(v.Id)
 }
 
-// AddFieldIDs adds the "field" edge to the FieldType entity by IDs.
-func (_c *FileCreate) AddFieldIDs(ids ...int) *FileCreate {
-	_c.mutation.AddFieldIDs(ids...)
+// AddFieldIds adds the "field" edge to the FieldType entity by Ids.
+func (_c *FileCreate) AddFieldIds(ids ...int) *FileCreate {
+	_c.mutation.AddFieldIds(ids...)
 	return _c
 }
 
@@ -181,9 +181,9 @@ func (_c *FileCreate) AddFieldIDs(ids ...int) *FileCreate {
 func (_c *FileCreate) AddField(v ...*FieldType) *FileCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddFieldIDs(ids...)
+	return _c.AddFieldIds(ids...)
 }
 
 // Mutation returns the FileMutation object of the builder.
@@ -229,8 +229,8 @@ func (_c *FileCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *FileCreate) check() error {
-	if v, ok := _c.mutation.SetID(); ok {
-		if err := file.SetIDValidator(v); err != nil {
+	if v, ok := _c.mutation.SetId(); ok {
+		if err := file.SetIdValidator(v); err != nil {
 			return &ValidationError{Name: "set_id", err: fmt.Errorf(`ent: validator failed for field "File.set_id": %w`, err)}
 		}
 	}
@@ -259,9 +259,9 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -269,12 +269,12 @@ func (_c *FileCreate) sqlSave(ctx context.Context) (*File, error) {
 func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 	var (
 		_node = &File{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(file.Table, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
-	if value, ok := _c.mutation.SetID(); ok {
-		_spec.SetField(file.FieldSetID, field.TypeInt, value)
-		_node.SetID = value
+	if value, ok := _c.mutation.SetId(); ok {
+		_spec.SetField(file.FieldSetId, field.TypeInt, value)
+		_node.SetId = value
 	}
 	if value, ok := _c.mutation.Size(); ok {
 		_spec.SetField(file.FieldSize, field.TypeInt, value)
@@ -296,15 +296,15 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		_spec.SetField(file.FieldOp, field.TypeBool, value)
 		_node.Op = value
 	}
-	if value, ok := _c.mutation.FieldID(); ok {
-		_spec.SetField(file.FieldFieldID, field.TypeInt, value)
-		_node.FieldID = value
+	if value, ok := _c.mutation.FieldId(); ok {
+		_spec.SetField(file.FieldFieldId, field.TypeInt, value)
+		_node.FieldId = value
 	}
 	if value, ok := _c.mutation.CreateTime(); ok {
 		_spec.SetField(file.FieldCreateTime, field.TypeTime, value)
 		_node.CreateTime = value
 	}
-	if nodes := _c.mutation.OwnerIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OwnerIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -312,7 +312,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: []string{file.OwnerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -321,7 +321,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		_node.user_files = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TypeIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TypeIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -329,7 +329,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: []string{file.TypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(filetype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(filetype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -338,7 +338,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		_node.file_type_files = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.FieldIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.FieldIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -346,7 +346,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Columns: []string{file.FieldColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -361,7 +361,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 // of the `INSERT` statement. For example:
 //
 //	client.File.Create().
-//		SetSetID(v).
+//		SetSetId(v).
 //		OnConflict(
 //			// Update the row with the new values
 //			// the was proposed for insertion.
@@ -370,7 +370,7 @@ func (_c *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.FileUpsert) {
-//			SetSetID(v+v).
+//			SetSetId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *FileCreate) OnConflict(opts ...sql.ConflictOption) *FileUpsertOne {
@@ -406,27 +406,27 @@ type (
 	}
 )
 
-// SetSetID sets the "set_id" field.
-func (u *FileUpsert) SetSetID(v int) *FileUpsert {
-	u.Set(file.FieldSetID, v)
+// SetSetId sets the "set_id" field.
+func (u *FileUpsert) SetSetId(v int) *FileUpsert {
+	u.Set(file.FieldSetId, v)
 	return u
 }
 
-// UpdateSetID sets the "set_id" field to the value that was provided on create.
-func (u *FileUpsert) UpdateSetID() *FileUpsert {
-	u.SetExcluded(file.FieldSetID)
+// UpdateSetId sets the "set_id" field to the value that was provided on create.
+func (u *FileUpsert) UpdateSetId() *FileUpsert {
+	u.SetExcluded(file.FieldSetId)
 	return u
 }
 
-// AddSetID adds v to the "set_id" field.
-func (u *FileUpsert) AddSetID(v int) *FileUpsert {
-	u.Add(file.FieldSetID, v)
+// AddSetId adds v to the "set_id" field.
+func (u *FileUpsert) AddSetId(v int) *FileUpsert {
+	u.Add(file.FieldSetId, v)
 	return u
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (u *FileUpsert) ClearSetID() *FileUpsert {
-	u.SetNull(file.FieldSetID)
+// ClearSetId clears the value of the "set_id" field.
+func (u *FileUpsert) ClearSetId() *FileUpsert {
+	u.SetNull(file.FieldSetId)
 	return u
 }
 
@@ -514,27 +514,27 @@ func (u *FileUpsert) ClearOp() *FileUpsert {
 	return u
 }
 
-// SetFieldID sets the "field_id" field.
-func (u *FileUpsert) SetFieldID(v int) *FileUpsert {
-	u.Set(file.FieldFieldID, v)
+// SetFieldId sets the "field_id" field.
+func (u *FileUpsert) SetFieldId(v int) *FileUpsert {
+	u.Set(file.FieldFieldId, v)
 	return u
 }
 
-// UpdateFieldID sets the "field_id" field to the value that was provided on create.
-func (u *FileUpsert) UpdateFieldID() *FileUpsert {
-	u.SetExcluded(file.FieldFieldID)
+// UpdateFieldId sets the "field_id" field to the value that was provided on create.
+func (u *FileUpsert) UpdateFieldId() *FileUpsert {
+	u.SetExcluded(file.FieldFieldId)
 	return u
 }
 
-// AddFieldID adds v to the "field_id" field.
-func (u *FileUpsert) AddFieldID(v int) *FileUpsert {
-	u.Add(file.FieldFieldID, v)
+// AddFieldId adds v to the "field_id" field.
+func (u *FileUpsert) AddFieldId(v int) *FileUpsert {
+	u.Add(file.FieldFieldId, v)
 	return u
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (u *FileUpsert) ClearFieldID() *FileUpsert {
-	u.SetNull(file.FieldFieldID)
+// ClearFieldId clears the value of the "field_id" field.
+func (u *FileUpsert) ClearFieldId() *FileUpsert {
+	u.SetNull(file.FieldFieldId)
 	return u
 }
 
@@ -581,7 +581,7 @@ func (u *FileUpsertOne) Ignore() *FileUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FileUpsertOne) DoNothing() *FileUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -596,31 +596,31 @@ func (u *FileUpsertOne) Update(set func(*FileUpsert)) *FileUpsertOne {
 	return u
 }
 
-// SetSetID sets the "set_id" field.
-func (u *FileUpsertOne) SetSetID(v int) *FileUpsertOne {
+// SetSetId sets the "set_id" field.
+func (u *FileUpsertOne) SetSetId(v int) *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.SetSetID(v)
+		s.SetSetId(v)
 	})
 }
 
-// AddSetID adds v to the "set_id" field.
-func (u *FileUpsertOne) AddSetID(v int) *FileUpsertOne {
+// AddSetId adds v to the "set_id" field.
+func (u *FileUpsertOne) AddSetId(v int) *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.AddSetID(v)
+		s.AddSetId(v)
 	})
 }
 
-// UpdateSetID sets the "set_id" field to the value that was provided on create.
-func (u *FileUpsertOne) UpdateSetID() *FileUpsertOne {
+// UpdateSetId sets the "set_id" field to the value that was provided on create.
+func (u *FileUpsertOne) UpdateSetId() *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.UpdateSetID()
+		s.UpdateSetId()
 	})
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (u *FileUpsertOne) ClearSetID() *FileUpsertOne {
+// ClearSetId clears the value of the "set_id" field.
+func (u *FileUpsertOne) ClearSetId() *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.ClearSetID()
+		s.ClearSetId()
 	})
 }
 
@@ -722,31 +722,31 @@ func (u *FileUpsertOne) ClearOp() *FileUpsertOne {
 	})
 }
 
-// SetFieldID sets the "field_id" field.
-func (u *FileUpsertOne) SetFieldID(v int) *FileUpsertOne {
+// SetFieldId sets the "field_id" field.
+func (u *FileUpsertOne) SetFieldId(v int) *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.SetFieldID(v)
+		s.SetFieldId(v)
 	})
 }
 
-// AddFieldID adds v to the "field_id" field.
-func (u *FileUpsertOne) AddFieldID(v int) *FileUpsertOne {
+// AddFieldId adds v to the "field_id" field.
+func (u *FileUpsertOne) AddFieldId(v int) *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.AddFieldID(v)
+		s.AddFieldId(v)
 	})
 }
 
-// UpdateFieldID sets the "field_id" field to the value that was provided on create.
-func (u *FileUpsertOne) UpdateFieldID() *FileUpsertOne {
+// UpdateFieldId sets the "field_id" field to the value that was provided on create.
+func (u *FileUpsertOne) UpdateFieldId() *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.UpdateFieldID()
+		s.UpdateFieldId()
 	})
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (u *FileUpsertOne) ClearFieldID() *FileUpsertOne {
+// ClearFieldId clears the value of the "field_id" field.
+func (u *FileUpsertOne) ClearFieldId() *FileUpsertOne {
 	return u.Update(func(s *FileUpsert) {
-		s.ClearFieldID()
+		s.ClearFieldId()
 	})
 }
 
@@ -786,18 +786,18 @@ func (u *FileUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *FileUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *FileUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *FileUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *FileUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -850,10 +850,10 @@ func (_c *FileCreateBulk) Save(ctx context.Context) ([]*File, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -906,7 +906,7 @@ func (_c *FileCreateBulk) ExecX(ctx context.Context) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.FileUpsert) {
-//			SetSetID(v+v).
+//			SetSetId(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *FileCreateBulk) OnConflict(opts ...sql.ConflictOption) *FileUpsertBulk {
@@ -960,7 +960,7 @@ func (u *FileUpsertBulk) Ignore() *FileUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FileUpsertBulk) DoNothing() *FileUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -975,31 +975,31 @@ func (u *FileUpsertBulk) Update(set func(*FileUpsert)) *FileUpsertBulk {
 	return u
 }
 
-// SetSetID sets the "set_id" field.
-func (u *FileUpsertBulk) SetSetID(v int) *FileUpsertBulk {
+// SetSetId sets the "set_id" field.
+func (u *FileUpsertBulk) SetSetId(v int) *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.SetSetID(v)
+		s.SetSetId(v)
 	})
 }
 
-// AddSetID adds v to the "set_id" field.
-func (u *FileUpsertBulk) AddSetID(v int) *FileUpsertBulk {
+// AddSetId adds v to the "set_id" field.
+func (u *FileUpsertBulk) AddSetId(v int) *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.AddSetID(v)
+		s.AddSetId(v)
 	})
 }
 
-// UpdateSetID sets the "set_id" field to the value that was provided on create.
-func (u *FileUpsertBulk) UpdateSetID() *FileUpsertBulk {
+// UpdateSetId sets the "set_id" field to the value that was provided on create.
+func (u *FileUpsertBulk) UpdateSetId() *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.UpdateSetID()
+		s.UpdateSetId()
 	})
 }
 
-// ClearSetID clears the value of the "set_id" field.
-func (u *FileUpsertBulk) ClearSetID() *FileUpsertBulk {
+// ClearSetId clears the value of the "set_id" field.
+func (u *FileUpsertBulk) ClearSetId() *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.ClearSetID()
+		s.ClearSetId()
 	})
 }
 
@@ -1101,31 +1101,31 @@ func (u *FileUpsertBulk) ClearOp() *FileUpsertBulk {
 	})
 }
 
-// SetFieldID sets the "field_id" field.
-func (u *FileUpsertBulk) SetFieldID(v int) *FileUpsertBulk {
+// SetFieldId sets the "field_id" field.
+func (u *FileUpsertBulk) SetFieldId(v int) *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.SetFieldID(v)
+		s.SetFieldId(v)
 	})
 }
 
-// AddFieldID adds v to the "field_id" field.
-func (u *FileUpsertBulk) AddFieldID(v int) *FileUpsertBulk {
+// AddFieldId adds v to the "field_id" field.
+func (u *FileUpsertBulk) AddFieldId(v int) *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.AddFieldID(v)
+		s.AddFieldId(v)
 	})
 }
 
-// UpdateFieldID sets the "field_id" field to the value that was provided on create.
-func (u *FileUpsertBulk) UpdateFieldID() *FileUpsertBulk {
+// UpdateFieldId sets the "field_id" field to the value that was provided on create.
+func (u *FileUpsertBulk) UpdateFieldId() *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.UpdateFieldID()
+		s.UpdateFieldId()
 	})
 }
 
-// ClearFieldID clears the value of the "field_id" field.
-func (u *FileUpsertBulk) ClearFieldID() *FileUpsertBulk {
+// ClearFieldId clears the value of the "field_id" field.
+func (u *FileUpsertBulk) ClearFieldId() *FileUpsertBulk {
 	return u.Update(func(s *FileUpsert) {
-		s.ClearFieldID()
+		s.ClearFieldId()
 	})
 }
 

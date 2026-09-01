@@ -35,8 +35,8 @@ func main() {
 	}
 }
 
-// EncodeExtension is an implementation of entc.Extension that adds a MarshalJSON
-// method to each generated type <T> and inlines the Edges field to the top level JSON.
+// EncodeExtension is an implementation of entc.Extension that adds a MarshalJson
+// method to each generated type <T> and inlines the Edges field to the top level Json.
 type EncodeExtension struct {
 	entc.DefaultExtension
 }
@@ -47,8 +47,8 @@ func (e *EncodeExtension) Templates() []*gen.Template {
 		gen.MustParse(gen.NewTemplate("model/additional/jsonencode").
 			Parse(`
 {{ if $.Edges }}
-	// MarshalJSON implements the json.Marshaler interface.
-	func ({{ $.Receiver }} *{{ $.Name }}) MarshalJSON() ([]byte, error) {
+	// MarshalJson implements the json.Marshaler interface.
+	func ({{ $.Receiver }} *{{ $.Name }}) MarshalJson() ([]byte, error) {
 		type Alias {{ $.Name }}
 		return json.Marshal(&struct {
 			*Alias

@@ -20,52 +20,52 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// MixinIDQuery is the builder for querying MixinID entities.
-type MixinIDQuery struct {
+// MixinIdQuery is the builder for querying MixinId entities.
+type MixinIdQuery struct {
 	config
 	ctx        *QueryContext
 	order      []mixinid.OrderOption
 	inters     []Interceptor
-	predicates []predicate.MixinID
+	predicates []predicate.MixinId
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
 }
 
-// Where adds a new predicate for the MixinIDQuery builder.
-func (_q *MixinIDQuery) Where(ps ...predicate.MixinID) *MixinIDQuery {
+// Where adds a new predicate for the MixinIdQuery builder.
+func (_q *MixinIdQuery) Where(ps ...predicate.MixinId) *MixinIdQuery {
 	_q.predicates = append(_q.predicates, ps...)
 	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (_q *MixinIDQuery) Limit(limit int) *MixinIDQuery {
+func (_q *MixinIdQuery) Limit(limit int) *MixinIdQuery {
 	_q.ctx.Limit = &limit
 	return _q
 }
 
 // Offset to start from.
-func (_q *MixinIDQuery) Offset(offset int) *MixinIDQuery {
+func (_q *MixinIdQuery) Offset(offset int) *MixinIdQuery {
 	_q.ctx.Offset = &offset
 	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (_q *MixinIDQuery) Unique(unique bool) *MixinIDQuery {
+func (_q *MixinIdQuery) Unique(unique bool) *MixinIdQuery {
 	_q.ctx.Unique = &unique
 	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (_q *MixinIDQuery) Order(o ...mixinid.OrderOption) *MixinIDQuery {
+func (_q *MixinIdQuery) Order(o ...mixinid.OrderOption) *MixinIdQuery {
 	_q.order = append(_q.order, o...)
 	return _q
 }
 
-// First returns the first MixinID entity from the query.
-// Returns a *NotFoundError when no MixinID was found.
-func (_q *MixinIDQuery) First(ctx context.Context) (*MixinID, error) {
+// First returns the first MixinId entity from the query.
+// Returns a *NotFoundError when no MixinId was found.
+func (_q *MixinIdQuery) First(ctx context.Context) (*MixinId, error) {
 	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (_q *MixinIDQuery) First(ctx context.Context) (*MixinID, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (_q *MixinIDQuery) FirstX(ctx context.Context) *MixinID {
+func (_q *MixinIdQuery) FirstX(ctx context.Context) *MixinId {
 	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
@@ -85,11 +85,11 @@ func (_q *MixinIDQuery) FirstX(ctx context.Context) *MixinID {
 	return node
 }
 
-// FirstID returns the first MixinID ID from the query.
-// Returns a *NotFoundError when no MixinID ID was found.
-func (_q *MixinIDQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) {
+// FirstId returns the first MixinId Id from the query.
+// Returns a *NotFoundError when no MixinId Id was found.
+func (_q *MixinIdQuery) FirstId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -99,19 +99,19 @@ func (_q *MixinIDQuery) FirstID(ctx context.Context) (id uuid.UUID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *MixinIDQuery) FirstIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *MixinIdQuery) FirstIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
 	return id
 }
 
-// Only returns a single MixinID entity found by the query, ensuring it only returns one.
-// Returns a *NotSingularError when more than one MixinID entity is found.
-// Returns a *NotFoundError when no MixinID entities are found.
-func (_q *MixinIDQuery) Only(ctx context.Context) (*MixinID, error) {
+// Only returns a single MixinId entity found by the query, ensuring it only returns one.
+// Returns a *NotSingularError when more than one MixinId entity is found.
+// Returns a *NotFoundError when no MixinId entities are found.
+func (_q *MixinIdQuery) Only(ctx context.Context) (*MixinId, error) {
 	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
@@ -127,7 +127,7 @@ func (_q *MixinIDQuery) Only(ctx context.Context) (*MixinID, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (_q *MixinIDQuery) OnlyX(ctx context.Context) *MixinID {
+func (_q *MixinIdQuery) OnlyX(ctx context.Context) *MixinId {
 	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
@@ -135,12 +135,12 @@ func (_q *MixinIDQuery) OnlyX(ctx context.Context) *MixinID {
 	return node
 }
 
-// OnlyID is like Only, but returns the only MixinID ID in the query.
-// Returns a *NotSingularError when more than one MixinID ID is found.
+// OnlyId is like Only, but returns the only MixinId Id in the query.
+// Returns a *NotSingularError when more than one MixinId Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *MixinIDQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
+func (_q *MixinIdQuery) OnlyId(ctx context.Context) (id uuid.UUID, err error) {
 	var ids []uuid.UUID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -154,27 +154,27 @@ func (_q *MixinIDQuery) OnlyID(ctx context.Context) (id uuid.UUID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *MixinIDQuery) OnlyIDX(ctx context.Context) uuid.UUID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *MixinIdQuery) OnlyIdX(ctx context.Context) uuid.UUID {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return id
 }
 
-// All executes the query and returns a list of MixinID entities.
-func (_q *MixinIDQuery) All(ctx context.Context) ([]*MixinID, error) {
+// All executes the query and returns a list of MixinId entities.
+func (_q *MixinIdQuery) All(ctx context.Context) ([]*MixinId, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
 	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
-	qr := querierAll[[]*MixinID, *MixinIDQuery]()
-	return withInterceptors[[]*MixinID](ctx, _q, qr, _q.inters)
+	qr := querierAll[[]*MixinId, *MixinIdQuery]()
+	return withInterceptors[[]*MixinId](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (_q *MixinIDQuery) AllX(ctx context.Context) []*MixinID {
+func (_q *MixinIdQuery) AllX(ctx context.Context) []*MixinId {
 	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
@@ -182,21 +182,21 @@ func (_q *MixinIDQuery) AllX(ctx context.Context) []*MixinID {
 	return nodes
 }
 
-// IDs executes the query and returns a list of MixinID IDs.
-func (_q *MixinIDQuery) IDs(ctx context.Context) (ids []uuid.UUID, err error) {
+// Ids executes the query and returns a list of MixinId Ids.
+func (_q *MixinIdQuery) Ids(ctx context.Context) (ids []uuid.UUID, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(mixinid.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(mixinid.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *MixinIDQuery) IDsX(ctx context.Context) []uuid.UUID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *MixinIdQuery) IdsX(ctx context.Context) []uuid.UUID {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -204,16 +204,16 @@ func (_q *MixinIDQuery) IDsX(ctx context.Context) []uuid.UUID {
 }
 
 // Count returns the count of the given query.
-func (_q *MixinIDQuery) Count(ctx context.Context) (int, error) {
+func (_q *MixinIdQuery) Count(ctx context.Context) (int, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
 	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, _q, querierCount[*MixinIDQuery](), _q.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*MixinIdQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (_q *MixinIDQuery) CountX(ctx context.Context) int {
+func (_q *MixinIdQuery) CountX(ctx context.Context) int {
 	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
@@ -222,9 +222,9 @@ func (_q *MixinIDQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (_q *MixinIDQuery) Exist(ctx context.Context) (bool, error) {
+func (_q *MixinIdQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -235,7 +235,7 @@ func (_q *MixinIDQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (_q *MixinIDQuery) ExistX(ctx context.Context) bool {
+func (_q *MixinIdQuery) ExistX(ctx context.Context) bool {
 	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
@@ -243,18 +243,18 @@ func (_q *MixinIDQuery) ExistX(ctx context.Context) bool {
 	return exist
 }
 
-// Clone returns a duplicate of the MixinIDQuery builder, including all associated steps. It can be
+// Clone returns a duplicate of the MixinIdQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (_q *MixinIDQuery) Clone() *MixinIDQuery {
+func (_q *MixinIdQuery) Clone() *MixinIdQuery {
 	if _q == nil {
 		return nil
 	}
-	return &MixinIDQuery{
+	return &MixinIdQuery{
 		config:     _q.config,
 		ctx:        _q.ctx.Clone(),
 		order:      append([]mixinid.OrderOption{}, _q.order...),
 		inters:     append([]Interceptor{}, _q.inters...),
-		predicates: append([]predicate.MixinID{}, _q.predicates...),
+		predicates: append([]predicate.MixinId{}, _q.predicates...),
 		// clone intermediate query.
 		sql:  _q.sql.Clone(),
 		path: _q.path,
@@ -271,13 +271,13 @@ func (_q *MixinIDQuery) Clone() *MixinIDQuery {
 //		Count int `json:"count,omitempty"`
 //	}
 //
-//	client.MixinID.Query().
+//	client.MixinId.Query().
 //		GroupBy(mixinid.FieldSomeField).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (_q *MixinIDQuery) GroupBy(field string, fields ...string) *MixinIDGroupBy {
+func (_q *MixinIdQuery) GroupBy(field string, fields ...string) *MixinIdGroupBy {
 	_q.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &MixinIDGroupBy{build: _q}
+	grbuild := &MixinIdGroupBy{build: _q}
 	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = mixinid.Label
 	grbuild.scan = grbuild.Scan
@@ -293,23 +293,23 @@ func (_q *MixinIDQuery) GroupBy(field string, fields ...string) *MixinIDGroupBy 
 //		SomeField string `json:"some_field,omitempty"`
 //	}
 //
-//	client.MixinID.Query().
+//	client.MixinId.Query().
 //		Select(mixinid.FieldSomeField).
 //		Scan(ctx, &v)
-func (_q *MixinIDQuery) Select(fields ...string) *MixinIDSelect {
+func (_q *MixinIdQuery) Select(fields ...string) *MixinIdSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
-	sbuild := &MixinIDSelect{MixinIDQuery: _q}
+	sbuild := &MixinIdSelect{MixinIdQuery: _q}
 	sbuild.label = mixinid.Label
 	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
-// Aggregate returns a MixinIDSelect configured with the given aggregations.
-func (_q *MixinIDQuery) Aggregate(fns ...AggregateFunc) *MixinIDSelect {
+// Aggregate returns a MixinIdSelect configured with the given aggregations.
+func (_q *MixinIdQuery) Aggregate(fns ...AggregateFunc) *MixinIdSelect {
 	return _q.Select().Aggregate(fns...)
 }
 
-func (_q *MixinIDQuery) prepareQuery(ctx context.Context) error {
+func (_q *MixinIdQuery) prepareQuery(ctx context.Context) error {
 	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
@@ -335,16 +335,16 @@ func (_q *MixinIDQuery) prepareQuery(ctx context.Context) error {
 	return nil
 }
 
-func (_q *MixinIDQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*MixinID, error) {
+func (_q *MixinIdQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*MixinId, error) {
 	var (
-		nodes = []*MixinID{}
+		nodes = []*MixinId{}
 		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
-		return (*MixinID).scanValues(nil, columns)
+		return (*MixinId).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &MixinID{config: _q.config}
+		node := &MixinId{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
@@ -360,7 +360,7 @@ func (_q *MixinIDQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Mixi
 	return nodes, nil
 }
 
-func (_q *MixinIDQuery) sqlCount(ctx context.Context) (int, error) {
+func (_q *MixinIdQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := _q.querySpec()
 	_spec.Node.Columns = _q.ctx.Fields
 	if len(_q.ctx.Fields) > 0 {
@@ -369,8 +369,8 @@ func (_q *MixinIDQuery) sqlCount(ctx context.Context) (int, error) {
 	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (_q *MixinIDQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldID, field.TypeUUID))
+func (_q *MixinIdQuery) querySpec() *sqlgraph.QuerySpec {
+	_spec := sqlgraph.NewQuerySpec(mixinid.Table, mixinid.Columns, sqlgraph.NewFieldSpec(mixinid.FieldId, field.TypeUuid))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -379,9 +379,9 @@ func (_q *MixinIDQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, mixinid.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, mixinid.FieldId)
 		for i := range fields {
-			if fields[i] != mixinid.FieldID {
+			if fields[i] != mixinid.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
@@ -409,7 +409,7 @@ func (_q *MixinIDQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (_q *MixinIDQuery) sqlQuery(ctx context.Context) *sql.Selector {
+func (_q *MixinIdQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(mixinid.Table)
 	columns := _q.ctx.Fields
@@ -441,28 +441,28 @@ func (_q *MixinIDQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	return selector
 }
 
-// MixinIDGroupBy is the group-by builder for MixinID entities.
-type MixinIDGroupBy struct {
+// MixinIdGroupBy is the group-by builder for MixinId entities.
+type MixinIdGroupBy struct {
 	selector
-	build *MixinIDQuery
+	build *MixinIdQuery
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (_g *MixinIDGroupBy) Aggregate(fns ...AggregateFunc) *MixinIDGroupBy {
+func (_g *MixinIdGroupBy) Aggregate(fns ...AggregateFunc) *MixinIdGroupBy {
 	_g.fns = append(_g.fns, fns...)
 	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (_g *MixinIDGroupBy) Scan(ctx context.Context, v any) error {
+func (_g *MixinIdGroupBy) Scan(ctx context.Context, v any) error {
 	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
 	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*MixinIDQuery, *MixinIDGroupBy](ctx, _g.build, _g, _g.build.inters, v)
+	return scanWithInterceptors[*MixinIdQuery, *MixinIdGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (_g *MixinIDGroupBy) sqlScan(ctx context.Context, root *MixinIDQuery, v any) error {
+func (_g *MixinIdGroupBy) sqlScan(ctx context.Context, root *MixinIdQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(_g.fns))
 	for _, fn := range _g.fns {
@@ -489,28 +489,28 @@ func (_g *MixinIDGroupBy) sqlScan(ctx context.Context, root *MixinIDQuery, v any
 	return sql.ScanSlice(rows, v)
 }
 
-// MixinIDSelect is the builder for selecting fields of MixinID entities.
-type MixinIDSelect struct {
-	*MixinIDQuery
+// MixinIdSelect is the builder for selecting fields of MixinId entities.
+type MixinIdSelect struct {
+	*MixinIdQuery
 	selector
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (_s *MixinIDSelect) Aggregate(fns ...AggregateFunc) *MixinIDSelect {
+func (_s *MixinIdSelect) Aggregate(fns ...AggregateFunc) *MixinIdSelect {
 	_s.fns = append(_s.fns, fns...)
 	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (_s *MixinIDSelect) Scan(ctx context.Context, v any) error {
+func (_s *MixinIdSelect) Scan(ctx context.Context, v any) error {
 	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
 	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*MixinIDQuery, *MixinIDSelect](ctx, _s.MixinIDQuery, _s, _s.inters, v)
+	return scanWithInterceptors[*MixinIdQuery, *MixinIdSelect](ctx, _s.MixinIdQuery, _s, _s.inters, v)
 }
 
-func (_s *MixinIDSelect) sqlScan(ctx context.Context, root *MixinIDQuery, v any) error {
+func (_s *MixinIdSelect) sqlScan(ctx context.Context, root *MixinIdQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(_s.fns))
 	for _, fn := range _s.fns {

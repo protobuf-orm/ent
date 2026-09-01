@@ -20,10 +20,10 @@ import (
 // Payment is the model entity for the Payment schema.
 type Payment struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
-	// CardID holds the value of the "card_id" field.
-	CardID int `json:"card_id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
+	// CardId holds the value of the "card_id" field.
+	CardId int `json:"card_id,omitempty"`
 	// Amount holds the value of the "amount" field.
 	Amount float64 `json:"amount,omitempty"`
 	// Currency holds the value of the "currency" field.
@@ -67,7 +67,7 @@ func (*Payment) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case payment.FieldAmount:
 			values[i] = new(sql.NullFloat64)
-		case payment.FieldID, payment.FieldCardID:
+		case payment.FieldId, payment.FieldCardId:
 			values[i] = new(sql.NullInt64)
 		case payment.FieldCurrency, payment.FieldDescription, payment.FieldStatus:
 			values[i] = new(sql.NullString)
@@ -88,17 +88,17 @@ func (_m *Payment) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case payment.FieldID:
+		case payment.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
-		case payment.FieldCardID:
+			_m.Id = int(value.Int64)
+		case payment.FieldCardId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field card_id", values[i])
 			} else if value.Valid {
-				_m.CardID = int(value.Int64)
+				_m.CardId = int(value.Int64)
 			}
 		case payment.FieldAmount:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
@@ -170,9 +170,9 @@ func (_m *Payment) Unwrap() *Payment {
 func (_m *Payment) String() string {
 	var builder strings.Builder
 	builder.WriteString("Payment(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("card_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.CardID))
+	builder.WriteString(fmt.Sprintf("%v", _m.CardId))
 	builder.WriteString(", ")
 	builder.WriteString("amount=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Amount))

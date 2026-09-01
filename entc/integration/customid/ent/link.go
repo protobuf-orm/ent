@@ -21,8 +21,8 @@ import (
 // Link is the model entity for the Link schema.
 type Link struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuidc.UUIDC `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuidc.UuidC `json:"id,omitempty"`
 	// LinkInformation holds the value of the "link_information" field.
 	LinkInformation map[string]schema.LinkInformation `json:"link_information,omitempty"`
 	selectValues    sql.SelectValues
@@ -35,8 +35,8 @@ func (*Link) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case link.FieldLinkInformation:
 			values[i] = new([]byte)
-		case link.FieldID:
-			values[i] = new(uuidc.UUIDC)
+		case link.FieldId:
+			values[i] = new(uuidc.UuidC)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -52,11 +52,11 @@ func (_m *Link) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case link.FieldID:
-			if value, ok := values[i].(*uuidc.UUIDC); !ok {
+		case link.FieldId:
+			if value, ok := values[i].(*uuidc.UuidC); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case link.FieldLinkInformation:
 			if value, ok := values[i].(*[]byte); !ok {
@@ -101,7 +101,7 @@ func (_m *Link) Unwrap() *Link {
 func (_m *Link) String() string {
 	var builder strings.Builder
 	builder.WriteString("Link(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("link_information=")
 	builder.WriteString(fmt.Sprintf("%v", _m.LinkInformation))
 	builder.WriteByte(')')

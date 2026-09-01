@@ -26,9 +26,9 @@ type SessionDeviceCreate struct {
 	hooks    []Hook
 }
 
-// SetIPAddress sets the "ip_address" field.
-func (_c *SessionDeviceCreate) SetIPAddress(v string) *SessionDeviceCreate {
-	_c.mutation.SetIPAddress(v)
+// SetIpAddress sets the "ip_address" field.
+func (_c *SessionDeviceCreate) SetIpAddress(v string) *SessionDeviceCreate {
+	_c.mutation.SetIpAddress(v)
 	return _c
 }
 
@@ -64,23 +64,23 @@ func (_c *SessionDeviceCreate) SetNillableUpdatedAt(v *time.Time) *SessionDevice
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *SessionDeviceCreate) SetID(v uuid.UUID) *SessionDeviceCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *SessionDeviceCreate) SetId(v uuid.UUID) *SessionDeviceCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *SessionDeviceCreate) SetNillableID(v *uuid.UUID) *SessionDeviceCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *SessionDeviceCreate) SetNillableId(v *uuid.UUID) *SessionDeviceCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// AddSessionsIDs adds the "sessions" edge to the Session entity by IDs.
-func (_c *SessionDeviceCreate) AddSessionsIDs(ids ...uuid.UUID) *SessionDeviceCreate {
-	_c.mutation.AddSessionsIDs(ids...)
+// AddSessionsIds adds the "sessions" edge to the Session entity by Ids.
+func (_c *SessionDeviceCreate) AddSessionsIds(ids ...uuid.UUID) *SessionDeviceCreate {
+	_c.mutation.AddSessionsIds(ids...)
 	return _c
 }
 
@@ -88,9 +88,9 @@ func (_c *SessionDeviceCreate) AddSessionsIDs(ids ...uuid.UUID) *SessionDeviceCr
 func (_c *SessionDeviceCreate) AddSessions(v ...*Session) *SessionDeviceCreate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddSessionsIDs(ids...)
+	return _c.AddSessionsIds(ids...)
 }
 
 // Mutation returns the SessionDeviceMutation object of the builder.
@@ -128,19 +128,19 @@ func (_c *SessionDeviceCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *SessionDeviceCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := sessiondevice.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := sessiondevice.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *SessionDeviceCreate) check() error {
-	if _, ok := _c.mutation.IPAddress(); !ok {
+	if _, ok := _c.mutation.IpAddress(); !ok {
 		return &ValidationError{Name: "ip_address", err: errors.New(`ent: missing required field "SessionDevice.ip_address"`)}
 	}
-	if v, ok := _c.mutation.IPAddress(); ok {
-		if err := sessiondevice.IPAddressValidator(v); err != nil {
+	if v, ok := _c.mutation.IpAddress(); ok {
+		if err := sessiondevice.IpAddressValidator(v); err != nil {
 			return &ValidationError{Name: "ip_address", err: fmt.Errorf(`ent: validator failed for field "SessionDevice.ip_address": %w`, err)}
 		}
 	}
@@ -177,14 +177,14 @@ func (_c *SessionDeviceCreate) sqlSave(ctx context.Context) (*SessionDevice, err
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -192,15 +192,15 @@ func (_c *SessionDeviceCreate) sqlSave(ctx context.Context) (*SessionDevice, err
 func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpec) {
 	var (
 		_node = &SessionDevice{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(sessiondevice.Table, sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(sessiondevice.Table, sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
-	if value, ok := _c.mutation.IPAddress(); ok {
-		_spec.SetField(sessiondevice.FieldIPAddress, field.TypeString, value)
-		_node.IPAddress = value
+	if value, ok := _c.mutation.IpAddress(); ok {
+		_spec.SetField(sessiondevice.FieldIpAddress, field.TypeString, value)
+		_node.IpAddress = value
 	}
 	if value, ok := _c.mutation.UserAgent(); ok {
 		_spec.SetField(sessiondevice.FieldUserAgent, field.TypeString, value)
@@ -218,7 +218,7 @@ func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpe
 		_spec.SetField(sessiondevice.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := _c.mutation.SessionsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SessionsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -226,7 +226,7 @@ func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpe
 			Columns: []string{sessiondevice.SessionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(session.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(session.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -281,7 +281,7 @@ func (_c *SessionDeviceCreateBulk) Save(ctx context.Context) ([]*SessionDevice, 
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})

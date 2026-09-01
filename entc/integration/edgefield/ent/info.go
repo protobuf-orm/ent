@@ -21,8 +21,8 @@ import (
 // Info is the model entity for the Info schema.
 type Info struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Content holds the value of the "content" field.
 	Content jsontext.Value `json:"content,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -58,7 +58,7 @@ func (*Info) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case info.FieldContent:
 			values[i] = new([]byte)
-		case info.FieldID:
+		case info.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -75,12 +75,12 @@ func (_m *Info) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case info.FieldID:
+		case info.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case info.FieldContent:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field content", values[i])
@@ -129,7 +129,7 @@ func (_m *Info) Unwrap() *Info {
 func (_m *Info) String() string {
 	var builder strings.Builder
 	builder.WriteString("Info(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("content=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Content))
 	builder.WriteByte(')')

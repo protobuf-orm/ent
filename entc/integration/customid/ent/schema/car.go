@@ -11,11 +11,11 @@ import (
 	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
-type IDMixin struct {
+type IdMixin struct {
 	mixin.Schema
 }
 
-func (IDMixin) Fields() []ent.Field {
+func (IdMixin) Fields() []ent.Field {
 	return []ent.Field{
 		field.Float("before_id").
 			Optional().
@@ -37,7 +37,7 @@ type Car struct {
 // Mixin of the Car.
 func (Car) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		IDMixin{},
+		IdMixin{},
 	}
 }
 

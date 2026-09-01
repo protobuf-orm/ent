@@ -972,7 +972,7 @@ func TestBuilder(t *testing.T) {
 			wantArgs:  []any{"bar\\\\", "\\\\baz"},
 		},
 		{
-			input: Dialect(dialect.MySQL).
+			input: Dialect(dialect.MySql).
 				Select().
 				From(Table("users")).
 				Where(Or(EqualFold("name", "BAR"), EqualFold("name", "BAZ"))),
@@ -996,7 +996,7 @@ func TestBuilder(t *testing.T) {
 			wantArgs:  []any{"%ariel%", "%bar%"},
 		},
 		{
-			input: Dialect(dialect.MySQL).
+			input: Dialect(dialect.MySql).
 				Select().
 				From(Table("users")).
 				Where(And(ContainsFold("name", "Ariel"), ContainsFold("nick", "Bar"))),
@@ -1710,8 +1710,8 @@ type point struct {
 
 // FormatParam implements the sql.ParamFormatter interface.
 func (p point) FormatParam(placeholder string, info *StmtInfo) string {
-	require.Equal(p.T, dialect.MySQL, info.Dialect)
-	return "ST_GeomFromWKB(" + placeholder + ")"
+	require.Equal(p.T, dialect.MySql, info.Dialect)
+	return "ST_GeomFromWKb(" + placeholder + ")"
 }
 
 // Value implements the driver.Valuer interface.
@@ -1721,17 +1721,17 @@ func (p point) Value() (driver.Value, error) {
 
 func TestParamFormatter(t *testing.T) {
 	p := point{xy: []float64{1, 2}, T: t}
-	query, args := Dialect(dialect.MySQL).
+	query, args := Dialect(dialect.MySql).
 		Select().
 		From(Table("users")).
 		Where(EQ("point", p)).
 		Query()
-	require.Equal(t, "SELECT * FROM `users` WHERE `point` = ST_GeomFromWKB(?)", query)
+	require.Equal(t, "SELECT * FROM `users` WHERE `point` = ST_GeomFromWKb(?)", query)
 	require.Equal(t, p, args[0])
 }
 
 func TestSelectWithLock(t *testing.T) {
-	query, args := Dialect(dialect.MySQL).
+	query, args := Dialect(dialect.MySql).
 		Select().
 		From(Table("users")).
 		Where(EQ("id", 1)).
@@ -1761,10 +1761,10 @@ func TestSelectWithLock(t *testing.T) {
 			WithLockTables("pets"),
 		).
 		Query()
-	require.Equal(t, `SELECT * FROM "pets" JOIN "users" AS "t1" ON "pets"."owner_id" = "t1"."id" WHERE "id" = $1 FOR UPDATE OF "pets" SKIP LOCKED`, query)
+	require.Equal(t, `SELECT * FROM "pets" JOIN "users" AS "t1" ON "pets"."owner_id" = "t1"."id" WHERE "id" = $1 FOR UPDATE OF "pets" SKIp LOCKED`, query)
 	require.Equal(t, 20, args[0])
 
-	query, args = Dialect(dialect.MySQL).
+	query, args = Dialect(dialect.MySql).
 		Select().
 		From(Table("users")).
 		Where(EQ("id", 20)).
@@ -1795,13 +1795,13 @@ func TestSelector_UnionOrderBy(t *testing.T) {
 }
 
 // TestUnionAllFunc verifies the package-level UnionAll (and friends) wrap every
-// branch in parentheses on MySQL/Postgres, enabling per-branch ORDER BY / LIMIT
+// branch in parentheses on MySql/Postgres, enabling per-branch ORDER BY / LIMIT
 // and an optional outer ORDER BY / LIMIT on the union result via a wrapping SELECT.
 // On SQLite the parentheses and per-branch ORDER BY / LIMIT / OFFSET are omitted
 // since SQLite does not support them inside a compound SELECT.
 func TestUnionAllFunc(t *testing.T) {
 	t.Run("BothBranchesParenthesized", func(t *testing.T) {
-		// Default dialect (MySQL) — parens required.
+		// Default dialect (MySql) — parens required.
 		migSel := Select("id", "kind").
 			From(Table("migration_deployments")).
 			OrderBy(Desc("end_time"), Desc("id")).
@@ -1835,8 +1835,8 @@ func TestUnionAllFunc(t *testing.T) {
 	})
 
 	t.Run("Postgres", func(t *testing.T) {
-		// Postgres supports parenthesized branches (standard SQL) — same output shape
-		// as MySQL but with double-quoted identifiers. Dialect is inferred from selectors.
+		// Postgres supports parenthesized branches (standard Sql) — same output shape
+		// as MySql but with double-quoted identifiers. Dialect is inferred from selectors.
 		migSel := Dialect(dialect.Postgres).Select("id").From(Table("t1")).Limit(5)
 		schemaSel := Dialect(dialect.Postgres).Select("id").From(Table("t2")).Limit(5)
 		query, _ := UnionAll(migSel, schemaSel).Query()
@@ -1955,8 +1955,8 @@ func TestInsert_OnConflict(t *testing.T) {
 		require.Equal(t, []any{1, "Mashraki"}, args)
 	})
 
-	t.Run("MySQL", func(t *testing.T) {
-		query, args := Dialect(dialect.MySQL).
+	t.Run("MySql", func(t *testing.T) {
+		query, args := Dialect(dialect.MySql).
 			Insert("users").
 			Columns("id", "email").
 			Values("1", "user@example.com").
@@ -1967,7 +1967,7 @@ func TestInsert_OnConflict(t *testing.T) {
 		require.Equal(t, "INSERT INTO `users` (`id`, `email`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`)", query)
 		require.Equal(t, []any{"1", "user@example.com"}, args)
 
-		query, args = Dialect(dialect.MySQL).
+		query, args = Dialect(dialect.MySql).
 			Insert("users").
 			Columns("id", "email").
 			Values("1", "user@example.com").
@@ -1978,7 +1978,7 @@ func TestInsert_OnConflict(t *testing.T) {
 		require.Equal(t, "INSERT INTO `users` (`id`, `email`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `id` = `users`.`id`, `email` = `users`.`email`", query)
 		require.Equal(t, []any{"1", "user@example.com"}, args)
 
-		query, args = Dialect(dialect.MySQL).
+		query, args = Dialect(dialect.MySql).
 			Insert("users").
 			Columns("id", "name").
 			Values("1", "Mashraki").
@@ -1993,21 +1993,21 @@ func TestInsert_OnConflict(t *testing.T) {
 		require.Equal(t, "INSERT INTO `users` (`id`, `name`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `created_at` = NULL, `name` = VALUES(`name`), `version` = COALESCE(`users`.`version`, 0) + ?", query)
 		require.Equal(t, []any{"1", "Mashraki", 1}, args)
 
-		query, args = Dialect(dialect.MySQL).
+		query, args = Dialect(dialect.MySql).
 			Insert("users").
 			Columns("name", "rank").
 			Values("Mashraki", nil).
 			OnConflict(
 				ResolveWithNewValues(),
 				ResolveWith(func(s *UpdateSet) {
-					s.Set("id", Expr("LAST_INSERT_ID(`id`)"))
+					s.Set("id", Expr("LAST_INSERT_Id(`id`)"))
 				}),
 			).
 			Query()
-		require.Equal(t, "INSERT INTO `users` (`name`, `rank`) VALUES (?, NULL) ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `rank` = VALUES(`rank`), `id` = LAST_INSERT_ID(`id`)", query)
+		require.Equal(t, "INSERT INTO `users` (`name`, `rank`) VALUES (?, NULL) ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `rank` = VALUES(`rank`), `id` = LAST_INSERT_Id(`id`)", query)
 		require.Equal(t, []any{"Mashraki"}, args)
 
-		query, args = Dialect(dialect.MySQL).
+		query, args = Dialect(dialect.MySql).
 			Insert("users").
 			Columns("name", "rank").
 			Values("Ariel", 10).
@@ -2015,17 +2015,17 @@ func TestInsert_OnConflict(t *testing.T) {
 			OnConflict(
 				ResolveWithNewValues(),
 				ResolveWith(func(s *UpdateSet) {
-					s.Set("id", Expr("LAST_INSERT_ID(`id`)"))
+					s.Set("id", Expr("LAST_INSERT_Id(`id`)"))
 				}),
 			).
 			Query()
-		require.Equal(t, "INSERT INTO `users` (`name`, `rank`) VALUES (?, ?), (?, NULL) ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `rank` = VALUES(`rank`), `id` = LAST_INSERT_ID(`id`)", query)
+		require.Equal(t, "INSERT INTO `users` (`name`, `rank`) VALUES (?, ?), (?, NULL) ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `rank` = VALUES(`rank`), `id` = LAST_INSERT_Id(`id`)", query)
 		require.Equal(t, []any{"Ariel", 10, "Mashraki"}, args)
 	})
 }
 
 func TestEscapePatterns(t *testing.T) {
-	q, args := Dialect(dialect.MySQL).
+	q, args := Dialect(dialect.MySql).
 		Update("users").
 		SetNull("name").
 		Where(
@@ -2164,7 +2164,7 @@ func TestWindowFunction(t *testing.T) {
 				From(Table("active_posts")),
 		)
 	query, args := Select("*").From(Table("selected_posts")).Where(LTE("row_number", 2)).Prefix(with).Query()
-	require.Equal(t, "WITH `active_posts` AS (SELECT `posts`.`id`, `posts`.`content`, `posts`.`author_id` FROM `posts` WHERE `active`), `selected_posts` AS (SELECT *, (ROW_NUMBER() OVER (PARTITION BY `author_id` ORDER BY `id`, f(`s`))) AS `row_number` FROM `active_posts`) SELECT * FROM `selected_posts` WHERE `row_number` <= ?", query)
+	require.Equal(t, "WITH `active_posts` AS (SELECT `posts`.`id`, `posts`.`content`, `posts`.`author_id` FROM `posts` WHERE `active`), `selected_posts` AS (SELECT *, (ROW_NUMbER() OVER (PARTITION BY `author_id` ORDER BY `id`, f(`s`))) AS `row_number` FROM `active_posts`) SELECT * FROM `selected_posts` WHERE `row_number` <= ?", query)
 	require.Equal(t, []any{2}, args)
 }
 
@@ -2197,7 +2197,7 @@ func TestSelector_UnqualifiedColumns(t *testing.T) {
 }
 
 func TestUpdateBuilder_OrderBy(t *testing.T) {
-	u := Dialect(dialect.MySQL).Update("users").Set("id", Expr("`id` + 1")).OrderBy("id")
+	u := Dialect(dialect.MySql).Update("users").Set("id", Expr("`id` + 1")).OrderBy("id")
 	require.NoError(t, u.Err())
 	query, args := u.Query()
 	require.Nil(t, args)
@@ -2208,7 +2208,7 @@ func TestUpdateBuilder_OrderBy(t *testing.T) {
 }
 
 func TestUpdateBuilder_WithPrefix(t *testing.T) {
-	u := Dialect(dialect.MySQL).
+	u := Dialect(dialect.MySql).
 		Update("users").
 		Prefix(ExprFunc(func(b *Builder) {
 			b.WriteString("SET @i = ").Arg(1).WriteByte(';')
@@ -2220,7 +2220,7 @@ func TestUpdateBuilder_WithPrefix(t *testing.T) {
 	require.Equal(t, []any{1}, args)
 	require.Equal(t, "SET @i = ?; UPDATE `users` SET `id` = (@i:=@i+1) ORDER BY `id`", query)
 
-	u = Dialect(dialect.MySQL).
+	u = Dialect(dialect.MySql).
 		Update("users").
 		Prefix(Expr("SET @i = 1;")).
 		Set("id", Expr("(@i:=@i+1)")).
@@ -2322,7 +2322,7 @@ func TestSelector_JoinedTableView(t *testing.T) {
 }
 
 func TestSelector_Columns(t *testing.T) {
-	t.Run("MySQL", func(t *testing.T) {
+	t.Run("MySql", func(t *testing.T) {
 		s := Select("*").From(Table("users"))
 		require.Equal(t, []string{"`users`.`c`"}, s.Columns("c"))
 		// Already quoted.
@@ -2348,7 +2348,7 @@ func TestSelector_Columns(t *testing.T) {
 }
 
 func TestSelector_SelectedColumn(t *testing.T) {
-	t.Run("MySQL", func(t *testing.T) {
+	t.Run("MySql", func(t *testing.T) {
 		s := Select("*").From(Table("t1"))
 		require.Empty(t, s.FindSelection("c"))
 		s.Select("c")
@@ -2386,8 +2386,8 @@ func TestSelector_SelectedColumn(t *testing.T) {
 }
 
 func TestColumnsHasPrefix(t *testing.T) {
-	t.Run("MySQL", func(t *testing.T) {
-		query, args := Dialect(dialect.MySQL).
+	t.Run("MySql", func(t *testing.T) {
+		query, args := Dialect(dialect.MySql).
 			Select("*").From(Table("t1")).Where(ColumnsHasPrefix("a", "b")).Query()
 		require.Equal(t, "SELECT * FROM `t1` WHERE `a` LIKE CONCAT(REPLACE(REPLACE(`b`, '_', '\\_'), '%', '\\%'), '%')", query)
 		require.Empty(t, args)

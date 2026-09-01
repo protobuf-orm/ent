@@ -17,7 +17,7 @@ type User struct {
 
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.JSON("used", &Used{}),
+		field.Json("used", &Used{}),
 		field.Enum("e").
 			GoType(Enum(0)),
 	}

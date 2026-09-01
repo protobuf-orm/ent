@@ -19,14 +19,14 @@ func CreatedAt(v time.Time) predicate.RoleUser {
 	return predicate.RoleUser(sql.FieldEQ(FieldCreatedAt, v))
 }
 
-// RoleID applies equality check predicate on the "role_id" field. It's identical to RoleIDEQ.
-func RoleID(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldEQ(FieldRoleID, v))
+// RoleId applies equality check predicate on the "role_id" field. It's identical to RoleIdEQ.
+func RoleId(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldEQ(FieldRoleId, v))
 }
 
-// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldEQ(FieldUserID, v))
+// UserId applies equality check predicate on the "user_id" field. It's identical to UserIdEQ.
+func UserId(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldEQ(FieldUserId, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -69,44 +69,44 @@ func CreatedAtLTE(v time.Time) predicate.RoleUser {
 	return predicate.RoleUser(sql.FieldLTE(FieldCreatedAt, v))
 }
 
-// RoleIDEQ applies the EQ predicate on the "role_id" field.
-func RoleIDEQ(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldEQ(FieldRoleID, v))
+// RoleIdEQ applies the EQ predicate on the "role_id" field.
+func RoleIdEQ(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldEQ(FieldRoleId, v))
 }
 
-// RoleIDNEQ applies the NEQ predicate on the "role_id" field.
-func RoleIDNEQ(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldNEQ(FieldRoleID, v))
+// RoleIdNEQ applies the NEQ predicate on the "role_id" field.
+func RoleIdNEQ(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldNEQ(FieldRoleId, v))
 }
 
-// RoleIDIn applies the In predicate on the "role_id" field.
-func RoleIDIn(vs ...int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldIn(FieldRoleID, vs...))
+// RoleIdIn applies the In predicate on the "role_id" field.
+func RoleIdIn(vs ...int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldIn(FieldRoleId, vs...))
 }
 
-// RoleIDNotIn applies the NotIn predicate on the "role_id" field.
-func RoleIDNotIn(vs ...int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldNotIn(FieldRoleID, vs...))
+// RoleIdNotIn applies the NotIn predicate on the "role_id" field.
+func RoleIdNotIn(vs ...int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldNotIn(FieldRoleId, vs...))
 }
 
-// UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldEQ(FieldUserID, v))
+// UserIdEQ applies the EQ predicate on the "user_id" field.
+func UserIdEQ(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldEQ(FieldUserId, v))
 }
 
-// UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldNEQ(FieldUserID, v))
+// UserIdNEQ applies the NEQ predicate on the "user_id" field.
+func UserIdNEQ(v int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldNEQ(FieldUserId, v))
 }
 
-// UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldIn(FieldUserID, vs...))
+// UserIdIn applies the In predicate on the "user_id" field.
+func UserIdIn(vs ...int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldIn(FieldUserId, vs...))
 }
 
-// UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int) predicate.RoleUser {
-	return predicate.RoleUser(sql.FieldNotIn(FieldUserID, vs...))
+// UserIdNotIn applies the NotIn predicate on the "user_id" field.
+func UserIdNotIn(vs ...int) predicate.RoleUser {
+	return predicate.RoleUser(sql.FieldNotIn(FieldUserId, vs...))
 }
 
 // HasRole applies the HasEdge predicate on the "role" edge.

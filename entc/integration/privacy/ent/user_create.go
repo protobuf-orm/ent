@@ -45,9 +45,9 @@ func (_c *UserCreate) SetNillableAge(v *uint) *UserCreate {
 	return _c
 }
 
-// AddTeamsIDs adds the "teams" edge to the Team entity by IDs.
-func (_c *UserCreate) AddTeamsIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTeamsIDs(ids...)
+// AddTeamsIds adds the "teams" edge to the Team entity by Ids.
+func (_c *UserCreate) AddTeamsIds(ids ...int) *UserCreate {
+	_c.mutation.AddTeamsIds(ids...)
 	return _c
 }
 
@@ -55,14 +55,14 @@ func (_c *UserCreate) AddTeamsIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddTeams(v ...*Team) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTeamsIDs(ids...)
+	return _c.AddTeamsIds(ids...)
 }
 
-// AddTasksIDs adds the "tasks" edge to the Task entity by IDs.
-func (_c *UserCreate) AddTasksIDs(ids ...int) *UserCreate {
-	_c.mutation.AddTasksIDs(ids...)
+// AddTasksIds adds the "tasks" edge to the Task entity by Ids.
+func (_c *UserCreate) AddTasksIds(ids ...int) *UserCreate {
+	_c.mutation.AddTasksIds(ids...)
 	return _c
 }
 
@@ -70,9 +70,9 @@ func (_c *UserCreate) AddTasksIDs(ids ...int) *UserCreate {
 func (_c *UserCreate) AddTasks(v ...*Task) *UserCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddTasksIDs(ids...)
+	return _c.AddTasksIds(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -131,9 +131,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -141,7 +141,7 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
@@ -151,7 +151,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldAge, field.TypeUint, value)
 		_node.Age = value
 	}
-	if nodes := _c.mutation.TeamsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TeamsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -159,7 +159,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.TeamsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(team.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(team.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -167,7 +167,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.TasksIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TasksIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -175,7 +175,7 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.TasksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(task.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(task.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -229,10 +229,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

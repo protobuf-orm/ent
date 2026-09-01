@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the car type in the database.
 	Label = "car"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldNumber holds the string denoting the number field in the database.
 	FieldNumber = "number"
 	// EdgeRentals holds the string denoting the rentals edge name in mutations.
@@ -32,9 +32,9 @@ const (
 	RentalsColumn = "car_id"
 )
 
-// Columns holds all SQL columns for car fields.
+// Columns holds all Sql columns for car fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldNumber,
 }
 
@@ -49,16 +49,16 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the Car queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByNumber orders the results by the number field.
@@ -81,8 +81,8 @@ func ByRentals(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newRentalsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(RentalsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(RentalsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, RentalsTable, RentalsColumn),
 	)
 }

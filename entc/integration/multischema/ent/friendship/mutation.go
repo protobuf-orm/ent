@@ -103,13 +103,13 @@ func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
-// SetUserID sets the "user_id" field.
-func (m *Mutation) SetUserID(i int) {
+// SetUserId sets the "user_id" field.
+func (m *Mutation) SetUserId(i int) {
 	m.user = &i
 }
 
-// UserID returns the value of the "user_id" field in the mutation.
-func (m *Mutation) UserID() (r int, exists bool) {
+// UserId returns the value of the "user_id" field in the mutation.
+func (m *Mutation) UserId() (r int, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -117,18 +117,18 @@ func (m *Mutation) UserID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetUserID resets all changes to the "user_id" field.
-func (m *Mutation) ResetUserID() {
+// ResetUserId resets all changes to the "user_id" field.
+func (m *Mutation) ResetUserId() {
 	m.user = nil
 }
 
-// SetFriendsID sets the "friends_id" field.
-func (m *Mutation) SetFriendsID(i int) {
+// SetFriendsId sets the "friends_id" field.
+func (m *Mutation) SetFriendsId(i int) {
 	m.friend = &i
 }
 
-// FriendsID returns the value of the "friends_id" field in the mutation.
-func (m *Mutation) FriendsID() (r int, exists bool) {
+// FriendsId returns the value of the "friends_id" field in the mutation.
+func (m *Mutation) FriendsId() (r int, exists bool) {
 	v := m.friend
 	if v == nil {
 		return
@@ -136,15 +136,15 @@ func (m *Mutation) FriendsID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetFriendsID resets all changes to the "friends_id" field.
-func (m *Mutation) ResetFriendsID() {
+// ResetFriendsId resets all changes to the "friends_id" field.
+func (m *Mutation) ResetFriendsId() {
 	m.friend = nil
 }
 
 // ClearUser clears the "user" edge to the User entity.
 func (m *Mutation) ClearUser() {
 	m.cleareduser = true
-	m.clearedFields[FieldUserID] = struct{}{}
+	m.clearedFields[FieldUserId] = struct{}{}
 }
 
 // UserCleared reports if the "user" edge to the User entity was cleared.
@@ -152,10 +152,10 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -168,15 +168,15 @@ func (m *Mutation) ResetUser() {
 	m.cleareduser = false
 }
 
-// SetFriendID sets the "friend" edge to the User entity by id.
-func (m *Mutation) SetFriendID(id int) {
+// SetFriendId sets the "friend" edge to the User entity by id.
+func (m *Mutation) SetFriendId(id int) {
 	m.friend = &id
 }
 
 // ClearFriend clears the "friend" edge to the User entity.
 func (m *Mutation) ClearFriend() {
 	m.clearedfriend = true
-	m.clearedFields[FieldFriendsID] = struct{}{}
+	m.clearedFields[FieldFriendsId] = struct{}{}
 }
 
 // FriendCleared reports if the "friend" edge to the User entity was cleared.
@@ -184,18 +184,18 @@ func (m *Mutation) FriendCleared() bool {
 	return m.clearedfriend
 }
 
-// FriendID returns the "friend" edge ID in the mutation.
-func (m *Mutation) FriendID() (id int, exists bool) {
+// FriendId returns the "friend" edge Id in the mutation.
+func (m *Mutation) FriendId() (id int, exists bool) {
 	if m.friend != nil {
 		return *m.friend, true
 	}
 	return
 }
 
-// FriendIDs returns the "friend" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// FriendID instead. It exists only for internal usage by the builders.
-func (m *Mutation) FriendIDs() (ids []int) {
+// FriendIds returns the "friend" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// FriendId instead. It exists only for internal usage by the builders.
+func (m *Mutation) FriendIds() (ids []int) {
 	if id := m.friend; id != nil {
 		ids = append(ids, *id)
 	}
@@ -250,10 +250,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldCreatedAt)
 	}
 	if m.user != nil {
-		fields = append(fields, FieldUserID)
+		fields = append(fields, FieldUserId)
 	}
 	if m.friend != nil {
-		fields = append(fields, FieldFriendsID)
+		fields = append(fields, FieldFriendsId)
 	}
 	return fields
 }
@@ -267,10 +267,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Weight()
 	case FieldCreatedAt:
 		return m.CreatedAt()
-	case FieldUserID:
-		return m.UserID()
-	case FieldFriendsID:
-		return m.FriendsID()
+	case FieldUserId:
+		return m.UserId()
+	case FieldFriendsId:
+		return m.FriendsId()
 	}
 	return nil, false
 }
@@ -301,19 +301,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case FieldUserID:
+	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUserID(v)
+		m.SetUserId(v)
 		return nil
-	case FieldFriendsID:
+	case FieldFriendsId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetFriendsID(v)
+		m.SetFriendsId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Friendship field %s", name)
@@ -385,11 +385,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case FieldUserID:
-		m.ResetUserID()
+	case FieldUserId:
+		m.ResetUserId()
 		return nil
-	case FieldFriendsID:
-		m.ResetFriendsID()
+	case FieldFriendsId:
+		m.ResetFriendsId()
 		return nil
 	}
 	return fmt.Errorf("unknown Friendship field %s", name)
@@ -407,9 +407,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUser:
 		if id := m.user; id != nil {
@@ -429,9 +429,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

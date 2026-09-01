@@ -33,15 +33,15 @@ func (_c *UserCreate) SetT(v *schema.T) *UserCreate {
 	return _c
 }
 
-// SetURL sets the "url" field.
-func (_c *UserCreate) SetURL(v *url.URL) *UserCreate {
-	_c.mutation.SetURL(v)
+// SetUrl sets the "url" field.
+func (_c *UserCreate) SetUrl(v *url.URL) *UserCreate {
+	_c.mutation.SetUrl(v)
 	return _c
 }
 
-// SetURLs sets the "URLs" field.
-func (_c *UserCreate) SetURLs(v []*url.URL) *UserCreate {
-	_c.mutation.SetURLs(v)
+// SetUrls sets the "Urls" field.
+func (_c *UserCreate) SetUrls(v []*url.URL) *UserCreate {
+	_c.mutation.SetUrls(v)
 	return _c
 }
 
@@ -192,9 +192,9 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -202,58 +202,58 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.T(); ok {
-		_spec.SetField(user.FieldT, field.TypeJSON, value)
+		_spec.SetField(user.FieldT, field.TypeJson, value)
 		_node.T = value
 	}
-	if value, ok := _c.mutation.URL(); ok {
-		_spec.SetField(user.FieldURL, field.TypeJSON, value)
-		_node.URL = value
+	if value, ok := _c.mutation.Url(); ok {
+		_spec.SetField(user.FieldUrl, field.TypeJson, value)
+		_node.Url = value
 	}
-	if value, ok := _c.mutation.URLs(); ok {
-		_spec.SetField(user.FieldURLs, field.TypeJSON, value)
-		_node.URLs = value
+	if value, ok := _c.mutation.Urls(); ok {
+		_spec.SetField(user.FieldUrls, field.TypeJson, value)
+		_node.Urls = value
 	}
 	if value, ok := _c.mutation.Raw(); ok {
-		_spec.SetField(user.FieldRaw, field.TypeJSON, value)
+		_spec.SetField(user.FieldRaw, field.TypeJson, value)
 		_node.Raw = value
 	}
 	if value, ok := _c.mutation.Dirs(); ok {
-		_spec.SetField(user.FieldDirs, field.TypeJSON, value)
+		_spec.SetField(user.FieldDirs, field.TypeJson, value)
 		_node.Dirs = value
 	}
 	if value, ok := _c.mutation.Ints(); ok {
-		_spec.SetField(user.FieldInts, field.TypeJSON, value)
+		_spec.SetField(user.FieldInts, field.TypeJson, value)
 		_node.Ints = value
 	}
 	if value, ok := _c.mutation.Floats(); ok {
-		_spec.SetField(user.FieldFloats, field.TypeJSON, value)
+		_spec.SetField(user.FieldFloats, field.TypeJson, value)
 		_node.Floats = value
 	}
 	if value, ok := _c.mutation.Strings(); ok {
-		_spec.SetField(user.FieldStrings, field.TypeJSON, value)
+		_spec.SetField(user.FieldStrings, field.TypeJson, value)
 		_node.Strings = value
 	}
 	if value, ok := _c.mutation.IntsValidate(); ok {
-		_spec.SetField(user.FieldIntsValidate, field.TypeJSON, value)
+		_spec.SetField(user.FieldIntsValidate, field.TypeJson, value)
 		_node.IntsValidate = value
 	}
 	if value, ok := _c.mutation.FloatsValidate(); ok {
-		_spec.SetField(user.FieldFloatsValidate, field.TypeJSON, value)
+		_spec.SetField(user.FieldFloatsValidate, field.TypeJson, value)
 		_node.FloatsValidate = value
 	}
 	if value, ok := _c.mutation.StringsValidate(); ok {
-		_spec.SetField(user.FieldStringsValidate, field.TypeJSON, value)
+		_spec.SetField(user.FieldStringsValidate, field.TypeJson, value)
 		_node.StringsValidate = value
 	}
 	if value, ok := _c.mutation.Addr(); ok {
-		_spec.SetField(user.FieldAddr, field.TypeJSON, value)
+		_spec.SetField(user.FieldAddr, field.TypeJson, value)
 		_node.Addr = value
 	}
 	if value, ok := _c.mutation.Unknown(); ok {
-		_spec.SetField(user.FieldUnknown, field.TypeJSON, value)
+		_spec.SetField(user.FieldUnknown, field.TypeJson, value)
 		_node.Unknown = value
 	}
 	return _node, _spec
@@ -303,10 +303,10 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

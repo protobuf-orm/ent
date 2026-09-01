@@ -27,7 +27,7 @@ func (Rental) Fields() []ent.Field {
 			Default(time.Now),
 		field.Int("user_id").
 			Immutable(),
-		field.UUID("car_id", uuid.UUID{}).
+		field.Uuid("car_id", uuid.UUID{}).
 			Immutable(),
 	}
 }

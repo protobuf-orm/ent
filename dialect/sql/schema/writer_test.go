@@ -24,7 +24,7 @@ import (
 
 func TestWriteDriver(t *testing.T) {
 	b := &bytes.Buffer{}
-	w := NewWriteDriver(dialect.MySQL, b)
+	w := NewWriteDriver(dialect.MySql, b)
 	ctx := context.Background()
 	tx, err := w.Tx(ctx)
 	require.NoError(t, err)
@@ -48,10 +48,10 @@ func TestWriteDriver(t *testing.T) {
 	require.Equal(t, "UPDATE `test`.`users` SET `a` = 1, `b` = 'a', `c` = '''c''', `d` = 1 WHERE `p` = 0.2;\n", b.String())
 
 	b.Reset()
-	query, args = sql.Dialect(dialect.MySQL).Update("users").Schema("test").Set("a", "{}").Where(sqljson.ValueIsNull("a")).Query()
+	query, args = sql.Dialect(dialect.MySql).Update("users").Schema("test").Set("a", "{}").Where(sqljson.ValueIsNull("a")).Query()
 	err = w.Exec(ctx, query, args, nil)
 	require.NoError(t, err)
-	require.Equal(t, "UPDATE `test`.`users` SET `a` = '{}' WHERE JSON_CONTAINS(`a`, 'null', '$');\n", b.String())
+	require.Equal(t, "UPDATE `test`.`users` SET `a` = '{}' WHERE Json_CONTAINS(`a`, 'null', '$');\n", b.String())
 
 	b.Reset()
 	w = NewWriteDriver(dialect.Postgres, b)
@@ -99,7 +99,7 @@ func TestDirWriter(t *testing.T) {
 		want     string
 	}{
 		{
-			dialect.MySQL,
+			dialect.MySql,
 			[]string{
 				"UPDATE `test`.`users` SET `a` = ?",
 				"UPDATE `test`.`users` SET `b` = ?",

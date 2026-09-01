@@ -18,8 +18,8 @@ import (
 // Api is the model entity for the Api schema.
 type Api struct {
 	config
-	// ID of the ent.
-	ID           int `json:"id,omitempty"`
+	// Id of the ent.
+	Id           int `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +28,7 @@ func (*Api) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case api.FieldID:
+		case api.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,12 +45,12 @@ func (_m *Api) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case api.FieldID:
+		case api.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -67,8 +67,8 @@ func (_m *Api) Value(name string) (ent.Value, error) {
 // Update returns a builder for updating this Api.
 // Note that you need to call Api.Unwrap() before calling this method if this Api
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (_m *Api) Update() *APIUpdateOne {
-	return NewAPIClient(_m.config).UpdateOne(_m)
+func (_m *Api) Update() *ApiUpdateOne {
+	return NewApiClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the Api entity that was returned from a transaction after it was closed,
@@ -86,7 +86,7 @@ func (_m *Api) Unwrap() *Api {
 func (_m *Api) String() string {
 	var builder strings.Builder
 	builder.WriteString("Api(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

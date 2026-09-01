@@ -27,16 +27,16 @@ type OtherCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetID sets the "id" field.
-func (_c *OtherCreate) SetID(v sid.ID) *OtherCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *OtherCreate) SetId(v sid.Id) *OtherCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *OtherCreate) SetNillableID(v *sid.ID) *OtherCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *OtherCreate) SetNillableId(v *sid.Id) *OtherCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
@@ -76,9 +76,9 @@ func (_c *OtherCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *OtherCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := other.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := other.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -98,14 +98,14 @@ func (_c *OtherCreate) sqlSave(ctx context.Context) (*Other, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*sid.ID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*sid.Id); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -113,12 +113,12 @@ func (_c *OtherCreate) sqlSave(ctx context.Context) (*Other, error) {
 func (_c *OtherCreate) createSpec() (*Other, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Other{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(other.Table, sqlgraph.NewFieldSpec(other.FieldID, field.TypeOther))
+		_spec = sqlgraph.NewCreateSpec(other.Table, sqlgraph.NewFieldSpec(other.FieldId, field.TypeOther))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	return _node, _spec
 }
@@ -166,22 +166,22 @@ type (
 	}
 )
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Other.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(other.FieldID)
+//				u.SetIgnore(other.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *OtherUpsertOne) UpdateNewValues() *OtherUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(other.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(other.FieldId)
 		}
 	}))
 	return u
@@ -199,7 +199,7 @@ func (u *OtherUpsertOne) Ignore() *OtherUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *OtherUpsertOne) DoNothing() *OtherUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -229,23 +229,23 @@ func (u *OtherUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *OtherUpsertOne) ID(ctx context.Context) (id sid.ID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: OtherUpsertOne.ID is not supported by MySQL driver. Use OtherUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *OtherUpsertOne) Id(ctx context.Context) (id sid.Id, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: OtherUpsertOne.Id is not supported by MySql driver. Use OtherUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *OtherUpsertOne) IDX(ctx context.Context) sid.ID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *OtherUpsertOne) IdX(ctx context.Context) sid.Id {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -298,7 +298,7 @@ func (_c *OtherCreateBulk) Save(ctx context.Context) ([]*Other, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -381,7 +381,7 @@ type OtherUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(other.FieldID)
+//				u.SetIgnore(other.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -389,8 +389,8 @@ func (u *OtherUpsertBulk) UpdateNewValues() *OtherUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(other.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(other.FieldId)
 			}
 		}
 	}))
@@ -409,7 +409,7 @@ func (u *OtherUpsertBulk) Ignore() *OtherUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *OtherUpsertBulk) DoNothing() *OtherUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

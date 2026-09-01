@@ -82,13 +82,13 @@ func (m *Mutation) ResetValue() {
 	m.addvalue = nil
 }
 
-// SetPrevID sets the "prev_id" field.
-func (m *Mutation) SetPrevID(i int) {
+// SetPrevId sets the "prev_id" field.
+func (m *Mutation) SetPrevId(i int) {
 	m.prev = &i
 }
 
-// PrevID returns the value of the "prev_id" field in the mutation.
-func (m *Mutation) PrevID() (r int, exists bool) {
+// PrevId returns the value of the "prev_id" field in the mutation.
+func (m *Mutation) PrevId() (r int, exists bool) {
 	v := m.prev
 	if v == nil {
 		return
@@ -96,39 +96,39 @@ func (m *Mutation) PrevID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearPrevID clears the value of the "prev_id" field.
-func (m *Mutation) ClearPrevID() {
+// ClearPrevId clears the value of the "prev_id" field.
+func (m *Mutation) ClearPrevId() {
 	m.prev = nil
-	m.clearedFields[FieldPrevID] = struct{}{}
+	m.clearedFields[FieldPrevId] = struct{}{}
 }
 
-// PrevIDCleared returns if the "prev_id" field was cleared in this mutation.
-func (m *Mutation) PrevIDCleared() bool {
-	_, ok := m.clearedFields[FieldPrevID]
+// PrevIdCleared returns if the "prev_id" field was cleared in this mutation.
+func (m *Mutation) PrevIdCleared() bool {
+	_, ok := m.clearedFields[FieldPrevId]
 	return ok
 }
 
-// ResetPrevID resets all changes to the "prev_id" field.
-func (m *Mutation) ResetPrevID() {
+// ResetPrevId resets all changes to the "prev_id" field.
+func (m *Mutation) ResetPrevId() {
 	m.prev = nil
-	delete(m.clearedFields, FieldPrevID)
+	delete(m.clearedFields, FieldPrevId)
 }
 
 // ClearPrev clears the "prev" edge to the Node entity.
 func (m *Mutation) ClearPrev() {
 	m.clearedprev = true
-	m.clearedFields[FieldPrevID] = struct{}{}
+	m.clearedFields[FieldPrevId] = struct{}{}
 }
 
 // PrevCleared reports if the "prev" edge to the Node entity was cleared.
 func (m *Mutation) PrevCleared() bool {
-	return m.PrevIDCleared() || m.clearedprev
+	return m.PrevIdCleared() || m.clearedprev
 }
 
-// PrevIDs returns the "prev" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// PrevID instead. It exists only for internal usage by the builders.
-func (m *Mutation) PrevIDs() (ids []int) {
+// PrevIds returns the "prev" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// PrevId instead. It exists only for internal usage by the builders.
+func (m *Mutation) PrevIds() (ids []int) {
 	if id := m.prev; id != nil {
 		ids = append(ids, *id)
 	}
@@ -141,8 +141,8 @@ func (m *Mutation) ResetPrev() {
 	m.clearedprev = false
 }
 
-// SetNextID sets the "next" edge to the Node entity by id.
-func (m *Mutation) SetNextID(id int) {
+// SetNextId sets the "next" edge to the Node entity by id.
+func (m *Mutation) SetNextId(id int) {
 	m.next = &id
 }
 
@@ -156,18 +156,18 @@ func (m *Mutation) NextCleared() bool {
 	return m.clearednext
 }
 
-// NextID returns the "next" edge ID in the mutation.
-func (m *Mutation) NextID() (id int, exists bool) {
+// NextId returns the "next" edge Id in the mutation.
+func (m *Mutation) NextId() (id int, exists bool) {
 	if m.next != nil {
 		return *m.next, true
 	}
 	return
 }
 
-// NextIDs returns the "next" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// NextID instead. It exists only for internal usage by the builders.
-func (m *Mutation) NextIDs() (ids []int) {
+// NextIds returns the "next" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// NextId instead. It exists only for internal usage by the builders.
+func (m *Mutation) NextIds() (ids []int) {
 	if id := m.next; id != nil {
 		ids = append(ids, *id)
 	}
@@ -219,7 +219,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldValue)
 	}
 	if m.prev != nil {
-		fields = append(fields, FieldPrevID)
+		fields = append(fields, FieldPrevId)
 	}
 	return fields
 }
@@ -231,8 +231,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldValue:
 		return m.Value()
-	case FieldPrevID:
-		return m.PrevID()
+	case FieldPrevId:
+		return m.PrevId()
 	}
 	return nil, false
 }
@@ -256,12 +256,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetValue(v)
 		return nil
-	case FieldPrevID:
+	case FieldPrevId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetPrevID(v)
+		m.SetPrevId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Node field %s", name)
@@ -308,8 +308,8 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldPrevID) {
-		fields = append(fields, FieldPrevID)
+	if m.FieldCleared(FieldPrevId) {
+		fields = append(fields, FieldPrevId)
 	}
 	return fields
 }
@@ -325,8 +325,8 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldPrevID:
-		m.ClearPrevID()
+	case FieldPrevId:
+		m.ClearPrevId()
 		return nil
 	}
 	return fmt.Errorf("unknown Node nullable field %s", name)
@@ -339,8 +339,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldValue:
 		m.ResetValue()
 		return nil
-	case FieldPrevID:
-		m.ResetPrevID()
+	case FieldPrevId:
+		m.ResetPrevId()
 		return nil
 	}
 	return fmt.Errorf("unknown Node field %s", name)
@@ -358,9 +358,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgePrev:
 		if id := m.prev; id != nil {
@@ -380,9 +380,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

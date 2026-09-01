@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the comment type in the database.
 	Label = "comment"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
-	// FieldPostID holds the string denoting the post_id field in the database.
-	FieldPostID = "post_id"
+	// FieldPostId holds the string denoting the post_id field in the database.
+	FieldPostId = "post_id"
 	// EdgePost holds the string denoting the post edge name in mutations.
 	EdgePost = "post"
 	// Table holds the table name of the comment in the database.
@@ -33,11 +33,11 @@ const (
 	PostColumn = "post_id"
 )
 
-// Columns holds all SQL columns for comment fields.
+// Columns holds all Sql columns for comment fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
-	FieldPostID,
+	FieldPostId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -53,9 +53,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Comment queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.
@@ -63,9 +63,9 @@ func ByText(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldText, opts...).ToFunc()
 }
 
-// ByPostID orders the results by the post_id field.
-func ByPostID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPostID, opts...).ToFunc()
+// ByPostId orders the results by the post_id field.
+func ByPostId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPostId, opts...).ToFunc()
 }
 
 // ByPostField orders the results by post field.
@@ -76,8 +76,8 @@ func ByPostField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newPostStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PostInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PostInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, PostTable, PostColumn),
 	)
 }

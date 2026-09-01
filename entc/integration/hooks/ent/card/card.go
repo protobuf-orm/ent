@@ -17,8 +17,8 @@ import (
 const (
 	// Label holds the string label denoting the card type in the database.
 	Label = "card"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldNumber holds the string denoting the number field in the database.
 	FieldNumber = "number"
 	// FieldName holds the string denoting the name field in the database.
@@ -42,9 +42,9 @@ const (
 	OwnerColumn = "user_cards"
 )
 
-// Columns holds all SQL columns for card fields.
+// Columns holds all Sql columns for card fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldNumber,
 	FieldName,
 	FieldCreatedAt,
@@ -52,7 +52,7 @@ var Columns = []string{
 	FieldExpiredAt,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "card"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "card"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_cards",
@@ -92,9 +92,9 @@ var (
 // OrderOption defines the ordering options for the Card queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByNumber orders the results by the number field.
@@ -130,8 +130,8 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

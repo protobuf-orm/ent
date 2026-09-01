@@ -22,14 +22,14 @@ import (
 // TweetTag is the model entity for the TweetTag schema.
 type TweetTag struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
 	// AddedAt holds the value of the "added_at" field.
 	AddedAt time.Time `json:"added_at,omitempty"`
-	// TagID holds the value of the "tag_id" field.
-	TagID int `json:"tag_id,omitempty"`
-	// TweetID holds the value of the "tweet_id" field.
-	TweetID int `json:"tweet_id,omitempty"`
+	// TagId holds the value of the "tag_id" field.
+	TagId int `json:"tag_id,omitempty"`
+	// TweetId holds the value of the "tweet_id" field.
+	TweetId int `json:"tweet_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TweetTagQuery when eager-loading is set.
 	Edges        TweetTagEdges `json:"edges"`
@@ -74,11 +74,11 @@ func (*TweetTag) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case tweettag.FieldTagID, tweettag.FieldTweetID:
+		case tweettag.FieldTagId, tweettag.FieldTweetId:
 			values[i] = new(sql.NullInt64)
 		case tweettag.FieldAddedAt:
 			values[i] = new(sql.NullTime)
-		case tweettag.FieldID:
+		case tweettag.FieldId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -95,11 +95,11 @@ func (_m *TweetTag) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case tweettag.FieldID:
+		case tweettag.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case tweettag.FieldAddedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -107,17 +107,17 @@ func (_m *TweetTag) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.AddedAt = value.Time
 			}
-		case tweettag.FieldTagID:
+		case tweettag.FieldTagId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field tag_id", values[i])
 			} else if value.Valid {
-				_m.TagID = int(value.Int64)
+				_m.TagId = int(value.Int64)
 			}
-		case tweettag.FieldTweetID:
+		case tweettag.FieldTweetId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field tweet_id", values[i])
 			} else if value.Valid {
-				_m.TweetID = int(value.Int64)
+				_m.TweetId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -164,15 +164,15 @@ func (_m *TweetTag) Unwrap() *TweetTag {
 func (_m *TweetTag) String() string {
 	var builder strings.Builder
 	builder.WriteString("TweetTag(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("added_at=")
 	builder.WriteString(_m.AddedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("tag_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.TagID))
+	builder.WriteString(fmt.Sprintf("%v", _m.TagId))
 	builder.WriteString(", ")
 	builder.WriteString("tweet_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.TweetID))
+	builder.WriteString(fmt.Sprintf("%v", _m.TweetId))
 	builder.WriteByte(')')
 	return builder.String()
 }

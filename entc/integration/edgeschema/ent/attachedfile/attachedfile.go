@@ -16,14 +16,14 @@ import (
 const (
 	// Label holds the string label denoting the attachedfile type in the database.
 	Label = "attached_file"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldAttachTime holds the string denoting the attach_time field in the database.
 	FieldAttachTime = "attach_time"
-	// FieldFID holds the string denoting the f_id field in the database.
-	FieldFID = "f_id"
-	// FieldProcID holds the string denoting the proc_id field in the database.
-	FieldProcID = "proc_id"
+	// FieldFId holds the string denoting the f_id field in the database.
+	FieldFId = "f_id"
+	// FieldProcId holds the string denoting the proc_id field in the database.
+	FieldProcId = "proc_id"
 	// EdgeFi holds the string denoting the fi edge name in mutations.
 	EdgeFi = "fi"
 	// EdgeProc holds the string denoting the proc edge name in mutations.
@@ -46,12 +46,12 @@ const (
 	ProcColumn = "proc_id"
 )
 
-// Columns holds all SQL columns for attachedfile fields.
+// Columns holds all Sql columns for attachedfile fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldAttachTime,
-	FieldFID,
-	FieldProcID,
+	FieldFId,
+	FieldProcId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -72,9 +72,9 @@ var (
 // OrderOption defines the ordering options for the AttachedFile queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByAttachTime orders the results by the attach_time field.
@@ -82,14 +82,14 @@ func ByAttachTime(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAttachTime, opts...).ToFunc()
 }
 
-// ByFID orders the results by the f_id field.
-func ByFID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldFID, opts...).ToFunc()
+// ByFId orders the results by the f_id field.
+func ByFId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFId, opts...).ToFunc()
 }
 
-// ByProcID orders the results by the proc_id field.
-func ByProcID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldProcID, opts...).ToFunc()
+// ByProcId orders the results by the proc_id field.
+func ByProcId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProcId, opts...).ToFunc()
 }
 
 // ByFiField orders the results by fi field.
@@ -107,15 +107,15 @@ func ByProcField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newFiStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FiInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FiInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, FiTable, FiColumn),
 	)
 }
 func newProcStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(ProcInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(ProcInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ProcTable, ProcColumn),
 	)
 }

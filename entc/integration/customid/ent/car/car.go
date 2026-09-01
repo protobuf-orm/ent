@@ -14,12 +14,12 @@ import (
 const (
 	// Label holds the string label denoting the car type in the database.
 	Label = "car"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldBeforeID holds the string denoting the before_id field in the database.
-	FieldBeforeID = "before_id"
-	// FieldAfterID holds the string denoting the after_id field in the database.
-	FieldAfterID = "after_id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldBeforeId holds the string denoting the before_id field in the database.
+	FieldBeforeId = "before_id"
+	// FieldAfterId holds the string denoting the after_id field in the database.
+	FieldAfterId = "after_id"
 	// FieldModel holds the string denoting the model field in the database.
 	FieldModel = "model"
 	// EdgeOwner holds the string denoting the owner edge name in mutations.
@@ -35,15 +35,15 @@ const (
 	OwnerColumn = "pet_cars"
 )
 
-// Columns holds all SQL columns for car fields.
+// Columns holds all Sql columns for car fields.
 var Columns = []string{
-	FieldID,
-	FieldBeforeID,
-	FieldAfterID,
+	FieldId,
+	FieldBeforeId,
+	FieldAfterId,
 	FieldModel,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "car"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "car"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"pet_cars",
@@ -65,30 +65,30 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// BeforeIDValidator is a validator for the "before_id" field. It is called by the builders before save.
-	BeforeIDValidator func(float64) error
-	// AfterIDValidator is a validator for the "after_id" field. It is called by the builders before save.
-	AfterIDValidator func(float64) error
-	// IDValidator is a validator for the "id" field. It is called by the builders before save.
-	IDValidator func(int) error
+	// BeforeIdValidator is a validator for the "before_id" field. It is called by the builders before save.
+	BeforeIdValidator func(float64) error
+	// AfterIdValidator is a validator for the "after_id" field. It is called by the builders before save.
+	AfterIdValidator func(float64) error
+	// IdValidator is a validator for the "id" field. It is called by the builders before save.
+	IdValidator func(int) error
 )
 
 // OrderOption defines the ordering options for the Car queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByBeforeID orders the results by the before_id field.
-func ByBeforeID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldBeforeID, opts...).ToFunc()
+// ByBeforeId orders the results by the before_id field.
+func ByBeforeId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBeforeId, opts...).ToFunc()
 }
 
-// ByAfterID orders the results by the after_id field.
-func ByAfterID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldAfterID, opts...).ToFunc()
+// ByAfterId orders the results by the after_id field.
+func ByAfterId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAfterId, opts...).ToFunc()
 }
 
 // ByModel orders the results by the model field.
@@ -104,8 +104,8 @@ func ByOwnerField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newOwnerStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(OwnerInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(OwnerInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
 	)
 }

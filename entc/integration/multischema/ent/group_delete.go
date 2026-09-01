@@ -45,7 +45,7 @@ func (_d *GroupDelete) ExecX(ctx context.Context) int {
 }
 
 func (_d *GroupDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := sqlgraph.NewDeleteSpec(group.Table, sqlgraph.NewFieldSpec(group.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewDeleteSpec(group.Table, sqlgraph.NewFieldSpec(group.FieldId, field.TypeInt))
 	_spec.Node.Schema = _d.schemaConfig.Group
 	ctx = internal.NewSchemaConfigContext(ctx, _d.schemaConfig)
 	if ps := _d.mutation.Predicates(); len(ps) > 0 {

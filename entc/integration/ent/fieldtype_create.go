@@ -381,16 +381,16 @@ func (_c *FieldTypeCreate) SetLinkOtherFunc(v *schema.Link) *FieldTypeCreate {
 	return _c
 }
 
-// SetMAC sets the "mac" field.
-func (_c *FieldTypeCreate) SetMAC(v schema.MAC) *FieldTypeCreate {
-	_c.mutation.SetMAC(v)
+// SetMac sets the "mac" field.
+func (_c *FieldTypeCreate) SetMac(v schema.Mac) *FieldTypeCreate {
+	_c.mutation.SetMac(v)
 	return _c
 }
 
-// SetNillableMAC sets the "mac" field if the given value is not nil.
-func (_c *FieldTypeCreate) SetNillableMAC(v *schema.MAC) *FieldTypeCreate {
+// SetNillableMac sets the "mac" field if the given value is not nil.
+func (_c *FieldTypeCreate) SetNillableMac(v *schema.Mac) *FieldTypeCreate {
 	if v != nil {
-		_c.SetMAC(*v)
+		_c.SetMac(*v)
 	}
 	return _c
 }
@@ -563,9 +563,9 @@ func (_c *FieldTypeCreate) SetSensitive(v []byte) *FieldTypeCreate {
 	return _c
 }
 
-// SetIP sets the "ip" field.
-func (_c *FieldTypeCreate) SetIP(v net.IP) *FieldTypeCreate {
-	_c.mutation.SetIP(v)
+// SetIp sets the "ip" field.
+func (_c *FieldTypeCreate) SetIp(v net.IP) *FieldTypeCreate {
+	_c.mutation.SetIp(v)
 	return _c
 }
 
@@ -679,30 +679,30 @@ func (_c *FieldTypeCreate) SetNillablePriority(v *role.Priority) *FieldTypeCreat
 	return _c
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (_c *FieldTypeCreate) SetOptionalUUID(v uuid.UUID) *FieldTypeCreate {
-	_c.mutation.SetOptionalUUID(v)
+// SetOptionalUuid sets the "optional_uuid" field.
+func (_c *FieldTypeCreate) SetOptionalUuid(v uuid.UUID) *FieldTypeCreate {
+	_c.mutation.SetOptionalUuid(v)
 	return _c
 }
 
-// SetNillableOptionalUUID sets the "optional_uuid" field if the given value is not nil.
-func (_c *FieldTypeCreate) SetNillableOptionalUUID(v *uuid.UUID) *FieldTypeCreate {
+// SetNillableOptionalUuid sets the "optional_uuid" field if the given value is not nil.
+func (_c *FieldTypeCreate) SetNillableOptionalUuid(v *uuid.UUID) *FieldTypeCreate {
 	if v != nil {
-		_c.SetOptionalUUID(*v)
+		_c.SetOptionalUuid(*v)
 	}
 	return _c
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (_c *FieldTypeCreate) SetNillableUUID(v uuid.UUID) *FieldTypeCreate {
-	_c.mutation.SetNillableUUID(v)
+// SetNillableUuid sets the "nillable_uuid" field.
+func (_c *FieldTypeCreate) SetNillableUuid(v uuid.UUID) *FieldTypeCreate {
+	_c.mutation.SetNillableUuid(v)
 	return _c
 }
 
-// SetNillableNillableUUID sets the "nillable_uuid" field if the given value is not nil.
-func (_c *FieldTypeCreate) SetNillableNillableUUID(v *uuid.UUID) *FieldTypeCreate {
+// SetNillableNillableUuid sets the "nillable_uuid" field if the given value is not nil.
+func (_c *FieldTypeCreate) SetNillableNillableUuid(v *uuid.UUID) *FieldTypeCreate {
 	if v != nil {
-		_c.SetNillableUUID(*v)
+		_c.SetNillableUuid(*v)
 	}
 	return _c
 }
@@ -848,9 +848,9 @@ func (_c *FieldTypeCreate) defaults() {
 		v := fieldtype.DefaultDeletedAt()
 		_c.mutation.SetDeletedAt(v)
 	}
-	if _, ok := _c.mutation.IP(); !ok {
-		v := fieldtype.DefaultIP()
-		_c.mutation.SetIP(v)
+	if _, ok := _c.mutation.Ip(); !ok {
+		v := fieldtype.DefaultIp()
+		_c.mutation.SetIp(v)
 	}
 	if _, ok := _c.mutation.Role(); !ok {
 		v := fieldtype.DefaultRole
@@ -897,8 +897,8 @@ func (_c *FieldTypeCreate) check() error {
 			return &ValidationError{Name: "state", err: fmt.Errorf(`ent: validator failed for field "FieldType.state": %w`, err)}
 		}
 	}
-	if v, ok := _c.mutation.MAC(); ok {
-		if err := fieldtype.MACValidator(v.String()); err != nil {
+	if v, ok := _c.mutation.Mac(); ok {
+		if err := fieldtype.MacValidator(v.String()); err != nil {
 			return &ValidationError{Name: "mac", err: fmt.Errorf(`ent: validator failed for field "FieldType.mac": %w`, err)}
 		}
 	}
@@ -920,8 +920,8 @@ func (_c *FieldTypeCreate) check() error {
 			return &ValidationError{Name: "raw_data", err: fmt.Errorf(`ent: validator failed for field "FieldType.raw_data": %w`, err)}
 		}
 	}
-	if v, ok := _c.mutation.IP(); ok {
-		if err := fieldtype.IPValidator([]byte(v)); err != nil {
+	if v, ok := _c.mutation.Ip(); ok {
+		if err := fieldtype.IpValidator([]byte(v)); err != nil {
 			return &ValidationError{Name: "ip", err: fmt.Errorf(`ent: validator failed for field "FieldType.ip": %w`, err)}
 		}
 	}
@@ -961,9 +961,9 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -971,7 +971,7 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 	var (
 		_node = &FieldType{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(fieldtype.Table, sqlgraph.NewFieldSpec(fieldtype.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(fieldtype.Table, sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Int(); ok {
@@ -1090,9 +1090,9 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 		_spec.SetField(fieldtype.FieldLinkOtherFunc, field.TypeOther, value)
 		_node.LinkOtherFunc = value
 	}
-	if value, ok := _c.mutation.MAC(); ok {
-		_spec.SetField(fieldtype.FieldMAC, field.TypeString, value)
-		_node.MAC = value
+	if value, ok := _c.mutation.Mac(); ok {
+		_spec.SetField(fieldtype.FieldMac, field.TypeString, value)
+		_node.Mac = value
 	}
 	if value, ok := _c.mutation.StringArray(); ok {
 		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, value)
@@ -1158,9 +1158,9 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 		_spec.SetField(fieldtype.FieldSensitive, field.TypeBytes, value)
 		_node.Sensitive = value
 	}
-	if value, ok := _c.mutation.IP(); ok {
-		_spec.SetField(fieldtype.FieldIP, field.TypeBytes, value)
-		_node.IP = value
+	if value, ok := _c.mutation.Ip(); ok {
+		_spec.SetField(fieldtype.FieldIp, field.TypeBytes, value)
+		_node.Ip = value
 	}
 	if value, ok := _c.mutation.NullInt64(); ok {
 		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, value)
@@ -1198,16 +1198,16 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 		_spec.SetField(fieldtype.FieldPriority, field.TypeEnum, value)
 		_node.Priority = value
 	}
-	if value, ok := _c.mutation.OptionalUUID(); ok {
-		_spec.SetField(fieldtype.FieldOptionalUUID, field.TypeUUID, value)
-		_node.OptionalUUID = value
+	if value, ok := _c.mutation.OptionalUuid(); ok {
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
+		_node.OptionalUuid = value
 	}
-	if value, ok := _c.mutation.NillableUUID(); ok {
-		_spec.SetField(fieldtype.FieldNillableUUID, field.TypeUUID, value)
-		_node.NillableUUID = &value
+	if value, ok := _c.mutation.NillableUuid(); ok {
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
+		_node.NillableUuid = &value
 	}
 	if value, ok := _c.mutation.Strings(); ok {
-		_spec.SetField(fieldtype.FieldStrings, field.TypeJSON, value)
+		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, value)
 		_node.Strings = value
 	}
 	if value, ok := _c.mutation.Pair(); ok {
@@ -1922,21 +1922,21 @@ func (u *FieldTypeUpsert) ClearLinkOtherFunc() *FieldTypeUpsert {
 	return u
 }
 
-// SetMAC sets the "mac" field.
-func (u *FieldTypeUpsert) SetMAC(v schema.MAC) *FieldTypeUpsert {
-	u.Set(fieldtype.FieldMAC, v)
+// SetMac sets the "mac" field.
+func (u *FieldTypeUpsert) SetMac(v schema.Mac) *FieldTypeUpsert {
+	u.Set(fieldtype.FieldMac, v)
 	return u
 }
 
-// UpdateMAC sets the "mac" field to the value that was provided on create.
-func (u *FieldTypeUpsert) UpdateMAC() *FieldTypeUpsert {
-	u.SetExcluded(fieldtype.FieldMAC)
+// UpdateMac sets the "mac" field to the value that was provided on create.
+func (u *FieldTypeUpsert) UpdateMac() *FieldTypeUpsert {
+	u.SetExcluded(fieldtype.FieldMac)
 	return u
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (u *FieldTypeUpsert) ClearMAC() *FieldTypeUpsert {
-	u.SetNull(fieldtype.FieldMAC)
+// ClearMac clears the value of the "mac" field.
+func (u *FieldTypeUpsert) ClearMac() *FieldTypeUpsert {
+	u.SetNull(fieldtype.FieldMac)
 	return u
 }
 
@@ -2228,21 +2228,21 @@ func (u *FieldTypeUpsert) ClearSensitive() *FieldTypeUpsert {
 	return u
 }
 
-// SetIP sets the "ip" field.
-func (u *FieldTypeUpsert) SetIP(v net.IP) *FieldTypeUpsert {
-	u.Set(fieldtype.FieldIP, v)
+// SetIp sets the "ip" field.
+func (u *FieldTypeUpsert) SetIp(v net.IP) *FieldTypeUpsert {
+	u.Set(fieldtype.FieldIp, v)
 	return u
 }
 
-// UpdateIP sets the "ip" field to the value that was provided on create.
-func (u *FieldTypeUpsert) UpdateIP() *FieldTypeUpsert {
-	u.SetExcluded(fieldtype.FieldIP)
+// UpdateIp sets the "ip" field to the value that was provided on create.
+func (u *FieldTypeUpsert) UpdateIp() *FieldTypeUpsert {
+	u.SetExcluded(fieldtype.FieldIp)
 	return u
 }
 
-// ClearIP clears the value of the "ip" field.
-func (u *FieldTypeUpsert) ClearIP() *FieldTypeUpsert {
-	u.SetNull(fieldtype.FieldIP)
+// ClearIp clears the value of the "ip" field.
+func (u *FieldTypeUpsert) ClearIp() *FieldTypeUpsert {
+	u.SetNull(fieldtype.FieldIp)
 	return u
 }
 
@@ -2432,39 +2432,39 @@ func (u *FieldTypeUpsert) ClearPriority() *FieldTypeUpsert {
 	return u
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (u *FieldTypeUpsert) SetOptionalUUID(v uuid.UUID) *FieldTypeUpsert {
-	u.Set(fieldtype.FieldOptionalUUID, v)
+// SetOptionalUuid sets the "optional_uuid" field.
+func (u *FieldTypeUpsert) SetOptionalUuid(v uuid.UUID) *FieldTypeUpsert {
+	u.Set(fieldtype.FieldOptionalUuid, v)
 	return u
 }
 
-// UpdateOptionalUUID sets the "optional_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsert) UpdateOptionalUUID() *FieldTypeUpsert {
-	u.SetExcluded(fieldtype.FieldOptionalUUID)
+// UpdateOptionalUuid sets the "optional_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsert) UpdateOptionalUuid() *FieldTypeUpsert {
+	u.SetExcluded(fieldtype.FieldOptionalUuid)
 	return u
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (u *FieldTypeUpsert) ClearOptionalUUID() *FieldTypeUpsert {
-	u.SetNull(fieldtype.FieldOptionalUUID)
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (u *FieldTypeUpsert) ClearOptionalUuid() *FieldTypeUpsert {
+	u.SetNull(fieldtype.FieldOptionalUuid)
 	return u
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (u *FieldTypeUpsert) SetNillableUUID(v uuid.UUID) *FieldTypeUpsert {
-	u.Set(fieldtype.FieldNillableUUID, v)
+// SetNillableUuid sets the "nillable_uuid" field.
+func (u *FieldTypeUpsert) SetNillableUuid(v uuid.UUID) *FieldTypeUpsert {
+	u.Set(fieldtype.FieldNillableUuid, v)
 	return u
 }
 
-// UpdateNillableUUID sets the "nillable_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsert) UpdateNillableUUID() *FieldTypeUpsert {
-	u.SetExcluded(fieldtype.FieldNillableUUID)
+// UpdateNillableUuid sets the "nillable_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsert) UpdateNillableUuid() *FieldTypeUpsert {
+	u.SetExcluded(fieldtype.FieldNillableUuid)
 	return u
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (u *FieldTypeUpsert) ClearNillableUUID() *FieldTypeUpsert {
-	u.SetNull(fieldtype.FieldNillableUUID)
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (u *FieldTypeUpsert) ClearNillableUuid() *FieldTypeUpsert {
+	u.SetNull(fieldtype.FieldNillableUuid)
 	return u
 }
 
@@ -2607,7 +2607,7 @@ func (u *FieldTypeUpsertOne) Ignore() *FieldTypeUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FieldTypeUpsertOne) DoNothing() *FieldTypeUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -3364,24 +3364,24 @@ func (u *FieldTypeUpsertOne) ClearLinkOtherFunc() *FieldTypeUpsertOne {
 	})
 }
 
-// SetMAC sets the "mac" field.
-func (u *FieldTypeUpsertOne) SetMAC(v schema.MAC) *FieldTypeUpsertOne {
+// SetMac sets the "mac" field.
+func (u *FieldTypeUpsertOne) SetMac(v schema.Mac) *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetMAC(v)
+		s.SetMac(v)
 	})
 }
 
-// UpdateMAC sets the "mac" field to the value that was provided on create.
-func (u *FieldTypeUpsertOne) UpdateMAC() *FieldTypeUpsertOne {
+// UpdateMac sets the "mac" field to the value that was provided on create.
+func (u *FieldTypeUpsertOne) UpdateMac() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateMAC()
+		s.UpdateMac()
 	})
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (u *FieldTypeUpsertOne) ClearMAC() *FieldTypeUpsertOne {
+// ClearMac clears the value of the "mac" field.
+func (u *FieldTypeUpsertOne) ClearMac() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearMAC()
+		s.ClearMac()
 	})
 }
 
@@ -3721,24 +3721,24 @@ func (u *FieldTypeUpsertOne) ClearSensitive() *FieldTypeUpsertOne {
 	})
 }
 
-// SetIP sets the "ip" field.
-func (u *FieldTypeUpsertOne) SetIP(v net.IP) *FieldTypeUpsertOne {
+// SetIp sets the "ip" field.
+func (u *FieldTypeUpsertOne) SetIp(v net.IP) *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetIP(v)
+		s.SetIp(v)
 	})
 }
 
-// UpdateIP sets the "ip" field to the value that was provided on create.
-func (u *FieldTypeUpsertOne) UpdateIP() *FieldTypeUpsertOne {
+// UpdateIp sets the "ip" field to the value that was provided on create.
+func (u *FieldTypeUpsertOne) UpdateIp() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateIP()
+		s.UpdateIp()
 	})
 }
 
-// ClearIP clears the value of the "ip" field.
-func (u *FieldTypeUpsertOne) ClearIP() *FieldTypeUpsertOne {
+// ClearIp clears the value of the "ip" field.
+func (u *FieldTypeUpsertOne) ClearIp() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearIP()
+		s.ClearIp()
 	})
 }
 
@@ -3959,45 +3959,45 @@ func (u *FieldTypeUpsertOne) ClearPriority() *FieldTypeUpsertOne {
 	})
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (u *FieldTypeUpsertOne) SetOptionalUUID(v uuid.UUID) *FieldTypeUpsertOne {
+// SetOptionalUuid sets the "optional_uuid" field.
+func (u *FieldTypeUpsertOne) SetOptionalUuid(v uuid.UUID) *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetOptionalUUID(v)
+		s.SetOptionalUuid(v)
 	})
 }
 
-// UpdateOptionalUUID sets the "optional_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsertOne) UpdateOptionalUUID() *FieldTypeUpsertOne {
+// UpdateOptionalUuid sets the "optional_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsertOne) UpdateOptionalUuid() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateOptionalUUID()
+		s.UpdateOptionalUuid()
 	})
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (u *FieldTypeUpsertOne) ClearOptionalUUID() *FieldTypeUpsertOne {
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (u *FieldTypeUpsertOne) ClearOptionalUuid() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearOptionalUUID()
+		s.ClearOptionalUuid()
 	})
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (u *FieldTypeUpsertOne) SetNillableUUID(v uuid.UUID) *FieldTypeUpsertOne {
+// SetNillableUuid sets the "nillable_uuid" field.
+func (u *FieldTypeUpsertOne) SetNillableUuid(v uuid.UUID) *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetNillableUUID(v)
+		s.SetNillableUuid(v)
 	})
 }
 
-// UpdateNillableUUID sets the "nillable_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsertOne) UpdateNillableUUID() *FieldTypeUpsertOne {
+// UpdateNillableUuid sets the "nillable_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsertOne) UpdateNillableUuid() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateNillableUUID()
+		s.UpdateNillableUuid()
 	})
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (u *FieldTypeUpsertOne) ClearNillableUUID() *FieldTypeUpsertOne {
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (u *FieldTypeUpsertOne) ClearNillableUuid() *FieldTypeUpsertOne {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearNillableUUID()
+		s.ClearNillableUuid()
 	})
 }
 
@@ -4149,18 +4149,18 @@ func (u *FieldTypeUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *FieldTypeUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *FieldTypeUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *FieldTypeUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *FieldTypeUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -4213,10 +4213,10 @@ func (_c *FieldTypeCreateBulk) Save(ctx context.Context) ([]*FieldType, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -4323,7 +4323,7 @@ func (u *FieldTypeUpsertBulk) Ignore() *FieldTypeUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *FieldTypeUpsertBulk) DoNothing() *FieldTypeUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -5080,24 +5080,24 @@ func (u *FieldTypeUpsertBulk) ClearLinkOtherFunc() *FieldTypeUpsertBulk {
 	})
 }
 
-// SetMAC sets the "mac" field.
-func (u *FieldTypeUpsertBulk) SetMAC(v schema.MAC) *FieldTypeUpsertBulk {
+// SetMac sets the "mac" field.
+func (u *FieldTypeUpsertBulk) SetMac(v schema.Mac) *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetMAC(v)
+		s.SetMac(v)
 	})
 }
 
-// UpdateMAC sets the "mac" field to the value that was provided on create.
-func (u *FieldTypeUpsertBulk) UpdateMAC() *FieldTypeUpsertBulk {
+// UpdateMac sets the "mac" field to the value that was provided on create.
+func (u *FieldTypeUpsertBulk) UpdateMac() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateMAC()
+		s.UpdateMac()
 	})
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (u *FieldTypeUpsertBulk) ClearMAC() *FieldTypeUpsertBulk {
+// ClearMac clears the value of the "mac" field.
+func (u *FieldTypeUpsertBulk) ClearMac() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearMAC()
+		s.ClearMac()
 	})
 }
 
@@ -5437,24 +5437,24 @@ func (u *FieldTypeUpsertBulk) ClearSensitive() *FieldTypeUpsertBulk {
 	})
 }
 
-// SetIP sets the "ip" field.
-func (u *FieldTypeUpsertBulk) SetIP(v net.IP) *FieldTypeUpsertBulk {
+// SetIp sets the "ip" field.
+func (u *FieldTypeUpsertBulk) SetIp(v net.IP) *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetIP(v)
+		s.SetIp(v)
 	})
 }
 
-// UpdateIP sets the "ip" field to the value that was provided on create.
-func (u *FieldTypeUpsertBulk) UpdateIP() *FieldTypeUpsertBulk {
+// UpdateIp sets the "ip" field to the value that was provided on create.
+func (u *FieldTypeUpsertBulk) UpdateIp() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateIP()
+		s.UpdateIp()
 	})
 }
 
-// ClearIP clears the value of the "ip" field.
-func (u *FieldTypeUpsertBulk) ClearIP() *FieldTypeUpsertBulk {
+// ClearIp clears the value of the "ip" field.
+func (u *FieldTypeUpsertBulk) ClearIp() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearIP()
+		s.ClearIp()
 	})
 }
 
@@ -5675,45 +5675,45 @@ func (u *FieldTypeUpsertBulk) ClearPriority() *FieldTypeUpsertBulk {
 	})
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (u *FieldTypeUpsertBulk) SetOptionalUUID(v uuid.UUID) *FieldTypeUpsertBulk {
+// SetOptionalUuid sets the "optional_uuid" field.
+func (u *FieldTypeUpsertBulk) SetOptionalUuid(v uuid.UUID) *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetOptionalUUID(v)
+		s.SetOptionalUuid(v)
 	})
 }
 
-// UpdateOptionalUUID sets the "optional_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsertBulk) UpdateOptionalUUID() *FieldTypeUpsertBulk {
+// UpdateOptionalUuid sets the "optional_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsertBulk) UpdateOptionalUuid() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateOptionalUUID()
+		s.UpdateOptionalUuid()
 	})
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (u *FieldTypeUpsertBulk) ClearOptionalUUID() *FieldTypeUpsertBulk {
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (u *FieldTypeUpsertBulk) ClearOptionalUuid() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearOptionalUUID()
+		s.ClearOptionalUuid()
 	})
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (u *FieldTypeUpsertBulk) SetNillableUUID(v uuid.UUID) *FieldTypeUpsertBulk {
+// SetNillableUuid sets the "nillable_uuid" field.
+func (u *FieldTypeUpsertBulk) SetNillableUuid(v uuid.UUID) *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.SetNillableUUID(v)
+		s.SetNillableUuid(v)
 	})
 }
 
-// UpdateNillableUUID sets the "nillable_uuid" field to the value that was provided on create.
-func (u *FieldTypeUpsertBulk) UpdateNillableUUID() *FieldTypeUpsertBulk {
+// UpdateNillableUuid sets the "nillable_uuid" field to the value that was provided on create.
+func (u *FieldTypeUpsertBulk) UpdateNillableUuid() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.UpdateNillableUUID()
+		s.UpdateNillableUuid()
 	})
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (u *FieldTypeUpsertBulk) ClearNillableUUID() *FieldTypeUpsertBulk {
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (u *FieldTypeUpsertBulk) ClearNillableUuid() *FieldTypeUpsertBulk {
 	return u.Update(func(s *FieldTypeUpsert) {
-		s.ClearNillableUUID()
+		s.ClearNillableUuid()
 	})
 }
 

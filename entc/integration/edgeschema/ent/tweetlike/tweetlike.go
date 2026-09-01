@@ -19,18 +19,18 @@ const (
 	Label = "tweet_like"
 	// FieldLikedAt holds the string denoting the liked_at field in the database.
 	FieldLikedAt = "liked_at"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
-	// FieldTweetID holds the string denoting the tweet_id field in the database.
-	FieldTweetID = "tweet_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
+	// FieldTweetId holds the string denoting the tweet_id field in the database.
+	FieldTweetId = "tweet_id"
 	// EdgeTweet holds the string denoting the tweet edge name in mutations.
 	EdgeTweet = "tweet"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
-	// TweetFieldID holds the string denoting the ID field of the Tweet.
-	TweetFieldID = "id"
-	// UserFieldID holds the string denoting the ID field of the User.
-	UserFieldID = "id"
+	// TweetFieldId holds the string denoting the Id field of the Tweet.
+	TweetFieldId = "id"
+	// UserFieldId holds the string denoting the Id field of the User.
+	UserFieldId = "id"
 	// Table holds the table name of the tweetlike in the database.
 	Table = "tweet_like"
 	// TweetTable is the table that holds the tweet relation/edge.
@@ -49,11 +49,11 @@ const (
 	UserColumn = "user_id"
 )
 
-// Columns holds all SQL columns for tweetlike fields.
+// Columns holds all Sql columns for tweetlike fields.
 var Columns = []string{
 	FieldLikedAt,
-	FieldUserID,
-	FieldTweetID,
+	FieldUserId,
+	FieldTweetId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -86,14 +86,14 @@ func ByLikedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldLikedAt, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
-// ByTweetID orders the results by the tweet_id field.
-func ByTweetID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTweetID, opts...).ToFunc()
+// ByTweetId orders the results by the tweet_id field.
+func ByTweetId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTweetId, opts...).ToFunc()
 }
 
 // ByTweetField orders the results by tweet field.
@@ -112,14 +112,14 @@ func ByUserField(field string, opts ...sql.OrderTermOption) OrderOption {
 func newTweetStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, TweetColumn),
-		sqlgraph.To(TweetInverseTable, TweetFieldID),
+		sqlgraph.To(TweetInverseTable, TweetFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, TweetTable, TweetColumn),
 	)
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, UserColumn),
-		sqlgraph.To(UserInverseTable, UserFieldID),
+		sqlgraph.To(UserInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }

@@ -39,13 +39,13 @@ func TestType(t *testing.T) {
 
 	typ, err = NewType(&Config{Package: "entc/gen"}, &load.Schema{
 		Fields: []*load.Field{
-			{Name: "id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSQL", dict("collation", "utf8_ci_bin"))},
+			{Name: "id", Info: &field.TypeInfo{Type: field.TypeString}, Annotations: dict("EntSql", dict("collation", "utf8_ci_bin"))},
 		},
 	})
 	require.NoError(err)
 	require.NotNil(typ)
-	require.NotNil(t, typ.ID)
-	pkCol := typ.ID.PK()
+	require.NotNil(t, typ.Id)
+	pkCol := typ.Id.PK()
 	require.NotNil(pkCol)
 	require.Equal("utf8_ci_bin", pkCol.Collation)
 
@@ -115,9 +115,9 @@ func TestType_Label(t *testing.T) {
 		{"User", "user"},
 		{"UserInfo", "user_info"},
 		{"PHBOrg", "phb_org"},
-		{"UserID", "user_id"},
-		{"HTTPCode", "http_code"},
-		{"UserIDs", "user_ids"},
+		{"UserId", "user_id"},
+		{"HttpCode", "http_code"},
+		{"UserIds", "user_ids"},
 	}
 	for _, tt := range tests {
 		typ := &Type{Name: tt.name}
@@ -134,7 +134,7 @@ func TestType_Table(t *testing.T) {
 		{"Device", "device"},
 		{"UserInfo", "user_info"},
 		{"PHBOrg", "phb_org"},
-		{"HTTPCode", "http_code"},
+		{"HttpCode", "http_code"},
 	}
 	for _, tt := range tests {
 		typ := &Type{Name: tt.name}
@@ -163,7 +163,7 @@ func TestField_EnumName(t *testing.T) {
 func TestType_WithRuntimeMixin(t *testing.T) {
 	position := &load.Position{MixedIn: true}
 	typ := &Type{
-		ID: &Field{},
+		Id: &Field{},
 		Fields: []*Field{
 			{Default: true, Position: position},
 			{UpdateDefault: true, Position: position},
@@ -197,8 +197,8 @@ func TestType_Package(t *testing.T) {
 		{"User", "user"},
 		{"UserInfo", "userinfo"},
 		{"PHBOrg", "phborg"},
-		{"UserID", "userid"},
-		{"HTTPCode", "httpcode"},
+		{"UserId", "userid"},
+		{"HttpCode", "httpcode"},
 	}
 	for _, tt := range tests {
 		typ := &Type{Name: tt.name}
@@ -229,7 +229,7 @@ func TestType_AddIndex(t *testing.T) {
 	require.Error(t, err, "unknown field for index")
 
 	err = typ.AddIndex(&load.Index{Unique: true, Fields: []string{"id"}})
-	require.NoError(t, err, "valid index for ID field")
+	require.NoError(t, err, "valid index for Id field")
 
 	err = typ.AddIndex(&load.Index{Unique: true, Fields: []string{"name"}, Edges: []string{"parent"}})
 	require.Error(t, err, "missing edge")
@@ -253,7 +253,7 @@ func TestField_Constant(t *testing.T) {
 		constant string
 	}{
 		{"user", "FieldUser"},
-		{"user_id", "FieldUserID"},
+		{"user_id", "FieldUserId"},
 		{"user_name", "FieldUserName"},
 	}
 	for _, tt := range tests {
@@ -283,10 +283,10 @@ func TestField_incremental(t *testing.T) {
 		def         bool
 		expected    bool
 	}{
-		{dict("EntSQL", nil), false, false},
-		{dict("EntSQL", nil), true, true},
-		{dict("EntSQL", dict("incremental", true)), false, true},
-		{dict("EntSQL", dict("incremental", false)), true, false},
+		{dict("EntSql", nil), false, false},
+		{dict("EntSql", nil), true, true},
+		{dict("EntSql", dict("incremental", true)), false, true},
+		{dict("EntSql", dict("incremental", false)), true, false},
 	}
 	for _, tt := range tests {
 		typ := &Field{Annotations: tt.annotations}
@@ -302,7 +302,7 @@ func TestBuilderField(t *testing.T) {
 		{"active", "active"},
 		{"type", "_type"},
 		{"config", "_config"},
-		{"SSOCert", "_SSOCert"},
+		{"SsoCert", "_SsoCert"},
 		{"driver", "_driver"},
 	}
 	for _, tt := range tests {

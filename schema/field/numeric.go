@@ -234,7 +234,7 @@ func (b *intBuilder) Validate(fn func(int) error) *intBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *intBuilder) StorageKey(key string) *intBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -422,7 +422,7 @@ func (b *uintBuilder) Validate(fn func(uint) error) *uintBuilder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uintBuilder) StorageKey(key string) *uintBuilder {
 	b.desc.StorageKey = key
 	return b
@@ -620,7 +620,7 @@ func (b *int8Builder) Validate(fn func(int8) error) *int8Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *int8Builder) StorageKey(key string) *int8Builder {
 	b.desc.StorageKey = key
 	return b
@@ -818,7 +818,7 @@ func (b *int16Builder) Validate(fn func(int16) error) *int16Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *int16Builder) StorageKey(key string) *int16Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1016,7 +1016,7 @@ func (b *int32Builder) Validate(fn func(int32) error) *int32Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *int32Builder) StorageKey(key string) *int32Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1214,7 +1214,7 @@ func (b *int64Builder) Validate(fn func(int64) error) *int64Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *int64Builder) StorageKey(key string) *int64Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1402,7 +1402,7 @@ func (b *uint8Builder) Validate(fn func(uint8) error) *uint8Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uint8Builder) StorageKey(key string) *uint8Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1590,7 +1590,7 @@ func (b *uint16Builder) Validate(fn func(uint16) error) *uint16Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uint16Builder) StorageKey(key string) *uint16Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1778,7 +1778,7 @@ func (b *uint32Builder) Validate(fn func(uint32) error) *uint32Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uint32Builder) StorageKey(key string) *uint32Builder {
 	b.desc.StorageKey = key
 	return b
@@ -1966,7 +1966,7 @@ func (b *uint64Builder) Validate(fn func(uint64) error) *uint64Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *uint64Builder) StorageKey(key string) *uint64Builder {
 	b.desc.StorageKey = key
 	return b
@@ -2172,7 +2172,7 @@ func (b *float64Builder) Validate(fn func(float64) error) *float64Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *float64Builder) StorageKey(key string) *float64Builder {
 	b.desc.StorageKey = key
 	return b
@@ -2183,7 +2183,7 @@ func (b *float64Builder) StorageKey(key string) *float64Builder {
 //
 //	field.Float64("amount").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:		"decimal(5, 2)",
+//			dialect.MySql:		"decimal(5, 2)",
 //			dialect.Postgres: 	"numeric(5, 2)",
 //		})
 func (b *float64Builder) SchemaType(types map[string]string) *float64Builder {
@@ -2366,7 +2366,7 @@ func (b *float32Builder) Validate(fn func(float32) error) *float32Builder {
 }
 
 // StorageKey sets the storage key of the field.
-// In SQL dialects it is the column name.
+// In Sql dialects it is the column name.
 func (b *float32Builder) StorageKey(key string) *float32Builder {
 	b.desc.StorageKey = key
 	return b
@@ -2377,7 +2377,7 @@ func (b *float32Builder) StorageKey(key string) *float32Builder {
 //
 //	field.Float32("amount").
 //		SchemaType(map[string]string{
-//			dialect.MySQL:		"decimal(5, 2)",
+//			dialect.MySql:		"decimal(5, 2)",
 //			dialect.Postgres: 	"numeric(5, 2)",
 //		})
 func (b *float32Builder) SchemaType(types map[string]string) *float32Builder {

@@ -129,9 +129,9 @@ func (_u *UserUpdate) SetNillableActive(v *bool) *UserUpdate {
 	return _u
 }
 
-// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
-func (_u *UserUpdate) AddCardsIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddCardsIDs(ids...)
+// AddCardsIds adds the "cards" edge to the Card entity by Ids.
+func (_u *UserUpdate) AddCardsIds(ids ...int) *UserUpdate {
+	_u.mutation.AddCardsIds(ids...)
 	return _u
 }
 
@@ -139,14 +139,14 @@ func (_u *UserUpdate) AddCardsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) AddCards(v ...*Card) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddCardsIDs(ids...)
+	return _u.AddCardsIds(ids...)
 }
 
-// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
-func (_u *UserUpdate) AddPetsIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddPetsIDs(ids...)
+// AddPetsIds adds the "pets" edge to the Pet entity by Ids.
+func (_u *UserUpdate) AddPetsIds(ids ...int) *UserUpdate {
+	_u.mutation.AddPetsIds(ids...)
 	return _u
 }
 
@@ -154,14 +154,14 @@ func (_u *UserUpdate) AddPetsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) AddPets(v ...*Pet) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddPetsIDs(ids...)
+	return _u.AddPetsIds(ids...)
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdate) AddFriendsIDs(ids ...int) *UserUpdate {
-	_u.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the User entity by Ids.
+func (_u *UserUpdate) AddFriendsIds(ids ...int) *UserUpdate {
+	_u.mutation.AddFriendsIds(ids...)
 	return _u
 }
 
@@ -169,28 +169,28 @@ func (_u *UserUpdate) AddFriendsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) AddFriends(v ...*User) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFriendsIDs(ids...)
+	return _u.AddFriendsIds(ids...)
 }
 
-// SetBestFriendID sets the "best_friend" edge to the User entity by ID.
-func (_u *UserUpdate) SetBestFriendID(id int) *UserUpdate {
-	_u.mutation.SetBestFriendID(id)
+// SetBestFriendId sets the "best_friend" edge to the User entity by Id.
+func (_u *UserUpdate) SetBestFriendId(id int) *UserUpdate {
+	_u.mutation.SetBestFriendId(id)
 	return _u
 }
 
-// SetNillableBestFriendID sets the "best_friend" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdate) SetNillableBestFriendID(id *int) *UserUpdate {
+// SetNillableBestFriendId sets the "best_friend" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdate) SetNillableBestFriendId(id *int) *UserUpdate {
 	if id != nil {
-		_u = _u.SetBestFriendID(*id)
+		_u = _u.SetBestFriendId(*id)
 	}
 	return _u
 }
 
 // SetBestFriend sets the "best_friend" edge to the User entity.
 func (_u *UserUpdate) SetBestFriend(v *User) *UserUpdate {
-	return _u.SetBestFriendID(v.ID)
+	return _u.SetBestFriendId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -204,9 +204,9 @@ func (_u *UserUpdate) ClearCards() *UserUpdate {
 	return _u
 }
 
-// RemoveCardsIDs removes the "cards" edge to Card entities by IDs.
-func (_u *UserUpdate) RemoveCardsIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveCardsIDs(ids...)
+// RemoveCardsIds removes the "cards" edge to Card entities by Ids.
+func (_u *UserUpdate) RemoveCardsIds(ids ...int) *UserUpdate {
+	_u.mutation.RemoveCardsIds(ids...)
 	return _u
 }
 
@@ -214,9 +214,9 @@ func (_u *UserUpdate) RemoveCardsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) RemoveCards(v ...*Card) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveCardsIDs(ids...)
+	return _u.RemoveCardsIds(ids...)
 }
 
 // ClearPets clears all "pets" edges to the Pet entity.
@@ -225,9 +225,9 @@ func (_u *UserUpdate) ClearPets() *UserUpdate {
 	return _u
 }
 
-// RemovePetsIDs removes the "pets" edge to Pet entities by IDs.
-func (_u *UserUpdate) RemovePetsIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemovePetsIDs(ids...)
+// RemovePetsIds removes the "pets" edge to Pet entities by Ids.
+func (_u *UserUpdate) RemovePetsIds(ids ...int) *UserUpdate {
+	_u.mutation.RemovePetsIds(ids...)
 	return _u
 }
 
@@ -235,9 +235,9 @@ func (_u *UserUpdate) RemovePetsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) RemovePets(v ...*Pet) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemovePetsIDs(ids...)
+	return _u.RemovePetsIds(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the User entity.
@@ -246,9 +246,9 @@ func (_u *UserUpdate) ClearFriends() *UserUpdate {
 	return _u
 }
 
-// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdate) RemoveFriendsIDs(ids ...int) *UserUpdate {
-	_u.mutation.RemoveFriendsIDs(ids...)
+// RemoveFriendsIds removes the "friends" edge to User entities by Ids.
+func (_u *UserUpdate) RemoveFriendsIds(ids ...int) *UserUpdate {
+	_u.mutation.RemoveFriendsIds(ids...)
 	return _u
 }
 
@@ -256,9 +256,9 @@ func (_u *UserUpdate) RemoveFriendsIDs(ids ...int) *UserUpdate {
 func (_u *UserUpdate) RemoveFriends(v ...*User) *UserUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFriendsIDs(ids...)
+	return _u.RemoveFriendsIds(ids...)
 }
 
 // ClearBestFriend clears the "best_friend" edge to the User entity.
@@ -295,7 +295,7 @@ func (_u *UserUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -338,12 +338,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedCardsIDs(); len(nodes) > 0 && !_u.mutation.CardsCleared() {
+	if nodes := _u.mutation.RemovedCardsIds(); len(nodes) > 0 && !_u.mutation.CardsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -351,7 +351,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -359,7 +359,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -367,7 +367,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -383,12 +383,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedPetsIDs(); len(nodes) > 0 && !_u.mutation.PetsCleared() {
+	if nodes := _u.mutation.RemovedPetsIds(); len(nodes) > 0 && !_u.mutation.PetsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -396,7 +396,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -404,7 +404,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PetsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -412,7 +412,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -428,12 +428,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFriendsIDs(); len(nodes) > 0 && !_u.mutation.FriendsCleared() {
+	if nodes := _u.mutation.RemovedFriendsIds(); len(nodes) > 0 && !_u.mutation.FriendsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -441,7 +441,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -449,7 +449,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -457,7 +457,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -473,12 +473,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.BestFriendIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.BestFriendIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -486,7 +486,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{user.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -610,9 +610,9 @@ func (_u *UserUpdateOne) SetNillableActive(v *bool) *UserUpdateOne {
 	return _u
 }
 
-// AddCardsIDs adds the "cards" edge to the Card entity by IDs.
-func (_u *UserUpdateOne) AddCardsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddCardsIDs(ids...)
+// AddCardsIds adds the "cards" edge to the Card entity by Ids.
+func (_u *UserUpdateOne) AddCardsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.AddCardsIds(ids...)
 	return _u
 }
 
@@ -620,14 +620,14 @@ func (_u *UserUpdateOne) AddCardsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) AddCards(v ...*Card) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddCardsIDs(ids...)
+	return _u.AddCardsIds(ids...)
 }
 
-// AddPetsIDs adds the "pets" edge to the Pet entity by IDs.
-func (_u *UserUpdateOne) AddPetsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddPetsIDs(ids...)
+// AddPetsIds adds the "pets" edge to the Pet entity by Ids.
+func (_u *UserUpdateOne) AddPetsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.AddPetsIds(ids...)
 	return _u
 }
 
@@ -635,14 +635,14 @@ func (_u *UserUpdateOne) AddPetsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) AddPets(v ...*Pet) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddPetsIDs(ids...)
+	return _u.AddPetsIds(ids...)
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by IDs.
-func (_u *UserUpdateOne) AddFriendsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.AddFriendsIDs(ids...)
+// AddFriendsIds adds the "friends" edge to the User entity by Ids.
+func (_u *UserUpdateOne) AddFriendsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.AddFriendsIds(ids...)
 	return _u
 }
 
@@ -650,28 +650,28 @@ func (_u *UserUpdateOne) AddFriendsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) AddFriends(v ...*User) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddFriendsIDs(ids...)
+	return _u.AddFriendsIds(ids...)
 }
 
-// SetBestFriendID sets the "best_friend" edge to the User entity by ID.
-func (_u *UserUpdateOne) SetBestFriendID(id int) *UserUpdateOne {
-	_u.mutation.SetBestFriendID(id)
+// SetBestFriendId sets the "best_friend" edge to the User entity by Id.
+func (_u *UserUpdateOne) SetBestFriendId(id int) *UserUpdateOne {
+	_u.mutation.SetBestFriendId(id)
 	return _u
 }
 
-// SetNillableBestFriendID sets the "best_friend" edge to the User entity by ID if the given value is not nil.
-func (_u *UserUpdateOne) SetNillableBestFriendID(id *int) *UserUpdateOne {
+// SetNillableBestFriendId sets the "best_friend" edge to the User entity by Id if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableBestFriendId(id *int) *UserUpdateOne {
 	if id != nil {
-		_u = _u.SetBestFriendID(*id)
+		_u = _u.SetBestFriendId(*id)
 	}
 	return _u
 }
 
 // SetBestFriend sets the "best_friend" edge to the User entity.
 func (_u *UserUpdateOne) SetBestFriend(v *User) *UserUpdateOne {
-	return _u.SetBestFriendID(v.ID)
+	return _u.SetBestFriendId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -685,9 +685,9 @@ func (_u *UserUpdateOne) ClearCards() *UserUpdateOne {
 	return _u
 }
 
-// RemoveCardsIDs removes the "cards" edge to Card entities by IDs.
-func (_u *UserUpdateOne) RemoveCardsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveCardsIDs(ids...)
+// RemoveCardsIds removes the "cards" edge to Card entities by Ids.
+func (_u *UserUpdateOne) RemoveCardsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveCardsIds(ids...)
 	return _u
 }
 
@@ -695,9 +695,9 @@ func (_u *UserUpdateOne) RemoveCardsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) RemoveCards(v ...*Card) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveCardsIDs(ids...)
+	return _u.RemoveCardsIds(ids...)
 }
 
 // ClearPets clears all "pets" edges to the Pet entity.
@@ -706,9 +706,9 @@ func (_u *UserUpdateOne) ClearPets() *UserUpdateOne {
 	return _u
 }
 
-// RemovePetsIDs removes the "pets" edge to Pet entities by IDs.
-func (_u *UserUpdateOne) RemovePetsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemovePetsIDs(ids...)
+// RemovePetsIds removes the "pets" edge to Pet entities by Ids.
+func (_u *UserUpdateOne) RemovePetsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.RemovePetsIds(ids...)
 	return _u
 }
 
@@ -716,9 +716,9 @@ func (_u *UserUpdateOne) RemovePetsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) RemovePets(v ...*Pet) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemovePetsIDs(ids...)
+	return _u.RemovePetsIds(ids...)
 }
 
 // ClearFriends clears all "friends" edges to the User entity.
@@ -727,9 +727,9 @@ func (_u *UserUpdateOne) ClearFriends() *UserUpdateOne {
 	return _u
 }
 
-// RemoveFriendsIDs removes the "friends" edge to User entities by IDs.
-func (_u *UserUpdateOne) RemoveFriendsIDs(ids ...int) *UserUpdateOne {
-	_u.mutation.RemoveFriendsIDs(ids...)
+// RemoveFriendsIds removes the "friends" edge to User entities by Ids.
+func (_u *UserUpdateOne) RemoveFriendsIds(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveFriendsIds(ids...)
 	return _u
 }
 
@@ -737,9 +737,9 @@ func (_u *UserUpdateOne) RemoveFriendsIDs(ids ...int) *UserUpdateOne {
 func (_u *UserUpdateOne) RemoveFriends(v ...*User) *UserUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveFriendsIDs(ids...)
+	return _u.RemoveFriendsIds(ids...)
 }
 
 // ClearBestFriend clears the "best_friend" edge to the User entity.
@@ -789,20 +789,20 @@ func (_u *UserUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != user.FieldID {
+			if f != user.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -849,12 +849,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedCardsIDs(); len(nodes) > 0 && !_u.mutation.CardsCleared() {
+	if nodes := _u.mutation.RemovedCardsIds(); len(nodes) > 0 && !_u.mutation.CardsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -862,7 +862,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -870,7 +870,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.CardsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CardsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -878,7 +878,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.CardsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(card.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(card.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -894,12 +894,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedPetsIDs(); len(nodes) > 0 && !_u.mutation.PetsCleared() {
+	if nodes := _u.mutation.RemovedPetsIds(); len(nodes) > 0 && !_u.mutation.PetsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -907,7 +907,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -915,7 +915,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PetsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PetsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -923,7 +923,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.PetsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(pet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -939,12 +939,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedFriendsIDs(); len(nodes) > 0 && !_u.mutation.FriendsCleared() {
+	if nodes := _u.mutation.RemovedFriendsIds(); len(nodes) > 0 && !_u.mutation.FriendsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -952,7 +952,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -960,7 +960,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.FriendsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.FriendsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -968,7 +968,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: user.FriendsPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -984,12 +984,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.BestFriendIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.BestFriendIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -997,7 +997,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			Columns: []string{user.BestFriendColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

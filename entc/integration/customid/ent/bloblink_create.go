@@ -42,32 +42,32 @@ func (_c *BlobLinkCreate) SetNillableCreatedAt(v *time.Time) *BlobLinkCreate {
 	return _c
 }
 
-// SetBlobID sets the "blob_id" field.
-func (_c *BlobLinkCreate) SetBlobID(v uuid.UUID) *BlobLinkCreate {
-	_c.mutation.SetBlobID(v)
+// SetBlobId sets the "blob_id" field.
+func (_c *BlobLinkCreate) SetBlobId(v uuid.UUID) *BlobLinkCreate {
+	_c.mutation.SetBlobId(v)
 	return _c
 }
 
-// SetLinksID sets the "links_id" field.
-func (_c *BlobLinkCreate) SetLinksID(v uuid.UUID) *BlobLinkCreate {
-	_c.mutation.SetLinksID(v)
+// SetLinksId sets the "links_id" field.
+func (_c *BlobLinkCreate) SetLinksId(v uuid.UUID) *BlobLinkCreate {
+	_c.mutation.SetLinksId(v)
 	return _c
 }
 
 // SetBlob sets the "blob" edge to the Blob entity.
 func (_c *BlobLinkCreate) SetBlob(v *Blob) *BlobLinkCreate {
-	return _c.SetBlobID(v.ID)
+	return _c.SetBlobId(v.Id)
 }
 
-// SetLinkID sets the "link" edge to the Blob entity by ID.
-func (_c *BlobLinkCreate) SetLinkID(id uuid.UUID) *BlobLinkCreate {
-	_c.mutation.SetLinkID(id)
+// SetLinkId sets the "link" edge to the Blob entity by Id.
+func (_c *BlobLinkCreate) SetLinkId(id uuid.UUID) *BlobLinkCreate {
+	_c.mutation.SetLinkId(id)
 	return _c
 }
 
 // SetLink sets the "link" edge to the Blob entity.
 func (_c *BlobLinkCreate) SetLink(v *Blob) *BlobLinkCreate {
-	return _c.SetLinkID(v.ID)
+	return _c.SetLinkId(v.Id)
 }
 
 // Mutation returns the BlobLinkMutation object of the builder.
@@ -116,16 +116,16 @@ func (_c *BlobLinkCreate) check() error {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "BlobLink.created_at"`)}
 	}
-	if _, ok := _c.mutation.BlobID(); !ok {
+	if _, ok := _c.mutation.BlobId(); !ok {
 		return &ValidationError{Name: "blob_id", err: errors.New(`ent: missing required field "BlobLink.blob_id"`)}
 	}
-	if _, ok := _c.mutation.LinksID(); !ok {
+	if _, ok := _c.mutation.LinksId(); !ok {
 		return &ValidationError{Name: "links_id", err: errors.New(`ent: missing required field "BlobLink.links_id"`)}
 	}
-	if len(_c.mutation.BlobIDs()) == 0 {
+	if len(_c.mutation.BlobIds()) == 0 {
 		return &ValidationError{Name: "blob", err: errors.New(`ent: missing required edge "BlobLink.blob"`)}
 	}
-	if len(_c.mutation.LinkIDs()) == 0 {
+	if len(_c.mutation.LinkIds()) == 0 {
 		return &ValidationError{Name: "link", err: errors.New(`ent: missing required edge "BlobLink.link"`)}
 	}
 	return nil
@@ -155,7 +155,7 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec) {
 		_spec.SetField(bloblink.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := _c.mutation.BlobIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.BlobIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -163,16 +163,16 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec) {
 			Columns: []string{bloblink.BlobColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.BlobID = nodes[0]
+		_node.BlobId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.LinkIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.LinkIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -180,13 +180,13 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec) {
 			Columns: []string{bloblink.LinkColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.LinksID = nodes[0]
+		_node.LinksId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -253,27 +253,27 @@ func (u *BlobLinkUpsert) UpdateCreatedAt() *BlobLinkUpsert {
 	return u
 }
 
-// SetBlobID sets the "blob_id" field.
-func (u *BlobLinkUpsert) SetBlobID(v uuid.UUID) *BlobLinkUpsert {
-	u.Set(bloblink.FieldBlobID, v)
+// SetBlobId sets the "blob_id" field.
+func (u *BlobLinkUpsert) SetBlobId(v uuid.UUID) *BlobLinkUpsert {
+	u.Set(bloblink.FieldBlobId, v)
 	return u
 }
 
-// UpdateBlobID sets the "blob_id" field to the value that was provided on create.
-func (u *BlobLinkUpsert) UpdateBlobID() *BlobLinkUpsert {
-	u.SetExcluded(bloblink.FieldBlobID)
+// UpdateBlobId sets the "blob_id" field to the value that was provided on create.
+func (u *BlobLinkUpsert) UpdateBlobId() *BlobLinkUpsert {
+	u.SetExcluded(bloblink.FieldBlobId)
 	return u
 }
 
-// SetLinksID sets the "links_id" field.
-func (u *BlobLinkUpsert) SetLinksID(v uuid.UUID) *BlobLinkUpsert {
-	u.Set(bloblink.FieldLinksID, v)
+// SetLinksId sets the "links_id" field.
+func (u *BlobLinkUpsert) SetLinksId(v uuid.UUID) *BlobLinkUpsert {
+	u.Set(bloblink.FieldLinksId, v)
 	return u
 }
 
-// UpdateLinksID sets the "links_id" field to the value that was provided on create.
-func (u *BlobLinkUpsert) UpdateLinksID() *BlobLinkUpsert {
-	u.SetExcluded(bloblink.FieldLinksID)
+// UpdateLinksId sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsert) UpdateLinksId() *BlobLinkUpsert {
+	u.SetExcluded(bloblink.FieldLinksId)
 	return u
 }
 
@@ -302,7 +302,7 @@ func (u *BlobLinkUpsertOne) Ignore() *BlobLinkUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobLinkUpsertOne) DoNothing() *BlobLinkUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -331,31 +331,31 @@ func (u *BlobLinkUpsertOne) UpdateCreatedAt() *BlobLinkUpsertOne {
 	})
 }
 
-// SetBlobID sets the "blob_id" field.
-func (u *BlobLinkUpsertOne) SetBlobID(v uuid.UUID) *BlobLinkUpsertOne {
+// SetBlobId sets the "blob_id" field.
+func (u *BlobLinkUpsertOne) SetBlobId(v uuid.UUID) *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetBlobID(v)
+		s.SetBlobId(v)
 	})
 }
 
-// UpdateBlobID sets the "blob_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertOne) UpdateBlobID() *BlobLinkUpsertOne {
+// UpdateBlobId sets the "blob_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertOne) UpdateBlobId() *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateBlobID()
+		s.UpdateBlobId()
 	})
 }
 
-// SetLinksID sets the "links_id" field.
-func (u *BlobLinkUpsertOne) SetLinksID(v uuid.UUID) *BlobLinkUpsertOne {
+// SetLinksId sets the "links_id" field.
+func (u *BlobLinkUpsertOne) SetLinksId(v uuid.UUID) *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetLinksID(v)
+		s.SetLinksId(v)
 	})
 }
 
-// UpdateLinksID sets the "links_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertOne) UpdateLinksID() *BlobLinkUpsertOne {
+// UpdateLinksId sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertOne) UpdateLinksId() *BlobLinkUpsertOne {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateLinksID()
+		s.UpdateLinksId()
 	})
 }
 
@@ -525,7 +525,7 @@ func (u *BlobLinkUpsertBulk) Ignore() *BlobLinkUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobLinkUpsertBulk) DoNothing() *BlobLinkUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -554,31 +554,31 @@ func (u *BlobLinkUpsertBulk) UpdateCreatedAt() *BlobLinkUpsertBulk {
 	})
 }
 
-// SetBlobID sets the "blob_id" field.
-func (u *BlobLinkUpsertBulk) SetBlobID(v uuid.UUID) *BlobLinkUpsertBulk {
+// SetBlobId sets the "blob_id" field.
+func (u *BlobLinkUpsertBulk) SetBlobId(v uuid.UUID) *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetBlobID(v)
+		s.SetBlobId(v)
 	})
 }
 
-// UpdateBlobID sets the "blob_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertBulk) UpdateBlobID() *BlobLinkUpsertBulk {
+// UpdateBlobId sets the "blob_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertBulk) UpdateBlobId() *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateBlobID()
+		s.UpdateBlobId()
 	})
 }
 
-// SetLinksID sets the "links_id" field.
-func (u *BlobLinkUpsertBulk) SetLinksID(v uuid.UUID) *BlobLinkUpsertBulk {
+// SetLinksId sets the "links_id" field.
+func (u *BlobLinkUpsertBulk) SetLinksId(v uuid.UUID) *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.SetLinksID(v)
+		s.SetLinksId(v)
 	})
 }
 
-// UpdateLinksID sets the "links_id" field to the value that was provided on create.
-func (u *BlobLinkUpsertBulk) UpdateLinksID() *BlobLinkUpsertBulk {
+// UpdateLinksId sets the "links_id" field to the value that was provided on create.
+func (u *BlobLinkUpsertBulk) UpdateLinksId() *BlobLinkUpsertBulk {
 	return u.Update(func(s *BlobLinkUpsert) {
-		s.UpdateLinksID()
+		s.UpdateLinksId()
 	})
 }
 

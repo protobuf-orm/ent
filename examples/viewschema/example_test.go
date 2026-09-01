@@ -24,7 +24,7 @@ func TestViews(t *testing.T) {
 		t.Skip()
 	}
 	ctx := context.Background()
-	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_URL"))
+	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_Url"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,9 +35,9 @@ func TestViews(t *testing.T) {
 	// Automatically update the database with the desired schema.
 	// Another option, is to use 'migrate apply' or 'schema apply' manually.
 	_, err = ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
-		// URL to your database. For example:
+		// Url to your database. For example:
 		// postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable
-		URL:         os.Getenv("DB_URL"),
+		Url:         os.Getenv("DB_Url"),
 		Env:         "local",
 		AutoApprove: true,
 	})
@@ -48,7 +48,7 @@ func TestViews(t *testing.T) {
 	})
 	u1 := client.User.Create().SetName("a8m").SetPrivateInfo("secret").SetPublicInfo("public").SaveX(ctx)
 	v1 := client.CleanUser.Query().OnlyX(ctx)
-	require.Equal(t, u1.ID, v1.ID)
+	require.Equal(t, u1.Id, v1.Id)
 	require.Equal(t, u1.Name, v1.Name)
 	require.Equal(t, u1.PublicInfo, v1.PublicInfo)
 

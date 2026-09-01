@@ -25,7 +25,7 @@ type Noder interface {
 
 // Node in the graph.
 type Node struct {
-	ID 	   {{ $.IDType }} `json:"id,omitemty"` // node id.
+	Id 	   {{ $.IdType }} `json:"id,omitemty"` // node id.
 	Type   string   `json:"type,omitempty"`   // node type.
 	Fields []*Field `json:"fields,omitempty"` // node fields.
 	Edges  []*Edge  `json:"edges,omitempty"`  // node edges.
@@ -42,7 +42,7 @@ type Field struct {
 type Edge struct {
 	Type string   `json:"type,omitempty"` // edge type.
 	Name string   `json:"name,omitempty"` // edge name.
-	IDs  []{{ $.IDType }} `json:"ids,omitempty"`  // node ids (where this edge point to).
+	Ids  []{{ $.IdType }} `json:"ids,omitempty"`  // node ids (where this edge point to).
 }
 
 {{/* loop over all types and add implement the Node interface. */}}
@@ -50,7 +50,7 @@ type Edge struct {
 	{{ $receiver := $n.Receiver }}
 	func ({{ $receiver }} *{{ $n.Name }}) Node(ctx context.Context) (node *Node, err error) {
 		node = &Node{
-			ID: {{ $receiver }}.ID,
+			Id: {{ $receiver }}.Id,
 			Type: "{{ $n.Name }}",
 			Fields: make([]*Field, {{ len $n.Fields }}),
 			Edges: make([]*Edge, {{ len $n.Edges }}),
@@ -69,16 +69,16 @@ type Edge struct {
 			{{- end }}
 		{{- end }}
 		{{- with $n.Edges }}
-			var ids []{{ $.IDType }}
+			var ids []{{ $.IdType }}
 			{{- range $i, $e := $n.Edges }}
 				ids, err = {{ $receiver }}.{{ print "Query" (pascal $e.Name) }}().
-					Select({{ $e.Type.Package }}.FieldID).
-					{{ pascal $.IDType.String }}s(ctx)
+					Select({{ $e.Type.Package }}.FieldId).
+					{{ pascal $.IdType.String }}s(ctx)
 				if err != nil {
 					return nil, err
 				}
 				node.Edges[{{ $i }}] = &Edge{
-					IDs: ids,
+					Ids: ids,
 					Type: "{{ $e.Type.Name }}",
 					Name: "{{ pascal $e.Name }}",
 				}
@@ -90,7 +90,7 @@ type Edge struct {
 
 {{/* add the node api to the client */}}
 
-func (c *Client) Node(ctx context.Context, id {{ $.IDType }}) (*Node, error) {
+func (c *Client) Node(ctx context.Context, id {{ $.IdType }}) (*Node, error) {
 	n, err := c.Noder(ctx, id)
 	if err != nil {
 		return nil, err
@@ -98,12 +98,12 @@ func (c *Client) Node(ctx context.Context, id {{ $.IDType }}) (*Node, error) {
 	return n.Node(ctx)
 }
 
-func (c *Client) Noder(ctx context.Context, id {{ $.IDType }}) (Noder, error) {
+func (c *Client) Noder(ctx context.Context, id {{ $.IdType }}) (Noder, error) {
 	tables, err := c.tables.Load(ctx, c.driver)
 	if err != nil {
 		return nil, err
 	}
-	{{- if not $.IDType.Numeric }}
+	{{- if not $.IdType.Numeric }}
 		idv, err := strconv.Atoi(id)
 		if err != nil {
 			return nil, fmt.Errorf("%v: %w", err, &NotFoundError{"invalid/unknown"})
@@ -118,7 +118,7 @@ func (c *Client) Noder(ctx context.Context, id {{ $.IDType }}) (Noder, error) {
 	return c.noder(ctx, tables[idx], id)
 }
 
-func (c *Client) noder(ctx context.Context, tbl string, id {{ $.IDType }}) (Noder, error) {
+func (c *Client) noder(ctx context.Context, tbl string, id {{ $.IdType }}) (Noder, error) {
 	switch tbl {
 	{{- range $_, $n := $.Nodes }}
 	case {{ $n.Package }}.Table:

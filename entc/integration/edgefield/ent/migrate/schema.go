@@ -14,7 +14,7 @@ import (
 var (
 	// CarColumns holds the columns for the "car" table.
 	CarColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "number", Type: field.TypeString, Nullable: true},
 	}
 	// CarTable holds the schema information for the "car" table.
@@ -53,7 +53,7 @@ var (
 	// InfoColumns holds the columns for the "info" table.
 	InfoColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "content", Type: field.TypeJSON},
+		{Name: "content", Type: field.TypeJson},
 	}
 	// InfoTable holds the schema information for the "info" table.
 	InfoTable = &schema.Table{
@@ -165,7 +165,7 @@ var (
 	RentalColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "date", Type: field.TypeTime},
-		{Name: "car_id", Type: field.TypeUUID},
+		{Name: "car_id", Type: field.TypeUuid},
 		{Name: "user_id", Type: field.TypeInt, SchemaType: map[string]string{"sqlite3": "integer"}},
 	}
 	// RentalTable holds the schema information for the "rental" table.

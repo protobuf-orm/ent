@@ -13,8 +13,8 @@ import (
 const (
 	// Label holds the string label denoting the customtype type in the database.
 	Label = "custom_type"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldCustom holds the string denoting the custom field in the database.
 	FieldCustom = "custom"
 	// FieldTz0 holds the string denoting the tz0 field in the database.
@@ -25,9 +25,9 @@ const (
 	Table = "custom_type"
 )
 
-// Columns holds all SQL columns for customtype fields.
+// Columns holds all Sql columns for customtype fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldCustom,
 	FieldTz0,
 	FieldTz3,
@@ -46,9 +46,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the CustomType queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByCustom orders the results by the custom field.

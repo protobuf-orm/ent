@@ -78,8 +78,8 @@ func (_q *AccountQuery) QueryToken() *TokenQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(account.Table, account.FieldID, selector),
-			sqlgraph.To(token.Table, token.FieldID),
+			sqlgraph.From(account.Table, account.FieldId, selector),
+			sqlgraph.To(token.Table, token.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, account.TokenTable, account.TokenColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -110,11 +110,11 @@ func (_q *AccountQuery) FirstX(ctx context.Context) *Account {
 	return node
 }
 
-// FirstID returns the first Account ID from the query.
-// Returns a *NotFoundError when no Account ID was found.
-func (_q *AccountQuery) FirstID(ctx context.Context) (id sid.ID, err error) {
-	var ids []sid.ID
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+// FirstId returns the first Account Id from the query.
+// Returns a *NotFoundError when no Account Id was found.
+func (_q *AccountQuery) FirstId(ctx context.Context) (id sid.Id, err error) {
+	var ids []sid.Id
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -124,9 +124,9 @@ func (_q *AccountQuery) FirstID(ctx context.Context) (id sid.ID, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *AccountQuery) FirstIDX(ctx context.Context) sid.ID {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *AccountQuery) FirstIdX(ctx context.Context) sid.Id {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -160,12 +160,12 @@ func (_q *AccountQuery) OnlyX(ctx context.Context) *Account {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Account ID in the query.
-// Returns a *NotSingularError when more than one Account ID is found.
+// OnlyId is like Only, but returns the only Account Id in the query.
+// Returns a *NotSingularError when more than one Account Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *AccountQuery) OnlyID(ctx context.Context) (id sid.ID, err error) {
-	var ids []sid.ID
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+func (_q *AccountQuery) OnlyId(ctx context.Context) (id sid.Id, err error) {
+	var ids []sid.Id
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -179,9 +179,9 @@ func (_q *AccountQuery) OnlyID(ctx context.Context) (id sid.ID, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *AccountQuery) OnlyIDX(ctx context.Context) sid.ID {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *AccountQuery) OnlyIdX(ctx context.Context) sid.Id {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -207,21 +207,21 @@ func (_q *AccountQuery) AllX(ctx context.Context) []*Account {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Account IDs.
-func (_q *AccountQuery) IDs(ctx context.Context) (ids []sid.ID, err error) {
+// Ids executes the query and returns a list of Account Ids.
+func (_q *AccountQuery) Ids(ctx context.Context) (ids []sid.Id, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(account.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(account.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *AccountQuery) IDsX(ctx context.Context) []sid.ID {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *AccountQuery) IdsX(ctx context.Context) []sid.Id {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -249,7 +249,7 @@ func (_q *AccountQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *AccountQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -410,10 +410,10 @@ func (_q *AccountQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Acco
 
 func (_q *AccountQuery) loadToken(ctx context.Context, query *TokenQuery, nodes []*Account, init func(*Account), assign func(*Account, *Token)) error {
 	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[sid.ID]*Account)
+	nodeids := make(map[sid.Id]*Account)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -429,11 +429,11 @@ func (_q *AccountQuery) loadToken(ctx context.Context, query *TokenQuery, nodes 
 	for _, n := range neighbors {
 		fk := n.account_token
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "account_token" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "account_token" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "account_token" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "account_token" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -450,7 +450,7 @@ func (_q *AccountQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *AccountQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldID, field.TypeOther))
+	_spec := sqlgraph.NewQuerySpec(account.Table, account.Columns, sqlgraph.NewFieldSpec(account.FieldId, field.TypeOther))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -459,9 +459,9 @@ func (_q *AccountQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, account.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, account.FieldId)
 		for i := range fields {
-			if fields[i] != account.FieldID {
+			if fields[i] != account.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

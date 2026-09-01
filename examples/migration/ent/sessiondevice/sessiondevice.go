@@ -15,10 +15,10 @@ import (
 const (
 	// Label holds the string label denoting the sessiondevice type in the database.
 	Label = "session_device"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldIPAddress holds the string denoting the ip_address field in the database.
-	FieldIPAddress = "ip_address"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
+	// FieldIpAddress holds the string denoting the ip_address field in the database.
+	FieldIpAddress = "ip_address"
 	// FieldUserAgent holds the string denoting the user_agent field in the database.
 	FieldUserAgent = "user_agent"
 	// FieldLocation holds the string denoting the location field in the database.
@@ -40,10 +40,10 @@ const (
 	SessionsColumn = "device_id"
 )
 
-// Columns holds all SQL columns for sessiondevice fields.
+// Columns holds all Sql columns for sessiondevice fields.
 var Columns = []string{
-	FieldID,
-	FieldIPAddress,
+	FieldId,
+	FieldIpAddress,
 	FieldUserAgent,
 	FieldLocation,
 	FieldCreatedAt,
@@ -61,27 +61,27 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// IPAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
-	IPAddressValidator func(string) error
+	// IpAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
+	IpAddressValidator func(string) error
 	// UserAgentValidator is a validator for the "user_agent" field. It is called by the builders before save.
 	UserAgentValidator func(string) error
 	// LocationValidator is a validator for the "location" field. It is called by the builders before save.
 	LocationValidator func(string) error
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() uuid.UUID
 )
 
 // OrderOption defines the ordering options for the SessionDevice queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
-// ByIPAddress orders the results by the ip_address field.
-func ByIPAddress(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldIPAddress, opts...).ToFunc()
+// ByIpAddress orders the results by the ip_address field.
+func ByIpAddress(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIpAddress, opts...).ToFunc()
 }
 
 // ByUserAgent orders the results by the user_agent field.
@@ -119,8 +119,8 @@ func BySessions(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newSessionsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(SessionsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(SessionsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, SessionsTable, SessionsColumn),
 	)
 }

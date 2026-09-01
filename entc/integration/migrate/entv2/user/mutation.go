@@ -634,8 +634,8 @@ func (m *Mutation) ResetDropOptional() {
 	m.drop_optional = nil
 }
 
-// AddCarIDs adds the "car" edge to the Car entity by ids.
-func (m *Mutation) AddCarIDs(ids ...int) {
+// AddCarIds adds the "car" edge to the Car entity by ids.
+func (m *Mutation) AddCarIds(ids ...int) {
 	if m.car == nil {
 		m.car = make(map[int]struct{})
 	}
@@ -654,8 +654,8 @@ func (m *Mutation) CarCleared() bool {
 	return m.clearedcar
 }
 
-// RemoveCarIDs removes the "car" edge to the Car entity by IDs.
-func (m *Mutation) RemoveCarIDs(ids ...int) {
+// RemoveCarIds removes the "car" edge to the Car entity by Ids.
+func (m *Mutation) RemoveCarIds(ids ...int) {
 	if m.removedcar == nil {
 		m.removedcar = make(map[int]struct{})
 	}
@@ -665,16 +665,16 @@ func (m *Mutation) RemoveCarIDs(ids ...int) {
 	}
 }
 
-// RemovedCar returns the removed IDs of the "car" edge to the Car entity.
-func (m *Mutation) RemovedCarIDs() (ids []int) {
+// RemovedCar returns the removed Ids of the "car" edge to the Car entity.
+func (m *Mutation) RemovedCarIds() (ids []int) {
 	for id := range m.removedcar {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// CarIDs returns the "car" edge IDs in the mutation.
-func (m *Mutation) CarIDs() (ids []int) {
+// CarIds returns the "car" edge Ids in the mutation.
+func (m *Mutation) CarIds() (ids []int) {
 	for id := range m.car {
 		ids = append(ids, id)
 	}
@@ -688,8 +688,8 @@ func (m *Mutation) ResetCar() {
 	m.removedcar = nil
 }
 
-// SetPetsID sets the "pets" edge to the Pet entity by id.
-func (m *Mutation) SetPetsID(id int) {
+// SetPetsId sets the "pets" edge to the Pet entity by id.
+func (m *Mutation) SetPetsId(id int) {
 	m.pets = &id
 }
 
@@ -703,18 +703,18 @@ func (m *Mutation) PetsCleared() bool {
 	return m.clearedpets
 }
 
-// PetsID returns the "pets" edge ID in the mutation.
-func (m *Mutation) PetsID() (id int, exists bool) {
+// PetsId returns the "pets" edge Id in the mutation.
+func (m *Mutation) PetsId() (id int, exists bool) {
 	if m.pets != nil {
 		return *m.pets, true
 	}
 	return
 }
 
-// PetsIDs returns the "pets" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// PetsID instead. It exists only for internal usage by the builders.
-func (m *Mutation) PetsIDs() (ids []int) {
+// PetsIds returns the "pets" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// PetsId instead. It exists only for internal usage by the builders.
+func (m *Mutation) PetsIds() (ids []int) {
 	if id := m.pets; id != nil {
 		ids = append(ids, *id)
 	}
@@ -727,8 +727,8 @@ func (m *Mutation) ResetPets() {
 	m.clearedpets = false
 }
 
-// AddFriendsIDs adds the "friends" edge to the User entity by ids.
-func (m *Mutation) AddFriendsIDs(ids ...int) {
+// AddFriendsIds adds the "friends" edge to the User entity by ids.
+func (m *Mutation) AddFriendsIds(ids ...int) {
 	if m.friends == nil {
 		m.friends = make(map[int]struct{})
 	}
@@ -747,8 +747,8 @@ func (m *Mutation) FriendsCleared() bool {
 	return m.clearedfriends
 }
 
-// RemoveFriendsIDs removes the "friends" edge to the User entity by IDs.
-func (m *Mutation) RemoveFriendsIDs(ids ...int) {
+// RemoveFriendsIds removes the "friends" edge to the User entity by Ids.
+func (m *Mutation) RemoveFriendsIds(ids ...int) {
 	if m.removedfriends == nil {
 		m.removedfriends = make(map[int]struct{})
 	}
@@ -758,16 +758,16 @@ func (m *Mutation) RemoveFriendsIDs(ids ...int) {
 	}
 }
 
-// RemovedFriends returns the removed IDs of the "friends" edge to the User entity.
-func (m *Mutation) RemovedFriendsIDs() (ids []int) {
+// RemovedFriends returns the removed Ids of the "friends" edge to the User entity.
+func (m *Mutation) RemovedFriendsIds() (ids []int) {
 	for id := range m.removedfriends {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// FriendsIDs returns the "friends" edge IDs in the mutation.
-func (m *Mutation) FriendsIDs() (ids []int) {
+// FriendsIds returns the "friends" edge Ids in the mutation.
+func (m *Mutation) FriendsIds() (ids []int) {
 	for id := range m.friends {
 		ids = append(ids, id)
 	}
@@ -1301,9 +1301,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCar:
 		ids := make([]ent.Value, 0, len(m.car))
@@ -1337,9 +1337,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeCar:
 		ids := make([]ent.Value, 0, len(m.removedcar))

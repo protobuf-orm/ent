@@ -24,7 +24,7 @@ func TestEnumTypes(t *testing.T) {
 		t.Skip()
 	}
 	ctx := context.Background()
-	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_URL"))
+	client, err := ent.Open(dialect.Postgres, os.Getenv("DB_Url"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,9 +35,9 @@ func TestEnumTypes(t *testing.T) {
 	// Automatically update the database with the desired schema.
 	// Another option, is to use 'migrate apply' or 'schema apply' manually.
 	_, err = ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
-		// URL to your database. For example:
+		// Url to your database. For example:
 		// postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable
-		URL:         os.Getenv("DB_URL"),
+		Url:         os.Getenv("DB_Url"),
 		Env:         "local",
 		AutoApprove: true,
 	})

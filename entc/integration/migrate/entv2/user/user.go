@@ -17,8 +17,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "oid"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "oid"
 	// FieldMixedString holds the string denoting the mixed_string field in the database.
 	FieldMixedString = "mixed_string"
 	// FieldMixedEnum holds the string denoting the mixed_enum field in the database.
@@ -67,10 +67,10 @@ const (
 	EdgePets = "pets"
 	// EdgeFriends holds the string denoting the friends edge name in mutations.
 	EdgeFriends = "friends"
-	// CarFieldID holds the string denoting the ID field of the Car.
-	CarFieldID = "id"
-	// PetFieldID holds the string denoting the ID field of the Pet.
-	PetFieldID = "id"
+	// CarFieldId holds the string denoting the Id field of the Car.
+	CarFieldId = "id"
+	// PetFieldId holds the string denoting the Id field of the Pet.
+	PetFieldId = "id"
 	// Table holds the table name of the user in the database.
 	Table = "user"
 	// CarTable is the table that holds the car relation/edge.
@@ -91,9 +91,9 @@ const (
 	FriendsTable = "friends"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldMixedString,
 	FieldMixedEnum,
 	FieldActive,
@@ -117,7 +117,7 @@ var Columns = []string{
 	FieldDropOptional,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"blog_admins",
@@ -246,9 +246,9 @@ func StatusValidator(s Status) error {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByMixedString orders the results by the mixed_string field.
@@ -377,22 +377,22 @@ func ByFriends(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newCarStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CarInverseTable, CarFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CarInverseTable, CarFieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, CarTable, CarColumn),
 	)
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, PetFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, PetFieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, PetsTable, PetsColumn),
 	)
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }

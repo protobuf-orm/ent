@@ -21,10 +21,10 @@ import (
 // File is the model entity for the File schema.
 type File struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
-	// SetID holds the value of the "set_id" field.
-	SetID int `json:"set_id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
+	// SetId holds the value of the "set_id" field.
+	SetId int `json:"set_id,omitempty"`
 	// Size holds the value of the "size" field.
 	Size int `json:"size,omitempty"`
 	// Name holds the value of the "name" field.
@@ -35,8 +35,8 @@ type File struct {
 	Group string `json:"group,omitempty"`
 	// Op holds the value of the "op" field.
 	Op bool `json:"op,omitempty"`
-	// FieldID holds the value of the "field_id" field.
-	FieldID int `json:"field_id,omitempty"`
+	// FieldId holds the value of the "field_id" field.
+	FieldId int `json:"field_id,omitempty"`
 	// CreateTime holds the value of the "create_time" field.
 	CreateTime time.Time `json:"create_time,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -100,7 +100,7 @@ func (*File) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case file.FieldOp:
 			values[i] = new(sql.NullBool)
-		case file.FieldID, file.FieldSetID, file.FieldSize, file.FieldFieldID:
+		case file.FieldId, file.FieldSetId, file.FieldSize, file.FieldFieldId:
 			values[i] = new(sql.NullInt64)
 		case file.FieldName, file.FieldUser, file.FieldGroup:
 			values[i] = new(sql.NullString)
@@ -127,17 +127,17 @@ func (_m *File) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case file.FieldID:
+		case file.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
-		case file.FieldSetID:
+			_m.Id = int(value.Int64)
+		case file.FieldSetId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field set_id", values[i])
 			} else if value.Valid {
-				_m.SetID = int(value.Int64)
+				_m.SetId = int(value.Int64)
 			}
 		case file.FieldSize:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -170,11 +170,11 @@ func (_m *File) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Op = value.Bool
 			}
-		case file.FieldFieldID:
+		case file.FieldFieldId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field field_id", values[i])
 			} else if value.Valid {
-				_m.FieldID = int(value.Int64)
+				_m.FieldId = int(value.Int64)
 			}
 		case file.FieldCreateTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -253,9 +253,9 @@ func (_m *File) Unwrap() *File {
 func (_m *File) String() string {
 	var builder strings.Builder
 	builder.WriteString("File(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("set_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.SetID))
+	builder.WriteString(fmt.Sprintf("%v", _m.SetId))
 	builder.WriteString(", ")
 	builder.WriteString("size=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Size))
@@ -275,7 +275,7 @@ func (_m *File) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.Op))
 	builder.WriteString(", ")
 	builder.WriteString("field_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.FieldID))
+	builder.WriteString(fmt.Sprintf("%v", _m.FieldId))
 	builder.WriteString(", ")
 	builder.WriteString("create_time=")
 	builder.WriteString(_m.CreateTime.Format(time.ANSIC))

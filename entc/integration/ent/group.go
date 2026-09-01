@@ -20,8 +20,8 @@ import (
 // Group is the model entity for the Group schema.
 type Group struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Active holds the value of the "active" field.
 	Active bool `json:"active,omitempty"`
 	// Expire holds the value of the "expire" field.
@@ -102,7 +102,7 @@ func (*Group) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case group.FieldActive:
 			values[i] = new(sql.NullBool)
-		case group.FieldID, group.FieldMaxUsers:
+		case group.FieldId, group.FieldMaxUsers:
 			values[i] = new(sql.NullInt64)
 		case group.FieldType, group.FieldName:
 			values[i] = new(sql.NullString)
@@ -125,12 +125,12 @@ func (_m *Group) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case group.FieldID:
+		case group.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case group.FieldActive:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field active", values[i])
@@ -224,7 +224,7 @@ func (_m *Group) Unwrap() *Group {
 func (_m *Group) String() string {
 	var builder strings.Builder
 	builder.WriteString("Group(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("active=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Active))
 	builder.WriteString(", ")

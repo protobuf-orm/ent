@@ -13,49 +13,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id schema.DocID) predicate.Doc {
-	return predicate.Doc(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id schema.DocId) predicate.Doc {
+	return predicate.Doc(sql.FieldLTE(FieldId, id))
 }
 
 // Text applies equality check predicate on the "text" field. It's identical to TextEQ.
@@ -142,7 +142,7 @@ func TextContainsFold(v string) predicate.Doc {
 func HasParent() predicate.Doc {
 	return predicate.Doc(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -165,7 +165,7 @@ func HasParentWith(preds ...predicate.Doc) predicate.Doc {
 func HasChildren() predicate.Doc {
 	return predicate.Doc(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -188,7 +188,7 @@ func HasChildrenWith(preds ...predicate.Doc) predicate.Doc {
 func HasRelated() predicate.Doc {
 	return predicate.Doc(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, RelatedTable, RelatedPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)

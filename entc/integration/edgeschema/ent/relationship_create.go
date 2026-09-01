@@ -41,51 +41,51 @@ func (_c *RelationshipCreate) SetNillableWeight(v *int) *RelationshipCreate {
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *RelationshipCreate) SetUserID(v int) *RelationshipCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *RelationshipCreate) SetUserId(v int) *RelationshipCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetRelativesID sets the "relatives_id" field.
-func (_c *RelationshipCreate) SetRelativesID(v int) *RelationshipCreate {
-	_c.mutation.SetRelativesID(v)
+// SetRelativesId sets the "relatives_id" field.
+func (_c *RelationshipCreate) SetRelativesId(v int) *RelationshipCreate {
+	_c.mutation.SetRelativesId(v)
 	return _c
 }
 
-// SetInfoID sets the "info_id" field.
-func (_c *RelationshipCreate) SetInfoID(v int) *RelationshipCreate {
-	_c.mutation.SetInfoID(v)
+// SetInfoId sets the "info_id" field.
+func (_c *RelationshipCreate) SetInfoId(v int) *RelationshipCreate {
+	_c.mutation.SetInfoId(v)
 	return _c
 }
 
-// SetNillableInfoID sets the "info_id" field if the given value is not nil.
-func (_c *RelationshipCreate) SetNillableInfoID(v *int) *RelationshipCreate {
+// SetNillableInfoId sets the "info_id" field if the given value is not nil.
+func (_c *RelationshipCreate) SetNillableInfoId(v *int) *RelationshipCreate {
 	if v != nil {
-		_c.SetInfoID(*v)
+		_c.SetInfoId(*v)
 	}
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *RelationshipCreate) SetUser(v *User) *RelationshipCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
-// SetRelativeID sets the "relative" edge to the User entity by ID.
-func (_c *RelationshipCreate) SetRelativeID(id int) *RelationshipCreate {
-	_c.mutation.SetRelativeID(id)
+// SetRelativeId sets the "relative" edge to the User entity by Id.
+func (_c *RelationshipCreate) SetRelativeId(id int) *RelationshipCreate {
+	_c.mutation.SetRelativeId(id)
 	return _c
 }
 
 // SetRelative sets the "relative" edge to the User entity.
 func (_c *RelationshipCreate) SetRelative(v *User) *RelationshipCreate {
-	return _c.SetRelativeID(v.ID)
+	return _c.SetRelativeId(v.Id)
 }
 
 // SetInfo sets the "info" edge to the RelationshipInfo entity.
 func (_c *RelationshipCreate) SetInfo(v *RelationshipInfo) *RelationshipCreate {
-	return _c.SetInfoID(v.ID)
+	return _c.SetInfoId(v.Id)
 }
 
 // Mutation returns the RelationshipMutation object of the builder.
@@ -137,16 +137,16 @@ func (_c *RelationshipCreate) check() error {
 	if _, ok := _c.mutation.Weight(); !ok {
 		return &ValidationError{Name: "weight", err: errors.New(`ent: missing required field "Relationship.weight"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "Relationship.user_id"`)}
 	}
-	if _, ok := _c.mutation.RelativesID(); !ok {
+	if _, ok := _c.mutation.RelativesId(); !ok {
 		return &ValidationError{Name: "relatives_id", err: errors.New(`ent: missing required field "Relationship.relatives_id"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "Relationship.user"`)}
 	}
-	if len(_c.mutation.RelativeIDs()) == 0 {
+	if len(_c.mutation.RelativeIds()) == 0 {
 		return &ValidationError{Name: "relative", err: errors.New(`ent: missing required edge "Relationship.relative"`)}
 	}
 	return nil
@@ -176,7 +176,7 @@ func (_c *RelationshipCreate) createSpec() (*Relationship, *sqlgraph.CreateSpec)
 		_spec.SetField(relationship.FieldWeight, field.TypeInt, value)
 		_node.Weight = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -184,16 +184,16 @@ func (_c *RelationshipCreate) createSpec() (*Relationship, *sqlgraph.CreateSpec)
 			Columns: []string{relationship.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.RelativeIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.RelativeIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -201,16 +201,16 @@ func (_c *RelationshipCreate) createSpec() (*Relationship, *sqlgraph.CreateSpec)
 			Columns: []string{relationship.RelativeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.RelativesID = nodes[0]
+		_node.RelativesId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.InfoIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.InfoIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -218,13 +218,13 @@ func (_c *RelationshipCreate) createSpec() (*Relationship, *sqlgraph.CreateSpec)
 			Columns: []string{relationship.InfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(relationshipinfo.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(relationshipinfo.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.InfoID = nodes[0]
+		_node.InfoId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -297,45 +297,45 @@ func (u *RelationshipUpsert) AddWeight(v int) *RelationshipUpsert {
 	return u
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RelationshipUpsert) SetUserID(v int) *RelationshipUpsert {
-	u.Set(relationship.FieldUserID, v)
+// SetUserId sets the "user_id" field.
+func (u *RelationshipUpsert) SetUserId(v int) *RelationshipUpsert {
+	u.Set(relationship.FieldUserId, v)
 	return u
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RelationshipUpsert) UpdateUserID() *RelationshipUpsert {
-	u.SetExcluded(relationship.FieldUserID)
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RelationshipUpsert) UpdateUserId() *RelationshipUpsert {
+	u.SetExcluded(relationship.FieldUserId)
 	return u
 }
 
-// SetRelativesID sets the "relatives_id" field.
-func (u *RelationshipUpsert) SetRelativesID(v int) *RelationshipUpsert {
-	u.Set(relationship.FieldRelativesID, v)
+// SetRelativesId sets the "relatives_id" field.
+func (u *RelationshipUpsert) SetRelativesId(v int) *RelationshipUpsert {
+	u.Set(relationship.FieldRelativesId, v)
 	return u
 }
 
-// UpdateRelativesID sets the "relatives_id" field to the value that was provided on create.
-func (u *RelationshipUpsert) UpdateRelativesID() *RelationshipUpsert {
-	u.SetExcluded(relationship.FieldRelativesID)
+// UpdateRelativesId sets the "relatives_id" field to the value that was provided on create.
+func (u *RelationshipUpsert) UpdateRelativesId() *RelationshipUpsert {
+	u.SetExcluded(relationship.FieldRelativesId)
 	return u
 }
 
-// SetInfoID sets the "info_id" field.
-func (u *RelationshipUpsert) SetInfoID(v int) *RelationshipUpsert {
-	u.Set(relationship.FieldInfoID, v)
+// SetInfoId sets the "info_id" field.
+func (u *RelationshipUpsert) SetInfoId(v int) *RelationshipUpsert {
+	u.Set(relationship.FieldInfoId, v)
 	return u
 }
 
-// UpdateInfoID sets the "info_id" field to the value that was provided on create.
-func (u *RelationshipUpsert) UpdateInfoID() *RelationshipUpsert {
-	u.SetExcluded(relationship.FieldInfoID)
+// UpdateInfoId sets the "info_id" field to the value that was provided on create.
+func (u *RelationshipUpsert) UpdateInfoId() *RelationshipUpsert {
+	u.SetExcluded(relationship.FieldInfoId)
 	return u
 }
 
-// ClearInfoID clears the value of the "info_id" field.
-func (u *RelationshipUpsert) ClearInfoID() *RelationshipUpsert {
-	u.SetNull(relationship.FieldInfoID)
+// ClearInfoId clears the value of the "info_id" field.
+func (u *RelationshipUpsert) ClearInfoId() *RelationshipUpsert {
+	u.SetNull(relationship.FieldInfoId)
 	return u
 }
 
@@ -364,7 +364,7 @@ func (u *RelationshipUpsertOne) Ignore() *RelationshipUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RelationshipUpsertOne) DoNothing() *RelationshipUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -400,52 +400,52 @@ func (u *RelationshipUpsertOne) UpdateWeight() *RelationshipUpsertOne {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RelationshipUpsertOne) SetUserID(v int) *RelationshipUpsertOne {
+// SetUserId sets the "user_id" field.
+func (u *RelationshipUpsertOne) SetUserId(v int) *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RelationshipUpsertOne) UpdateUserID() *RelationshipUpsertOne {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RelationshipUpsertOne) UpdateUserId() *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetRelativesID sets the "relatives_id" field.
-func (u *RelationshipUpsertOne) SetRelativesID(v int) *RelationshipUpsertOne {
+// SetRelativesId sets the "relatives_id" field.
+func (u *RelationshipUpsertOne) SetRelativesId(v int) *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetRelativesID(v)
+		s.SetRelativesId(v)
 	})
 }
 
-// UpdateRelativesID sets the "relatives_id" field to the value that was provided on create.
-func (u *RelationshipUpsertOne) UpdateRelativesID() *RelationshipUpsertOne {
+// UpdateRelativesId sets the "relatives_id" field to the value that was provided on create.
+func (u *RelationshipUpsertOne) UpdateRelativesId() *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateRelativesID()
+		s.UpdateRelativesId()
 	})
 }
 
-// SetInfoID sets the "info_id" field.
-func (u *RelationshipUpsertOne) SetInfoID(v int) *RelationshipUpsertOne {
+// SetInfoId sets the "info_id" field.
+func (u *RelationshipUpsertOne) SetInfoId(v int) *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetInfoID(v)
+		s.SetInfoId(v)
 	})
 }
 
-// UpdateInfoID sets the "info_id" field to the value that was provided on create.
-func (u *RelationshipUpsertOne) UpdateInfoID() *RelationshipUpsertOne {
+// UpdateInfoId sets the "info_id" field to the value that was provided on create.
+func (u *RelationshipUpsertOne) UpdateInfoId() *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateInfoID()
+		s.UpdateInfoId()
 	})
 }
 
-// ClearInfoID clears the value of the "info_id" field.
-func (u *RelationshipUpsertOne) ClearInfoID() *RelationshipUpsertOne {
+// ClearInfoId clears the value of the "info_id" field.
+func (u *RelationshipUpsertOne) ClearInfoId() *RelationshipUpsertOne {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.ClearInfoID()
+		s.ClearInfoId()
 	})
 }
 
@@ -615,7 +615,7 @@ func (u *RelationshipUpsertBulk) Ignore() *RelationshipUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RelationshipUpsertBulk) DoNothing() *RelationshipUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -651,52 +651,52 @@ func (u *RelationshipUpsertBulk) UpdateWeight() *RelationshipUpsertBulk {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *RelationshipUpsertBulk) SetUserID(v int) *RelationshipUpsertBulk {
+// SetUserId sets the "user_id" field.
+func (u *RelationshipUpsertBulk) SetUserId(v int) *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *RelationshipUpsertBulk) UpdateUserID() *RelationshipUpsertBulk {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *RelationshipUpsertBulk) UpdateUserId() *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetRelativesID sets the "relatives_id" field.
-func (u *RelationshipUpsertBulk) SetRelativesID(v int) *RelationshipUpsertBulk {
+// SetRelativesId sets the "relatives_id" field.
+func (u *RelationshipUpsertBulk) SetRelativesId(v int) *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetRelativesID(v)
+		s.SetRelativesId(v)
 	})
 }
 
-// UpdateRelativesID sets the "relatives_id" field to the value that was provided on create.
-func (u *RelationshipUpsertBulk) UpdateRelativesID() *RelationshipUpsertBulk {
+// UpdateRelativesId sets the "relatives_id" field to the value that was provided on create.
+func (u *RelationshipUpsertBulk) UpdateRelativesId() *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateRelativesID()
+		s.UpdateRelativesId()
 	})
 }
 
-// SetInfoID sets the "info_id" field.
-func (u *RelationshipUpsertBulk) SetInfoID(v int) *RelationshipUpsertBulk {
+// SetInfoId sets the "info_id" field.
+func (u *RelationshipUpsertBulk) SetInfoId(v int) *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.SetInfoID(v)
+		s.SetInfoId(v)
 	})
 }
 
-// UpdateInfoID sets the "info_id" field to the value that was provided on create.
-func (u *RelationshipUpsertBulk) UpdateInfoID() *RelationshipUpsertBulk {
+// UpdateInfoId sets the "info_id" field to the value that was provided on create.
+func (u *RelationshipUpsertBulk) UpdateInfoId() *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.UpdateInfoID()
+		s.UpdateInfoId()
 	})
 }
 
-// ClearInfoID clears the value of the "info_id" field.
-func (u *RelationshipUpsertBulk) ClearInfoID() *RelationshipUpsertBulk {
+// ClearInfoId clears the value of the "info_id" field.
+func (u *RelationshipUpsertBulk) ClearInfoId() *RelationshipUpsertBulk {
 	return u.Update(func(s *RelationshipUpsert) {
-		s.ClearInfoID()
+		s.ClearInfoId()
 	})
 }
 

@@ -30,23 +30,23 @@ func (_c *StreetCreate) SetName(v string) *StreetCreate {
 	return _c
 }
 
-// SetCityID sets the "city" edge to the City entity by ID.
-func (_c *StreetCreate) SetCityID(id int) *StreetCreate {
-	_c.mutation.SetCityID(id)
+// SetCityId sets the "city" edge to the City entity by Id.
+func (_c *StreetCreate) SetCityId(id int) *StreetCreate {
+	_c.mutation.SetCityId(id)
 	return _c
 }
 
-// SetNillableCityID sets the "city" edge to the City entity by ID if the given value is not nil.
-func (_c *StreetCreate) SetNillableCityID(id *int) *StreetCreate {
+// SetNillableCityId sets the "city" edge to the City entity by Id if the given value is not nil.
+func (_c *StreetCreate) SetNillableCityId(id *int) *StreetCreate {
 	if id != nil {
-		_c = _c.SetCityID(*id)
+		_c = _c.SetCityId(*id)
 	}
 	return _c
 }
 
 // SetCity sets the "city" edge to the City entity.
 func (_c *StreetCreate) SetCity(v *City) *StreetCreate {
-	return _c.SetCityID(v.ID)
+	return _c.SetCityId(v.Id)
 }
 
 // Mutation returns the StreetMutation object of the builder.
@@ -100,9 +100,9 @@ func (_c *StreetCreate) sqlSave(ctx context.Context) (*Street, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -110,13 +110,13 @@ func (_c *StreetCreate) sqlSave(ctx context.Context) (*Street, error) {
 func (_c *StreetCreate) createSpec() (*Street, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Street{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(street.Table, sqlgraph.NewFieldSpec(street.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(street.Table, sqlgraph.NewFieldSpec(street.FieldId, field.TypeInt))
 	)
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(street.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if nodes := _c.mutation.CityIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CityIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -124,7 +124,7 @@ func (_c *StreetCreate) createSpec() (*Street, *sqlgraph.CreateSpec) {
 			Columns: []string{street.CityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(city.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(city.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -179,10 +179,10 @@ func (_c *StreetCreateBulk) Save(ctx context.Context) ([]*Street, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

@@ -32,7 +32,7 @@ import (
 )
 
 func TestMigrate_DiffJoinTableAllocationBC(t *testing.T) {
-	// Due to a bug in previous versions, if the universal ID option was enabled and the schema did contain an M2M
+	// Due to a bug in previous versions, if the universal Id option was enabled and the schema did contain an M2M
 	// relation, the join table would have had an entry for the join table in the types table. This test ensures,
 	// that the PK range allocated for the join table stays in place, since it's removal would break existing projects
 	// due to shifted ranges.
@@ -61,7 +61,7 @@ func TestMigrate_DiffJoinTableAllocationBC(t *testing.T) {
 	}
 
 	// Expect to have no changes when migration runs with fix.
-	m, err := entschema.NewMigrate(db, entschema.WithGlobalUniqueID(true), entschema.WithDiffHook(func(next entschema.Differ) entschema.Differ {
+	m, err := entschema.NewMigrate(db, entschema.WithGlobalUniqueId(true), entschema.WithDiffHook(func(next entschema.Differ) entschema.Differ {
 		return entschema.DiffFunc(func(current, desired *schema.Schema) ([]schema.Change, error) {
 			changes, err := next.Diff(current, desired)
 			if err != nil {
@@ -75,7 +75,7 @@ func TestMigrate_DiffJoinTableAllocationBC(t *testing.T) {
 	require.NoError(t, m.Create(context.Background(), tables...))
 
 	// Expect to have no changes to the allocation when the join table is dropped.
-	m, err = entschema.NewMigrate(db, entschema.WithGlobalUniqueID(true))
+	m, err = entschema.NewMigrate(db, entschema.WithGlobalUniqueId(true))
 	require.NoError(t, err)
 	require.NoError(t, m.Create(context.Background(), groupsTable, usersTable))
 
@@ -205,10 +205,10 @@ func TestMigrate_Diff(t *testing.T) {
 	require.NoError(t, err)
 
 	// Join tables (mapping between user and group) will not result in an entry to the types table.
-	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueID(true))
+	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueId(true))
 	require.NoError(t, err)
 	require.NoError(t, m.Diff(ctx, tables...))
-	changesSQL := strings.Join([]string{
+	changesSql := strings.Join([]string{
 		"CREATE TABLE `groups` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `name` text NOT NULL);",
 		"CREATE INDEX `short` ON `groups` (`id`);",
 		"CREATE INDEX `long____________________________1cb2e7e47a309191385af4ad320875b1` ON `groups` (`id`);",
@@ -220,21 +220,21 @@ func TestMigrate_Diff(t *testing.T) {
 		"INSERT INTO `ent_types` (`type`) VALUES ('groups'), ('users');",
 		"",
 	}, "\n")
-	requireFileEqual(t, filepath.Join(p, "changes.sql"), changesSQL)
+	requireFileEqual(t, filepath.Join(p, "changes.sql"), changesSql)
 
 	// Skipping table creation should write only the ent_type insertion.
-	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueID(true), entschema.WithDiffOptions(schema.DiffSkipChanges(&schema.AddTable{})))
+	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueId(true), entschema.WithDiffOptions(schema.DiffSkipChanges(&schema.AddTable{})))
 	require.NoError(t, err)
 	require.NoError(t, m.Diff(ctx, tables...))
 	requireFileEqual(t, filepath.Join(p, "changes.sql"), "INSERT INTO `ent_types` (`type`) VALUES ('groups'), ('users');\n")
 
 	// Enable indentations.
-	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueID(true), entschema.WithIndent("  "))
+	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueId(true), entschema.WithIndent("  "))
 	require.NoError(t, err)
 	// Adding another node will result in a new entry to the TypeTable (without actually creating it).
-	// Applying the plan as generated also covers that it is valid SQL for a driver built with
-	// SQLITE_DQS=0, which is what schema.fixSequenceQuoting is there for.
-	_, err = db.ExecContext(ctx, changesSQL)
+	// Applying the plan as generated also covers that it is valid Sql for a driver built with
+	// SqlITE_DQS=0, which is what schema.fixSequenceQuoting is there for.
+	_, err = db.ExecContext(ctx, changesSql)
 	require.NoError(t, err)
 	require.NoError(t, m.NamedDiff(ctx, "changes_2", petsTable))
 	requireFileEqual(t,
@@ -249,7 +249,7 @@ func TestMigrate_Diff(t *testing.T) {
 
 	require.NoError(t, m.NamedDiff(ctx, "no_changes"), "should not error if entschema.WithErrNoPlan is not set")
 	// Enable entschema.WithErrNoPlan.
-	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueID(true), entschema.WithErrNoPlan(true))
+	m, err = entschema.NewMigrate(db, entschema.WithFormatter(f), entschema.WithDir(d), entschema.WithGlobalUniqueId(true), entschema.WithErrNoPlan(true))
 	require.NoError(t, err)
 	err = m.NamedDiff(ctx, "no_changes")
 	require.ErrorIs(t, err, migrate.ErrNoPlan)

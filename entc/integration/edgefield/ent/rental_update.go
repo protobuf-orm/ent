@@ -80,10 +80,10 @@ func (_u *RentalUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *RentalUpdate) check() error {
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Rental.user"`)
 	}
-	if _u.mutation.CarCleared() && len(_u.mutation.CarIDs()) > 0 {
+	if _u.mutation.CarCleared() && len(_u.mutation.CarIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Rental.car"`)
 	}
 	return nil
@@ -93,7 +93,7 @@ func (_u *RentalUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(rental.Table, rental.Columns, sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(rental.Table, rental.Columns, sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -185,10 +185,10 @@ func (_u *RentalUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *RentalUpdateOne) check() error {
-	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Rental.user"`)
 	}
-	if _u.mutation.CarCleared() && len(_u.mutation.CarIDs()) > 0 {
+	if _u.mutation.CarCleared() && len(_u.mutation.CarIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Rental.car"`)
 	}
 	return nil
@@ -198,20 +198,20 @@ func (_u *RentalUpdateOne) sqlSave(ctx context.Context) (_node *Rental, err erro
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(rental.Table, rental.Columns, sqlgraph.NewFieldSpec(rental.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(rental.Table, rental.Columns, sqlgraph.NewFieldSpec(rental.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Rental.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, rental.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, rental.FieldId)
 		for _, f := range fields {
 			if !rental.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != rental.FieldID {
+			if f != rental.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

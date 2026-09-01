@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the filetype type in the database.
 	Label = "file_type"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldType holds the string denoting the type field in the database.
@@ -37,9 +37,9 @@ const (
 	FilesColumn = "file_type_files"
 )
 
-// Columns holds all SQL columns for filetype fields.
+// Columns holds all Sql columns for filetype fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 	FieldType,
 	FieldState,
@@ -111,9 +111,9 @@ func StateValidator(s State) error {
 // OrderOption defines the ordering options for the FileType queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -146,8 +146,8 @@ func ByFiles(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newFilesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FilesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FilesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, FilesTable, FilesColumn),
 	)
 }

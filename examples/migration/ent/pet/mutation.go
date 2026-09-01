@@ -144,13 +144,13 @@ func (m *Mutation) ResetWeight() {
 	m.addweight = nil
 }
 
-// SetBestFriendID sets the "best_friend_id" field.
-func (m *Mutation) SetBestFriendID(u uuid.UUID) {
+// SetBestFriendId sets the "best_friend_id" field.
+func (m *Mutation) SetBestFriendId(u uuid.UUID) {
 	m.best_friend = &u
 }
 
-// BestFriendID returns the value of the "best_friend_id" field in the mutation.
-func (m *Mutation) BestFriendID() (r uuid.UUID, exists bool) {
+// BestFriendId returns the value of the "best_friend_id" field in the mutation.
+func (m *Mutation) BestFriendId() (r uuid.UUID, exists bool) {
 	v := m.best_friend
 	if v == nil {
 		return
@@ -158,18 +158,18 @@ func (m *Mutation) BestFriendID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ResetBestFriendID resets all changes to the "best_friend_id" field.
-func (m *Mutation) ResetBestFriendID() {
+// ResetBestFriendId resets all changes to the "best_friend_id" field.
+func (m *Mutation) ResetBestFriendId() {
 	m.best_friend = nil
 }
 
-// SetOwnerID sets the "owner_id" field.
-func (m *Mutation) SetOwnerID(i int) {
+// SetOwnerId sets the "owner_id" field.
+func (m *Mutation) SetOwnerId(i int) {
 	m.owner = &i
 }
 
-// OwnerID returns the value of the "owner_id" field in the mutation.
-func (m *Mutation) OwnerID() (r int, exists bool) {
+// OwnerId returns the value of the "owner_id" field in the mutation.
+func (m *Mutation) OwnerId() (r int, exists bool) {
 	v := m.owner
 	if v == nil {
 		return
@@ -177,15 +177,15 @@ func (m *Mutation) OwnerID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetOwnerID resets all changes to the "owner_id" field.
-func (m *Mutation) ResetOwnerID() {
+// ResetOwnerId resets all changes to the "owner_id" field.
+func (m *Mutation) ResetOwnerId() {
 	m.owner = nil
 }
 
 // ClearBestFriend clears the "best_friend" edge to the Pet entity.
 func (m *Mutation) ClearBestFriend() {
 	m.clearedbest_friend = true
-	m.clearedFields[FieldBestFriendID] = struct{}{}
+	m.clearedFields[FieldBestFriendId] = struct{}{}
 }
 
 // BestFriendCleared reports if the "best_friend" edge to the Pet entity was cleared.
@@ -193,10 +193,10 @@ func (m *Mutation) BestFriendCleared() bool {
 	return m.clearedbest_friend
 }
 
-// BestFriendIDs returns the "best_friend" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// BestFriendID instead. It exists only for internal usage by the builders.
-func (m *Mutation) BestFriendIDs() (ids []uuid.UUID) {
+// BestFriendIds returns the "best_friend" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// BestFriendId instead. It exists only for internal usage by the builders.
+func (m *Mutation) BestFriendIds() (ids []uuid.UUID) {
 	if id := m.best_friend; id != nil {
 		ids = append(ids, *id)
 	}
@@ -212,7 +212,7 @@ func (m *Mutation) ResetBestFriend() {
 // ClearOwner clears the "owner" edge to the User entity.
 func (m *Mutation) ClearOwner() {
 	m.clearedowner = true
-	m.clearedFields[FieldOwnerID] = struct{}{}
+	m.clearedFields[FieldOwnerId] = struct{}{}
 }
 
 // OwnerCleared reports if the "owner" edge to the User entity was cleared.
@@ -220,10 +220,10 @@ func (m *Mutation) OwnerCleared() bool {
 	return m.clearedowner
 }
 
-// OwnerIDs returns the "owner" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// OwnerID instead. It exists only for internal usage by the builders.
-func (m *Mutation) OwnerIDs() (ids []int) {
+// OwnerIds returns the "owner" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// OwnerId instead. It exists only for internal usage by the builders.
+func (m *Mutation) OwnerIds() (ids []int) {
 	if id := m.owner; id != nil {
 		ids = append(ids, *id)
 	}
@@ -281,10 +281,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldWeight)
 	}
 	if m.best_friend != nil {
-		fields = append(fields, FieldBestFriendID)
+		fields = append(fields, FieldBestFriendId)
 	}
 	if m.owner != nil {
-		fields = append(fields, FieldOwnerID)
+		fields = append(fields, FieldOwnerId)
 	}
 	return fields
 }
@@ -300,10 +300,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Age()
 	case FieldWeight:
 		return m.Weight()
-	case FieldBestFriendID:
-		return m.BestFriendID()
-	case FieldOwnerID:
-		return m.OwnerID()
+	case FieldBestFriendId:
+		return m.BestFriendId()
+	case FieldOwnerId:
+		return m.OwnerId()
 	}
 	return nil, false
 }
@@ -341,19 +341,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetWeight(v)
 		return nil
-	case FieldBestFriendID:
+	case FieldBestFriendId:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetBestFriendID(v)
+		m.SetBestFriendId(v)
 		return nil
-	case FieldOwnerID:
+	case FieldOwnerId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOwnerID(v)
+		m.SetOwnerId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Pet field %s", name)
@@ -440,11 +440,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldWeight:
 		m.ResetWeight()
 		return nil
-	case FieldBestFriendID:
-		m.ResetBestFriendID()
+	case FieldBestFriendId:
+		m.ResetBestFriendId()
 		return nil
-	case FieldOwnerID:
-		m.ResetOwnerID()
+	case FieldOwnerId:
+		m.ResetOwnerId()
 		return nil
 	}
 	return fmt.Errorf("unknown Pet field %s", name)
@@ -462,9 +462,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeBestFriend:
 		if id := m.best_friend; id != nil {
@@ -484,9 +484,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

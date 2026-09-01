@@ -14,49 +14,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldLTE(FieldId, id))
 }
 
 // AttachTime applies equality check predicate on the "attach_time" field. It's identical to AttachTimeEQ.
@@ -64,14 +64,14 @@ func AttachTime(v time.Time) predicate.AttachedFile {
 	return predicate.AttachedFile(sql.FieldEQ(FieldAttachTime, v))
 }
 
-// FID applies equality check predicate on the "f_id" field. It's identical to FIDEQ.
-func FID(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldFID, v))
+// FId applies equality check predicate on the "f_id" field. It's identical to FIdEQ.
+func FId(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldFId, v))
 }
 
-// ProcID applies equality check predicate on the "proc_id" field. It's identical to ProcIDEQ.
-func ProcID(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldProcID, v))
+// ProcId applies equality check predicate on the "proc_id" field. It's identical to ProcIdEQ.
+func ProcId(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldProcId, v))
 }
 
 // AttachTimeEQ applies the EQ predicate on the "attach_time" field.
@@ -114,51 +114,51 @@ func AttachTimeLTE(v time.Time) predicate.AttachedFile {
 	return predicate.AttachedFile(sql.FieldLTE(FieldAttachTime, v))
 }
 
-// FIDEQ applies the EQ predicate on the "f_id" field.
-func FIDEQ(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldFID, v))
+// FIdEQ applies the EQ predicate on the "f_id" field.
+func FIdEQ(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldFId, v))
 }
 
-// FIDNEQ applies the NEQ predicate on the "f_id" field.
-func FIDNEQ(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNEQ(FieldFID, v))
+// FIdNEQ applies the NEQ predicate on the "f_id" field.
+func FIdNEQ(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNEQ(FieldFId, v))
 }
 
-// FIDIn applies the In predicate on the "f_id" field.
-func FIDIn(vs ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldIn(FieldFID, vs...))
+// FIdIn applies the In predicate on the "f_id" field.
+func FIdIn(vs ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldIn(FieldFId, vs...))
 }
 
-// FIDNotIn applies the NotIn predicate on the "f_id" field.
-func FIDNotIn(vs ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNotIn(FieldFID, vs...))
+// FIdNotIn applies the NotIn predicate on the "f_id" field.
+func FIdNotIn(vs ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNotIn(FieldFId, vs...))
 }
 
-// ProcIDEQ applies the EQ predicate on the "proc_id" field.
-func ProcIDEQ(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldEQ(FieldProcID, v))
+// ProcIdEQ applies the EQ predicate on the "proc_id" field.
+func ProcIdEQ(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldEQ(FieldProcId, v))
 }
 
-// ProcIDNEQ applies the NEQ predicate on the "proc_id" field.
-func ProcIDNEQ(v int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNEQ(FieldProcID, v))
+// ProcIdNEQ applies the NEQ predicate on the "proc_id" field.
+func ProcIdNEQ(v int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNEQ(FieldProcId, v))
 }
 
-// ProcIDIn applies the In predicate on the "proc_id" field.
-func ProcIDIn(vs ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldIn(FieldProcID, vs...))
+// ProcIdIn applies the In predicate on the "proc_id" field.
+func ProcIdIn(vs ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldIn(FieldProcId, vs...))
 }
 
-// ProcIDNotIn applies the NotIn predicate on the "proc_id" field.
-func ProcIDNotIn(vs ...int) predicate.AttachedFile {
-	return predicate.AttachedFile(sql.FieldNotIn(FieldProcID, vs...))
+// ProcIdNotIn applies the NotIn predicate on the "proc_id" field.
+func ProcIdNotIn(vs ...int) predicate.AttachedFile {
+	return predicate.AttachedFile(sql.FieldNotIn(FieldProcId, vs...))
 }
 
 // HasFi applies the HasEdge predicate on the "fi" edge.
 func HasFi() predicate.AttachedFile {
 	return predicate.AttachedFile(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, FiTable, FiColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -181,7 +181,7 @@ func HasFiWith(preds ...predicate.File) predicate.AttachedFile {
 func HasProc() predicate.AttachedFile {
 	return predicate.AttachedFile(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, ProcTable, ProcColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

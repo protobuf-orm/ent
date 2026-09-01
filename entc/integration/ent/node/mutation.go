@@ -130,8 +130,8 @@ func (m *Mutation) ResetUpdatedAt() {
 	delete(m.clearedFields, FieldUpdatedAt)
 }
 
-// SetPrevID sets the "prev" edge to the Node entity by id.
-func (m *Mutation) SetPrevID(id int) {
+// SetPrevId sets the "prev" edge to the Node entity by id.
+func (m *Mutation) SetPrevId(id int) {
 	m.prev = &id
 }
 
@@ -145,18 +145,18 @@ func (m *Mutation) PrevCleared() bool {
 	return m.clearedprev
 }
 
-// PrevID returns the "prev" edge ID in the mutation.
-func (m *Mutation) PrevID() (id int, exists bool) {
+// PrevId returns the "prev" edge Id in the mutation.
+func (m *Mutation) PrevId() (id int, exists bool) {
 	if m.prev != nil {
 		return *m.prev, true
 	}
 	return
 }
 
-// PrevIDs returns the "prev" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// PrevID instead. It exists only for internal usage by the builders.
-func (m *Mutation) PrevIDs() (ids []int) {
+// PrevIds returns the "prev" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// PrevId instead. It exists only for internal usage by the builders.
+func (m *Mutation) PrevIds() (ids []int) {
 	if id := m.prev; id != nil {
 		ids = append(ids, *id)
 	}
@@ -169,8 +169,8 @@ func (m *Mutation) ResetPrev() {
 	m.clearedprev = false
 }
 
-// SetNextID sets the "next" edge to the Node entity by id.
-func (m *Mutation) SetNextID(id int) {
+// SetNextId sets the "next" edge to the Node entity by id.
+func (m *Mutation) SetNextId(id int) {
 	m.next = &id
 }
 
@@ -184,18 +184,18 @@ func (m *Mutation) NextCleared() bool {
 	return m.clearednext
 }
 
-// NextID returns the "next" edge ID in the mutation.
-func (m *Mutation) NextID() (id int, exists bool) {
+// NextId returns the "next" edge Id in the mutation.
+func (m *Mutation) NextId() (id int, exists bool) {
 	if m.next != nil {
 		return *m.next, true
 	}
 	return
 }
 
-// NextIDs returns the "next" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// NextID instead. It exists only for internal usage by the builders.
-func (m *Mutation) NextIDs() (ids []int) {
+// NextIds returns the "next" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// NextId instead. It exists only for internal usage by the builders.
+func (m *Mutation) NextIds() (ids []int) {
 	if id := m.next; id != nil {
 		ids = append(ids, *id)
 	}
@@ -392,9 +392,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgePrev:
 		if id := m.prev; id != nil {
@@ -414,9 +414,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

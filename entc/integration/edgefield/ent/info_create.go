@@ -31,29 +31,29 @@ func (_c *InfoCreate) SetContent(v jsontext.Value) *InfoCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *InfoCreate) SetID(v int) *InfoCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *InfoCreate) SetId(v int) *InfoCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetUserID sets the "user" edge to the User entity by ID.
-func (_c *InfoCreate) SetUserID(id int) *InfoCreate {
-	_c.mutation.SetUserID(id)
+// SetUserId sets the "user" edge to the User entity by Id.
+func (_c *InfoCreate) SetUserId(id int) *InfoCreate {
+	_c.mutation.SetUserId(id)
 	return _c
 }
 
-// SetNillableUserID sets the "user" edge to the User entity by ID if the given value is not nil.
-func (_c *InfoCreate) SetNillableUserID(id *int) *InfoCreate {
+// SetNillableUserId sets the "user" edge to the User entity by Id if the given value is not nil.
+func (_c *InfoCreate) SetNillableUserId(id *int) *InfoCreate {
 	if id != nil {
-		_c = _c.SetUserID(*id)
+		_c = _c.SetUserId(*id)
 	}
 	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *InfoCreate) SetUser(v *User) *InfoCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
 // Mutation returns the InfoMutation object of the builder.
@@ -107,11 +107,11 @@ func (_c *InfoCreate) sqlSave(ctx context.Context) (*Info, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -119,17 +119,17 @@ func (_c *InfoCreate) sqlSave(ctx context.Context) (*Info, error) {
 func (_c *InfoCreate) createSpec() (*Info, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Info{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(info.Table, sqlgraph.NewFieldSpec(info.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(info.Table, sqlgraph.NewFieldSpec(info.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Content(); ok {
-		_spec.SetField(info.FieldContent, field.TypeJSON, value)
+		_spec.SetField(info.FieldContent, field.TypeJson, value)
 		_node.Content = value
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -137,13 +137,13 @@ func (_c *InfoCreate) createSpec() (*Info, *sqlgraph.CreateSpec) {
 			Columns: []string{info.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ID = nodes[0]
+		_node.Id = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -192,10 +192,10 @@ func (_c *InfoCreateBulk) Save(ctx context.Context) ([]*Info, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

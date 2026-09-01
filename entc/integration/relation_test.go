@@ -148,8 +148,8 @@ func O2OSameType(t *testing.T, client *ent.Client) {
 	t.Log("add node to the linked-list and connect it to the head (inverse creation)")
 	sec := client.Node.Create().SetValue(2).SetPrev(head).SaveX(ctx)
 	require.Zero(sec.QueryNext().CountX(ctx), "should not have next")
-	require.Equal(head.ID, sec.QueryPrev().OnlyX(ctx).ID, "head should point to the second node")
-	require.Equal(sec.ID, head.QueryNext().OnlyX(ctx).ID)
+	require.Equal(head.Id, sec.QueryPrev().OnlyX(ctx).Id, "head should point to the second node")
+	require.Equal(sec.Id, head.QueryNext().OnlyX(ctx).Id)
 	require.Equal(2, client.Node.Query().CountX(ctx), "linked-list should have 2 nodes")
 
 	t.Log("delete inverse should delete association")
@@ -161,8 +161,8 @@ func O2OSameType(t *testing.T, client *ent.Client) {
 	sec = client.Node.Create().SetValue(2).SaveX(ctx)
 	head.Update().SetNext(sec).ExecX(ctx)
 	require.Zero(sec.QueryNext().CountX(ctx), "should not have next")
-	require.Equal(head.ID, sec.QueryPrev().OnlyX(ctx).ID, "head should point to the second node")
-	require.Equal(sec.ID, head.QueryNext().OnlyX(ctx).ID)
+	require.Equal(head.Id, sec.QueryPrev().OnlyX(ctx).Id, "head should point to the second node")
+	require.Equal(sec.Id, head.QueryNext().OnlyX(ctx).Id)
 	require.Equal(2, client.Node.Query().CountX(ctx), "linked-list should have 2 nodes")
 
 	t.Log("delete assoc should delete inverse edge")
@@ -250,8 +250,8 @@ func O2OSameType(t *testing.T, client *ent.Client) {
 
 	t.Log("node points to itself (circular linked-list with 1 node)")
 	head.Update().SetNext(head).SaveX(ctx)
-	require.Equal(head.ID, head.QueryPrev().OnlyIDX(ctx))
-	require.Equal(head.ID, head.QueryNext().OnlyIDX(ctx))
+	require.Equal(head.Id, head.QueryPrev().OnlyIdX(ctx))
+	require.Equal(head.Id, head.QueryNext().OnlyIdX(ctx))
 	head.Update().ClearNext().SaveX(ctx)
 	require.Zero(head.QueryPrev().CountX(ctx))
 	require.Zero(head.QueryNext().CountX(ctx))
@@ -446,7 +446,7 @@ func O2MTwoTypes(t *testing.T, client *ent.Client) {
 	require.True(p2.QueryOwner().ExistX(ctx))
 	require.Equal(2, usr2.QueryPets().CountX(ctx))
 	// delete p1, p2.
-	client.Pet.Delete().Where(pet.IDIn(p1.ID, p2.ID)).ExecX(ctx)
+	client.Pet.Delete().Where(pet.IdIn(p1.Id, p2.Id)).ExecX(ctx)
 	require.Zero(usr2.QueryPets().CountX(ctx))
 
 	t.Log("change the owner a pet")
@@ -582,7 +582,7 @@ func O2MSameType(t *testing.T, client *ent.Client) {
 
 	t.Log("add child to parent by updating user (the owner of the edge)")
 	chd = client.User.Create().SetAge(1).SetName("child").SaveX(ctx)
-	prt.Update().AddChildrenIDs(chd.ID).ExecX(ctx)
+	prt.Update().AddChildrenIds(chd.Id).ExecX(ctx)
 	require.Equal(prt.Name, chd.QueryParent().OnlyX(ctx).Name)
 	require.Equal(chd.Name, prt.QueryChildren().OnlyX(ctx).Name)
 
@@ -619,7 +619,7 @@ func O2MSameType(t *testing.T, client *ent.Client) {
 	require.True(chd3.QueryParent().ExistX(ctx))
 	require.Equal(2, prt2.QueryChildren().CountX(ctx))
 	// delete chd3, chd4.
-	client.User.Delete().Where(user.IDIn(chd3.ID, chd4.ID)).ExecX(ctx)
+	client.User.Delete().Where(user.IdIn(chd3.Id, chd4.Id)).ExecX(ctx)
 	require.Zero(prt2.QueryChildren().CountX(ctx))
 
 	t.Log("change the parent a child")

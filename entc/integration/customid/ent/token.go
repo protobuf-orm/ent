@@ -20,14 +20,14 @@ import (
 // Token is the model entity for the Token schema.
 type Token struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID sid.ID `json:"id,omitempty"`
+	// Id of the ent.
+	Id sid.Id `json:"id,omitempty"`
 	// Body holds the value of the "body" field.
 	Body string `json:"body,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TokenQuery when eager-loading is set.
 	Edges         TokenEdges `json:"edges"`
-	account_token *sid.ID
+	account_token *sid.Id
 	selectValues  sql.SelectValues
 }
 
@@ -56,12 +56,12 @@ func (*Token) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case token.FieldID:
-			values[i] = new(sid.ID)
+		case token.FieldId:
+			values[i] = new(sid.Id)
 		case token.FieldBody:
 			values[i] = new(sql.NullString)
 		case token.ForeignKeys[0]: // account_token
-			values[i] = &sql.NullScanner{S: new(sid.ID)}
+			values[i] = &sql.NullScanner{S: new(sid.Id)}
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -77,11 +77,11 @@ func (_m *Token) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case token.FieldID:
-			if value, ok := values[i].(*sid.ID); !ok {
+		case token.FieldId:
+			if value, ok := values[i].(*sid.Id); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case token.FieldBody:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -93,8 +93,8 @@ func (_m *Token) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullScanner); !ok {
 				return fmt.Errorf("unexpected type %T for field account_token", values[i])
 			} else if value.Valid {
-				_m.account_token = new(sid.ID)
-				*_m.account_token = *value.S.(*sid.ID)
+				_m.account_token = new(sid.Id)
+				*_m.account_token = *value.S.(*sid.Id)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -136,7 +136,7 @@ func (_m *Token) Unwrap() *Token {
 func (_m *Token) String() string {
 	var builder strings.Builder
 	builder.WriteString("Token(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("body=")
 	builder.WriteString(_m.Body)
 	builder.WriteByte(')')

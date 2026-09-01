@@ -40,16 +40,16 @@ func (_c *ItemCreate) SetNillableText(v *string) *ItemCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *ItemCreate) SetID(v string) *ItemCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *ItemCreate) SetId(v string) *ItemCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *ItemCreate) SetNillableID(v *string) *ItemCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *ItemCreate) SetNillableId(v *string) *ItemCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
@@ -89,9 +89,9 @@ func (_c *ItemCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *ItemCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := item.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := item.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -102,8 +102,8 @@ func (_c *ItemCreate) check() error {
 			return &ValidationError{Name: "text", err: fmt.Errorf(`ent: validator failed for field "Item.text": %w`, err)}
 		}
 	}
-	if v, ok := _c.mutation.ID(); ok {
-		if err := item.IDValidator(v); err != nil {
+	if v, ok := _c.mutation.Id(); ok {
+		if err := item.IdValidator(v); err != nil {
 			return &ValidationError{Name: "id", err: fmt.Errorf(`ent: validator failed for field "Item.id": %w`, err)}
 		}
 	}
@@ -121,14 +121,14 @@ func (_c *ItemCreate) sqlSave(ctx context.Context) (*Item, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(string); ok {
-			_node.ID = id
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(string); ok {
+			_node.Id = id
 		} else {
-			return nil, fmt.Errorf("unexpected Item.ID type: %T", _spec.ID.Value)
+			return nil, fmt.Errorf("unexpected Item.Id type: %T", _spec.Id.Value)
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -136,12 +136,12 @@ func (_c *ItemCreate) sqlSave(ctx context.Context) (*Item, error) {
 func (_c *ItemCreate) createSpec() (*Item, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Item{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(item.Table, sqlgraph.NewFieldSpec(item.FieldID, field.TypeString))
+		_spec = sqlgraph.NewCreateSpec(item.Table, sqlgraph.NewFieldSpec(item.FieldId, field.TypeString))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Text(); ok {
 		_spec.SetField(item.FieldText, field.TypeString, value)
@@ -217,22 +217,22 @@ func (u *ItemUpsert) ClearText() *ItemUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Item.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(item.FieldID)
+//				u.SetIgnore(item.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *ItemUpsertOne) UpdateNewValues() *ItemUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(item.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(item.FieldId)
 		}
 	}))
 	return u
@@ -250,7 +250,7 @@ func (u *ItemUpsertOne) Ignore() *ItemUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ItemUpsertOne) DoNothing() *ItemUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -301,23 +301,23 @@ func (u *ItemUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *ItemUpsertOne) ID(ctx context.Context) (id string, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: ItemUpsertOne.ID is not supported by MySQL driver. Use ItemUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *ItemUpsertOne) Id(ctx context.Context) (id string, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: ItemUpsertOne.Id is not supported by MySql driver. Use ItemUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *ItemUpsertOne) IDX(ctx context.Context) string {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *ItemUpsertOne) IdX(ctx context.Context) string {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -370,7 +370,7 @@ func (_c *ItemCreateBulk) Save(ctx context.Context) ([]*Item, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -458,7 +458,7 @@ type ItemUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(item.FieldID)
+//				u.SetIgnore(item.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -466,8 +466,8 @@ func (u *ItemUpsertBulk) UpdateNewValues() *ItemUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(item.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(item.FieldId)
 			}
 		}
 	}))
@@ -486,7 +486,7 @@ func (u *ItemUpsertBulk) Ignore() *ItemUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ItemUpsertBulk) DoNothing() *ItemUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

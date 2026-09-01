@@ -38,38 +38,38 @@ func (_c *ParentCreate) SetNillableByAdoption(v *bool) *ParentCreate {
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *ParentCreate) SetUserID(v int) *ParentCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *ParentCreate) SetUserId(v int) *ParentCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetParentsID sets the "parents_id" field.
-func (_c *ParentCreate) SetParentsID(v int) *ParentCreate {
-	_c.mutation.SetParentsID(v)
+// SetParentsId sets the "parents_id" field.
+func (_c *ParentCreate) SetParentsId(v int) *ParentCreate {
+	_c.mutation.SetParentsId(v)
 	return _c
 }
 
-// SetChildID sets the "child" edge to the User entity by ID.
-func (_c *ParentCreate) SetChildID(id int) *ParentCreate {
-	_c.mutation.SetChildID(id)
+// SetChildId sets the "child" edge to the User entity by Id.
+func (_c *ParentCreate) SetChildId(id int) *ParentCreate {
+	_c.mutation.SetChildId(id)
 	return _c
 }
 
 // SetChild sets the "child" edge to the User entity.
 func (_c *ParentCreate) SetChild(v *User) *ParentCreate {
-	return _c.SetChildID(v.ID)
+	return _c.SetChildId(v.Id)
 }
 
-// SetParentID sets the "parent" edge to the User entity by ID.
-func (_c *ParentCreate) SetParentID(id int) *ParentCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the User entity by Id.
+func (_c *ParentCreate) SetParentId(id int) *ParentCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
 // SetParent sets the "parent" edge to the User entity.
 func (_c *ParentCreate) SetParent(v *User) *ParentCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
 // Mutation returns the ParentMutation object of the builder.
@@ -118,16 +118,16 @@ func (_c *ParentCreate) check() error {
 	if _, ok := _c.mutation.ByAdoption(); !ok {
 		return &ValidationError{Name: "by_adoption", err: errors.New(`ent: missing required field "Parent.by_adoption"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "Parent.user_id"`)}
 	}
-	if _, ok := _c.mutation.ParentsID(); !ok {
+	if _, ok := _c.mutation.ParentsId(); !ok {
 		return &ValidationError{Name: "parents_id", err: errors.New(`ent: missing required field "Parent.parents_id"`)}
 	}
-	if len(_c.mutation.ChildIDs()) == 0 {
+	if len(_c.mutation.ChildIds()) == 0 {
 		return &ValidationError{Name: "child", err: errors.New(`ent: missing required edge "Parent.child"`)}
 	}
-	if len(_c.mutation.ParentIDs()) == 0 {
+	if len(_c.mutation.ParentIds()) == 0 {
 		return &ValidationError{Name: "parent", err: errors.New(`ent: missing required edge "Parent.parent"`)}
 	}
 	return nil
@@ -144,9 +144,9 @@ func (_c *ParentCreate) sqlSave(ctx context.Context) (*Parent, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -154,14 +154,14 @@ func (_c *ParentCreate) sqlSave(ctx context.Context) (*Parent, error) {
 func (_c *ParentCreate) createSpec() (*Parent, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Parent{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(parent.Table, sqlgraph.NewFieldSpec(parent.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(parent.Table, sqlgraph.NewFieldSpec(parent.FieldId, field.TypeInt))
 	)
 	_spec.Schema = _c.schemaConfig.Parent
 	if value, ok := _c.mutation.ByAdoption(); ok {
 		_spec.SetField(parent.FieldByAdoption, field.TypeBool, value)
 		_node.ByAdoption = value
 	}
-	if nodes := _c.mutation.ChildIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -169,17 +169,17 @@ func (_c *ParentCreate) createSpec() (*Parent, *sqlgraph.CreateSpec) {
 			Columns: []string{parent.ChildColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _c.schemaConfig.Parent
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -187,14 +187,14 @@ func (_c *ParentCreate) createSpec() (*Parent, *sqlgraph.CreateSpec) {
 			Columns: []string{parent.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		edge.Schema = _c.schemaConfig.Parent
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.ParentsID = nodes[0]
+		_node.ParentsId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -244,10 +244,10 @@ func (_c *ParentCreateBulk) Save(ctx context.Context) ([]*Parent, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

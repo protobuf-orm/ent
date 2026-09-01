@@ -18,32 +18,32 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// APIUpdate is the builder for updating Api entities.
-type APIUpdate struct {
+// ApiUpdate is the builder for updating Api entities.
+type ApiUpdate struct {
 	config
 	hooks     []Hook
-	mutation  *APIMutation
+	mutation  *ApiMutation
 	modifiers []func(*sql.UpdateBuilder)
 }
 
-// Where appends a list predicates to the APIUpdate builder.
-func (_u *APIUpdate) Where(ps ...predicate.Api) *APIUpdate {
+// Where appends a list predicates to the ApiUpdate builder.
+func (_u *ApiUpdate) Where(ps ...predicate.Api) *ApiUpdate {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
-// Mutation returns the APIMutation object of the builder.
-func (_u *APIUpdate) Mutation() *APIMutation {
+// Mutation returns the ApiMutation object of the builder.
+func (_u *ApiUpdate) Mutation() *ApiMutation {
 	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (_u *APIUpdate) Save(ctx context.Context) (int, error) {
+func (_u *ApiUpdate) Save(ctx context.Context) (int, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *APIUpdate) SaveX(ctx context.Context) int {
+func (_u *ApiUpdate) SaveX(ctx context.Context) int {
 	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -52,26 +52,26 @@ func (_u *APIUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (_u *APIUpdate) Exec(ctx context.Context) error {
+func (_u *ApiUpdate) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *APIUpdate) ExecX(ctx context.Context) {
+func (_u *ApiUpdate) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *APIUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdate {
+func (_u *ApiUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ApiUpdate {
 	_u.modifiers = append(_u.modifiers, modifiers...)
 	return _u
 }
 
-func (_u *APIUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeInt))
+func (_u *ApiUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -92,40 +92,40 @@ func (_u *APIUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	return _node, nil
 }
 
-// APIUpdateOne is the builder for updating a single Api entity.
-type APIUpdateOne struct {
+// ApiUpdateOne is the builder for updating a single Api entity.
+type ApiUpdateOne struct {
 	config
 	fields    []string
 	hooks     []Hook
-	mutation  *APIMutation
+	mutation  *ApiMutation
 	modifiers []func(*sql.UpdateBuilder)
 }
 
-// Mutation returns the APIMutation object of the builder.
-func (_u *APIUpdateOne) Mutation() *APIMutation {
+// Mutation returns the ApiMutation object of the builder.
+func (_u *ApiUpdateOne) Mutation() *ApiMutation {
 	return _u.mutation
 }
 
-// Where appends a list predicates to the APIUpdate builder.
-func (_u *APIUpdateOne) Where(ps ...predicate.Api) *APIUpdateOne {
+// Where appends a list predicates to the ApiUpdate builder.
+func (_u *ApiUpdateOne) Where(ps ...predicate.Api) *ApiUpdateOne {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (_u *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
+func (_u *ApiUpdateOne) Select(field string, fields ...string) *ApiUpdateOne {
 	_u.fields = append([]string{field}, fields...)
 	return _u
 }
 
 // Save executes the query and returns the updated Api entity.
-func (_u *APIUpdateOne) Save(ctx context.Context) (*Api, error) {
+func (_u *ApiUpdateOne) Save(ctx context.Context) (*Api, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *APIUpdateOne) SaveX(ctx context.Context) *Api {
+func (_u *ApiUpdateOne) SaveX(ctx context.Context) *Api {
 	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -134,39 +134,39 @@ func (_u *APIUpdateOne) SaveX(ctx context.Context) *Api {
 }
 
 // Exec executes the query on the entity.
-func (_u *APIUpdateOne) Exec(ctx context.Context) error {
+func (_u *ApiUpdateOne) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *APIUpdateOne) ExecX(ctx context.Context) {
+func (_u *ApiUpdateOne) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *APIUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdateOne {
+func (_u *ApiUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ApiUpdateOne {
 	_u.modifiers = append(_u.modifiers, modifiers...)
 	return _u
 }
 
-func (_u *APIUpdateOne) sqlSave(ctx context.Context) (_node *Api, err error) {
-	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+func (_u *ApiUpdateOne) sqlSave(ctx context.Context) (_node *Api, err error) {
+	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Api.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, api.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, api.FieldId)
 		for _, f := range fields {
 			if !api.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != api.FieldID {
+			if f != api.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}

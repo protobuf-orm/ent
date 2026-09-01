@@ -26,10 +26,10 @@ func init() {
 	cardDescType := cardFields[0].Descriptor()
 	// card.DefaultType holds the default value on creation for the type field.
 	card.DefaultType = cardDescType.Default.(string)
-	// cardDescOwnerID is the schema descriptor for owner_id field.
-	cardDescOwnerID := cardFields[4].Descriptor()
-	// card.DefaultOwnerID holds the default value on creation for the owner_id field.
-	card.DefaultOwnerID = cardDescOwnerID.Default.(int)
+	// cardDescOwnerId is the schema descriptor for owner_id field.
+	cardDescOwnerId := cardFields[4].Descriptor()
+	// card.DefaultOwnerId holds the default value on creation for the owner_id field.
+	card.DefaultOwnerId = cardDescOwnerId.Default.(int)
 	paymentFields := schema.Payment{}.Fields()
 	_ = paymentFields
 	// paymentDescAmount is the schema descriptor for amount field.
@@ -38,30 +38,30 @@ func init() {
 	payment.AmountValidator = paymentDescAmount.Validators[0].(func(float64) error)
 	petFields := schema.Pet{}.Fields()
 	_ = petFields
-	// petDescOwnerID is the schema descriptor for owner_id field.
-	petDescOwnerID := petFields[5].Descriptor()
-	// pet.DefaultOwnerID holds the default value on creation for the owner_id field.
-	pet.DefaultOwnerID = petDescOwnerID.Default.(int)
-	// petDescID is the schema descriptor for id field.
-	petDescID := petFields[0].Descriptor()
-	// pet.DefaultID holds the default value on creation for the id field.
-	pet.DefaultID = petDescID.Default.(func() uuid.UUID)
+	// petDescOwnerId is the schema descriptor for owner_id field.
+	petDescOwnerId := petFields[5].Descriptor()
+	// pet.DefaultOwnerId holds the default value on creation for the owner_id field.
+	pet.DefaultOwnerId = petDescOwnerId.Default.(int)
+	// petDescId is the schema descriptor for id field.
+	petDescId := petFields[0].Descriptor()
+	// pet.DefaultId holds the default value on creation for the id field.
+	pet.DefaultId = petDescId.Default.(func() uuid.UUID)
 	sessionFields := schema.Session{}.Fields()
 	_ = sessionFields
 	// sessionDescActive is the schema descriptor for active field.
 	sessionDescActive := sessionFields[1].Descriptor()
 	// session.DefaultActive holds the default value on creation for the active field.
 	session.DefaultActive = sessionDescActive.Default.(bool)
-	// sessionDescID is the schema descriptor for id field.
-	sessionDescID := sessionFields[0].Descriptor()
-	// session.DefaultID holds the default value on creation for the id field.
-	session.DefaultID = sessionDescID.Default.(func() uuid.UUID)
+	// sessionDescId is the schema descriptor for id field.
+	sessionDescId := sessionFields[0].Descriptor()
+	// session.DefaultId holds the default value on creation for the id field.
+	session.DefaultId = sessionDescId.Default.(func() uuid.UUID)
 	sessiondeviceFields := schema.SessionDevice{}.Fields()
 	_ = sessiondeviceFields
-	// sessiondeviceDescIPAddress is the schema descriptor for ip_address field.
-	sessiondeviceDescIPAddress := sessiondeviceFields[1].Descriptor()
-	// sessiondevice.IPAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
-	sessiondevice.IPAddressValidator = sessiondeviceDescIPAddress.Validators[0].(func(string) error)
+	// sessiondeviceDescIpAddress is the schema descriptor for ip_address field.
+	sessiondeviceDescIpAddress := sessiondeviceFields[1].Descriptor()
+	// sessiondevice.IpAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
+	sessiondevice.IpAddressValidator = sessiondeviceDescIpAddress.Validators[0].(func(string) error)
 	// sessiondeviceDescUserAgent is the schema descriptor for user_agent field.
 	sessiondeviceDescUserAgent := sessiondeviceFields[2].Descriptor()
 	// sessiondevice.UserAgentValidator is a validator for the "user_agent" field. It is called by the builders before save.
@@ -70,8 +70,8 @@ func init() {
 	sessiondeviceDescLocation := sessiondeviceFields[3].Descriptor()
 	// sessiondevice.LocationValidator is a validator for the "location" field. It is called by the builders before save.
 	sessiondevice.LocationValidator = sessiondeviceDescLocation.Validators[0].(func(string) error)
-	// sessiondeviceDescID is the schema descriptor for id field.
-	sessiondeviceDescID := sessiondeviceFields[0].Descriptor()
-	// sessiondevice.DefaultID holds the default value on creation for the id field.
-	sessiondevice.DefaultID = sessiondeviceDescID.Default.(func() uuid.UUID)
+	// sessiondeviceDescId is the schema descriptor for id field.
+	sessiondeviceDescId := sessiondeviceFields[0].Descriptor()
+	// sessiondevice.DefaultId holds the default value on creation for the id field.
+	sessiondevice.DefaultId = sessiondeviceDescId.Default.(func() uuid.UUID)
 }

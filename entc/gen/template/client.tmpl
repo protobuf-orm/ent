@@ -191,7 +191,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	}, nil
 }
 
-{{- /* If the storage driver supports TxOptions (like SQL) */}}
+{{- /* If the storage driver supports TxOptions (like Sql) */}}
 {{- $tmpl = printf "dialect/%s/txoptions" $.Storage }}
 {{- if hasTemplate $tmpl }}
     {{- xtemplate $tmpl . }}
@@ -220,9 +220,9 @@ func (c *Client) Close() error {
 	return c.driver.Close()
 }
 
-// Dialect is the name of the SQL this client speaks.
+// Dialect is the name of the Sql this client speaks.
 //
-// Code that writes SQL of its own has to know which SQL it may write, and the
+// Code that writes Sql of its own has to know which Sql it may write, and the
 // connection is what settles that. Asking the client keeps the answer from
 // being a second claim that can disagree with the one made when it was opened.
 func (c *Client) Dialect() string {
@@ -383,21 +383,21 @@ func (c *{{ $client }}) Update() *{{ $n.UpdateName }} {
 
 // UpdateOne returns an update builder for the given entity.
 func (c *{{ $client }}) UpdateOne({{ $rec }} *{{ $n.Name }}) *{{ $n.UpdateOneName }} {
-	{{- if $n.HasOneFieldID }}
+	{{- if $n.HasOneFieldId }}
 		mutation := new{{ $n.MutationName }}(c.config, OpUpdateOne, {{ print "with" $n.Name }}({{ $rec }}))
 	{{- else }}
 		mutation := new{{ $n.MutationName }}(c.config, OpUpdateOne)
-		{{- range $id := $n.EdgeSchema.ID }}
+		{{- range $id := $n.EdgeSchema.Id }}
 			mutation.{{ $id.MutationSet }}({{ $rec }}.{{ $id.StructField }})
 		{{- end }}
 	{{- end }}
 	return &{{ $n.UpdateOneName }}{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-{{ with $n.HasOneFieldID }}
-	// UpdateOneID returns an update builder for the given id.
-	func (c *{{ $client }}) UpdateOneID(id {{ $n.ID.Type }}) *{{ $n.UpdateOneName }} {
-		mutation := new{{ $n.MutationName }}(c.config, OpUpdateOne, {{ print "with" $n.Name "ID" }}(id))
+{{ with $n.HasOneFieldId }}
+	// UpdateOneId returns an update builder for the given id.
+	func (c *{{ $client }}) UpdateOneId(id {{ $n.Id.Type }}) *{{ $n.UpdateOneName }} {
+		mutation := new{{ $n.MutationName }}(c.config, OpUpdateOne, {{ print "with" $n.Name "Id" }}(id))
 		return &{{ $n.UpdateOneName }}{config: c.config, hooks: c.Hooks(), mutation: mutation}
 	}
 {{ end }}
@@ -408,17 +408,17 @@ func (c *{{ $client }}) Delete() *{{ $n.DeleteName }} {
 	return &{{ $n.DeleteName }}{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-{{ with $n.HasOneFieldID }}
+{{ with $n.HasOneFieldId }}
 	// DeleteOne returns a builder for deleting the given entity.
 	func (c *{{ $client }}) DeleteOne({{ $rec }} *{{ $n.Name }}) *{{ $n.DeleteOneName }} {
-		return c.DeleteOneID({{ $rec }}.ID)
+		return c.DeleteOneId({{ $rec }}.Id)
 	}
 
-	// DeleteOneID returns a builder for deleting the given entity by its id.
-	func (c *{{ $client }}) DeleteOneID(id {{ $n.ID.Type }}) *{{ $n.DeleteOneName }} {
+	// DeleteOneId returns a builder for deleting the given entity by its id.
+	func (c *{{ $client }}) DeleteOneId(id {{ $n.Id.Type }}) *{{ $n.DeleteOneName }} {
 		{{- $builder := "builder" }}{{ if eq $n.Package $builder }}{{ $builder = "builderC" }}{{ end }}
-		{{ $builder }} := c.Delete().Where({{ $n.Package }}.ID(id))
-		{{ $builder }}.mutation.{{ $n.ID.BuilderField }} = &id
+		{{ $builder }} := c.Delete().Where({{ $n.Package }}.Id(id))
+		{{ $builder }}.mutation.{{ $n.Id.BuilderField }} = &id
 		{{ $builder }}.mutation.SetOp(OpDeleteOne)
 		return &{{ $n.DeleteOneName }}{ {{ $builder }} }
 	}
@@ -439,14 +439,14 @@ func (c *{{ $client }}) Query() *{{ $n.QueryName }} {
 	}
 }
 
-{{ with $n.HasOneFieldID }}
+{{ with $n.HasOneFieldId }}
 	// Get returns a {{ $n.Name }} entity by its id.
-	func (c *{{ $client }}) Get(ctx context.Context, id {{ $n.ID.Type }}) (*{{ $n.Name }}, error) {
-		return c.Query().Where({{ $n.Package }}.ID(id)).Only(ctx)
+	func (c *{{ $client }}) Get(ctx context.Context, id {{ $n.Id.Type }}) (*{{ $n.Name }}, error) {
+		return c.Query().Where({{ $n.Package }}.Id(id)).Only(ctx)
 	}
 
 	// GetX is like Get, but panics if an error occurs.
-	func (c *{{ $client }}) GetX(ctx context.Context, id {{ $n.ID.Type }}) *{{ $n.Name }} {
+	func (c *{{ $client }}) GetX(ctx context.Context, id {{ $n.Id.Type }}) *{{ $n.Name }} {
 		obj, err := c.Get(ctx, id)
 		if err != nil {
 			panic(err)
@@ -461,7 +461,7 @@ func (c *{{ $client }}) Query() *{{ $n.QueryName }} {
 {{ $func := print "Query" (pascal $e.Name) }}
 // Query{{ pascal $e.Name }} queries the {{ $e.Name }} edge of a {{ $n.Name }}.
 func (c *{{ $client }}) {{ $func }}({{ $arg }} *{{ $n.Name }}) *{{ $builder }} {
-	{{- if $n.HasOneFieldID }}
+	{{- if $n.HasOneFieldId }}
 		query := (&{{ $e.Type.ClientName }}{config: c.config}).Query()
 		query.path = func(context.Context) (fromV {{ $.Storage.Builder }}, _ error) {
 			{{- with extend $n "Receiver" $arg "Edge" $e "Ident" "fromV" }}
@@ -474,7 +474,7 @@ func (c *{{ $client }}) {{ $func }}({{ $arg }} *{{ $n.Name }}) *{{ $builder }} {
 	{{- else }}
 		{{- /* For edge schema, we use the predicate-based approach. */}}
 		return c.Query().
-			Where({{ range $id := $n.EdgeSchema.ID }}{{ $n.Package }}.{{ $id.StructField }}({{ $arg }}.{{ $id.StructField }}),{{ end }}).
+			Where({{ range $id := $n.EdgeSchema.Id }}{{ $n.Package }}.{{ $id.StructField }}({{ $arg }}.{{ $id.StructField }}),{{ end }}).
 			{{ $func }}()
 	{{- end }}
 }

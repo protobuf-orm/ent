@@ -49,8 +49,8 @@ func (p Config) node(t *gen.Type) {
 		id []*gen.Field
 	)
 	b.WriteString(t.Name + ":\n")
-	if t.ID != nil {
-		id = append(id, t.ID)
+	if t.Id != nil {
+		id = append(id, t.Id)
 	}
 	fields := make([][]string, 0, len(id)+len(t.Fields))
 	for _, f := range append(id, t.Fields...) {

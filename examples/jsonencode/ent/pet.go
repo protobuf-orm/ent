@@ -20,14 +20,14 @@ import (
 // Pet is the model entity for the Pet schema.
 type Pet struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Age holds the value of the "age" field.
 	Age int `json:"age,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
-	// OwnerID holds the value of the "owner_id" field.
-	OwnerID int `json:"owner_id,omitempty"`
+	// OwnerId holds the value of the "owner_id" field.
+	OwnerId int `json:"owner_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PetQuery when eager-loading is set.
 	Edges        PetEdges `json:"-"`
@@ -59,7 +59,7 @@ func (*Pet) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case pet.FieldID, pet.FieldAge, pet.FieldOwnerID:
+		case pet.FieldId, pet.FieldAge, pet.FieldOwnerId:
 			values[i] = new(sql.NullInt64)
 		case pet.FieldName:
 			values[i] = new(sql.NullString)
@@ -78,12 +78,12 @@ func (_m *Pet) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case pet.FieldID:
+		case pet.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case pet.FieldAge:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field age", values[i])
@@ -96,11 +96,11 @@ func (_m *Pet) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Name = value.String
 			}
-		case pet.FieldOwnerID:
+		case pet.FieldOwnerId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field owner_id", values[i])
 			} else if value.Valid {
-				_m.OwnerID = int(value.Int64)
+				_m.OwnerId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -142,7 +142,7 @@ func (_m *Pet) Unwrap() *Pet {
 func (_m *Pet) String() string {
 	var builder strings.Builder
 	builder.WriteString("Pet(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("age=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Age))
 	builder.WriteString(", ")
@@ -150,13 +150,13 @@ func (_m *Pet) String() string {
 	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("owner_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.OwnerID))
+	builder.WriteString(fmt.Sprintf("%v", _m.OwnerId))
 	builder.WriteByte(')')
 	return builder.String()
 }
 
-// MarshalJSON implements the json.Marshaler interface.
-func (_m *Pet) MarshalJSON() ([]byte, error) {
+// MarshalJson implements the json.Marshaler interface.
+func (_m *Pet) MarshalJson() ([]byte, error) {
 	type Alias Pet
 	return json.Marshal(&struct {
 		*Alias

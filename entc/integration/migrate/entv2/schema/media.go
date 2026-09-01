@@ -38,7 +38,7 @@ func (Media) Indexes() []ent.Index {
 		index.Fields("source", "source_uri").
 			Annotations(entsql.PrefixColumn("source", 100)).
 			Unique(),
-		// MySQL allow indexing text column prefix.
+		// MySql allow indexing text column prefix.
 		index.Fields("text").
 			Annotations(entsql.Prefix(100)),
 	}

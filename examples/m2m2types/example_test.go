@@ -68,7 +68,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 		return fmt.Errorf("querying a8m groups: %w", err)
 	}
 	slices.SortStableFunc(groups, func(i, j *ent.Group) int {
-		return i.ID - j.ID
+		return i.Id - j.Id
 	})
 	fmt.Println(groups)
 	// Output: [Group(id=1, name=GitHub) Group(id=2, name=GitLab)]
@@ -94,7 +94,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 		return fmt.Errorf("traversing the graph: %w", err)
 	}
 	slices.SortStableFunc(users, func(i, j *ent.User) int {
-		return i.ID - j.ID
+		return i.Id - j.Id
 	})
 	fmt.Println(users)
 	// Output: [User(id=1, age=30, name=a8m) User(id=2, age=28, name=nati)]

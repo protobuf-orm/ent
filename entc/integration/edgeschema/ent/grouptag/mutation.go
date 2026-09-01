@@ -41,13 +41,13 @@ func (m *Mutation) Predicates() []predicate.GroupTag {
 	return m.predicates
 }
 
-// SetTagID sets the "tag_id" field.
-func (m *Mutation) SetTagID(i int) {
+// SetTagId sets the "tag_id" field.
+func (m *Mutation) SetTagId(i int) {
 	m.tag = &i
 }
 
-// TagID returns the value of the "tag_id" field in the mutation.
-func (m *Mutation) TagID() (r int, exists bool) {
+// TagId returns the value of the "tag_id" field in the mutation.
+func (m *Mutation) TagId() (r int, exists bool) {
 	v := m.tag
 	if v == nil {
 		return
@@ -55,18 +55,18 @@ func (m *Mutation) TagID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetTagID resets all changes to the "tag_id" field.
-func (m *Mutation) ResetTagID() {
+// ResetTagId resets all changes to the "tag_id" field.
+func (m *Mutation) ResetTagId() {
 	m.tag = nil
 }
 
-// SetGroupID sets the "group_id" field.
-func (m *Mutation) SetGroupID(i int) {
+// SetGroupId sets the "group_id" field.
+func (m *Mutation) SetGroupId(i int) {
 	m.group = &i
 }
 
-// GroupID returns the value of the "group_id" field in the mutation.
-func (m *Mutation) GroupID() (r int, exists bool) {
+// GroupId returns the value of the "group_id" field in the mutation.
+func (m *Mutation) GroupId() (r int, exists bool) {
 	v := m.group
 	if v == nil {
 		return
@@ -74,15 +74,15 @@ func (m *Mutation) GroupID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetGroupID resets all changes to the "group_id" field.
-func (m *Mutation) ResetGroupID() {
+// ResetGroupId resets all changes to the "group_id" field.
+func (m *Mutation) ResetGroupId() {
 	m.group = nil
 }
 
 // ClearTag clears the "tag" edge to the Tag entity.
 func (m *Mutation) ClearTag() {
 	m.clearedtag = true
-	m.clearedFields[FieldTagID] = struct{}{}
+	m.clearedFields[FieldTagId] = struct{}{}
 }
 
 // TagCleared reports if the "tag" edge to the Tag entity was cleared.
@@ -90,10 +90,10 @@ func (m *Mutation) TagCleared() bool {
 	return m.clearedtag
 }
 
-// TagIDs returns the "tag" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TagID instead. It exists only for internal usage by the builders.
-func (m *Mutation) TagIDs() (ids []int) {
+// TagIds returns the "tag" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// TagId instead. It exists only for internal usage by the builders.
+func (m *Mutation) TagIds() (ids []int) {
 	if id := m.tag; id != nil {
 		ids = append(ids, *id)
 	}
@@ -109,7 +109,7 @@ func (m *Mutation) ResetTag() {
 // ClearGroup clears the "group" edge to the Group entity.
 func (m *Mutation) ClearGroup() {
 	m.clearedgroup = true
-	m.clearedFields[FieldGroupID] = struct{}{}
+	m.clearedFields[FieldGroupId] = struct{}{}
 }
 
 // GroupCleared reports if the "group" edge to the Group entity was cleared.
@@ -117,10 +117,10 @@ func (m *Mutation) GroupCleared() bool {
 	return m.clearedgroup
 }
 
-// GroupIDs returns the "group" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// GroupID instead. It exists only for internal usage by the builders.
-func (m *Mutation) GroupIDs() (ids []int) {
+// GroupIds returns the "group" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// GroupId instead. It exists only for internal usage by the builders.
+func (m *Mutation) GroupIds() (ids []int) {
 	if id := m.group; id != nil {
 		ids = append(ids, *id)
 	}
@@ -169,10 +169,10 @@ func (m *Mutation) Type() string {
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 2)
 	if m.tag != nil {
-		fields = append(fields, FieldTagID)
+		fields = append(fields, FieldTagId)
 	}
 	if m.group != nil {
-		fields = append(fields, FieldGroupID)
+		fields = append(fields, FieldGroupId)
 	}
 	return fields
 }
@@ -182,10 +182,10 @@ func (m *Mutation) Fields() []string {
 // schema.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case FieldTagID:
-		return m.TagID()
-	case FieldGroupID:
-		return m.GroupID()
+	case FieldTagId:
+		return m.TagId()
+	case FieldGroupId:
+		return m.GroupId()
 	}
 	return nil, false
 }
@@ -202,19 +202,19 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // type.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case FieldTagID:
+	case FieldTagId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetTagID(v)
+		m.SetTagId(v)
 		return nil
-	case FieldGroupID:
+	case FieldGroupId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetGroupID(v)
+		m.SetGroupId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown GroupTag field %s", name)
@@ -268,11 +268,11 @@ func (m *Mutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *Mutation) ResetField(name string) error {
 	switch name {
-	case FieldTagID:
-		m.ResetTagID()
+	case FieldTagId:
+		m.ResetTagId()
 		return nil
-	case FieldGroupID:
-		m.ResetGroupID()
+	case FieldGroupId:
+		m.ResetGroupId()
 		return nil
 	}
 	return fmt.Errorf("unknown GroupTag field %s", name)
@@ -290,9 +290,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTag:
 		if id := m.tag; id != nil {
@@ -312,9 +312,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

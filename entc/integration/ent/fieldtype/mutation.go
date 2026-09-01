@@ -78,7 +78,7 @@ type Mutation struct {
 	adddecimal                 *float64
 	link_other                 **schema.Link
 	link_other_func            **schema.Link
-	mac                        *schema.MAC
+	mac                        *schema.Mac
 	string_array               *schema.Strings
 	password                   *string
 	string_scanner             *schema.StringScanner
@@ -1502,13 +1502,13 @@ func (m *Mutation) ResetLinkOtherFunc() {
 	delete(m.clearedFields, FieldLinkOtherFunc)
 }
 
-// SetMAC sets the "mac" field.
-func (m *Mutation) SetMAC(s schema.MAC) {
+// SetMac sets the "mac" field.
+func (m *Mutation) SetMac(s schema.Mac) {
 	m.mac = &s
 }
 
-// MAC returns the value of the "mac" field in the mutation.
-func (m *Mutation) MAC() (r schema.MAC, exists bool) {
+// Mac returns the value of the "mac" field in the mutation.
+func (m *Mutation) Mac() (r schema.Mac, exists bool) {
 	v := m.mac
 	if v == nil {
 		return
@@ -1516,22 +1516,22 @@ func (m *Mutation) MAC() (r schema.MAC, exists bool) {
 	return *v, true
 }
 
-// ClearMAC clears the value of the "mac" field.
-func (m *Mutation) ClearMAC() {
+// ClearMac clears the value of the "mac" field.
+func (m *Mutation) ClearMac() {
 	m.mac = nil
-	m.clearedFields[FieldMAC] = struct{}{}
+	m.clearedFields[FieldMac] = struct{}{}
 }
 
-// MACCleared returns if the "mac" field was cleared in this mutation.
-func (m *Mutation) MACCleared() bool {
-	_, ok := m.clearedFields[FieldMAC]
+// MacCleared returns if the "mac" field was cleared in this mutation.
+func (m *Mutation) MacCleared() bool {
+	_, ok := m.clearedFields[FieldMac]
 	return ok
 }
 
-// ResetMAC resets all changes to the "mac" field.
-func (m *Mutation) ResetMAC() {
+// ResetMac resets all changes to the "mac" field.
+func (m *Mutation) ResetMac() {
 	m.mac = nil
-	delete(m.clearedFields, FieldMAC)
+	delete(m.clearedFields, FieldMac)
 }
 
 // SetStringArray sets the "string_array" field.
@@ -2054,13 +2054,13 @@ func (m *Mutation) ResetSensitive() {
 	delete(m.clearedFields, FieldSensitive)
 }
 
-// SetIP sets the "ip" field.
-func (m *Mutation) SetIP(n net.IP) {
+// SetIp sets the "ip" field.
+func (m *Mutation) SetIp(n net.IP) {
 	m.ip = &n
 }
 
-// IP returns the value of the "ip" field in the mutation.
-func (m *Mutation) IP() (r net.IP, exists bool) {
+// Ip returns the value of the "ip" field in the mutation.
+func (m *Mutation) Ip() (r net.IP, exists bool) {
 	v := m.ip
 	if v == nil {
 		return
@@ -2068,22 +2068,22 @@ func (m *Mutation) IP() (r net.IP, exists bool) {
 	return *v, true
 }
 
-// ClearIP clears the value of the "ip" field.
-func (m *Mutation) ClearIP() {
+// ClearIp clears the value of the "ip" field.
+func (m *Mutation) ClearIp() {
 	m.ip = nil
-	m.clearedFields[FieldIP] = struct{}{}
+	m.clearedFields[FieldIp] = struct{}{}
 }
 
-// IPCleared returns if the "ip" field was cleared in this mutation.
-func (m *Mutation) IPCleared() bool {
-	_, ok := m.clearedFields[FieldIP]
+// IpCleared returns if the "ip" field was cleared in this mutation.
+func (m *Mutation) IpCleared() bool {
+	_, ok := m.clearedFields[FieldIp]
 	return ok
 }
 
-// ResetIP resets all changes to the "ip" field.
-func (m *Mutation) ResetIP() {
+// ResetIp resets all changes to the "ip" field.
+func (m *Mutation) ResetIp() {
 	m.ip = nil
-	delete(m.clearedFields, FieldIP)
+	delete(m.clearedFields, FieldIp)
 }
 
 // SetNullInt64 sets the "null_int64" field.
@@ -2466,13 +2466,13 @@ func (m *Mutation) ResetPriority() {
 	delete(m.clearedFields, FieldPriority)
 }
 
-// SetOptionalUUID sets the "optional_uuid" field.
-func (m *Mutation) SetOptionalUUID(u uuid.UUID) {
+// SetOptionalUuid sets the "optional_uuid" field.
+func (m *Mutation) SetOptionalUuid(u uuid.UUID) {
 	m.optional_uuid = &u
 }
 
-// OptionalUUID returns the value of the "optional_uuid" field in the mutation.
-func (m *Mutation) OptionalUUID() (r uuid.UUID, exists bool) {
+// OptionalUuid returns the value of the "optional_uuid" field in the mutation.
+func (m *Mutation) OptionalUuid() (r uuid.UUID, exists bool) {
 	v := m.optional_uuid
 	if v == nil {
 		return
@@ -2480,31 +2480,31 @@ func (m *Mutation) OptionalUUID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ClearOptionalUUID clears the value of the "optional_uuid" field.
-func (m *Mutation) ClearOptionalUUID() {
+// ClearOptionalUuid clears the value of the "optional_uuid" field.
+func (m *Mutation) ClearOptionalUuid() {
 	m.optional_uuid = nil
-	m.clearedFields[FieldOptionalUUID] = struct{}{}
+	m.clearedFields[FieldOptionalUuid] = struct{}{}
 }
 
-// OptionalUUIDCleared returns if the "optional_uuid" field was cleared in this mutation.
-func (m *Mutation) OptionalUUIDCleared() bool {
-	_, ok := m.clearedFields[FieldOptionalUUID]
+// OptionalUuidCleared returns if the "optional_uuid" field was cleared in this mutation.
+func (m *Mutation) OptionalUuidCleared() bool {
+	_, ok := m.clearedFields[FieldOptionalUuid]
 	return ok
 }
 
-// ResetOptionalUUID resets all changes to the "optional_uuid" field.
-func (m *Mutation) ResetOptionalUUID() {
+// ResetOptionalUuid resets all changes to the "optional_uuid" field.
+func (m *Mutation) ResetOptionalUuid() {
 	m.optional_uuid = nil
-	delete(m.clearedFields, FieldOptionalUUID)
+	delete(m.clearedFields, FieldOptionalUuid)
 }
 
-// SetNillableUUID sets the "nillable_uuid" field.
-func (m *Mutation) SetNillableUUID(u uuid.UUID) {
+// SetNillableUuid sets the "nillable_uuid" field.
+func (m *Mutation) SetNillableUuid(u uuid.UUID) {
 	m.nillable_uuid = &u
 }
 
-// NillableUUID returns the value of the "nillable_uuid" field in the mutation.
-func (m *Mutation) NillableUUID() (r uuid.UUID, exists bool) {
+// NillableUuid returns the value of the "nillable_uuid" field in the mutation.
+func (m *Mutation) NillableUuid() (r uuid.UUID, exists bool) {
 	v := m.nillable_uuid
 	if v == nil {
 		return
@@ -2512,22 +2512,22 @@ func (m *Mutation) NillableUUID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// ClearNillableUUID clears the value of the "nillable_uuid" field.
-func (m *Mutation) ClearNillableUUID() {
+// ClearNillableUuid clears the value of the "nillable_uuid" field.
+func (m *Mutation) ClearNillableUuid() {
 	m.nillable_uuid = nil
-	m.clearedFields[FieldNillableUUID] = struct{}{}
+	m.clearedFields[FieldNillableUuid] = struct{}{}
 }
 
-// NillableUUIDCleared returns if the "nillable_uuid" field was cleared in this mutation.
-func (m *Mutation) NillableUUIDCleared() bool {
-	_, ok := m.clearedFields[FieldNillableUUID]
+// NillableUuidCleared returns if the "nillable_uuid" field was cleared in this mutation.
+func (m *Mutation) NillableUuidCleared() bool {
+	_, ok := m.clearedFields[FieldNillableUuid]
 	return ok
 }
 
-// ResetNillableUUID resets all changes to the "nillable_uuid" field.
-func (m *Mutation) ResetNillableUUID() {
+// ResetNillableUuid resets all changes to the "nillable_uuid" field.
+func (m *Mutation) ResetNillableUuid() {
 	m.nillable_uuid = nil
-	delete(m.clearedFields, FieldNillableUUID)
+	delete(m.clearedFields, FieldNillableUuid)
 }
 
 // SetStrings sets the "strings" field.
@@ -2875,7 +2875,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldLinkOtherFunc)
 	}
 	if m.mac != nil {
-		fields = append(fields, FieldMAC)
+		fields = append(fields, FieldMac)
 	}
 	if m.string_array != nil {
 		fields = append(fields, FieldStringArray)
@@ -2926,7 +2926,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldSensitive)
 	}
 	if m.ip != nil {
-		fields = append(fields, FieldIP)
+		fields = append(fields, FieldIp)
 	}
 	if m.null_int64 != nil {
 		fields = append(fields, FieldNullInt64)
@@ -2956,10 +2956,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldPriority)
 	}
 	if m.optional_uuid != nil {
-		fields = append(fields, FieldOptionalUUID)
+		fields = append(fields, FieldOptionalUuid)
 	}
 	if m.nillable_uuid != nil {
-		fields = append(fields, FieldNillableUUID)
+		fields = append(fields, FieldNillableUuid)
 	}
 	if m.strings != nil {
 		fields = append(fields, FieldStrings)
@@ -3048,8 +3048,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.LinkOther()
 	case FieldLinkOtherFunc:
 		return m.LinkOtherFunc()
-	case FieldMAC:
-		return m.MAC()
+	case FieldMac:
+		return m.Mac()
 	case FieldStringArray:
 		return m.StringArray()
 	case FieldPassword:
@@ -3082,8 +3082,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.RawData()
 	case FieldSensitive:
 		return m.Sensitive()
-	case FieldIP:
-		return m.IP()
+	case FieldIp:
+		return m.Ip()
 	case FieldNullInt64:
 		return m.NullInt64()
 	case FieldSchemaInt:
@@ -3102,10 +3102,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 		return m.Role()
 	case FieldPriority:
 		return m.Priority()
-	case FieldOptionalUUID:
-		return m.OptionalUUID()
-	case FieldNillableUUID:
-		return m.NillableUUID()
+	case FieldOptionalUuid:
+		return m.OptionalUuid()
+	case FieldNillableUuid:
+		return m.NillableUuid()
 	case FieldStrings:
 		return m.Strings()
 	case FieldPair:
@@ -3339,12 +3339,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetLinkOtherFunc(v)
 		return nil
-	case FieldMAC:
-		v, ok := value.(schema.MAC)
+	case FieldMac:
+		v, ok := value.(schema.Mac)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetMAC(v)
+		m.SetMac(v)
 		return nil
 	case FieldStringArray:
 		v, ok := value.(schema.Strings)
@@ -3458,12 +3458,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetSensitive(v)
 		return nil
-	case FieldIP:
+	case FieldIp:
 		v, ok := value.(net.IP)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetIP(v)
+		m.SetIp(v)
 		return nil
 	case FieldNullInt64:
 		v, ok := value.(*sql.NullInt64)
@@ -3528,19 +3528,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetPriority(v)
 		return nil
-	case FieldOptionalUUID:
+	case FieldOptionalUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOptionalUUID(v)
+		m.SetOptionalUuid(v)
 		return nil
-	case FieldNillableUUID:
+	case FieldNillableUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetNillableUUID(v)
+		m.SetNillableUuid(v)
 		return nil
 	case FieldStrings:
 		v, ok := value.([]string)
@@ -4068,8 +4068,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldLinkOtherFunc) {
 		fields = append(fields, FieldLinkOtherFunc)
 	}
-	if m.FieldCleared(FieldMAC) {
-		fields = append(fields, FieldMAC)
+	if m.FieldCleared(FieldMac) {
+		fields = append(fields, FieldMac)
 	}
 	if m.FieldCleared(FieldStringArray) {
 		fields = append(fields, FieldStringArray)
@@ -4116,8 +4116,8 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldSensitive) {
 		fields = append(fields, FieldSensitive)
 	}
-	if m.FieldCleared(FieldIP) {
-		fields = append(fields, FieldIP)
+	if m.FieldCleared(FieldIp) {
+		fields = append(fields, FieldIp)
 	}
 	if m.FieldCleared(FieldNullInt64) {
 		fields = append(fields, FieldNullInt64)
@@ -4143,11 +4143,11 @@ func (m *Mutation) ClearedFields() []string {
 	if m.FieldCleared(FieldPriority) {
 		fields = append(fields, FieldPriority)
 	}
-	if m.FieldCleared(FieldOptionalUUID) {
-		fields = append(fields, FieldOptionalUUID)
+	if m.FieldCleared(FieldOptionalUuid) {
+		fields = append(fields, FieldOptionalUuid)
 	}
-	if m.FieldCleared(FieldNillableUUID) {
-		fields = append(fields, FieldNillableUUID)
+	if m.FieldCleared(FieldNillableUuid) {
+		fields = append(fields, FieldNillableUuid)
 	}
 	if m.FieldCleared(FieldStrings) {
 		fields = append(fields, FieldStrings)
@@ -4247,8 +4247,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldLinkOtherFunc:
 		m.ClearLinkOtherFunc()
 		return nil
-	case FieldMAC:
-		m.ClearMAC()
+	case FieldMac:
+		m.ClearMac()
 		return nil
 	case FieldStringArray:
 		m.ClearStringArray()
@@ -4295,8 +4295,8 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldSensitive:
 		m.ClearSensitive()
 		return nil
-	case FieldIP:
-		m.ClearIP()
+	case FieldIp:
+		m.ClearIp()
 		return nil
 	case FieldNullInt64:
 		m.ClearNullInt64()
@@ -4322,11 +4322,11 @@ func (m *Mutation) ClearField(name string) error {
 	case FieldPriority:
 		m.ClearPriority()
 		return nil
-	case FieldOptionalUUID:
-		m.ClearOptionalUUID()
+	case FieldOptionalUuid:
+		m.ClearOptionalUuid()
 		return nil
-	case FieldNillableUUID:
-		m.ClearNillableUUID()
+	case FieldNillableUuid:
+		m.ClearNillableUuid()
 		return nil
 	case FieldStrings:
 		m.ClearStrings()
@@ -4435,8 +4435,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldLinkOtherFunc:
 		m.ResetLinkOtherFunc()
 		return nil
-	case FieldMAC:
-		m.ResetMAC()
+	case FieldMac:
+		m.ResetMac()
 		return nil
 	case FieldStringArray:
 		m.ResetStringArray()
@@ -4486,8 +4486,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldSensitive:
 		m.ResetSensitive()
 		return nil
-	case FieldIP:
-		m.ResetIP()
+	case FieldIp:
+		m.ResetIp()
 		return nil
 	case FieldNullInt64:
 		m.ResetNullInt64()
@@ -4516,11 +4516,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldPriority:
 		m.ResetPriority()
 		return nil
-	case FieldOptionalUUID:
-		m.ResetOptionalUUID()
+	case FieldOptionalUuid:
+		m.ResetOptionalUuid()
 		return nil
-	case FieldNillableUUID:
-		m.ResetNillableUUID()
+	case FieldNillableUuid:
+		m.ResetNillableUuid()
 		return nil
 	case FieldStrings:
 		m.ResetStrings()
@@ -4553,9 +4553,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	return nil
 }
 
@@ -4565,9 +4565,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

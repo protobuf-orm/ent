@@ -21,14 +21,14 @@ import (
 // AttachedFile is the model entity for the AttachedFile schema.
 type AttachedFile struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// AttachTime holds the value of the "attach_time" field.
 	AttachTime time.Time `json:"attach_time,omitempty"`
-	// FID holds the value of the "f_id" field.
-	FID int `json:"f_id,omitempty"`
-	// ProcID holds the value of the "proc_id" field.
-	ProcID int `json:"proc_id,omitempty"`
+	// FId holds the value of the "f_id" field.
+	FId int `json:"f_id,omitempty"`
+	// ProcId holds the value of the "proc_id" field.
+	ProcId int `json:"proc_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the AttachedFileQuery when eager-loading is set.
 	Edges        AttachedFileEdges `json:"edges"`
@@ -73,7 +73,7 @@ func (*AttachedFile) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case attachedfile.FieldID, attachedfile.FieldFID, attachedfile.FieldProcID:
+		case attachedfile.FieldId, attachedfile.FieldFId, attachedfile.FieldProcId:
 			values[i] = new(sql.NullInt64)
 		case attachedfile.FieldAttachTime:
 			values[i] = new(sql.NullTime)
@@ -92,29 +92,29 @@ func (_m *AttachedFile) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case attachedfile.FieldID:
+		case attachedfile.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case attachedfile.FieldAttachTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field attach_time", values[i])
 			} else if value.Valid {
 				_m.AttachTime = value.Time
 			}
-		case attachedfile.FieldFID:
+		case attachedfile.FieldFId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field f_id", values[i])
 			} else if value.Valid {
-				_m.FID = int(value.Int64)
+				_m.FId = int(value.Int64)
 			}
-		case attachedfile.FieldProcID:
+		case attachedfile.FieldProcId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field proc_id", values[i])
 			} else if value.Valid {
-				_m.ProcID = int(value.Int64)
+				_m.ProcId = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -161,15 +161,15 @@ func (_m *AttachedFile) Unwrap() *AttachedFile {
 func (_m *AttachedFile) String() string {
 	var builder strings.Builder
 	builder.WriteString("AttachedFile(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("attach_time=")
 	builder.WriteString(_m.AttachTime.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("f_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.FID))
+	builder.WriteString(fmt.Sprintf("%v", _m.FId))
 	builder.WriteString(", ")
 	builder.WriteString("proc_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.ProcID))
+	builder.WriteString(fmt.Sprintf("%v", _m.ProcId))
 	builder.WriteByte(')')
 	return builder.String()
 }

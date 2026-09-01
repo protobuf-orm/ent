@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the street type in the database.
 	Label = "street"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// EdgeCity holds the string denoting the city edge name in mutations.
@@ -31,13 +31,13 @@ const (
 	CityColumn = "city_streets"
 )
 
-// Columns holds all SQL columns for street fields.
+// Columns holds all Sql columns for street fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "street"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "street"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"city_streets",
@@ -61,9 +61,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Street queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -79,8 +79,8 @@ func ByCityField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newCityStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CityInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CityInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, CityTable, CityColumn),
 	)
 }

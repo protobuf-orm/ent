@@ -17,19 +17,19 @@ func Weight(v int) predicate.Relationship {
 	return predicate.Relationship(sql.FieldEQ(FieldWeight, v))
 }
 
-// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldUserID, v))
+// UserId applies equality check predicate on the "user_id" field. It's identical to UserIdEQ.
+func UserId(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldUserId, v))
 }
 
-// RelativesID applies equality check predicate on the "relatives_id" field. It's identical to RelativesIDEQ.
-func RelativesID(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldRelativesID, v))
+// RelativesId applies equality check predicate on the "relatives_id" field. It's identical to RelativesIdEQ.
+func RelativesId(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldRelativesId, v))
 }
 
-// InfoID applies equality check predicate on the "info_id" field. It's identical to InfoIDEQ.
-func InfoID(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldInfoID, v))
+// InfoId applies equality check predicate on the "info_id" field. It's identical to InfoIdEQ.
+func InfoId(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldInfoId, v))
 }
 
 // WeightEQ applies the EQ predicate on the "weight" field.
@@ -72,74 +72,74 @@ func WeightLTE(v int) predicate.Relationship {
 	return predicate.Relationship(sql.FieldLTE(FieldWeight, v))
 }
 
-// UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldUserID, v))
+// UserIdEQ applies the EQ predicate on the "user_id" field.
+func UserIdEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldUserId, v))
 }
 
-// UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNEQ(FieldUserID, v))
+// UserIdNEQ applies the NEQ predicate on the "user_id" field.
+func UserIdNEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNEQ(FieldUserId, v))
 }
 
-// UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldIn(FieldUserID, vs...))
+// UserIdIn applies the In predicate on the "user_id" field.
+func UserIdIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldIn(FieldUserId, vs...))
 }
 
-// UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNotIn(FieldUserID, vs...))
+// UserIdNotIn applies the NotIn predicate on the "user_id" field.
+func UserIdNotIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNotIn(FieldUserId, vs...))
 }
 
-// RelativesIDEQ applies the EQ predicate on the "relatives_id" field.
-func RelativesIDEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldRelativesID, v))
+// RelativesIdEQ applies the EQ predicate on the "relatives_id" field.
+func RelativesIdEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldRelativesId, v))
 }
 
-// RelativesIDNEQ applies the NEQ predicate on the "relatives_id" field.
-func RelativesIDNEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNEQ(FieldRelativesID, v))
+// RelativesIdNEQ applies the NEQ predicate on the "relatives_id" field.
+func RelativesIdNEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNEQ(FieldRelativesId, v))
 }
 
-// RelativesIDIn applies the In predicate on the "relatives_id" field.
-func RelativesIDIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldIn(FieldRelativesID, vs...))
+// RelativesIdIn applies the In predicate on the "relatives_id" field.
+func RelativesIdIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldIn(FieldRelativesId, vs...))
 }
 
-// RelativesIDNotIn applies the NotIn predicate on the "relatives_id" field.
-func RelativesIDNotIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNotIn(FieldRelativesID, vs...))
+// RelativesIdNotIn applies the NotIn predicate on the "relatives_id" field.
+func RelativesIdNotIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNotIn(FieldRelativesId, vs...))
 }
 
-// InfoIDEQ applies the EQ predicate on the "info_id" field.
-func InfoIDEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldEQ(FieldInfoID, v))
+// InfoIdEQ applies the EQ predicate on the "info_id" field.
+func InfoIdEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldEQ(FieldInfoId, v))
 }
 
-// InfoIDNEQ applies the NEQ predicate on the "info_id" field.
-func InfoIDNEQ(v int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNEQ(FieldInfoID, v))
+// InfoIdNEQ applies the NEQ predicate on the "info_id" field.
+func InfoIdNEQ(v int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNEQ(FieldInfoId, v))
 }
 
-// InfoIDIn applies the In predicate on the "info_id" field.
-func InfoIDIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldIn(FieldInfoID, vs...))
+// InfoIdIn applies the In predicate on the "info_id" field.
+func InfoIdIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldIn(FieldInfoId, vs...))
 }
 
-// InfoIDNotIn applies the NotIn predicate on the "info_id" field.
-func InfoIDNotIn(vs ...int) predicate.Relationship {
-	return predicate.Relationship(sql.FieldNotIn(FieldInfoID, vs...))
+// InfoIdNotIn applies the NotIn predicate on the "info_id" field.
+func InfoIdNotIn(vs ...int) predicate.Relationship {
+	return predicate.Relationship(sql.FieldNotIn(FieldInfoId, vs...))
 }
 
-// InfoIDIsNil applies the IsNil predicate on the "info_id" field.
-func InfoIDIsNil() predicate.Relationship {
-	return predicate.Relationship(sql.FieldIsNull(FieldInfoID))
+// InfoIdIsNil applies the IsNil predicate on the "info_id" field.
+func InfoIdIsNil() predicate.Relationship {
+	return predicate.Relationship(sql.FieldIsNull(FieldInfoId))
 }
 
-// InfoIDNotNil applies the NotNil predicate on the "info_id" field.
-func InfoIDNotNil() predicate.Relationship {
-	return predicate.Relationship(sql.FieldNotNull(FieldInfoID))
+// InfoIdNotNil applies the NotNil predicate on the "info_id" field.
+func InfoIdNotNil() predicate.Relationship {
+	return predicate.Relationship(sql.FieldNotNull(FieldInfoId))
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.

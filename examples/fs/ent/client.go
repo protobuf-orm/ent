@@ -104,7 +104,7 @@ func Driver(driver dialect.Driver) Option {
 // Optional parameters can be added for configuring the client.
 func Open(driverName, dataSourceName string, options ...Option) (*Client, error) {
 	switch driverName {
-	case dialect.MySQL, dialect.Postgres, dialect.SQLite:
+	case dialect.MySql, dialect.Postgres, dialect.SQLite:
 		drv, err := sql.Open(driverName, dataSourceName)
 		if err != nil {
 			return nil, err
@@ -179,9 +179,9 @@ func (c *Client) Close() error {
 	return c.driver.Close()
 }
 
-// Dialect is the name of the SQL this client speaks.
+// Dialect is the name of the Sql this client speaks.
 //
-// Code that writes SQL of its own has to know which SQL it may write, and the
+// Code that writes Sql of its own has to know which Sql it may write, and the
 // connection is what settles that. Asking the client keeps the answer from
 // being a second claim that can disagree with the one made when it was opened.
 func (c *Client) Dialect() string {
@@ -303,9 +303,9 @@ func (c *FileClient) UpdateOne(_m *File) *FileUpdateOne {
 	return &FileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// UpdateOneID returns an update builder for the given id.
-func (c *FileClient) UpdateOneID(id int) *FileUpdateOne {
-	mutation := newFileMutation(c.config, OpUpdateOne, withFileID(id))
+// UpdateOneId returns an update builder for the given id.
+func (c *FileClient) UpdateOneId(id int) *FileUpdateOne {
+	mutation := newFileMutation(c.config, OpUpdateOne, withFileId(id))
 	return &FileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -317,12 +317,12 @@ func (c *FileClient) Delete() *FileDelete {
 
 // DeleteOne returns a builder for deleting the given entity.
 func (c *FileClient) DeleteOne(_m *File) *FileDeleteOne {
-	return c.DeleteOneID(_m.ID)
+	return c.DeleteOneId(_m.Id)
 }
 
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *FileClient) DeleteOneID(id int) *FileDeleteOne {
-	builder := c.Delete().Where(file.ID(id))
+// DeleteOneId returns a builder for deleting the given entity by its id.
+func (c *FileClient) DeleteOneId(id int) *FileDeleteOne {
+	builder := c.Delete().Where(file.Id(id))
 	builder.mutation.id = &id
 	builder.mutation.SetOp(OpDeleteOne)
 	return &FileDeleteOne{builder}
@@ -339,7 +339,7 @@ func (c *FileClient) Query() *FileQuery {
 
 // Get returns a File entity by its id.
 func (c *FileClient) Get(ctx context.Context, id int) (*File, error) {
-	return c.Query().Where(file.ID(id)).Only(ctx)
+	return c.Query().Where(file.Id(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
@@ -355,10 +355,10 @@ func (c *FileClient) GetX(ctx context.Context, id int) *File {
 func (c *FileClient) QueryParent(_m *File) *FileQuery {
 	query := (&FileClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(file.Table, file.FieldID, id),
-			sqlgraph.To(file.Table, file.FieldID),
+			sqlgraph.From(file.Table, file.FieldId, id),
+			sqlgraph.To(file.Table, file.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, file.ParentTable, file.ParentColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
@@ -371,10 +371,10 @@ func (c *FileClient) QueryParent(_m *File) *FileQuery {
 func (c *FileClient) QueryChildren(_m *File) *FileQuery {
 	query := (&FileClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
+		id := _m.Id
 		step := sqlgraph.NewStep(
-			sqlgraph.From(file.Table, file.FieldID, id),
-			sqlgraph.To(file.Table, file.FieldID),
+			sqlgraph.From(file.Table, file.FieldId, id),
+			sqlgraph.To(file.Table, file.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, file.ChildrenTable, file.ChildrenColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)

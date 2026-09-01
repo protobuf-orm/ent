@@ -102,10 +102,10 @@ func init() {
 	tweettagDescAddedAt := tweettagFields[1].Descriptor()
 	// tweettag.DefaultAddedAt holds the default value on creation for the added_at field.
 	tweettag.DefaultAddedAt = tweettagDescAddedAt.Default.(func() time.Time)
-	// tweettagDescID is the schema descriptor for id field.
-	tweettagDescID := tweettagFields[0].Descriptor()
-	// tweettag.DefaultID holds the default value on creation for the id field.
-	tweettag.DefaultID = tweettagDescID.Default.(func() uuid.UUID)
+	// tweettagDescId is the schema descriptor for id field.
+	tweettagDescId := tweettagFields[0].Descriptor()
+	// tweettag.DefaultId holds the default value on creation for the id field.
+	tweettag.DefaultId = tweettagDescId.Default.(func() uuid.UUID)
 	user.Policy = privacy.NewPolicies(schema.User{})
 	user.Hooks[0] = func(next ent.Mutator) ent.Mutator {
 		return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {

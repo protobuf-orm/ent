@@ -25,10 +25,10 @@ var (
 	}
 	// BlobColumns holds the columns for the "blob" table.
 	BlobColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID, Unique: true, Default: "uuid_generate_v4()"},
-		{Name: "uuid", Type: field.TypeUUID, Unique: true},
+		{Name: "id", Type: field.TypeUuid, Unique: true, Default: "uuid_generate_v4()"},
+		{Name: "uuid", Type: field.TypeUuid, Unique: true},
 		{Name: "count", Type: field.TypeInt, Default: 0},
-		{Name: "blob_parent", Type: field.TypeUUID, Unique: true, Nullable: true},
+		{Name: "blob_parent", Type: field.TypeUuid, Unique: true, Nullable: true},
 	}
 	// BlobTable holds the schema information for the "blob" table.
 	BlobTable = &schema.Table{
@@ -47,8 +47,8 @@ var (
 	// BlobLinkColumns holds the columns for the "blob_link" table.
 	BlobLinkColumns = []*schema.Column{
 		{Name: "created_at", Type: field.TypeTime},
-		{Name: "blob_id", Type: field.TypeUUID},
-		{Name: "links_id", Type: field.TypeUUID},
+		{Name: "blob_id", Type: field.TypeUuid},
+		{Name: "links_id", Type: field.TypeUuid},
 	}
 	// BlobLinkTable holds the schema information for the "blob_link" table.
 	BlobLinkTable = &schema.Table{
@@ -162,8 +162,8 @@ var (
 	}
 	// LinkColumns holds the columns for the "link" table.
 	LinkColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
-		{Name: "link_information", Type: field.TypeJSON},
+		{Name: "id", Type: field.TypeUuid},
+		{Name: "link_information", Type: field.TypeJson},
 	}
 	// LinkTable holds the schema information for the "link" table.
 	LinkTable = &schema.Table{
@@ -171,37 +171,37 @@ var (
 		Columns:    LinkColumns,
 		PrimaryKey: []*schema.Column{LinkColumns[0]},
 	}
-	// MixinIDColumns holds the columns for the "mixin_id" table.
-	MixinIDColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+	// MixinIdColumns holds the columns for the "mixin_id" table.
+	MixinIdColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "some_field", Type: field.TypeString},
 		{Name: "mixin_field", Type: field.TypeString},
 	}
-	// MixinIDTable holds the schema information for the "mixin_id" table.
-	MixinIDTable = &schema.Table{
+	// MixinIdTable holds the schema information for the "mixin_id" table.
+	MixinIdTable = &schema.Table{
 		Name:       "mixin_id",
-		Columns:    MixinIDColumns,
-		PrimaryKey: []*schema.Column{MixinIDColumns[0]},
+		Columns:    MixinIdColumns,
+		PrimaryKey: []*schema.Column{MixinIdColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "mixinid_id",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIDColumns[0]},
+				Columns: []*schema.Column{MixinIdColumns[0]},
 			},
 			{
 				Name:    "mixinid_id_some_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[1]},
+				Columns: []*schema.Column{MixinIdColumns[0], MixinIdColumns[1]},
 			},
 			{
 				Name:    "mixinid_id_mixin_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[2]},
+				Columns: []*schema.Column{MixinIdColumns[0], MixinIdColumns[2]},
 			},
 			{
 				Name:    "mixinid_id_mixin_field_some_field",
 				Unique:  false,
-				Columns: []*schema.Column{MixinIDColumns[0], MixinIDColumns[2], MixinIDColumns[1]},
+				Columns: []*schema.Column{MixinIdColumns[0], MixinIdColumns[2], MixinIdColumns[1]},
 			},
 		},
 	}
@@ -426,7 +426,7 @@ var (
 		GroupTable,
 		IntSidTable,
 		LinkTable,
-		MixinIDTable,
+		MixinIdTable,
 		NoteTable,
 		OtherTable,
 		PetTable,

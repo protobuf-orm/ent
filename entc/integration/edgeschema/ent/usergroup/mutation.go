@@ -62,13 +62,13 @@ func (m *Mutation) ResetJoinedAt() {
 	m.joined_at = nil
 }
 
-// SetUserID sets the "user_id" field.
-func (m *Mutation) SetUserID(i int) {
+// SetUserId sets the "user_id" field.
+func (m *Mutation) SetUserId(i int) {
 	m.user = &i
 }
 
-// UserID returns the value of the "user_id" field in the mutation.
-func (m *Mutation) UserID() (r int, exists bool) {
+// UserId returns the value of the "user_id" field in the mutation.
+func (m *Mutation) UserId() (r int, exists bool) {
 	v := m.user
 	if v == nil {
 		return
@@ -76,18 +76,18 @@ func (m *Mutation) UserID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetUserID resets all changes to the "user_id" field.
-func (m *Mutation) ResetUserID() {
+// ResetUserId resets all changes to the "user_id" field.
+func (m *Mutation) ResetUserId() {
 	m.user = nil
 }
 
-// SetGroupID sets the "group_id" field.
-func (m *Mutation) SetGroupID(i int) {
+// SetGroupId sets the "group_id" field.
+func (m *Mutation) SetGroupId(i int) {
 	m.group = &i
 }
 
-// GroupID returns the value of the "group_id" field in the mutation.
-func (m *Mutation) GroupID() (r int, exists bool) {
+// GroupId returns the value of the "group_id" field in the mutation.
+func (m *Mutation) GroupId() (r int, exists bool) {
 	v := m.group
 	if v == nil {
 		return
@@ -95,15 +95,15 @@ func (m *Mutation) GroupID() (r int, exists bool) {
 	return *v, true
 }
 
-// ResetGroupID resets all changes to the "group_id" field.
-func (m *Mutation) ResetGroupID() {
+// ResetGroupId resets all changes to the "group_id" field.
+func (m *Mutation) ResetGroupId() {
 	m.group = nil
 }
 
 // ClearUser clears the "user" edge to the User entity.
 func (m *Mutation) ClearUser() {
 	m.cleareduser = true
-	m.clearedFields[FieldUserID] = struct{}{}
+	m.clearedFields[FieldUserId] = struct{}{}
 }
 
 // UserCleared reports if the "user" edge to the User entity was cleared.
@@ -111,10 +111,10 @@ func (m *Mutation) UserCleared() bool {
 	return m.cleareduser
 }
 
-// UserIDs returns the "user" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *Mutation) UserIDs() (ids []int) {
+// UserIds returns the "user" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// UserId instead. It exists only for internal usage by the builders.
+func (m *Mutation) UserIds() (ids []int) {
 	if id := m.user; id != nil {
 		ids = append(ids, *id)
 	}
@@ -130,7 +130,7 @@ func (m *Mutation) ResetUser() {
 // ClearGroup clears the "group" edge to the Group entity.
 func (m *Mutation) ClearGroup() {
 	m.clearedgroup = true
-	m.clearedFields[FieldGroupID] = struct{}{}
+	m.clearedFields[FieldGroupId] = struct{}{}
 }
 
 // GroupCleared reports if the "group" edge to the Group entity was cleared.
@@ -138,10 +138,10 @@ func (m *Mutation) GroupCleared() bool {
 	return m.clearedgroup
 }
 
-// GroupIDs returns the "group" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// GroupID instead. It exists only for internal usage by the builders.
-func (m *Mutation) GroupIDs() (ids []int) {
+// GroupIds returns the "group" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// GroupId instead. It exists only for internal usage by the builders.
+func (m *Mutation) GroupIds() (ids []int) {
 	if id := m.group; id != nil {
 		ids = append(ids, *id)
 	}
@@ -193,10 +193,10 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldJoinedAt)
 	}
 	if m.user != nil {
-		fields = append(fields, FieldUserID)
+		fields = append(fields, FieldUserId)
 	}
 	if m.group != nil {
-		fields = append(fields, FieldGroupID)
+		fields = append(fields, FieldGroupId)
 	}
 	return fields
 }
@@ -208,10 +208,10 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldJoinedAt:
 		return m.JoinedAt()
-	case FieldUserID:
-		return m.UserID()
-	case FieldGroupID:
-		return m.GroupID()
+	case FieldUserId:
+		return m.UserId()
+	case FieldGroupId:
+		return m.GroupId()
 	}
 	return nil, false
 }
@@ -235,19 +235,19 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetJoinedAt(v)
 		return nil
-	case FieldUserID:
+	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUserID(v)
+		m.SetUserId(v)
 		return nil
-	case FieldGroupID:
+	case FieldGroupId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetGroupID(v)
+		m.SetGroupId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown UserGroup field %s", name)
@@ -304,11 +304,11 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldJoinedAt:
 		m.ResetJoinedAt()
 		return nil
-	case FieldUserID:
-		m.ResetUserID()
+	case FieldUserId:
+		m.ResetUserId()
 		return nil
-	case FieldGroupID:
-		m.ResetGroupID()
+	case FieldGroupId:
+		m.ResetGroupId()
 		return nil
 	}
 	return fmt.Errorf("unknown UserGroup field %s", name)
@@ -326,9 +326,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeUser:
 		if id := m.user; id != nil {
@@ -348,9 +348,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

@@ -411,8 +411,8 @@ func (m *Mutation) ResetDropOptional() {
 	delete(m.clearedFields, FieldDropOptional)
 }
 
-// SetParentID sets the "parent" edge to the User entity by id.
-func (m *Mutation) SetParentID(id int) {
+// SetParentId sets the "parent" edge to the User entity by id.
+func (m *Mutation) SetParentId(id int) {
 	m.parent = &id
 }
 
@@ -426,18 +426,18 @@ func (m *Mutation) ParentCleared() bool {
 	return m.clearedparent
 }
 
-// ParentID returns the "parent" edge ID in the mutation.
-func (m *Mutation) ParentID() (id int, exists bool) {
+// ParentId returns the "parent" edge Id in the mutation.
+func (m *Mutation) ParentId() (id int, exists bool) {
 	if m.parent != nil {
 		return *m.parent, true
 	}
 	return
 }
 
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *Mutation) ParentIDs() (ids []int) {
+// ParentIds returns the "parent" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// ParentId instead. It exists only for internal usage by the builders.
+func (m *Mutation) ParentIds() (ids []int) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
@@ -450,8 +450,8 @@ func (m *Mutation) ResetParent() {
 	m.clearedparent = false
 }
 
-// AddChildrenIDs adds the "children" edge to the User entity by ids.
-func (m *Mutation) AddChildrenIDs(ids ...int) {
+// AddChildrenIds adds the "children" edge to the User entity by ids.
+func (m *Mutation) AddChildrenIds(ids ...int) {
 	if m.children == nil {
 		m.children = make(map[int]struct{})
 	}
@@ -470,8 +470,8 @@ func (m *Mutation) ChildrenCleared() bool {
 	return m.clearedchildren
 }
 
-// RemoveChildrenIDs removes the "children" edge to the User entity by IDs.
-func (m *Mutation) RemoveChildrenIDs(ids ...int) {
+// RemoveChildrenIds removes the "children" edge to the User entity by Ids.
+func (m *Mutation) RemoveChildrenIds(ids ...int) {
 	if m.removedchildren == nil {
 		m.removedchildren = make(map[int]struct{})
 	}
@@ -481,16 +481,16 @@ func (m *Mutation) RemoveChildrenIDs(ids ...int) {
 	}
 }
 
-// RemovedChildren returns the removed IDs of the "children" edge to the User entity.
-func (m *Mutation) RemovedChildrenIDs() (ids []int) {
+// RemovedChildren returns the removed Ids of the "children" edge to the User entity.
+func (m *Mutation) RemovedChildrenIds() (ids []int) {
 	for id := range m.removedchildren {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ChildrenIDs returns the "children" edge IDs in the mutation.
-func (m *Mutation) ChildrenIDs() (ids []int) {
+// ChildrenIds returns the "children" edge Ids in the mutation.
+func (m *Mutation) ChildrenIds() (ids []int) {
 	for id := range m.children {
 		ids = append(ids, id)
 	}
@@ -504,8 +504,8 @@ func (m *Mutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by id.
-func (m *Mutation) SetSpouseID(id int) {
+// SetSpouseId sets the "spouse" edge to the User entity by id.
+func (m *Mutation) SetSpouseId(id int) {
 	m.spouse = &id
 }
 
@@ -519,18 +519,18 @@ func (m *Mutation) SpouseCleared() bool {
 	return m.clearedspouse
 }
 
-// SpouseID returns the "spouse" edge ID in the mutation.
-func (m *Mutation) SpouseID() (id int, exists bool) {
+// SpouseId returns the "spouse" edge Id in the mutation.
+func (m *Mutation) SpouseId() (id int, exists bool) {
 	if m.spouse != nil {
 		return *m.spouse, true
 	}
 	return
 }
 
-// SpouseIDs returns the "spouse" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// SpouseID instead. It exists only for internal usage by the builders.
-func (m *Mutation) SpouseIDs() (ids []int) {
+// SpouseIds returns the "spouse" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// SpouseId instead. It exists only for internal usage by the builders.
+func (m *Mutation) SpouseIds() (ids []int) {
 	if id := m.spouse; id != nil {
 		ids = append(ids, *id)
 	}
@@ -543,8 +543,8 @@ func (m *Mutation) ResetSpouse() {
 	m.clearedspouse = false
 }
 
-// SetCarID sets the "car" edge to the Car entity by id.
-func (m *Mutation) SetCarID(id int) {
+// SetCarId sets the "car" edge to the Car entity by id.
+func (m *Mutation) SetCarId(id int) {
 	m.car = &id
 }
 
@@ -558,18 +558,18 @@ func (m *Mutation) CarCleared() bool {
 	return m.clearedcar
 }
 
-// CarID returns the "car" edge ID in the mutation.
-func (m *Mutation) CarID() (id int, exists bool) {
+// CarId returns the "car" edge Id in the mutation.
+func (m *Mutation) CarId() (id int, exists bool) {
 	if m.car != nil {
 		return *m.car, true
 	}
 	return
 }
 
-// CarIDs returns the "car" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// CarID instead. It exists only for internal usage by the builders.
-func (m *Mutation) CarIDs() (ids []int) {
+// CarIds returns the "car" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// CarId instead. It exists only for internal usage by the builders.
+func (m *Mutation) CarIds() (ids []int) {
 	if id := m.car; id != nil {
 		ids = append(ids, *id)
 	}
@@ -958,9 +958,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeParent:
 		if id := m.parent; id != nil {
@@ -993,9 +993,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeChildren:
 		ids := make([]ent.Value, 0, len(m.removedchildren))

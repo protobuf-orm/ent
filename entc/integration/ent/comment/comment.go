@@ -13,8 +13,8 @@ import (
 const (
 	// Label holds the string label denoting the comment type in the database.
 	Label = "comment"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldUniqueInt holds the string denoting the unique_int field in the database.
 	FieldUniqueInt = "unique_int"
 	// FieldUniqueFloat holds the string denoting the unique_float field in the database.
@@ -31,9 +31,9 @@ const (
 	Table = "comment"
 )
 
-// Columns holds all SQL columns for comment fields.
+// Columns holds all Sql columns for comment fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldUniqueInt,
 	FieldUniqueFloat,
 	FieldNillableInt,
@@ -55,9 +55,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Comment queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByUniqueInt orders the results by the unique_int field.

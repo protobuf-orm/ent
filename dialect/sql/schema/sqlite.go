@@ -130,9 +130,9 @@ func (d *SQLite) atTypeC(c1 *Column, c2 *schema.Column) error {
 		t = &schema.FloatType{T: sqlite.TypeReal}
 	case field.TypeTime:
 		t = &schema.TimeType{T: "datetime"}
-	case field.TypeJSON:
+	case field.TypeJson:
 		t = &schema.JSONType{T: "json"}
-	case field.TypeUUID:
+	case field.TypeUuid:
 		t = &sqlite.UUIDType{T: "uuid"}
 	case field.TypeOther:
 		t = &schema.UnsupportedType{T: c1.typ}
@@ -149,7 +149,7 @@ func (d *SQLite) atTypeC(c1 *Column, c2 *schema.Column) error {
 
 func (d *SQLite) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Column) {
 	// For UNIQUE columns, SQLite create an implicit index named
-	// "sqlite_autoindex_<table>_<i>". Ent uses the PostgreSQL approach
+	// "sqlite_autoindex_<table>_<i>". Ent uses the PostgreSql approach
 	// in its migration, and name these indexes as "<table>_<column>_key".
 	for _, idx := range t1.Indexes {
 		// Index also defined explicitly, and will be add in atIndexes.
@@ -198,7 +198,7 @@ func (d *SQLite) atIndex(idx1 *Index, t2 *schema.Table, idx2 *schema.Index) erro
 	return nil
 }
 
-func (*SQLite) atTypeRangeSQL(ts ...string) string {
+func (*SQLite) atTypeRangeSql(ts ...string) string {
 	for i := range ts {
 		ts[i] = fmt.Sprintf("('%s')", ts[i])
 	}
@@ -227,9 +227,9 @@ func (tx *tx) ExecContext(ctx context.Context, query string, args ...any) (stdsq
 
 // atSequenceRe matches the two statements Atlas generates to seed
 // sqlite_sequence for an AUTOINCREMENT table. It formats the table name with
-// %q, which is a Go string literal and, in SQL, a quoted identifier. SQLite
+// %q, which is a Go string literal and, in Sql, a quoted identifier. SQLite
 // reads it as a string only under the legacy double-quoted-string behaviour,
-// which drivers built with SQLITE_DQS=0 disable, and those reject it.
+// which drivers built with SqlITE_DQS=0 disable, and those reject it.
 //
 // The two shapes are matched in full rather than by looking for a quoted token
 // near "sqlite_sequence", so that an unrelated identifier in the same statement
@@ -241,7 +241,7 @@ var atSequenceRe = regexp.MustCompile(
 )
 
 // fixSequenceQuoting rewrites the double-quoted table name of any
-// sqlite_sequence statement in the plan into a SQL string literal, leaving
+// sqlite_sequence statement in the plan into a Sql string literal, leaving
 // every other statement untouched. Both the applied plan and the migration
 // files written from it are corrected. Once Atlas quotes the name itself, the
 // pattern stops matching and this becomes a no-op.
@@ -260,7 +260,7 @@ func fixSequenceQuoting(plan *migrate.Plan) {
 }
 
 // requoteSequence replaces the quoted identifier that names the table in a
-// sqlite_sequence statement with an equivalent SQL string literal.
+// sqlite_sequence statement with an equivalent Sql string literal.
 func requoteSequence(s string) string {
 	m := atSequenceRe.FindStringSubmatch(s)
 	if m == nil {

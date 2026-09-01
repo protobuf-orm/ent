@@ -23,10 +23,10 @@ type BlobLink struct {
 	config `json:"-"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// BlobID holds the value of the "blob_id" field.
-	BlobID uuid.UUID `json:"blob_id,omitempty"`
-	// LinksID holds the value of the "links_id" field.
-	LinksID uuid.UUID `json:"links_id,omitempty"`
+	// BlobId holds the value of the "blob_id" field.
+	BlobId uuid.UUID `json:"blob_id,omitempty"`
+	// LinksId holds the value of the "links_id" field.
+	LinksId uuid.UUID `json:"links_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the BlobLinkQuery when eager-loading is set.
 	Edges        BlobLinkEdges `json:"edges"`
@@ -73,7 +73,7 @@ func (*BlobLink) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case bloblink.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
-		case bloblink.FieldBlobID, bloblink.FieldLinksID:
+		case bloblink.FieldBlobId, bloblink.FieldLinksId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -96,17 +96,17 @@ func (_m *BlobLink) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.CreatedAt = value.Time
 			}
-		case bloblink.FieldBlobID:
+		case bloblink.FieldBlobId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field blob_id", values[i])
 			} else if value != nil {
-				_m.BlobID = *value
+				_m.BlobId = *value
 			}
-		case bloblink.FieldLinksID:
+		case bloblink.FieldLinksId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field links_id", values[i])
 			} else if value != nil {
-				_m.LinksID = *value
+				_m.LinksId = *value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -157,10 +157,10 @@ func (_m *BlobLink) String() string {
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("blob_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.BlobID))
+	builder.WriteString(fmt.Sprintf("%v", _m.BlobId))
 	builder.WriteString(", ")
 	builder.WriteString("links_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.LinksID))
+	builder.WriteString(fmt.Sprintf("%v", _m.LinksId))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -25,8 +25,8 @@ func (Session) Fields() []ent.Field {
 	return []ent.Field{
 		field.Bytes("id").
 			MaxLen(64).
-			GoType(ID{}).
-			DefaultFunc(NewID),
+			GoType(Id{}).
+			DefaultFunc(NewId),
 	}
 }
 
@@ -49,8 +49,8 @@ func (Device) Fields() []ent.Field {
 	return []ent.Field{
 		field.Bytes("id").
 			MaxLen(64).
-			GoType(ID{}).
-			DefaultFunc(NewID),
+			GoType(Id{}).
+			DefaultFunc(NewId),
 	}
 }
 
@@ -63,19 +63,19 @@ func (Device) Edges() []ent.Edge {
 	}
 }
 
-type ID [64]byte
+type Id [64]byte
 
-func NewID() ID {
+func NewId() Id {
 	var id [64]byte
 	copy(id[:], uuid.NewString()+uuid.NewString()+uuid.NewString()+uuid.NewString())
 	return id
 }
 
-func (i ID) String() string {
+func (i Id) String() string {
 	return string(i[:])
 }
 
-func (i *ID) Scan(v any) error {
+func (i *Id) Scan(v any) error {
 	switch v := v.(type) {
 	case []byte:
 		copy(i[:], v)
@@ -87,6 +87,6 @@ func (i *ID) Scan(v any) error {
 	return nil
 }
 
-func (i ID) Value() (driver.Value, error) {
+func (i Id) Value() (driver.Value, error) {
 	return string(i[:]), nil
 }

@@ -10,7 +10,7 @@
         func ({{ $receiver }} *{{ $.Name }}) String() string {
             var builder strings.Builder
             builder.WriteString("{{ $.Name }}(")
-            builder.WriteString(fmt.Sprintf("id=%v", {{ $receiver }}.ID))
+            builder.WriteString(fmt.Sprintf("id=%v", {{ $receiver }}.Id))
             {{- range $i, $f := $.Fields }}
                 {{- if $f.Sensitive }}
                     builder.WriteString(", {{ $f.Name }}=<sensitive>")

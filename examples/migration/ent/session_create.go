@@ -80,37 +80,37 @@ func (_c *SessionCreate) SetMethod(v map[string]interface{}) *SessionCreate {
 	return _c
 }
 
-// SetDeviceID sets the "device_id" field.
-func (_c *SessionCreate) SetDeviceID(v uuid.UUID) *SessionCreate {
-	_c.mutation.SetDeviceID(v)
+// SetDeviceId sets the "device_id" field.
+func (_c *SessionCreate) SetDeviceId(v uuid.UUID) *SessionCreate {
+	_c.mutation.SetDeviceId(v)
 	return _c
 }
 
-// SetNillableDeviceID sets the "device_id" field if the given value is not nil.
-func (_c *SessionCreate) SetNillableDeviceID(v *uuid.UUID) *SessionCreate {
+// SetNillableDeviceId sets the "device_id" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableDeviceId(v *uuid.UUID) *SessionCreate {
 	if v != nil {
-		_c.SetDeviceID(*v)
+		_c.SetDeviceId(*v)
 	}
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *SessionCreate) SetID(v uuid.UUID) *SessionCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *SessionCreate) SetId(v uuid.UUID) *SessionCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *SessionCreate) SetNillableID(v *uuid.UUID) *SessionCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableId(v *uuid.UUID) *SessionCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
 // SetDevice sets the "device" edge to the SessionDevice entity.
 func (_c *SessionCreate) SetDevice(v *SessionDevice) *SessionCreate {
-	return _c.SetDeviceID(v.ID)
+	return _c.SetDeviceId(v.Id)
 }
 
 // Mutation returns the SessionMutation object of the builder.
@@ -152,9 +152,9 @@ func (_c *SessionCreate) defaults() {
 		v := session.DefaultActive
 		_c.mutation.SetActive(v)
 	}
-	if _, ok := _c.mutation.ID(); !ok {
-		v := session.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := session.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -180,14 +180,14 @@ func (_c *SessionCreate) sqlSave(ctx context.Context) (*Session, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -195,11 +195,11 @@ func (_c *SessionCreate) sqlSave(ctx context.Context) (*Session, error) {
 func (_c *SessionCreate) createSpec() (*Session, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Session{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(session.Table, sqlgraph.NewFieldSpec(session.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(session.Table, sqlgraph.NewFieldSpec(session.FieldId, field.TypeUuid))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Active(); ok {
 		_spec.SetField(session.FieldActive, field.TypeBool, value)
@@ -218,10 +218,10 @@ func (_c *SessionCreate) createSpec() (*Session, *sqlgraph.CreateSpec) {
 		_node.Token = value
 	}
 	if value, ok := _c.mutation.Method(); ok {
-		_spec.SetField(session.FieldMethod, field.TypeJSON, value)
+		_spec.SetField(session.FieldMethod, field.TypeJson, value)
 		_node.Method = value
 	}
-	if nodes := _c.mutation.DeviceIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.DeviceIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -229,13 +229,13 @@ func (_c *SessionCreate) createSpec() (*Session, *sqlgraph.CreateSpec) {
 			Columns: []string{session.DeviceColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.DeviceID = nodes[0]
+		_node.DeviceId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -285,7 +285,7 @@ func (_c *SessionCreateBulk) Save(ctx context.Context) ([]*Session, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})

@@ -42,26 +42,26 @@ func (_c *TweetLikeCreate) SetNillableLikedAt(v *time.Time) *TweetLikeCreate {
 	return _c
 }
 
-// SetUserID sets the "user_id" field.
-func (_c *TweetLikeCreate) SetUserID(v int) *TweetLikeCreate {
-	_c.mutation.SetUserID(v)
+// SetUserId sets the "user_id" field.
+func (_c *TweetLikeCreate) SetUserId(v int) *TweetLikeCreate {
+	_c.mutation.SetUserId(v)
 	return _c
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (_c *TweetLikeCreate) SetTweetID(v int) *TweetLikeCreate {
-	_c.mutation.SetTweetID(v)
+// SetTweetId sets the "tweet_id" field.
+func (_c *TweetLikeCreate) SetTweetId(v int) *TweetLikeCreate {
+	_c.mutation.SetTweetId(v)
 	return _c
 }
 
 // SetTweet sets the "tweet" edge to the Tweet entity.
 func (_c *TweetLikeCreate) SetTweet(v *Tweet) *TweetLikeCreate {
-	return _c.SetTweetID(v.ID)
+	return _c.SetTweetId(v.Id)
 }
 
 // SetUser sets the "user" edge to the User entity.
 func (_c *TweetLikeCreate) SetUser(v *User) *TweetLikeCreate {
-	return _c.SetUserID(v.ID)
+	return _c.SetUserId(v.Id)
 }
 
 // Mutation returns the TweetLikeMutation object of the builder.
@@ -116,16 +116,16 @@ func (_c *TweetLikeCreate) check() error {
 	if _, ok := _c.mutation.LikedAt(); !ok {
 		return &ValidationError{Name: "liked_at", err: errors.New(`ent: missing required field "TweetLike.liked_at"`)}
 	}
-	if _, ok := _c.mutation.UserID(); !ok {
+	if _, ok := _c.mutation.UserId(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "TweetLike.user_id"`)}
 	}
-	if _, ok := _c.mutation.TweetID(); !ok {
+	if _, ok := _c.mutation.TweetId(); !ok {
 		return &ValidationError{Name: "tweet_id", err: errors.New(`ent: missing required field "TweetLike.tweet_id"`)}
 	}
-	if len(_c.mutation.TweetIDs()) == 0 {
+	if len(_c.mutation.TweetIds()) == 0 {
 		return &ValidationError{Name: "tweet", err: errors.New(`ent: missing required edge "TweetLike.tweet"`)}
 	}
-	if len(_c.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIds()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "TweetLike.user"`)}
 	}
 	return nil
@@ -155,7 +155,7 @@ func (_c *TweetLikeCreate) createSpec() (*TweetLike, *sqlgraph.CreateSpec) {
 		_spec.SetField(tweetlike.FieldLikedAt, field.TypeTime, value)
 		_node.LikedAt = value
 	}
-	if nodes := _c.mutation.TweetIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TweetIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -163,16 +163,16 @@ func (_c *TweetLikeCreate) createSpec() (*TweetLike, *sqlgraph.CreateSpec) {
 			Columns: []string{tweetlike.TweetColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.TweetID = nodes[0]
+		_node.TweetId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -180,13 +180,13 @@ func (_c *TweetLikeCreate) createSpec() (*TweetLike, *sqlgraph.CreateSpec) {
 			Columns: []string{tweetlike.UserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.UserID = nodes[0]
+		_node.UserId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
@@ -253,27 +253,27 @@ func (u *TweetLikeUpsert) UpdateLikedAt() *TweetLikeUpsert {
 	return u
 }
 
-// SetUserID sets the "user_id" field.
-func (u *TweetLikeUpsert) SetUserID(v int) *TweetLikeUpsert {
-	u.Set(tweetlike.FieldUserID, v)
+// SetUserId sets the "user_id" field.
+func (u *TweetLikeUpsert) SetUserId(v int) *TweetLikeUpsert {
+	u.Set(tweetlike.FieldUserId, v)
 	return u
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *TweetLikeUpsert) UpdateUserID() *TweetLikeUpsert {
-	u.SetExcluded(tweetlike.FieldUserID)
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *TweetLikeUpsert) UpdateUserId() *TweetLikeUpsert {
+	u.SetExcluded(tweetlike.FieldUserId)
 	return u
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetLikeUpsert) SetTweetID(v int) *TweetLikeUpsert {
-	u.Set(tweetlike.FieldTweetID, v)
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetLikeUpsert) SetTweetId(v int) *TweetLikeUpsert {
+	u.Set(tweetlike.FieldTweetId, v)
 	return u
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetLikeUpsert) UpdateTweetID() *TweetLikeUpsert {
-	u.SetExcluded(tweetlike.FieldTweetID)
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetLikeUpsert) UpdateTweetId() *TweetLikeUpsert {
+	u.SetExcluded(tweetlike.FieldTweetId)
 	return u
 }
 
@@ -302,7 +302,7 @@ func (u *TweetLikeUpsertOne) Ignore() *TweetLikeUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetLikeUpsertOne) DoNothing() *TweetLikeUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -331,31 +331,31 @@ func (u *TweetLikeUpsertOne) UpdateLikedAt() *TweetLikeUpsertOne {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *TweetLikeUpsertOne) SetUserID(v int) *TweetLikeUpsertOne {
+// SetUserId sets the "user_id" field.
+func (u *TweetLikeUpsertOne) SetUserId(v int) *TweetLikeUpsertOne {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *TweetLikeUpsertOne) UpdateUserID() *TweetLikeUpsertOne {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *TweetLikeUpsertOne) UpdateUserId() *TweetLikeUpsertOne {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetLikeUpsertOne) SetTweetID(v int) *TweetLikeUpsertOne {
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetLikeUpsertOne) SetTweetId(v int) *TweetLikeUpsertOne {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetLikeUpsertOne) UpdateTweetID() *TweetLikeUpsertOne {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetLikeUpsertOne) UpdateTweetId() *TweetLikeUpsertOne {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 
@@ -525,7 +525,7 @@ func (u *TweetLikeUpsertBulk) Ignore() *TweetLikeUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetLikeUpsertBulk) DoNothing() *TweetLikeUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -554,31 +554,31 @@ func (u *TweetLikeUpsertBulk) UpdateLikedAt() *TweetLikeUpsertBulk {
 	})
 }
 
-// SetUserID sets the "user_id" field.
-func (u *TweetLikeUpsertBulk) SetUserID(v int) *TweetLikeUpsertBulk {
+// SetUserId sets the "user_id" field.
+func (u *TweetLikeUpsertBulk) SetUserId(v int) *TweetLikeUpsertBulk {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.SetUserID(v)
+		s.SetUserId(v)
 	})
 }
 
-// UpdateUserID sets the "user_id" field to the value that was provided on create.
-func (u *TweetLikeUpsertBulk) UpdateUserID() *TweetLikeUpsertBulk {
+// UpdateUserId sets the "user_id" field to the value that was provided on create.
+func (u *TweetLikeUpsertBulk) UpdateUserId() *TweetLikeUpsertBulk {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.UpdateUserID()
+		s.UpdateUserId()
 	})
 }
 
-// SetTweetID sets the "tweet_id" field.
-func (u *TweetLikeUpsertBulk) SetTweetID(v int) *TweetLikeUpsertBulk {
+// SetTweetId sets the "tweet_id" field.
+func (u *TweetLikeUpsertBulk) SetTweetId(v int) *TweetLikeUpsertBulk {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.SetTweetID(v)
+		s.SetTweetId(v)
 	})
 }
 
-// UpdateTweetID sets the "tweet_id" field to the value that was provided on create.
-func (u *TweetLikeUpsertBulk) UpdateTweetID() *TweetLikeUpsertBulk {
+// UpdateTweetId sets the "tweet_id" field to the value that was provided on create.
+func (u *TweetLikeUpsertBulk) UpdateTweetId() *TweetLikeUpsertBulk {
 	return u.Update(func(s *TweetLikeUpsert) {
-		s.UpdateTweetID()
+		s.UpdateTweetId()
 	})
 }
 

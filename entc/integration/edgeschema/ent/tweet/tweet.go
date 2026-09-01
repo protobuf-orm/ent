@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the tweet type in the database.
 	Label = "tweet"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// EdgeLikedUsers holds the string denoting the liked_users edge name in mutations.
@@ -70,9 +70,9 @@ const (
 	TweetTagsColumn = "tweet_id"
 )
 
-// Columns holds all SQL columns for tweet fields.
+// Columns holds all Sql columns for tweet fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
 }
 
@@ -101,9 +101,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Tweet queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.
@@ -196,43 +196,43 @@ func ByTweetTags(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newLikedUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(LikedUsersInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(LikedUsersInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, LikedUsersTable, LikedUsersPrimaryKey...),
 	)
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, UserTable, UserPrimaryKey...),
 	)
 }
 func newTagsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TagsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TagsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, TagsTable, TagsPrimaryKey...),
 	)
 }
 func newLikesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(LikesInverseTable, LikesColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, LikesTable, LikesColumn),
 	)
 }
 func newTweetUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetUserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetUserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, TweetUserTable, TweetUserColumn),
 	)
 }
 func newTweetTagsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetTagsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetTagsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, TweetTagsTable, TweetTagsColumn),
 	)
 }

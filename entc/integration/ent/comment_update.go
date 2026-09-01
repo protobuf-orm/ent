@@ -201,7 +201,7 @@ func (_u *CommentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *Commen
 }
 
 func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -237,10 +237,10 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.ClearField(comment.FieldTable, field.TypeString)
 	}
 	if value, ok := _u.mutation.Dir(); ok {
-		_spec.SetField(comment.FieldDir, field.TypeJSON, value)
+		_spec.SetField(comment.FieldDir, field.TypeJson, value)
 	}
 	if _u.mutation.DirCleared() {
-		_spec.ClearField(comment.FieldDir, field.TypeJSON)
+		_spec.ClearField(comment.FieldDir, field.TypeJson)
 	}
 	if value, ok := _u.mutation.GetClient(); ok {
 		_spec.SetField(comment.FieldClient, field.TypeString, value)
@@ -451,20 +451,20 @@ func (_u *CommentUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *Com
 }
 
 func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err error) {
-	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Comment.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, comment.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, comment.FieldId)
 		for _, f := range fields {
 			if !comment.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != comment.FieldID {
+			if f != comment.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -504,10 +504,10 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 		_spec.ClearField(comment.FieldTable, field.TypeString)
 	}
 	if value, ok := _u.mutation.Dir(); ok {
-		_spec.SetField(comment.FieldDir, field.TypeJSON, value)
+		_spec.SetField(comment.FieldDir, field.TypeJson, value)
 	}
 	if _u.mutation.DirCleared() {
-		_spec.ClearField(comment.FieldDir, field.TypeJSON)
+		_spec.ClearField(comment.FieldDir, field.TypeJson)
 	}
 	if value, ok := _u.mutation.GetClient(); ok {
 		_spec.SetField(comment.FieldClient, field.TypeString, value)

@@ -19,7 +19,7 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 	setCase(u, column, when{
 		Cond: func(b *sql.Builder) {
 			typ := func(b *sql.Builder) *sql.Builder {
-				return b.WriteString("JSON_TYPE").Wrap(func(b *sql.Builder) {
+				return b.WriteString("Json_TYPE").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
 				})
@@ -30,20 +30,20 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 		},
 		Then: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("JSON_SET").Wrap(func(b *sql.Builder) {
+				b.WriteString("Json_SET").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
-					b.Comma().Argf("JSON(?)", marshalArg(elems))
+					b.Comma().Argf("Json(?)", marshalArg(elems))
 				})
 			} else {
 				b.Arg(marshalArg(elems))
 			}
 		},
 		Else: func(b *sql.Builder) {
-			b.WriteString("JSON_INSERT").Wrap(func(b *sql.Builder) {
+			b.WriteString("Json_INSERT").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				// If no path was provided the top-level value is
-				// a JSON array. i.e. JSON_INSERT(c, '$[#]', ?).
+				// a Json array. i.e. Json_INSERT(c, '$[#]', ?).
 				path := func(b *sql.Builder) { b.WriteString("'$[#]'") }
 				if len(opts) > 0 {
 					p := identPath(column, opts...)
@@ -66,7 +66,7 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 func (d *sqlite) appendArg(b *sql.Builder, v any) {
 	switch {
 	case !isPrimitive(v):
-		b.Argf("JSON(?)", marshalArg(v))
+		b.Argf("Json(?)", marshalArg(v))
 	default:
 		b.Arg(v)
 	}
@@ -79,7 +79,7 @@ func (d *mysql) Append(u *sql.UpdateBuilder, column string, elems []any, opts ..
 	setCase(u, column, when{
 		Cond: func(b *sql.Builder) {
 			typ := func(b *sql.Builder) *sql.Builder {
-				b.WriteString("JSON_TYPE(JSON_EXTRACT(")
+				b.WriteString("Json_TYPE(Json_EXTRACT(")
 				b.Ident(column).Comma()
 				identPath(column, opts...).mysqlPath(b)
 				return b.WriteString("))")
@@ -90,17 +90,17 @@ func (d *mysql) Append(u *sql.UpdateBuilder, column string, elems []any, opts ..
 		},
 		Then: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("JSON_SET").Wrap(func(b *sql.Builder) {
+				b.WriteString("Json_SET").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
-					b.Comma().WriteString("JSON_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
+					b.Comma().WriteString("Json_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
 				})
 			} else {
-				b.WriteString("JSON_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
+				b.WriteString("Json_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
 			}
 		},
 		Else: func(b *sql.Builder) {
-			b.WriteString("JSON_ARRAY_APPEND").Wrap(func(b *sql.Builder) {
+			b.WriteString("Json_ARRAY_APPEND").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				for i, e := range elems {
 					if i > 0 {
@@ -129,7 +129,7 @@ func (d *mysql) marshalArgs(args []any) []any {
 func (d *mysql) appendArg(b *sql.Builder, v any) {
 	switch {
 	case !isPrimitive(v):
-		b.Argf("CAST(? AS JSON)", marshalArg(v))
+		b.Argf("CAST(? AS Json)", marshalArg(v))
 	default:
 		b.Arg(v)
 	}
@@ -186,7 +186,7 @@ func newDriver(name string) (driver, error) {
 	switch name {
 	case dialect.SQLite:
 		return (*sqlite)(nil), nil
-	case dialect.MySQL:
+	case dialect.MySql:
 		return (*mysql)(nil), nil
 	case dialect.Postgres:
 		return (*postgres)(nil), nil

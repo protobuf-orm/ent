@@ -20,8 +20,8 @@ import (
 // Card is the model entity for the Card schema.
 type Card struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Expired holds the value of the "expired" field.
 	Expired time.Time `json:"expired,omitempty"`
 	// Number holds the value of the "number" field.
@@ -58,7 +58,7 @@ func (*Card) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case card.FieldID:
+		case card.FieldId:
 			values[i] = new(sql.NullInt64)
 		case card.FieldNumber:
 			values[i] = new(sql.NullString)
@@ -81,12 +81,12 @@ func (_m *Card) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case card.FieldID:
+		case card.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case card.FieldExpired:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field expired", values[i])
@@ -146,7 +146,7 @@ func (_m *Card) Unwrap() *Card {
 func (_m *Card) String() string {
 	var builder strings.Builder
 	builder.WriteString("Card(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("expired=")
 	builder.WriteString(_m.Expired.Format(time.ANSIC))
 	builder.WriteString(", ")

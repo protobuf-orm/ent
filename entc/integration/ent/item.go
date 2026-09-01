@@ -18,8 +18,8 @@ import (
 // Item is the model entity for the Item schema.
 type Item struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID string `json:"id,omitempty"`
+	// Id of the ent.
+	Id string `json:"id,omitempty"`
 	// Text holds the value of the "text" field.
 	Text         string `json:"text,omitempty"`
 	selectValues sql.SelectValues
@@ -30,7 +30,7 @@ func (*Item) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case item.FieldID, item.FieldText:
+		case item.FieldId, item.FieldText:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -47,11 +47,11 @@ func (_m *Item) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case item.FieldID:
+		case item.FieldId:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value.Valid {
-				_m.ID = value.String
+				_m.Id = value.String
 			}
 		case item.FieldText:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -94,7 +94,7 @@ func (_m *Item) Unwrap() *Item {
 func (_m *Item) String() string {
 	var builder strings.Builder
 	builder.WriteString("Item(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("text=")
 	builder.WriteString(_m.Text)
 	builder.WriteByte(')')

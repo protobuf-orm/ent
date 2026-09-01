@@ -26,13 +26,13 @@ func (CustomType) Fields() []ent.Field {
 		field.Time("tz0").
 			Optional().
 			SchemaType(map[string]string{
-				dialect.MySQL:    "timestamp(0)",
+				dialect.MySql:    "timestamp(0)",
 				dialect.Postgres: "timestamptz(0)",
 			}),
 		field.Time("tz3").
 			Optional().
 			SchemaType(map[string]string{
-				dialect.MySQL:    "timestamp(3)",
+				dialect.MySql:    "timestamp(3)",
 				dialect.Postgres: "timestamptz(3)",
 			}),
 	}

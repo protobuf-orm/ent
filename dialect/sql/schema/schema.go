@@ -2,7 +2,7 @@
 // This source code is licensed under the Apache 2.0 license found
 // in the LICENSE file in the root directory of this source tree.
 
-// Package schema contains all schema migration logic for SQL dialects.
+// Package schema contains all schema migration logic for Sql dialects.
 package schema
 
 import (
@@ -27,15 +27,15 @@ import (
 const (
 	// DefaultStringLen describes the default length for string/varchar types.
 	DefaultStringLen int64 = 255
-	// Null is the string representation of NULL in SQL.
+	// Null is the string representation of NULL in Sql.
 	Null = "NULL"
-	// PrimaryKey is the string representation of PKs in SQL.
+	// PrimaryKey is the string representation of PKs in Sql.
 	PrimaryKey = "PRI"
-	// UniqueKey is the string representation of PKs in SQL.
+	// UniqueKey is the string representation of PKs in Sql.
 	UniqueKey = "UNI"
 )
 
-// Table schema definition for SQL dialects.
+// Table schema definition for Sql dialects.
 type Table struct {
 	mu          sync.Mutex
 	Name        string
@@ -292,7 +292,7 @@ func CopyTables(tables []*Table) ([]*Table, error) {
 	return copyT, nil
 }
 
-// Column schema definition for SQL dialects.
+// Column schema definition for Sql dialects.
 type Column struct {
 	Name       string            // column name.
 	Type       field.Type        // column type.
@@ -390,7 +390,7 @@ func (c *Column) ScanDefault(value string) error {
 			return fmt.Errorf("scanning string value for column %q: %w", c.Name, err)
 		}
 		c.Default = v.String
-	case c.Type == field.TypeJSON:
+	case c.Type == field.TypeJson:
 		v := &sql.NullString{}
 		if err := v.Scan(value); err != nil {
 			return fmt.Errorf("scanning json value for column %q: %w", c.Name, err)
@@ -398,7 +398,7 @@ func (c *Column) ScanDefault(value string) error {
 		c.Default = v.String
 	case c.Type == field.TypeBytes:
 		c.Default = []byte(value)
-	case c.Type == field.TypeUUID:
+	case c.Type == field.TypeUuid:
 		// skip function
 		if !strings.Contains(value, "()") {
 			c.Default = value
@@ -414,7 +414,7 @@ func (c Column) supportDefault() bool {
 	switch t := c.Type; t {
 	case field.TypeString, field.TypeEnum:
 		return c.Size < 1<<16 // not a text.
-	case field.TypeBool, field.TypeTime, field.TypeUUID:
+	case field.TypeBool, field.TypeTime, field.TypeUuid:
 		return true
 	default:
 		return t.Numeric()
@@ -502,7 +502,7 @@ func compareVersions(v1, v2 string) int {
 	return compare(pv1.patch, pv2.patch)
 }
 
-// version represents a parsed MySQL version.
+// version represents a parsed MySql version.
 type version struct {
 	major int
 	minor int
@@ -570,10 +570,10 @@ var drivers = func(v string) map[string]driver {
 			sqlite.DefaultDiff,
 			sqlite.DefaultPlan,
 		},
-		entdialect.MySQL: {
-			&MySQL{
+		entdialect.MySql: {
+			&MySql{
 				version: v,
-				Driver:  nopDriver{dialect: entdialect.MySQL},
+				Driver:  nopDriver{dialect: entdialect.MySql},
 			},
 			mysql.DefaultDiff,
 			mysql.DefaultPlan,

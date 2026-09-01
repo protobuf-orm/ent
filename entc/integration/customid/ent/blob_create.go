@@ -27,16 +27,16 @@ type BlobCreate struct {
 	conflict []sql.ConflictOption
 }
 
-// SetUUID sets the "uuid" field.
-func (_c *BlobCreate) SetUUID(v uuid.UUID) *BlobCreate {
-	_c.mutation.SetUUID(v)
+// SetUuid sets the "uuid" field.
+func (_c *BlobCreate) SetUuid(v uuid.UUID) *BlobCreate {
+	_c.mutation.SetUuid(v)
 	return _c
 }
 
-// SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (_c *BlobCreate) SetNillableUUID(v *uuid.UUID) *BlobCreate {
+// SetNillableUuid sets the "uuid" field if the given value is not nil.
+func (_c *BlobCreate) SetNillableUuid(v *uuid.UUID) *BlobCreate {
 	if v != nil {
-		_c.SetUUID(*v)
+		_c.SetUuid(*v)
 	}
 	return _c
 }
@@ -55,42 +55,42 @@ func (_c *BlobCreate) SetNillableCount(v *int) *BlobCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *BlobCreate) SetID(v uuid.UUID) *BlobCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *BlobCreate) SetId(v uuid.UUID) *BlobCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *BlobCreate) SetNillableID(v *uuid.UUID) *BlobCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *BlobCreate) SetNillableId(v *uuid.UUID) *BlobCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetParentID sets the "parent" edge to the Blob entity by ID.
-func (_c *BlobCreate) SetParentID(id uuid.UUID) *BlobCreate {
-	_c.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the Blob entity by Id.
+func (_c *BlobCreate) SetParentId(id uuid.UUID) *BlobCreate {
+	_c.mutation.SetParentId(id)
 	return _c
 }
 
-// SetNillableParentID sets the "parent" edge to the Blob entity by ID if the given value is not nil.
-func (_c *BlobCreate) SetNillableParentID(id *uuid.UUID) *BlobCreate {
+// SetNillableParentId sets the "parent" edge to the Blob entity by Id if the given value is not nil.
+func (_c *BlobCreate) SetNillableParentId(id *uuid.UUID) *BlobCreate {
 	if id != nil {
-		_c = _c.SetParentID(*id)
+		_c = _c.SetParentId(*id)
 	}
 	return _c
 }
 
 // SetParent sets the "parent" edge to the Blob entity.
 func (_c *BlobCreate) SetParent(v *Blob) *BlobCreate {
-	return _c.SetParentID(v.ID)
+	return _c.SetParentId(v.Id)
 }
 
-// AddLinksIDs adds the "links" edge to the Blob entity by IDs.
-func (_c *BlobCreate) AddLinksIDs(ids ...uuid.UUID) *BlobCreate {
-	_c.mutation.AddLinksIDs(ids...)
+// AddLinksIds adds the "links" edge to the Blob entity by Ids.
+func (_c *BlobCreate) AddLinksIds(ids ...uuid.UUID) *BlobCreate {
+	_c.mutation.AddLinksIds(ids...)
 	return _c
 }
 
@@ -98,9 +98,9 @@ func (_c *BlobCreate) AddLinksIDs(ids ...uuid.UUID) *BlobCreate {
 func (_c *BlobCreate) AddLinks(v ...*Blob) *BlobCreate {
 	ids := make([]uuid.UUID, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddLinksIDs(ids...)
+	return _c.AddLinksIds(ids...)
 }
 
 // Mutation returns the BlobMutation object of the builder.
@@ -138,23 +138,23 @@ func (_c *BlobCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *BlobCreate) defaults() {
-	if _, ok := _c.mutation.UUID(); !ok {
-		v := blob.DefaultUUID()
-		_c.mutation.SetUUID(v)
+	if _, ok := _c.mutation.Uuid(); !ok {
+		v := blob.DefaultUuid()
+		_c.mutation.SetUuid(v)
 	}
 	if _, ok := _c.mutation.Count(); !ok {
 		v := blob.DefaultCount
 		_c.mutation.SetCount(v)
 	}
-	if _, ok := _c.mutation.ID(); !ok {
-		v := blob.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := blob.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *BlobCreate) check() error {
-	if _, ok := _c.mutation.UUID(); !ok {
+	if _, ok := _c.mutation.Uuid(); !ok {
 		return &ValidationError{Name: "uuid", err: errors.New(`ent: missing required field "Blob.uuid"`)}
 	}
 	if _, ok := _c.mutation.Count(); !ok {
@@ -174,14 +174,14 @@ func (_c *BlobCreate) sqlSave(ctx context.Context) (*Blob, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
-			_node.ID = *id
-		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+	if _spec.Id.Value != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 			return nil, err
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -189,22 +189,22 @@ func (_c *BlobCreate) sqlSave(ctx context.Context) (*Blob, error) {
 func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Blob{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(blob.Table, sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(blob.Table, sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid))
 	)
 	_spec.OnConflict = _c.conflict
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = &id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = &id
 	}
-	if value, ok := _c.mutation.UUID(); ok {
-		_spec.SetField(blob.FieldUUID, field.TypeUUID, value)
-		_node.UUID = value
+	if value, ok := _c.mutation.Uuid(); ok {
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
+		_node.Uuid = value
 	}
 	if value, ok := _c.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
 		_node.Count = value
 	}
-	if nodes := _c.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -212,7 +212,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 			Columns: []string{blob.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -221,7 +221,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 		_node.blob_parent = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.LinksIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.LinksIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -229,7 +229,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 			Columns: blob.LinksPrimaryKey,
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(blob.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
@@ -248,7 +248,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 // of the `INSERT` statement. For example:
 //
 //	client.Blob.Create().
-//		SetUUID(v).
+//		SetUuid(v).
 //		OnConflict(
 //			// Update the row with the new values
 //			// the was proposed for insertion.
@@ -257,7 +257,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.BlobUpsert) {
-//			SetUUID(v+v).
+//			SetUuid(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *BlobCreate) OnConflict(opts ...sql.ConflictOption) *BlobUpsertOne {
@@ -293,15 +293,15 @@ type (
 	}
 )
 
-// SetUUID sets the "uuid" field.
-func (u *BlobUpsert) SetUUID(v uuid.UUID) *BlobUpsert {
-	u.Set(blob.FieldUUID, v)
+// SetUuid sets the "uuid" field.
+func (u *BlobUpsert) SetUuid(v uuid.UUID) *BlobUpsert {
+	u.Set(blob.FieldUuid, v)
 	return u
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *BlobUpsert) UpdateUUID() *BlobUpsert {
-	u.SetExcluded(blob.FieldUUID)
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *BlobUpsert) UpdateUuid() *BlobUpsert {
+	u.SetExcluded(blob.FieldUuid)
 	return u
 }
 
@@ -323,22 +323,22 @@ func (u *BlobUpsert) AddCount(v int) *BlobUpsert {
 	return u
 }
 
-// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the Id field.
 // Using this option is equivalent to using:
 //
 //	client.Blob.Create().
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(blob.FieldID)
+//				u.SetIgnore(blob.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
 func (u *BlobUpsertOne) UpdateNewValues() *BlobUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
-		if _, exists := u.create.mutation.ID(); exists {
-			s.SetIgnore(blob.FieldID)
+		if _, exists := u.create.mutation.Id(); exists {
+			s.SetIgnore(blob.FieldId)
 		}
 	}))
 	return u
@@ -356,7 +356,7 @@ func (u *BlobUpsertOne) Ignore() *BlobUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobUpsertOne) DoNothing() *BlobUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -371,17 +371,17 @@ func (u *BlobUpsertOne) Update(set func(*BlobUpsert)) *BlobUpsertOne {
 	return u
 }
 
-// SetUUID sets the "uuid" field.
-func (u *BlobUpsertOne) SetUUID(v uuid.UUID) *BlobUpsertOne {
+// SetUuid sets the "uuid" field.
+func (u *BlobUpsertOne) SetUuid(v uuid.UUID) *BlobUpsertOne {
 	return u.Update(func(s *BlobUpsert) {
-		s.SetUUID(v)
+		s.SetUuid(v)
 	})
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *BlobUpsertOne) UpdateUUID() *BlobUpsertOne {
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *BlobUpsertOne) UpdateUuid() *BlobUpsertOne {
 	return u.Update(func(s *BlobUpsert) {
-		s.UpdateUUID()
+		s.UpdateUuid()
 	})
 }
 
@@ -421,23 +421,23 @@ func (u *BlobUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *BlobUpsertOne) ID(ctx context.Context) (id uuid.UUID, err error) {
-	if u.create.driver.Dialect() == dialect.MySQL {
-		// In case of "ON CONFLICT", there is no way to get back non-numeric ID
-		// fields from the database since MySQL does not support the RETURNING clause.
-		return id, errors.New("ent: BlobUpsertOne.ID is not supported by MySQL driver. Use BlobUpsertOne.Exec instead")
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *BlobUpsertOne) Id(ctx context.Context) (id uuid.UUID, err error) {
+	if u.create.driver.Dialect() == dialect.MySql {
+		// In case of "ON CONFLICT", there is no way to get back non-numeric Id
+		// fields from the database since MySql does not support the RETURNING clause.
+		return id, errors.New("ent: BlobUpsertOne.Id is not supported by MySql driver. Use BlobUpsertOne.Exec instead")
 	}
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *BlobUpsertOne) IDX(ctx context.Context) uuid.UUID {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *BlobUpsertOne) IdX(ctx context.Context) uuid.UUID {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -490,7 +490,7 @@ func (_c *BlobCreateBulk) Save(ctx context.Context) ([]*Blob, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
+				mutation.id = &nodes[i].Id
 				mutation.done = true
 				return nodes[i], nil
 			})
@@ -542,7 +542,7 @@ func (_c *BlobCreateBulk) ExecX(ctx context.Context) {
 //		// Override some of the fields with custom
 //		// update values.
 //		Update(func(u *ent.BlobUpsert) {
-//			SetUUID(v+v).
+//			SetUuid(v+v).
 //		}).
 //		Exec(ctx)
 func (_c *BlobCreateBulk) OnConflict(opts ...sql.ConflictOption) *BlobUpsertBulk {
@@ -578,7 +578,7 @@ type BlobUpsertBulk struct {
 //		OnConflict(
 //			sql.ResolveWithNewValues(),
 //			sql.ResolveWith(func(u *sql.UpdateSet) {
-//				u.SetIgnore(blob.FieldID)
+//				u.SetIgnore(blob.FieldId)
 //			}),
 //		).
 //		Exec(ctx)
@@ -586,8 +586,8 @@ func (u *BlobUpsertBulk) UpdateNewValues() *BlobUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		for _, b := range u.create.builders {
-			if _, exists := b.mutation.ID(); exists {
-				s.SetIgnore(blob.FieldID)
+			if _, exists := b.mutation.Id(); exists {
+				s.SetIgnore(blob.FieldId)
 			}
 		}
 	}))
@@ -606,7 +606,7 @@ func (u *BlobUpsertBulk) Ignore() *BlobUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobUpsertBulk) DoNothing() *BlobUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -621,17 +621,17 @@ func (u *BlobUpsertBulk) Update(set func(*BlobUpsert)) *BlobUpsertBulk {
 	return u
 }
 
-// SetUUID sets the "uuid" field.
-func (u *BlobUpsertBulk) SetUUID(v uuid.UUID) *BlobUpsertBulk {
+// SetUuid sets the "uuid" field.
+func (u *BlobUpsertBulk) SetUuid(v uuid.UUID) *BlobUpsertBulk {
 	return u.Update(func(s *BlobUpsert) {
-		s.SetUUID(v)
+		s.SetUuid(v)
 	})
 }
 
-// UpdateUUID sets the "uuid" field to the value that was provided on create.
-func (u *BlobUpsertBulk) UpdateUUID() *BlobUpsertBulk {
+// UpdateUuid sets the "uuid" field to the value that was provided on create.
+func (u *BlobUpsertBulk) UpdateUuid() *BlobUpsertBulk {
 	return u.Update(func(s *BlobUpsert) {
-		s.UpdateUUID()
+		s.UpdateUuid()
 	})
 }
 

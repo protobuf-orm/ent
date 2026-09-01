@@ -101,7 +101,7 @@ func TestMutationClient(t *testing.T) {
 	defer client.Close()
 	client.Card.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {
-			id, _ := m.OwnerID()
+			id, _ := m.OwnerId()
 			usr := m.Client().User.GetX(ctx, id)
 			m.SetName(usr.Name)
 			return next.Mutate(ctx, m)
@@ -121,13 +121,13 @@ func TestMutatorClient(t *testing.T) {
 			func(next ent.Mutator) ent.Mutator {
 				return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {
 					op := ent.OpUpdate
-					if _, exists := m.ID(); exists && m.Op().Is(ent.OpDeleteOne) {
+					if _, exists := m.Id(); exists && m.Op().Is(ent.OpDeleteOne) {
 						op = ent.OpUpdateOne
 					}
 					// Ensure card was not expired before.
 					m.Where(card.ExpiredAtIsNil())
 					// Count the number of affected records.
-					ids, err := m.IDs(ctx)
+					ids, err := m.Ids(ctx)
 					if err != nil {
 						return nil, err
 					}
@@ -198,11 +198,11 @@ func TestDeletion(t *testing.T) {
 			if !m.Op().Is(ent.OpDeleteOne) {
 				return next.Mutate(ctx, m)
 			}
-			id, ok := m.ID()
+			id, ok := m.Id()
 			if !ok {
 				return nil, fmt.Errorf("missing id")
 			}
-			m.Client().Card.Delete().Where(card.HasOwnerWith(user.ID(id))).ExecX(ctx)
+			m.Client().Card.Delete().Where(card.HasOwnerWith(user.Id(id))).ExecX(ctx)
 			return next.Mutate(ctx, m)
 		})
 	})
@@ -215,7 +215,7 @@ func TestDeletion(t *testing.T) {
 	require.Zero(t, client.Card.Query().CountX(ctx))
 }
 
-func TestMutationIDs(t *testing.T) {
+func TestMutationIds(t *testing.T) {
 	ctx := context.Background()
 	client := enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1")
 	defer client.Close()
@@ -225,7 +225,7 @@ func TestMutationIDs(t *testing.T) {
 			func(next ent.Mutator) ent.Mutator {
 				return hook.UserFunc(func(ctx context.Context, m *ent.UserMutation) (ent.Value, error) {
 					count[m.Op()]++
-					ids, err := m.IDs(ctx)
+					ids, err := m.Ids(ctx)
 					require.NoError(t, err)
 					require.Len(t, ids, 1)
 					require.Equal(t, count[m.Op()], ids[0])
@@ -252,17 +252,17 @@ func TestPostCreation(t *testing.T) {
 	defer client.Close()
 	client.Card.Use(hook.On(func(next ent.Mutator) ent.Mutator {
 		return hook.CardFunc(func(ctx context.Context, m *ent.CardMutation) (ent.Value, error) {
-			id, exists := m.ID()
+			id, exists := m.Id()
 			require.False(t, exists, "id should not exist pre mutation")
 			require.Zero(t, id)
 			value, err := next.Mutate(ctx, m)
 			if err != nil {
 				return nil, err
 			}
-			id, exists = m.ID()
+			id, exists = m.Id()
 			require.True(t, exists, "id should exist post mutation")
 			require.NotZero(t, id)
-			require.True(t, id == value.(*ent.Card).ID)
+			require.True(t, id == value.(*ent.Card).Id)
 			return value, nil
 		})
 	}, ent.OpCreate))
@@ -315,11 +315,11 @@ func TestUpdateAfterUpdateOne(t *testing.T) {
 			// After the user was created, return its updated version (a new object).  Don't use UpdateOne because it
 			// will cause recursive calls to this hook.
 			m.Client().User.Update().
-				Where(user.IDEQ(u.ID)).
+				Where(user.IdEQ(u.Id)).
 				SetVersion(3).
 				SaveX(ctx)
 
-			return m.Client().User.Get(ctx, u.ID)
+			return m.Client().User.Get(ctx, u.Id)
 		})
 	}, ent.OpUpdateOne))
 
@@ -345,7 +345,7 @@ func TestOldValues(t *testing.T) {
 		})
 	}, ent.OpUpdateOne))
 	crd := client.Card.Create().SetNumber("1234").SetName("a8m").SaveX(ctx)
-	client.Card.UpdateOneID(crd.ID).SetName("a8m").SaveX(ctx)
+	client.Card.UpdateOneId(crd.Id).SetName("a8m").SaveX(ctx)
 
 	// A typed hook.
 	client.User.Use(hook.On(func(next ent.Mutator) ent.Mutator {
@@ -449,7 +449,7 @@ func TestConditions(t *testing.T) {
 	client.Card.DeleteOne(crd).ExecX(ctx)
 
 	alexsn := client.User.Create().SetName("alexsn").SaveX(ctx)
-	client.User.Update().Where(user.ID(alexsn.ID)).AddWorth(100).SaveX(ctx)
+	client.User.Update().Where(user.Id(alexsn.Id)).AddWorth(100).SaveX(ctx)
 	client.User.DeleteOne(alexsn).ExecX(ctx)
 }
 
@@ -465,7 +465,7 @@ func TestRuntimeTx(t *testing.T) {
 			tx.OnCommit(func(next ent.Committer) ent.Committer {
 				return ent.CommitFunc(func(ctx context.Context, tx *ent.Tx) error {
 					// Ensure the transaction can see the created card.
-					tx.Card.GetX(ctx, v.(*ent.Card).ID)
+					tx.Card.GetX(ctx, v.(*ent.Card).Id)
 					// Cause the transaction to fail.
 					require.NoError(t, tx.Rollback())
 					return fmt.Errorf("fail")
@@ -532,7 +532,7 @@ func TestInterceptor_Sanity(t *testing.T) {
 		client.User.Query().CountX(ctx)
 		require.Equal(t, 2, calls)
 	})
-	t.Run("IDs", func(t *testing.T) {
+	t.Run("Ids", func(t *testing.T) {
 		var (
 			calls  int
 			client = enttest.Open(t, dialect.SQLite, "file:ent?mode=memory&_fk=1")
@@ -548,21 +548,21 @@ func TestInterceptor_Sanity(t *testing.T) {
 					calls++
 					ids, err := next.Query(ctx, query)
 					require.NoError(t, err)
-					// IDs() uses Select() under the hood, therefore,
+					// Ids() uses Select() under the hood, therefore,
 					// scanned values are returned as values and not pointers.
 					require.IsType(t, ([]int)(nil), ids)
-					require.Equal(t, []int{users[0].ID}, ids)
+					require.Equal(t, []int{users[0].Id}, ids)
 					// Values can be changed and affect the return value.
 					return append(ids.([]int), 10, 20), nil
 				})
 			}),
 			intercept.TraverseFunc(func(ctx context.Context, query intercept.Query) error {
 				calls++
-				query.WhereP(user.ID(users[0].ID))
+				query.WhereP(user.Id(users[0].Id))
 				return nil
 			}),
 		)
-		require.Equal(t, []int{users[0].ID, 10, 20}, client.User.Query().IDsX(ctx))
+		require.Equal(t, []int{users[0].Id, 10, 20}, client.User.Query().IdsX(ctx))
 		require.Equal(t, 2, calls)
 	})
 	t.Run("GroupBy", func(t *testing.T) {
@@ -640,13 +640,13 @@ func TestSoftDelete(t *testing.T) {
 		// Set delete_time manually.
 		client.Pet.Create().SetName("c").SetOwner(a8m).SetDeleteTime(time.Now()),
 	).SaveX(ctx)
-	require.Equal(t, []int{pets[0].ID, pets[1].ID}, client.Pet.Query().Order(ent.Asc(pet.FieldID)).IDsX(ctx))
+	require.Equal(t, []int{pets[0].Id, pets[1].Id}, client.Pet.Query().Order(ent.Asc(pet.FieldId)).IdsX(ctx))
 
-	// DeleteOne using the API.
+	// DeleteOne using the Api.
 	client.Pet.DeleteOne(pets[1]).ExecX(ctx)
-	require.Equal(t, pets[0].ID, client.Pet.Query().OnlyIDX(ctx))
+	require.Equal(t, pets[0].Id, client.Pet.Query().OnlyIdX(ctx))
 
-	// Delete using the API.
+	// Delete using the Api.
 	n := client.Pet.Delete().ExecX(ctx)
 	require.Equal(t, 1, n)
 	require.False(t, client.Pet.Query().ExistX(ctx))

@@ -44,37 +44,37 @@ func (_c *UserCreate) SetNillableRef(v *uuid.UUID) *UserCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *UserCreate) SetID(v uuid.UUID) *UserCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *UserCreate) SetId(v uuid.UUID) *UserCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// SetNillableID sets the "id" field if the given value is not nil.
-func (_c *UserCreate) SetNillableID(v *uuid.UUID) *UserCreate {
+// SetNillableId sets the "id" field if the given value is not nil.
+func (_c *UserCreate) SetNillableId(v *uuid.UUID) *UserCreate {
 	if v != nil {
-		_c.SetID(*v)
+		_c.SetId(*v)
 	}
 	return _c
 }
 
-// SetSpouseID sets the "spouse" edge to the User entity by ID.
-func (_c *UserCreate) SetSpouseID(id uuid.UUID) *UserCreate {
-	_c.mutation.SetSpouseID(id)
+// SetSpouseId sets the "spouse" edge to the User entity by Id.
+func (_c *UserCreate) SetSpouseId(id uuid.UUID) *UserCreate {
+	_c.mutation.SetSpouseId(id)
 	return _c
 }
 
-// SetNillableSpouseID sets the "spouse" edge to the User entity by ID if the given value is not nil.
-func (_c *UserCreate) SetNillableSpouseID(id *uuid.UUID) *UserCreate {
+// SetNillableSpouseId sets the "spouse" edge to the User entity by Id if the given value is not nil.
+func (_c *UserCreate) SetNillableSpouseId(id *uuid.UUID) *UserCreate {
 	if id != nil {
-		_c = _c.SetSpouseID(*id)
+		_c = _c.SetSpouseId(*id)
 	}
 	return _c
 }
 
 // SetSpouse sets the "spouse" edge to the User entity.
 func (_c *UserCreate) SetSpouse(v *User) *UserCreate {
-	return _c.SetSpouseID(v.ID)
+	return _c.SetSpouseId(v.Id)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -112,9 +112,9 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() {
-	if _, ok := _c.mutation.ID(); !ok {
-		v := user.DefaultID()
-		_c.mutation.SetID(v)
+	if _, ok := _c.mutation.Id(); !ok {
+		v := user.DefaultId()
+		_c.mutation.SetId(v)
 	}
 }
 
@@ -140,21 +140,21 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != nil {
-		sv, ok := _spec.ID.Value.(field.ValueScanner)
+	if _spec.Id.Value != nil {
+		sv, ok := _spec.Id.Value.(field.ValueScanner)
 		if !ok {
-			sv = user.ValueScanner.ID.ScanValue()
-			if err := sv.Scan(_spec.ID.Value); err != nil {
+			sv = user.ValueScanner.Id.ScanValue()
+			if err := sv.Scan(_spec.Id.Value); err != nil {
 				return nil, err
 			}
 		}
-		if value, err := user.ValueScanner.ID.FromValue(sv); err != nil {
+		if value, err := user.ValueScanner.Id.FromValue(sv); err != nil {
 			return nil, err
 		} else {
-			_node.ID = value
+			_node.Id = value
 		}
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -162,15 +162,15 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &User{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID))
+		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		vv, err := user.ValueScanner.ID.Value(id)
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		vv, err := user.ValueScanner.Id.Value(id)
 		if err != nil {
 			return nil, nil, err
 		}
-		_spec.ID.Value = vv
+		_spec.Id.Value = vv
 	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
@@ -181,10 +181,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec, error) {
 		if err != nil {
 			return nil, nil, err
 		}
-		_spec.SetField(user.FieldRef, field.TypeUUID, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
 		_node.Ref = value
 	}
-	if nodes := _c.mutation.SpouseIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SpouseIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -192,11 +192,11 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec, error) {
 			Columns: []string{user.SpouseColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid),
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.ID.Value(k)
+			vv, err := user.ValueScanner.Id.Value(k)
 			if err != nil {
 				return nil, nil, err
 			}
@@ -255,19 +255,19 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					sv, ok := specs[i].ID.Value.(field.ValueScanner)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					sv, ok := specs[i].Id.Value.(field.ValueScanner)
 					if !ok {
-						sv = user.ValueScanner.ID.ScanValue()
-						if err := sv.Scan(specs[i].ID.Value); err != nil {
+						sv = user.ValueScanner.Id.ScanValue()
+						if err := sv.Scan(specs[i].Id.Value); err != nil {
 							return nil, err
 						}
 					}
-					if id, err := user.ValueScanner.ID.FromValue(sv); err != nil {
+					if id, err := user.ValueScanner.Id.FromValue(sv); err != nil {
 						return nil, err
 					} else {
-						nodes[i].ID = id
+						nodes[i].Id = id
 					}
 				}
 				mutation.done = true

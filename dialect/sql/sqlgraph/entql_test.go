@@ -36,7 +36,7 @@ func TestGraph_EvalP(t *testing.T) {
 				Type: "user",
 				NodeSpec: NodeSpec{
 					Table: "users",
-					ID:    &FieldSpec{Column: "uid"},
+					Id:    &FieldSpec{Column: "uid"},
 				},
 				Fields: map[string]*FieldSpec{
 					"name": {Column: "name", Type: field.TypeString},
@@ -47,7 +47,7 @@ func TestGraph_EvalP(t *testing.T) {
 				Type: "pet",
 				NodeSpec: NodeSpec{
 					Table: "pets",
-					ID:    &FieldSpec{Column: "pid"},
+					Id:    &FieldSpec{Column: "pid"},
 				},
 				Fields: map[string]*FieldSpec{
 					"name": {Column: "name", Type: field.TypeString},
@@ -57,7 +57,7 @@ func TestGraph_EvalP(t *testing.T) {
 				Type: "group",
 				NodeSpec: NodeSpec{
 					Table: "groups",
-					ID:    &FieldSpec{Column: "gid"},
+					Id:    &FieldSpec{Column: "gid"},
 				},
 				Fields: map[string]*FieldSpec{
 					"name": {Column: "name", Type: field.TypeString},

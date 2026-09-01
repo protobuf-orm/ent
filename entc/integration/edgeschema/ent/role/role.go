@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the role type in the database.
 	Label = "role"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -42,9 +42,9 @@ const (
 	RolesUsersColumn = "role_id"
 )
 
-// Columns holds all SQL columns for role fields.
+// Columns holds all Sql columns for role fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 	FieldCreatedAt,
 }
@@ -73,9 +73,9 @@ var (
 // OrderOption defines the ordering options for the Role queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
@@ -117,14 +117,14 @@ func ByRolesUsers(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(UserInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(UserInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, UserTable, UserPrimaryKey...),
 	)
 }
 func newRolesUsersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
 		sqlgraph.To(RolesUsersInverseTable, RolesUsersColumn),
 		sqlgraph.Edge(sqlgraph.O2M, true, RolesUsersTable, RolesUsersColumn),
 	)

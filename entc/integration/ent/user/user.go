@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldOptionalInt holds the string denoting the optional_int field in the database.
 	FieldOptionalInt = "optional_int"
 	// FieldAge holds the string denoting the age field in the database.
@@ -38,8 +38,8 @@ const (
 	FieldRole = "role"
 	// FieldEmployment holds the string denoting the employment field in the database.
 	FieldEmployment = "employment"
-	// FieldSSOCert holds the string denoting the ssocert field in the database.
-	FieldSSOCert = "sso_cert"
+	// FieldSsoCert holds the string denoting the ssocert field in the database.
+	FieldSsoCert = "sso_cert"
 	// FieldFilesCount holds the string denoting the files_count field in the database.
 	FieldFilesCount = "files_count"
 	// EdgeCard holds the string denoting the card edge name in mutations.
@@ -119,9 +119,9 @@ const (
 	ParentColumn = "user_parent"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldOptionalInt,
 	FieldAge,
 	FieldName,
@@ -132,11 +132,11 @@ var Columns = []string{
 	FieldPassword,
 	FieldRole,
 	FieldEmployment,
-	FieldSSOCert,
+	FieldSsoCert,
 	FieldFilesCount,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"group_blocked",
@@ -241,9 +241,9 @@ func EmploymentValidator(e Employment) error {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByOptionalInt orders the results by the optional_int field.
@@ -296,9 +296,9 @@ func ByEmployment(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldEmployment, opts...).ToFunc()
 }
 
-// BySSOCert orders the results by the SSOCert field.
-func BySSOCert(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldSSOCert, opts...).ToFunc()
+// BySsoCert orders the results by the SsoCert field.
+func BySsoCert(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSsoCert, opts...).ToFunc()
 }
 
 // ByFilesCountField orders the results by the files_count field.
@@ -433,78 +433,78 @@ func ByParentField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newCardStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CardInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(CardInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, CardTable, CardColumn),
 	)
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 	)
 }
 func newFilesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(FilesInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(FilesInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, FilesTable, FilesColumn),
 	)
 }
 func newGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, GroupsTable, GroupsPrimaryKey...),
 	)
 }
 func newFriendsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 	)
 }
 func newFollowersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, FollowersTable, FollowersPrimaryKey...),
 	)
 }
 func newFollowingStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, FollowingTable, FollowingPrimaryKey...),
 	)
 }
 func newTeamStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TeamInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TeamInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, TeamTable, TeamColumn),
 	)
 }
 func newSpouseStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, SpouseTable, SpouseColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, ChildrenTable, ChildrenColumn),
 	)
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, ParentTable, ParentColumn),
 	)
 }

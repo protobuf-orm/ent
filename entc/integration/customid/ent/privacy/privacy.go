@@ -283,28 +283,28 @@ func (f GroupMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation)
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.GroupMutation", m)
 }
 
-// The IntSIDQueryRuleFunc type is an adapter to allow the use of ordinary
+// The IntSIdQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
-type IntSIDQueryRuleFunc func(context.Context, *ent.IntSIDQuery) error
+type IntSIdQueryRuleFunc func(context.Context, *ent.IntSIdQuery) error
 
 // EvalQuery return f(ctx, q).
-func (f IntSIDQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.IntSIDQuery); ok {
+func (f IntSIdQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.IntSIdQuery); ok {
 		return f(ctx, q)
 	}
-	return Denyf("ent/privacy: unexpected query type %T, expect *ent.IntSIDQuery", q)
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.IntSIdQuery", q)
 }
 
-// The IntSIDMutationRuleFunc type is an adapter to allow the use of ordinary
+// The IntSIdMutationRuleFunc type is an adapter to allow the use of ordinary
 // functions as a mutation rule.
-type IntSIDMutationRuleFunc func(context.Context, *ent.IntSIDMutation) error
+type IntSIdMutationRuleFunc func(context.Context, *ent.IntSIdMutation) error
 
 // EvalMutation calls f(ctx, m).
-func (f IntSIDMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
-	if m, ok := m.(*ent.IntSIDMutation); ok {
+func (f IntSIdMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.IntSIdMutation); ok {
 		return f(ctx, m)
 	}
-	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.IntSIDMutation", m)
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.IntSIdMutation", m)
 }
 
 // The LinkQueryRuleFunc type is an adapter to allow the use of ordinary
@@ -331,28 +331,28 @@ func (f LinkMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) 
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.LinkMutation", m)
 }
 
-// The MixinIDQueryRuleFunc type is an adapter to allow the use of ordinary
+// The MixinIdQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
-type MixinIDQueryRuleFunc func(context.Context, *ent.MixinIDQuery) error
+type MixinIdQueryRuleFunc func(context.Context, *ent.MixinIdQuery) error
 
 // EvalQuery return f(ctx, q).
-func (f MixinIDQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.MixinIDQuery); ok {
+func (f MixinIdQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.MixinIdQuery); ok {
 		return f(ctx, q)
 	}
-	return Denyf("ent/privacy: unexpected query type %T, expect *ent.MixinIDQuery", q)
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.MixinIdQuery", q)
 }
 
-// The MixinIDMutationRuleFunc type is an adapter to allow the use of ordinary
+// The MixinIdMutationRuleFunc type is an adapter to allow the use of ordinary
 // functions as a mutation rule.
-type MixinIDMutationRuleFunc func(context.Context, *ent.MixinIDMutation) error
+type MixinIdMutationRuleFunc func(context.Context, *ent.MixinIdMutation) error
 
 // EvalMutation calls f(ctx, m).
-func (f MixinIDMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
-	if m, ok := m.(*ent.MixinIDMutation); ok {
+func (f MixinIdMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.MixinIdMutation); ok {
 		return f(ctx, m)
 	}
-	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.MixinIDMutation", m)
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.MixinIdMutation", m)
 }
 
 // The NoteQueryRuleFunc type is an adapter to allow the use of ordinary
@@ -596,11 +596,11 @@ func queryFilter(q ent.Query) (Filter, error) {
 		return q.Filter(), nil
 	case *ent.GroupQuery:
 		return q.Filter(), nil
-	case *ent.IntSIDQuery:
+	case *ent.IntSIdQuery:
 		return q.Filter(), nil
 	case *ent.LinkQuery:
 		return q.Filter(), nil
-	case *ent.MixinIDQuery:
+	case *ent.MixinIdQuery:
 		return q.Filter(), nil
 	case *ent.NoteQuery:
 		return q.Filter(), nil
@@ -639,11 +639,11 @@ func mutationFilter(m ent.Mutation) (Filter, error) {
 		return m.Filter(), nil
 	case *ent.GroupMutation:
 		return m.Filter(), nil
-	case *ent.IntSIDMutation:
+	case *ent.IntSIdMutation:
 		return m.Filter(), nil
 	case *ent.LinkMutation:
 		return m.Filter(), nil
-	case *ent.MixinIDMutation:
+	case *ent.MixinIdMutation:
 		return m.Filter(), nil
 	case *ent.NoteMutation:
 		return m.Filter(), nil

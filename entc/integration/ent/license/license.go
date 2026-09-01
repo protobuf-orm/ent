@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the license type in the database.
 	Label = "license"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldCreateTime holds the string denoting the create_time field in the database.
 	FieldCreateTime = "create_time"
 	// FieldUpdateTime holds the string denoting the update_time field in the database.
@@ -25,9 +25,9 @@ const (
 	Table = "license"
 )
 
-// Columns holds all SQL columns for license fields.
+// Columns holds all Sql columns for license fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldCreateTime,
 	FieldUpdateTime,
 }
@@ -54,9 +54,9 @@ var (
 // OrderOption defines the ordering options for the License queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByCreateTime orders the results by the create_time field.

@@ -14,10 +14,10 @@ import (
 var (
 	// UserColumns holds the columns for the "user" table.
 	UserColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "name", Type: field.TypeString},
-		{Name: "ref", Type: field.TypeUUID, Nullable: true},
-		{Name: "user_spouse", Type: field.TypeUUID, Unique: true, Nullable: true},
+		{Name: "ref", Type: field.TypeUuid, Nullable: true},
+		{Name: "user_spouse", Type: field.TypeUuid, Unique: true, Nullable: true},
 	}
 	// UserTable holds the schema information for the "user" table.
 	UserTable = &schema.Table{

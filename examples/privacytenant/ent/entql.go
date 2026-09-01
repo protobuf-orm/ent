@@ -25,14 +25,14 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   group.Table,
 			Columns: group.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: group.FieldID,
+				Column: group.FieldId,
 			},
 		},
 		Type: "Group",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			group.FieldTenantID: {Type: field.TypeInt, Column: group.FieldTenantID},
+			group.FieldTenantId: {Type: field.TypeInt, Column: group.FieldTenantId},
 			group.FieldName:     {Type: field.TypeString, Column: group.FieldName},
 		},
 	}
@@ -40,9 +40,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   tenant.Table,
 			Columns: tenant.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: tenant.FieldID,
+				Column: tenant.FieldId,
 			},
 		},
 		Type: "Tenant",
@@ -54,16 +54,16 @@ var schemaGraph = func() *sqlgraph.Schema {
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   user.Table,
 			Columns: user.Columns,
-			ID: &sqlgraph.FieldSpec{
+			Id: &sqlgraph.FieldSpec{
 				Type:   field.TypeInt,
-				Column: user.FieldID,
+				Column: user.FieldId,
 			},
 		},
 		Type: "User",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			user.FieldTenantID: {Type: field.TypeInt, Column: user.FieldTenantID},
+			user.FieldTenantId: {Type: field.TypeInt, Column: user.FieldTenantId},
 			user.FieldName:     {Type: field.TypeString, Column: user.FieldName},
-			user.FieldFoods:    {Type: field.TypeJSON, Column: user.FieldFoods},
+			user.FieldFoods:    {Type: field.TypeJson, Column: user.FieldFoods},
 		},
 	}
 	graph.MustAddE(
@@ -158,14 +158,14 @@ func (f *GroupFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *GroupFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(group.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *GroupFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(group.FieldId))
 }
 
-// WhereTenantID applies the entql int predicate on the tenant_id field.
-func (f *GroupFilter) WhereTenantID(p entql.IntP) {
-	f.Where(p.Field(group.FieldTenantID))
+// WhereTenantId applies the entql int predicate on the tenant_id field.
+func (f *GroupFilter) WhereTenantId(p entql.IntP) {
+	f.Where(p.Field(group.FieldTenantId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -236,9 +236,9 @@ func (f *TenantFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *TenantFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(tenant.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *TenantFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(tenant.FieldId))
 }
 
 // WhereName applies the entql string predicate on the name field.
@@ -281,14 +281,14 @@ func (f *UserFilter) Where(p entql.P) {
 	})
 }
 
-// WhereID applies the entql int predicate on the id field.
-func (f *UserFilter) WhereID(p entql.IntP) {
-	f.Where(p.Field(user.FieldID))
+// WhereId applies the entql int predicate on the id field.
+func (f *UserFilter) WhereId(p entql.IntP) {
+	f.Where(p.Field(user.FieldId))
 }
 
-// WhereTenantID applies the entql int predicate on the tenant_id field.
-func (f *UserFilter) WhereTenantID(p entql.IntP) {
-	f.Where(p.Field(user.FieldTenantID))
+// WhereTenantId applies the entql int predicate on the tenant_id field.
+func (f *UserFilter) WhereTenantId(p entql.IntP) {
+	f.Where(p.Field(user.FieldTenantId))
 }
 
 // WhereName applies the entql string predicate on the name field.

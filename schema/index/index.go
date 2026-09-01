@@ -89,7 +89,7 @@ func (b *Builder) Unique() *Builder {
 	return b
 }
 
-// StorageKey sets the storage key of the index. In SQL dialects, it's the index name.
+// StorageKey sets the storage key of the index. In Sql dialects, it's the index name.
 func (b *Builder) StorageKey(key string) *Builder {
 	b.desc.StorageKey = key
 	return b

@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the tag type in the database.
 	Label = "tag"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
 	// EdgeTweets holds the string denoting the tweets edge name in mutations.
@@ -54,9 +54,9 @@ const (
 	GroupTagsColumn = "tag_id"
 )
 
-// Columns holds all SQL columns for tag fields.
+// Columns holds all Sql columns for tag fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldValue,
 }
 
@@ -82,9 +82,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Tag queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByValue orders the results by the value field.
@@ -149,29 +149,29 @@ func ByGroupTags(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newTweetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, TweetsTable, TweetsPrimaryKey...),
 	)
 }
 func newGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2M, false, GroupsTable, GroupsPrimaryKey...),
 	)
 }
 func newTweetTagsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(TweetTagsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(TweetTagsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, TweetTagsTable, TweetTagsColumn),
 	)
 }
 func newGroupTagsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupTagsInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupTagsInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, true, GroupTagsTable, GroupTagsColumn),
 	)
 }

@@ -20,8 +20,8 @@ import (
 // ExValueScan is the model entity for the ExValueScan schema.
 type ExValueScan struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// Binary holds the value of the "binary" field.
 	Binary *url.URL `json:"binary,omitempty"`
 	// BinaryBytes holds the value of the "binary_bytes" field.
@@ -46,7 +46,7 @@ func (*ExValueScan) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case exvaluescan.FieldID:
+		case exvaluescan.FieldId:
 			values[i] = new(sql.NullInt64)
 		case exvaluescan.FieldBinary:
 			values[i] = exvaluescan.ValueScanner.Binary.ScanValue()
@@ -79,12 +79,12 @@ func (_m *ExValueScan) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case exvaluescan.FieldID:
+		case exvaluescan.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case exvaluescan.FieldBinary:
 			if value, err := exvaluescan.ValueScanner.Binary.FromValue(values[i]); err != nil {
 				return err
@@ -168,7 +168,7 @@ func (_m *ExValueScan) Unwrap() *ExValueScan {
 func (_m *ExValueScan) String() string {
 	var builder strings.Builder
 	builder.WriteString("ExValueScan(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("binary=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Binary))
 	builder.WriteString(", ")

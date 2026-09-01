@@ -18,8 +18,8 @@ import (
 // Goods is the model entity for the Goods schema.
 type Goods struct {
 	config
-	// ID of the ent.
-	ID           int `json:"id,omitempty"`
+	// Id of the ent.
+	Id           int `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +28,7 @@ func (*Goods) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case goods.FieldID:
+		case goods.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,12 +45,12 @@ func (_m *Goods) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case goods.FieldID:
+		case goods.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -86,7 +86,7 @@ func (_m *Goods) Unwrap() *Goods {
 func (_m *Goods) String() string {
 	var builder strings.Builder
 	builder.WriteString("Goods(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

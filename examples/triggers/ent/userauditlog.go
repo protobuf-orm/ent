@@ -14,8 +14,8 @@ import (
 // UserAuditLog is the model entity for the UserAuditLog schema.
 type UserAuditLog struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	// Id of the ent.
+	Id int `json:"id,omitempty"`
 	// OperationType holds the value of the "operation_type" field.
 	OperationType string `json:"operation_type,omitempty"`
 	// OperationTime holds the value of the "operation_time" field.
@@ -32,7 +32,7 @@ func (*UserAuditLog) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case userauditlog.FieldID:
+		case userauditlog.FieldId:
 			values[i] = new(sql.NullInt64)
 		case userauditlog.FieldOperationType, userauditlog.FieldOperationTime, userauditlog.FieldOldValue, userauditlog.FieldNewValue:
 			values[i] = new(sql.NullString)
@@ -51,12 +51,12 @@ func (_m *UserAuditLog) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case userauditlog.FieldID:
+		case userauditlog.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		case userauditlog.FieldOperationType:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field operation_type", values[i])
@@ -116,7 +116,7 @@ func (_m *UserAuditLog) Unwrap() *UserAuditLog {
 func (_m *UserAuditLog) String() string {
 	var builder strings.Builder
 	builder.WriteString("UserAuditLog(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("operation_type=")
 	builder.WriteString(_m.OperationType)
 	builder.WriteString(", ")

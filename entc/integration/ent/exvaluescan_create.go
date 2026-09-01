@@ -149,9 +149,9 @@ func (_c *ExValueScanCreate) sqlSave(ctx context.Context) (*ExValueScan, error) 
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -159,7 +159,7 @@ func (_c *ExValueScanCreate) sqlSave(ctx context.Context) (*ExValueScan, error) 
 func (_c *ExValueScanCreate) createSpec() (*ExValueScan, *sqlgraph.CreateSpec, error) {
 	var (
 		_node = &ExValueScan{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(exvaluescan.Table, sqlgraph.NewFieldSpec(exvaluescan.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(exvaluescan.Table, sqlgraph.NewFieldSpec(exvaluescan.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Binary(); ok {
@@ -417,7 +417,7 @@ func (u *ExValueScanUpsertOne) Ignore() *ExValueScanUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ExValueScanUpsertOne) DoNothing() *ExValueScanUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -580,18 +580,18 @@ func (u *ExValueScanUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *ExValueScanUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *ExValueScanUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *ExValueScanUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *ExValueScanUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -646,10 +646,10 @@ func (_c *ExValueScanCreateBulk) Save(ctx context.Context) ([]*ExValueScan, erro
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -756,7 +756,7 @@ func (u *ExValueScanUpsertBulk) Ignore() *ExValueScanUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ExValueScanUpsertBulk) DoNothing() *ExValueScanUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

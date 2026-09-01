@@ -22,8 +22,8 @@ import (
 // Session is the model entity for the Session schema.
 type Session struct {
 	config `json:"-"`
-	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	// Id of the ent.
+	Id uuid.UUID `json:"id,omitempty"`
 	// Active holds the value of the "active" field.
 	Active bool `json:"active,omitempty"`
 	// IssuedAt holds the value of the "issued_at" field.
@@ -34,8 +34,8 @@ type Session struct {
 	Token string `json:"token,omitempty"`
 	// Method holds the value of the "method" field.
 	Method map[string]interface{} `json:"method,omitempty"`
-	// DeviceID holds the value of the "device_id" field.
-	DeviceID uuid.UUID `json:"device_id,omitempty"`
+	// DeviceId holds the value of the "device_id" field.
+	DeviceId uuid.UUID `json:"device_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the SessionQuery when eager-loading is set.
 	Edges        SessionEdges `json:"edges"`
@@ -75,7 +75,7 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullString)
 		case session.FieldIssuedAt, session.FieldExpiresAt:
 			values[i] = new(sql.NullTime)
-		case session.FieldID, session.FieldDeviceID:
+		case session.FieldId, session.FieldDeviceId:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -92,11 +92,11 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case session.FieldID:
+		case session.FieldId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
-				_m.ID = *value
+				_m.Id = *value
 			}
 		case session.FieldActive:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -130,11 +130,11 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 					return fmt.Errorf("unmarshal field method: %w", err)
 				}
 			}
-		case session.FieldDeviceID:
+		case session.FieldDeviceId:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field device_id", values[i])
 			} else if value != nil {
-				_m.DeviceID = *value
+				_m.DeviceId = *value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -176,7 +176,7 @@ func (_m *Session) Unwrap() *Session {
 func (_m *Session) String() string {
 	var builder strings.Builder
 	builder.WriteString("Session(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.Id))
 	builder.WriteString("active=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Active))
 	builder.WriteString(", ")
@@ -193,7 +193,7 @@ func (_m *Session) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.Method))
 	builder.WriteString(", ")
 	builder.WriteString("device_id=")
-	builder.WriteString(fmt.Sprintf("%v", _m.DeviceID))
+	builder.WriteString(fmt.Sprintf("%v", _m.DeviceId))
 	builder.WriteByte(')')
 	return builder.String()
 }

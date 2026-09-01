@@ -14,11 +14,11 @@ in the LICENSE file in the root directory of this source tree.
 
 {{ template "import" $ }}
 
-{{ if .HasOneFieldID }}
-	// ID filters vertices based on their ID field.
-	func ID(id {{ $.ID.Type }}) predicate.{{ $.Name }} {
-		{{- if and $.ID.HasValueScanner (eq $.Storage.Name "sql") }}
-			vc, err := ValueScanner.{{ $.ID.StructField }}.Value(id)
+{{ if .HasOneFieldId }}
+	// Id filters vertices based on their Id field.
+	func Id(id {{ $.Id.Type }}) predicate.{{ $.Name }} {
+		{{- if and $.Id.HasValueScanner (eq $.Storage.Name "sql") }}
+			vc, err := ValueScanner.{{ $.Id.StructField }}.Value(id)
 			return predicate.{{ $.Name }}OrErr(
 				{{- with extend $ "Arg" "vc" -}}
 					{{- $tmpl := printf "dialect/%s/predicate/id" $.Storage }}
@@ -34,32 +34,32 @@ in the LICENSE file in the root directory of this source tree.
 		{{- end }}
 	}
 
-	{{ range $op := $.ID.Ops }}
+	{{ range $op := $.Id.Ops }}
 		{{ $arg := "id" }}{{ if $op.Variadic }}{{ $arg = "ids" }}{{ end }}
 		{{ $stringOp := eq $op.Name "EqualFold" "Contains" "ContainsFold" "HasPrefix" "HasSuffix" }}
-		{{ $func := printf "ID%s" $op.Name }}
-		// {{ $func }} applies the {{ $op.Name }} predicate on the ID field.
-		func {{ $func }}({{ $arg }} {{ if $op.Variadic }}...{{ end }}{{ $.ID.Type }}) predicate.{{ $.Name }} {
-			{{- if and (eq $.Storage.Name "sql") $.ID.HasValueScanner (or $op.Variadic (not $op.Niladic)) }}
+		{{ $func := printf "Id%s" $op.Name }}
+		// {{ $func }} applies the {{ $op.Name }} predicate on the Id field.
+		func {{ $func }}({{ $arg }} {{ if $op.Variadic }}...{{ end }}{{ $.Id.Type }}) predicate.{{ $.Name }} {
+			{{- if and (eq $.Storage.Name "sql") $.Id.HasValueScanner (or $op.Variadic (not $op.Niladic)) }}
 				{{- if $op.Variadic }}
 					var (
 						err error
 						vcs = make([]any, len({{ $arg }}))
 					)
 					for i := range vcs {
-						if vcs[i], err = ValueScanner.{{ $.ID.StructField }}.Value({{ print $arg "[i]" }}); err != nil {
+						if vcs[i], err = ValueScanner.{{ $.Id.StructField }}.Value({{ print $arg "[i]" }}); err != nil {
 							break
 						}
 					}
 					{{- $arg = "vcs" }}
 				{{- else }}
-					vc, err := ValueScanner.{{ $.ID.StructField }}.Value({{ $arg }})
+					vc, err := ValueScanner.{{ $.Id.StructField }}.Value({{ $arg }})
 					{{- $arg = "vc" }}
 					{{- if $stringOp }}
 						{{- $arg = "vcs" }}
 						vcs, ok := vc.(string)
 						if err == nil && !ok {
-							err = fmt.Errorf("{{ $.ID.Name }} value is not a string: %T", vc)
+							err = fmt.Errorf("{{ $.Id.Name }} value is not a string: %T", vc)
 						}
 					{{- end }}
 				{{- end }}
@@ -82,10 +82,10 @@ in the LICENSE file in the root directory of this source tree.
 
 {{ range $f := $.Fields }}
 	{{ $func := $f.StructField }}
-	{{/* JSON cannot be compared using "=" and Enum has a type defined with the field name */}}
-	{{ $hasP := not (or $f.IsJSON $f.IsEnum) }}
+	{{/* Json cannot be compared using "=" and Enum has a type defined with the field name */}}
+	{{ $hasP := not (or $f.IsJson $f.IsEnum) }}
 	{{ $comparable := or $f.ConvertedToBasic $f.Type.Valuer $f.HasValueScanner }}
-	{{ $undeclared := (and (ne $func "Label") (ne $func "OrderOption") (ne $func "Hooks") (ne $func "Policy") (ne $func "Table") (ne $func "FieldID")) }}
+	{{ $undeclared := (and (ne $func "Label") (ne $func "OrderOption") (ne $func "Hooks") (ne $func "Policy") (ne $func "Table") (ne $func "FieldId")) }}
 	{{- if and $hasP $comparable $undeclared }}
 		{{ $arg := "v" }}
 		// {{ $func }} applies equality check predicate on the {{ quote $f.Name }} field. It's identical to {{ $func }}EQ.

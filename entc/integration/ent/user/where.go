@@ -12,49 +12,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.User {
-	return predicate.User(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.User {
+	return predicate.User(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.User {
-	return predicate.User(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.User {
+	return predicate.User(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldId, id))
 }
 
 // OptionalInt applies equality check predicate on the "optional_int" field. It's identical to OptionalIntEQ.
@@ -97,9 +97,9 @@ func Password(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldPassword, v))
 }
 
-// SSOCert applies equality check predicate on the "SSOCert" field. It's identical to SSOCertEQ.
-func SSOCert(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldSSOCert, v))
+// SsoCert applies equality check predicate on the "SsoCert" field. It's identical to SsoCertEQ.
+func SsoCert(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldSsoCert, v))
 }
 
 // FilesCount applies equality check predicate on the "files_count" field. It's identical to FilesCountEQ.
@@ -667,79 +667,79 @@ func EmploymentNotIn(vs ...Employment) predicate.User {
 	return predicate.User(sql.FieldNotIn(FieldEmployment, vs...))
 }
 
-// SSOCertEQ applies the EQ predicate on the "SSOCert" field.
-func SSOCertEQ(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldSSOCert, v))
+// SsoCertEQ applies the EQ predicate on the "SsoCert" field.
+func SsoCertEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldSsoCert, v))
 }
 
-// SSOCertNEQ applies the NEQ predicate on the "SSOCert" field.
-func SSOCertNEQ(v string) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldSSOCert, v))
+// SsoCertNEQ applies the NEQ predicate on the "SsoCert" field.
+func SsoCertNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldSsoCert, v))
 }
 
-// SSOCertIn applies the In predicate on the "SSOCert" field.
-func SSOCertIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldIn(FieldSSOCert, vs...))
+// SsoCertIn applies the In predicate on the "SsoCert" field.
+func SsoCertIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldSsoCert, vs...))
 }
 
-// SSOCertNotIn applies the NotIn predicate on the "SSOCert" field.
-func SSOCertNotIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldSSOCert, vs...))
+// SsoCertNotIn applies the NotIn predicate on the "SsoCert" field.
+func SsoCertNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldSsoCert, vs...))
 }
 
-// SSOCertGT applies the GT predicate on the "SSOCert" field.
-func SSOCertGT(v string) predicate.User {
-	return predicate.User(sql.FieldGT(FieldSSOCert, v))
+// SsoCertGT applies the GT predicate on the "SsoCert" field.
+func SsoCertGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldSsoCert, v))
 }
 
-// SSOCertGTE applies the GTE predicate on the "SSOCert" field.
-func SSOCertGTE(v string) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldSSOCert, v))
+// SsoCertGTE applies the GTE predicate on the "SsoCert" field.
+func SsoCertGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldSsoCert, v))
 }
 
-// SSOCertLT applies the LT predicate on the "SSOCert" field.
-func SSOCertLT(v string) predicate.User {
-	return predicate.User(sql.FieldLT(FieldSSOCert, v))
+// SsoCertLT applies the LT predicate on the "SsoCert" field.
+func SsoCertLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldSsoCert, v))
 }
 
-// SSOCertLTE applies the LTE predicate on the "SSOCert" field.
-func SSOCertLTE(v string) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldSSOCert, v))
+// SsoCertLTE applies the LTE predicate on the "SsoCert" field.
+func SsoCertLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldSsoCert, v))
 }
 
-// SSOCertContains applies the Contains predicate on the "SSOCert" field.
-func SSOCertContains(v string) predicate.User {
-	return predicate.User(sql.FieldContains(FieldSSOCert, v))
+// SsoCertContains applies the Contains predicate on the "SsoCert" field.
+func SsoCertContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldSsoCert, v))
 }
 
-// SSOCertHasPrefix applies the HasPrefix predicate on the "SSOCert" field.
-func SSOCertHasPrefix(v string) predicate.User {
-	return predicate.User(sql.FieldHasPrefix(FieldSSOCert, v))
+// SsoCertHasPrefix applies the HasPrefix predicate on the "SsoCert" field.
+func SsoCertHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldSsoCert, v))
 }
 
-// SSOCertHasSuffix applies the HasSuffix predicate on the "SSOCert" field.
-func SSOCertHasSuffix(v string) predicate.User {
-	return predicate.User(sql.FieldHasSuffix(FieldSSOCert, v))
+// SsoCertHasSuffix applies the HasSuffix predicate on the "SsoCert" field.
+func SsoCertHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldSsoCert, v))
 }
 
-// SSOCertIsNil applies the IsNil predicate on the "SSOCert" field.
-func SSOCertIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldSSOCert))
+// SsoCertIsNil applies the IsNil predicate on the "SsoCert" field.
+func SsoCertIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldSsoCert))
 }
 
-// SSOCertNotNil applies the NotNil predicate on the "SSOCert" field.
-func SSOCertNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldSSOCert))
+// SsoCertNotNil applies the NotNil predicate on the "SsoCert" field.
+func SsoCertNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldSsoCert))
 }
 
-// SSOCertEqualFold applies the EqualFold predicate on the "SSOCert" field.
-func SSOCertEqualFold(v string) predicate.User {
-	return predicate.User(sql.FieldEqualFold(FieldSSOCert, v))
+// SsoCertEqualFold applies the EqualFold predicate on the "SsoCert" field.
+func SsoCertEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldSsoCert, v))
 }
 
-// SSOCertContainsFold applies the ContainsFold predicate on the "SSOCert" field.
-func SSOCertContainsFold(v string) predicate.User {
-	return predicate.User(sql.FieldContainsFold(FieldSSOCert, v))
+// SsoCertContainsFold applies the ContainsFold predicate on the "SsoCert" field.
+func SsoCertContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldSsoCert, v))
 }
 
 // FilesCountEQ applies the EQ predicate on the "files_count" field.
@@ -796,7 +796,7 @@ func FilesCountNotNil() predicate.User {
 func HasCard() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, CardTable, CardColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -819,7 +819,7 @@ func HasCardWith(preds ...predicate.Card) predicate.User {
 func HasPets() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -842,7 +842,7 @@ func HasPetsWith(preds ...predicate.Pet) predicate.User {
 func HasFiles() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, FilesTable, FilesColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -865,7 +865,7 @@ func HasFilesWith(preds ...predicate.File) predicate.User {
 func HasGroups() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, GroupsTable, GroupsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -888,7 +888,7 @@ func HasGroupsWith(preds ...predicate.Group) predicate.User {
 func HasFriends() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, FriendsTable, FriendsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -911,7 +911,7 @@ func HasFriendsWith(preds ...predicate.User) predicate.User {
 func HasFollowers() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, FollowersTable, FollowersPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -934,7 +934,7 @@ func HasFollowersWith(preds ...predicate.User) predicate.User {
 func HasFollowing() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, false, FollowingTable, FollowingPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -957,7 +957,7 @@ func HasFollowingWith(preds ...predicate.User) predicate.User {
 func HasTeam() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, TeamTable, TeamColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -980,7 +980,7 @@ func HasTeamWith(preds ...predicate.Pet) predicate.User {
 func HasSpouse() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2O, false, SpouseTable, SpouseColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -1003,7 +1003,7 @@ func HasSpouseWith(preds ...predicate.User) predicate.User {
 func HasChildren() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, ChildrenTable, ChildrenColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
@@ -1026,7 +1026,7 @@ func HasChildrenWith(preds ...predicate.User) predicate.User {
 func HasParent() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, false, ParentTable, ParentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

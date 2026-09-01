@@ -14,14 +14,14 @@ import (
 const (
 	// Label holds the string label denoting the blog type in the database.
 	Label = "blog"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldOid holds the string denoting the oid field in the database.
 	FieldOid = "oid"
 	// EdgeAdmins holds the string denoting the admins edge name in mutations.
 	EdgeAdmins = "admins"
-	// UserFieldID holds the string denoting the ID field of the User.
-	UserFieldID = "oid"
+	// UserFieldId holds the string denoting the Id field of the User.
+	UserFieldId = "oid"
 	// Table holds the table name of the blog in the database.
 	Table = "blog"
 	// AdminsTable is the table that holds the admins relation/edge.
@@ -33,9 +33,9 @@ const (
 	AdminsColumn = "blog_admins"
 )
 
-// Columns holds all SQL columns for blog fields.
+// Columns holds all Sql columns for blog fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldOid,
 }
 
@@ -52,9 +52,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Blog queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByOid orders the results by the oid field.
@@ -77,8 +77,8 @@ func ByAdmins(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newAdminsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(AdminsInverseTable, UserFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(AdminsInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, AdminsTable, AdminsColumn),
 	)
 }

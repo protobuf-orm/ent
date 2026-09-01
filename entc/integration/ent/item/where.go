@@ -11,59 +11,59 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id string) predicate.Item {
-	return predicate.Item(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id string) predicate.Item {
+	return predicate.Item(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id string) predicate.Item {
-	return predicate.Item(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id string) predicate.Item {
+	return predicate.Item(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id string) predicate.Item {
-	return predicate.Item(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id string) predicate.Item {
+	return predicate.Item(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...string) predicate.Item {
-	return predicate.Item(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...string) predicate.Item {
+	return predicate.Item(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...string) predicate.Item {
-	return predicate.Item(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...string) predicate.Item {
+	return predicate.Item(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id string) predicate.Item {
-	return predicate.Item(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id string) predicate.Item {
+	return predicate.Item(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id string) predicate.Item {
-	return predicate.Item(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id string) predicate.Item {
+	return predicate.Item(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id string) predicate.Item {
-	return predicate.Item(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id string) predicate.Item {
+	return predicate.Item(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id string) predicate.Item {
-	return predicate.Item(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id string) predicate.Item {
+	return predicate.Item(sql.FieldLTE(FieldId, id))
 }
 
-// IDEqualFold applies the EqualFold predicate on the ID field.
-func IDEqualFold(id string) predicate.Item {
-	return predicate.Item(sql.FieldEqualFold(FieldID, id))
+// IdEqualFold applies the EqualFold predicate on the Id field.
+func IdEqualFold(id string) predicate.Item {
+	return predicate.Item(sql.FieldEqualFold(FieldId, id))
 }
 
-// IDContainsFold applies the ContainsFold predicate on the ID field.
-func IDContainsFold(id string) predicate.Item {
-	return predicate.Item(sql.FieldContainsFold(FieldID, id))
+// IdContainsFold applies the ContainsFold predicate on the Id field.
+func IdContainsFold(id string) predicate.Item {
+	return predicate.Item(sql.FieldContainsFold(FieldId, id))
 }
 
 // Text applies equality check predicate on the "text" field. It's identical to TextEQ.

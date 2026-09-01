@@ -11,49 +11,49 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id int) predicate.Media {
-	return predicate.Media(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id int) predicate.Media {
+	return predicate.Media(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id int) predicate.Media {
-	return predicate.Media(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id int) predicate.Media {
+	return predicate.Media(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id int) predicate.Media {
-	return predicate.Media(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id int) predicate.Media {
+	return predicate.Media(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...int) predicate.Media {
-	return predicate.Media(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...int) predicate.Media {
+	return predicate.Media(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...int) predicate.Media {
-	return predicate.Media(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...int) predicate.Media {
+	return predicate.Media(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id int) predicate.Media {
-	return predicate.Media(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id int) predicate.Media {
+	return predicate.Media(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id int) predicate.Media {
-	return predicate.Media(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id int) predicate.Media {
+	return predicate.Media(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id int) predicate.Media {
-	return predicate.Media(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id int) predicate.Media {
+	return predicate.Media(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id int) predicate.Media {
-	return predicate.Media(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id int) predicate.Media {
+	return predicate.Media(sql.FieldLTE(FieldId, id))
 }
 
 // Source applies equality check predicate on the "source" field. It's identical to SourceEQ.
@@ -61,9 +61,9 @@ func Source(v string) predicate.Media {
 	return predicate.Media(sql.FieldEQ(FieldSource, v))
 }
 
-// SourceURI applies equality check predicate on the "source_uri" field. It's identical to SourceURIEQ.
-func SourceURI(v string) predicate.Media {
-	return predicate.Media(sql.FieldEQ(FieldSourceURI, v))
+// SourceUri applies equality check predicate on the "source_uri" field. It's identical to SourceUriEQ.
+func SourceUri(v string) predicate.Media {
+	return predicate.Media(sql.FieldEQ(FieldSourceUri, v))
 }
 
 // Text applies equality check predicate on the "text" field. It's identical to TextEQ.
@@ -146,79 +146,79 @@ func SourceContainsFold(v string) predicate.Media {
 	return predicate.Media(sql.FieldContainsFold(FieldSource, v))
 }
 
-// SourceURIEQ applies the EQ predicate on the "source_uri" field.
-func SourceURIEQ(v string) predicate.Media {
-	return predicate.Media(sql.FieldEQ(FieldSourceURI, v))
+// SourceUriEQ applies the EQ predicate on the "source_uri" field.
+func SourceUriEQ(v string) predicate.Media {
+	return predicate.Media(sql.FieldEQ(FieldSourceUri, v))
 }
 
-// SourceURINEQ applies the NEQ predicate on the "source_uri" field.
-func SourceURINEQ(v string) predicate.Media {
-	return predicate.Media(sql.FieldNEQ(FieldSourceURI, v))
+// SourceUriNEQ applies the NEQ predicate on the "source_uri" field.
+func SourceUriNEQ(v string) predicate.Media {
+	return predicate.Media(sql.FieldNEQ(FieldSourceUri, v))
 }
 
-// SourceURIIn applies the In predicate on the "source_uri" field.
-func SourceURIIn(vs ...string) predicate.Media {
-	return predicate.Media(sql.FieldIn(FieldSourceURI, vs...))
+// SourceUriIn applies the In predicate on the "source_uri" field.
+func SourceUriIn(vs ...string) predicate.Media {
+	return predicate.Media(sql.FieldIn(FieldSourceUri, vs...))
 }
 
-// SourceURINotIn applies the NotIn predicate on the "source_uri" field.
-func SourceURINotIn(vs ...string) predicate.Media {
-	return predicate.Media(sql.FieldNotIn(FieldSourceURI, vs...))
+// SourceUriNotIn applies the NotIn predicate on the "source_uri" field.
+func SourceUriNotIn(vs ...string) predicate.Media {
+	return predicate.Media(sql.FieldNotIn(FieldSourceUri, vs...))
 }
 
-// SourceURIGT applies the GT predicate on the "source_uri" field.
-func SourceURIGT(v string) predicate.Media {
-	return predicate.Media(sql.FieldGT(FieldSourceURI, v))
+// SourceUriGT applies the GT predicate on the "source_uri" field.
+func SourceUriGT(v string) predicate.Media {
+	return predicate.Media(sql.FieldGT(FieldSourceUri, v))
 }
 
-// SourceURIGTE applies the GTE predicate on the "source_uri" field.
-func SourceURIGTE(v string) predicate.Media {
-	return predicate.Media(sql.FieldGTE(FieldSourceURI, v))
+// SourceUriGTE applies the GTE predicate on the "source_uri" field.
+func SourceUriGTE(v string) predicate.Media {
+	return predicate.Media(sql.FieldGTE(FieldSourceUri, v))
 }
 
-// SourceURILT applies the LT predicate on the "source_uri" field.
-func SourceURILT(v string) predicate.Media {
-	return predicate.Media(sql.FieldLT(FieldSourceURI, v))
+// SourceUriLT applies the LT predicate on the "source_uri" field.
+func SourceUriLT(v string) predicate.Media {
+	return predicate.Media(sql.FieldLT(FieldSourceUri, v))
 }
 
-// SourceURILTE applies the LTE predicate on the "source_uri" field.
-func SourceURILTE(v string) predicate.Media {
-	return predicate.Media(sql.FieldLTE(FieldSourceURI, v))
+// SourceUriLTE applies the LTE predicate on the "source_uri" field.
+func SourceUriLTE(v string) predicate.Media {
+	return predicate.Media(sql.FieldLTE(FieldSourceUri, v))
 }
 
-// SourceURIContains applies the Contains predicate on the "source_uri" field.
-func SourceURIContains(v string) predicate.Media {
-	return predicate.Media(sql.FieldContains(FieldSourceURI, v))
+// SourceUriContains applies the Contains predicate on the "source_uri" field.
+func SourceUriContains(v string) predicate.Media {
+	return predicate.Media(sql.FieldContains(FieldSourceUri, v))
 }
 
-// SourceURIHasPrefix applies the HasPrefix predicate on the "source_uri" field.
-func SourceURIHasPrefix(v string) predicate.Media {
-	return predicate.Media(sql.FieldHasPrefix(FieldSourceURI, v))
+// SourceUriHasPrefix applies the HasPrefix predicate on the "source_uri" field.
+func SourceUriHasPrefix(v string) predicate.Media {
+	return predicate.Media(sql.FieldHasPrefix(FieldSourceUri, v))
 }
 
-// SourceURIHasSuffix applies the HasSuffix predicate on the "source_uri" field.
-func SourceURIHasSuffix(v string) predicate.Media {
-	return predicate.Media(sql.FieldHasSuffix(FieldSourceURI, v))
+// SourceUriHasSuffix applies the HasSuffix predicate on the "source_uri" field.
+func SourceUriHasSuffix(v string) predicate.Media {
+	return predicate.Media(sql.FieldHasSuffix(FieldSourceUri, v))
 }
 
-// SourceURIIsNil applies the IsNil predicate on the "source_uri" field.
-func SourceURIIsNil() predicate.Media {
-	return predicate.Media(sql.FieldIsNull(FieldSourceURI))
+// SourceUriIsNil applies the IsNil predicate on the "source_uri" field.
+func SourceUriIsNil() predicate.Media {
+	return predicate.Media(sql.FieldIsNull(FieldSourceUri))
 }
 
-// SourceURINotNil applies the NotNil predicate on the "source_uri" field.
-func SourceURINotNil() predicate.Media {
-	return predicate.Media(sql.FieldNotNull(FieldSourceURI))
+// SourceUriNotNil applies the NotNil predicate on the "source_uri" field.
+func SourceUriNotNil() predicate.Media {
+	return predicate.Media(sql.FieldNotNull(FieldSourceUri))
 }
 
-// SourceURIEqualFold applies the EqualFold predicate on the "source_uri" field.
-func SourceURIEqualFold(v string) predicate.Media {
-	return predicate.Media(sql.FieldEqualFold(FieldSourceURI, v))
+// SourceUriEqualFold applies the EqualFold predicate on the "source_uri" field.
+func SourceUriEqualFold(v string) predicate.Media {
+	return predicate.Media(sql.FieldEqualFold(FieldSourceUri, v))
 }
 
-// SourceURIContainsFold applies the ContainsFold predicate on the "source_uri" field.
-func SourceURIContainsFold(v string) predicate.Media {
-	return predicate.Media(sql.FieldContainsFold(FieldSourceURI, v))
+// SourceUriContainsFold applies the ContainsFold predicate on the "source_uri" field.
+func SourceUriContainsFold(v string) predicate.Media {
+	return predicate.Media(sql.FieldContainsFold(FieldSourceUri, v))
 }
 
 // TextEQ applies the EQ predicate on the "text" field.

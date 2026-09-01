@@ -72,42 +72,42 @@ func (_u *NodeUpdate) ClearUpdatedAt() *NodeUpdate {
 	return _u
 }
 
-// SetPrevID sets the "prev" edge to the Node entity by ID.
-func (_u *NodeUpdate) SetPrevID(id int) *NodeUpdate {
-	_u.mutation.SetPrevID(id)
+// SetPrevId sets the "prev" edge to the Node entity by Id.
+func (_u *NodeUpdate) SetPrevId(id int) *NodeUpdate {
+	_u.mutation.SetPrevId(id)
 	return _u
 }
 
-// SetNillablePrevID sets the "prev" edge to the Node entity by ID if the given value is not nil.
-func (_u *NodeUpdate) SetNillablePrevID(id *int) *NodeUpdate {
+// SetNillablePrevId sets the "prev" edge to the Node entity by Id if the given value is not nil.
+func (_u *NodeUpdate) SetNillablePrevId(id *int) *NodeUpdate {
 	if id != nil {
-		_u = _u.SetPrevID(*id)
+		_u = _u.SetPrevId(*id)
 	}
 	return _u
 }
 
 // SetPrev sets the "prev" edge to the Node entity.
 func (_u *NodeUpdate) SetPrev(v *Node) *NodeUpdate {
-	return _u.SetPrevID(v.ID)
+	return _u.SetPrevId(v.Id)
 }
 
-// SetNextID sets the "next" edge to the Node entity by ID.
-func (_u *NodeUpdate) SetNextID(id int) *NodeUpdate {
-	_u.mutation.SetNextID(id)
+// SetNextId sets the "next" edge to the Node entity by Id.
+func (_u *NodeUpdate) SetNextId(id int) *NodeUpdate {
+	_u.mutation.SetNextId(id)
 	return _u
 }
 
-// SetNillableNextID sets the "next" edge to the Node entity by ID if the given value is not nil.
-func (_u *NodeUpdate) SetNillableNextID(id *int) *NodeUpdate {
+// SetNillableNextId sets the "next" edge to the Node entity by Id if the given value is not nil.
+func (_u *NodeUpdate) SetNillableNextId(id *int) *NodeUpdate {
 	if id != nil {
-		_u = _u.SetNextID(*id)
+		_u = _u.SetNextId(*id)
 	}
 	return _u
 }
 
 // SetNext sets the "next" edge to the Node entity.
 func (_u *NodeUpdate) SetNext(v *Node) *NodeUpdate {
-	return _u.SetNextID(v.ID)
+	return _u.SetNextId(v.Id)
 }
 
 // Mutation returns the NodeMutation object of the builder.
@@ -170,7 +170,7 @@ func (_u *NodeUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *NodeUpdat
 }
 
 func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -201,12 +201,12 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{node.PrevColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PrevIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PrevIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -214,7 +214,7 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{node.PrevColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -230,12 +230,12 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{node.NextColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.NextIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.NextIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -243,7 +243,7 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{node.NextColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -312,42 +312,42 @@ func (_u *NodeUpdateOne) ClearUpdatedAt() *NodeUpdateOne {
 	return _u
 }
 
-// SetPrevID sets the "prev" edge to the Node entity by ID.
-func (_u *NodeUpdateOne) SetPrevID(id int) *NodeUpdateOne {
-	_u.mutation.SetPrevID(id)
+// SetPrevId sets the "prev" edge to the Node entity by Id.
+func (_u *NodeUpdateOne) SetPrevId(id int) *NodeUpdateOne {
+	_u.mutation.SetPrevId(id)
 	return _u
 }
 
-// SetNillablePrevID sets the "prev" edge to the Node entity by ID if the given value is not nil.
-func (_u *NodeUpdateOne) SetNillablePrevID(id *int) *NodeUpdateOne {
+// SetNillablePrevId sets the "prev" edge to the Node entity by Id if the given value is not nil.
+func (_u *NodeUpdateOne) SetNillablePrevId(id *int) *NodeUpdateOne {
 	if id != nil {
-		_u = _u.SetPrevID(*id)
+		_u = _u.SetPrevId(*id)
 	}
 	return _u
 }
 
 // SetPrev sets the "prev" edge to the Node entity.
 func (_u *NodeUpdateOne) SetPrev(v *Node) *NodeUpdateOne {
-	return _u.SetPrevID(v.ID)
+	return _u.SetPrevId(v.Id)
 }
 
-// SetNextID sets the "next" edge to the Node entity by ID.
-func (_u *NodeUpdateOne) SetNextID(id int) *NodeUpdateOne {
-	_u.mutation.SetNextID(id)
+// SetNextId sets the "next" edge to the Node entity by Id.
+func (_u *NodeUpdateOne) SetNextId(id int) *NodeUpdateOne {
+	_u.mutation.SetNextId(id)
 	return _u
 }
 
-// SetNillableNextID sets the "next" edge to the Node entity by ID if the given value is not nil.
-func (_u *NodeUpdateOne) SetNillableNextID(id *int) *NodeUpdateOne {
+// SetNillableNextId sets the "next" edge to the Node entity by Id if the given value is not nil.
+func (_u *NodeUpdateOne) SetNillableNextId(id *int) *NodeUpdateOne {
 	if id != nil {
-		_u = _u.SetNextID(*id)
+		_u = _u.SetNextId(*id)
 	}
 	return _u
 }
 
 // SetNext sets the "next" edge to the Node entity.
 func (_u *NodeUpdateOne) SetNext(v *Node) *NodeUpdateOne {
-	return _u.SetNextID(v.ID)
+	return _u.SetNextId(v.Id)
 }
 
 // Mutation returns the NodeMutation object of the builder.
@@ -423,20 +423,20 @@ func (_u *NodeUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *NodeUp
 }
 
 func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
-	_spec := sqlgraph.NewUpdateSpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(node.Table, node.Columns, sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Node.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, node.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, node.FieldId)
 		for _, f := range fields {
 			if !node.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != node.FieldID {
+			if f != node.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -471,12 +471,12 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 			Columns: []string{node.PrevColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PrevIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PrevIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -484,7 +484,7 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 			Columns: []string{node.PrevColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -500,12 +500,12 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 			Columns: []string{node.NextColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.NextIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.NextIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -513,7 +513,7 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 			Columns: []string{node.NextColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

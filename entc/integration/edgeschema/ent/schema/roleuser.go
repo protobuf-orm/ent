@@ -20,7 +20,7 @@ type RoleUser struct {
 
 func (RoleUser) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("user_id", "role_id"),
+		field.Id("user_id", "role_id"),
 	}
 }
 

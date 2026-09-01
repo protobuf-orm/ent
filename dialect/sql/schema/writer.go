@@ -25,8 +25,8 @@ import (
 
 type (
 	// WriteDriver is a driver that writes all driver exec operations to its writer.
-	// Note that this driver is used only for printing or writing statements to SQL
-	// files, and may require manual changes to the generated SQL statements.
+	// Note that this driver is used only for printing or writing statements to Sql
+	// files, and may require manual changes to the generated Sql statements.
 	WriteDriver struct {
 		dialect.Driver // optional driver for query calls.
 		io.Writer      // target for exec statements.
@@ -120,7 +120,7 @@ func (w *WriteDriver) Query(ctx context.Context, query string, args, res any) er
 					case q == '\'', q == '"', q == '`': // string or identifier
 						_, skip := skipQuoted(query, i)
 						if skip == -1 {
-							return nil // malformed SQL
+							return nil // malformed Sql
 						}
 						i = skip
 						continue
@@ -164,7 +164,7 @@ func (w *WriteDriver) Query(ctx context.Context, query string, args, res any) er
 
 // expandArgs combines to arguments and statement into a single statement to
 // print or write into a file (before editing).
-// Note, the output may be incorrect or unsafe SQL and require manual changes.
+// Note, the output may be incorrect or unsafe Sql and require manual changes.
 func (w *WriteDriver) expandArgs(query string, args []any) string {
 	var (
 		b    strings.Builder
@@ -274,7 +274,7 @@ func (w *WriteDriver) formatArg(v any) (string, error) {
 var reReturning = regexp.MustCompile(`(?i)^\s?RETURNING`)
 
 // trimReturning trims any RETURNING suffix from INSERT/UPDATE queries.
-// Note, that the output may be incorrect or unsafe SQL and require manual changes.
+// Note, that the output may be incorrect or unsafe Sql and require manual changes.
 func trimReturning(query []byte) []byte {
 	var b bytes.Buffer
 loop:

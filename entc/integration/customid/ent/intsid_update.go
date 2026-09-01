@@ -19,92 +19,92 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// IntSIDUpdate is the builder for updating IntSID entities.
-type IntSIDUpdate struct {
+// IntSIdUpdate is the builder for updating IntSId entities.
+type IntSIdUpdate struct {
 	config
 	hooks    []Hook
-	mutation *IntSIDMutation
+	mutation *IntSIdMutation
 }
 
-// Where appends a list predicates to the IntSIDUpdate builder.
-func (_u *IntSIDUpdate) Where(ps ...predicate.IntSID) *IntSIDUpdate {
+// Where appends a list predicates to the IntSIdUpdate builder.
+func (_u *IntSIdUpdate) Where(ps ...predicate.IntSId) *IntSIdUpdate {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
-// SetParentID sets the "parent" edge to the IntSID entity by ID.
-func (_u *IntSIDUpdate) SetParentID(id sid.ID) *IntSIDUpdate {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the IntSId entity by Id.
+func (_u *IntSIdUpdate) SetParentId(id sid.Id) *IntSIdUpdate {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the IntSID entity by ID if the given value is not nil.
-func (_u *IntSIDUpdate) SetNillableParentID(id *sid.ID) *IntSIDUpdate {
+// SetNillableParentId sets the "parent" edge to the IntSId entity by Id if the given value is not nil.
+func (_u *IntSIdUpdate) SetNillableParentId(id *sid.Id) *IntSIdUpdate {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
-// SetParent sets the "parent" edge to the IntSID entity.
-func (_u *IntSIDUpdate) SetParent(v *IntSID) *IntSIDUpdate {
-	return _u.SetParentID(v.ID)
+// SetParent sets the "parent" edge to the IntSId entity.
+func (_u *IntSIdUpdate) SetParent(v *IntSId) *IntSIdUpdate {
+	return _u.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the IntSID entity by IDs.
-func (_u *IntSIDUpdate) AddChildrenIDs(ids ...sid.ID) *IntSIDUpdate {
-	_u.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the IntSId entity by Ids.
+func (_u *IntSIdUpdate) AddChildrenIds(ids ...sid.Id) *IntSIdUpdate {
+	_u.mutation.AddChildrenIds(ids...)
 	return _u
 }
 
-// AddChildren adds the "children" edges to the IntSID entity.
-func (_u *IntSIDUpdate) AddChildren(v ...*IntSID) *IntSIDUpdate {
-	ids := make([]sid.ID, len(v))
+// AddChildren adds the "children" edges to the IntSId entity.
+func (_u *IntSIdUpdate) AddChildren(v ...*IntSId) *IntSIdUpdate {
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddChildrenIDs(ids...)
+	return _u.AddChildrenIds(ids...)
 }
 
-// Mutation returns the IntSIDMutation object of the builder.
-func (_u *IntSIDUpdate) Mutation() *IntSIDMutation {
+// Mutation returns the IntSIdMutation object of the builder.
+func (_u *IntSIdUpdate) Mutation() *IntSIdMutation {
 	return _u.mutation
 }
 
-// ClearParent clears the "parent" edge to the IntSID entity.
-func (_u *IntSIDUpdate) ClearParent() *IntSIDUpdate {
+// ClearParent clears the "parent" edge to the IntSId entity.
+func (_u *IntSIdUpdate) ClearParent() *IntSIdUpdate {
 	_u.mutation.ClearParent()
 	return _u
 }
 
-// ClearChildren clears all "children" edges to the IntSID entity.
-func (_u *IntSIDUpdate) ClearChildren() *IntSIDUpdate {
+// ClearChildren clears all "children" edges to the IntSId entity.
+func (_u *IntSIdUpdate) ClearChildren() *IntSIdUpdate {
 	_u.mutation.ClearChildren()
 	return _u
 }
 
-// RemoveChildrenIDs removes the "children" edge to IntSID entities by IDs.
-func (_u *IntSIDUpdate) RemoveChildrenIDs(ids ...sid.ID) *IntSIDUpdate {
-	_u.mutation.RemoveChildrenIDs(ids...)
+// RemoveChildrenIds removes the "children" edge to IntSId entities by Ids.
+func (_u *IntSIdUpdate) RemoveChildrenIds(ids ...sid.Id) *IntSIdUpdate {
+	_u.mutation.RemoveChildrenIds(ids...)
 	return _u
 }
 
-// RemoveChildren removes "children" edges to IntSID entities.
-func (_u *IntSIDUpdate) RemoveChildren(v ...*IntSID) *IntSIDUpdate {
-	ids := make([]sid.ID, len(v))
+// RemoveChildren removes "children" edges to IntSId entities.
+func (_u *IntSIdUpdate) RemoveChildren(v ...*IntSId) *IntSIdUpdate {
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveChildrenIDs(ids...)
+	return _u.RemoveChildrenIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (_u *IntSIDUpdate) Save(ctx context.Context) (int, error) {
+func (_u *IntSIdUpdate) Save(ctx context.Context) (int, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *IntSIDUpdate) SaveX(ctx context.Context) int {
+func (_u *IntSIdUpdate) SaveX(ctx context.Context) int {
 	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -113,20 +113,20 @@ func (_u *IntSIDUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (_u *IntSIDUpdate) Exec(ctx context.Context) error {
+func (_u *IntSIdUpdate) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *IntSIDUpdate) ExecX(ctx context.Context) {
+func (_u *IntSIdUpdate) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(intsid.Table, intsid.Columns, sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64))
+func (_u *IntSIdUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	_spec := sqlgraph.NewUpdateSpec(intsid.Table, intsid.Columns, sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -142,12 +142,12 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{intsid.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -155,7 +155,7 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{intsid.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -171,12 +171,12 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIds(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -184,7 +184,7 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -192,7 +192,7 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -200,7 +200,7 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -220,100 +220,100 @@ func (_u *IntSIDUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	return _node, nil
 }
 
-// IntSIDUpdateOne is the builder for updating a single IntSID entity.
-type IntSIDUpdateOne struct {
+// IntSIdUpdateOne is the builder for updating a single IntSId entity.
+type IntSIdUpdateOne struct {
 	config
 	fields   []string
 	hooks    []Hook
-	mutation *IntSIDMutation
+	mutation *IntSIdMutation
 }
 
-// SetParentID sets the "parent" edge to the IntSID entity by ID.
-func (_u *IntSIDUpdateOne) SetParentID(id sid.ID) *IntSIDUpdateOne {
-	_u.mutation.SetParentID(id)
+// SetParentId sets the "parent" edge to the IntSId entity by Id.
+func (_u *IntSIdUpdateOne) SetParentId(id sid.Id) *IntSIdUpdateOne {
+	_u.mutation.SetParentId(id)
 	return _u
 }
 
-// SetNillableParentID sets the "parent" edge to the IntSID entity by ID if the given value is not nil.
-func (_u *IntSIDUpdateOne) SetNillableParentID(id *sid.ID) *IntSIDUpdateOne {
+// SetNillableParentId sets the "parent" edge to the IntSId entity by Id if the given value is not nil.
+func (_u *IntSIdUpdateOne) SetNillableParentId(id *sid.Id) *IntSIdUpdateOne {
 	if id != nil {
-		_u = _u.SetParentID(*id)
+		_u = _u.SetParentId(*id)
 	}
 	return _u
 }
 
-// SetParent sets the "parent" edge to the IntSID entity.
-func (_u *IntSIDUpdateOne) SetParent(v *IntSID) *IntSIDUpdateOne {
-	return _u.SetParentID(v.ID)
+// SetParent sets the "parent" edge to the IntSId entity.
+func (_u *IntSIdUpdateOne) SetParent(v *IntSId) *IntSIdUpdateOne {
+	return _u.SetParentId(v.Id)
 }
 
-// AddChildrenIDs adds the "children" edge to the IntSID entity by IDs.
-func (_u *IntSIDUpdateOne) AddChildrenIDs(ids ...sid.ID) *IntSIDUpdateOne {
-	_u.mutation.AddChildrenIDs(ids...)
+// AddChildrenIds adds the "children" edge to the IntSId entity by Ids.
+func (_u *IntSIdUpdateOne) AddChildrenIds(ids ...sid.Id) *IntSIdUpdateOne {
+	_u.mutation.AddChildrenIds(ids...)
 	return _u
 }
 
-// AddChildren adds the "children" edges to the IntSID entity.
-func (_u *IntSIDUpdateOne) AddChildren(v ...*IntSID) *IntSIDUpdateOne {
-	ids := make([]sid.ID, len(v))
+// AddChildren adds the "children" edges to the IntSId entity.
+func (_u *IntSIdUpdateOne) AddChildren(v ...*IntSId) *IntSIdUpdateOne {
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddChildrenIDs(ids...)
+	return _u.AddChildrenIds(ids...)
 }
 
-// Mutation returns the IntSIDMutation object of the builder.
-func (_u *IntSIDUpdateOne) Mutation() *IntSIDMutation {
+// Mutation returns the IntSIdMutation object of the builder.
+func (_u *IntSIdUpdateOne) Mutation() *IntSIdMutation {
 	return _u.mutation
 }
 
-// ClearParent clears the "parent" edge to the IntSID entity.
-func (_u *IntSIDUpdateOne) ClearParent() *IntSIDUpdateOne {
+// ClearParent clears the "parent" edge to the IntSId entity.
+func (_u *IntSIdUpdateOne) ClearParent() *IntSIdUpdateOne {
 	_u.mutation.ClearParent()
 	return _u
 }
 
-// ClearChildren clears all "children" edges to the IntSID entity.
-func (_u *IntSIDUpdateOne) ClearChildren() *IntSIDUpdateOne {
+// ClearChildren clears all "children" edges to the IntSId entity.
+func (_u *IntSIdUpdateOne) ClearChildren() *IntSIdUpdateOne {
 	_u.mutation.ClearChildren()
 	return _u
 }
 
-// RemoveChildrenIDs removes the "children" edge to IntSID entities by IDs.
-func (_u *IntSIDUpdateOne) RemoveChildrenIDs(ids ...sid.ID) *IntSIDUpdateOne {
-	_u.mutation.RemoveChildrenIDs(ids...)
+// RemoveChildrenIds removes the "children" edge to IntSId entities by Ids.
+func (_u *IntSIdUpdateOne) RemoveChildrenIds(ids ...sid.Id) *IntSIdUpdateOne {
+	_u.mutation.RemoveChildrenIds(ids...)
 	return _u
 }
 
-// RemoveChildren removes "children" edges to IntSID entities.
-func (_u *IntSIDUpdateOne) RemoveChildren(v ...*IntSID) *IntSIDUpdateOne {
-	ids := make([]sid.ID, len(v))
+// RemoveChildren removes "children" edges to IntSId entities.
+func (_u *IntSIdUpdateOne) RemoveChildren(v ...*IntSId) *IntSIdUpdateOne {
+	ids := make([]sid.Id, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveChildrenIDs(ids...)
+	return _u.RemoveChildrenIds(ids...)
 }
 
-// Where appends a list predicates to the IntSIDUpdate builder.
-func (_u *IntSIDUpdateOne) Where(ps ...predicate.IntSID) *IntSIDUpdateOne {
+// Where appends a list predicates to the IntSIdUpdate builder.
+func (_u *IntSIdUpdateOne) Where(ps ...predicate.IntSId) *IntSIdUpdateOne {
 	_u.mutation.Where(ps...)
 	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (_u *IntSIDUpdateOne) Select(field string, fields ...string) *IntSIDUpdateOne {
+func (_u *IntSIdUpdateOne) Select(field string, fields ...string) *IntSIdUpdateOne {
 	_u.fields = append([]string{field}, fields...)
 	return _u
 }
 
-// Save executes the query and returns the updated IntSID entity.
-func (_u *IntSIDUpdateOne) Save(ctx context.Context) (*IntSID, error) {
+// Save executes the query and returns the updated IntSId entity.
+func (_u *IntSIdUpdateOne) Save(ctx context.Context) (*IntSId, error) {
 	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_u *IntSIDUpdateOne) SaveX(ctx context.Context) *IntSID {
+func (_u *IntSIdUpdateOne) SaveX(ctx context.Context) *IntSId {
 	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -322,33 +322,33 @@ func (_u *IntSIDUpdateOne) SaveX(ctx context.Context) *IntSID {
 }
 
 // Exec executes the query on the entity.
-func (_u *IntSIDUpdateOne) Exec(ctx context.Context) error {
+func (_u *IntSIdUpdateOne) Exec(ctx context.Context) error {
 	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_u *IntSIDUpdateOne) ExecX(ctx context.Context) {
+func (_u *IntSIdUpdateOne) ExecX(ctx context.Context) {
 	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err error) {
-	_spec := sqlgraph.NewUpdateSpec(intsid.Table, intsid.Columns, sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64))
-	id, ok := _u.mutation.ID()
+func (_u *IntSIdUpdateOne) sqlSave(ctx context.Context) (_node *IntSId, err error) {
+	_spec := sqlgraph.NewUpdateSpec(intsid.Table, intsid.Columns, sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64))
+	id, ok := _u.mutation.Id()
 	if !ok {
-		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "IntSID.id" for update`)}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "IntSId.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, intsid.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, intsid.FieldId)
 		for _, f := range fields {
 			if !intsid.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != intsid.FieldID {
+			if f != intsid.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -368,12 +368,12 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 			Columns: []string{intsid.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ParentIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -381,7 +381,7 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 			Columns: []string{intsid.ParentColumn},
 			Bidi:    true,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -397,12 +397,12 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIds(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -410,7 +410,7 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -418,7 +418,7 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -426,7 +426,7 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 			Columns: []string{intsid.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(intsid.FieldID, field.TypeInt64),
+				IdSpec: sqlgraph.NewFieldSpec(intsid.FieldId, field.TypeInt64),
 			},
 		}
 		for _, k := range nodes {
@@ -434,7 +434,7 @@ func (_u *IntSIDUpdateOne) sqlSave(ctx context.Context) (_node *IntSID, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &IntSID{config: _u.config}
+	_node = &IntSId{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
 	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {

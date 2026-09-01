@@ -31,15 +31,15 @@ func (_c *BlogCreate) SetOid(v int) *BlogCreate {
 	return _c
 }
 
-// SetID sets the "id" field.
-func (_c *BlogCreate) SetID(v int) *BlogCreate {
-	_c.mutation.SetID(v)
+// SetId sets the "id" field.
+func (_c *BlogCreate) SetId(v int) *BlogCreate {
+	_c.mutation.SetId(v)
 	return _c
 }
 
-// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
-func (_c *BlogCreate) AddAdminsIDs(ids ...int) *BlogCreate {
-	_c.mutation.AddAdminsIDs(ids...)
+// AddAdminsIds adds the "admins" edge to the User entity by Ids.
+func (_c *BlogCreate) AddAdminsIds(ids ...int) *BlogCreate {
+	_c.mutation.AddAdminsIds(ids...)
 	return _c
 }
 
@@ -47,9 +47,9 @@ func (_c *BlogCreate) AddAdminsIDs(ids ...int) *BlogCreate {
 func (_c *BlogCreate) AddAdmins(v ...*User) *BlogCreate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _c.AddAdminsIDs(ids...)
+	return _c.AddAdminsIds(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.
@@ -87,7 +87,7 @@ func (_c *BlogCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (_c *BlogCreate) check() error {
 	switch _c.driver.Dialect() {
-	case dialect.MySQL, dialect.SQLite:
+	case dialect.MySql, dialect.SQLite:
 		if _, ok := _c.mutation.Oid(); !ok {
 			return &ValidationError{Name: "oid", err: errors.New(`entv2: missing required field "Blog.oid"`)}
 		}
@@ -106,11 +106,11 @@ func (_c *BlogCreate) sqlSave(ctx context.Context) (*Blog, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = int(id)
+	if _spec.Id.Value != _node.Id {
+		id := _spec.Id.Value.(int64)
+		_node.Id = int(id)
 	}
-	_c.mutation.id = &_node.ID
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -118,17 +118,17 @@ func (_c *BlogCreate) sqlSave(ctx context.Context) (*Blog, error) {
 func (_c *BlogCreate) createSpec() (*Blog, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Blog{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(blog.Table, sqlgraph.NewFieldSpec(blog.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(blog.Table, sqlgraph.NewFieldSpec(blog.FieldId, field.TypeInt))
 	)
-	if id, ok := _c.mutation.ID(); ok {
-		_node.ID = id
-		_spec.ID.Value = id
+	if id, ok := _c.mutation.Id(); ok {
+		_node.Id = id
+		_spec.Id.Value = id
 	}
 	if value, ok := _c.mutation.Oid(); ok {
 		_spec.SetField(blog.FieldOid, field.TypeInt, value)
 		_node.Oid = value
 	}
-	if nodes := _c.mutation.AdminsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AdminsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -136,7 +136,7 @@ func (_c *BlogCreate) createSpec() (*Blog, *sqlgraph.CreateSpec) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -190,10 +190,10 @@ func (_c *BlogCreateBulk) Save(ctx context.Context) ([]*Blog, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil && nodes[i].Id == 0 {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil

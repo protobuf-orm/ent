@@ -25,13 +25,13 @@ type Blob struct {
 // Fields of the Blob.
 func (Blob) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.UUID{}).
+		field.Uuid("id", uuid.UUID{}).
 			Default(uuid.New).
 			Annotations(entsql.Annotation{
 				Default: "uuid_generate_v4()",
 			}).
 			Unique(),
-		field.UUID("uuid", uuid.UUID{}).
+		field.Uuid("uuid", uuid.UUID{}).
 			Default(uuid.New).
 			Unique(),
 		field.Int("count").
@@ -57,7 +57,7 @@ type BlobLink struct {
 // Annotations of the BlobLink.
 func (BlobLink) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		field.ID("blob_id", "links_id"),
+		field.Id("blob_id", "links_id"),
 	}
 }
 
@@ -66,8 +66,8 @@ func (BlobLink) Fields() []ent.Field {
 	return []ent.Field{
 		field.Time("created_at").
 			Default(time.Now),
-		field.UUID("blob_id", uuid.UUID{}),
-		field.UUID("links_id", uuid.UUID{}),
+		field.Uuid("blob_id", uuid.UUID{}),
+		field.Uuid("links_id", uuid.UUID{}),
 	}
 }
 

@@ -54,42 +54,42 @@ func (_c *NodeCreate) SetNillableUpdatedAt(v *time.Time) *NodeCreate {
 	return _c
 }
 
-// SetPrevID sets the "prev" edge to the Node entity by ID.
-func (_c *NodeCreate) SetPrevID(id int) *NodeCreate {
-	_c.mutation.SetPrevID(id)
+// SetPrevId sets the "prev" edge to the Node entity by Id.
+func (_c *NodeCreate) SetPrevId(id int) *NodeCreate {
+	_c.mutation.SetPrevId(id)
 	return _c
 }
 
-// SetNillablePrevID sets the "prev" edge to the Node entity by ID if the given value is not nil.
-func (_c *NodeCreate) SetNillablePrevID(id *int) *NodeCreate {
+// SetNillablePrevId sets the "prev" edge to the Node entity by Id if the given value is not nil.
+func (_c *NodeCreate) SetNillablePrevId(id *int) *NodeCreate {
 	if id != nil {
-		_c = _c.SetPrevID(*id)
+		_c = _c.SetPrevId(*id)
 	}
 	return _c
 }
 
 // SetPrev sets the "prev" edge to the Node entity.
 func (_c *NodeCreate) SetPrev(v *Node) *NodeCreate {
-	return _c.SetPrevID(v.ID)
+	return _c.SetPrevId(v.Id)
 }
 
-// SetNextID sets the "next" edge to the Node entity by ID.
-func (_c *NodeCreate) SetNextID(id int) *NodeCreate {
-	_c.mutation.SetNextID(id)
+// SetNextId sets the "next" edge to the Node entity by Id.
+func (_c *NodeCreate) SetNextId(id int) *NodeCreate {
+	_c.mutation.SetNextId(id)
 	return _c
 }
 
-// SetNillableNextID sets the "next" edge to the Node entity by ID if the given value is not nil.
-func (_c *NodeCreate) SetNillableNextID(id *int) *NodeCreate {
+// SetNillableNextId sets the "next" edge to the Node entity by Id if the given value is not nil.
+func (_c *NodeCreate) SetNillableNextId(id *int) *NodeCreate {
 	if id != nil {
-		_c = _c.SetNextID(*id)
+		_c = _c.SetNextId(*id)
 	}
 	return _c
 }
 
 // SetNext sets the "next" edge to the Node entity.
 func (_c *NodeCreate) SetNext(v *Node) *NodeCreate {
-	return _c.SetNextID(v.ID)
+	return _c.SetNextId(v.Id)
 }
 
 // Mutation returns the NodeMutation object of the builder.
@@ -140,9 +140,9 @@ func (_c *NodeCreate) sqlSave(ctx context.Context) (*Node, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
@@ -150,7 +150,7 @@ func (_c *NodeCreate) sqlSave(ctx context.Context) (*Node, error) {
 func (_c *NodeCreate) createSpec() (*Node, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Node{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(node.Table, sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(node.Table, sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	if value, ok := _c.mutation.Value(); ok {
@@ -161,7 +161,7 @@ func (_c *NodeCreate) createSpec() (*Node, *sqlgraph.CreateSpec) {
 		_spec.SetField(node.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = &value
 	}
-	if nodes := _c.mutation.PrevIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.PrevIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -169,7 +169,7 @@ func (_c *NodeCreate) createSpec() (*Node, *sqlgraph.CreateSpec) {
 			Columns: []string{node.PrevColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -178,7 +178,7 @@ func (_c *NodeCreate) createSpec() (*Node, *sqlgraph.CreateSpec) {
 		_node.node_next = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := _c.mutation.NextIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.NextIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -186,7 +186,7 @@ func (_c *NodeCreate) createSpec() (*Node, *sqlgraph.CreateSpec) {
 			Columns: []string{node.NextColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(node.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(node.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -313,7 +313,7 @@ func (u *NodeUpsertOne) Ignore() *NodeUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NodeUpsertOne) DoNothing() *NodeUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -392,18 +392,18 @@ func (u *NodeUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *NodeUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *NodeUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *NodeUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *NodeUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -455,10 +455,10 @@ func (_c *NodeCreateBulk) Save(ctx context.Context) ([]*Node, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -565,7 +565,7 @@ func (u *NodeUpsertBulk) Ignore() *NodeUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NodeUpsertBulk) DoNothing() *NodeUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

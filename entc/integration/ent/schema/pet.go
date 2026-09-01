@@ -33,7 +33,7 @@ func (Pet) Fields() []ent.Field {
 		field.Float("age").
 			Default(0),
 		field.String("name"),
-		field.UUID("uuid", uuid.UUID{}).
+		field.Uuid("uuid", uuid.UUID{}).
 			Optional(),
 		field.String("nickname").
 			Optional(),

@@ -15,8 +15,8 @@ import (
 const (
 	// Label holds the string label denoting the token type in the database.
 	Label = "token"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldBody holds the string denoting the body field in the database.
 	FieldBody = "body"
 	// EdgeAccount holds the string denoting the account edge name in mutations.
@@ -32,13 +32,13 @@ const (
 	AccountColumn = "account_token"
 )
 
-// Columns holds all SQL columns for token fields.
+// Columns holds all Sql columns for token fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldBody,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "token"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "token"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"account_token",
@@ -62,16 +62,16 @@ func ValidColumn(column string) bool {
 var (
 	// BodyValidator is a validator for the "body" field. It is called by the builders before save.
 	BodyValidator func(string) error
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() sid.ID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() sid.Id
 )
 
 // OrderOption defines the ordering options for the Token queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByBody orders the results by the body field.
@@ -87,8 +87,8 @@ func ByAccountField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newAccountStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(AccountInverseTable, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(AccountInverseTable, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, AccountTable, AccountColumn),
 	)
 }

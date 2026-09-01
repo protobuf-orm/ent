@@ -18,8 +18,8 @@ import (
 // Revision is the model entity for the Revision schema.
 type Revision struct {
 	config
-	// ID of the ent.
-	ID           string `json:"id,omitempty"`
+	// Id of the ent.
+	Id           string `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +28,7 @@ func (*Revision) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case revision.FieldID:
+		case revision.FieldId:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,11 +45,11 @@ func (_m *Revision) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case revision.FieldID:
+		case revision.FieldId:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value.Valid {
-				_m.ID = value.String
+				_m.Id = value.String
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -86,7 +86,7 @@ func (_m *Revision) Unwrap() *Revision {
 func (_m *Revision) String() string {
 	var builder strings.Builder
 	builder.WriteString("Revision(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

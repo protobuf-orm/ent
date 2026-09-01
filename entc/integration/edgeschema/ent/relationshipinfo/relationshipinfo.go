@@ -13,17 +13,17 @@ import (
 const (
 	// Label holds the string label denoting the relationshipinfo type in the database.
 	Label = "relationship_info"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// Table holds the table name of the relationshipinfo in the database.
 	Table = "relationship_info"
 )
 
-// Columns holds all SQL columns for relationshipinfo fields.
+// Columns holds all Sql columns for relationshipinfo fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
 }
 
@@ -40,9 +40,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the RelationshipInfo queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.

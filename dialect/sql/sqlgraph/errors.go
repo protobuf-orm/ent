@@ -25,7 +25,7 @@ func IsUniqueConstraintError(err error) bool {
 		return false
 	}
 	for _, s := range []string{
-		"Error 1062",                 // MySQL
+		"Error 1062",                 // MySql
 		"violates unique constraint", // Postgres
 		"UNIQUE constraint failed",   // SQLite
 	} {
@@ -43,8 +43,8 @@ func IsForeignKeyConstraintError(err error) bool {
 		return false
 	}
 	for _, s := range []string{
-		"Error 1451",                      // MySQL (Cannot delete or update a parent row).
-		"Error 1452",                      // MySQL (Cannot add or update a child row).
+		"Error 1451",                      // MySql (Cannot delete or update a parent row).
+		"Error 1452",                      // MySql (Cannot add or update a child row).
 		"violates foreign key constraint", // Postgres
 		"FOREIGN KEY constraint failed",   // SQLite
 	} {
@@ -62,7 +62,7 @@ func IsCheckConstraintError(err error) bool {
 		return false
 	}
 	for _, s := range []string{
-		"Error 3819",                // MySQL
+		"Error 3819",                // MySql
 		"violates check constraint", // Postgres
 		"CHECK constraint failed",   // SQLite
 	} {

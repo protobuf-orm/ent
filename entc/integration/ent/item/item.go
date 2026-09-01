@@ -13,17 +13,17 @@ import (
 const (
 	// Label holds the string label denoting the item type in the database.
 	Label = "item"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldText holds the string denoting the text field in the database.
 	FieldText = "text"
 	// Table holds the table name of the item in the database.
 	Table = "item"
 )
 
-// Columns holds all SQL columns for item fields.
+// Columns holds all Sql columns for item fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldText,
 }
 
@@ -40,18 +40,18 @@ func ValidColumn(column string) bool {
 var (
 	// TextValidator is a validator for the "text" field. It is called by the builders before save.
 	TextValidator func(string) error
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() string
-	// IDValidator is a validator for the "id" field. It is called by the builders before save.
-	IDValidator func(string) error
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() string
+	// IdValidator is a validator for the "id" field. It is called by the builders before save.
+	IdValidator func(string) error
 )
 
 // OrderOption defines the ordering options for the Item queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByText orders the results by the text field.

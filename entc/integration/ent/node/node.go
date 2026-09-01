@@ -16,8 +16,8 @@ import (
 const (
 	// Label holds the string label denoting the node type in the database.
 	Label = "node"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -38,14 +38,14 @@ const (
 	NextColumn = "node_next"
 )
 
-// Columns holds all SQL columns for node fields.
+// Columns holds all Sql columns for node fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldValue,
 	FieldUpdatedAt,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "node"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "node"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"node_next",
@@ -74,9 +74,9 @@ var (
 // OrderOption defines the ordering options for the Node queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByValue orders the results by the value field.
@@ -104,15 +104,15 @@ func ByNextField(field string, opts ...sql.OrderTermOption) OrderOption {
 }
 func newPrevStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, true, PrevTable, PrevColumn),
 	)
 }
 func newNextStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2O, false, NextTable, NextColumn),
 	)
 }

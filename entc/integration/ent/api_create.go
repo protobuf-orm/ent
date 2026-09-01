@@ -17,26 +17,26 @@ import (
 	"github.com/protobuf-orm/ent/schema/field"
 )
 
-// APICreate is the builder for creating a Api entity.
-type APICreate struct {
+// ApiCreate is the builder for creating a Api entity.
+type ApiCreate struct {
 	config
-	mutation *APIMutation
+	mutation *ApiMutation
 	hooks    []Hook
 	conflict []sql.ConflictOption
 }
 
-// Mutation returns the APIMutation object of the builder.
-func (_c *APICreate) Mutation() *APIMutation {
+// Mutation returns the ApiMutation object of the builder.
+func (_c *ApiCreate) Mutation() *ApiMutation {
 	return _c.mutation
 }
 
 // Save creates the Api in the database.
-func (_c *APICreate) Save(ctx context.Context) (*Api, error) {
+func (_c *ApiCreate) Save(ctx context.Context) (*Api, error) {
 	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (_c *APICreate) SaveX(ctx context.Context) *Api {
+func (_c *ApiCreate) SaveX(ctx context.Context) *Api {
 	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -45,24 +45,24 @@ func (_c *APICreate) SaveX(ctx context.Context) *Api {
 }
 
 // Exec executes the query.
-func (_c *APICreate) Exec(ctx context.Context) error {
+func (_c *ApiCreate) Exec(ctx context.Context) error {
 	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_c *APICreate) ExecX(ctx context.Context) {
+func (_c *ApiCreate) ExecX(ctx context.Context) {
 	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (_c *APICreate) check() error {
+func (_c *ApiCreate) check() error {
 	return nil
 }
 
-func (_c *APICreate) sqlSave(ctx context.Context) (*Api, error) {
+func (_c *ApiCreate) sqlSave(ctx context.Context) (*Api, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
@@ -73,17 +73,17 @@ func (_c *APICreate) sqlSave(ctx context.Context) (*Api, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
-	_c.mutation.id = &_node.ID
+	id := _spec.Id.Value.(int64)
+	_node.Id = int(id)
+	_c.mutation.id = &_node.Id
 	_c.mutation.done = true
 	return _node, nil
 }
 
-func (_c *APICreate) createSpec() (*Api, *sqlgraph.CreateSpec) {
+func (_c *ApiCreate) createSpec() (*Api, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Api{config: _c.config}
-		_spec = sqlgraph.NewCreateSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldID, field.TypeInt))
+		_spec = sqlgraph.NewCreateSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldId, field.TypeInt))
 	)
 	_spec.OnConflict = _c.conflict
 	return _node, _spec
@@ -99,7 +99,7 @@ func (_c *APICreate) createSpec() (*Api, *sqlgraph.CreateSpec) {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-func (_c *APICreate) OnConflict(opts ...sql.ConflictOption) *ApiUpsertOne {
+func (_c *ApiCreate) OnConflict(opts ...sql.ConflictOption) *ApiUpsertOne {
 	_c.conflict = opts
 	return &ApiUpsertOne{
 		create: _c,
@@ -112,7 +112,7 @@ func (_c *APICreate) OnConflict(opts ...sql.ConflictOption) *ApiUpsertOne {
 //	client.Api.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-func (_c *APICreate) OnConflictColumns(columns ...string) *ApiUpsertOne {
+func (_c *ApiCreate) OnConflictColumns(columns ...string) *ApiUpsertOne {
 	_c.conflict = append(_c.conflict, sql.ConflictColumns(columns...))
 	return &ApiUpsertOne{
 		create: _c,
@@ -123,7 +123,7 @@ type (
 	// ApiUpsertOne is the builder for "upsert"-ing
 	//  one Api node.
 	ApiUpsertOne struct {
-		create *APICreate
+		create *ApiCreate
 	}
 
 	// ApiUpsert is the "OnConflict" setter.
@@ -157,13 +157,13 @@ func (u *ApiUpsertOne) Ignore() *ApiUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ApiUpsertOne) DoNothing() *ApiUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
 }
 
-// Update allows overriding fields `UPDATE` values. See the APICreate.OnConflict
+// Update allows overriding fields `UPDATE` values. See the ApiCreate.OnConflict
 // documentation for more info.
 func (u *ApiUpsertOne) Update(set func(*ApiUpsert)) *ApiUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
@@ -175,7 +175,7 @@ func (u *ApiUpsertOne) Update(set func(*ApiUpsert)) *ApiUpsertOne {
 // Exec executes the query.
 func (u *ApiUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
-		return errors.New("ent: missing options for APICreate.OnConflict")
+		return errors.New("ent: missing options for ApiCreate.OnConflict")
 	}
 	return u.create.Exec(ctx)
 }
@@ -187,34 +187,34 @@ func (u *ApiUpsertOne) ExecX(ctx context.Context) {
 	}
 }
 
-// Exec executes the UPSERT query and returns the inserted/updated ID.
-func (u *ApiUpsertOne) ID(ctx context.Context) (id int, err error) {
+// Exec executes the UPSERT query and returns the inserted/updated Id.
+func (u *ApiUpsertOne) Id(ctx context.Context) (id int, err error) {
 	node, err := u.create.Save(ctx)
 	if err != nil {
 		return id, err
 	}
-	return node.ID, nil
+	return node.Id, nil
 }
 
-// IDX is like ID, but panics if an error occurs.
-func (u *ApiUpsertOne) IDX(ctx context.Context) int {
-	id, err := u.ID(ctx)
+// IdX is like Id, but panics if an error occurs.
+func (u *ApiUpsertOne) IdX(ctx context.Context) int {
+	id, err := u.Id(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return id
 }
 
-// APICreateBulk is the builder for creating many Api entities in bulk.
-type APICreateBulk struct {
+// ApiCreateBulk is the builder for creating many Api entities in bulk.
+type ApiCreateBulk struct {
 	config
 	err      error
-	builders []*APICreate
+	builders []*ApiCreate
 	conflict []sql.ConflictOption
 }
 
 // Save creates the Api entities in the database.
-func (_c *APICreateBulk) Save(ctx context.Context) ([]*Api, error) {
+func (_c *ApiCreateBulk) Save(ctx context.Context) ([]*Api, error) {
 	if _c.err != nil {
 		return nil, _c.err
 	}
@@ -225,7 +225,7 @@ func (_c *APICreateBulk) Save(ctx context.Context) ([]*Api, error) {
 		func(i int, root context.Context) {
 			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-				mutation, ok := m.(*APIMutation)
+				mutation, ok := m.(*ApiMutation)
 				if !ok {
 					return nil, fmt.Errorf("unexpected mutation type %T", m)
 				}
@@ -250,10 +250,10 @@ func (_c *APICreateBulk) Save(ctx context.Context) ([]*Api, error) {
 				if err != nil {
 					return nil, err
 				}
-				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int(id)
+				mutation.id = &nodes[i].Id
+				if specs[i].Id.Value != nil {
+					id := specs[i].Id.Value.(int64)
+					nodes[i].Id = int(id)
 				}
 				mutation.done = true
 				return nodes[i], nil
@@ -273,7 +273,7 @@ func (_c *APICreateBulk) Save(ctx context.Context) ([]*Api, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (_c *APICreateBulk) SaveX(ctx context.Context) []*Api {
+func (_c *ApiCreateBulk) SaveX(ctx context.Context) []*Api {
 	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -282,13 +282,13 @@ func (_c *APICreateBulk) SaveX(ctx context.Context) []*Api {
 }
 
 // Exec executes the query.
-func (_c *APICreateBulk) Exec(ctx context.Context) error {
+func (_c *ApiCreateBulk) Exec(ctx context.Context) error {
 	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (_c *APICreateBulk) ExecX(ctx context.Context) {
+func (_c *ApiCreateBulk) ExecX(ctx context.Context) {
 	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
@@ -304,7 +304,7 @@ func (_c *APICreateBulk) ExecX(ctx context.Context) {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-func (_c *APICreateBulk) OnConflict(opts ...sql.ConflictOption) *ApiUpsertBulk {
+func (_c *ApiCreateBulk) OnConflict(opts ...sql.ConflictOption) *ApiUpsertBulk {
 	_c.conflict = opts
 	return &ApiUpsertBulk{
 		create: _c,
@@ -317,7 +317,7 @@ func (_c *APICreateBulk) OnConflict(opts ...sql.ConflictOption) *ApiUpsertBulk {
 //	client.Api.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-func (_c *APICreateBulk) OnConflictColumns(columns ...string) *ApiUpsertBulk {
+func (_c *ApiCreateBulk) OnConflictColumns(columns ...string) *ApiUpsertBulk {
 	_c.conflict = append(_c.conflict, sql.ConflictColumns(columns...))
 	return &ApiUpsertBulk{
 		create: _c,
@@ -327,7 +327,7 @@ func (_c *APICreateBulk) OnConflictColumns(columns ...string) *ApiUpsertBulk {
 // ApiUpsertBulk is the builder for "upsert"-ing
 // a bulk of Api nodes.
 type ApiUpsertBulk struct {
-	create *APICreateBulk
+	create *ApiCreateBulk
 }
 
 // UpdateNewValues updates the mutable fields using the new values that
@@ -355,13 +355,13 @@ func (u *ApiUpsertBulk) Ignore() *ApiUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ApiUpsertBulk) DoNothing() *ApiUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
 }
 
-// Update allows overriding fields `UPDATE` values. See the APICreateBulk.OnConflict
+// Update allows overriding fields `UPDATE` values. See the ApiCreateBulk.OnConflict
 // documentation for more info.
 func (u *ApiUpsertBulk) Update(set func(*ApiUpsert)) *ApiUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
@@ -377,11 +377,11 @@ func (u *ApiUpsertBulk) Exec(ctx context.Context) error {
 	}
 	for i, b := range u.create.builders {
 		if len(b.conflict) != 0 {
-			return fmt.Errorf("ent: OnConflict was set for builder %d. Set it on the APICreateBulk instead", i)
+			return fmt.Errorf("ent: OnConflict was set for builder %d. Set it on the ApiCreateBulk instead", i)
 		}
 	}
 	if len(u.create.conflict) == 0 {
-		return errors.New("ent: missing options for APICreateBulk.OnConflict")
+		return errors.New("ent: missing options for ApiCreateBulk.OnConflict")
 	}
 	return u.create.Exec(ctx)
 }

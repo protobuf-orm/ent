@@ -118,8 +118,8 @@ func (m *Mutation) ResetAge() {
 	delete(m.clearedFields, FieldAge)
 }
 
-// AddTeamsIDs adds the "teams" edge to the Team entity by ids.
-func (m *Mutation) AddTeamsIDs(ids ...int) {
+// AddTeamsIds adds the "teams" edge to the Team entity by ids.
+func (m *Mutation) AddTeamsIds(ids ...int) {
 	if m.teams == nil {
 		m.teams = make(map[int]struct{})
 	}
@@ -138,8 +138,8 @@ func (m *Mutation) TeamsCleared() bool {
 	return m.clearedteams
 }
 
-// RemoveTeamsIDs removes the "teams" edge to the Team entity by IDs.
-func (m *Mutation) RemoveTeamsIDs(ids ...int) {
+// RemoveTeamsIds removes the "teams" edge to the Team entity by Ids.
+func (m *Mutation) RemoveTeamsIds(ids ...int) {
 	if m.removedteams == nil {
 		m.removedteams = make(map[int]struct{})
 	}
@@ -149,16 +149,16 @@ func (m *Mutation) RemoveTeamsIDs(ids ...int) {
 	}
 }
 
-// RemovedTeams returns the removed IDs of the "teams" edge to the Team entity.
-func (m *Mutation) RemovedTeamsIDs() (ids []int) {
+// RemovedTeams returns the removed Ids of the "teams" edge to the Team entity.
+func (m *Mutation) RemovedTeamsIds() (ids []int) {
 	for id := range m.removedteams {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TeamsIDs returns the "teams" edge IDs in the mutation.
-func (m *Mutation) TeamsIDs() (ids []int) {
+// TeamsIds returns the "teams" edge Ids in the mutation.
+func (m *Mutation) TeamsIds() (ids []int) {
 	for id := range m.teams {
 		ids = append(ids, id)
 	}
@@ -172,8 +172,8 @@ func (m *Mutation) ResetTeams() {
 	m.removedteams = nil
 }
 
-// AddTasksIDs adds the "tasks" edge to the Task entity by ids.
-func (m *Mutation) AddTasksIDs(ids ...int) {
+// AddTasksIds adds the "tasks" edge to the Task entity by ids.
+func (m *Mutation) AddTasksIds(ids ...int) {
 	if m.tasks == nil {
 		m.tasks = make(map[int]struct{})
 	}
@@ -192,8 +192,8 @@ func (m *Mutation) TasksCleared() bool {
 	return m.clearedtasks
 }
 
-// RemoveTasksIDs removes the "tasks" edge to the Task entity by IDs.
-func (m *Mutation) RemoveTasksIDs(ids ...int) {
+// RemoveTasksIds removes the "tasks" edge to the Task entity by Ids.
+func (m *Mutation) RemoveTasksIds(ids ...int) {
 	if m.removedtasks == nil {
 		m.removedtasks = make(map[int]struct{})
 	}
@@ -203,16 +203,16 @@ func (m *Mutation) RemoveTasksIDs(ids ...int) {
 	}
 }
 
-// RemovedTasks returns the removed IDs of the "tasks" edge to the Task entity.
-func (m *Mutation) RemovedTasksIDs() (ids []int) {
+// RemovedTasks returns the removed Ids of the "tasks" edge to the Task entity.
+func (m *Mutation) RemovedTasksIds() (ids []int) {
 	for id := range m.removedtasks {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TasksIDs returns the "tasks" edge IDs in the mutation.
-func (m *Mutation) TasksIDs() (ids []int) {
+// TasksIds returns the "tasks" edge Ids in the mutation.
+func (m *Mutation) TasksIds() (ids []int) {
 	for id := range m.tasks {
 		ids = append(ids, id)
 	}
@@ -404,9 +404,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTeams:
 		ids := make([]ent.Value, 0, len(m.teams))
@@ -436,9 +436,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	switch name {
 	case EdgeTeams:
 		ids := make([]ent.Value, 0, len(m.removedteams))

@@ -59,13 +59,13 @@ func (m *Mutation) ResetText() {
 	m.text = nil
 }
 
-// SetAuthorID sets the "author_id" field.
-func (m *Mutation) SetAuthorID(i int) {
+// SetAuthorId sets the "author_id" field.
+func (m *Mutation) SetAuthorId(i int) {
 	m.author = &i
 }
 
-// AuthorID returns the value of the "author_id" field in the mutation.
-func (m *Mutation) AuthorID() (r int, exists bool) {
+// AuthorId returns the value of the "author_id" field in the mutation.
+func (m *Mutation) AuthorId() (r int, exists bool) {
 	v := m.author
 	if v == nil {
 		return
@@ -73,39 +73,39 @@ func (m *Mutation) AuthorID() (r int, exists bool) {
 	return *v, true
 }
 
-// ClearAuthorID clears the value of the "author_id" field.
-func (m *Mutation) ClearAuthorID() {
+// ClearAuthorId clears the value of the "author_id" field.
+func (m *Mutation) ClearAuthorId() {
 	m.author = nil
-	m.clearedFields[FieldAuthorID] = struct{}{}
+	m.clearedFields[FieldAuthorId] = struct{}{}
 }
 
-// AuthorIDCleared returns if the "author_id" field was cleared in this mutation.
-func (m *Mutation) AuthorIDCleared() bool {
-	_, ok := m.clearedFields[FieldAuthorID]
+// AuthorIdCleared returns if the "author_id" field was cleared in this mutation.
+func (m *Mutation) AuthorIdCleared() bool {
+	_, ok := m.clearedFields[FieldAuthorId]
 	return ok
 }
 
-// ResetAuthorID resets all changes to the "author_id" field.
-func (m *Mutation) ResetAuthorID() {
+// ResetAuthorId resets all changes to the "author_id" field.
+func (m *Mutation) ResetAuthorId() {
 	m.author = nil
-	delete(m.clearedFields, FieldAuthorID)
+	delete(m.clearedFields, FieldAuthorId)
 }
 
 // ClearAuthor clears the "author" edge to the User entity.
 func (m *Mutation) ClearAuthor() {
 	m.clearedauthor = true
-	m.clearedFields[FieldAuthorID] = struct{}{}
+	m.clearedFields[FieldAuthorId] = struct{}{}
 }
 
 // AuthorCleared reports if the "author" edge to the User entity was cleared.
 func (m *Mutation) AuthorCleared() bool {
-	return m.AuthorIDCleared() || m.clearedauthor
+	return m.AuthorIdCleared() || m.clearedauthor
 }
 
-// AuthorIDs returns the "author" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// AuthorID instead. It exists only for internal usage by the builders.
-func (m *Mutation) AuthorIDs() (ids []int) {
+// AuthorIds returns the "author" edge Ids in the mutation.
+// Note that Ids always returns len(Ids) <= 1 for unique edges, and you should use
+// AuthorId instead. It exists only for internal usage by the builders.
+func (m *Mutation) AuthorIds() (ids []int) {
 	if id := m.author; id != nil {
 		ids = append(ids, *id)
 	}
@@ -157,7 +157,7 @@ func (m *Mutation) Fields() []string {
 		fields = append(fields, FieldText)
 	}
 	if m.author != nil {
-		fields = append(fields, FieldAuthorID)
+		fields = append(fields, FieldAuthorId)
 	}
 	return fields
 }
@@ -169,8 +169,8 @@ func (m *Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case FieldText:
 		return m.Text()
-	case FieldAuthorID:
-		return m.AuthorID()
+	case FieldAuthorId:
+		return m.AuthorId()
 	}
 	return nil, false
 }
@@ -194,12 +194,12 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetText(v)
 		return nil
-	case FieldAuthorID:
+	case FieldAuthorId:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetAuthorID(v)
+		m.SetAuthorId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Post field %s", name)
@@ -234,8 +234,8 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *Mutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(FieldAuthorID) {
-		fields = append(fields, FieldAuthorID)
+	if m.FieldCleared(FieldAuthorId) {
+		fields = append(fields, FieldAuthorId)
 	}
 	return fields
 }
@@ -251,8 +251,8 @@ func (m *Mutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *Mutation) ClearField(name string) error {
 	switch name {
-	case FieldAuthorID:
-		m.ClearAuthorID()
+	case FieldAuthorId:
+		m.ClearAuthorId()
 		return nil
 	}
 	return fmt.Errorf("unknown Post nullable field %s", name)
@@ -265,8 +265,8 @@ func (m *Mutation) ResetField(name string) error {
 	case FieldText:
 		m.ResetText()
 		return nil
-	case FieldAuthorID:
-		m.ResetAuthorID()
+	case FieldAuthorId:
+		m.ResetAuthorId()
 		return nil
 	}
 	return fmt.Errorf("unknown Post field %s", name)
@@ -281,9 +281,9 @@ func (m *Mutation) AddedEdges() []string {
 	return edges
 }
 
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// AddedIds returns all Ids (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *Mutation) AddedIDs(name string) []ent.Value {
+func (m *Mutation) AddedIds(name string) []ent.Value {
 	switch name {
 	case EdgeAuthor:
 		if id := m.author; id != nil {
@@ -299,9 +299,9 @@ func (m *Mutation) RemovedEdges() []string {
 	return edges
 }
 
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// RemovedIds returns all Ids (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *Mutation) RemovedIDs(name string) []ent.Value {
+func (m *Mutation) RemovedIds(name string) []ent.Value {
 	return nil
 }
 

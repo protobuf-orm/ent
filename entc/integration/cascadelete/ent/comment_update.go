@@ -46,23 +46,23 @@ func (_u *CommentUpdate) SetNillableText(v *string) *CommentUpdate {
 	return _u
 }
 
-// SetPostID sets the "post_id" field.
-func (_u *CommentUpdate) SetPostID(v int) *CommentUpdate {
-	_u.mutation.SetPostID(v)
+// SetPostId sets the "post_id" field.
+func (_u *CommentUpdate) SetPostId(v int) *CommentUpdate {
+	_u.mutation.SetPostId(v)
 	return _u
 }
 
-// SetNillablePostID sets the "post_id" field if the given value is not nil.
-func (_u *CommentUpdate) SetNillablePostID(v *int) *CommentUpdate {
+// SetNillablePostId sets the "post_id" field if the given value is not nil.
+func (_u *CommentUpdate) SetNillablePostId(v *int) *CommentUpdate {
 	if v != nil {
-		_u.SetPostID(*v)
+		_u.SetPostId(*v)
 	}
 	return _u
 }
 
 // SetPost sets the "post" edge to the Post entity.
 func (_u *CommentUpdate) SetPost(v *Post) *CommentUpdate {
-	return _u.SetPostID(v.ID)
+	return _u.SetPostId(v.Id)
 }
 
 // Mutation returns the CommentMutation object of the builder.
@@ -105,7 +105,7 @@ func (_u *CommentUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *CommentUpdate) check() error {
-	if _u.mutation.PostCleared() && len(_u.mutation.PostIDs()) > 0 {
+	if _u.mutation.PostCleared() && len(_u.mutation.PostIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Comment.post"`)
 	}
 	return nil
@@ -115,7 +115,7 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -134,12 +134,12 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{comment.PostColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PostIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -147,7 +147,7 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{comment.PostColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -189,23 +189,23 @@ func (_u *CommentUpdateOne) SetNillableText(v *string) *CommentUpdateOne {
 	return _u
 }
 
-// SetPostID sets the "post_id" field.
-func (_u *CommentUpdateOne) SetPostID(v int) *CommentUpdateOne {
-	_u.mutation.SetPostID(v)
+// SetPostId sets the "post_id" field.
+func (_u *CommentUpdateOne) SetPostId(v int) *CommentUpdateOne {
+	_u.mutation.SetPostId(v)
 	return _u
 }
 
-// SetNillablePostID sets the "post_id" field if the given value is not nil.
-func (_u *CommentUpdateOne) SetNillablePostID(v *int) *CommentUpdateOne {
+// SetNillablePostId sets the "post_id" field if the given value is not nil.
+func (_u *CommentUpdateOne) SetNillablePostId(v *int) *CommentUpdateOne {
 	if v != nil {
-		_u.SetPostID(*v)
+		_u.SetPostId(*v)
 	}
 	return _u
 }
 
 // SetPost sets the "post" edge to the Post entity.
 func (_u *CommentUpdateOne) SetPost(v *Post) *CommentUpdateOne {
-	return _u.SetPostID(v.ID)
+	return _u.SetPostId(v.Id)
 }
 
 // Mutation returns the CommentMutation object of the builder.
@@ -261,7 +261,7 @@ func (_u *CommentUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_u *CommentUpdateOne) check() error {
-	if _u.mutation.PostCleared() && len(_u.mutation.PostIDs()) > 0 {
+	if _u.mutation.PostCleared() && len(_u.mutation.PostIds()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Comment.post"`)
 	}
 	return nil
@@ -271,20 +271,20 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 	if err := _u.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(comment.Table, comment.Columns, sqlgraph.NewFieldSpec(comment.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Comment.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, comment.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, comment.FieldId)
 		for _, f := range fields {
 			if !comment.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 			}
-			if f != comment.FieldID {
+			if f != comment.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -307,12 +307,12 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 			Columns: []string{comment.PostColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.PostIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -320,7 +320,7 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 			Columns: []string{comment.PostColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(post.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(post.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

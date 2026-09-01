@@ -18,18 +18,18 @@ const (
 	Label = "role_user"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
-	// FieldRoleID holds the string denoting the role_id field in the database.
-	FieldRoleID = "role_id"
-	// FieldUserID holds the string denoting the user_id field in the database.
-	FieldUserID = "user_id"
+	// FieldRoleId holds the string denoting the role_id field in the database.
+	FieldRoleId = "role_id"
+	// FieldUserId holds the string denoting the user_id field in the database.
+	FieldUserId = "user_id"
 	// EdgeRole holds the string denoting the role edge name in mutations.
 	EdgeRole = "role"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
-	// RoleFieldID holds the string denoting the ID field of the Role.
-	RoleFieldID = "id"
-	// UserFieldID holds the string denoting the ID field of the User.
-	UserFieldID = "id"
+	// RoleFieldId holds the string denoting the Id field of the Role.
+	RoleFieldId = "id"
+	// UserFieldId holds the string denoting the Id field of the User.
+	UserFieldId = "id"
 	// Table holds the table name of the roleuser in the database.
 	Table = "role_user"
 	// RoleTable is the table that holds the role relation/edge.
@@ -48,11 +48,11 @@ const (
 	UserColumn = "user_id"
 )
 
-// Columns holds all SQL columns for roleuser fields.
+// Columns holds all Sql columns for roleuser fields.
 var Columns = []string{
 	FieldCreatedAt,
-	FieldRoleID,
-	FieldUserID,
+	FieldRoleId,
+	FieldUserId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -78,14 +78,14 @@ func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
-// ByRoleID orders the results by the role_id field.
-func ByRoleID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldRoleID, opts...).ToFunc()
+// ByRoleId orders the results by the role_id field.
+func ByRoleId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRoleId, opts...).ToFunc()
 }
 
-// ByUserID orders the results by the user_id field.
-func ByUserID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+// ByUserId orders the results by the user_id field.
+func ByUserId(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserId, opts...).ToFunc()
 }
 
 // ByRoleField orders the results by role field.
@@ -104,14 +104,14 @@ func ByUserField(field string, opts ...sql.OrderTermOption) OrderOption {
 func newRoleStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, RoleColumn),
-		sqlgraph.To(RoleInverseTable, RoleFieldID),
+		sqlgraph.To(RoleInverseTable, RoleFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, RoleTable, RoleColumn),
 	)
 }
 func newUserStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, UserColumn),
-		sqlgraph.To(UserInverseTable, UserFieldID),
+		sqlgraph.To(UserInverseTable, UserFieldId),
 		sqlgraph.Edge(sqlgraph.M2O, false, UserTable, UserColumn),
 	)
 }

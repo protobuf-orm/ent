@@ -18,8 +18,8 @@ import (
 // Zoo is the model entity for the Zoo schema.
 type Zoo struct {
 	config
-	// ID of the ent.
-	ID           int `json:"id,omitempty"`
+	// Id of the ent.
+	Id           int `json:"id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +28,7 @@ func (*Zoo) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case zoo.FieldID:
+		case zoo.FieldId:
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -45,12 +45,12 @@ func (_m *Zoo) assignValues(columns []string, values []any) error {
 	}
 	for i := range columns {
 		switch columns[i] {
-		case zoo.FieldID:
+		case zoo.FieldId:
 			value, ok := values[i].(*sql.NullInt64)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			_m.ID = int(value.Int64)
+			_m.Id = int(value.Int64)
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -86,7 +86,7 @@ func (_m *Zoo) Unwrap() *Zoo {
 func (_m *Zoo) String() string {
 	var builder strings.Builder
 	builder.WriteString("Zoo(")
-	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.Id))
 	builder.WriteByte(')')
 	return builder.String()
 }

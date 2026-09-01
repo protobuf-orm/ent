@@ -53,9 +53,9 @@ func (_u *BlogUpdate) AddOid(v int) *BlogUpdate {
 	return _u
 }
 
-// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
-func (_u *BlogUpdate) AddAdminsIDs(ids ...int) *BlogUpdate {
-	_u.mutation.AddAdminsIDs(ids...)
+// AddAdminsIds adds the "admins" edge to the User entity by Ids.
+func (_u *BlogUpdate) AddAdminsIds(ids ...int) *BlogUpdate {
+	_u.mutation.AddAdminsIds(ids...)
 	return _u
 }
 
@@ -63,9 +63,9 @@ func (_u *BlogUpdate) AddAdminsIDs(ids ...int) *BlogUpdate {
 func (_u *BlogUpdate) AddAdmins(v ...*User) *BlogUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddAdminsIDs(ids...)
+	return _u.AddAdminsIds(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.
@@ -79,9 +79,9 @@ func (_u *BlogUpdate) ClearAdmins() *BlogUpdate {
 	return _u
 }
 
-// RemoveAdminsIDs removes the "admins" edge to User entities by IDs.
-func (_u *BlogUpdate) RemoveAdminsIDs(ids ...int) *BlogUpdate {
-	_u.mutation.RemoveAdminsIDs(ids...)
+// RemoveAdminsIds removes the "admins" edge to User entities by Ids.
+func (_u *BlogUpdate) RemoveAdminsIds(ids ...int) *BlogUpdate {
+	_u.mutation.RemoveAdminsIds(ids...)
 	return _u
 }
 
@@ -89,9 +89,9 @@ func (_u *BlogUpdate) RemoveAdminsIDs(ids ...int) *BlogUpdate {
 func (_u *BlogUpdate) RemoveAdmins(v ...*User) *BlogUpdate {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveAdminsIDs(ids...)
+	return _u.RemoveAdminsIds(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -122,7 +122,7 @@ func (_u *BlogUpdate) ExecX(ctx context.Context) {
 }
 
 func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
-	_spec := sqlgraph.NewUpdateSpec(blog.Table, blog.Columns, sqlgraph.NewFieldSpec(blog.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(blog.Table, blog.Columns, sqlgraph.NewFieldSpec(blog.FieldId, field.TypeInt))
 	if ps := _u.mutation.Predicates(); len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -144,12 +144,12 @@ func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedAdminsIDs(); len(nodes) > 0 && !_u.mutation.AdminsCleared() {
+	if nodes := _u.mutation.RemovedAdminsIds(); len(nodes) > 0 && !_u.mutation.AdminsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -157,7 +157,7 @@ func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -165,7 +165,7 @@ func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AdminsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AdminsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -173,7 +173,7 @@ func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -222,9 +222,9 @@ func (_u *BlogUpdateOne) AddOid(v int) *BlogUpdateOne {
 	return _u
 }
 
-// AddAdminsIDs adds the "admins" edge to the User entity by IDs.
-func (_u *BlogUpdateOne) AddAdminsIDs(ids ...int) *BlogUpdateOne {
-	_u.mutation.AddAdminsIDs(ids...)
+// AddAdminsIds adds the "admins" edge to the User entity by Ids.
+func (_u *BlogUpdateOne) AddAdminsIds(ids ...int) *BlogUpdateOne {
+	_u.mutation.AddAdminsIds(ids...)
 	return _u
 }
 
@@ -232,9 +232,9 @@ func (_u *BlogUpdateOne) AddAdminsIDs(ids ...int) *BlogUpdateOne {
 func (_u *BlogUpdateOne) AddAdmins(v ...*User) *BlogUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.AddAdminsIDs(ids...)
+	return _u.AddAdminsIds(ids...)
 }
 
 // Mutation returns the BlogMutation object of the builder.
@@ -248,9 +248,9 @@ func (_u *BlogUpdateOne) ClearAdmins() *BlogUpdateOne {
 	return _u
 }
 
-// RemoveAdminsIDs removes the "admins" edge to User entities by IDs.
-func (_u *BlogUpdateOne) RemoveAdminsIDs(ids ...int) *BlogUpdateOne {
-	_u.mutation.RemoveAdminsIDs(ids...)
+// RemoveAdminsIds removes the "admins" edge to User entities by Ids.
+func (_u *BlogUpdateOne) RemoveAdminsIds(ids ...int) *BlogUpdateOne {
+	_u.mutation.RemoveAdminsIds(ids...)
 	return _u
 }
 
@@ -258,9 +258,9 @@ func (_u *BlogUpdateOne) RemoveAdminsIDs(ids ...int) *BlogUpdateOne {
 func (_u *BlogUpdateOne) RemoveAdmins(v ...*User) *BlogUpdateOne {
 	ids := make([]int, len(v))
 	for i := range v {
-		ids[i] = v[i].ID
+		ids[i] = v[i].Id
 	}
-	return _u.RemoveAdminsIDs(ids...)
+	return _u.RemoveAdminsIds(ids...)
 }
 
 // Where appends a list predicates to the BlogUpdate builder.
@@ -304,20 +304,20 @@ func (_u *BlogUpdateOne) ExecX(ctx context.Context) {
 }
 
 func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
-	_spec := sqlgraph.NewUpdateSpec(blog.Table, blog.Columns, sqlgraph.NewFieldSpec(blog.FieldID, field.TypeInt))
-	id, ok := _u.mutation.ID()
+	_spec := sqlgraph.NewUpdateSpec(blog.Table, blog.Columns, sqlgraph.NewFieldSpec(blog.FieldId, field.TypeInt))
+	id, ok := _u.mutation.Id()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entv2: missing "Blog.id" for update`)}
 	}
-	_spec.Node.ID.Value = id
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, blog.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, blog.FieldId)
 		for _, f := range fields {
 			if !blog.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entv2: invalid field %q for query", f)}
 			}
-			if f != blog.FieldID {
+			if f != blog.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
@@ -343,12 +343,12 @@ func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.RemovedAdminsIDs(); len(nodes) > 0 && !_u.mutation.AdminsCleared() {
+	if nodes := _u.mutation.RemovedAdminsIds(); len(nodes) > 0 && !_u.mutation.AdminsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -356,7 +356,7 @@ func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -364,7 +364,7 @@ func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := _u.mutation.AdminsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AdminsIds(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -372,7 +372,7 @@ func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
 			Columns: []string{blog.AdminsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IdSpec: sqlgraph.NewFieldSpec(user.FieldId, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

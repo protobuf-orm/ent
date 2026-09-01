@@ -13,7 +13,7 @@ import (
 )
 
 // Annotation is a builtin schema annotation for attaching
-// SQL metadata to schema objects for both codegen and runtime.
+// Sql metadata to schema objects for both codegen and runtime.
 type Annotation struct {
 	// The Schema option allows setting the schema which the table belongs to.
 	// Note, this option is no-op for Ent default migration engine. However, schema
@@ -83,7 +83,7 @@ type Annotation struct {
 	//
 	//	entsql.Annotation{
 	//		DefaultExprs: map[string]string{
-	//			dialect.MySQL:    "uuid()",
+	//			dialect.MySql:    "uuid()",
 	//			dialect.Postgres: "uuid_generate_v4",
 	//		}
 	//
@@ -187,20 +187,20 @@ type Annotation struct {
 	//
 	//	entsql.Annotation{
 	//		ViewFor: map[string]string{
-	//			dialect.MySQL:    "...",
+	//			dialect.MySql:    "...",
 	//			dialect.Postgres: "...",
 	//		},
 	//	}
 	ViewFor map[string]string `json:"view_for,omitempty"`
 
 	// error occurs during annotation build. This field is not
-	// serialized to JSON and used only by the codegen loader.
+	// serialized to Json and used only by the codegen loader.
 	err error
 }
 
 // Name describes the annotation name.
 func (Annotation) Name() string {
-	return "EntSQL"
+	return "EntSql"
 }
 
 // The Schema option allows setting the schema which the table belongs to.
@@ -316,7 +316,7 @@ func Default(literal string) *Annotation {
 // default values.Note that using this option overrides the default behavior of
 // the code-generation.
 //
-//	field.UUID("id", uuid.Nil).
+//	field.Uuid("id", uuid.Nil).
 //		Default(uuid.New).
 //		Annotations(
 //			entsql.DefaultExpr("uuid_generate_v4()"),
@@ -330,11 +330,11 @@ func DefaultExpr(expr string) *Annotation {
 // DefaultExprs specifies an expression default value for the annotated
 // column per dialect. See, DefaultExpr for full doc.
 //
-//	field.UUID("id", uuid.Nil).
+//	field.Uuid("id", uuid.Nil).
 //		Default(uuid.New).
 //		Annotations(
 //			entsql.DefaultExprs(map[string]string{
-//				dialect.MySQL:    "uuid()",
+//				dialect.MySql:    "uuid()",
 //				dialect.Postgres: "uuid_generate_v4()",
 //			}),
 //		)
@@ -502,10 +502,10 @@ const (
 )
 
 // IndexAnnotation is a builtin schema annotation for attaching
-// SQL metadata to schema indexes for both codegen and runtime.
+// Sql metadata to schema indexes for both codegen and runtime.
 type IndexAnnotation struct {
 	// Prefix defines a column prefix for a single string column index.
-	// In MySQL, the following annotation maps to:
+	// In MySql, the following annotation maps to:
 	//
 	//	index.Fields("column").
 	//		Annotation(entsql.Prefix(100))
@@ -515,7 +515,7 @@ type IndexAnnotation struct {
 	Prefix uint
 
 	// PrefixColumns defines column prefixes for a multi-column index.
-	// In MySQL, the following annotation maps to:
+	// In MySql, the following annotation maps to:
 	//
 	//	index.Fields("c1", "c2", "c3").
 	//		Annotation(
@@ -528,7 +528,7 @@ type IndexAnnotation struct {
 	PrefixColumns map[string]uint
 
 	// Desc defines the DESC clause for a single column index.
-	// In MySQL, the following annotation maps to:
+	// In MySql, the following annotation maps to:
 	//
 	//	index.Fields("column").
 	//		Annotation(entsql.Desc())
@@ -538,7 +538,7 @@ type IndexAnnotation struct {
 	Desc bool
 
 	// DescColumns defines the DESC clause for columns in multi-column index.
-	// In MySQL, the following annotation maps to:
+	// In MySql, the following annotation maps to:
 	//
 	//	index.Fields("c1", "c2", "c3").
 	//		Annotation(
@@ -562,7 +562,7 @@ type IndexAnnotation struct {
 	IncludeColumns []string
 
 	// Type defines the type of the index.
-	// In MySQL, the following annotation maps to:
+	// In MySql, the following annotation maps to:
 	//
 	//	index.Fields("c1").
 	//		Annotation(
@@ -578,7 +578,7 @@ type IndexAnnotation struct {
 	//	index.Fields("c1").
 	//		Annotation(
 	//			entsql.IndexTypes(map[string]string{
-	//				dialect.MySQL:		"FULLTEXT",
+	//				dialect.MySql:		"FULLTEXT",
 	//				dialect.Postgres:	"GIN",
 	//			}),
 	//		)
@@ -586,7 +586,7 @@ type IndexAnnotation struct {
 	Types map[string]string
 
 	// OpClass defines the operator class for a single string column index.
-	// In PostgreSQL, the following annotation maps to:
+	// In PostgreSql, the following annotation maps to:
 	//
 	//	index.Fields("column").
 	//		Annotation(
@@ -599,7 +599,7 @@ type IndexAnnotation struct {
 	OpClass string
 
 	// OpClassColumns defines operator-classes for a multi-column index.
-	// In PostgreSQL, the following annotation maps to:
+	// In PostgreSql, the following annotation maps to:
 	//
 	//	index.Fields("c1", "c2", "c3").
 	//		Annotation(
@@ -612,7 +612,7 @@ type IndexAnnotation struct {
 	//
 	OpClassColumns map[string]string
 
-	// IndexWhere allows configuring partial indexes in SQLite and PostgreSQL.
+	// IndexWhere allows configuring partial indexes in SQLite and PostgreSql.
 	// Read more: https://postgresql.org/docs/current/indexes-partial.html.
 	//
 	// Note that the `WHERE` clause should be defined exactly like it is
@@ -628,7 +628,7 @@ type IndexAnnotation struct {
 }
 
 // Prefix returns a new index annotation with a single string column index.
-// In MySQL, the following annotation maps to:
+// In MySql, the following annotation maps to:
 //
 //	index.Fields("column").
 //		Annotation(entsql.Prefix(100))
@@ -641,7 +641,7 @@ func Prefix(prefix uint) *IndexAnnotation {
 }
 
 // PrefixColumn returns a new index annotation with column prefix for
-// multi-column indexes. In MySQL, the following annotation maps to:
+// multi-column indexes. In MySql, the following annotation maps to:
 //
 //	index.Fields("c1", "c2", "c3").
 //		Annotation(
@@ -659,7 +659,7 @@ func PrefixColumn(name string, prefix uint) *IndexAnnotation {
 }
 
 // OpClass defines the operator class for a single string column index.
-// In PostgreSQL, the following annotation maps to:
+// In PostgreSql, the following annotation maps to:
 //
 //	index.Fields("column").
 //		Annotation(
@@ -675,7 +675,7 @@ func OpClass(op string) *IndexAnnotation {
 }
 
 // OpClassColumn returns a new index annotation with column operator
-// class for multi-column indexes. In PostgreSQL, the following annotation maps to:
+// class for multi-column indexes. In PostgreSql, the following annotation maps to:
 //
 //	index.Fields("c1", "c2", "c3").
 //		Annotation(
@@ -694,7 +694,7 @@ func OpClassColumn(name, op string) *IndexAnnotation {
 }
 
 // Desc returns a new index annotation with the DESC clause for a
-// single column index. In MySQL, the following annotation maps to:
+// single column index. In MySql, the following annotation maps to:
 //
 //	index.Fields("column").
 //		Annotation(entsql.Desc())
@@ -707,7 +707,7 @@ func Desc() *IndexAnnotation {
 }
 
 // DescColumns returns a new index annotation with the DESC clause attached to
-// the columns in the index. In MySQL, the following annotation maps to:
+// the columns in the index. In MySql, the following annotation maps to:
 //
 //	index.Fields("c1", "c2", "c3").
 //		Annotation(
@@ -739,7 +739,7 @@ func IncludeColumns(names ...string) *IndexAnnotation {
 }
 
 // IndexType defines the type of the index.
-// In MySQL, the following annotation maps to:
+// In MySql, the following annotation maps to:
 //
 //	index.Fields("c1").
 //		Annotation(
@@ -756,7 +756,7 @@ func IndexType(t string) *IndexAnnotation {
 //	index.Fields("c1").
 //		Annotations(
 //			entsql.IndexTypes(map[string]string{
-//				dialect.MySQL:    "FULLTEXT",
+//				dialect.MySql:    "FULLTEXT",
 //				dialect.Postgres: "GIN",
 //			}),
 //		)
@@ -764,7 +764,7 @@ func IndexTypes(types map[string]string) *IndexAnnotation {
 	return &IndexAnnotation{Types: types}
 }
 
-// IndexWhere allows configuring partial indexes in SQLite and PostgreSQL.
+// IndexWhere allows configuring partial indexes in SQLite and PostgreSql.
 // Read more: https://postgresql.org/docs/current/indexes-partial.html.
 //
 // Note that the `WHERE` clause should be defined exactly like it is
@@ -782,7 +782,7 @@ func IndexWhere(pred string) *IndexAnnotation {
 
 // Name describes the annotation name.
 func (IndexAnnotation) Name() string {
-	return "EntSQLIndexes"
+	return "EntSqlIndexes"
 }
 
 // Merge implements the schema.Merger interface.

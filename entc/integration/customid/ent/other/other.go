@@ -14,15 +14,15 @@ import (
 const (
 	// Label holds the string label denoting the other type in the database.
 	Label = "other"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// Table holds the table name of the other in the database.
 	Table = "other"
 )
 
-// Columns holds all SQL columns for other fields.
+// Columns holds all Sql columns for other fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -36,14 +36,14 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() sid.ID
+	// DefaultId holds the default value on creation for the "id" field.
+	DefaultId func() sid.Id
 )
 
 // OrderOption defines the ordering options for the Other queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }

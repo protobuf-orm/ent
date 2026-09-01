@@ -86,8 +86,8 @@ func (_q *TweetQuery) QueryLikedUsers() *UserQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, tweet.LikedUsersTable, tweet.LikedUsersPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -108,8 +108,8 @@ func (_q *TweetQuery) QueryUser() *UserQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, tweet.UserTable, tweet.UserPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -130,8 +130,8 @@ func (_q *TweetQuery) QueryTags() *TagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
-			sqlgraph.To(tag.Table, tag.FieldID),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
+			sqlgraph.To(tag.Table, tag.FieldId),
 			sqlgraph.Edge(sqlgraph.M2M, true, tweet.TagsTable, tweet.TagsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -152,7 +152,7 @@ func (_q *TweetQuery) QueryLikes() *TweetLikeQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
 			sqlgraph.To(tweetlike.Table, tweetlike.TweetColumn),
 			sqlgraph.Edge(sqlgraph.O2M, true, tweet.LikesTable, tweet.LikesColumn),
 		)
@@ -174,8 +174,8 @@ func (_q *TweetQuery) QueryTweetUser() *UserTweetQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
-			sqlgraph.To(usertweet.Table, usertweet.FieldID),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
+			sqlgraph.To(usertweet.Table, usertweet.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, tweet.TweetUserTable, tweet.TweetUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -196,8 +196,8 @@ func (_q *TweetQuery) QueryTweetTags() *TweetTagQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(tweet.Table, tweet.FieldID, selector),
-			sqlgraph.To(tweettag.Table, tweettag.FieldID),
+			sqlgraph.From(tweet.Table, tweet.FieldId, selector),
+			sqlgraph.To(tweettag.Table, tweettag.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, true, tweet.TweetTagsTable, tweet.TweetTagsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -228,11 +228,11 @@ func (_q *TweetQuery) FirstX(ctx context.Context) *Tweet {
 	return node
 }
 
-// FirstID returns the first Tweet ID from the query.
-// Returns a *NotFoundError when no Tweet ID was found.
-func (_q *TweetQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first Tweet Id from the query.
+// Returns a *NotFoundError when no Tweet Id was found.
+func (_q *TweetQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -242,9 +242,9 @@ func (_q *TweetQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *TweetQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *TweetQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -278,12 +278,12 @@ func (_q *TweetQuery) OnlyX(ctx context.Context) *Tweet {
 	return node
 }
 
-// OnlyID is like Only, but returns the only Tweet ID in the query.
-// Returns a *NotSingularError when more than one Tweet ID is found.
+// OnlyId is like Only, but returns the only Tweet Id in the query.
+// Returns a *NotSingularError when more than one Tweet Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *TweetQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *TweetQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -297,9 +297,9 @@ func (_q *TweetQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *TweetQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *TweetQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -325,21 +325,21 @@ func (_q *TweetQuery) AllX(ctx context.Context) []*Tweet {
 	return nodes
 }
 
-// IDs executes the query and returns a list of Tweet IDs.
-func (_q *TweetQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of Tweet Ids.
+func (_q *TweetQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(tweet.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(tweet.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *TweetQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *TweetQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -367,7 +367,7 @@ func (_q *TweetQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *TweetQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -627,20 +627,20 @@ func (_q *TweetQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tweet,
 }
 
 func (_q *TweetQuery) loadLikedUsers(ctx context.Context, query *UserQuery, nodes []*Tweet, init func(*Tweet), assign func(*Tweet, *User)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Tweet)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Tweet)
 	nids := make(map[int]map[*Tweet]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(tweet.LikedUsersTable)
-		s.Join(joinT).On(s.C(user.FieldID), joinT.C(tweet.LikedUsersPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(tweet.LikedUsersPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(user.FieldId), joinT.C(tweet.LikedUsersPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(tweet.LikedUsersPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(tweet.LikedUsersPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -664,10 +664,10 @@ func (_q *TweetQuery) loadLikedUsers(ctx context.Context, query *UserQuery, node
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Tweet]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Tweet]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -677,9 +677,9 @@ func (_q *TweetQuery) loadLikedUsers(ctx context.Context, query *UserQuery, node
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "liked_users" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "liked_users" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -688,20 +688,20 @@ func (_q *TweetQuery) loadLikedUsers(ctx context.Context, query *UserQuery, node
 	return nil
 }
 func (_q *TweetQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*Tweet, init func(*Tweet), assign func(*Tweet, *User)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Tweet)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Tweet)
 	nids := make(map[int]map[*Tweet]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(tweet.UserTable)
-		s.Join(joinT).On(s.C(user.FieldID), joinT.C(tweet.UserPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(tweet.UserPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(user.FieldId), joinT.C(tweet.UserPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(tweet.UserPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(tweet.UserPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -725,10 +725,10 @@ func (_q *TweetQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*T
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Tweet]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Tweet]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -738,9 +738,9 @@ func (_q *TweetQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*T
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "user" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "user" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -749,20 +749,20 @@ func (_q *TweetQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*T
 	return nil
 }
 func (_q *TweetQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Tweet, init func(*Tweet), assign func(*Tweet, *Tag)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*Tweet)
+	edgeIds := make([]driver.Value, len(nodes))
+	byId := make(map[int]*Tweet)
 	nids := make(map[int]map[*Tweet]struct{})
 	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
+		edgeIds[i] = node.Id
+		byId[node.Id] = node
 		if init != nil {
 			init(node)
 		}
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(tweet.TagsTable)
-		s.Join(joinT).On(s.C(tag.FieldID), joinT.C(tweet.TagsPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(tweet.TagsPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(tag.FieldId), joinT.C(tweet.TagsPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(tweet.TagsPrimaryKey[1]), edgeIds...))
 		columns := s.SelectedColumns()
 		s.Select(joinT.C(tweet.TagsPrimaryKey[1]))
 		s.AppendSelect(columns...)
@@ -786,10 +786,10 @@ func (_q *TweetQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Tw
 				outValue := int(values[0].(*sql.NullInt64).Int64)
 				inValue := int(values[1].(*sql.NullInt64).Int64)
 				if nids[inValue] == nil {
-					nids[inValue] = map[*Tweet]struct{}{byID[outValue]: {}}
+					nids[inValue] = map[*Tweet]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
 				}
-				nids[inValue][byID[outValue]] = struct{}{}
+				nids[inValue][byId[outValue]] = struct{}{}
 				return nil
 			}
 		})
@@ -799,9 +799,9 @@ func (_q *TweetQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*Tw
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected "tags" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "tags" node returned %v`, n.Id)
 		}
 		for kn := range nodes {
 			assign(kn, n)
@@ -813,14 +813,14 @@ func (_q *TweetQuery) loadLikes(ctx context.Context, query *TweetLikeQuery, node
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Tweet)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(tweetlike.FieldTweetID)
+		query.ctx.AppendFieldOnce(tweetlike.FieldTweetId)
 	}
 	query.Where(predicate.TweetLike(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(tweet.LikesColumn), fks...))
@@ -830,7 +830,7 @@ func (_q *TweetQuery) loadLikes(ctx context.Context, query *TweetLikeQuery, node
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.TweetID
+		fk := n.TweetId
 		node, ok := nodeids[fk]
 		if !ok {
 			return fmt.Errorf(`unexpected referenced foreign-key "tweet_id" returned %v for node %v`, fk, n)
@@ -843,14 +843,14 @@ func (_q *TweetQuery) loadTweetUser(ctx context.Context, query *UserTweetQuery, 
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Tweet)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(usertweet.FieldTweetID)
+		query.ctx.AppendFieldOnce(usertweet.FieldTweetId)
 	}
 	query.Where(predicate.UserTweet(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(tweet.TweetUserColumn), fks...))
@@ -860,10 +860,10 @@ func (_q *TweetQuery) loadTweetUser(ctx context.Context, query *UserTweetQuery, 
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.TweetID
+		fk := n.TweetId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "tweet_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "tweet_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -873,14 +873,14 @@ func (_q *TweetQuery) loadTweetTags(ctx context.Context, query *TweetTagQuery, n
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*Tweet)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
 	}
 	if len(query.ctx.Fields) > 0 {
-		query.ctx.AppendFieldOnce(tweettag.FieldTweetID)
+		query.ctx.AppendFieldOnce(tweettag.FieldTweetId)
 	}
 	query.Where(predicate.TweetTag(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(tweet.TweetTagsColumn), fks...))
@@ -890,10 +890,10 @@ func (_q *TweetQuery) loadTweetTags(ctx context.Context, query *TweetTagQuery, n
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.TweetID
+		fk := n.TweetId
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "tweet_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "tweet_id" returned %v for node %v`, fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -910,7 +910,7 @@ func (_q *TweetQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *TweetQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(tweet.Table, tweet.Columns, sqlgraph.NewFieldSpec(tweet.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(tweet.Table, tweet.Columns, sqlgraph.NewFieldSpec(tweet.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -919,9 +919,9 @@ func (_q *TweetQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, tweet.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, tweet.FieldId)
 		for i := range fields {
-			if fields[i] != tweet.FieldID {
+			if fields[i] != tweet.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

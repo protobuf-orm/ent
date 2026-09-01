@@ -85,8 +85,8 @@ func (_q *FileQuery) QueryOwner() *UserQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(file.Table, file.FieldID, selector),
-			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.From(file.Table, file.FieldId, selector),
+			sqlgraph.To(user.Table, user.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, file.OwnerTable, file.OwnerColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -107,8 +107,8 @@ func (_q *FileQuery) QueryType() *FileTypeQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(file.Table, file.FieldID, selector),
-			sqlgraph.To(filetype.Table, filetype.FieldID),
+			sqlgraph.From(file.Table, file.FieldId, selector),
+			sqlgraph.To(filetype.Table, filetype.FieldId),
 			sqlgraph.Edge(sqlgraph.M2O, true, file.TypeTable, file.TypeColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -129,8 +129,8 @@ func (_q *FileQuery) QueryField() *FieldTypeQuery {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
-			sqlgraph.From(file.Table, file.FieldID, selector),
-			sqlgraph.To(fieldtype.Table, fieldtype.FieldID),
+			sqlgraph.From(file.Table, file.FieldId, selector),
+			sqlgraph.To(fieldtype.Table, fieldtype.FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, file.FieldTable, file.FieldColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
@@ -161,11 +161,11 @@ func (_q *FileQuery) FirstX(ctx context.Context) *File {
 	return node
 }
 
-// FirstID returns the first File ID from the query.
-// Returns a *NotFoundError when no File ID was found.
-func (_q *FileQuery) FirstID(ctx context.Context) (id int, err error) {
+// FirstId returns the first File Id from the query.
+// Returns a *NotFoundError when no File Id was found.
+func (_q *FileQuery) FirstId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryFirstId)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -175,9 +175,9 @@ func (_q *FileQuery) FirstID(ctx context.Context) (id int, err error) {
 	return ids[0], nil
 }
 
-// FirstIDX is like FirstID, but panics if an error occurs.
-func (_q *FileQuery) FirstIDX(ctx context.Context) int {
-	id, err := _q.FirstID(ctx)
+// FirstIdX is like FirstId, but panics if an error occurs.
+func (_q *FileQuery) FirstIdX(ctx context.Context) int {
+	id, err := _q.FirstId(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -211,12 +211,12 @@ func (_q *FileQuery) OnlyX(ctx context.Context) *File {
 	return node
 }
 
-// OnlyID is like Only, but returns the only File ID in the query.
-// Returns a *NotSingularError when more than one File ID is found.
+// OnlyId is like Only, but returns the only File Id in the query.
+// Returns a *NotSingularError when more than one File Id is found.
 // Returns a *NotFoundError when no entities are found.
-func (_q *FileQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *FileQuery) OnlyId(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).Ids(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyId)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -230,9 +230,9 @@ func (_q *FileQuery) OnlyID(ctx context.Context) (id int, err error) {
 	return
 }
 
-// OnlyIDX is like OnlyID, but panics if an error occurs.
-func (_q *FileQuery) OnlyIDX(ctx context.Context) int {
-	id, err := _q.OnlyID(ctx)
+// OnlyIdX is like OnlyId, but panics if an error occurs.
+func (_q *FileQuery) OnlyIdX(ctx context.Context) int {
+	id, err := _q.OnlyId(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -258,21 +258,21 @@ func (_q *FileQuery) AllX(ctx context.Context) []*File {
 	return nodes
 }
 
-// IDs executes the query and returns a list of File IDs.
-func (_q *FileQuery) IDs(ctx context.Context) (ids []int, err error) {
+// Ids executes the query and returns a list of File Ids.
+func (_q *FileQuery) Ids(ctx context.Context) (ids []int, err error) {
 	if _q.ctx.Unique == nil && _q.path != nil {
 		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
-	if err = _q.Select(file.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
+	if err = _q.Select(file.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
-// IDsX is like IDs, but panics if an error occurs.
-func (_q *FileQuery) IDsX(ctx context.Context) []int {
-	ids, err := _q.IDs(ctx)
+// IdsX is like Ids, but panics if an error occurs.
+func (_q *FileQuery) IdsX(ctx context.Context) []int {
+	ids, err := _q.Ids(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -300,7 +300,7 @@ func (_q *FileQuery) CountX(ctx context.Context) int {
 // Exist returns true if the query has elements in the graph.
 func (_q *FileQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
-	switch _, err := _q.FirstID(ctx); {
+	switch _, err := _q.FirstId(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -380,12 +380,12 @@ func (_q *FileQuery) WithField(opts ...func(*FieldTypeQuery)) *FileQuery {
 // Example:
 //
 //	var v []struct {
-//		SetID int `json:"set_id,omitempty"`
+//		SetId int `json:"set_id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.File.Query().
-//		GroupBy(file.FieldSetID).
+//		GroupBy(file.FieldSetId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *FileQuery) GroupBy(field string, fields ...string) *FileGroupBy {
@@ -403,11 +403,11 @@ func (_q *FileQuery) GroupBy(field string, fields ...string) *FileGroupBy {
 // Example:
 //
 //	var v []struct {
-//		SetID int `json:"set_id,omitempty"`
+//		SetId int `json:"set_id,omitempty"`
 //	}
 //
 //	client.File.Query().
-//		Select(file.FieldSetID).
+//		Select(file.FieldSetId).
 //		Scan(ctx, &v)
 func (_q *FileQuery) Select(fields ...string) *FileSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
@@ -531,15 +531,15 @@ func (_q *FileQuery) loadOwner(ctx context.Context, query *UserQuery, nodes []*F
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(user.IDIn(ids...))
+	query.Where(user.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "user_files" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "user_files" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -563,15 +563,15 @@ func (_q *FileQuery) loadType(ctx context.Context, query *FileTypeQuery, nodes [
 	if len(ids) == 0 {
 		return nil
 	}
-	query.Where(filetype.IDIn(ids...))
+	query.Where(filetype.IdIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nodeids[n.Id]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "file_type_files" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "file_type_files" returned %v`, n.Id)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
@@ -583,8 +583,8 @@ func (_q *FileQuery) loadField(ctx context.Context, query *FieldTypeQuery, nodes
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*File)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		fks = append(fks, nodes[i].Id)
+		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])
 		}
@@ -600,11 +600,11 @@ func (_q *FileQuery) loadField(ctx context.Context, query *FieldTypeQuery, nodes
 	for _, n := range neighbors {
 		fk := n.file_field
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "file_field" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "file_field" is nil for node %v`, n.Id)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "file_field" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "file_field" returned %v for node %v`, *fk, n.Id)
 		}
 		assign(node, n)
 	}
@@ -624,7 +624,7 @@ func (_q *FileQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (_q *FileQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := sqlgraph.NewQuerySpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewQuerySpec(file.Table, file.Columns, sqlgraph.NewFieldSpec(file.FieldId, field.TypeInt))
 	_spec.From = _q.sql
 	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
@@ -633,9 +633,9 @@ func (_q *FileQuery) querySpec() *sqlgraph.QuerySpec {
 	}
 	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
-		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldID)
+		_spec.Node.Columns = append(_spec.Node.Columns, file.FieldId)
 		for i := range fields {
-			if fields[i] != file.FieldID {
+			if fields[i] != file.FieldId {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}

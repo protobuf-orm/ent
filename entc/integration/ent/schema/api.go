@@ -6,7 +6,7 @@ package schema
 
 import "github.com/protobuf-orm/ent"
 
-// Api represents an example schema with wrong usage of acronym (e.g., API).
+// Api represents an example schema with wrong usage of acronym (e.g., Api).
 // nolint:stylecheck
 type Api struct {
 	ent.Schema

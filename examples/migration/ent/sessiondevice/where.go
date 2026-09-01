@@ -15,54 +15,54 @@ import (
 	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
 )
 
-// ID filters vertices based on their ID field.
-func ID(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldEQ(FieldID, id))
+// Id filters vertices based on their Id field.
+func Id(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldEQ(FieldId, id))
 }
 
-// IDEQ applies the EQ predicate on the ID field.
-func IDEQ(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldEQ(FieldID, id))
+// IdEQ applies the EQ predicate on the Id field.
+func IdEQ(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldEQ(FieldId, id))
 }
 
-// IDNEQ applies the NEQ predicate on the ID field.
-func IDNEQ(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldNEQ(FieldID, id))
+// IdNEQ applies the NEQ predicate on the Id field.
+func IdNEQ(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldNEQ(FieldId, id))
 }
 
-// IDIn applies the In predicate on the ID field.
-func IDIn(ids ...uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldIn(FieldID, ids...))
+// IdIn applies the In predicate on the Id field.
+func IdIn(ids ...uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldIn(FieldId, ids...))
 }
 
-// IDNotIn applies the NotIn predicate on the ID field.
-func IDNotIn(ids ...uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldNotIn(FieldID, ids...))
+// IdNotIn applies the NotIn predicate on the Id field.
+func IdNotIn(ids ...uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldNotIn(FieldId, ids...))
 }
 
-// IDGT applies the GT predicate on the ID field.
-func IDGT(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldGT(FieldID, id))
+// IdGT applies the GT predicate on the Id field.
+func IdGT(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldGT(FieldId, id))
 }
 
-// IDGTE applies the GTE predicate on the ID field.
-func IDGTE(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldGTE(FieldID, id))
+// IdGTE applies the GTE predicate on the Id field.
+func IdGTE(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldGTE(FieldId, id))
 }
 
-// IDLT applies the LT predicate on the ID field.
-func IDLT(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldLT(FieldID, id))
+// IdLT applies the LT predicate on the Id field.
+func IdLT(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldLT(FieldId, id))
 }
 
-// IDLTE applies the LTE predicate on the ID field.
-func IDLTE(id uuid.UUID) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldLTE(FieldID, id))
+// IdLTE applies the LTE predicate on the Id field.
+func IdLTE(id uuid.UUID) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldLTE(FieldId, id))
 }
 
-// IPAddress applies equality check predicate on the "ip_address" field. It's identical to IPAddressEQ.
-func IPAddress(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldEQ(FieldIPAddress, v))
+// IpAddress applies equality check predicate on the "ip_address" field. It's identical to IpAddressEQ.
+func IpAddress(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldEQ(FieldIpAddress, v))
 }
 
 // UserAgent applies equality check predicate on the "user_agent" field. It's identical to UserAgentEQ.
@@ -85,69 +85,69 @@ func UpdatedAt(v time.Time) predicate.SessionDevice {
 	return predicate.SessionDevice(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
-// IPAddressEQ applies the EQ predicate on the "ip_address" field.
-func IPAddressEQ(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldEQ(FieldIPAddress, v))
+// IpAddressEQ applies the EQ predicate on the "ip_address" field.
+func IpAddressEQ(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldEQ(FieldIpAddress, v))
 }
 
-// IPAddressNEQ applies the NEQ predicate on the "ip_address" field.
-func IPAddressNEQ(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldNEQ(FieldIPAddress, v))
+// IpAddressNEQ applies the NEQ predicate on the "ip_address" field.
+func IpAddressNEQ(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldNEQ(FieldIpAddress, v))
 }
 
-// IPAddressIn applies the In predicate on the "ip_address" field.
-func IPAddressIn(vs ...string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldIn(FieldIPAddress, vs...))
+// IpAddressIn applies the In predicate on the "ip_address" field.
+func IpAddressIn(vs ...string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldIn(FieldIpAddress, vs...))
 }
 
-// IPAddressNotIn applies the NotIn predicate on the "ip_address" field.
-func IPAddressNotIn(vs ...string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldNotIn(FieldIPAddress, vs...))
+// IpAddressNotIn applies the NotIn predicate on the "ip_address" field.
+func IpAddressNotIn(vs ...string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldNotIn(FieldIpAddress, vs...))
 }
 
-// IPAddressGT applies the GT predicate on the "ip_address" field.
-func IPAddressGT(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldGT(FieldIPAddress, v))
+// IpAddressGT applies the GT predicate on the "ip_address" field.
+func IpAddressGT(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldGT(FieldIpAddress, v))
 }
 
-// IPAddressGTE applies the GTE predicate on the "ip_address" field.
-func IPAddressGTE(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldGTE(FieldIPAddress, v))
+// IpAddressGTE applies the GTE predicate on the "ip_address" field.
+func IpAddressGTE(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldGTE(FieldIpAddress, v))
 }
 
-// IPAddressLT applies the LT predicate on the "ip_address" field.
-func IPAddressLT(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldLT(FieldIPAddress, v))
+// IpAddressLT applies the LT predicate on the "ip_address" field.
+func IpAddressLT(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldLT(FieldIpAddress, v))
 }
 
-// IPAddressLTE applies the LTE predicate on the "ip_address" field.
-func IPAddressLTE(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldLTE(FieldIPAddress, v))
+// IpAddressLTE applies the LTE predicate on the "ip_address" field.
+func IpAddressLTE(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldLTE(FieldIpAddress, v))
 }
 
-// IPAddressContains applies the Contains predicate on the "ip_address" field.
-func IPAddressContains(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldContains(FieldIPAddress, v))
+// IpAddressContains applies the Contains predicate on the "ip_address" field.
+func IpAddressContains(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldContains(FieldIpAddress, v))
 }
 
-// IPAddressHasPrefix applies the HasPrefix predicate on the "ip_address" field.
-func IPAddressHasPrefix(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldHasPrefix(FieldIPAddress, v))
+// IpAddressHasPrefix applies the HasPrefix predicate on the "ip_address" field.
+func IpAddressHasPrefix(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldHasPrefix(FieldIpAddress, v))
 }
 
-// IPAddressHasSuffix applies the HasSuffix predicate on the "ip_address" field.
-func IPAddressHasSuffix(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldHasSuffix(FieldIPAddress, v))
+// IpAddressHasSuffix applies the HasSuffix predicate on the "ip_address" field.
+func IpAddressHasSuffix(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldHasSuffix(FieldIpAddress, v))
 }
 
-// IPAddressEqualFold applies the EqualFold predicate on the "ip_address" field.
-func IPAddressEqualFold(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldEqualFold(FieldIPAddress, v))
+// IpAddressEqualFold applies the EqualFold predicate on the "ip_address" field.
+func IpAddressEqualFold(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldEqualFold(FieldIpAddress, v))
 }
 
-// IPAddressContainsFold applies the ContainsFold predicate on the "ip_address" field.
-func IPAddressContainsFold(v string) predicate.SessionDevice {
-	return predicate.SessionDevice(sql.FieldContainsFold(FieldIPAddress, v))
+// IpAddressContainsFold applies the ContainsFold predicate on the "ip_address" field.
+func IpAddressContainsFold(v string) predicate.SessionDevice {
+	return predicate.SessionDevice(sql.FieldContainsFold(FieldIpAddress, v))
 }
 
 // UserAgentEQ applies the EQ predicate on the "user_agent" field.
@@ -374,7 +374,7 @@ func UpdatedAtNotNil() predicate.SessionDevice {
 func HasSessions() predicate.SessionDevice {
 	return predicate.SessionDevice(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
+			sqlgraph.From(Table, FieldId),
 			sqlgraph.Edge(sqlgraph.O2M, false, SessionsTable, SessionsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)

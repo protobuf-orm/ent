@@ -14,8 +14,8 @@ import (
 const (
 	// Label holds the string label denoting the user type in the database.
 	Label = "user"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "oid"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "oid"
 	// EdgeGroups holds the string denoting the groups edge name in mutations.
 	EdgeGroups = "groups"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -24,10 +24,10 @@ const (
 	EdgeChildren = "children"
 	// EdgePets holds the string denoting the pets edge name in mutations.
 	EdgePets = "pets"
-	// GroupFieldID holds the string denoting the ID field of the Group.
-	GroupFieldID = "id"
-	// PetFieldID holds the string denoting the ID field of the Pet.
-	PetFieldID = "id"
+	// GroupFieldId holds the string denoting the Id field of the Group.
+	GroupFieldId = "id"
+	// PetFieldId holds the string denoting the Id field of the Pet.
+	PetFieldId = "id"
 	// Table holds the table name of the user in the database.
 	Table = "user"
 	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
@@ -52,12 +52,12 @@ const (
 	PetsColumn = "user_pets"
 )
 
-// Columns holds all SQL columns for user fields.
+// Columns holds all Sql columns for user fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "user"
+// ForeignKeys holds the Sql foreign-keys that are owned by the "user"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"user_children",
@@ -87,9 +87,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the User queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByGroupsCount orders the results by groups count.
@@ -142,29 +142,29 @@ func ByPets(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 }
 func newGroupsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(GroupsInverseTable, GroupFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(GroupsInverseTable, GroupFieldId),
 		sqlgraph.Edge(sqlgraph.M2M, true, GroupsTable, GroupsPrimaryKey...),
 	)
 }
 func newParentStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
 	)
 }
 func newChildrenStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(Table, FieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(Table, FieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 	)
 }
 func newPetsStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(PetsInverseTable, PetFieldID),
+		sqlgraph.From(Table, FieldId),
+		sqlgraph.To(PetsInverseTable, PetFieldId),
 		sqlgraph.Edge(sqlgraph.O2M, false, PetsTable, PetsColumn),
 	)
 }

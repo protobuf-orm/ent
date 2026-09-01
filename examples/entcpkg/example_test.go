@@ -22,7 +22,7 @@ func Example_entcPkg() {
 		"sqlite3",
 		"file:ent?mode=memory&cache=shared&_fk=1",
 		ent.Writer(os.Stdout),
-		ent.HTTPClient(http.DefaultClient),
+		ent.HttpClient(http.DefaultClient),
 	)
 	if err != nil {
 		log.Fatalf("failed opening connection to sqlite: %v", err)
@@ -31,7 +31,7 @@ func Example_entcPkg() {
 	// An example for using the injected dependencies in the generated builders.
 	client.User.Use(func(next ent.Mutator) ent.Mutator {
 		return hook.UserFunc(func(ctx context.Context, m *ent.UserMutation) (ent.Value, error) {
-			_ = m.HTTPClient
+			_ = m.HttpClient
 			_ = m.Writer
 			return next.Mutate(ctx, m)
 		})

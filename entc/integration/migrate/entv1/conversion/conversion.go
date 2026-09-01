@@ -13,8 +13,8 @@ import (
 const (
 	// Label holds the string label denoting the conversion type in the database.
 	Label = "conversion"
-	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
+	// FieldId holds the string denoting the id field in the database.
+	FieldId = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldInt8ToString holds the string denoting the int8_to_string field in the database.
@@ -37,9 +37,9 @@ const (
 	Table = "conversion"
 )
 
-// Columns holds all SQL columns for conversion fields.
+// Columns holds all Sql columns for conversion fields.
 var Columns = []string{
-	FieldID,
+	FieldId,
 	FieldName,
 	FieldInt8ToString,
 	FieldUint8ToString,
@@ -64,9 +64,9 @@ func ValidColumn(column string) bool {
 // OrderOption defines the ordering options for the Conversion queries.
 type OrderOption func(*sql.Selector)
 
-// ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldID, opts...).ToFunc()
+// ById orders the results by the id field.
+func ById(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldId, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.

@@ -295,7 +295,7 @@ var (
 	}
 	// TweetTagColumns holds the columns for the "tweet_tag" table.
 	TweetTagColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUuid},
 		{Name: "added_at", Type: field.TypeTime},
 		{Name: "tag_id", Type: field.TypeInt},
 		{Name: "tweet_id", Type: field.TypeInt},
