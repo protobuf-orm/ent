@@ -9,11 +9,11 @@ package entv1
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/migrate/entv1/car"
-	"entgo.io/ent/entc/integration/migrate/entv1/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/car"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CarDelete is the builder for deleting a Car entity.

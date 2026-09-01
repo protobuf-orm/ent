@@ -9,9 +9,9 @@ package task
 import (
 	"fmt"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 )
 
 const (
@@ -87,7 +87,7 @@ func ValidColumn(column string) bool {
 // package on the initialization of the application. Therefore,
 // it should be imported in the main as follows:
 //
-//	import _ "entgo.io/ent/entc/integration/privacy/ent/runtime"
+//	import _ "github.com/protobuf-orm/ent/entc/integration/privacy/ent/runtime"
 var (
 	Hooks  [2]ent.Hook
 	Policy ent.Policy

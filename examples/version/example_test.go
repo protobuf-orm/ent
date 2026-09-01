@@ -10,9 +10,9 @@ import (
 	"log"
 	"time"
 
-	"entgo.io/ent/examples/version/ent"
-	_ "entgo.io/ent/examples/version/ent/runtime"
-	"entgo.io/ent/examples/version/ent/user"
+	"github.com/protobuf-orm/ent/examples/version/ent"
+	_ "github.com/protobuf-orm/ent/examples/version/ent/runtime"
+	"github.com/protobuf-orm/ent/examples/version/ent/user"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

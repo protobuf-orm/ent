@@ -13,7 +13,7 @@ Feature flags can be provided either by CLI flags or as arguments to the `gen` p
 #### CLI
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent generate --feature privacy,entql ./ent/schema
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate --feature privacy,entql ./ent/schema
 ```
 
 #### Go
@@ -27,8 +27,8 @@ import (
 	"log"
 	"text/template"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
 )
 
 func main() {

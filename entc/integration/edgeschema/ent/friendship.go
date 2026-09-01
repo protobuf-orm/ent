@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/friendship"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
 )
 
 // Friendship is the model entity for the Friendship schema.

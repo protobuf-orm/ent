@@ -5,13 +5,13 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/ent/template"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/edge"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/index"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/ent/template"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/edge"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/index"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 type CardMixin struct {

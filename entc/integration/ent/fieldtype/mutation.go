@@ -13,12 +13,12 @@ import (
 	"net/http"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	"entgo.io/ent/entc/integration/ent/role"
-	"entgo.io/ent/entc/integration/ent/schema"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/ent/role"
+	"github.com/protobuf-orm/ent/entc/integration/ent/schema"
 )
 
 // Mutation represents an operation that mutates the FieldType nodes in the graph.

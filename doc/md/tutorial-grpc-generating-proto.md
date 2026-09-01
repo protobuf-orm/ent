@@ -40,7 +40,7 @@ Notice that we did not start our field numbers from 1, this is because `ent` imp
 ```go title="ent/generate.go"
 package ent
 
-//go:generate go run -mod=mod entgo.io/ent/cmd/ent generate ./schema
+//go:generate go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate ./schema
 //go:generate go run -mod=mod entgo.io/contrib/entproto/cmd/entproto -path ./schema
 ```
 

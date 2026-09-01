@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/stretchr/testify/assert"
 )

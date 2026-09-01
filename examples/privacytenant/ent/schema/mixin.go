@@ -5,12 +5,12 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/examples/privacytenant/ent/privacy"
-	"entgo.io/ent/examples/privacytenant/rule"
-	"entgo.io/ent/schema/edge"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/privacytenant/ent/privacy"
+	"github.com/protobuf-orm/ent/examples/privacytenant/rule"
+	"github.com/protobuf-orm/ent/schema/edge"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 // BaseMixin for all schemas in the graph.

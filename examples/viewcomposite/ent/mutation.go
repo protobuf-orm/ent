@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/viewcomposite/ent/pet"
-	"entgo.io/ent/examples/viewcomposite/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/pet"
+	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/user"
 )
 
 const (

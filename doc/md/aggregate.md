@@ -137,7 +137,7 @@ import (
 	"context"
 	"log"
 
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 	"<project>/ent"
 	"<project>/ent/user"
 )

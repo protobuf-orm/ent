@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/cascadelete/ent/post"
-	"entgo.io/ent/entc/integration/cascadelete/ent/predicate"
-	"entgo.io/ent/entc/integration/cascadelete/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/post"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserUpdate is the builder for updating User entities.

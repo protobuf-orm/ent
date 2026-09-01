@@ -11,12 +11,12 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tag"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweet"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweettag"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tag"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweet"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweettag"
 )
 
 // TweetTag is the model entity for the TweetTag schema.

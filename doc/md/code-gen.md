@@ -9,7 +9,7 @@ The project comes with a codegen tool called `ent`. In order to install
 `ent` run the following command:
 
 ```bash
-go get entgo.io/ent/cmd/ent
+go get github.com/protobuf-orm/ent/cmd/ent
 ``` 
 
 ## Initialize A New Schema
@@ -17,7 +17,7 @@ go get entgo.io/ent/cmd/ent
 In order to generate one or more schema templates, run `ent init` as follows:
 
 ```bash
-go run -mod=mod entgo.io/ent/cmd/ent new User Pet
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent new User Pet
 ```
 
 `init` will create the 2 schemas (`user.go` and `pet.go`) under the `ent/schema` directory.
@@ -60,7 +60,7 @@ go mod init <project>
 And then, re-run the following command in order to add `ent` to your `go.mod` file:
 
 ```console
-go get entgo.io/ent/cmd/ent
+go get github.com/protobuf-orm/ent/cmd/ent
 ```
 
 Add a `generate.go` file to your project under `<project>/ent`:
@@ -68,7 +68,7 @@ Add a `generate.go` file to your project under `<project>/ent`:
 ```go
 package ent
 
-//go:generate go run -mod=mod entgo.io/ent/cmd/ent generate ./schema
+//go:generate go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate ./schema
 ```
 
 Finally, you can run `go generate ./ent` from the root directory of your project
@@ -109,7 +109,7 @@ a file with the same name as the template. The flag format supports  `file`, `di
 as follows:
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent generate --template <dir-path> --template glob="path/to/*.tmpl" ./ent/schema
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate --template <dir-path> --template glob="path/to/*.tmpl" ./ent/schema
 ```
 
 More information and examples can be found in the [external templates doc](templates.md).
@@ -127,9 +127,9 @@ package main
 import (
 	"log"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 func main() {
@@ -152,7 +152,7 @@ The full example exists in [GitHub](https://github.com/ent/ent/tree/master/examp
 In order to get a description of your graph schema, run:
 
 ```bash
-go run -mod=mod entgo.io/ent/cmd/ent describe ./ent/schema
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent describe ./ent/schema
 ```
 
 An example for the output is as follows:
@@ -202,8 +202,8 @@ import (
 	"log"
 	"reflect"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
 )
 
 func main() {

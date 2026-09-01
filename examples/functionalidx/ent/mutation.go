@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/functionalidx/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/functionalidx/ent/user"
 )
 
 const (

@@ -9,12 +9,12 @@ package ent
 import (
 	"time"
 
-	"entgo.io/ent/entc/integration/multischema/ent/friendship"
-	"entgo.io/ent/entc/integration/multischema/ent/group"
-	"entgo.io/ent/entc/integration/multischema/ent/parent"
-	"entgo.io/ent/entc/integration/multischema/ent/pet"
-	"entgo.io/ent/entc/integration/multischema/ent/schema"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/parent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

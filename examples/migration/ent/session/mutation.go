@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/migration/ent/predicate"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
 )
 
 // Mutation represents an operation that mutates the Session nodes in the graph.

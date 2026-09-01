@@ -14,10 +14,10 @@ import (
 	"strings"
 	"text/template"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 func main() {

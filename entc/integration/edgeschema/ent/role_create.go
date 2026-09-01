@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/role"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/role"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // RoleCreate is the builder for creating a Role entity.

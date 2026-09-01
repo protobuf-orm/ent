@@ -11,12 +11,12 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/migrate/versioned/predicate"
-	"entgo.io/ent/entc/integration/migrate/versioned/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/versioned/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/versioned/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserQuery is the builder for querying User entities.

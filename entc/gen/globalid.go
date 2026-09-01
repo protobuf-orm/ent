@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"entgo.io/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/dialect/entsql"
 )
 
 const incrementIdent = "const IncrementStarts"

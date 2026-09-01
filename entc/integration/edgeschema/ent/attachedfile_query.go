@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/attachedfile"
-	"entgo.io/ent/entc/integration/edgeschema/ent/file"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
-	"entgo.io/ent/entc/integration/edgeschema/ent/process"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/attachedfile"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/file"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/process"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // AttachedFileQuery is the builder for querying AttachedFile entities.

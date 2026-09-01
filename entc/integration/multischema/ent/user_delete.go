@@ -9,12 +9,12 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/ent/internal"
-	"entgo.io/ent/entc/integration/multischema/ent/predicate"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserDelete is the builder for deleting a User entity.

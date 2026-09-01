@@ -9,12 +9,12 @@ package enttest
 import (
 	"context"
 
-	"entgo.io/ent/examples/traversal/ent"
+	"github.com/protobuf-orm/ent/examples/traversal/ent"
 	// required by schema hooks.
-	_ "entgo.io/ent/examples/traversal/ent/runtime"
+	_ "github.com/protobuf-orm/ent/examples/traversal/ent/runtime"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/traversal/ent/migrate"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/examples/traversal/ent/migrate"
 )
 
 type (

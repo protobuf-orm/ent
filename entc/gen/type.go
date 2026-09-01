@@ -18,14 +18,14 @@ import (
 	"unicode"
 
 	"ariga.io/atlas/sql/postgres"
-	"entgo.io/ent"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/entsql"
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/entc/load"
-	entschema "entgo.io/ent/schema"
-	"entgo.io/ent/schema/edge"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/entc/load"
+	entschema "github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/edge"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The following types and their exported methods used by the codegen

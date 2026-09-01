@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/examples/edgeindex/ent"
+	"github.com/protobuf-orm/ent/examples/edgeindex/ent"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

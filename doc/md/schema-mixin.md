@@ -38,9 +38,9 @@ package schema
 import (
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 // -------------------------------------------------
@@ -134,8 +134,8 @@ In order to use them, add the `mixin.Time` mixin to your schema as follows:
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 type Pet struct {

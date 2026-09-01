@@ -9,9 +9,9 @@ package privacy
 import (
 	"context"
 
-	"entgo.io/ent/examples/privacyadmin/ent"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/ent"
 
-	"entgo.io/ent/privacy"
+	"github.com/protobuf-orm/ent/privacy"
 )
 
 var (

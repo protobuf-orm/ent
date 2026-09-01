@@ -7,8 +7,8 @@
 package runtime
 
 import (
-	"entgo.io/ent/examples/encryptfield/ent/schema"
-	"entgo.io/ent/examples/encryptfield/ent/user"
+	"github.com/protobuf-orm/ent/examples/encryptfield/ent/schema"
+	"github.com/protobuf-orm/ent/examples/encryptfield/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

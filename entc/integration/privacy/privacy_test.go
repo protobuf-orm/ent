@@ -9,11 +9,11 @@ import (
 	"errors"
 	"testing"
 
-	"entgo.io/ent/entc/integration/privacy/ent/enttest"
-	"entgo.io/ent/entc/integration/privacy/ent/privacy"
-	"entgo.io/ent/entc/integration/privacy/ent/task"
-	"entgo.io/ent/entc/integration/privacy/rule"
-	"entgo.io/ent/entc/integration/privacy/viewer"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/enttest"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/privacy"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/rule"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/viewer"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"

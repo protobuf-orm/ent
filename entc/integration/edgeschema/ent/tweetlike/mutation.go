@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
 )
 
 // Mutation represents an operation that mutates the TweetLike nodes in the graph.

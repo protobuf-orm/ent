@@ -9,13 +9,13 @@ package runtime
 import (
 	"context"
 
-	"entgo.io/ent/entc/integration/privacy/ent/schema"
-	"entgo.io/ent/entc/integration/privacy/ent/task"
-	"entgo.io/ent/entc/integration/privacy/ent/team"
-	"entgo.io/ent/entc/integration/privacy/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/team"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/user"
 
-	"entgo.io/ent"
-	"entgo.io/ent/privacy"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/privacy"
 )
 
 // The init function reads all schema descriptors with runtime code

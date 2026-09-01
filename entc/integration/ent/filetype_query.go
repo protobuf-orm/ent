@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/file"
-	"entgo.io/ent/entc/integration/ent/filetype"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/file"
+	"github.com/protobuf-orm/ent/entc/integration/ent/filetype"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // FileTypeQuery is the builder for querying FileType entities.

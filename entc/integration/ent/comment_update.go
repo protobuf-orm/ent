@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/comment"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	schemadir "entgo.io/ent/entc/integration/ent/schema/dir"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/comment"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	schemadir "github.com/protobuf-orm/ent/entc/integration/ent/schema/dir"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CommentUpdate is the builder for updating Comment entities.

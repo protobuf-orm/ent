@@ -9,9 +9,9 @@ package roleuser
 import (
 	"time"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
 )
 
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.

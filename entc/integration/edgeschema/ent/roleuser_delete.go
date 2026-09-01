@@ -9,10 +9,10 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
-	"entgo.io/ent/entc/integration/edgeschema/ent/roleuser"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/roleuser"
 )
 
 // RoleUserDelete is the builder for deleting a RoleUser entity.

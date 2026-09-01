@@ -13,10 +13,10 @@ import (
 	"math/big"
 	"net/url"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/exvaluescan"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/exvaluescan"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // ExValueScanCreate is the builder for creating a ExValueScan entity.

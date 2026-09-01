@@ -13,7 +13,7 @@ import (
 	"ariga.io/atlas/sql/migrate"
 	"ariga.io/atlas/sql/schema"
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/require"

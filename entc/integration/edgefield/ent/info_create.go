@@ -12,10 +12,10 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgefield/ent/info"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/info"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // InfoCreate is the builder for creating a Info entity.

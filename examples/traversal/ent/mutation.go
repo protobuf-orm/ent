@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/traversal/ent/group"
-	"entgo.io/ent/examples/traversal/ent/pet"
-	"entgo.io/ent/examples/traversal/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/traversal/ent/group"
+	"github.com/protobuf-orm/ent/examples/traversal/ent/pet"
+	"github.com/protobuf-orm/ent/examples/traversal/ent/user"
 )
 
 const (

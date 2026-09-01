@@ -21,10 +21,10 @@ import (
 	"testing"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/internal/uuidtest"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/internal/uuidtest"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -78,7 +78,7 @@ func TestInt(t *testing.T) {
 	fd = field.Int("active").GoType(Count(0)).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "field_test.Count", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.Count", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.False(t, fd.Info.ValueScanner())
@@ -136,7 +136,7 @@ func TestFloat(t *testing.T) {
 	fd = field.Float("active").GoType(Count(0)).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "field_test.Count", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.Count", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.False(t, fd.Info.ValueScanner())
@@ -194,7 +194,7 @@ func TestBool(t *testing.T) {
 	fd = field.Bool("active").GoType(Status(false)).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "field_test.Status", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.Status", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.False(t, fd.Info.ValueScanner())
@@ -259,7 +259,7 @@ func TestBytes(t *testing.T) {
 	fd = field.Bytes("uuid").GoType(uuidtest.UUID{}).DefaultFunc(uuidtest.New).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "uuidtest.UUID", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
 	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
@@ -535,7 +535,7 @@ func TestString(t *testing.T) {
 	}
 	fd = field.String("nullable_url").GoType(&tURL{}).Descriptor()
 	assert.Equal(t, "*field_test.tURL", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "*field_test.tURL", fd.Info.String())
 	assert.True(t, fd.Info.ValueScanner())
 	assert.True(t, fd.Info.Stringer())
@@ -576,7 +576,7 @@ func TestTime(t *testing.T) {
 	fd = field.Time("deleted_at").GoType(Time{}).Default(func() Time { return Time{} }).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "field_test.Time", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.Time", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.False(t, fd.Info.ValueScanner())
@@ -620,10 +620,10 @@ func TestJSON(t *testing.T) {
 		Descriptor()
 	assert.True(t, fd.Info.Nillable)
 	assert.Equal(t, "*field_test.T", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.True(t, fd.Info.RType.IsPtr())
 	assert.Equal(t, "T", fd.Info.RType.Name)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.RType.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.RType.PkgPath)
 
 	fd = field.JSON("dir", http.Dir("dir")).
 		Optional().
@@ -774,7 +774,7 @@ func TestField_Enums(t *testing.T) {
 	fd = field.Enum("role").GoType(Role("")).Descriptor()
 	assert.NoError(t, fd.Err)
 	assert.Equal(t, "field_test.Role", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.Role", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.False(t, fd.Info.ValueScanner())
@@ -784,7 +784,7 @@ func TestField_Enums(t *testing.T) {
 
 	fd = field.Enum("role").GoType(RoleInt(0)).Descriptor()
 	assert.Equal(t, "field_test.RoleInt", fd.Info.Ident)
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.Equal(t, "field_test.RoleInt", fd.Info.String())
 	assert.False(t, fd.Info.Nillable)
 	assert.True(t, fd.Info.ValueScanner())
@@ -804,7 +804,7 @@ func TestField_UUID(t *testing.T) {
 	assert.Equal(t, "id", fd.Name)
 	assert.True(t, fd.Unique)
 	assert.Equal(t, "uuidtest.UUID", fd.Info.String())
-	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
 	assert.NotNil(t, fd.Default)
 	assert.NotEmpty(t, fd.Default.(func() uuidtest.UUID)())
 	assert.Equal(t, "comment", fd.Comment)
@@ -812,7 +812,7 @@ func TestField_UUID(t *testing.T) {
 
 	fd = field.UUID("id", &uuidtest.UUID{}).
 		Descriptor()
-	assert.Equal(t, "entgo.io/ent/internal/uuidtest", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", fd.Info.PkgPath)
 
 	fd = field.UUID("id", uuidtest.UUID{}).
 		Default(uuidtest.UUID{}).
@@ -841,7 +841,7 @@ func TestField_Other(t *testing.T) {
 	assert.Equal(t, "other", fd.Name)
 	assert.True(t, fd.Unique)
 	assert.Equal(t, "*field_test.custom", fd.Info.String())
-	assert.Equal(t, "entgo.io/ent/schema/field_test", fd.Info.PkgPath)
+	assert.Equal(t, "github.com/protobuf-orm/ent/schema/field_test", fd.Info.PkgPath)
 	assert.NotNil(t, fd.Default)
 
 	fd = field.Other("other", &custom{}).

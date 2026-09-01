@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/edgeindex/ent/city"
-	"entgo.io/ent/examples/edgeindex/ent/street"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/edgeindex/ent/city"
+	"github.com/protobuf-orm/ent/examples/edgeindex/ent/street"
 )
 
 const (

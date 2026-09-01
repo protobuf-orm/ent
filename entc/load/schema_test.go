@@ -13,13 +13,13 @@ import (
 	"testing"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/internal/uuidtest"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/edge"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/index"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/internal/uuidtest"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/edge"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/index"
+	"github.com/protobuf-orm/ent/schema/mixin"
 
 	"github.com/stretchr/testify/require"
 )
@@ -204,7 +204,7 @@ func TestMarshalSchema(t *testing.T) {
 		require.Equal(t, "uuid", schema.Fields[7].Name)
 		require.Equal(t, field.TypeUUID, schema.Fields[7].Info.Type)
 		require.True(t, schema.Fields[7].Default)
-		require.Equal(t, "entgo.io/ent/internal/uuidtest", schema.Fields[7].Info.PkgPath)
+		require.Equal(t, "github.com/protobuf-orm/ent/internal/uuidtest", schema.Fields[7].Info.PkgPath)
 
 		require.Equal(t, "parent_id", schema.Fields[8].Name)
 		require.Equal(t, field.TypeInt, schema.Fields[8].Info.Type)

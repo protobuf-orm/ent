@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/privacy/ent/task"
-	"entgo.io/ent/entc/integration/privacy/ent/team"
-	"entgo.io/ent/entc/integration/privacy/ent/user"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/team"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // TaskCreate is the builder for creating a Task entity.

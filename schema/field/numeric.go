@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"strings"
 
-	"entgo.io/ent/schema"
+	"github.com/protobuf-orm/ent/schema"
 )
 
 //go:generate go run internal/gen.go

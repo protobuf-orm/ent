@@ -11,9 +11,9 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/o2mrecur/ent/node"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/node"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // NodeCreate is the builder for creating a Node entity.

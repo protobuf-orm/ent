@@ -5,9 +5,9 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	uuidc "entgo.io/ent/entc/integration/customid/uuidcompatible"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 type LinkInformation struct {

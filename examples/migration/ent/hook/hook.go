@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/migration/ent"
+	"github.com/protobuf-orm/ent/examples/migration/ent"
 )
 
 // The CardFunc type is an adapter to allow the use of ordinary

@@ -9,12 +9,12 @@ package enttest
 import (
 	"context"
 
-	"entgo.io/ent/entc/integration/edgeschema/ent"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent"
 	// required by schema hooks.
-	_ "entgo.io/ent/entc/integration/edgeschema/ent/runtime"
+	_ "github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/runtime"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/entc/integration/edgeschema/ent/migrate"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/migrate"
 )
 
 type (

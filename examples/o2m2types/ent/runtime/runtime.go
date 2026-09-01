@@ -6,7 +6,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in entgo.io/ent/examples/o2m2types/ent/runtime.go
+// The schema-stitching logic is generated in github.com/protobuf-orm/ent/examples/o2m2types/ent/runtime.go
 
 const (
 	Version = "v0.14.6" // Version of ent codegen.

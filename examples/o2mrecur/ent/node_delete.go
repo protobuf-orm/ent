@@ -9,11 +9,11 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/o2mrecur/ent/node"
-	"entgo.io/ent/examples/o2mrecur/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/node"
+	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // NodeDelete is the builder for deleting a Node entity.

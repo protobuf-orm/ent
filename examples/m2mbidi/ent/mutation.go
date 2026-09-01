@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/m2mbidi/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/m2mbidi/ent/user"
 )
 
 const (

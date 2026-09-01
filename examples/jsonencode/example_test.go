@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/examples/jsonencode/ent"
 	_ "github.com/ncruces/go-sqlite3/driver"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent"
 )
 
 func Example_jsonEncode() {

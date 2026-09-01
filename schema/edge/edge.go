@@ -7,7 +7,7 @@ package edge
 import (
 	"reflect"
 
-	"entgo.io/ent/schema"
+	"github.com/protobuf-orm/ent/schema"
 )
 
 // A Descriptor for edge configuration.

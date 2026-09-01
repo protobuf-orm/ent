@@ -7,11 +7,11 @@ package schema
 import (
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/index"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/index"
 
-	"entgo.io/ent/entc/integration/ent/schema/task"
+	"github.com/protobuf-orm/ent/entc/integration/ent/schema/task"
 )
 
 // Task holds the schema definition for the Task entity.

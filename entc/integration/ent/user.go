@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/card"
-	"entgo.io/ent/entc/integration/ent/pet"
-	"entgo.io/ent/entc/integration/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/ent/user"
 )
 
 // User is the model entity for the User schema.

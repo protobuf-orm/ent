@@ -21,8 +21,8 @@ package schema
 import (
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User schema.
@@ -67,8 +67,8 @@ import (
 	"net/url"
 
 	"github.com/google/uuid"
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User schema.
@@ -174,9 +174,9 @@ there is an option to override the default behavior using the `SchemaType` metho
 package schema
 
 import (
-    "entgo.io/ent"
-    "entgo.io/ent/dialect"
-    "entgo.io/ent/schema/field"
+    "github.com/protobuf-orm/ent"
+    "github.com/protobuf-orm/ent/dialect"
+    "github.com/protobuf-orm/ent/schema/field"
 )
 
 // Card schema.
@@ -203,7 +203,7 @@ and for time fields, the type is `time.Time`. The `GoType` method provides an op
 default ent type with a custom one.
 
 The custom type must be either a type that is convertible to the Go basic type, a type that implements the
-[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner) interface, or has an
+[ValueScanner](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field?tab=doc#ValueScanner) interface, or has an
 [External ValueScanner](#external-valuescanner). Also, if the provided type implements the Validator interface and no validators have been set,
 the type validator will be used.
 
@@ -214,9 +214,9 @@ package schema
 import (
     "database/sql"
 
-    "entgo.io/ent"
-    "entgo.io/ent/dialect"
-    "entgo.io/ent/schema/field"
+    "github.com/protobuf-orm/ent"
+    "github.com/protobuf-orm/ent/dialect"
+    "github.com/protobuf-orm/ent/schema/field"
     "github.com/shopspring/decimal"
 )
 
@@ -385,9 +385,9 @@ Examples are a Postgres Range type or Geospatial type
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/schema/field"
 	
 	"github.com/jackc/pgtype"
 )
@@ -433,7 +433,7 @@ func (User) Fields() []ent.Field {
 ```
 
 SQL-specific literals or expressions like function calls can be added to default value configuration using the
-[`entsql.Annotation`](https://pkg.go.dev/entgo.io/ent@master/dialect/entsql#Annotation):
+[`entsql.Annotation`](https://pkg.go.dev/github.com/protobuf-orm/ent@master/dialect/entsql#Annotation):
 
 ```go {9,16,23-27}
 // Fields of the User.
@@ -488,8 +488,8 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 
@@ -517,8 +517,8 @@ Here is another example for writing a reusable validator:
 
 ```go
 import (
-	"entgo.io/ent/dialect/entsql"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // MaxRuneCount validates the rune length of a string by using the unicode/utf8 package.
@@ -875,9 +875,9 @@ cases, you may want to use the native enum types provided by the database. Follo
 for more info.
 :::
 
-When a custom [`GoType`](#go-type) is being used, it must be convertible to the basic `string` type or it needs to implement the [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner) interface.
+When a custom [`GoType`](#go-type) is being used, it must be convertible to the basic `string` type or it needs to implement the [ValueScanner](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field#ValueScanner) interface.
 
-The [EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues) interface is also required by the custom Go type to tell Ent what are the permitted values of the enum. 
+The [EnumValues](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field#EnumValues) interface is also required by the custom Go type to tell Ent what are the permitted values of the enum. 
 
 The following example shows how to define an `Enum` field with a custom Go type that is convertible to `string`: 
 
@@ -894,7 +894,7 @@ func (User) Fields() []ent.Field {
 }
 ```
 
-Implement the [EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues) interface.
+Implement the [EnumValues](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field#EnumValues) interface.
 ```go
 package property
 
@@ -914,7 +914,7 @@ func (Shape) Values() (kinds []string) {
 }
 
 ```
-The following example shows how to define an `Enum` field with a custom Go type that is not convertible to `string`, but it implements the [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner) interface: 
+The following example shows how to define an `Enum` field with a custom Go type that is not convertible to `string`, but it implements the [ValueScanner](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field#ValueScanner) interface: 
 
 ```go
 // Fields of the User.
@@ -928,7 +928,7 @@ func (User) Fields() []ent.Field {
 	}
 }
 ```
-Implement also the [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner) interface.
+Implement also the [ValueScanner](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field?tab=doc#ValueScanner) interface.
 
 ```go
 package property

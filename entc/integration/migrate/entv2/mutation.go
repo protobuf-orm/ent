@@ -13,16 +13,16 @@ import (
 	"sync"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/migrate/entv2/blog"
-	"entgo.io/ent/entc/integration/migrate/entv2/car"
-	"entgo.io/ent/entc/integration/migrate/entv2/conversion"
-	"entgo.io/ent/entc/integration/migrate/entv2/customtype"
-	"entgo.io/ent/entc/integration/migrate/entv2/group"
-	"entgo.io/ent/entc/integration/migrate/entv2/media"
-	"entgo.io/ent/entc/integration/migrate/entv2/pet"
-	"entgo.io/ent/entc/integration/migrate/entv2/user"
-	"entgo.io/ent/entc/integration/migrate/entv2/zoo"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/blog"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/car"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/conversion"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/customtype"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/group"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/media"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/pet"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/user"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/zoo"
 )
 
 const (

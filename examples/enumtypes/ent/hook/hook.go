@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/enumtypes/ent"
+	"github.com/protobuf-orm/ent/examples/enumtypes/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/customid/ent/account"
-	"entgo.io/ent/entc/integration/customid/ent/token"
-	"entgo.io/ent/entc/integration/customid/sid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/account"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/token"
+	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
 )
 
 // Token is the model entity for the Token schema.

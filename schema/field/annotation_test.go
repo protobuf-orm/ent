@@ -7,7 +7,7 @@ package field_test
 import (
 	"testing"
 
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/stretchr/testify/assert"
 )

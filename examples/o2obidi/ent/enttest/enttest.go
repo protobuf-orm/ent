@@ -9,12 +9,12 @@ package enttest
 import (
 	"context"
 
-	"entgo.io/ent/examples/o2obidi/ent"
+	"github.com/protobuf-orm/ent/examples/o2obidi/ent"
 	// required by schema hooks.
-	_ "entgo.io/ent/examples/o2obidi/ent/runtime"
+	_ "github.com/protobuf-orm/ent/examples/o2obidi/ent/runtime"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/o2obidi/ent/migrate"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/examples/o2obidi/ent/migrate"
 )
 
 type (

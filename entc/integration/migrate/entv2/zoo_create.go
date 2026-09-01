@@ -10,9 +10,9 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/migrate/entv2/zoo"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/zoo"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // ZooCreate is the builder for creating a Zoo entity.

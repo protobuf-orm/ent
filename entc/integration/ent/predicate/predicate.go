@@ -7,7 +7,7 @@
 package predicate
 
 import (
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 // Api is the predicate function for api builders.

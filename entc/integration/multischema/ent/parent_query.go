@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/ent/internal"
-	"entgo.io/ent/entc/integration/multischema/ent/parent"
-	"entgo.io/ent/entc/integration/multischema/ent/predicate"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/parent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // ParentQuery is the builder for querying Parent entities.

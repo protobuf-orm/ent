@@ -5,10 +5,10 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/privacy/ent/privacy"
-	"entgo.io/ent/entc/integration/privacy/rule"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/privacy"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/rule"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 // BaseMixin for all schemas.

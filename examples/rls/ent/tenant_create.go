@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/rls/ent/tenant"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/rls/ent/tenant"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // TenantCreate is the builder for creating a Tenant entity.

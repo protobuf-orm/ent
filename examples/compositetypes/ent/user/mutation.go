@@ -6,10 +6,10 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/compositetypes/ent/predicate"
-	"entgo.io/ent/examples/compositetypes/ent/schema"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/schema"
 )
 
 // Mutation represents an operation that mutates the User nodes in the graph.

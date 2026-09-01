@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/customid/ent/mixinid"
-	"entgo.io/ent/entc/integration/customid/ent/predicate"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/mixinid"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // MixinIDQuery is the builder for querying MixinID entities.

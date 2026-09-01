@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/migration/ent/pet"
-	"entgo.io/ent/examples/migration/ent/predicate"
-	"entgo.io/ent/examples/migration/ent/user"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/migration/ent/pet"
+	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/migration/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetQuery is the builder for querying Pet entities.

@@ -15,11 +15,11 @@ import (
 	"reflect"
 	"strings"
 
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/entc/internal"
-	"entgo.io/ent/entc/load"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc/internal"
+	"github.com/protobuf-orm/ent/entc/load"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"golang.org/x/tools/go/packages"
 )

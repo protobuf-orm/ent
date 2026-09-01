@@ -5,10 +5,10 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/entsql"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 // This file contains two example of how to define the base schema.

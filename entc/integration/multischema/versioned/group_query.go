@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/group"
-	"entgo.io/ent/entc/integration/multischema/versioned/internal"
-	"entgo.io/ent/entc/integration/multischema/versioned/predicate"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // GroupQuery is the builder for querying Group entities.

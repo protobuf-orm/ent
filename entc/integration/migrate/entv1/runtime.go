@@ -7,8 +7,8 @@
 package entv1
 
 import (
-	"entgo.io/ent/entc/integration/migrate/entv1/schema"
-	"entgo.io/ent/entc/integration/migrate/entv1/user"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/schema"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/user"
 )
 
 // The init function reads all schema descriptors with runtime code

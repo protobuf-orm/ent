@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/customid/ent/doc"
-	"entgo.io/ent/entc/integration/customid/ent/predicate"
-	"entgo.io/ent/entc/integration/customid/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/doc"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // DocUpdate is the builder for updating Doc entities.

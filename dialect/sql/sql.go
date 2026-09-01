@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect"
 )
 
 // The following helpers exist to simplify the way raw predicates

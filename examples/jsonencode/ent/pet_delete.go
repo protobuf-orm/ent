@@ -9,11 +9,11 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/jsonencode/ent/pet"
-	"entgo.io/ent/examples/jsonencode/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/pet"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetDelete is the builder for deleting a Pet entity.

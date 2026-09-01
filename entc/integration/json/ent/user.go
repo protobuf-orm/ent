@@ -14,10 +14,10 @@ import (
 	"net/url"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/json/ent/schema"
-	"entgo.io/ent/entc/integration/json/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/user"
 )
 
 // User is the model entity for the User schema.

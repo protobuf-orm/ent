@@ -13,15 +13,15 @@ import (
 	"reflect"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/ent/cleanuser"
-	"entgo.io/ent/entc/integration/multischema/ent/friendship"
-	"entgo.io/ent/entc/integration/multischema/ent/group"
-	"entgo.io/ent/entc/integration/multischema/ent/parent"
-	"entgo.io/ent/entc/integration/multischema/ent/pet"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/cleanuser"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/parent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

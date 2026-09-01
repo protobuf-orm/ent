@@ -11,10 +11,10 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/group"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // GroupCreate is the builder for creating a Group entity.

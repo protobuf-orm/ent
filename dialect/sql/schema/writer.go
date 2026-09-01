@@ -17,8 +17,8 @@ import (
 	"time"
 	"unicode"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
 
 	"ariga.io/atlas/sql/migrate"
 )

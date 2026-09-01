@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/jsonencode/ent/pet"
-	"entgo.io/ent/examples/jsonencode/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/pet"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/user"
 )
 
 // Pet is the model entity for the Pet schema.

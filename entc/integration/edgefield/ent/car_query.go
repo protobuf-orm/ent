@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgefield/ent/car"
-	"entgo.io/ent/entc/integration/edgefield/ent/predicate"
-	"entgo.io/ent/entc/integration/edgefield/ent/rental"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CarQuery is the builder for querying Car entities.

@@ -5,7 +5,7 @@ title: Extensions
 
 ### Introduction
 
-The Ent [Extension API](https://pkg.go.dev/entgo.io/ent/entc#Extension)
+The Ent [Extension API](https://pkg.go.dev/github.com/protobuf-orm/ent/entc#Extension)
 facilitates the creation of code-generation extensions that bundle together [codegen hooks](code-gen.md#code-generation-hooks),
 [templates](templates.md) and [annotations](templates.md#annotations) to create reusable components
 that add new rich functionality to Ent's core. For example, Ent's [entgql plugin](https://pkg.go.dev/entgo.io/contrib/entgql#Extension)
@@ -13,7 +13,7 @@ exposes an `Extension` that automatically generates GraphQL servers from an Ent 
 
 ### Defining a New Extension
 
-All extension's must implement the [Extension](https://pkg.go.dev/entgo.io/ent/entc#Extension) interface:
+All extension's must implement the [Extension](https://pkg.go.dev/github.com/protobuf-orm/ent/entc#Extension) interface:
 
 ```go
 type Extension interface {
@@ -40,7 +40,7 @@ type Extension interface {
 	Options() []Option
 }
 ```
-To simplify the development of new extensions, developers can embed [entc.DefaultExtension](https://pkg.go.dev/entgo.io/ent/entc#DefaultExtension)
+To simplify the development of new extensions, developers can embed [entc.DefaultExtension](https://pkg.go.dev/github.com/protobuf-orm/ent/entc#DefaultExtension)
 to create extensions  without implementing all methods:
 
 ```go
@@ -59,7 +59,7 @@ code generation. To bundle such external templates on an extension, implement th
 method:
 ```gotemplate title="templates/greet.tmpl"
 {{/* Tell Intellij/GoLand to enable the autocompletion based on the *gen.Graph type. */}}
-{{/* gotype: entgo.io/ent/entc/gen.Graph */}}
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Graph */}}
 
 {{ define "greet" }}
 
@@ -167,8 +167,8 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
 )
 
 func main() {

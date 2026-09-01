@@ -13,12 +13,12 @@ import (
 	"sync"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/multischema/ent/friendship"
-	"entgo.io/ent/entc/integration/multischema/ent/group"
-	"entgo.io/ent/entc/integration/multischema/ent/parent"
-	"entgo.io/ent/entc/integration/multischema/ent/pet"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/parent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
 )
 
 const (

@@ -12,10 +12,10 @@ import (
 	"os"
 
 	atlas "ariga.io/atlas/sql/migrate"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/migration/ent/migrate"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/examples/migration/ent/migrate"
 )
 
 func main() {

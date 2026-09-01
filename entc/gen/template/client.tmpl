@@ -4,7 +4,7 @@ This source code is licensed under the Apache 2.0 license found
 in the LICENSE file in the root directory of this source tree.
 */}}
 
-{{/* gotype: entgo.io/ent/entc/gen.Graph */}}
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Graph */}}
 
 {{ define "client/init" }}
 // Client is the client that holds all ent builders.
@@ -62,7 +62,7 @@ import (
 	{{- range $dep := $deps }}
 		{{ $dep.Type.PkgName }} "{{ $dep.Type.PkgPath }}"
 	{{- end }}
-	"entgo.io/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect"
 	{{ range $import := $.Storage.Imports -}}
 		"{{ $import }}"
 	{{ end -}}

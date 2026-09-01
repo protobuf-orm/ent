@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/examples/o2m2types/ent"
+	"github.com/protobuf-orm/ent/examples/o2m2types/ent"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

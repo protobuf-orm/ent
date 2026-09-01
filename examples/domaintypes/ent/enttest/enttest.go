@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"entgo.io/ent/examples/domaintypes/ent"
+	"github.com/protobuf-orm/ent/examples/domaintypes/ent"
 	// required by schema hooks.
-	_ "entgo.io/ent/examples/domaintypes/ent/runtime"
+	_ "github.com/protobuf-orm/ent/examples/domaintypes/ent/runtime"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/domaintypes/ent/migrate"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/examples/domaintypes/ent/migrate"
 )
 
 type (

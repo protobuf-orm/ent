@@ -14,13 +14,13 @@ import (
 	"reflect"
 	"uuid"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/stduuid/ent/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/stduuid/ent/user"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
 )
 
 // Client is the client that holds all ent builders.

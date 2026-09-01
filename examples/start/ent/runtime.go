@@ -7,9 +7,9 @@
 package ent
 
 import (
-	"entgo.io/ent/examples/start/ent/group"
-	"entgo.io/ent/examples/start/ent/schema"
-	"entgo.io/ent/examples/start/ent/user"
+	"github.com/protobuf-orm/ent/examples/start/ent/group"
+	"github.com/protobuf-orm/ent/examples/start/ent/schema"
+	"github.com/protobuf-orm/ent/examples/start/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

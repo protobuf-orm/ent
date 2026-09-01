@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/template/ent"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent"
 )
 
 // The GroupFunc type is an adapter to allow the use of ordinary

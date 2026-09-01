@@ -9,13 +9,13 @@ import (
 	"reflect"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/viewschema/ent/cleanuser"
-	"entgo.io/ent/examples/viewschema/ent/pet"
-	"entgo.io/ent/examples/viewschema/ent/petusername"
-	"entgo.io/ent/examples/viewschema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/cleanuser"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/pet"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/petusername"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

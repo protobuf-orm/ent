@@ -7,8 +7,8 @@
 package cleanuser
 
 import (
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/multischema/ent/predicate"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/predicate"
 )
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.

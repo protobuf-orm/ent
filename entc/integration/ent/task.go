@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/schema/task"
-	enttask "entgo.io/ent/entc/integration/ent/task"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/schema/task"
+	enttask "github.com/protobuf-orm/ent/entc/integration/ent/task"
 )
 
 // Task is the model entity for the Task schema.

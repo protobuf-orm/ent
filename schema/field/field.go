@@ -17,7 +17,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"entgo.io/ent/schema"
+	"github.com/protobuf-orm/ent/schema"
 )
 
 // String returns a new Field with type string.

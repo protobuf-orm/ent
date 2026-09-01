@@ -11,7 +11,7 @@ import (
 	"slices"
 	"strings"
 
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 // A SchemaMode defines what type of schema feature a storage driver support.
@@ -56,10 +56,10 @@ var drivers = []*Storage{
 		Dialects:  []string{"dialect.SQLite", "dialect.MySQL", "dialect.Postgres"},
 		Imports: []string{
 			"database/sql/driver",
-			"entgo.io/ent/dialect/sql",
-			"entgo.io/ent/dialect/sql/sqlgraph",
-			"entgo.io/ent/dialect/sql/sqljson",
-			"entgo.io/ent/schema/field",
+			"github.com/protobuf-orm/ent/dialect/sql",
+			"github.com/protobuf-orm/ent/dialect/sql/sqlgraph",
+			"github.com/protobuf-orm/ent/dialect/sql/sqljson",
+			"github.com/protobuf-orm/ent/schema/field",
 		},
 		SchemaMode: Unique | Indexes | Cascade | Migrate,
 		Ops: func(f *Field) []Op {

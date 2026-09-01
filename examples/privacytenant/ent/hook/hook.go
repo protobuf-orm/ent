@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/privacytenant/ent"
+	"github.com/protobuf-orm/ent/examples/privacytenant/ent"
 )
 
 // The GroupFunc type is an adapter to allow the use of ordinary

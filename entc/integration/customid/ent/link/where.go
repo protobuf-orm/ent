@@ -7,9 +7,9 @@
 package link
 
 import (
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/customid/ent/predicate"
-	uuidc "entgo.io/ent/entc/integration/customid/uuidcompatible"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
+	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
 )
 
 // ID filters vertices based on their ID field.

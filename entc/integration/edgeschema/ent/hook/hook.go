@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/edgeschema/ent"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent"
 )
 
 // The AttachedFileFunc type is an adapter to allow the use of ordinary

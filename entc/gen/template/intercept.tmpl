@@ -4,7 +4,7 @@ This source code is licensed under the Apache 2.0 license found
 in the LICENSE file in the root directory of this source tree.
 */}}
 
-{{/* gotype: entgo.io/ent/entc/gen.Graph */}}
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Graph */}}
 
 {{ define "intercept" }}
 
@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"context"
 
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 	"{{ $.Config.Package }}"
 	"{{ $.Config.Package }}/predicate"
 	{{- range $n := $.Nodes }}
@@ -47,7 +47,7 @@ type Query interface {
 
 // The Func type is an adapter that allows ordinary functions to be used as interceptors.
 // Unlike traversal functions, interceptors are skipped during graph traversals. Note that the
-// implementation of Func is different from the one defined in entgo.io/ent.InterceptFunc.
+// implementation of Func is different from the one defined in github.com/protobuf-orm/ent.InterceptFunc.
 type Func func(context.Context, Query) error
 
 // Intercept calls f(ctx, q) and then applied the next Querier.

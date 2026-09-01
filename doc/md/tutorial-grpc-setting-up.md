@@ -15,7 +15,7 @@ go mod init ent-grpc-example
 Next, we use `go run` to invoke the ent code generator to initialize a schema:
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent new User
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent new User
 ```
 
 Our directory should now look like:
@@ -42,8 +42,8 @@ Next, we will define the schema for the `User` entity. Open `ent/schema/user.go`
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User holds the schema definition for the User entity.

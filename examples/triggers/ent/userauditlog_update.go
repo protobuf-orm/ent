@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/triggers/ent/predicate"
-	"entgo.io/ent/examples/triggers/ent/userauditlog"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/userauditlog"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserAuditLogUpdate is the builder for updating UserAuditLog entities.

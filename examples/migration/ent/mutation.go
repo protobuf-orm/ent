@@ -13,14 +13,14 @@ import (
 	"sync"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/migration/ent/card"
-	"entgo.io/ent/examples/migration/ent/payment"
-	"entgo.io/ent/examples/migration/ent/pet"
-	"entgo.io/ent/examples/migration/ent/session"
-	"entgo.io/ent/examples/migration/ent/sessiondevice"
-	"entgo.io/ent/examples/migration/ent/user"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/migration/ent/card"
+	"github.com/protobuf-orm/ent/examples/migration/ent/payment"
+	"github.com/protobuf-orm/ent/examples/migration/ent/pet"
+	"github.com/protobuf-orm/ent/examples/migration/ent/session"
+	"github.com/protobuf-orm/ent/examples/migration/ent/sessiondevice"
+	"github.com/protobuf-orm/ent/examples/migration/ent/user"
 )
 
 const (

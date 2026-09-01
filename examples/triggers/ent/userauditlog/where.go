@@ -3,8 +3,8 @@
 package userauditlog
 
 import (
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/triggers/ent/predicate"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

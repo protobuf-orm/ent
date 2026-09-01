@@ -11,13 +11,13 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/start/ent/car"
-	"entgo.io/ent/examples/start/ent/group"
-	"entgo.io/ent/examples/start/ent/predicate"
-	"entgo.io/ent/examples/start/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/start/ent/car"
+	"github.com/protobuf-orm/ent/examples/start/ent/group"
+	"github.com/protobuf-orm/ent/examples/start/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/start/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserUpdate is the builder for updating User entities.

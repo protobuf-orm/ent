@@ -12,8 +12,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User holds the schema definition for the User entity.

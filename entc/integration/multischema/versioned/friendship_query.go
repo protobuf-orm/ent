@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/friendship"
-	"entgo.io/ent/entc/integration/multischema/versioned/internal"
-	"entgo.io/ent/entc/integration/multischema/versioned/predicate"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // FriendshipQuery is the builder for querying Friendship entities.

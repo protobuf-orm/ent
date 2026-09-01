@@ -4,7 +4,7 @@
 
 package index
 
-import "entgo.io/ent/schema"
+import "github.com/protobuf-orm/ent/schema"
 
 // A Descriptor for index configuration.
 type Descriptor struct {

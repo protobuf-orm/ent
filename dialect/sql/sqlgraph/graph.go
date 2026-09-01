@@ -15,9 +15,9 @@ import (
 	"math"
 	"sort"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // Rel is an edge relation type.

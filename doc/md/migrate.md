@@ -199,7 +199,7 @@ import (
     "<project>/ent"
     "<project>/ent/migrate"
 
-    "entgo.io/ent/dialect/sql/schema"
+    "github.com/protobuf-orm/ent/dialect/sql/schema"
 )
 
 func main() {
@@ -241,7 +241,7 @@ import (
     "<project>/ent"
     "<project>/ent/migrate"
 
-    "entgo.io/ent/dialect/sql/schema"
+    "github.com/protobuf-orm/ent/dialect/sql/schema"
 )
 
 func main() {
@@ -281,8 +281,8 @@ import (
 
 	"ariga.io/atlas/sql/migrate"
 	atlas "ariga.io/atlas/sql/schema"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 )
 
 func main() {

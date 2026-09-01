@@ -10,9 +10,9 @@ import (
 	"log"
 	"slices"
 
-	"entgo.io/ent/examples/m2m2types/ent"
-	"entgo.io/ent/examples/m2m2types/ent/group"
-	"entgo.io/ent/examples/m2m2types/ent/user"
+	"github.com/protobuf-orm/ent/examples/m2m2types/ent"
+	"github.com/protobuf-orm/ent/examples/m2m2types/ent/group"
+	"github.com/protobuf-orm/ent/examples/m2m2types/ent/user"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

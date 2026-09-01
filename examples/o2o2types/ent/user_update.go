@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/o2o2types/ent/card"
-	"entgo.io/ent/examples/o2o2types/ent/predicate"
-	"entgo.io/ent/examples/o2o2types/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/o2o2types/ent/card"
+	"github.com/protobuf-orm/ent/examples/o2o2types/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/o2o2types/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserUpdate is the builder for updating User entities.

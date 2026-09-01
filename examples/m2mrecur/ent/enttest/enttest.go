@@ -9,12 +9,12 @@ package enttest
 import (
 	"context"
 
-	"entgo.io/ent/examples/m2mrecur/ent"
+	"github.com/protobuf-orm/ent/examples/m2mrecur/ent"
 	// required by schema hooks.
-	_ "entgo.io/ent/examples/m2mrecur/ent/runtime"
+	_ "github.com/protobuf-orm/ent/examples/m2mrecur/ent/runtime"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/m2mrecur/ent/migrate"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/examples/m2mrecur/ent/migrate"
 )
 
 type (

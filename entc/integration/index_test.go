@@ -8,7 +8,7 @@ import (
 	"context"
 	"testing"
 
-	"entgo.io/ent/entc/integration/ent"
+	"github.com/protobuf-orm/ent/entc/integration/ent"
 
 	"github.com/stretchr/testify/require"
 )

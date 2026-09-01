@@ -9,13 +9,13 @@ import (
 	"log"
 	"reflect"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/viewcomposite/ent/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/viewcomposite/ent/pet"
-	"entgo.io/ent/examples/viewcomposite/ent/user"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/pet"
+	"github.com/protobuf-orm/ent/examples/viewcomposite/ent/user"
 )
 
 // Client is the client that holds all ent builders.

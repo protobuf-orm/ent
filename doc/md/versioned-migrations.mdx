@@ -177,7 +177,7 @@ the `ent/generate.go` file as follows:
 ```go
 package ent
 
-//go:generate go run -mod=mod entgo.io/ent/cmd/ent generate --feature sql/versioned-migration ./schema
+//go:generate go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate --feature sql/versioned-migration ./schema
 ```
 
 </TabItem>
@@ -194,8 +194,8 @@ package main
 import (
 	"log"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
 )
 
 func main() {
@@ -275,8 +275,8 @@ import (
 	"<project>/ent/migrate"
 
 	atlas "ariga.io/atlas/sql/migrate"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -321,8 +321,8 @@ import (
 	"<project>/ent/migrate"
 
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -366,8 +366,8 @@ import (
 	"<project>/ent/migrate"
 
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -411,8 +411,8 @@ import (
 	"<project>/ent/migrate"
 
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -456,8 +456,8 @@ import (
 	"<project>/ent/migrate"
 
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -501,8 +501,8 @@ import (
 	"<project>/ent/migrate"
 
 	"ariga.io/atlas/sql/sqltool"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -690,8 +690,8 @@ import (
 
 	"<project>/ent"
 	"<project>/ent/migrate"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
 
 	_ "github.com/go-sql-driver/mysql"
 )

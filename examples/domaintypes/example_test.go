@@ -11,9 +11,9 @@ import (
 	"testing"
 
 	"ariga.io/atlas-go-sdk/atlasexec"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/examples/domaintypes/ent"
 	_ "github.com/lib/pq"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/examples/domaintypes/ent"
 	"github.com/stretchr/testify/require"
 )
 

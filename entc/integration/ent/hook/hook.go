@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/ent"
+	"github.com/protobuf-orm/ent/entc/integration/ent"
 )
 
 // The ApiFunc type is an adapter to allow the use of ordinary

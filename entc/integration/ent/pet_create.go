@@ -12,12 +12,12 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/pet"
-	"entgo.io/ent/entc/integration/ent/user"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetCreate is the builder for creating a Pet entity.

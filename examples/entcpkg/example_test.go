@@ -11,8 +11,8 @@ import (
 	"net/http"
 	"os"
 
-	"entgo.io/ent/examples/entcpkg/ent"
-	"entgo.io/ent/examples/entcpkg/ent/hook"
+	"github.com/protobuf-orm/ent/examples/entcpkg/ent"
+	"github.com/protobuf-orm/ent/examples/entcpkg/ent/hook"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

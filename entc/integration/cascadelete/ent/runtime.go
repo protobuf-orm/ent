@@ -7,9 +7,9 @@
 package ent
 
 import (
-	"entgo.io/ent/entc/integration/cascadelete/ent/post"
-	"entgo.io/ent/entc/integration/cascadelete/ent/schema"
-	"entgo.io/ent/entc/integration/cascadelete/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/post"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

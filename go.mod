@@ -1,4 +1,4 @@
-module entgo.io/ent
+module github.com/protobuf-orm/ent
 
 go 1.27.0
 

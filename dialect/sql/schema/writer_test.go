@@ -13,10 +13,10 @@ import (
 	"testing"
 	"time"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqljson"
-	"entgo.io/ent/internal/uuidtest"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqljson"
+	"github.com/protobuf-orm/ent/internal/uuidtest"
 
 	"ariga.io/atlas/sql/migrate"
 	"github.com/stretchr/testify/require"

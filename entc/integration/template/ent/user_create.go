@@ -11,10 +11,10 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/template/ent/pet"
-	"entgo.io/ent/entc/integration/template/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserCreate is the builder for creating a User entity.

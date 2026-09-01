@@ -11,7 +11,7 @@ execution output to a file with the same name as the template. For example:
 
 ```gotemplate
 {{/* The line below tells Intellij/GoLand to enable the autocompletion based on the *gen.Graph type. */}}
-{{/* gotype: entgo.io/ent/entc/gen.Graph */}}
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Graph */}}
 
 {{ define "stringer" }}
 
@@ -120,7 +120,7 @@ its execution output is written to a file. For example:
 ## Annotations
 Schema annotations allow attaching metadata to fields and edges and inject them to external templates.  
 An annotation must be a Go type that is serializable to JSON raw value (e.g. struct, map or slice)
-and implement the [Annotation](https://pkg.go.dev/entgo.io/ent/schema?tab=doc#Annotation) interface.
+and implement the [Annotation](https://pkg.go.dev/github.com/protobuf-orm/ent/schema?tab=doc#Annotation) interface.
 
 Here's an example of an annotation and its usage in schema and template:
 
@@ -186,7 +186,7 @@ add can accessed in all templates:
 package gqlconfig
 
 import (
-	"entgo.io/ent/schema"
+	"github.com/protobuf-orm/ent/schema"
 	"github.com/99designs/gqlgen/codegen/config"
 )
 
@@ -248,7 +248,7 @@ func main() {
 ## Documentation
 
 Templates are executed on either a specific node type, or the entire schema graph. For API
-documentation, see the <a target="_blank" href="https://pkg.go.dev/entgo.io/ent/entc/gen?tab=doc">GoDoc</a>.
+documentation, see the <a target="_blank" href="https://pkg.go.dev/github.com/protobuf-orm/ent/entc/gen?tab=doc">GoDoc</a>.
 
 ## AutoCompletion
 
@@ -256,7 +256,7 @@ JetBrains users can add the following template annotation to enable the autocomp
 
 ```gotemplate
 {{/* The line below tells Intellij/GoLand to enable the autocompletion based on the *gen.Graph type. */}}
-{{/* gotype: entgo.io/ent/entc/gen.Graph */}}
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Graph */}}
 
 {{ define "template" }}
     {{/* ... */}}

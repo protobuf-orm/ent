@@ -9,11 +9,11 @@ package runtime
 import (
 	"context"
 
-	"entgo.io/ent/examples/privacyadmin/ent/schema"
-	"entgo.io/ent/examples/privacyadmin/ent/user"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/ent/schema"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/ent/user"
 
-	"entgo.io/ent"
-	"entgo.io/ent/privacy"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/privacy"
 )
 
 // The init function reads all schema descriptors with runtime code

@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/role"
-	"entgo.io/ent/entc/integration/edgeschema/ent/roleuser"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/role"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/roleuser"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
 )
 
 // RoleUser is the model entity for the RoleUser schema.

@@ -9,12 +9,12 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 
-	enttask "entgo.io/ent/entc/integration/ent/task"
+	enttask "github.com/protobuf-orm/ent/entc/integration/ent/task"
 )
 
 // TaskDelete is the builder for deleting a Task entity.

@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/migrate/entv2"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2"
 )
 
 // The BlogFunc type is an adapter to allow the use of ordinary

@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/migrate/entv1/car"
-	"entgo.io/ent/entc/integration/migrate/entv1/conversion"
-	"entgo.io/ent/entc/integration/migrate/entv1/customtype"
-	"entgo.io/ent/entc/integration/migrate/entv1/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/car"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/conversion"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/customtype"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv1/user"
 )
 
 const (

@@ -11,12 +11,12 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgefield/ent/car"
-	"entgo.io/ent/entc/integration/edgefield/ent/rental"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
 )
 
 // Rental is the model entity for the Rental schema.

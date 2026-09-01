@@ -9,12 +9,12 @@ import (
 	"log"
 	"reflect"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/domaintypes/ent/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/domaintypes/ent/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/domaintypes/ent/user"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/domaintypes/ent/user"
 )
 
 // Client is the client that holds all ent builders.

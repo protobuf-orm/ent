@@ -4,7 +4,7 @@
 
 package schema
 
-import "entgo.io/ent"
+import "github.com/protobuf-orm/ent"
 
 // Builder holds the schema definition for the Builder entity.
 type Builder struct {

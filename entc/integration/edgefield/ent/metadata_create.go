@@ -11,10 +11,10 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgefield/ent/metadata"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/metadata"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // MetadataCreate is the builder for creating a Metadata entity.

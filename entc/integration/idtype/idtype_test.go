@@ -8,9 +8,9 @@ import (
 	"context"
 	"testing"
 
-	"entgo.io/ent/entc/integration/idtype/ent"
-	"entgo.io/ent/entc/integration/idtype/ent/migrate"
-	"entgo.io/ent/entc/integration/idtype/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/idtype/ent"
+	"github.com/protobuf-orm/ent/entc/integration/idtype/ent/migrate"
+	"github.com/protobuf-orm/ent/entc/integration/idtype/ent/user"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"

@@ -16,7 +16,7 @@ import (
     "time"
 
     "<your_project>/ent"
-    "entgo.io/ent/dialect/sql"
+    "github.com/protobuf-orm/ent/dialect/sql"
 )
 
 func Open() (*ent.Client, error) {
@@ -43,7 +43,7 @@ import (
     "time"
 
     "<your_project>/ent"
-    entsql "entgo.io/ent/dialect/sql"
+    entsql "github.com/protobuf-orm/ent/dialect/sql"
 )
 
 func Open() (*ent.Client, error) {
@@ -73,8 +73,8 @@ import (
 	"<project>/ent"
 
 	"contrib.go.opencensus.io/integrations/ocsql"
-	"entgo.io/ent/dialect"
-	entsql "entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect"
+	entsql "github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/go-sql-driver/mysql"
 )
 
@@ -118,8 +118,8 @@ import (
 
 	"<project>/ent"
 
-	"entgo.io/ent/dialect"
-	entsql "entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect"
+	entsql "github.com/protobuf-orm/ent/dialect/sql"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 

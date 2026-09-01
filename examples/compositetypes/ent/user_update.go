@@ -7,12 +7,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/compositetypes/ent/predicate"
-	"entgo.io/ent/examples/compositetypes/ent/schema"
-	"entgo.io/ent/examples/compositetypes/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/schema"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserUpdate is the builder for updating User entities.

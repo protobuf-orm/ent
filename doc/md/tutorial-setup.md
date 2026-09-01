@@ -25,11 +25,11 @@ go mod init todo
 Run the following Go commands to install Ent, and tell it to initialize the project structure along with a `Todo` schema.
 
 ```console
-go get entgo.io/ent/cmd/ent
+go get github.com/protobuf-orm/ent/cmd/ent
 ```
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent new Todo
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent new Todo
 ```
 
 After installing Ent and running `ent new`, your project directory should look like this:
@@ -54,7 +54,7 @@ When we ran `ent new Todo` above, a schema named `Todo`  was created in the `tod
 ```go
 package schema
 
-import "entgo.io/ent"
+import "github.com/protobuf-orm/ent"
 
 // Todo holds the schema definition for the Todo entity.
 type Todo struct {
@@ -101,7 +101,7 @@ import (
 	"log"
 	"todo/ent"
 
-	"entgo.io/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect"
 	_ "github.com/mattn/go-sqlite3"
 )
 

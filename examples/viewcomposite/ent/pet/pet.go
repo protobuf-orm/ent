@@ -3,7 +3,7 @@
 package pet
 
 import (
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 const (

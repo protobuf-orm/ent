@@ -9,10 +9,10 @@ package runtime
 import (
 	"time"
 
-	"entgo.io/ent/entc/integration/hooks/ent/card"
-	"entgo.io/ent/entc/integration/hooks/ent/pet"
-	"entgo.io/ent/entc/integration/hooks/ent/schema"
-	"entgo.io/ent/entc/integration/hooks/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

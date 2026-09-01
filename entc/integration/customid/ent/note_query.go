@@ -12,13 +12,13 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/customid/ent/note"
-	"entgo.io/ent/entc/integration/customid/ent/predicate"
-	"entgo.io/ent/entc/integration/customid/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/note"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // NoteQuery is the builder for querying Note entities.

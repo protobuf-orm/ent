@@ -9,12 +9,12 @@ package ent
 import (
 	"time"
 
-	"entgo.io/ent/entc/integration/edgefield/ent/car"
-	"entgo.io/ent/entc/integration/edgefield/ent/metadata"
-	"entgo.io/ent/entc/integration/edgefield/ent/node"
-	"entgo.io/ent/entc/integration/edgefield/ent/rental"
-	"entgo.io/ent/entc/integration/edgefield/ent/schema"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/metadata"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/node"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

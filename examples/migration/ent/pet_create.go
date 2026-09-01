@@ -11,11 +11,11 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/migration/ent/pet"
-	"entgo.io/ent/examples/migration/ent/user"
-	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/migration/ent/pet"
+	"github.com/protobuf-orm/ent/examples/migration/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetCreate is the builder for creating a Pet entity.

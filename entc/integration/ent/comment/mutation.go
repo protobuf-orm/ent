@@ -10,10 +10,10 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	schemadir "entgo.io/ent/entc/integration/ent/schema/dir"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	schemadir "github.com/protobuf-orm/ent/entc/integration/ent/schema/dir"
 )
 
 // Mutation represents an operation that mutates the Comment nodes in the graph.

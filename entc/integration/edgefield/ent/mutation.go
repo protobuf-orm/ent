@@ -14,17 +14,17 @@ import (
 	"sync"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/edgefield/ent/car"
-	"entgo.io/ent/entc/integration/edgefield/ent/card"
-	"entgo.io/ent/entc/integration/edgefield/ent/info"
-	"entgo.io/ent/entc/integration/edgefield/ent/metadata"
-	"entgo.io/ent/entc/integration/edgefield/ent/node"
-	"entgo.io/ent/entc/integration/edgefield/ent/pet"
-	"entgo.io/ent/entc/integration/edgefield/ent/post"
-	"entgo.io/ent/entc/integration/edgefield/ent/rental"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/car"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/info"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/metadata"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/node"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/post"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
 )
 
 const (

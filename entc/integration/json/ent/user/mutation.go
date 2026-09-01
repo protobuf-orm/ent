@@ -13,10 +13,10 @@ import (
 	"net/http"
 	"net/url"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/json/ent/predicate"
-	"entgo.io/ent/entc/integration/json/ent/schema"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/schema"
 )
 
 // Mutation represents an operation that mutates the User nodes in the graph.

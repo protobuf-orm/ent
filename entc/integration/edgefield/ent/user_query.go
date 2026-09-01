@@ -12,17 +12,17 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgefield/ent/card"
-	"entgo.io/ent/entc/integration/edgefield/ent/info"
-	"entgo.io/ent/entc/integration/edgefield/ent/metadata"
-	"entgo.io/ent/entc/integration/edgefield/ent/pet"
-	"entgo.io/ent/entc/integration/edgefield/ent/predicate"
-	"entgo.io/ent/entc/integration/edgefield/ent/rental"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/info"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/metadata"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserQuery is the builder for querying User entities.

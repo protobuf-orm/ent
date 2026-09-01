@@ -9,8 +9,8 @@ import (
 	"testing"
 	"uuid"
 
-	"entgo.io/ent/entc/integration/stduuid/ent"
-	"entgo.io/ent/entc/integration/stduuid/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"

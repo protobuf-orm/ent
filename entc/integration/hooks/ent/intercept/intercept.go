@@ -10,12 +10,12 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/hooks/ent"
-	"entgo.io/ent/entc/integration/hooks/ent/card"
-	"entgo.io/ent/entc/integration/hooks/ent/pet"
-	"entgo.io/ent/entc/integration/hooks/ent/predicate"
-	"entgo.io/ent/entc/integration/hooks/ent/user"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/user"
 )
 
 // The Query interface represents an operation that queries a graph.
@@ -39,7 +39,7 @@ type Query interface {
 
 // The Func type is an adapter that allows ordinary functions to be used as interceptors.
 // Unlike traversal functions, interceptors are skipped during graph traversals. Note that the
-// implementation of Func is different from the one defined in entgo.io/ent.InterceptFunc.
+// implementation of Func is different from the one defined in github.com/protobuf-orm/ent.InterceptFunc.
 type Func func(context.Context, Query) error
 
 // Intercept calls f(ctx, q) and then applied the next Querier.

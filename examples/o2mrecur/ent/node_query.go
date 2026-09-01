@@ -12,12 +12,12 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/o2mrecur/ent/node"
-	"entgo.io/ent/examples/o2mrecur/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/node"
+	"github.com/protobuf-orm/ent/examples/o2mrecur/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // NodeQuery is the builder for querying Node entities.

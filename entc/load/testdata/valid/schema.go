@@ -5,8 +5,8 @@
 package valid
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User holds the user schema.

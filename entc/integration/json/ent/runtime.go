@@ -9,8 +9,8 @@ package ent
 import (
 	"net/http"
 
-	"entgo.io/ent/entc/integration/json/ent/schema"
-	"entgo.io/ent/entc/integration/json/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

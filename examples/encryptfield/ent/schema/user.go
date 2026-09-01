@@ -11,11 +11,11 @@ import (
 
 	"gocloud.dev/secrets"
 
-	"entgo.io/ent"
-	gen "entgo.io/ent/examples/encryptfield/ent"
-	"entgo.io/ent/examples/encryptfield/ent/hook"
-	"entgo.io/ent/examples/encryptfield/ent/intercept"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	gen "github.com/protobuf-orm/ent/examples/encryptfield/ent"
+	"github.com/protobuf-orm/ent/examples/encryptfield/ent/hook"
+	"github.com/protobuf-orm/ent/examples/encryptfield/ent/intercept"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User holds the schema definition for the User entity.

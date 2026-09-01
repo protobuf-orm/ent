@@ -9,12 +9,12 @@ package versioned
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/internal"
-	"entgo.io/ent/entc/integration/multischema/versioned/pet"
-	"entgo.io/ent/entc/integration/multischema/versioned/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetDelete is the builder for deleting a Pet entity.

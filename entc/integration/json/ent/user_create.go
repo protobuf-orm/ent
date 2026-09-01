@@ -14,10 +14,10 @@ import (
 	"net/http"
 	"net/url"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/json/ent/schema"
-	"entgo.io/ent/entc/integration/json/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/json/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserCreate is the builder for creating a User entity.

@@ -19,7 +19,7 @@ with large data-models.
 
 ## Quick Installation
 ```console
-go install entgo.io/ent/cmd/ent@latest
+go install github.com/protobuf-orm/ent/cmd/ent@latest
 ```
 
 For proper installation using [Go modules], visit [entgo.io website][entgo install].

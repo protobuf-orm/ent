@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/entc/load"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc/load"
 )
 
 // Snapshot describes the schema snapshot restore.

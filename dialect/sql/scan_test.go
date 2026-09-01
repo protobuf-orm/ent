@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"entgo.io/ent/internal/uuidtest"
+	"github.com/protobuf-orm/ent/internal/uuidtest"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/require"

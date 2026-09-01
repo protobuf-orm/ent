@@ -99,8 +99,8 @@ import (
 	"log"
 
 	"entgo.io/contrib/schemast"
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 func main() {
@@ -136,9 +136,9 @@ After running this program, observe two new files exist in the schema directory:
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 type User struct {
@@ -160,9 +160,9 @@ func (User) Annotations() []schema.Annotation {
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 type Team struct {

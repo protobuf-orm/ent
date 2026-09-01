@@ -3,9 +3,9 @@
 package user
 
 import (
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/compositetypes/ent/predicate"
-	"entgo.io/ent/examples/compositetypes/ent/schema"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent/schema"
 )
 
 // ID filters vertices based on their ID field.

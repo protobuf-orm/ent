@@ -12,13 +12,13 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweet"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweetlike"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweet"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweetlike"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
 )
 
 // TweetLikeQuery is the builder for querying TweetLike entities.

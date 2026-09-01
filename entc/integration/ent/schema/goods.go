@@ -4,7 +4,7 @@
 
 package schema
 
-import "entgo.io/ent"
+import "github.com/protobuf-orm/ent"
 
 // Goods holds the schema definition for the Goods entity.
 type Goods struct {

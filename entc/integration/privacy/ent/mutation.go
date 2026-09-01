@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/privacy/ent/task"
-	"entgo.io/ent/entc/integration/privacy/ent/team"
-	"entgo.io/ent/entc/integration/privacy/ent/user"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/team"
+	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/user"
 )
 
 const (

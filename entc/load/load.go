@@ -27,7 +27,7 @@ import (
 	"text/template"
 	"time"
 
-	"entgo.io/ent"
+	"github.com/protobuf-orm/ent"
 
 	"golang.org/x/tools/go/ast/astutil"
 	"golang.org/x/tools/go/packages"

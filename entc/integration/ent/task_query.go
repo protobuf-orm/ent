@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	enttask "entgo.io/ent/entc/integration/ent/task"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	enttask "github.com/protobuf-orm/ent/entc/integration/ent/task"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // TaskQuery is the builder for querying Task entities.

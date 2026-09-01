@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/idtype/ent"
+	"github.com/protobuf-orm/ent/entc/integration/idtype/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

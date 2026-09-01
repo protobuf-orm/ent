@@ -5,9 +5,9 @@
 package cycle
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/entc/load/testdata/cycle/fakent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/load/testdata/cycle/fakent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // User holds the user schema.

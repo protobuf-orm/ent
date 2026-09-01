@@ -9,11 +9,11 @@ package ent
 import (
 	"context"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/migration/ent/predicate"
-	"entgo.io/ent/examples/migration/ent/session"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/migration/ent/session"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // SessionDelete is the builder for deleting a Session entity.

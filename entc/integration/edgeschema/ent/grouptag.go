@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/group"
-	"entgo.io/ent/entc/integration/edgeschema/ent/grouptag"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tag"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/grouptag"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tag"
 )
 
 // GroupTag is the model entity for the GroupTag schema.

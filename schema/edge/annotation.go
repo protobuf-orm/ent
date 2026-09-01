@@ -4,7 +4,7 @@
 
 package edge
 
-import "entgo.io/ent/schema"
+import "github.com/protobuf-orm/ent/schema"
 
 // Annotation is a builtin schema annotation for
 // configuring the edges' behavior in codegen.

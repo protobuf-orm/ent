@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/customid/ent"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent"
 )
 
 // The AccountFunc type is an adapter to allow the use of ordinary

@@ -35,7 +35,7 @@ go mod init entdemo
 Go to the root directory of your project, and run:
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent new User
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent new User
 ```
 
 The command above will generate the schema for `User` under `entdemo/ent/schema/` directory:
@@ -44,7 +44,7 @@ The command above will generate the schema for `User` under `entdemo/ent/schema/
 
 package schema
 
-import "entgo.io/ent"
+import "github.com/protobuf-orm/ent"
 
 // User holds the schema definition for the User entity.
 type User struct {
@@ -257,7 +257,7 @@ Let's create 2 additional entities named `Car` and `Group` with a few fields. We
 to generate the initial schemas:
 
 ```console
-go run -mod=mod entgo.io/ent/cmd/ent new Car Group
+go run -mod=mod github.com/protobuf-orm/ent/cmd/ent new Car Group
 ```
 
 And then we add the rest of the fields manually:

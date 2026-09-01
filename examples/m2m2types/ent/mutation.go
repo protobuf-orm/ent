@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/m2m2types/ent/group"
-	"entgo.io/ent/examples/m2m2types/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/m2m2types/ent/group"
+	"github.com/protobuf-orm/ent/examples/m2m2types/ent/user"
 )
 
 const (

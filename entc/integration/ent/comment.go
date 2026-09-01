@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/comment"
-	schemadir "entgo.io/ent/entc/integration/ent/schema/dir"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/comment"
+	schemadir "github.com/protobuf-orm/ent/entc/integration/ent/schema/dir"
 )
 
 // Comment is the model entity for the Comment schema.

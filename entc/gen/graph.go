@@ -20,9 +20,9 @@ import (
 	"strings"
 	"text/template/parse"
 
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/entc/load"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/entc/load"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/tools/imports"
@@ -1010,9 +1010,9 @@ func (g *Graph) templates() (*Template, []GraphTemplate) {
 	return templates, external
 }
 
-// ModuleInfo returns the entgo.io/ent version.
+// ModuleInfo returns the github.com/protobuf-orm/ent version.
 func (Config) ModuleInfo() (m debug.Module) {
-	const pkg = "entgo.io/ent"
+	const pkg = "github.com/protobuf-orm/ent"
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		return

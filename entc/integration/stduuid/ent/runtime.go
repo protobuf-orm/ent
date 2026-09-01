@@ -9,10 +9,10 @@ package ent
 import (
 	"uuid"
 
-	"entgo.io/ent/entc/integration/stduuid/ent/schema"
-	"entgo.io/ent/entc/integration/stduuid/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/schema"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
 
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code

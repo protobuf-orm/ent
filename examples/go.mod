@@ -1,16 +1,16 @@
-module entgo.io/ent/examples
+module github.com/protobuf-orm/ent/examples
 
 go 1.27.0
 
-replace entgo.io/ent => ../
+replace github.com/protobuf-orm/ent => ../
 
 require (
 	ariga.io/atlas v1.3.0
 	ariga.io/atlas-go-sdk v0.6.9
-	entgo.io/ent v0.14.6
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.12.0
 	github.com/ncruces/go-sqlite3 v0.35.3
+	github.com/protobuf-orm/ent v0.14.6
 	github.com/stretchr/testify v1.12.1
 	gocloud.dev v0.46.0
 )

@@ -8,7 +8,7 @@ import (
 	"context"
 	"testing"
 
-	"entgo.io/ent/entc/integration/cascadelete/ent"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"

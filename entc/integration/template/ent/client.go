@@ -14,15 +14,15 @@ import (
 	"net/http"
 	"reflect"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/template/ent/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/template/ent/group"
-	"entgo.io/ent/entc/integration/template/ent/pet"
-	"entgo.io/ent/entc/integration/template/ent/user"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/template/ent/user"
 )
 
 // Client is the client that holds all ent builders.

@@ -10,7 +10,7 @@ import (
 	"log"
 	"time"
 
-	"entgo.io/ent/examples/o2o2types/ent"
+	"github.com/protobuf-orm/ent/examples/o2o2types/ent"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

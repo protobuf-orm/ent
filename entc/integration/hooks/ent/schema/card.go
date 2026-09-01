@@ -9,13 +9,13 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent"
-	gen "entgo.io/ent/entc/integration/hooks/ent"
-	"entgo.io/ent/entc/integration/hooks/ent/card"
-	"entgo.io/ent/entc/integration/hooks/ent/hook"
-	"entgo.io/ent/schema/edge"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	gen "github.com/protobuf-orm/ent/entc/integration/hooks/ent"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/hook"
+	"github.com/protobuf-orm/ent/schema/edge"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 // RejectUpdate rejects ~all update operations

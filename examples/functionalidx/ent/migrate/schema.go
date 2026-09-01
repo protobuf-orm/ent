@@ -3,8 +3,8 @@
 package migrate
 
 import (
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 var (

@@ -15,7 +15,7 @@ import (
 
 func TestCmd(t *testing.T) {
 	defer os.RemoveAll("ent")
-	cmd := exec.Command("go", "run", "entgo.io/ent/cmd/entc", "new", "User")
+	cmd := exec.Command("go", "run", "github.com/protobuf-orm/ent/cmd/entc", "new", "User")
 	stderr := bytes.NewBuffer(nil)
 	cmd.Stderr = stderr
 	require.NoError(t, cmd.Run(), stderr.String())
@@ -25,7 +25,7 @@ func TestCmd(t *testing.T) {
 	_, err = os.Stat("ent/schema/user.go")
 	require.NoError(t, err)
 
-	cmd = exec.Command("go", "run", "entgo.io/ent/cmd/entc", "generate", "./ent/schema")
+	cmd = exec.Command("go", "run", "github.com/protobuf-orm/ent/cmd/entc", "generate", "./ent/schema")
 	stderr = bytes.NewBuffer(nil)
 	cmd.Stderr = stderr
 	require.NoError(t, cmd.Run(), stderr.String())

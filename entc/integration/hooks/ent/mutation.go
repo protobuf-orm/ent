@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/hooks/ent/card"
-	"entgo.io/ent/entc/integration/hooks/ent/pet"
-	"entgo.io/ent/entc/integration/hooks/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/card"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/user"
 )
 
 const (

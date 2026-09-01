@@ -423,9 +423,9 @@ Or as a reusable [Mixin](schema-mixin.md) across multiple schemas:
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/mixin"
 	"github.com/rs/xid"
 )
 
@@ -483,8 +483,8 @@ import (
 	"database/sql/driver"
 	"fmt"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/paulmach/orb"
 	"github.com/paulmach/orb/encoding/wkb"
 )
@@ -572,7 +572,7 @@ message Hi {
 }
 ```
 
-We add receiver methods to the generated protobuf struct such that it implements [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner)
+We add receiver methods to the generated protobuf struct such that it implements [ValueScanner](https://pkg.go.dev/github.com/protobuf-orm/ent/schema/field#ValueScanner)
 
 ```go
 func (x *Hi) Value() (driver.Value, error) {
@@ -787,9 +787,9 @@ package main
 import (
 	"log"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/schema/edge"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/schema/edge"
 )
 
 func main() {

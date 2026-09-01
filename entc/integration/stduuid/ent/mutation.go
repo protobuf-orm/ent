@@ -13,8 +13,8 @@ import (
 	"sync"
 	"uuid"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/stduuid/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
 )
 
 const (

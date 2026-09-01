@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 type sqlite struct{}

@@ -9,11 +9,11 @@ import (
 	"reflect"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/triggers/ent/user"
-	"entgo.io/ent/examples/triggers/ent/userauditlog"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/user"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/userauditlog"
 )
 
 // ent aliases to avoid import conflicts in user's code.

@@ -10,10 +10,10 @@ import (
 
 	"github.com/google/uuid"
 
-	"entgo.io/ent/entc/integration/ent"
-	"entgo.io/ent/entc/integration/ent/pet"
-	"entgo.io/ent/entc/integration/ent/user"
-	"entgo.io/ent/entql"
+	"github.com/protobuf-orm/ent/entc/integration/ent"
+	"github.com/protobuf-orm/ent/entc/integration/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/ent/user"
+	"github.com/protobuf-orm/ent/entql"
 
 	"github.com/stretchr/testify/require"
 )

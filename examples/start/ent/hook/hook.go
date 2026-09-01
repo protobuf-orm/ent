@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/start/ent"
+	"github.com/protobuf-orm/ent/examples/start/ent"
 )
 
 // The CarFunc type is an adapter to allow the use of ordinary

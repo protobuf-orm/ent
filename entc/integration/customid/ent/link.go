@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/customid/ent/link"
-	"entgo.io/ent/entc/integration/customid/ent/schema"
-	uuidc "entgo.io/ent/entc/integration/customid/uuidcompatible"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/link"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
+	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
 )
 
 // Link is the model entity for the Link schema.

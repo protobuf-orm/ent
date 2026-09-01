@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/jsonencode/ent/card"
-	"entgo.io/ent/examples/jsonencode/ent/pet"
-	"entgo.io/ent/examples/jsonencode/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/card"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/pet"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/user"
 )
 
 const (

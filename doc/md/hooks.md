@@ -18,7 +18,7 @@ There are 5 types of mutations:
 - `Delete` - Delete all nodes that match a predicate.
 
 Each generated node type has its own type of mutation. For example, all [`User` builders](crud.mdx#create-an-entity), share
-the same generated `UserMutation` object. However, all builder types implement the generic <a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation">`ent.Mutation`</a> interface.
+the same generated `UserMutation` object. However, all builder types implement the generic <a target="_blank" href="https://pkg.go.dev/github.com/protobuf-orm/ent?tab=doc#Mutation">`ent.Mutation`</a> interface.
 
 :::info Support For Database Triggers
 Unlike database triggers, hooks are executed at the application level, not the database level. If you need to execute
@@ -27,7 +27,7 @@ specific logic on the database level, use database triggers as explained in the 
 
 ## Hooks
 
-Hooks are functions that get an <a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutator">`ent.Mutator`</a> and return a mutator back.
+Hooks are functions that get an <a target="_blank" href="https://pkg.go.dev/github.com/protobuf-orm/ent?tab=doc#Mutator">`ent.Mutator`</a> and return a mutator back.
 They function as middleware between mutators. It's similar to the popular HTTP middleware pattern.
 
 ```go
@@ -157,7 +157,7 @@ import (
     gen "<project>/ent"
     "<project>/ent/hook"
 
-	"entgo.io/ent"
+	"github.com/protobuf-orm/ent"
 )
 
 // Card holds the schema definition for the CreditCard entity.
@@ -253,8 +253,8 @@ import (
 
 	"<project>/ent/hook"
 
-	"entgo.io/ent"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 

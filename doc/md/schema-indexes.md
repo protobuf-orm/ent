@@ -12,8 +12,8 @@ speed of data retrieval, or defining uniqueness.
 package schema
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/index"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/index"
 )
 
 // User holds the schema definition for the User entity.

@@ -5,9 +5,9 @@
 package schema
 
 import (
-	"entgo.io/ent"
-	schemadir "entgo.io/ent/entc/integration/ent/schema/dir"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	schemadir "github.com/protobuf-orm/ent/entc/integration/ent/schema/dir"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // Comment holds the schema definition for the Comment entity.

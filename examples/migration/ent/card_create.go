@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/migration/ent/card"
-	"entgo.io/ent/examples/migration/ent/payment"
-	"entgo.io/ent/examples/migration/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/migration/ent/card"
+	"github.com/protobuf-orm/ent/examples/migration/ent/payment"
+	"github.com/protobuf-orm/ent/examples/migration/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CardCreate is the builder for creating a Card entity.

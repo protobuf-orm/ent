@@ -2,7 +2,7 @@
 // This source code is licensed under the Apache 2.0 license found
 // in the LICENSE file in the root directory of this source tree.
 
-// Package integration holds the tests of entgo.io/ent/dialect/sql/schema that
+// Package integration holds the tests of github.com/protobuf-orm/ent/dialect/sql/schema that
 // run against a real database engine. They live in a module of their own so
 // that the driver they need stays out of the go.mod of ent itself.
 package integration
@@ -21,11 +21,11 @@ import (
 	"ariga.io/atlas/sql/migrate"
 	"ariga.io/atlas/sql/schema"
 	"ariga.io/atlas/sql/sqlite"
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/entsql"
-	"entgo.io/ent/dialect/sql"
-	entschema "entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	entschema "github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 	"github.com/stretchr/testify/require"

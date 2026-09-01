@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/cascadelete/ent/comment"
-	"entgo.io/ent/entc/integration/cascadelete/ent/post"
-	"entgo.io/ent/entc/integration/cascadelete/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/comment"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/post"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/user"
 )
 
 const (

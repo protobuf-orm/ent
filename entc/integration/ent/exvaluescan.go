@@ -12,9 +12,9 @@ import (
 	"net/url"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/ent/exvaluescan"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/exvaluescan"
 )
 
 // ExValueScan is the model entity for the ExValueScan schema.

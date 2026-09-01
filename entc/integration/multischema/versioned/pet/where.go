@@ -7,10 +7,10 @@
 package pet
 
 import (
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/internal"
-	"entgo.io/ent/entc/integration/multischema/versioned/predicate"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/predicate"
 )
 
 // ID filters vertices based on their ID field.

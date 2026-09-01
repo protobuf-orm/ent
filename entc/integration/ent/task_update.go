@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/ent/predicate"
-	"entgo.io/ent/entc/integration/ent/schema/task"
-	enttask "entgo.io/ent/entc/integration/ent/task"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/ent/schema/task"
+	enttask "github.com/protobuf-orm/ent/entc/integration/ent/task"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // TaskUpdate is the builder for updating Task entities.

@@ -7,7 +7,7 @@ package load
 import (
 	"testing"
 
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/stretchr/testify/require"
 )
@@ -17,7 +17,7 @@ func TestLoad(t *testing.T) {
 	spec, err := cfg.Load()
 	require.NoError(t, err)
 	require.Len(t, spec.Schemas, 3)
-	require.Equal(t, "entgo.io/ent/entc/load/testdata/valid", spec.PkgPath)
+	require.Equal(t, "github.com/protobuf-orm/ent/entc/load/testdata/valid", spec.PkgPath)
 
 	require.Equal(t, "Group", spec.Schemas[0].Name, "ordered alphabetically")
 	require.Equal(t, "Tag", spec.Schemas[1].Name)
@@ -37,7 +37,7 @@ func TestLoadSpecific(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, spec.Schemas, 1)
 	require.Equal(t, "User", spec.Schemas[0].Name)
-	require.Equal(t, "entgo.io/ent/entc/load/testdata/valid", spec.PkgPath)
+	require.Equal(t, "github.com/protobuf-orm/ent/entc/load/testdata/valid", spec.PkgPath)
 }
 
 func TestLoadNoSchema(t *testing.T) {
@@ -94,6 +94,6 @@ func TestLoadCycleError(t *testing.T) {
 	cfg := &Config{Path: "./testdata/cycle"}
 	spec, err := cfg.Load()
 	require.Nil(t, spec)
-	require.EqualError(t, err, `entc/load: parse schema dir: import cycle not allowed: import stack: [entgo.io/ent/entc/load/testdata/cycle entgo.io/ent/entc/load/testdata/cycle/fakent entgo.io/ent/entc/load/testdata/cycle]
+	require.EqualError(t, err, `entc/load: parse schema dir: import cycle not allowed: import stack: [github.com/protobuf-orm/ent/entc/load/testdata/cycle github.com/protobuf-orm/ent/entc/load/testdata/cycle/fakent github.com/protobuf-orm/ent/entc/load/testdata/cycle]
 To resolve this issue, move the custom types used by the generated code to a separate package: "Enum", "Used"`)
 }

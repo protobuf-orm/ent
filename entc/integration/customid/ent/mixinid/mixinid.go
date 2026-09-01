@@ -7,8 +7,8 @@
 package mixinid
 
 import (
-	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 const (

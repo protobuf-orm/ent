@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"entgo.io/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect"
 )
 
 // Driver is a dialect.Driver implementation for SQL based databases.

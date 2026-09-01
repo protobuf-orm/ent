@@ -9,11 +9,11 @@ package versioned
 import (
 	"time"
 
-	"entgo.io/ent/entc/integration/multischema/versioned/friendship"
-	"entgo.io/ent/entc/integration/multischema/versioned/group"
-	"entgo.io/ent/entc/integration/multischema/versioned/pet"
-	"entgo.io/ent/entc/integration/multischema/versioned/schema"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/schema"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
 )
 
 // The init function reads all schema descriptors with runtime code

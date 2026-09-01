@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/migration/ent/card"
-	"entgo.io/ent/examples/migration/ent/payment"
-	"entgo.io/ent/examples/migration/ent/predicate"
-	"entgo.io/ent/examples/migration/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/migration/ent/card"
+	"github.com/protobuf-orm/ent/examples/migration/ent/payment"
+	"github.com/protobuf-orm/ent/examples/migration/ent/predicate"
+	"github.com/protobuf-orm/ent/examples/migration/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CardQuery is the builder for querying Card entities.

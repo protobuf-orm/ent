@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/examples/privacyadmin/viewer"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/viewer"
 
-	"entgo.io/ent/examples/privacyadmin/ent"
-	"entgo.io/ent/examples/privacyadmin/ent/privacy"
-	_ "entgo.io/ent/examples/privacyadmin/ent/runtime"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/ent"
+	"github.com/protobuf-orm/ent/examples/privacyadmin/ent/privacy"
+	_ "github.com/protobuf-orm/ent/examples/privacyadmin/ent/runtime"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

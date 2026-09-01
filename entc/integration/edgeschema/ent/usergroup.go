@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/group"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
-	"entgo.io/ent/entc/integration/edgeschema/ent/usergroup"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/group"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/usergroup"
 )
 
 // UserGroup is the model entity for the UserGroup schema.

@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/compositetypes/ent"
+	"github.com/protobuf-orm/ent/examples/compositetypes/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

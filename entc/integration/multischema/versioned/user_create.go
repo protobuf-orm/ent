@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/friendship"
-	"entgo.io/ent/entc/integration/multischema/versioned/group"
-	"entgo.io/ent/entc/integration/multischema/versioned/pet"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // UserCreate is the builder for creating a User entity.

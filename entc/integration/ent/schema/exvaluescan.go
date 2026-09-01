@@ -13,9 +13,9 @@ import (
 	"net/url"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // ExValueScan holds the schema definition for the ExValueScan entity.

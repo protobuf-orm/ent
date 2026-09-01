@@ -9,13 +9,13 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	gen "entgo.io/ent/entc/integration/hooks/ent"
-	"entgo.io/ent/entc/integration/hooks/ent/hook"
-	"entgo.io/ent/entc/integration/hooks/ent/intercept"
-	"entgo.io/ent/schema/field"
-	"entgo.io/ent/schema/mixin"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	gen "github.com/protobuf-orm/ent/entc/integration/hooks/ent"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/hook"
+	"github.com/protobuf-orm/ent/entc/integration/hooks/ent/intercept"
+	"github.com/protobuf-orm/ent/schema/field"
+	"github.com/protobuf-orm/ent/schema/mixin"
 )
 
 type SoftDeleteMixin struct {

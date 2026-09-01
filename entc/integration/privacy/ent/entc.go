@@ -11,8 +11,8 @@ import (
 	"log"
 	"net/http"
 
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
 )
 
 func main() {

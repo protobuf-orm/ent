@@ -6,8 +6,8 @@ package schema
 
 // User holds the schema definition for the User entity.
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // Revision holds the schema definition for the Revision entity.

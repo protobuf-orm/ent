@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/ent/friendship"
-	"entgo.io/ent/entc/integration/multischema/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // FriendshipCreate is the builder for creating a Friendship entity.

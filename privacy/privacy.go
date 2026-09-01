@@ -11,7 +11,7 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent"
+	"github.com/protobuf-orm/ent"
 )
 
 // List of policy decisions.

@@ -12,13 +12,13 @@ import (
 	"fmt"
 	"time"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgeschema/ent/predicate"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tag"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweet"
-	"entgo.io/ent/entc/integration/edgeschema/ent/tweettag"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tag"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweet"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/tweettag"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // TweetTagUpdate is the builder for updating TweetTag entities.

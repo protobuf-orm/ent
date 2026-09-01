@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"log"
 
-	"entgo.io/ent/examples/o2orecur/ent"
-	"entgo.io/ent/examples/o2orecur/ent/node"
+	"github.com/protobuf-orm/ent/examples/o2orecur/ent"
+	"github.com/protobuf-orm/ent/examples/o2orecur/ent/node"
 
 	_ "github.com/ncruces/go-sqlite3/driver"
 )

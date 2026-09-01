@@ -11,12 +11,12 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/edgefield/ent/pet"
-	"entgo.io/ent/entc/integration/edgefield/ent/predicate"
-	"entgo.io/ent/entc/integration/edgefield/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/pet"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/predicate"
+	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PetUpdate is the builder for updating Pet entities.

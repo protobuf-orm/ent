@@ -10,10 +10,10 @@ import (
 	"os"
 	"testing"
 
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/examples/rls/ent"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/examples/rls/ent"
 
 	"ariga.io/atlas-go-sdk/atlasexec"
 	_ "github.com/lib/pq"

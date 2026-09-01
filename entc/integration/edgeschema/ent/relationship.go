@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/entc/integration/edgeschema/ent/relationship"
-	"entgo.io/ent/entc/integration/edgeschema/ent/relationshipinfo"
-	"entgo.io/ent/entc/integration/edgeschema/ent/user"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/relationship"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/relationshipinfo"
+	"github.com/protobuf-orm/ent/entc/integration/edgeschema/ent/user"
 )
 
 // Relationship is the model entity for the Relationship schema.

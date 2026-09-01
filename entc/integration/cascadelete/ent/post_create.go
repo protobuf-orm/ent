@@ -11,11 +11,11 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/cascadelete/ent/comment"
-	"entgo.io/ent/entc/integration/cascadelete/ent/post"
-	"entgo.io/ent/entc/integration/cascadelete/ent/user"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/comment"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/post"
+	"github.com/protobuf-orm/ent/entc/integration/cascadelete/ent/user"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // PostCreate is the builder for creating a Post entity.

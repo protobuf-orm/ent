@@ -12,10 +12,10 @@ import (
 	"strconv"
 	"testing"
 
-	"entgo.io/ent/dialect/entsql"
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/entc/internal"
-	"entgo.io/ent/entc/load"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc/internal"
+	"github.com/protobuf-orm/ent/entc/load"
 	"github.com/stretchr/testify/require"
 )
 

@@ -13,18 +13,18 @@ import (
 	"log"
 	"reflect"
 
-	"entgo.io/ent"
-	"entgo.io/ent/entc/integration/multischema/versioned/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/entc/integration/multischema/versioned/friendship"
-	"entgo.io/ent/entc/integration/multischema/versioned/group"
-	"entgo.io/ent/entc/integration/multischema/versioned/pet"
-	"entgo.io/ent/entc/integration/multischema/versioned/user"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/friendship"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/pet"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
 
-	"entgo.io/ent/entc/integration/multischema/versioned/internal"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/internal"
 )
 
 // Client is the client that holds all ent builders.

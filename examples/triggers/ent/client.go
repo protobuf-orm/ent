@@ -9,13 +9,13 @@ import (
 	"log"
 	"reflect"
 
-	"entgo.io/ent"
-	"entgo.io/ent/examples/triggers/ent/migrate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/migrate"
 
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/examples/triggers/ent/user"
-	"entgo.io/ent/examples/triggers/ent/userauditlog"
+	"github.com/protobuf-orm/ent/dialect"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/user"
+	"github.com/protobuf-orm/ent/examples/triggers/ent/userauditlog"
 )
 
 // Client is the client that holds all ent builders.

@@ -9,8 +9,8 @@ package entv2
 import (
 	"time"
 
-	"entgo.io/ent/entc/integration/migrate/entv2/schema"
-	"entgo.io/ent/entc/integration/migrate/entv2/user"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/schema"
+	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/user"
 )
 
 // The init function reads all schema descriptors with runtime code

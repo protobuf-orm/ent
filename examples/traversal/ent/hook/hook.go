@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/examples/traversal/ent"
+	"github.com/protobuf-orm/ent/examples/traversal/ent"
 )
 
 // The GroupFunc type is an adapter to allow the use of ordinary

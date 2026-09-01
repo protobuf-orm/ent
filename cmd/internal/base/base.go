@@ -16,11 +16,11 @@ import (
 	"text/template"
 	"unicode"
 
-	"entgo.io/ent/cmd/internal/printer"
-	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/entc"
-	"entgo.io/ent/entc/gen"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/cmd/internal/printer"
+	"github.com/protobuf-orm/ent/dialect/sql/schema"
+	"github.com/protobuf-orm/ent/entc"
+	"github.com/protobuf-orm/ent/entc/gen"
+	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/spf13/cobra"
 )
@@ -328,11 +328,11 @@ const (
 	// default schema package path.
 	defaultSchema = "ent/schema"
 	// ent/generate.go file used for "go generate" command.
-	genFile = "package ent\n\n//go:generate go run -mod=mod entgo.io/ent/cmd/ent generate ./schema\n"
+	genFile = "package ent\n\n//go:generate go run -mod=mod github.com/protobuf-orm/ent/cmd/ent generate ./schema\n"
 	// schema template for the "init" command.
 	defaultTemplate = `package schema
 
-import "entgo.io/ent"
+import "github.com/protobuf-orm/ent"
 
 // {{ . }} holds the schema definition for the {{ . }} entity.
 type {{ . }} struct {

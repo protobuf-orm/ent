@@ -1,13 +1,13 @@
-module entgo.io/ent/dialect/sql/schema/integration
+module github.com/protobuf-orm/ent/dialect/sql/schema/integration
 
 go 1.27.0
 
-replace entgo.io/ent => ../../../..
+replace github.com/protobuf-orm/ent => ../../../..
 
 require (
 	ariga.io/atlas v1.3.0
-	entgo.io/ent v0.0.0-00010101000000-000000000000
 	github.com/ncruces/go-sqlite3 v0.35.3
+	github.com/protobuf-orm/ent v0.0.0-00010101000000-000000000000
 	github.com/stretchr/testify v1.12.1
 )
 

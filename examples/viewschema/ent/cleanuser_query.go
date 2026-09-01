@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"math"
 
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/viewschema/ent/cleanuser"
-	"entgo.io/ent/examples/viewschema/ent/predicate"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/cleanuser"
+	"github.com/protobuf-orm/ent/examples/viewschema/ent/predicate"
 )
 
 // CleanUserQuery is the builder for querying CleanUser entities.

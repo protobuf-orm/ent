@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"entgo.io/ent/entc/gen"
+	"github.com/protobuf-orm/ent/entc/gen"
 
 	"github.com/stretchr/testify/require"
 )

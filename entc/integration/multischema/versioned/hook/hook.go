@@ -10,7 +10,7 @@ import (
 	"context"
 	"fmt"
 
-	"entgo.io/ent/entc/integration/multischema/versioned"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned"
 )
 
 // The FriendshipFunc type is an adapter to allow the use of ordinary

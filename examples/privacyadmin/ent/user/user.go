@@ -7,8 +7,8 @@
 package user
 
 import (
-	"entgo.io/ent"
-	"entgo.io/ent/dialect/sql"
+	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
 const (
@@ -42,7 +42,7 @@ func ValidColumn(column string) bool {
 // package on the initialization of the application. Therefore,
 // it should be imported in the main as follows:
 //
-//	import _ "entgo.io/ent/examples/privacyadmin/ent/runtime"
+//	import _ "github.com/protobuf-orm/ent/examples/privacyadmin/ent/runtime"
 var (
 	Hooks  [1]ent.Hook
 	Policy ent.Policy

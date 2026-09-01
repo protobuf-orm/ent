@@ -11,11 +11,11 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/examples/jsonencode/ent/card"
-	"entgo.io/ent/examples/jsonencode/ent/predicate"
-	"entgo.io/ent/schema/field"
+	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/card"
+	"github.com/protobuf-orm/ent/examples/jsonencode/ent/predicate"
+	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // CardUpdate is the builder for updating Card entities.
