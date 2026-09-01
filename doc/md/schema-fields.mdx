@@ -308,9 +308,11 @@ For a UUID field this is not needed at all. A `GoType` that marshals to and from
 written by codegen, so the field is only:
 
 ```go
-field.Uuid("id", uuid.UUID{}).
+field.Uuid("id").
     Default(uuid.New)
 ```
+
+The type is `uuid.UUID` unless the schema names another one, which is what the second argument is for.
 
 The codec cannot be installed by `field.Uuid` itself: the generated code asserts a `field.TypeValueScanner[T]`, and a
 generic cannot be instantiated by reflection. Codegen knows the type statically and writes it there instead.

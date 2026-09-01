@@ -17,6 +17,7 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/schema"
 )
@@ -147,10 +148,28 @@ func Enum(name string) *enumBuilder {
 	}}
 }
 
-// Uuid returns a new Field with type Uuid. An example for defining Uuid field is as follows:
+// Uuid returns a new Field with type UUID.
 //
-//	field.Uuid("id", uuid.New())
-func Uuid(name string, typ any) *uuidBuilder {
+// The Go type is uuid.UUID of the standard library, which is what a UUID is
+// unless the schema says otherwise:
+//
+//	field.Uuid("id").
+//		Default(uuid.New)
+//
+// A type of one's own is given as the second argument, and has to reach a
+// database somehow: by implementing driver.Valuer and sql.Scanner, by
+// marshalling to text, or through a [uuidBuilder.ValueScanner].
+//
+//	field.Uuid("id", MyUuid{})
+func Uuid(name string, typ ...any) *uuidBuilder {
+	var v any = uuid.UUID{}
+	if len(typ) > 0 {
+		v = typ[0]
+	}
+	return uuidOf(name, v)
+}
+
+func uuidOf(name string, typ any) *uuidBuilder {
 	rt := reflect.TypeOf(typ)
 	b := &uuidBuilder{&Descriptor{
 		Name: name,
