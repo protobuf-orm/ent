@@ -19,8 +19,6 @@ import (
 	"unicode"
 
 	"entgo.io/ent/schema/field"
-
-	"github.com/go-openapi/inflect"
 )
 
 var (
@@ -76,8 +74,7 @@ var (
 		"replace":       strings.ReplaceAll,
 		"allZero":       allZero,
 	}
-	rules    = ruleset()
-	acronyms = make(map[string]struct{})
+	acronyms = initAcronyms()
 )
 
 // joinWords with spaces and add linebreaks to ensure lines do not exceed the given maxSize.
@@ -178,7 +175,7 @@ func pascalWords(words []string) string {
 		if _, ok := acronyms[upper]; ok {
 			words[i] = upper
 		} else {
-			words[i] = rules.Capitalize(w)
+			words[i] = strings.ToUpper(w[:1]) + w[1:]
 		}
 	}
 	return strings.Join(words, "")
@@ -322,9 +319,9 @@ func add(xs ...int) (n int) {
 	return
 }
 
-func ruleset() *inflect.Ruleset {
-	rules := inflect.NewDefaultRuleset()
-	// Add common initialism from golint and more.
+// initAcronyms registers the common initialism from golint and more.
+func initAcronyms() map[string]struct{} {
+	acronyms := make(map[string]struct{})
 	for _, w := range []string{
 		"ACL", "API", "ASCII", "AWS", "CPU", "CSS", "DNS", "EOF", "GB", "GUID",
 		"HCL", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "KB", "LHS", "MAC",
@@ -333,15 +330,13 @@ func ruleset() *inflect.Ruleset {
 		"VM", "XML", "XMPP", "XSRF", "XSS",
 	} {
 		acronyms[w] = struct{}{}
-		rules.AddAcronym(w)
 	}
-	return rules
+	return acronyms
 }
 
-// AddAcronym adds initialism to the global ruleset.
+// AddAcronym adds initialism to the global acronym set.
 func AddAcronym(word string) {
 	acronyms[word] = struct{}{}
-	rules.AddAcronym(word)
 }
 
 // order returns a map of sort orders.
