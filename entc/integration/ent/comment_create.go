@@ -376,7 +376,7 @@ func (u *CommentUpsertOne) Ignore() *CommentUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CommentUpsertOne) DoNothing() *CommentUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -712,7 +712,7 @@ func (u *CommentUpsertBulk) Ignore() *CommentUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CommentUpsertBulk) DoNothing() *CommentUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -193,7 +193,7 @@ func TemplateDir(path string) Option {
 
 // Extension describes an Ent code generation extension that
 // allows customizing the code generation and integrate with
-// other tools and libraries (e.g. GraphQL, gRpc, OpenApi) by
+// other tools and libraries (e.g. GraphQL, gRPC, OpenApi) by
 // registering hooks, templates and global annotations in one
 // simple call.
 //

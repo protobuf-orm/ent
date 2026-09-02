@@ -1036,7 +1036,7 @@ func (q *query) count(ctx context.Context, drv dialect.Driver) (int, error) {
 		return 0, err
 	}
 	// Remove any ORDER BY clauses present in the COUNT query as
-	// they are not allowed in some databases, such as PostgreSql.
+	// they are not allowed in some databases, such as PostgreSQL.
 	if q.Order != nil {
 		selector.ClearOrder()
 	}

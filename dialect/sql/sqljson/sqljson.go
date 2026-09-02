@@ -568,7 +568,7 @@ func (p *PathOptions) mysqlPath(b *sql.Builder) {
 	b.WriteByte('\'')
 }
 
-// pgTextPath writes the Json path in PostgreSql text format: `"a"->'b'->>'c'`.
+// pgTextPath writes the Json path in PostgreSQL text format: `"a"->'b'->>'c'`.
 func (p *PathOptions) pgTextPath(b *sql.Builder) {
 	b.Ident(p.Ident)
 	for i, s := range p.Path {
@@ -584,7 +584,7 @@ func (p *PathOptions) pgTextPath(b *sql.Builder) {
 	}
 }
 
-// pgArrayPath writes the Json path in PostgreSql array text[] format: '{a,1,b}'.
+// pgArrayPath writes the Json path in PostgreSQL array text[] format: '{a,1,b}'.
 func (p *PathOptions) pgArrayPath(b *sql.Builder) {
 	b.WriteString("'{")
 	for i, s := range p.Path {

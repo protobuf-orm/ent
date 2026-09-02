@@ -686,7 +686,7 @@ func Order(t *testing.T, client *ent.Client) {
 		Order(
 			sqljson.OrderValue(user.FieldT, sqljson.Path("i")),
 		).
-		// PostgreSql doesn't support ORDER BY
+		// PostgreSQL doesn't support ORDER BY
 		// expressions with SELECT DISTINCT.
 		Unique(false).
 		AllX(ctx)

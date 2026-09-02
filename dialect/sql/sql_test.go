@@ -21,7 +21,7 @@ func TestFieldIsNull(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` IS NULL", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -39,7 +39,7 @@ func TestFieldNotNull(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` IS NOT NULL", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -57,7 +57,7 @@ func TestFieldEQ(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` = ?", query)
 		require.Equal(t, []any{"a8m"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -75,7 +75,7 @@ func TestFieldsEQ(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`create_time` = `users`.`update_time`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -93,7 +93,7 @@ func TestFieldsNEQ(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`create_time` <> `users`.`update_time`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -111,7 +111,7 @@ func TestFieldNEQ(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` <> ?", query)
 		require.Equal(t, []any{"a8m"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -129,7 +129,7 @@ func TestFieldGT(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`stars` > ?", query)
 		require.Equal(t, []any{1000}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -147,7 +147,7 @@ func TestFieldsGT(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`a` > `users`.`b`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -165,7 +165,7 @@ func TestFieldGTE(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`stars` >= ?", query)
 		require.Equal(t, []any{1000}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -183,7 +183,7 @@ func TestFieldsGTE(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`a` >= `users`.`b`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -201,7 +201,7 @@ func TestFieldLT(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`stars` < ?", query)
 		require.Equal(t, []any{1000}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -219,7 +219,7 @@ func TestFieldsLT(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`a` < `users`.`b`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -237,7 +237,7 @@ func TestFieldLTE(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`stars` <= ?", query)
 		require.Equal(t, []any{1000}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -255,7 +255,7 @@ func TestFieldsLTE(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`a` <= `users`.`b`", query)
 		require.Empty(t, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -273,7 +273,7 @@ func TestFieldIn(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` IN (?, ?, ?)", query)
 		require.Equal(t, []any{"a8m", "foo", "bar"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -291,7 +291,7 @@ func TestFieldNotIn(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`id` NOT IN (?, ?, ?)", query)
 		require.Equal(t, []any{1, 2, 3}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -309,7 +309,7 @@ func TestFieldEqualFold(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` COLLATE utf8mb4_general_ci = ?", query)
 		require.Equal(t, []any{"a8m"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -327,7 +327,7 @@ func TestFieldHasPrefix(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` LIKE ?", query)
 		require.Equal(t, []any{"a8m%"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -345,7 +345,7 @@ func TestFieldHasPrefixFold(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` COLLATE utf8mb4_general_ci LIKE ?", query)
 		require.Equal(t, []any{"a8m%"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -363,7 +363,7 @@ func TestFieldHasSuffix(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` LIKE ?", query)
 		require.Equal(t, []any{"%a8m"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -381,7 +381,7 @@ func TestFieldHasSuffixFold(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` COLLATE utf8mb4_general_ci LIKE ?", query)
 		require.Equal(t, []any{"%a8m"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -399,7 +399,7 @@ func TestFieldContains(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` LIKE ?", query)
 		require.Equal(t, []any{"%a8m%"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()
@@ -417,7 +417,7 @@ func TestFieldContainsFold(t *testing.T) {
 		require.Equal(t, "SELECT * FROM `users` WHERE `users`.`name` COLLATE utf8mb4_general_ci LIKE ?", query)
 		require.Equal(t, []any{"%a8m%"}, args)
 	})
-	t.Run("PostgreSql", func(t *testing.T) {
+	t.Run("PostgreSQL", func(t *testing.T) {
 		s := Dialect(dialect.Postgres).Select("*").From(Table("users"))
 		p(s)
 		query, args := s.Query()

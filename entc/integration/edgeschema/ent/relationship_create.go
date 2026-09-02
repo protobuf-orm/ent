@@ -364,7 +364,7 @@ func (u *RelationshipUpsertOne) Ignore() *RelationshipUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *RelationshipUpsertOne) DoNothing() *RelationshipUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -615,7 +615,7 @@ func (u *RelationshipUpsertBulk) Ignore() *RelationshipUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *RelationshipUpsertBulk) DoNothing() *RelationshipUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

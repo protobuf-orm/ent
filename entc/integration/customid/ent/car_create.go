@@ -344,7 +344,7 @@ func (u *CarUpsertOne) Ignore() *CarUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CarUpsertOne) DoNothing() *CarUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -627,7 +627,7 @@ func (u *CarUpsertBulk) Ignore() *CarUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CarUpsertBulk) DoNothing() *CarUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

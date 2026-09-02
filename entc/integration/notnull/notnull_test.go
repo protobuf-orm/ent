@@ -19,7 +19,7 @@ import (
 //
 // A zero-length blob reads back as nil through one SQLite driver and as
 // empty bytes through another, and the same split runs between SQLite and
-// PostgreSql. For a required column that difference is not a difference:
+// PostgreSQL. For a required column that difference is not a difference:
 // the column is NOT NULL, so nil is not a value it can hold, and reading
 // one out means the driver erased something rather than reported it.
 //

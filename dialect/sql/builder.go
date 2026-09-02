@@ -194,7 +194,7 @@ func (i *InsertBuilder) Default() *InsertBuilder {
 }
 
 // Returning adds the `RETURNING` clause to the insert statement.
-// Supported by SQLite and PostgreSql.
+// Supported by SQLite and PostgreSQL.
 func (i *InsertBuilder) Returning(columns ...string) *InsertBuilder {
 	i.returning = columns
 	return i
@@ -239,7 +239,7 @@ func ConflictColumns(names ...string) ConflictOption {
 }
 
 // ConflictConstraint allows setting the constraint
-// name (i.e. `ON CONSTRAINT <name>`) for PostgreSql.
+// name (i.e. `ON CONSTRAINT <name>`) for PostgreSQL.
 //
 //	sql.Insert("users").
 //		Columns("id", "name").
@@ -254,7 +254,7 @@ func ConflictConstraint(name string) ConflictOption {
 	}
 }
 
-// ConflictWhere allows inference of partial unique indexes. See, PostgreSql
+// ConflictWhere allows inference of partial unique indexes. See, PostgreSQL
 // doc: https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT
 func ConflictWhere(p *Predicate) ConflictOption {
 	return func(c *conflict) {
@@ -271,7 +271,7 @@ func UpdateWhere(p *Predicate) ConflictOption {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported by SQLite and PostgreSql.
+// Supported by SQLite and PostgreSQL.
 //
 //	sql.Insert("users").
 //		Columns("id", "name").
@@ -299,7 +299,7 @@ func DoNothing() ConflictOption {
 //
 //	// Output:
 //	// MySql: INSERT INTO `users` (`id`) VALUES(1) ON DUPLICATE KEY UPDATE `id` = `users`.`id`
-//	// PostgreSql: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "users"."id
+//	// PostgreSQL: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "users"."id
 func ResolveWithIgnore() ConflictOption {
 	return func(c *conflict) {
 		c.action.update = append(c.action.update, func(u *UpdateSet) {
@@ -323,7 +323,7 @@ func ResolveWithIgnore() ConflictOption {
 //
 //	// Output:
 //	// MySql: INSERT INTO `users` (`id`, `name`) VALUES(1, 'Mashraki) ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`),
-//	// PostgreSql: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "excluded"."id, "name" = "excluded"."name"
+//	// PostgreSQL: INSERT INTO "users" ("id") VALUES(1) ON CONFLICT ("id") DO UPDATE SET "id" = "excluded"."id, "name" = "excluded"."name"
 func ResolveWithNewValues() ConflictOption {
 	return func(c *conflict) {
 		c.action.update = append(c.action.update, func(u *UpdateSet) {
@@ -605,7 +605,7 @@ func (u *UpdateBuilder) Empty() bool {
 // Supported by SQLite and MySql.
 func (u *UpdateBuilder) OrderBy(columns ...string) *UpdateBuilder {
 	if u.postgres() {
-		u.AddError(errors.New("ORDER BY is not supported by PostgreSql"))
+		u.AddError(errors.New("ORDER BY is not supported by PostgreSQL"))
 		return u
 	}
 	for i := range columns {
@@ -618,7 +618,7 @@ func (u *UpdateBuilder) OrderBy(columns ...string) *UpdateBuilder {
 // Supported by SQLite and MySql.
 func (u *UpdateBuilder) Limit(limit int) *UpdateBuilder {
 	if u.postgres() {
-		u.AddError(errors.New("LIMIT is not supported by PostgreSql"))
+		u.AddError(errors.New("LIMIT is not supported by PostgreSQL"))
 		return u
 	}
 	u.limit = &limit
@@ -632,7 +632,7 @@ func (u *UpdateBuilder) Prefix(stmts ...Querier) *UpdateBuilder {
 }
 
 // Returning adds the `RETURNING` clause to the insert statement.
-// Supported by SQLite and PostgreSql.
+// Supported by SQLite and PostgreSQL.
 func (u *UpdateBuilder) Returning(columns ...string) *UpdateBuilder {
 	u.returning = columns
 	return u
@@ -3406,7 +3406,7 @@ func (b Builder) clone() Builder {
 	return c
 }
 
-// postgres reports if the builder dialect is PostgreSql.
+// postgres reports if the builder dialect is PostgreSQL.
 func (b Builder) postgres() bool {
 	return b.Dialect() == dialect.Postgres
 }

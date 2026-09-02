@@ -2607,7 +2607,7 @@ func (u *FieldTypeUpsertOne) Ignore() *FieldTypeUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *FieldTypeUpsertOne) DoNothing() *FieldTypeUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -4323,7 +4323,7 @@ func (u *FieldTypeUpsertBulk) Ignore() *FieldTypeUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *FieldTypeUpsertBulk) DoNothing() *FieldTypeUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

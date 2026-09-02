@@ -474,7 +474,7 @@ func (u *TaskUpsertOne) Ignore() *TaskUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *TaskUpsertOne) DoNothing() *TaskUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -839,7 +839,7 @@ func (u *TaskUpsertBulk) Ignore() *TaskUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *TaskUpsertBulk) DoNothing() *TaskUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

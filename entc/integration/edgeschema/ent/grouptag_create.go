@@ -257,7 +257,7 @@ func (u *GroupTagUpsertOne) Ignore() *GroupTagUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *GroupTagUpsertOne) DoNothing() *GroupTagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -488,7 +488,7 @@ func (u *GroupTagUpsertBulk) Ignore() *GroupTagUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *GroupTagUpsertBulk) DoNothing() *GroupTagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

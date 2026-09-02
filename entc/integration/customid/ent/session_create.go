@@ -241,7 +241,7 @@ func (u *SessionUpsertOne) Ignore() *SessionUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *SessionUpsertOne) DoNothing() *SessionUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -451,7 +451,7 @@ func (u *SessionUpsertBulk) Ignore() *SessionUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *SessionUpsertBulk) DoNothing() *SessionUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

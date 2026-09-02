@@ -586,7 +586,7 @@ type IndexAnnotation struct {
 	Types map[string]string
 
 	// OpClass defines the operator class for a single string column index.
-	// In PostgreSql, the following annotation maps to:
+	// In PostgreSQL, the following annotation maps to:
 	//
 	//	index.Fields("column").
 	//		Annotation(
@@ -599,7 +599,7 @@ type IndexAnnotation struct {
 	OpClass string
 
 	// OpClassColumns defines operator-classes for a multi-column index.
-	// In PostgreSql, the following annotation maps to:
+	// In PostgreSQL, the following annotation maps to:
 	//
 	//	index.Fields("c1", "c2", "c3").
 	//		Annotation(
@@ -612,7 +612,7 @@ type IndexAnnotation struct {
 	//
 	OpClassColumns map[string]string
 
-	// IndexWhere allows configuring partial indexes in SQLite and PostgreSql.
+	// IndexWhere allows configuring partial indexes in SQLite and PostgreSQL.
 	// Read more: https://postgresql.org/docs/current/indexes-partial.html.
 	//
 	// Note that the `WHERE` clause should be defined exactly like it is
@@ -659,7 +659,7 @@ func PrefixColumn(name string, prefix uint) *IndexAnnotation {
 }
 
 // OpClass defines the operator class for a single string column index.
-// In PostgreSql, the following annotation maps to:
+// In PostgreSQL, the following annotation maps to:
 //
 //	index.Fields("column").
 //		Annotation(
@@ -675,7 +675,7 @@ func OpClass(op string) *IndexAnnotation {
 }
 
 // OpClassColumn returns a new index annotation with column operator
-// class for multi-column indexes. In PostgreSql, the following annotation maps to:
+// class for multi-column indexes. In PostgreSQL, the following annotation maps to:
 //
 //	index.Fields("c1", "c2", "c3").
 //		Annotation(
@@ -764,7 +764,7 @@ func IndexTypes(types map[string]string) *IndexAnnotation {
 	return &IndexAnnotation{Types: types}
 }
 
-// IndexWhere allows configuring partial indexes in SQLite and PostgreSql.
+// IndexWhere allows configuring partial indexes in SQLite and PostgreSQL.
 // Read more: https://postgresql.org/docs/current/indexes-partial.html.
 //
 // Note that the `WHERE` clause should be defined exactly like it is

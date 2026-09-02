@@ -235,7 +235,7 @@ func (u *LinkUpsertOne) Ignore() *LinkUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *LinkUpsertOne) DoNothing() *LinkUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -464,7 +464,7 @@ func (u *LinkUpsertBulk) Ignore() *LinkUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *LinkUpsertBulk) DoNothing() *LinkUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -165,17 +165,17 @@ func (User) Indexes() []ent.Index {
 					dialect.MySql: "FULLTEXT",
 				}),
 			),
-		// For PostgreSql, we can include in the index non-key columns.
+		// For PostgreSQL, we can include in the index non-key columns.
 		index.Fields("workplace").
 			Annotations(
 				entsql.IncludeColumns("nickname"),
 			),
-		// For PostgreSql and SQLite, users can define partial indexes.
+		// For PostgreSQL and SQLite, users can define partial indexes.
 		index.Fields("phone").
 			Annotations(
 				entsql.IndexWhere(`active AND "phone" <> ''`),
 			),
-		// For PostgreSql, operator classes can be configured for each field.
+		// For PostgreSQL, operator classes can be configured for each field.
 		index.Fields("age", "phone").
 			Annotations(
 				entsql.OpClassColumn("phone", "bpchar_pattern_ops"),

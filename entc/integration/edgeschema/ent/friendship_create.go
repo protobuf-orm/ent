@@ -332,7 +332,7 @@ func (u *FriendshipUpsertOne) Ignore() *FriendshipUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *FriendshipUpsertOne) DoNothing() *FriendshipUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -581,7 +581,7 @@ func (u *FriendshipUpsertBulk) Ignore() *FriendshipUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *FriendshipUpsertBulk) DoNothing() *FriendshipUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

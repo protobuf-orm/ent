@@ -344,7 +344,7 @@ func (u *DocUpsertOne) Ignore() *DocUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *DocUpsertOne) DoNothing() *DocUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -580,7 +580,7 @@ func (u *DocUpsertBulk) Ignore() *DocUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *DocUpsertBulk) DoNothing() *DocUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

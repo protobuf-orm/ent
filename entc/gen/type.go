@@ -1278,7 +1278,7 @@ func (f Field) MutationAppended() string {
 
 // RequiredFor returns a list of dialects that this field is required for.
 // A field can be required in one database, but optional in the other. e.g.,
-// in case a SchemaType was defined as "serial" for PostgreSql, but "int" for SQLite.
+// in case a SchemaType was defined as "serial" for PostgreSQL, but "int" for SQLite.
 func (f Field) RequiredFor() (dialects []string) {
 	seen := make(map[string]struct{})
 	switch f.def.SchemaType[dialect.Postgres] {

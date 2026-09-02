@@ -226,7 +226,7 @@ func (u *ValueScanUpsertOne) Ignore() *ValueScanUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *ValueScanUpsertOne) DoNothing() *ValueScanUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -466,7 +466,7 @@ func (u *ValueScanUpsertBulk) Ignore() *ValueScanUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *ValueScanUpsertBulk) DoNothing() *ValueScanUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

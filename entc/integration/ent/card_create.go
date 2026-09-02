@@ -410,7 +410,7 @@ func (u *CardUpsertOne) Ignore() *CardUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CardUpsertOne) DoNothing() *CardUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -680,7 +680,7 @@ func (u *CardUpsertBulk) Ignore() *CardUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *CardUpsertBulk) DoNothing() *CardUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

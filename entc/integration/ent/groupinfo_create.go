@@ -268,7 +268,7 @@ func (u *GroupInfoUpsertOne) Ignore() *GroupInfoUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *GroupInfoUpsertOne) DoNothing() *GroupInfoUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -507,7 +507,7 @@ func (u *GroupInfoUpsertBulk) Ignore() *GroupInfoUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSql.
+// Supported only by SQLite and PostgreSQL.
 func (u *GroupInfoUpsertBulk) DoNothing() *GroupInfoUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

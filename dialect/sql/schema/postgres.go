@@ -95,7 +95,7 @@ func (d *Postgres) atTable(t1 *Table, t2 *schema.Table) {
 }
 
 func (d *Postgres) supportsDefault(*Column) bool {
-	// PostgreSql supports default values for all standard types.
+	// PostgreSQL supports default values for all standard types.
 	return true
 }
 
@@ -156,7 +156,7 @@ func (d *Postgres) atTypeC(c1 *Column, c2 *schema.Column) error {
 }
 
 func (d *Postgres) atUniqueC(t1 *Table, c1 *Column, t2 *schema.Table, c2 *schema.Column) {
-	// For UNIQUE columns, PostgreSql creates an implicit index named
+	// For UNIQUE columns, PostgreSQL creates an implicit index named
 	// "<table>_<column>_key<i>".
 	for _, idx := range t1.Indexes {
 		// Index also defined explicitly, and will be added in atIndexes.
