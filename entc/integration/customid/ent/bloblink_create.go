@@ -135,10 +135,7 @@ func (_c *BlobLinkCreate) sqlSave(ctx context.Context) (*BlobLink, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -148,7 +145,7 @@ func (_c *BlobLinkCreate) sqlSave(ctx context.Context) (*BlobLink, error) {
 	return _node, nil
 }
 
-func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec, error) {
+func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec) {
 	var (
 		_node = &BlobLink{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(bloblink.Table, nil)
@@ -170,11 +167,7 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec, error) 
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.BlobId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
@@ -191,16 +184,12 @@ func (_c *BlobLinkCreate) createSpec() (*BlobLink, *sqlgraph.CreateSpec, error) 
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.LinksId = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -415,10 +404,7 @@ func (_c *BlobLinkCreateBulk) Save(ctx context.Context) ([]*BlobLink, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

@@ -22,14 +22,12 @@ func CreatedAt(v time.Time) predicate.BlobLink {
 
 // BlobId applies equality check predicate on the "blob_id" field. It's identical to BlobIdEQ.
 func BlobId(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.BlobId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldBlobId, vc), err)
+	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
 }
 
 // LinksId applies equality check predicate on the "links_id" field. It's identical to LinksIdEQ.
 func LinksId(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.LinksId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldLinksId, vc), err)
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -74,82 +72,42 @@ func CreatedAtLTE(v time.Time) predicate.BlobLink {
 
 // BlobIdEQ applies the EQ predicate on the "blob_id" field.
 func BlobIdEQ(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.BlobId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldBlobId, vc), err)
+	return predicate.BlobLink(sql.FieldEQ(FieldBlobId, v))
 }
 
 // BlobIdNEQ applies the NEQ predicate on the "blob_id" field.
 func BlobIdNEQ(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.BlobId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldNEQ(FieldBlobId, vc), err)
+	return predicate.BlobLink(sql.FieldNEQ(FieldBlobId, v))
 }
 
 // BlobIdIn applies the In predicate on the "blob_id" field.
 func BlobIdIn(vs ...uuid.UUID) predicate.BlobLink {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.BlobId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.BlobLinkOrErr(sql.FieldIn(FieldBlobId, v...), err)
+	return predicate.BlobLink(sql.FieldIn(FieldBlobId, vs...))
 }
 
 // BlobIdNotIn applies the NotIn predicate on the "blob_id" field.
 func BlobIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.BlobId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.BlobLinkOrErr(sql.FieldNotIn(FieldBlobId, v...), err)
+	return predicate.BlobLink(sql.FieldNotIn(FieldBlobId, vs...))
 }
 
 // LinksIdEQ applies the EQ predicate on the "links_id" field.
 func LinksIdEQ(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.LinksId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldEQ(FieldLinksId, vc), err)
+	return predicate.BlobLink(sql.FieldEQ(FieldLinksId, v))
 }
 
 // LinksIdNEQ applies the NEQ predicate on the "links_id" field.
 func LinksIdNEQ(v uuid.UUID) predicate.BlobLink {
-	vc, err := ValueScanner.LinksId.Value(v)
-	return predicate.BlobLinkOrErr(sql.FieldNEQ(FieldLinksId, vc), err)
+	return predicate.BlobLink(sql.FieldNEQ(FieldLinksId, v))
 }
 
 // LinksIdIn applies the In predicate on the "links_id" field.
 func LinksIdIn(vs ...uuid.UUID) predicate.BlobLink {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.LinksId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.BlobLinkOrErr(sql.FieldIn(FieldLinksId, v...), err)
+	return predicate.BlobLink(sql.FieldIn(FieldLinksId, vs...))
 }
 
 // LinksIdNotIn applies the NotIn predicate on the "links_id" field.
 func LinksIdNotIn(vs ...uuid.UUID) predicate.BlobLink {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.LinksId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.BlobLinkOrErr(sql.FieldNotIn(FieldLinksId, v...), err)
+	return predicate.BlobLink(sql.FieldNotIn(FieldLinksId, vs...))
 }
 
 // HasBlob applies the HasEdge predicate on the "blob" edge.

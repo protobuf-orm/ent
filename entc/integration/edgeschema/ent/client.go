@@ -2583,12 +2583,7 @@ func (c *TweetTagClient) GetX(ctx context.Context, id uuid.UUID) *TweetTag {
 func (c *TweetTagClient) QueryTag(_m *TweetTag) *TagQuery {
 	query := (&TagClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := any(_m.Id)
-		vv, err := tweettag.ValueScanner.Id.Value(_m.Id)
-		if err != nil {
-			return nil, err
-		}
-		id = vv
+		id := _m.Id
 		step := sqlgraph.NewStep(
 			sqlgraph.From(tweettag.Table, tweettag.FieldId, id),
 			sqlgraph.To(tag.Table, tag.FieldId),
@@ -2604,12 +2599,7 @@ func (c *TweetTagClient) QueryTag(_m *TweetTag) *TagQuery {
 func (c *TweetTagClient) QueryTweet(_m *TweetTag) *TweetQuery {
 	query := (&TweetClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := any(_m.Id)
-		vv, err := tweettag.ValueScanner.Id.Value(_m.Id)
-		if err != nil {
-			return nil, err
-		}
-		id = vv
+		id := _m.Id
 		step := sqlgraph.NewStep(
 			sqlgraph.From(tweettag.Table, tweettag.FieldId, id),
 			sqlgraph.To(tweet.Table, tweet.FieldId),

@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"net/url"
 	"time"
-	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent/card"
@@ -166,8 +165,6 @@ func init() {
 	fieldtype.DefaultIp = fieldtypeDescIp.Default.(func() net.IP)
 	// fieldtype.IpValidator is a validator for the "ip" field. It is called by the builders before save.
 	fieldtype.IpValidator = fieldtypeDescIp.Validators[0].(func([]byte) error)
-	fieldtype.ValueScanner.OptionalUuid = field.TextValueScannerOf[uuid.UUID]()
-	fieldtype.ValueScanner.NillableUuid = field.TextValueScannerOf[uuid.UUID]()
 	// fieldtypeDescPair is the schema descriptor for pair field.
 	fieldtypeDescPair := fieldtypeFields[59].Descriptor()
 	// fieldtype.DefaultPair holds the default value on creation for the pair field.
@@ -287,7 +284,6 @@ func init() {
 	petDescAge := petFields[0].Descriptor()
 	// pet.DefaultAge holds the default value on creation for the age field.
 	pet.DefaultAge = petDescAge.Default.(float64)
-	pet.ValueScanner.Uuid = field.TextValueScannerOf[uuid.UUID]()
 	// petDescTrained is the schema descriptor for trained field.
 	petDescTrained := petFields[4].Descriptor()
 	// pet.DefaultTrained holds the default value on creation for the trained field.

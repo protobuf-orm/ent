@@ -56,6 +56,9 @@ func (_m *User) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field location", values[i])
 			} else if value != nil {
 				_m.Location = *value
+				if _m.Location == nil {
+					_m.Location = []byte{}
+				}
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

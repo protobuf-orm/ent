@@ -73,10 +73,8 @@ func (*BlobLink) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case bloblink.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
-		case bloblink.FieldBlobId:
-			values[i] = bloblink.ValueScanner.BlobId.ScanValue()
-		case bloblink.FieldLinksId:
-			values[i] = bloblink.ValueScanner.LinksId.ScanValue()
+		case bloblink.FieldBlobId, bloblink.FieldLinksId:
+			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -99,16 +97,16 @@ func (_m *BlobLink) assignValues(columns []string, values []any) error {
 				_m.CreatedAt = value.Time
 			}
 		case bloblink.FieldBlobId:
-			if value, err := bloblink.ValueScanner.BlobId.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.BlobId = value
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field blob_id", values[i])
+			} else if value != nil {
+				_m.BlobId = *value
 			}
 		case bloblink.FieldLinksId:
-			if value, err := bloblink.ValueScanner.LinksId.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.LinksId = value
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field links_id", values[i])
+			} else if value != nil {
+				_m.LinksId = *value
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

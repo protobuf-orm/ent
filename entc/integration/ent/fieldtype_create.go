@@ -954,10 +954,7 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -971,7 +968,7 @@ func (_c *FieldTypeCreate) sqlSave(ctx context.Context) (*FieldType, error) {
 	return _node, nil
 }
 
-func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec, error) {
+func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec) {
 	var (
 		_node = &FieldType{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(fieldtype.Table, sqlgraph.NewFieldSpec(fieldtype.FieldId, field.TypeInt))
@@ -1202,19 +1199,11 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec, error
 		_node.Priority = value
 	}
 	if value, ok := _c.mutation.OptionalUuid(); ok {
-		vv, err := fieldtype.ValueScanner.OptionalUuid.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, vv)
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
 		_node.OptionalUuid = value
 	}
 	if value, ok := _c.mutation.NillableUuid(); ok {
-		vv, err := fieldtype.ValueScanner.NillableUuid.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, vv)
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
 		_node.NillableUuid = &value
 	}
 	if value, ok := _c.mutation.Strings(); ok {
@@ -1245,7 +1234,7 @@ func (_c *FieldTypeCreate) createSpec() (*FieldType, *sqlgraph.CreateSpec, error
 		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, value)
 		_node.PasswordOther = value
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -4208,10 +4197,7 @@ func (_c *FieldTypeCreateBulk) Save(ctx context.Context) ([]*FieldType, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

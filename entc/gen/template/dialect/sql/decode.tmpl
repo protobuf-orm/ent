@@ -161,6 +161,14 @@ func ({{ $receiver }} *{{ $.Name }}) {{ $.ValueName }}(name string) (ent.Value, 
 		{{- else }}
 			} else if value != nil {
 				{{ $ret }}.{{ $field }} = {{ if and (not $f.Nillable) (not $f.Type.RType.IsPtr) }}*{{ end }}value
+				{{- if $f.EmptyNotNil }}
+					if {{ $ret }}.{{ $field }} == nil {
+						{{- /* The column is NOT NULL, so nil is not a value it can hold.
+						       A driver that reads a zero-length blob back as nil erased
+						       the difference, and the ones that do not disagree. */}}
+						{{ $ret }}.{{ $field }} = {{ $f.Type }}{}
+					}
+				{{- end }}
 		{{- end }}
 		}
 	{{- end }}

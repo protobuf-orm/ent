@@ -140,10 +140,7 @@ func (_c *TagCreate) sqlSave(ctx context.Context) (*Tag, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -157,7 +154,7 @@ func (_c *TagCreate) sqlSave(ctx context.Context) (*Tag, error) {
 	return _node, nil
 }
 
-func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec, error) {
+func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Tag{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(tag.Table, sqlgraph.NewFieldSpec(tag.FieldId, field.TypeInt))
@@ -183,10 +180,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec, error) {
 		}
 		createE := &TweetTagCreate{config: _c.config, mutation: newTweetTagMutation(_c.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -221,11 +215,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec, error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := tweettag.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
@@ -245,7 +235,7 @@ func (_c *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec, error) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -425,10 +415,7 @@ func (_c *TagCreateBulk) Save(ctx context.Context) ([]*Tag, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

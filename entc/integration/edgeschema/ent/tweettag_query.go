@@ -236,13 +236,8 @@ func (_q *TweetTagQuery) Ids(ctx context.Context) (ids []uuid.UUID, err error) {
 		_q.Unique(true)
 	}
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
-	var nodes []*TweetTag
-	if nodes, err = _q.Select(tweettag.FieldId).All(ctx); err != nil {
+	if err = _q.Select(tweettag.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
-	}
-	ids = make([]uuid.UUID, len(nodes))
-	for i := range nodes {
-		ids[i] = nodes[i].Id
 	}
 	return ids, nil
 }

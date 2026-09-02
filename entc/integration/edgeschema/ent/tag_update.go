@@ -251,10 +251,7 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -277,10 +274,7 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -303,10 +297,7 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -383,11 +374,7 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := tweettag.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -403,11 +390,7 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := tweettag.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -721,10 +704,7 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -747,10 +727,7 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -773,10 +750,7 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		createE := &TweetTagCreate{config: _u.config, mutation: newTweetTagMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		if specE.Id.Value != nil {
 			edge.Target.Fields = append(edge.Target.Fields, specE.Id)
@@ -853,11 +827,7 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := tweettag.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -873,11 +843,7 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := tweettag.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}

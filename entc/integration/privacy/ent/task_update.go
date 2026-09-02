@@ -235,11 +235,7 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := task.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return 0, err
-		}
-		_spec.SetField(task.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)
@@ -569,11 +565,7 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 		_spec.SetField(task.FieldStatus, field.TypeEnum, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := task.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, err
-		}
-		_spec.SetField(task.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)

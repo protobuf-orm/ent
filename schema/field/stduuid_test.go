@@ -14,9 +14,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestUuidTextValueScanner covers a Uuid type that marshals to text but
-// implements neither driver.Valuer nor sql.Scanner, as the one in the
-// standard library does.
+// TestUuidTextValueScanner covers a Uuid field given an explicit text codec,
+// which is what a type of one's own that only marshals to text needs. The
+// standard library's UUID does not need it -- see the test below -- but the
+// codec is what makes such a type usable at all.
 func TestUuidTextValueScanner(t *testing.T) {
 	fd := field.Uuid("id", uuid.UUID{}).
 		Default(uuid.New).
@@ -48,15 +49,17 @@ func TestUuidTextValueScanner(t *testing.T) {
 }
 
 // TestUuidWithoutValueScanner covers the same type given with no codec at
-// all: one is written by codegen, because the type says what it is as text.
+// all, which is how a schema ordinarily writes it: database/sql reads and
+// writes a uuid.UUID itself, so there is nothing to say.
 func TestUuidWithoutValueScanner(t *testing.T) {
-	fd := field.Uuid("id", uuid.UUID{}).Descriptor()
+	fd := field.Uuid("id").Descriptor()
 	require.NoError(t, fd.Err)
-	require.True(t, fd.TextCodec, "codegen should be asked to write the codec")
-	require.Nil(t, fd.ValueScanner, "and the schema should not carry one")
+	require.Nil(t, fd.ValueScanner, "the standard library's UUID needs no codec")
+	require.True(t, fd.Info.RType.DriverType())
 
-	// A type that can neither speak to a database nor say what it is as text
-	// is still refused, since nothing could be written for it.
+	// A type of one's own is not on that list, however much it looks like the
+	// one that is: sixteen bytes and a MarshalText are exactly what a
+	// uuid.UUID is, and database/sql refuses it all the same.
 	type opaque [16]byte
 	fd = field.Uuid("id", opaque{}).Descriptor()
 	require.EqualError(t, fd.Err,

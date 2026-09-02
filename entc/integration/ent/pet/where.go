@@ -72,8 +72,7 @@ func Name(v string) predicate.Pet {
 
 // Uuid applies equality check predicate on the "uuid" field. It's identical to UuidEQ.
 func Uuid(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldEQ(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldUuid, v))
 }
 
 // Nickname applies equality check predicate on the "nickname" field. It's identical to NicknameEQ.
@@ -198,66 +197,42 @@ func NameContainsFold(v string) predicate.Pet {
 
 // UuidEQ applies the EQ predicate on the "uuid" field.
 func UuidEQ(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldEQ(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldUuid, v))
 }
 
 // UuidNEQ applies the NEQ predicate on the "uuid" field.
 func UuidNEQ(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldNEQ(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldNEQ(FieldUuid, v))
 }
 
 // UuidIn applies the In predicate on the "uuid" field.
 func UuidIn(vs ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldIn(FieldUuid, v...), err)
+	return predicate.Pet(sql.FieldIn(FieldUuid, vs...))
 }
 
 // UuidNotIn applies the NotIn predicate on the "uuid" field.
 func UuidNotIn(vs ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.Uuid.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldNotIn(FieldUuid, v...), err)
+	return predicate.Pet(sql.FieldNotIn(FieldUuid, vs...))
 }
 
 // UuidGT applies the GT predicate on the "uuid" field.
 func UuidGT(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldGT(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldGT(FieldUuid, v))
 }
 
 // UuidGTE applies the GTE predicate on the "uuid" field.
 func UuidGTE(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldGTE(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldGTE(FieldUuid, v))
 }
 
 // UuidLT applies the LT predicate on the "uuid" field.
 func UuidLT(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldLT(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldLT(FieldUuid, v))
 }
 
 // UuidLTE applies the LTE predicate on the "uuid" field.
 func UuidLTE(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Uuid.Value(v)
-	return predicate.PetOrErr(sql.FieldLTE(FieldUuid, vc), err)
+	return predicate.Pet(sql.FieldLTE(FieldUuid, v))
 }
 
 // UuidIsNil applies the IsNil predicate on the "uuid" field.

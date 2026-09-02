@@ -251,11 +251,7 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := pet.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return 0, err
-		}
-		_spec.SetField(pet.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(pet.FieldUuid, field.TypeUuid)
@@ -601,11 +597,7 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := pet.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, err
-		}
-		_spec.SetField(pet.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(pet.FieldUuid, field.TypeUuid)

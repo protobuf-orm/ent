@@ -67,8 +67,6 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case session.FieldId:
-			values[i] = session.ValueScanner.Id.ScanValue()
 		case session.FieldMethod:
 			values[i] = new([]byte)
 		case session.FieldActive:
@@ -78,7 +76,9 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 		case session.FieldIssuedAt, session.FieldExpiresAt:
 			values[i] = new(sql.NullTime)
 		case session.FieldDeviceId:
-			values[i] = session.ValueScanner.DeviceId.ScanValue()
+			values[i] = new(sql.Null[uuid.UUID])
+		case session.FieldId:
+			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -95,10 +95,10 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case session.FieldId:
-			if value, err := session.ValueScanner.Id.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.Id = value
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field id", values[i])
+			} else if value != nil {
+				_m.Id = *value
 			}
 		case session.FieldActive:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -133,10 +133,10 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 				}
 			}
 		case session.FieldDeviceId:
-			if value, err := session.ValueScanner.DeviceId.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.DeviceId = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field device_id", values[i])
+			} else if value.Valid {
+				_m.DeviceId = value.V
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

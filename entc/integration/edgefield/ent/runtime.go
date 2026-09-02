@@ -15,8 +15,6 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/node"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/rental"
 	"github.com/protobuf-orm/ent/entc/integration/edgefield/ent/schema"
-
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -29,7 +27,6 @@ func init() {
 	carDescId := carFields[0].Descriptor()
 	// car.DefaultId holds the default value on creation for the id field.
 	car.DefaultId = carDescId.Default.(func() uuid.UUID)
-	car.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	metadataFields := schema.Metadata{}.Fields()
 	_ = metadataFields
 	// metadataDescAge is the schema descriptor for age field.
@@ -48,5 +45,4 @@ func init() {
 	rentalDescDate := rentalFields[0].Descriptor()
 	// rental.DefaultDate holds the default value on creation for the date field.
 	rental.DefaultDate = rentalDescDate.Default.(func() time.Time)
-	rental.ValueScanner.CarId = field.TextValueScannerOf[uuid.UUID]()
 }

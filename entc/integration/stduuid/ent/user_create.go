@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"uuid"
 
+	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
 	"github.com/protobuf-orm/ent/schema/field"
@@ -130,10 +131,7 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -141,17 +139,14 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 		return nil, err
 	}
 	if _spec.Id.Value != nil {
-		sv, ok := _spec.Id.Value.(field.ValueScanner)
-		if !ok {
-			sv = user.ValueScanner.Id.ScanValue()
-			if err := sv.Scan(_spec.Id.Value); err != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else {
+			var v sql.Null[uuid.UUID]
+			if err := v.Scan(_spec.Id.Value); err != nil {
 				return nil, err
 			}
-		}
-		if value, err := user.ValueScanner.Id.FromValue(sv); err != nil {
-			return nil, err
-		} else {
-			_node.Id = value
+			_node.Id = v.V
 		}
 	}
 	_c.mutation.id = &_node.Id
@@ -159,29 +154,21 @@ func (_c *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 	return _node, nil
 }
 
-func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec, error) {
+func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	var (
 		_node = &User{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldId, field.TypeUuid))
 	)
 	if id, ok := _c.mutation.Id(); ok {
 		_node.Id = id
-		vv, err := user.ValueScanner.Id.Value(id)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.Id.Value = vv
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
 	if value, ok := _c.mutation.Ref(); ok {
-		vv, err := user.ValueScanner.Ref.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, value)
 		_node.Ref = value
 	}
 	if nodes := _c.mutation.SpouseIds(); len(nodes) > 0 {
@@ -196,16 +183,12 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec, error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.user_spouse = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // UserCreateBulk is the builder for creating many User entities in bulk.
@@ -237,10 +220,7 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
@@ -256,20 +236,6 @@ func (_c *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 					return nil, err
 				}
 				mutation.id = &nodes[i].Id
-				if specs[i].Id.Value != nil {
-					sv, ok := specs[i].Id.Value.(field.ValueScanner)
-					if !ok {
-						sv = user.ValueScanner.Id.ScanValue()
-						if err := sv.Scan(specs[i].Id.Value); err != nil {
-							return nil, err
-						}
-					}
-					if id, err := user.ValueScanner.Id.FromValue(sv); err != nil {
-						return nil, err
-					} else {
-						nodes[i].Id = id
-					}
-				}
 				mutation.done = true
 				return nodes[i], nil
 			})

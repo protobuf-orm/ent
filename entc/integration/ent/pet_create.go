@@ -205,10 +205,7 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -222,7 +219,7 @@ func (_c *PetCreate) sqlSave(ctx context.Context) (*Pet, error) {
 	return _node, nil
 }
 
-func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec, error) {
+func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Pet{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(pet.Table, sqlgraph.NewFieldSpec(pet.FieldId, field.TypeInt))
@@ -237,11 +234,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec, error) {
 		_node.Name = value
 	}
 	if value, ok := _c.mutation.Uuid(); ok {
-		vv, err := pet.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(pet.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(pet.FieldUuid, field.TypeUuid, value)
 		_node.Uuid = value
 	}
 	if value, ok := _c.mutation.Nickname(); ok {
@@ -290,7 +283,7 @@ func (_c *PetCreate) createSpec() (*Pet, *sqlgraph.CreateSpec, error) {
 		_node.user_pets = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -653,10 +646,7 @@ func (_c *PetCreateBulk) Save(ctx context.Context) ([]*Pet, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

@@ -17,8 +17,7 @@ import (
 )
 
 // TestStdUuid exercises a schema whose id and fields are the uuid.UUID of the
-// standard library, which reaches the database through a ValueScanner because
-// it implements neither driver.Valuer nor sql.Scanner.
+// standard library, which database/sql reads and writes itself.
 func TestStdUuid(t *testing.T) {
 	client, err := ent.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
 	require.NoError(t, err)
@@ -31,13 +30,13 @@ func TestStdUuid(t *testing.T) {
 	require.NotEqual(t, uuid.Nil(), a8m.Id, "the default should have generated an id")
 	require.Equal(t, ref, a8m.Ref)
 
-	// Reading the row back goes through FromValue.
+	// Reading the row back scans straight into the field.
 	got := client.User.GetX(ctx, a8m.Id)
 	require.Equal(t, a8m.Id, got.Id)
 	require.Equal(t, ref, got.Ref)
 	require.Equal(t, "a8m", got.Name)
 
-	// The values are stored in their text form.
+	// The values are stored in their text form. See TestStoredType.
 	var raw []struct {
 		Id  string `sql:"id"`
 		Ref string `sql:"ref"`
@@ -50,14 +49,16 @@ func TestStdUuid(t *testing.T) {
 	require.Equal(t, a8m.Id.String(), raw[0].Id)
 	require.Equal(t, ref.String(), raw[0].Ref)
 
-	// Predicates convert their arguments through the ValueScanner.
+	// Predicates bind the value itself; database/sql does the converting.
 	require.True(t, client.User.Query().Where(user.Ref(ref)).ExistX(ctx))
 	require.False(t, client.User.Query().Where(user.Ref(uuid.New())).ExistX(ctx))
 	require.True(t, client.User.Query().Where(user.RefIn(ref, uuid.New())).ExistX(ctx))
 	require.True(t, client.User.Query().Where(user.IdEQ(a8m.Id)).ExistX(ctx))
 	require.False(t, client.User.Query().Where(user.IdEQ(uuid.New())).ExistX(ctx))
 
-	// Edges keyed by the same id type.
+	// Edges keyed by the same id type. Reading the row back reads the
+	// foreign-key column too, which holds the converted form and is not a
+	// field of the schema, so nothing about the field says how to scan it.
 	neta := client.User.Create().SetName("neta").SetSpouse(a8m).SaveX(ctx)
 	require.Equal(t, a8m.Id, neta.QuerySpouse().OnlyX(ctx).Id)
 }

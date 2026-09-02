@@ -57,14 +57,14 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldId:
-			values[i] = user.ValueScanner.Id.ScanValue()
 		case user.FieldName:
 			values[i] = new(sql.NullString)
 		case user.FieldRef:
-			values[i] = user.ValueScanner.Ref.ScanValue()
-		case user.ForeignKeys[0]: // user_spouse
+			values[i] = new(sql.Null[uuid.UUID])
+		case user.FieldId:
 			values[i] = new(uuid.UUID)
+		case user.ForeignKeys[0]: // user_spouse
+			values[i] = new(sql.Null[uuid.UUID])
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -81,10 +81,10 @@ func (_m *User) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case user.FieldId:
-			if value, err := user.ValueScanner.Id.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.Id = value
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field id", values[i])
+			} else if value != nil {
+				_m.Id = *value
 			}
 		case user.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -93,16 +93,17 @@ func (_m *User) assignValues(columns []string, values []any) error {
 				_m.Name = value.String
 			}
 		case user.FieldRef:
-			if value, err := user.ValueScanner.Ref.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.Ref = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field ref", values[i])
+			} else if value.Valid {
+				_m.Ref = value.V
 			}
 		case user.ForeignKeys[0]:
-			if value, ok := values[i].(*uuid.UUID); !ok {
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
 				return fmt.Errorf("unexpected type %T for field user_spouse", values[i])
-			} else if value != nil {
-				_m.user_spouse = value
+			} else if value.Valid {
+				_m.user_spouse = new(uuid.UUID)
+				*_m.user_spouse = value.V
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

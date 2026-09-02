@@ -428,12 +428,7 @@ func (c *CarClient) GetX(ctx context.Context, id uuid.UUID) *Car {
 func (c *CarClient) QueryRentals(_m *Car) *RentalQuery {
 	query := (&RentalClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := any(_m.Id)
-		vv, err := car.ValueScanner.Id.Value(_m.Id)
-		if err != nil {
-			return nil, err
-		}
-		id = vv
+		id := _m.Id
 		step := sqlgraph.NewStep(
 			sqlgraph.From(car.Table, car.FieldId, id),
 			sqlgraph.To(rental.Table, rental.FieldId),

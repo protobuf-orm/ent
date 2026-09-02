@@ -20,7 +20,6 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/ent/fieldtype"
 	"github.com/protobuf-orm/ent/entc/integration/ent/role"
 	"github.com/protobuf-orm/ent/entc/integration/ent/schema"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // FieldType is the model entity for the FieldType schema.
@@ -203,10 +202,8 @@ func (*FieldType) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullString)
 		case fieldtype.FieldDatetime, fieldtype.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
-		case fieldtype.FieldOptionalUuid:
-			values[i] = fieldtype.ValueScanner.OptionalUuid.ScanValue()
-		case fieldtype.FieldNillableUuid:
-			values[i] = fieldtype.ValueScanner.NillableUuid.ScanValue()
+		case fieldtype.FieldOptionalUuid, fieldtype.FieldNillableUuid:
+			values[i] = new(sql.Null[uuid.UUID])
 		case fieldtype.ForeignKeys[0]: // file_field
 			values[i] = new(sql.NullInt64)
 		default:
@@ -575,16 +572,17 @@ func (_m *FieldType) assignValues(columns []string, values []any) error {
 				_m.Priority = *value
 			}
 		case fieldtype.FieldOptionalUuid:
-			if value, err := fieldtype.ValueScanner.OptionalUuid.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.OptionalUuid = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field optional_uuid", values[i])
+			} else if value.Valid {
+				_m.OptionalUuid = value.V
 			}
 		case fieldtype.FieldNillableUuid:
-			if value, err := field.NillableFromValue(fieldtype.ValueScanner.NillableUuid, values[i]); err != nil {
-				return err
-			} else {
-				_m.NillableUuid = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field nillable_uuid", values[i])
+			} else if value.Valid {
+				_m.NillableUuid = new(uuid.UUID)
+				*_m.NillableUuid = value.V
 			}
 		case fieldtype.FieldStrings:
 			if value, ok := values[i].(*[]byte); !ok {

@@ -260,13 +260,8 @@ func (_q *BlobQuery) Ids(ctx context.Context) (ids []uuid.UUID, err error) {
 		_q.Unique(true)
 	}
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
-	var nodes []*Blob
-	if nodes, err = _q.Select(blob.FieldId).All(ctx); err != nil {
+	if err = _q.Select(blob.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
-	}
-	ids = make([]uuid.UUID, len(nodes))
-	for i := range nodes {
-		ids[i] = nodes[i].Id
 	}
 	return ids, nil
 }
@@ -543,11 +538,7 @@ func (_q *BlobQuery) loadLinks(ctx context.Context, query *BlobQuery, nodes []*B
 	byId := make(map[uuid.UUID]*Blob)
 	nids := make(map[uuid.UUID]map[*Blob]struct{})
 	for i, node := range nodes {
-		vv, err := blob.ValueScanner.Id.Value(node.Id)
-		if err != nil {
-			return err
-		}
-		edgeIds[i] = vv
+		edgeIds[i] = node.Id
 		byId[node.Id] = node
 		if init != nil {
 			init(node)
@@ -574,23 +565,11 @@ func (_q *BlobQuery) loadLinks(ctx context.Context, query *BlobQuery, nodes []*B
 				if err != nil {
 					return nil, err
 				}
-				return append([]any{blob.ValueScanner.Id.ScanValue()}, values...), nil
+				return append([]any{new(uuid.UUID)}, values...), nil
 			}
 			spec.Assign = func(columns []string, values []any) error {
-				var outValue uuid.UUID
-
-				if value, err := blob.ValueScanner.Id.FromValue(values[0]); err != nil {
-					return err
-				} else {
-					outValue = value
-				}
-				var inValue uuid.UUID
-
-				if value, err := blob.ValueScanner.Id.FromValue(values[1]); err != nil {
-					return err
-				} else {
-					inValue = value
-				}
+				outValue := *values[0].(*uuid.UUID)
+				inValue := *values[1].(*uuid.UUID)
 				if nids[inValue] == nil {
 					nids[inValue] = map[*Blob]struct{}{byId[outValue]: {}}
 					return assign(columns[1:], values[1:])
@@ -619,11 +598,7 @@ func (_q *BlobQuery) loadBlobLinks(ctx context.Context, query *BlobLinkQuery, no
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uuid.UUID]*Blob)
 	for i := range nodes {
-		vv, err := blob.ValueScanner.Id.Value(nodes[i].Id)
-		if err != nil {
-			return err
-		}
-		fks = append(fks, vv)
+		fks = append(fks, nodes[i].Id)
 		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])

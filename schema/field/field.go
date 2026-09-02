@@ -1323,25 +1323,13 @@ func (b *uuidBuilder) Deprecated(reason ...string) *uuidBuilder {
 
 // Descriptor implements the ent.Field interface by returning its descriptor.
 func (b *uuidBuilder) Descriptor() *Descriptor {
-	if b.desc.ValueScanner == nil && b.desc.Info != nil && b.desc.Info.RType != nil && textCodec(b.desc.Info.RType.rtype) {
-		// The type cannot speak to a database itself but can say what it is
-		// as text, which is what the uuid package of the standard library
-		// does. Codegen writes the codec, because only it knows the type
-		// statically and a generic cannot be instantiated by reflection.
-		b.desc.TextCodec = true
+	// A type database/sql reads and writes itself needs nothing said about how
+	// it reaches a column, and the standard library's UUID is one of those.
+	if b.desc.ValueScanner == nil && b.desc.Info != nil && b.desc.Info.RType.DriverType() {
 		return b.desc
 	}
 	b.desc.checkGoType(valueScannerType)
 	return b.desc
-}
-
-// textCodec reports whether t marshals to and from text without implementing
-// the database interfaces, so that a codec has to be supplied for it.
-func textCodec(t reflect.Type) bool {
-	if t == nil || t.Implements(valueScannerType) || reflect.PtrTo(t).Implements(valueScannerType) {
-		return false
-	}
-	return reflect.PtrTo(t).Implements(textMarshalerType) && reflect.PtrTo(t).Implements(textUnmarshalerType)
 }
 
 // otherBuilder is the builder for other fields.
@@ -1485,7 +1473,6 @@ type Descriptor struct {
 	Name             string                  // field name.
 	Info             *TypeInfo               // field type info.
 	ValueScanner     any                     // custom field codec.
-	TextCodec        bool                    // the GoType is encoded as text by a codec codegen writes.
 	Unique           bool                    // unique index of field.
 	Nillable         bool                    // nillable struct field.
 	Optional         bool                    // nullable field in database.
@@ -1649,27 +1636,6 @@ type TypeValueScanner[T any] interface {
 	// FromValue returns the field instance from the ScanValue
 	// above after the database value was scanned.
 	FromValue(driver.Value) (T, error)
-}
-
-// NillableFromValue answers with what the scanner read, or with nil if the
-// column was NULL. A Nillable field holds a *T so that it can tell a stored
-// zero from nothing stored, and FromValue alone cannot: it answers with the
-// zero value in both cases.
-func NillableFromValue[T any](vs TypeValueScanner[T], v driver.Value) (*T, error) {
-	if s, ok := v.(driver.Valuer); ok {
-		dv, err := s.Value()
-		if err != nil {
-			return nil, err
-		}
-		if dv == nil {
-			return nil, nil
-		}
-	}
-	tv, err := vs.FromValue(v)
-	if err != nil {
-		return nil, err
-	}
-	return &tv, nil
 }
 
 // TextValueScanner returns a new TypeValueScanner that calls MarshalText

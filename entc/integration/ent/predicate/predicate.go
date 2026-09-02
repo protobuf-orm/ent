@@ -39,17 +39,6 @@ func ExValueScanOrErr(p ExValueScan, err error) ExValueScan {
 // FieldType is the predicate function for fieldtype builders.
 type FieldType func(*sql.Selector)
 
-// FieldTypeOrErr calls the predicate only if the error is not nit.
-func FieldTypeOrErr(p FieldType, err error) FieldType {
-	return func(s *sql.Selector) {
-		if err != nil {
-			s.AddError(err)
-			return
-		}
-		p(s)
-	}
-}
-
 // File is the predicate function for file builders.
 type File func(*sql.Selector)
 
@@ -79,17 +68,6 @@ type PC func(*sql.Selector)
 
 // Pet is the predicate function for pet builders.
 type Pet func(*sql.Selector)
-
-// PetOrErr calls the predicate only if the error is not nit.
-func PetOrErr(p Pet, err error) Pet {
-	return func(s *sql.Selector) {
-		if err != nil {
-			s.AddError(err)
-			return
-		}
-		p(s)
-	}
-}
 
 // Spec is the predicate function for spec builders.
 type Spec func(*sql.Selector)

@@ -72,8 +72,7 @@ func UserId(v int) predicate.Rental {
 
 // CarId applies equality check predicate on the "car_id" field. It's identical to CarIdEQ.
 func CarId(v uuid.UUID) predicate.Rental {
-	vc, err := ValueScanner.CarId.Value(v)
-	return predicate.RentalOrErr(sql.FieldEQ(FieldCarId, vc), err)
+	return predicate.Rental(sql.FieldEQ(FieldCarId, v))
 }
 
 // DateEQ applies the EQ predicate on the "date" field.
@@ -138,42 +137,22 @@ func UserIdNotIn(vs ...int) predicate.Rental {
 
 // CarIdEQ applies the EQ predicate on the "car_id" field.
 func CarIdEQ(v uuid.UUID) predicate.Rental {
-	vc, err := ValueScanner.CarId.Value(v)
-	return predicate.RentalOrErr(sql.FieldEQ(FieldCarId, vc), err)
+	return predicate.Rental(sql.FieldEQ(FieldCarId, v))
 }
 
 // CarIdNEQ applies the NEQ predicate on the "car_id" field.
 func CarIdNEQ(v uuid.UUID) predicate.Rental {
-	vc, err := ValueScanner.CarId.Value(v)
-	return predicate.RentalOrErr(sql.FieldNEQ(FieldCarId, vc), err)
+	return predicate.Rental(sql.FieldNEQ(FieldCarId, v))
 }
 
 // CarIdIn applies the In predicate on the "car_id" field.
 func CarIdIn(vs ...uuid.UUID) predicate.Rental {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.CarId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.RentalOrErr(sql.FieldIn(FieldCarId, v...), err)
+	return predicate.Rental(sql.FieldIn(FieldCarId, vs...))
 }
 
 // CarIdNotIn applies the NotIn predicate on the "car_id" field.
 func CarIdNotIn(vs ...uuid.UUID) predicate.Rental {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.CarId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.RentalOrErr(sql.FieldNotIn(FieldCarId, v...), err)
+	return predicate.Rental(sql.FieldNotIn(FieldCarId, vs...))
 }
 
 // HasUser applies the HasEdge predicate on the "user" edge.

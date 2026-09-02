@@ -8,12 +8,10 @@ package task
 
 import (
 	"fmt"
-	"uuid"
 
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -95,10 +93,6 @@ var (
 	Policy ent.Policy
 	// TitleValidator is a validator for the "title" field. It is called by the builders before save.
 	TitleValidator func(string) error
-	// ValueScanner of all Task fields.
-	ValueScanner struct {
-		Uuid field.TypeValueScanner[uuid.UUID]
-	}
 )
 
 // Status defines the type for the "status" enum field.

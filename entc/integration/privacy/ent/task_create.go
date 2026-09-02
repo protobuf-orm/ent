@@ -177,10 +177,7 @@ func (_c *TaskCreate) sqlSave(ctx context.Context) (*Task, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -194,7 +191,7 @@ func (_c *TaskCreate) sqlSave(ctx context.Context) (*Task, error) {
 	return _node, nil
 }
 
-func (_c *TaskCreate) createSpec() (*Task, *sqlgraph.CreateSpec, error) {
+func (_c *TaskCreate) createSpec() (*Task, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Task{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(task.Table, sqlgraph.NewFieldSpec(task.FieldId, field.TypeInt))
@@ -212,11 +209,7 @@ func (_c *TaskCreate) createSpec() (*Task, *sqlgraph.CreateSpec, error) {
 		_node.Status = value
 	}
 	if value, ok := _c.mutation.Uuid(); ok {
-		vv, err := task.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(task.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
 		_node.Uuid = value
 	}
 	if nodes := _c.mutation.TeamsIds(); len(nodes) > 0 {
@@ -252,7 +245,7 @@ func (_c *TaskCreate) createSpec() (*Task, *sqlgraph.CreateSpec, error) {
 		_node.user_tasks = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // TaskCreateBulk is the builder for creating many Task entities in bulk.
@@ -284,10 +277,7 @@ func (_c *TaskCreateBulk) Save(ctx context.Context) ([]*Task, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {

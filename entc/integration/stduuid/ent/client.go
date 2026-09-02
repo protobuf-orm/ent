@@ -356,12 +356,7 @@ func (c *UserClient) GetX(ctx context.Context, id uuid.UUID) *User {
 func (c *UserClient) QuerySpouse(_m *User) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := any(_m.Id)
-		vv, err := user.ValueScanner.Id.Value(_m.Id)
-		if err != nil {
-			return nil, err
-		}
-		id = vv
+		id := _m.Id
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldId, id),
 			sqlgraph.To(user.Table, user.FieldId),

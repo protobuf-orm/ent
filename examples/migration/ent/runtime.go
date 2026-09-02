@@ -15,8 +15,6 @@ import (
 	"github.com/protobuf-orm/ent/examples/migration/ent/schema"
 	"github.com/protobuf-orm/ent/examples/migration/ent/session"
 	"github.com/protobuf-orm/ent/examples/migration/ent/sessiondevice"
-
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -41,7 +39,6 @@ func init() {
 	payment.AmountValidator = paymentDescAmount.Validators[0].(func(float64) error)
 	petFields := schema.Pet{}.Fields()
 	_ = petFields
-	pet.ValueScanner.BestFriendId = field.TextValueScannerOf[uuid.UUID]()
 	// petDescOwnerId is the schema descriptor for owner_id field.
 	petDescOwnerId := petFields[5].Descriptor()
 	// pet.DefaultOwnerId holds the default value on creation for the owner_id field.
@@ -50,19 +47,16 @@ func init() {
 	petDescId := petFields[0].Descriptor()
 	// pet.DefaultId holds the default value on creation for the id field.
 	pet.DefaultId = petDescId.Default.(func() uuid.UUID)
-	pet.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	sessionFields := schema.Session{}.Fields()
 	_ = sessionFields
 	// sessionDescActive is the schema descriptor for active field.
 	sessionDescActive := sessionFields[1].Descriptor()
 	// session.DefaultActive holds the default value on creation for the active field.
 	session.DefaultActive = sessionDescActive.Default.(bool)
-	session.ValueScanner.DeviceId = field.TextValueScannerOf[uuid.UUID]()
 	// sessionDescId is the schema descriptor for id field.
 	sessionDescId := sessionFields[0].Descriptor()
 	// session.DefaultId holds the default value on creation for the id field.
 	session.DefaultId = sessionDescId.Default.(func() uuid.UUID)
-	session.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 	sessiondeviceFields := schema.SessionDevice{}.Fields()
 	_ = sessiondeviceFields
 	// sessiondeviceDescIpAddress is the schema descriptor for ip_address field.
@@ -81,5 +75,4 @@ func init() {
 	sessiondeviceDescId := sessiondeviceFields[0].Descriptor()
 	// sessiondevice.DefaultId holds the default value on creation for the id field.
 	sessiondevice.DefaultId = sessiondeviceDescId.Default.(func() uuid.UUID)
-	sessiondevice.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 }

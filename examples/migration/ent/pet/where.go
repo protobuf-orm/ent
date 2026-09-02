@@ -16,72 +16,47 @@ import (
 
 // Id filters vertices based on their Id field.
 func Id(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldId, id))
 }
 
 // IdEQ applies the EQ predicate on the Id field.
 func IdEQ(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldId, id))
 }
 
 // IdNEQ applies the NEQ predicate on the Id field.
 func IdNEQ(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldNEQ(FieldId, vc), err)
+	return predicate.Pet(sql.FieldNEQ(FieldId, id))
 }
 
 // IdIn applies the In predicate on the Id field.
 func IdIn(ids ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldIn(FieldId, vcs...), err)
+	return predicate.Pet(sql.FieldIn(FieldId, ids...))
 }
 
 // IdNotIn applies the NotIn predicate on the Id field.
 func IdNotIn(ids ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldNotIn(FieldId, vcs...), err)
+	return predicate.Pet(sql.FieldNotIn(FieldId, ids...))
 }
 
 // IdGT applies the GT predicate on the Id field.
 func IdGT(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldGT(FieldId, vc), err)
+	return predicate.Pet(sql.FieldGT(FieldId, id))
 }
 
 // IdGTE applies the GTE predicate on the Id field.
 func IdGTE(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldGTE(FieldId, vc), err)
+	return predicate.Pet(sql.FieldGTE(FieldId, id))
 }
 
 // IdLT applies the LT predicate on the Id field.
 func IdLT(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldLT(FieldId, vc), err)
+	return predicate.Pet(sql.FieldLT(FieldId, id))
 }
 
 // IdLTE applies the LTE predicate on the Id field.
 func IdLTE(id uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.PetOrErr(sql.FieldLTE(FieldId, vc), err)
+	return predicate.Pet(sql.FieldLTE(FieldId, id))
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
@@ -101,8 +76,7 @@ func Weight(v float64) predicate.Pet {
 
 // BestFriendId applies equality check predicate on the "best_friend_id" field. It's identical to BestFriendIdEQ.
 func BestFriendId(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.BestFriendId.Value(v)
-	return predicate.PetOrErr(sql.FieldEQ(FieldBestFriendId, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldBestFriendId, v))
 }
 
 // OwnerId applies equality check predicate on the "owner_id" field. It's identical to OwnerIdEQ.
@@ -257,42 +231,22 @@ func WeightLTE(v float64) predicate.Pet {
 
 // BestFriendIdEQ applies the EQ predicate on the "best_friend_id" field.
 func BestFriendIdEQ(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.BestFriendId.Value(v)
-	return predicate.PetOrErr(sql.FieldEQ(FieldBestFriendId, vc), err)
+	return predicate.Pet(sql.FieldEQ(FieldBestFriendId, v))
 }
 
 // BestFriendIdNEQ applies the NEQ predicate on the "best_friend_id" field.
 func BestFriendIdNEQ(v uuid.UUID) predicate.Pet {
-	vc, err := ValueScanner.BestFriendId.Value(v)
-	return predicate.PetOrErr(sql.FieldNEQ(FieldBestFriendId, vc), err)
+	return predicate.Pet(sql.FieldNEQ(FieldBestFriendId, v))
 }
 
 // BestFriendIdIn applies the In predicate on the "best_friend_id" field.
 func BestFriendIdIn(vs ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.BestFriendId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldIn(FieldBestFriendId, v...), err)
+	return predicate.Pet(sql.FieldIn(FieldBestFriendId, vs...))
 }
 
 // BestFriendIdNotIn applies the NotIn predicate on the "best_friend_id" field.
 func BestFriendIdNotIn(vs ...uuid.UUID) predicate.Pet {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.BestFriendId.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.PetOrErr(sql.FieldNotIn(FieldBestFriendId, v...), err)
+	return predicate.Pet(sql.FieldNotIn(FieldBestFriendId, vs...))
 }
 
 // OwnerIdEQ applies the EQ predicate on the "owner_id" field.

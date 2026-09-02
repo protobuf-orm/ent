@@ -92,7 +92,7 @@ func (*Pet) scanValues(columns []string) ([]any, error) {
 		case pet.FieldOptionalTime:
 			values[i] = new(sql.NullTime)
 		case pet.FieldUuid:
-			values[i] = pet.ValueScanner.Uuid.ScanValue()
+			values[i] = new(sql.Null[uuid.UUID])
 		case pet.ForeignKeys[0]: // user_pets
 			values[i] = new(sql.NullInt64)
 		case pet.ForeignKeys[1]: // user_team
@@ -131,10 +131,10 @@ func (_m *Pet) assignValues(columns []string, values []any) error {
 				_m.Name = value.String
 			}
 		case pet.FieldUuid:
-			if value, err := pet.ValueScanner.Uuid.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.Uuid = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field uuid", values[i])
+			} else if value.Valid {
+				_m.Uuid = value.V
 			}
 		case pet.FieldNickname:
 			if value, ok := values[i].(*sql.NullString); !ok {

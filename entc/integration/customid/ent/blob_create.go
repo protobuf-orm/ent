@@ -167,10 +167,7 @@ func (_c *BlobCreate) sqlSave(ctx context.Context) (*Blob, error) {
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -178,17 +175,14 @@ func (_c *BlobCreate) sqlSave(ctx context.Context) (*Blob, error) {
 		return nil, err
 	}
 	if _spec.Id.Value != nil {
-		sv, ok := _spec.Id.Value.(field.ValueScanner)
-		if !ok {
-			sv = blob.ValueScanner.Id.ScanValue()
-			if err := sv.Scan(_spec.Id.Value); err != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else {
+			var v sql.Null[uuid.UUID]
+			if err := v.Scan(_spec.Id.Value); err != nil {
 				return nil, err
 			}
-		}
-		if value, err := blob.ValueScanner.Id.FromValue(sv); err != nil {
-			return nil, err
-		} else {
-			_node.Id = value
+			_node.Id = v.V
 		}
 	}
 	_c.mutation.id = &_node.Id
@@ -196,7 +190,7 @@ func (_c *BlobCreate) sqlSave(ctx context.Context) (*Blob, error) {
 	return _node, nil
 }
 
-func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec, error) {
+func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Blob{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(blob.Table, sqlgraph.NewFieldSpec(blob.FieldId, field.TypeUuid))
@@ -204,18 +198,10 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec, error) {
 	_spec.OnConflict = _c.conflict
 	if id, ok := _c.mutation.Id(); ok {
 		_node.Id = id
-		vv, err := blob.ValueScanner.Id.Value(id)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.Id.Value = vv
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.Uuid(); ok {
-		vv, err := blob.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.SetField(blob.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 		_node.Uuid = value
 	}
 	if value, ok := _c.mutation.Count(); ok {
@@ -234,11 +220,7 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec, error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.blob_parent = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
@@ -255,22 +237,15 @@ func (_c *BlobCreate) createSpec() (*Blob, *sqlgraph.CreateSpec, error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		createE := &BlobLinkCreate{config: _c.config, mutation: newBlobLinkMutation(_c.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
@@ -503,10 +478,7 @@ func (_c *BlobCreateBulk) Save(ctx context.Context) ([]*Blob, error) {
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
@@ -523,20 +495,6 @@ func (_c *BlobCreateBulk) Save(ctx context.Context) ([]*Blob, error) {
 					return nil, err
 				}
 				mutation.id = &nodes[i].Id
-				if specs[i].Id.Value != nil {
-					sv, ok := specs[i].Id.Value.(field.ValueScanner)
-					if !ok {
-						sv = blob.ValueScanner.Id.ScanValue()
-						if err := sv.Scan(specs[i].Id.Value); err != nil {
-							return nil, err
-						}
-					}
-					if id, err := blob.ValueScanner.Id.FromValue(sv); err != nil {
-						return nil, err
-					} else {
-						nodes[i].Id = id
-					}
-				}
 				mutation.done = true
 				return nodes[i], nil
 			})

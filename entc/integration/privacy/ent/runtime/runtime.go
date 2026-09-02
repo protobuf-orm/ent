@@ -8,7 +8,6 @@ package runtime
 
 import (
 	"context"
-	"uuid"
 
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/schema"
 	"github.com/protobuf-orm/ent/entc/integration/privacy/ent/task"
@@ -17,7 +16,6 @@ import (
 
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/privacy"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -43,7 +41,6 @@ func init() {
 	taskDescTitle := taskFields[0].Descriptor()
 	// task.TitleValidator is a validator for the "title" field. It is called by the builders before save.
 	task.TitleValidator = taskDescTitle.Validators[0].(func(string) error)
-	task.ValueScanner.Uuid = field.TextValueScannerOf[uuid.UUID]()
 	teamMixin := schema.Team{}.Mixin()
 	team.Policy = privacy.NewPolicies(teamMixin[0], schema.Team{})
 	team.Hooks[0] = func(next ent.Mutator) ent.Mutator {

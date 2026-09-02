@@ -120,7 +120,13 @@ func (t TypeInfo) ConstName() string {
 
 // ValueScanner indicates if this type implements the ValueScanner interface.
 func (t TypeInfo) ValueScanner() bool {
-	return t.RType.Implements(valueScannerType)
+	return t.RType.Implements(valueScannerType) || t.RType.DriverType()
+}
+
+// DriverType indicates if database/sql reads and writes values of this type
+// itself. See RType.DriverType.
+func (t TypeInfo) DriverType() bool {
+	return t.RType.DriverType()
 }
 
 // Validator indicates if this type implements the Validator interface.
@@ -128,9 +134,10 @@ func (t TypeInfo) Validator() bool {
 	return t.RType.Implements(validatorType)
 }
 
-// Valuer indicates if this type implements the driver.Valuer interface.
+// Valuer indicates if this type can be handed to a driver as it is, either
+// because it implements driver.Valuer or because database/sql converts it.
 func (t TypeInfo) Valuer() bool {
-	return t.RType.Implements(valuerType)
+	return t.RType.Implements(valuerType) || t.RType.DriverType()
 }
 
 // Comparable reports whether values of this type are comparable.
@@ -199,6 +206,19 @@ type RType struct {
 	Methods map[string]struct{ In, Out []*RType }
 	// Used only for in-package checks.
 	rtype reflect.Type
+}
+
+// DriverType reports whether database/sql reads and writes values of this type
+// itself, so that a field holding one needs nothing said about how it reaches
+// a column.
+//
+// It is the standard library's own short list rather than a property of the
+// type: a time.Time, and since Go 1.27 a uuid.UUID. Nothing can be inferred
+// from the shape of a type here -- a type of one's own that is sixteen bytes
+// with a MarshalText, which is exactly what a uuid.UUID is, is refused by the
+// same package.
+func (r *RType) DriverType() bool {
+	return r != nil && r.PkgPath == "uuid" && r.Name == "UUID"
 }
 
 // TypeEqual reports if the underlying type is equal to the RType (after pointer indirections).

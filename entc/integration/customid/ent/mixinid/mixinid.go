@@ -10,7 +10,6 @@ import (
 	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -46,10 +45,6 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultId holds the default value on creation for the "id" field.
 	DefaultId func() uuid.UUID
-	// ValueScanner of all MixinId fields.
-	ValueScanner struct {
-		Id field.TypeValueScanner[uuid.UUID]
-	}
 )
 
 // OrderOption defines the ordering options for the MixinId queries.

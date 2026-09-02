@@ -280,6 +280,14 @@ func (n *NullScanner) Scan(value any) error {
 	return nil
 }
 
+// Null is database/sql.Null, re-exported so that generated code can name it
+// with the same import it names the rest of this package by.
+//
+// It is what a column that may hold NULL is scanned through when the Go type
+// has no Scan of its own to notice one -- a uuid.UUID, say, which database/sql
+// reads and writes itself but which cannot represent an absence.
+type Null[T any] = sql.Null[T]
+
 // ColumnScanner is the interface that wraps the standard
 // sql.Rows methods used for scanning database rows.
 type ColumnScanner interface {

@@ -78,7 +78,7 @@ func (*Task) scanValues(columns []string) ([]any, error) {
 		case task.FieldTitle, task.FieldDescription, task.FieldStatus:
 			values[i] = new(sql.NullString)
 		case task.FieldUuid:
-			values[i] = task.ValueScanner.Uuid.ScanValue()
+			values[i] = new(sql.Null[uuid.UUID])
 		case task.ForeignKeys[0]: // user_tasks
 			values[i] = new(sql.NullInt64)
 		default:
@@ -121,10 +121,10 @@ func (_m *Task) assignValues(columns []string, values []any) error {
 				_m.Status = task.Status(value.String)
 			}
 		case task.FieldUuid:
-			if value, err := task.ValueScanner.Uuid.FromValue(values[i]); err != nil {
-				return err
-			} else {
-				_m.Uuid = value
+			if value, ok := values[i].(*sql.Null[uuid.UUID]); !ok {
+				return fmt.Errorf("unexpected type %T for field uuid", values[i])
+			} else if value.Valid {
+				_m.Uuid = value.V
 			}
 		case task.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {

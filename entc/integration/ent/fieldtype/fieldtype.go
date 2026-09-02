@@ -11,12 +11,10 @@ import (
 	"net"
 	"net/http"
 	"time"
-	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/ent/role"
 	"github.com/protobuf-orm/ent/entc/integration/ent/schema"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -288,11 +286,6 @@ var (
 	DefaultVstring func() schema.VString
 	// DefaultTriple holds the default value on creation for the "triple" field.
 	DefaultTriple func() schema.Triple
-	// ValueScanner of all FieldType fields.
-	ValueScanner struct {
-		OptionalUuid field.TypeValueScanner[uuid.UUID]
-		NillableUuid field.TypeValueScanner[uuid.UUID]
-	}
 )
 
 // State defines the type for the "state" enum field.

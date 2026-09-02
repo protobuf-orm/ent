@@ -760,12 +760,7 @@ func (t *Type) setupFieldEdge(fk *ForeignKey, fkOwner *Edge, fkName string) erro
 		return fmt.Errorf("edge-field %q was set as Immutable, but edge %q is not", fkName, fkOwner.Name)
 	case !tf.Immutable && fkOwner.Immutable:
 		return fmt.Errorf("edge %q was set as Immutable, but edge-field %q is not", fkOwner.Name, fkName)
-	// A codec codegen wrote is derived from the Go type, and the type is
-	// checked against the referenced id just below, so both ends of the edge
-	// necessarily read and write the column the same way. One the schema
-	// handed over is a property of the field alone, and nothing says the id
-	// it points at was given the same.
-	case tf.HasValueScanner() && !tf.HasTextCodec():
+	case tf.HasValueScanner():
 		return fmt.Errorf("edge-field %q cannot have an external ValueScanner", fkName)
 	}
 	if t1, t2 := tf.Type.Type, fkOwner.Type.Id.Type.Type; t1 != t2 {
@@ -1383,10 +1378,22 @@ func (f Field) NillableValue() bool {
 	return f.Nillable && !f.Type.RType.IsPtr()
 }
 
+// driverNull reports whether the column has to be read through a null wrapper.
+//
+// A type database/sql reads and writes itself still has no way to say it read
+// nothing: a uuid.UUID is sixteen bytes and every one of them is a UUID. So a
+// column that may hold NULL is scanned into a sql.Null of it.
+func (f Field) driverNull() bool {
+	return (f.Optional || f.Nillable) && f.Type.RType.DriverType()
+}
+
 // ScanType returns the Go type that is used for `rows.Scan`.
 func (f Field) ScanType() string {
 	if f.Type.ValueScanner() {
-		if f.Nillable && !f.standardNullType() {
+		switch {
+		case f.driverNull():
+			return fmt.Sprintf("sql.Null[%s]", f.Type.RType.String())
+		case f.Nillable && !f.standardNullType():
 			return "sql.NullScanner"
 		}
 		return f.Type.RType.String()
@@ -1447,12 +1454,21 @@ func (t Type) DeprecatedFields() []*Field {
 	return fs
 }
 
-// HasTextCodec reports whether the codec for this field is one codegen
-// writes, rather than one the schema handed over. It is how a GoType that
-// only marshals to text -- the uuid package of the standard library, say --
-// reaches a column without every field having to say so.
-func (f Field) HasTextCodec() bool {
-	return f.def != nil && f.def.TextCodec
+// EmptyNotNil reports whether a nil read back from this field's column has to
+// be an empty value instead.
+//
+// It holds for a required bytes column and nothing else. Such a column cannot
+// hold a NULL, so a nil that comes out of one is not a value: it is a driver
+// that reads a zero-length blob back as nil where another reads it back as
+// empty bytes. Leaving that through is how a round-trip comes to depend on
+// which database the test ran against.
+func (f Field) EmptyNotNil() bool {
+	if !f.IsBytes() || f.Optional || f.Nillable {
+		return false
+	}
+	// A Go type of the schema's own may be an array rather than a slice, and
+	// an array has no nil to read back.
+	return f.Type.RType == nil || f.Type.RType.Kind == reflect.Slice
 }
 
 // HasValueScanner indicates if the field has (an external) ValueScanner.
@@ -1498,6 +1514,9 @@ func (f Field) FromValueFunc() (string, error) {
 // nillable-type supported by the SQL driver (e.g. []byte).
 func (f Field) NewScanType() string {
 	if f.Type.ValueScanner() {
+		if f.driverNull() {
+			return fmt.Sprintf("new(sql.Null[%s])", f.Type.RType.String())
+		}
 		expr := fmt.Sprintf("new(%s)", f.Type.RType.String())
 		if f.Nillable && !f.standardNullType() {
 			expr = fmt.Sprintf("&sql.NullScanner{S: %s}", expr)
@@ -1528,6 +1547,9 @@ func (f Field) NewScanType() string {
 func (f Field) ScanTypeField(rec string) string {
 	expr := rec
 	if f.Type.ValueScanner() {
+		if f.driverNull() {
+			return rec + ".V"
+		}
 		if !f.Type.RType.IsPtr() {
 			expr = "*" + expr
 		}

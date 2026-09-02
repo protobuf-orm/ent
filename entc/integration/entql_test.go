@@ -19,12 +19,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// storedUuid is the form a uuid field is written in, which is its text: the
-// standard library type says nothing to a driver itself, so entql has to be
-// handed what the column actually holds.
+// storedUuid is a uuid.UUID as a driver.Valuer.
+//
+// database/sql converts one on its own, but entql asks for a Valuer at the
+// call rather than at the bind, and the standard library's type is not one.
 type storedUuid uuid.UUID
 
-func (u storedUuid) Value() (driver.Value, error) { return uuid.UUID(u).MarshalText() }
+func (u storedUuid) Value() (driver.Value, error) {
+	return driver.DefaultParameterConverter.ConvertValue(uuid.UUID(u))
+}
 
 func EntQL(t *testing.T, client *ent.Client) {
 	require := require.New(t)

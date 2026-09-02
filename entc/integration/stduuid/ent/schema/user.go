@@ -14,9 +14,9 @@ import (
 
 // User holds a schema keyed by the uuid.UUID of the standard library.
 //
-// That type marshals to and from text, but implements neither
-// driver.Valuer nor sql.Scanner, so every field below reaches the
-// database through an external ValueScanner.
+// Nothing below says how a UUID reaches a column, because database/sql
+// reads and writes that type itself, the way it does a time.Time. A type
+// of one's own does not get the same treatment and has to say.
 type User struct {
 	ent.Schema
 }

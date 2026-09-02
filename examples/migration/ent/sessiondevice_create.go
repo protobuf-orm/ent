@@ -13,6 +13,7 @@ import (
 	"time"
 	"uuid"
 
+	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/examples/migration/ent/session"
 	"github.com/protobuf-orm/ent/examples/migration/ent/sessiondevice"
@@ -170,10 +171,7 @@ func (_c *SessionDeviceCreate) sqlSave(ctx context.Context) (*SessionDevice, err
 	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec, err := _c.createSpec()
-	if err != nil {
-		return nil, err
-	}
+	_node, _spec := _c.createSpec()
 	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
@@ -181,17 +179,14 @@ func (_c *SessionDeviceCreate) sqlSave(ctx context.Context) (*SessionDevice, err
 		return nil, err
 	}
 	if _spec.Id.Value != nil {
-		sv, ok := _spec.Id.Value.(field.ValueScanner)
-		if !ok {
-			sv = sessiondevice.ValueScanner.Id.ScanValue()
-			if err := sv.Scan(_spec.Id.Value); err != nil {
+		if id, ok := _spec.Id.Value.(*uuid.UUID); ok {
+			_node.Id = *id
+		} else {
+			var v sql.Null[uuid.UUID]
+			if err := v.Scan(_spec.Id.Value); err != nil {
 				return nil, err
 			}
-		}
-		if value, err := sessiondevice.ValueScanner.Id.FromValue(sv); err != nil {
-			return nil, err
-		} else {
-			_node.Id = value
+			_node.Id = v.V
 		}
 	}
 	_c.mutation.id = &_node.Id
@@ -199,18 +194,14 @@ func (_c *SessionDeviceCreate) sqlSave(ctx context.Context) (*SessionDevice, err
 	return _node, nil
 }
 
-func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpec, error) {
+func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpec) {
 	var (
 		_node = &SessionDevice{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(sessiondevice.Table, sqlgraph.NewFieldSpec(sessiondevice.FieldId, field.TypeUuid))
 	)
 	if id, ok := _c.mutation.Id(); ok {
 		_node.Id = id
-		vv, err := sessiondevice.ValueScanner.Id.Value(id)
-		if err != nil {
-			return nil, nil, err
-		}
-		_spec.Id.Value = vv
+		_spec.Id.Value = &id
 	}
 	if value, ok := _c.mutation.IpAddress(); ok {
 		_spec.SetField(sessiondevice.FieldIpAddress, field.TypeString, value)
@@ -244,15 +235,11 @@ func (_c *SessionDeviceCreate) createSpec() (*SessionDevice, *sqlgraph.CreateSpe
 			},
 		}
 		for _, k := range nodes {
-			vv, err := session.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	return _node, _spec, nil
+	return _node, _spec
 }
 
 // SessionDeviceCreateBulk is the builder for creating many SessionDevice entities in bulk.
@@ -284,10 +271,7 @@ func (_c *SessionDeviceCreateBulk) Save(ctx context.Context) ([]*SessionDevice, 
 				}
 				builder.mutation = mutation
 				var err error
-				nodes[i], specs[i], err = builder.createSpec()
-				if err != nil {
-					return nil, err
-				}
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
@@ -303,20 +287,6 @@ func (_c *SessionDeviceCreateBulk) Save(ctx context.Context) ([]*SessionDevice, 
 					return nil, err
 				}
 				mutation.id = &nodes[i].Id
-				if specs[i].Id.Value != nil {
-					sv, ok := specs[i].Id.Value.(field.ValueScanner)
-					if !ok {
-						sv = sessiondevice.ValueScanner.Id.ScanValue()
-						if err := sv.Scan(specs[i].Id.Value); err != nil {
-							return nil, err
-						}
-					}
-					if id, err := sessiondevice.ValueScanner.Id.FromValue(sv); err != nil {
-						return nil, err
-					} else {
-						nodes[i].Id = id
-					}
-				}
 				mutation.done = true
 				return nodes[i], nil
 			})

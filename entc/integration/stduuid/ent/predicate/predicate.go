@@ -12,14 +12,3 @@ import (
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
-
-// UserOrErr calls the predicate only if the error is not nit.
-func UserOrErr(p User, err error) User {
-	return func(s *sql.Selector) {
-		if err != nil {
-			s.AddError(err)
-			return
-		}
-		p(s)
-	}
-}

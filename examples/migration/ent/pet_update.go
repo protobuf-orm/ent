@@ -234,11 +234,7 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := pet.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -462,11 +458,7 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Pet.id" for update`)}
 	}
-	vv, err := pet.ValueScanner.Id.Value(id)
-	if err != nil {
-		return nil, err
-	}
-	_spec.Node.Id.Value = vv
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, pet.FieldId)
@@ -526,11 +518,7 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := pet.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}

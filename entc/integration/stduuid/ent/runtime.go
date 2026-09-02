@@ -11,8 +11,6 @@ import (
 
 	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/schema"
 	"github.com/protobuf-orm/ent/entc/integration/stduuid/ent/user"
-
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -21,10 +19,8 @@ import (
 func init() {
 	userFields := schema.User{}.Fields()
 	_ = userFields
-	user.ValueScanner.Ref = field.TextValueScannerOf[uuid.UUID]()
 	// userDescId is the schema descriptor for id field.
 	userDescId := userFields[0].Descriptor()
 	// user.DefaultId holds the default value on creation for the id field.
 	user.DefaultId = userDescId.Default.(func() uuid.UUID)
-	user.ValueScanner.Id = field.TextValueScannerOf[uuid.UUID]()
 }

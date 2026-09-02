@@ -136,11 +136,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Ref(); ok {
-		vv, err := user.ValueScanner.Ref.Value(value)
-		if err != nil {
-			return 0, err
-		}
-		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, value)
 	}
 	if _u.mutation.RefCleared() {
 		_spec.ClearField(user.FieldRef, field.TypeUuid)
@@ -170,11 +166,7 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -308,11 +300,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
-	vv, err := user.ValueScanner.Id.Value(id)
-	if err != nil {
-		return nil, err
-	}
-	_spec.Node.Id.Value = vv
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldId)
@@ -336,11 +324,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Ref(); ok {
-		vv, err := user.ValueScanner.Ref.Value(value)
-		if err != nil {
-			return nil, err
-		}
-		_spec.SetField(user.FieldRef, field.TypeUuid, vv)
+		_spec.SetField(user.FieldRef, field.TypeUuid, value)
 	}
 	if _u.mutation.RefCleared() {
 		_spec.ClearField(user.FieldRef, field.TypeUuid)
@@ -370,11 +354,7 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := user.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}

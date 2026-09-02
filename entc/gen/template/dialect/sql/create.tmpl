@@ -53,7 +53,15 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (*{{ $.Name 
 					if id, ok := _spec.Id.Value.({{ $.Id.Type }}); ok {
 						_node.Id = id
 				{{- end }}
-				{{- if $.Id.Type.ValueScanner }}
+				{{- if $.Id.Type.DriverType }}
+					{{- /* The type has no Scan of its own; database/sql does the reading. */}}
+					} else {
+						var v sql.Null[{{ $.Id.Type }}]
+						if err := v.Scan(_spec.Id.Value); err != nil {
+							return nil, err
+						}
+						_node.Id = v.V
+				{{- else if $.Id.Type.ValueScanner }}
 					} else if err := _node.Id.Scan(_spec.Id.Value); err != nil {
 						return nil, err
 				{{- else  }}

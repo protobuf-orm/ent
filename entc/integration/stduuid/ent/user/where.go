@@ -16,72 +16,47 @@ import (
 
 // Id filters vertices based on their Id field.
 func Id(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
 // IdEQ applies the EQ predicate on the Id field.
 func IdEQ(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.User(sql.FieldEQ(FieldId, id))
 }
 
 // IdNEQ applies the NEQ predicate on the Id field.
 func IdNEQ(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldNEQ(FieldId, vc), err)
+	return predicate.User(sql.FieldNEQ(FieldId, id))
 }
 
 // IdIn applies the In predicate on the Id field.
 func IdIn(ids ...uuid.UUID) predicate.User {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.UserOrErr(sql.FieldIn(FieldId, vcs...), err)
+	return predicate.User(sql.FieldIn(FieldId, ids...))
 }
 
 // IdNotIn applies the NotIn predicate on the Id field.
 func IdNotIn(ids ...uuid.UUID) predicate.User {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.UserOrErr(sql.FieldNotIn(FieldId, vcs...), err)
+	return predicate.User(sql.FieldNotIn(FieldId, ids...))
 }
 
 // IdGT applies the GT predicate on the Id field.
 func IdGT(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldGT(FieldId, vc), err)
+	return predicate.User(sql.FieldGT(FieldId, id))
 }
 
 // IdGTE applies the GTE predicate on the Id field.
 func IdGTE(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldGTE(FieldId, vc), err)
+	return predicate.User(sql.FieldGTE(FieldId, id))
 }
 
 // IdLT applies the LT predicate on the Id field.
 func IdLT(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldLT(FieldId, vc), err)
+	return predicate.User(sql.FieldLT(FieldId, id))
 }
 
 // IdLTE applies the LTE predicate on the Id field.
 func IdLTE(id uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.UserOrErr(sql.FieldLTE(FieldId, vc), err)
+	return predicate.User(sql.FieldLTE(FieldId, id))
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
@@ -91,8 +66,7 @@ func Name(v string) predicate.User {
 
 // Ref applies equality check predicate on the "ref" field. It's identical to RefEQ.
 func Ref(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldEQ(FieldRef, vc), err)
+	return predicate.User(sql.FieldEQ(FieldRef, v))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.
@@ -162,66 +136,42 @@ func NameContainsFold(v string) predicate.User {
 
 // RefEQ applies the EQ predicate on the "ref" field.
 func RefEQ(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldEQ(FieldRef, vc), err)
+	return predicate.User(sql.FieldEQ(FieldRef, v))
 }
 
 // RefNEQ applies the NEQ predicate on the "ref" field.
 func RefNEQ(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldNEQ(FieldRef, vc), err)
+	return predicate.User(sql.FieldNEQ(FieldRef, v))
 }
 
 // RefIn applies the In predicate on the "ref" field.
 func RefIn(vs ...uuid.UUID) predicate.User {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.Ref.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.UserOrErr(sql.FieldIn(FieldRef, v...), err)
+	return predicate.User(sql.FieldIn(FieldRef, vs...))
 }
 
 // RefNotIn applies the NotIn predicate on the "ref" field.
 func RefNotIn(vs ...uuid.UUID) predicate.User {
-	var (
-		err error
-		v   = make([]any, len(vs))
-	)
-	for i := range v {
-		if v[i], err = ValueScanner.Ref.Value(vs[i]); err != nil {
-			break
-		}
-	}
-	return predicate.UserOrErr(sql.FieldNotIn(FieldRef, v...), err)
+	return predicate.User(sql.FieldNotIn(FieldRef, vs...))
 }
 
 // RefGT applies the GT predicate on the "ref" field.
 func RefGT(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldGT(FieldRef, vc), err)
+	return predicate.User(sql.FieldGT(FieldRef, v))
 }
 
 // RefGTE applies the GTE predicate on the "ref" field.
 func RefGTE(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldGTE(FieldRef, vc), err)
+	return predicate.User(sql.FieldGTE(FieldRef, v))
 }
 
 // RefLT applies the LT predicate on the "ref" field.
 func RefLT(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldLT(FieldRef, vc), err)
+	return predicate.User(sql.FieldLT(FieldRef, v))
 }
 
 // RefLTE applies the LTE predicate on the "ref" field.
 func RefLTE(v uuid.UUID) predicate.User {
-	vc, err := ValueScanner.Ref.Value(v)
-	return predicate.UserOrErr(sql.FieldLTE(FieldRef, vc), err)
+	return predicate.User(sql.FieldLTE(FieldRef, v))
 }
 
 // RefIsNil applies the IsNil predicate on the "ref" field.

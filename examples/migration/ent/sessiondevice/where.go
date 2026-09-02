@@ -17,72 +17,47 @@ import (
 
 // Id filters vertices based on their Id field.
 func Id(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldEQ(FieldId, id))
 }
 
 // IdEQ applies the EQ predicate on the Id field.
 func IdEQ(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldEQ(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldEQ(FieldId, id))
 }
 
 // IdNEQ applies the NEQ predicate on the Id field.
 func IdNEQ(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldNEQ(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldNEQ(FieldId, id))
 }
 
 // IdIn applies the In predicate on the Id field.
 func IdIn(ids ...uuid.UUID) predicate.SessionDevice {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.SessionDeviceOrErr(sql.FieldIn(FieldId, vcs...), err)
+	return predicate.SessionDevice(sql.FieldIn(FieldId, ids...))
 }
 
 // IdNotIn applies the NotIn predicate on the Id field.
 func IdNotIn(ids ...uuid.UUID) predicate.SessionDevice {
-	var (
-		err error
-		vcs = make([]any, len(ids))
-	)
-	for i := range vcs {
-		if vcs[i], err = ValueScanner.Id.Value(ids[i]); err != nil {
-			break
-		}
-	}
-	return predicate.SessionDeviceOrErr(sql.FieldNotIn(FieldId, vcs...), err)
+	return predicate.SessionDevice(sql.FieldNotIn(FieldId, ids...))
 }
 
 // IdGT applies the GT predicate on the Id field.
 func IdGT(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldGT(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldGT(FieldId, id))
 }
 
 // IdGTE applies the GTE predicate on the Id field.
 func IdGTE(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldGTE(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldGTE(FieldId, id))
 }
 
 // IdLT applies the LT predicate on the Id field.
 func IdLT(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldLT(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldLT(FieldId, id))
 }
 
 // IdLTE applies the LTE predicate on the Id field.
 func IdLTE(id uuid.UUID) predicate.SessionDevice {
-	vc, err := ValueScanner.Id.Value(id)
-	return predicate.SessionDeviceOrErr(sql.FieldLTE(FieldId, vc), err)
+	return predicate.SessionDevice(sql.FieldLTE(FieldId, id))
 }
 
 // IpAddress applies equality check predicate on the "ip_address" field. It's identical to IpAddressEQ.

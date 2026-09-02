@@ -213,13 +213,8 @@ func (_q *SessionDeviceQuery) Ids(ctx context.Context) (ids []uuid.UUID, err err
 		_q.Unique(true)
 	}
 	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIds)
-	var nodes []*SessionDevice
-	if nodes, err = _q.Select(sessiondevice.FieldId).All(ctx); err != nil {
+	if err = _q.Select(sessiondevice.FieldId).Scan(ctx, &ids); err != nil {
 		return nil, err
-	}
-	ids = make([]uuid.UUID, len(nodes))
-	for i := range nodes {
-		ids[i] = nodes[i].Id
 	}
 	return ids, nil
 }
@@ -417,11 +412,7 @@ func (_q *SessionDeviceQuery) loadSessions(ctx context.Context, query *SessionQu
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uuid.UUID]*SessionDevice)
 	for i := range nodes {
-		vv, err := sessiondevice.ValueScanner.Id.Value(nodes[i].Id)
-		if err != nil {
-			return err
-		}
-		fks = append(fks, vv)
+		fks = append(fks, nodes[i].Id)
 		nodeids[nodes[i].Id] = nodes[i]
 		if init != nil {
 			init(nodes[i])

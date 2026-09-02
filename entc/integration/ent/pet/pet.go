@@ -7,11 +7,8 @@
 package pet
 
 import (
-	"uuid"
-
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
-	"github.com/protobuf-orm/ent/schema/field"
 )
 
 const (
@@ -91,10 +88,6 @@ var (
 	DefaultAge float64
 	// DefaultTrained holds the default value on creation for the "trained" field.
 	DefaultTrained bool
-	// ValueScanner of all Pet fields.
-	ValueScanner struct {
-		Uuid field.TypeValueScanner[uuid.UUID]
-	}
 )
 
 // OrderOption defines the ordering options for the Pet queries.

@@ -13,17 +13,6 @@ import (
 // Car is the predicate function for car builders.
 type Car func(*sql.Selector)
 
-// CarOrErr calls the predicate only if the error is not nit.
-func CarOrErr(p Car, err error) Car {
-	return func(s *sql.Selector) {
-		if err != nil {
-			s.AddError(err)
-			return
-		}
-		p(s)
-	}
-}
-
 // Card is the predicate function for card builders.
 type Card func(*sql.Selector)
 
@@ -44,17 +33,6 @@ type Post func(*sql.Selector)
 
 // Rental is the predicate function for rental builders.
 type Rental func(*sql.Selector)
-
-// RentalOrErr calls the predicate only if the error is not nit.
-func RentalOrErr(p Rental, err error) Rental {
-	return func(s *sql.Selector) {
-		if err != nil {
-			s.AddError(err)
-			return
-		}
-		p(s)
-	}
-}
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

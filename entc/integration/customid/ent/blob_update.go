@@ -170,11 +170,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := blob.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return 0, err
-		}
-		_spec.SetField(blob.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
@@ -207,11 +203,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -228,10 +220,7 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -247,18 +236,11 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -274,18 +256,11 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return 0, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return 0, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -456,11 +431,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Blob.id" for update`)}
 	}
-	vv, err := blob.ValueScanner.Id.Value(id)
-	if err != nil {
-		return nil, err
-	}
-	_spec.Node.Id.Value = vv
+	_spec.Node.Id.Value = id
 	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, blob.FieldId)
@@ -481,11 +452,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 		}
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
-		vv, err := blob.ValueScanner.Uuid.Value(value)
-		if err != nil {
-			return nil, err
-		}
-		_spec.SetField(blob.FieldUuid, field.TypeUuid, vv)
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
@@ -518,11 +485,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
@@ -539,10 +502,7 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -558,18 +518,11 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
@@ -585,18 +538,11 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 			},
 		}
 		for _, k := range nodes {
-			vv, err := blob.ValueScanner.Id.Value(k)
-			if err != nil {
-				return nil, err
-			}
-			edge.Target.Nodes = append(edge.Target.Nodes, vv)
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		createE := &BlobLinkCreate{config: _u.config, mutation: newBlobLinkMutation(_u.config, OpCreate)}
 		createE.defaults()
-		_, specE, err := createE.createSpec()
-		if err != nil {
-			return nil, err
-		}
+		_, specE := createE.createSpec()
 		edge.Target.Fields = specE.Fields
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
