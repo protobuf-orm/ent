@@ -70,7 +70,7 @@ func TestSQLite(t *testing.T) {
 }
 
 func TestMySql(t *testing.T) {
-	for version, port := range map[string]int{"56": 3306, "57": 3307, "8": 3308} {
+	for version, port := range map[string]int{"8": 3308, "84": 3309} {
 		addr := net.JoinHostPort("localhost", strconv.Itoa(port))
 		t.Run(version, func(t *testing.T) {
 			t.Parallel()
@@ -88,7 +88,7 @@ func TestMySql(t *testing.T) {
 }
 
 func TestMaria(t *testing.T) {
-	for version, port := range map[string]int{"10.5": 4306, "10.2": 4307, "10.3": 4308} {
+	for version, port := range map[string]int{"1011": 4309, "114": 4310} {
 		addr := net.JoinHostPort("localhost", strconv.Itoa(port))
 		t.Run(version, func(t *testing.T) {
 			t.Parallel()
@@ -106,16 +106,7 @@ func TestMaria(t *testing.T) {
 }
 
 func TestPostgres(t *testing.T) {
-	for version, port := range map[string]int{
-		"10": 5430,
-		"11": 5431,
-		"12": 5432,
-		"13": 5433,
-		"14": 5434,
-		"15": 5435,
-		"16": 5436,
-		"17": 5437,
-	} {
+	for version, port := range map[string]int{"14": 5434, "17": 5437} {
 		addr := fmt.Sprintf("host=localhost port=%d user=postgres dbname=test password=pass sslmode=disable", port)
 		t.Run(version, func(t *testing.T) {
 			t.Parallel()

@@ -7,7 +7,6 @@ package multischema
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 	"slices"
 	"testing"
@@ -186,18 +185,19 @@ func TestVersionedMigration(t *testing.T) {
 			require.NoError(t, err, "drop database")
 		}
 	})
+	// Skipped rather than fatal: log.Fatal takes the test binary with it, so
+	// a checkout without the CLI could not run the rest of this package
+	// either. CI skips this test outright, so absent is the ordinary case.
 	ac, err := atlasexec.NewClient(".", "atlas")
 	if err != nil {
-		log.Fatalf("failed to initialize client: %v", err)
+		t.Skipf("no atlas cli, and this test is one: %v", err)
 	}
 	// Run `atlas migrate apply` on a SQLite database under /tmp.
 	res, err := ac.MigrateApply(context.Background(), &atlasexec.MigrateApplyParams{
 		URL:        "mysql://root:pass@:3308/",
 		AllowDirty: true,
 	})
-	if err != nil {
-		log.Fatalf("failed to apply migrations: %v", err)
-	}
+	require.NoError(t, err, "apply migrations")
 	if len(res.Applied) > 0 {
 		t.Logf("Applied %d migrations", len(res.Applied))
 	}

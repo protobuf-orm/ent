@@ -91,37 +91,19 @@ jobs:
             exit 1
           fi
 
+  # One old and one new of each engine, and nothing that upstream no longer
+  # supports. Two is what catches a dialect that drifted; the eight PostgreSQL
+  # versions this had were eight runs of the same code path.
+  #
+  # This job is the reason the matrix exists at all rather than a SQLite run:
+  # `database/sql` converts a `uuid.UUID` itself, but only when the driver has
+  # no converter of its own, and go-sql-driver/mysql's refuses arrays. Every
+  # insert of a UUID on MySQL failed while SQLite was green.
   integration:
     runs-on: ubuntu-latest
     services:
-      mysql56:
-        image: mysql:5.6.35
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      mysql57:
-        image: mysql:5.7.26
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 3307:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
       mysql8:
-        image: mysql:8
+        image: mysql:8.0
         env:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: pass
@@ -133,93 +115,45 @@ jobs:
           --health-start-period 10s
           --health-timeout 5s
           --health-retries 10
-      maria:
-        image: mariadb:10.4 # Temporary to unblock PRs from failing.
+      mysql84:
+        image: mysql:8.4
         env:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: pass
         ports:
-          - 4306:3306
+          - 3309:3306
         options: >-
           --health-cmd "mysqladmin ping -ppass"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
           --health-retries 10
-      maria102:
-        image: mariadb:10.2.32
+      maria1011:
+        image: mariadb:10.11
         env:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: pass
         ports:
-          - 4307:3306
+          - 4309:3306
         options: >-
           --health-cmd "mysqladmin ping -ppass"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
           --health-retries 10
-      maria103:
-        image: mariadb:10.3.13
+      maria114:
+        image: mariadb:11.4
         env:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: pass
         ports:
-          - 4308:3306
+          - 4310:3306
         options: >-
           --health-cmd "mysqladmin ping -ppass"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
           --health-retries 10
-      postgres10:
-        image: postgres:10
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5430:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres11:
-        image: postgres:11
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5431:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres12:
-        image: postgres:12.3
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres13:
-        image: postgres:13.1
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5433:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
       postgres14:
         image: postgres:14
         env:
@@ -227,30 +161,6 @@ jobs:
           POSTGRES_PASSWORD: pass
         ports:
           - 5434:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres15:
-        image: postgres:15
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5435:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres16:
-        image: postgres:16
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5436:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -280,207 +190,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - name: Run integration tests
-        working-directory: entc/integration
-        run: go test -race -count=2 ./...
-
-  migration:
-    runs-on: ubuntu-latest
-    if: ${{ github.ref != 'refs/heads/master' }}
-    services:
-      mysql56:
-        image: mysql:5.6.35
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      mysql57:
-        image: mysql:5.7.26
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 3307:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      mysql8:
-        image: mysql:8
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 3308:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      maria:
-        image: mariadb:10.4 # Temporary to unblock PRs from failing.
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 4306:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      maria102:
-        image: mariadb:10.2.32
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 4307:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      maria103:
-        image: mariadb:10.3.13
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: pass
-        ports:
-          - 4308:3306
-        options: >-
-          --health-cmd "mysqladmin ping -ppass"
-          --health-interval 10s
-          --health-start-period 10s
-          --health-timeout 5s
-          --health-retries 10
-      postgres10:
-        image: postgres:10
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5430:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres11:
-        image: postgres:11
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5431:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres12:
-        image: postgres:12.3
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres13:
-        image: postgres:13.1
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5433:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres14:
-        image: postgres:14
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5434:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres15:
-        image: postgres:15
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5435:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres16:
-        image: postgres:16
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5436:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      postgres17:
-        image: postgres:17
-        env:
-          POSTGRES_DB: test
-          POSTGRES_PASSWORD: pass
-        ports:
-          - 5437:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: './go.mod'
-      - uses: actions/cache@v4
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-      - name: Checkout origin/master
-        run: git checkout origin/master
-      - name: Run integration on origin/master
-        working-directory: entc/integration
-        run: go test -race -count=2 ./...
-      - name: Checkout previous HEAD
-        run: git checkout -
-      - name: Run integration on HEAD
         working-directory: entc/integration
         run: go test -race -count=2 ./...

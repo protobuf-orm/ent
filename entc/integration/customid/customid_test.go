@@ -36,7 +36,7 @@ import (
 )
 
 func TestMySql(t *testing.T) {
-	for version, port := range map[string]int{"56": 3306, "57": 3307, "8": 3308} {
+	for version, port := range map[string]int{"8": 3308, "84": 3309} {
 		addr := net.JoinHostPort("localhost", strconv.Itoa(port))
 		t.Run(version, func(t *testing.T) {
 			cfg := mysql.Config{
@@ -61,7 +61,7 @@ func TestMySql(t *testing.T) {
 }
 
 func TestPostgres(t *testing.T) {
-	for version, port := range map[string]int{"10": 5430, "11": 5431, "12": 5433, "13": 5434} {
+	for version, port := range map[string]int{"14": 5434, "17": 5437} {
 		t.Run(version, func(t *testing.T) {
 			dsn := fmt.Sprintf("host=localhost port=%d user=postgres password=pass sslmode=disable dbname=test", port)
 			db, err := sql.Open(dialect.Postgres, dsn)

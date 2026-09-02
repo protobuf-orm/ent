@@ -67,7 +67,7 @@ func TestSchemaConfig(t *testing.T) {
 }
 
 func TestMySql(t *testing.T) {
-	for version, port := range map[string]int{"56": 3306, "57": 3307, "8": 3308} {
+	for version, port := range map[string]int{"8": 3308, "84": 3309} {
 		t.Run(version, func(t *testing.T) {
 			root, err := sql.Open("mysql", fmt.Sprintf("root:pass@tcp(localhost:%d)/", port))
 			require.NoError(t, err)
