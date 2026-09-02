@@ -137,7 +137,7 @@ func TestPostgres(t *testing.T) {
 			)
 			CheckConstraint(t, clientv2)
 			TimePrecision(t, drv, "SELECT datetime_precision FROM information_schema.columns WHERE table_name = $1 AND column_name = $2")
-			PartialIndexes(t, drv, "select indexdef from pg_indexes where indexname=$1", "CREATE INDEX user_phone ON public.users USING btree (phone) WHERE (active AND ((phone)::text <> ''::text))")
+			PartialIndexes(t, drv, "select indexdef from pg_indexes where indexname=$1", "CREATE INDEX user_phone ON public.\"user\" USING btree (phone) WHERE (active AND ((phone)::text <> ''::text))")
 			JsonDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'user' AND column_name = $1`)
 			DefaultExpr(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'user' AND column_name = $1`, "lower('hello'::text)", "md5('ent'::text)")
 			PKDefault(t, drv, `SELECT column_default FROM information_schema.columns WHERE table_name = 'zoo' AND column_name = $1`, "floor((random() * ((~ (1 << 31)))::double precision))")
@@ -787,7 +787,7 @@ func IncludeColumns(t *testing.T, drv *sql.Driver) {
 	d, err := sql.ScanString(rows)
 	require.NoError(t, err)
 	require.NoError(t, rows.Close())
-	require.Equal(t, d, "CREATE INDEX user_workplace ON public.users USING btree (workplace) INCLUDE (nickname)")
+	require.Equal(t, d, "CREATE INDEX user_workplace ON public.\"user\" USING btree (workplace) INCLUDE (nickname)")
 }
 
 func IndexOpClass(t *testing.T, drv *sql.Driver) {
@@ -796,7 +796,7 @@ func IndexOpClass(t *testing.T, drv *sql.Driver) {
 	d, err := sql.ScanString(rows)
 	require.NoError(t, err)
 	require.NoError(t, rows.Close())
-	require.Equal(t, d, "CREATE INDEX user_age_phone ON public.users USING btree (age, phone bpchar_pattern_ops)")
+	require.Equal(t, d, "CREATE INDEX user_age_phone ON public.\"user\" USING btree (age, phone bpchar_pattern_ops)")
 }
 
 func SerialType(t *testing.T, c *entv2.Client) {
@@ -811,7 +811,7 @@ func PartialIndexes(t *testing.T, drv *sql.Driver, query, def string) {
 	d, err := sql.ScanString(rows)
 	require.NoError(t, err)
 	require.NoError(t, rows.Close())
-	require.Equal(t, d, def)
+	require.Equal(t, def, d)
 }
 
 func idRange(t *testing.T, id, l, h int) {

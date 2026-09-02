@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect"
 )
@@ -131,6 +132,49 @@ type Conn struct {
 	dialect string
 }
 
+// bindArgs converts the arguments database/sql would convert itself but a
+// driver with a converter of its own will not.
+//
+// A driver that implements driver.NamedValueChecker is asked before
+// database/sql's default converter, and go-sql-driver/mysql's answers
+// "unsupported type uuid.UUID, a array". So the same schema that stores a UUID
+// on SQLite, where the default converter is reached, fails to write one on
+// MySQL. Converting here makes the two agree, and agree on the canonical text
+// -- which is what the default converter produces, and what
+// github.com/google/uuid's driver.Valuer produced before the standard library
+// had the type.
+//
+// It is the standard library's own short list and not a rule about types: a
+// type of one's own that is sixteen bytes with a MarshalText, which is exactly
+// what a uuid.UUID is, is refused by every one of these converters and is
+// meant to be. See field.RType.DriverType.
+func bindArgs(args []any) []any {
+	var out []any
+	for i, v := range args {
+		var s string
+		switch v := v.(type) {
+		case uuid.UUID:
+			s = v.String()
+		case *uuid.UUID:
+			if v == nil {
+				continue
+			}
+			s = v.String()
+		default:
+			continue
+		}
+		if out == nil {
+			out = make([]any, len(args))
+			copy(out, args)
+		}
+		out[i] = s
+	}
+	if out == nil {
+		return args
+	}
+	return out
+}
+
 // Exec implements the dialect.Exec method.
 func (c Conn) Exec(ctx context.Context, query string, args, v any) (rerr error) {
 	argv, ok := args.([]any)
@@ -146,11 +190,11 @@ func (c Conn) Exec(ctx context.Context, query string, args, v any) (rerr error) 
 	}
 	switch v := v.(type) {
 	case nil:
-		if _, err := ex.ExecContext(ctx, query, argv...); err != nil {
+		if _, err := ex.ExecContext(ctx, query, bindArgs(argv)...); err != nil {
 			return err
 		}
 	case *sql.Result:
-		res, err := ex.ExecContext(ctx, query, argv...)
+		res, err := ex.ExecContext(ctx, query, bindArgs(argv)...)
 		if err != nil {
 			return err
 		}
@@ -175,7 +219,7 @@ func (c Conn) Query(ctx context.Context, query string, args, v any) error {
 	if err != nil {
 		return err
 	}
-	rows, err := ex.QueryContext(ctx, query, argv...)
+	rows, err := ex.QueryContext(ctx, query, bindArgs(argv)...)
 	if err != nil {
 		if cf != nil {
 			err = errors.Join(err, cf())
