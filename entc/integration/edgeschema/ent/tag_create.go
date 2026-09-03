@@ -324,7 +324,7 @@ func (u *TagUpsertOne) Ignore() *TagUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TagUpsertOne) DoNothing() *TagUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -541,7 +541,7 @@ func (u *TagUpsertBulk) Ignore() *TagUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TagUpsertBulk) DoNothing() *TagUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -181,7 +181,7 @@ func (u *RevisionUpsertOne) Ignore() *RevisionUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RevisionUpsertOne) DoNothing() *RevisionUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -390,7 +390,7 @@ func (u *RevisionUpsertBulk) Ignore() *RevisionUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RevisionUpsertBulk) DoNothing() *RevisionUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

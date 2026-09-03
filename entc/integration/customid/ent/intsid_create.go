@@ -248,7 +248,7 @@ func (u *IntSIdUpsertOne) Ignore() *IntSIdUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *IntSIdUpsertOne) DoNothing() *IntSIdUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -457,7 +457,7 @@ func (u *IntSIdUpsertBulk) Ignore() *IntSIdUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *IntSIdUpsertBulk) DoNothing() *IntSIdUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

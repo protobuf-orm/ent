@@ -360,7 +360,7 @@ func (u *BlobUpsertOne) Ignore() *BlobUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobUpsertOne) DoNothing() *BlobUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -610,7 +610,7 @@ func (u *BlobUpsertBulk) Ignore() *BlobUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *BlobUpsertBulk) DoNothing() *BlobUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

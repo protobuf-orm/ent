@@ -417,7 +417,7 @@ func (u *ExValueScanUpsertOne) Ignore() *ExValueScanUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ExValueScanUpsertOne) DoNothing() *ExValueScanUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -756,7 +756,7 @@ func (u *ExValueScanUpsertBulk) Ignore() *ExValueScanUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ExValueScanUpsertBulk) DoNothing() *ExValueScanUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

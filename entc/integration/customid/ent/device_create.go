@@ -272,7 +272,7 @@ func (u *DeviceUpsertOne) Ignore() *DeviceUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DeviceUpsertOne) DoNothing() *DeviceUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -482,7 +482,7 @@ func (u *DeviceUpsertBulk) Ignore() *DeviceUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *DeviceUpsertBulk) DoNothing() *DeviceUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

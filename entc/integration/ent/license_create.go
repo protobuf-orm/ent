@@ -254,7 +254,7 @@ func (u *LicenseUpsertOne) Ignore() *LicenseUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LicenseUpsertOne) DoNothing() *LicenseUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -485,7 +485,7 @@ func (u *LicenseUpsertBulk) Ignore() *LicenseUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *LicenseUpsertBulk) DoNothing() *LicenseUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

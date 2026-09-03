@@ -61,6 +61,96 @@ func NopTx(d Driver) Tx {
 	return nopTx{d}
 }
 
+// InTxDriver is a driver that is a transaction.
+//
+// It is an interface rather than a type so that the generated txDriver of every
+// ent package answers to the same question as the one below: a client asked
+// whether it is inside a transaction should say yes to a transaction it did not
+// begin itself.
+type InTxDriver interface {
+	Driver
+	// InTx reports that this driver is a transaction. It is always true; what
+	// it is for is being asked through a Driver.
+	InTx() bool
+}
+
+// InTx reports whether drv runs inside a transaction, looking through the
+// wrappers a driver picks up on the way.
+//
+// The wrappers are the reason this is here rather than a type assertion at the
+// call site: a driver under a DebugDriver is the same driver, and a caller that
+// missed that would start a second transaction inside the first for no reason.
+func InTx(drv Driver) bool {
+	for {
+		switch v := drv.(type) {
+		case InTxDriver:
+			return v.InTx()
+		case *DebugDriver:
+			drv = v.Driver
+		default:
+			return false
+		}
+	}
+}
+
+// BeginTx starts a transaction on drv and answers with a driver that runs
+// through it, and with the transaction itself.
+//
+// It is how several clients come to share one transaction: build each of them
+// on the driver this answers with -- see the WithDriver method of a generated
+// client -- and every statement any of them issues is in it.
+//
+// The transaction is the caller's to commit or roll back, and nobody else's.
+// The driver is not it, and what the driver hands out when something asks it
+// for a transaction is a NopTx. That is not a nicety: ent ends a transaction
+// through whatever Driver.Tx returned, so a driver that returned the real one
+// would let any inner call's deferred Rollback throw away the work of the call
+// that wrapped it, and report success for it.
+//
+// The driver is not safe for concurrent use, because a transaction is not.
+func BeginTx(ctx context.Context, drv Driver) (Driver, Tx, error) {
+	tx, err := drv.Tx(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &txDriver{drv: drv, tx: tx}, tx, nil
+}
+
+// txDriver is a transaction wearing a driver's clothes.
+type txDriver struct {
+	// drv is the driver the transaction was begun from. It is kept for the
+	// dialect, which is a property of the connection rather than of the
+	// transaction, and which callers ask for through however many wrappers.
+	drv Driver
+	// tx is the transaction. Only the caller of BeginTx holds it as one; from
+	// here it is only ever read and written through.
+	tx Tx
+}
+
+var _ InTxDriver = (*txDriver)(nil)
+
+func (*txDriver) InTx() bool { return true }
+
+// Tx answers with a transaction that reads and writes through this one but
+// cannot end it. See BeginTx.
+func (d *txDriver) Tx(context.Context) (Tx, error) { return NopTx(d), nil }
+
+// Dialect is the dialect of the driver the transaction was begun from.
+func (d *txDriver) Dialect() string { return d.drv.Dialect() }
+
+// Close is a nop: the connection is not this driver's to close, and the
+// transaction is not this driver's to end.
+func (*txDriver) Close() error { return nil }
+
+func (d *txDriver) Exec(ctx context.Context, query string, args, v any) error {
+	return d.tx.Exec(ctx, query, args, v)
+}
+
+func (d *txDriver) Query(ctx context.Context, query string, args, v any) error {
+	return d.tx.Query(ctx, query, args, v)
+}
+
 // DebugDriver is a driver that logs all driver operations.
 type DebugDriver struct {
 	Driver                               // underlying driver.

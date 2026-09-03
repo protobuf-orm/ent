@@ -363,7 +363,7 @@ func (u *TweetUpsertOne) Ignore() *TweetUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetUpsertOne) DoNothing() *TweetUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -580,7 +580,7 @@ func (u *TweetUpsertBulk) Ignore() *TweetUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *TweetUpsertBulk) DoNothing() *TweetUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

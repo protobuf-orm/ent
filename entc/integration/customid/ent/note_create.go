@@ -313,7 +313,7 @@ func (u *NoteUpsertOne) Ignore() *NoteUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NoteUpsertOne) DoNothing() *NoteUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -549,7 +549,7 @@ func (u *NoteUpsertBulk) Ignore() *NoteUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *NoteUpsertBulk) DoNothing() *NoteUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

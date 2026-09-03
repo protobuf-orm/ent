@@ -176,6 +176,15 @@ func TestVersionedMigration(t *testing.T) {
 	if os.Getenv("CI") != "" {
 		t.Skip("skipping on CI")
 	}
+	// Skipped rather than fatal: log.Fatal takes the test binary with it, so
+	// a checkout without the CLI could not run the rest of this package
+	// either. CI skips this test outright, so absent is the ordinary case.
+	ac, err := atlasexec.NewClient(".", "atlas")
+	if err != nil {
+		t.Skipf("no atlas cli, and this test is one: %v", err)
+	}
+	// Registered after the skip, so a run that made no databases does not go
+	// looking for a server to drop them on.
 	t.Cleanup(func() {
 		db, err := sql.Open("mysql", "root:pass@tcp(localhost:3308)/")
 		require.NoError(t, err)
@@ -185,13 +194,6 @@ func TestVersionedMigration(t *testing.T) {
 			require.NoError(t, err, "drop database")
 		}
 	})
-	// Skipped rather than fatal: log.Fatal takes the test binary with it, so
-	// a checkout without the CLI could not run the rest of this package
-	// either. CI skips this test outright, so absent is the ordinary case.
-	ac, err := atlasexec.NewClient(".", "atlas")
-	if err != nil {
-		t.Skipf("no atlas cli, and this test is one: %v", err)
-	}
 	// Run `atlas migrate apply` on a SQLite database under /tmp.
 	res, err := ac.MigrateApply(context.Background(), &atlasexec.MigrateApplyParams{
 		URL:        "mysql://root:pass@:3308/",

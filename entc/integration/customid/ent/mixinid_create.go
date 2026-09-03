@@ -259,7 +259,7 @@ func (u *MixinIdUpsertOne) Ignore() *MixinIdUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *MixinIdUpsertOne) DoNothing() *MixinIdUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -502,7 +502,7 @@ func (u *MixinIdUpsertBulk) Ignore() *MixinIdUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *MixinIdUpsertBulk) DoNothing() *MixinIdUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

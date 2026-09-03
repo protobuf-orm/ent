@@ -267,7 +267,7 @@ func (u *RoleUpsertOne) Ignore() *RoleUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUpsertOne) DoNothing() *RoleUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -499,7 +499,7 @@ func (u *RoleUpsertBulk) Ignore() *RoleUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *RoleUpsertBulk) DoNothing() *RoleUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u

@@ -157,7 +157,7 @@ func (u *ApiUpsertOne) Ignore() *ApiUpsertOne {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ApiUpsertOne) DoNothing() *ApiUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
@@ -355,7 +355,7 @@ func (u *ApiUpsertBulk) Ignore() *ApiUpsertBulk {
 }
 
 // DoNothing configures the conflict_action to `DO NOTHING`.
-// Supported only by SQLite and PostgreSQL.
+// Supported only by SQLite and PostgreSql.
 func (u *ApiUpsertBulk) DoNothing() *ApiUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.DoNothing())
 	return u
