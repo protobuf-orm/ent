@@ -47,7 +47,7 @@ type CleanUser struct {
 // Annotations of the CleanUser.
 func (CleanUser) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		entsql.View("SELECT id, name FROM users"),
+		entsql.View("SELECT name FROM `user`"),
 		entsql.Schema("db1"),
 	}
 }

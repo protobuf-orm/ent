@@ -14,6 +14,7 @@ import (
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/schema"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent"
+	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/cleanuser"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/group"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/migrate"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/pet"
@@ -169,6 +170,33 @@ func TestMySql(t *testing.T) {
 		Where(group.HasUsersWith(user.Id(a8m.Id))).
 		CountX(ctx)
 	require.Equal(t, 1, got) // a8m was removed from GitHub above; only GitLab remains
+
+	// A view is declared like an entity, generated like a read-only one, and
+	// created by nobody. migrate.Tables carries no view -- only the `ent
+	// schema` command reaches Graph.Views -- and ent's inspection is
+	// table-level by design, so a view in the desired state would read as
+	// permanently missing. Putting it in the database is the app's to do,
+	// which is what this statement stands for. See issue #3.
+	//
+	// The name and the column are taken from the generated package rather than
+	// written out, since what the client will look for is what codegen decided
+	// and not what this test remembers. The SELECT is not: the one the schema
+	// declares in entsql.View reaches no code but `ent schema`, so nothing
+	// below would notice if it drifted -- which is half of what #3 is about.
+	_, err = db.DB().ExecContext(ctx, fmt.Sprintf(
+		"CREATE VIEW `db1`.`%s` (`%s`) AS SELECT `%s` FROM `db1`.`%s`",
+		cleanuser.Table, cleanuser.FieldName, user.FieldName, user.Table,
+	))
+	require.NoError(t, err)
+
+	// Which is the whole of what a view client is: the same rows, without the
+	// columns the view leaves out.
+	clean := client.CleanUser.Query().Order(cleanuser.ByName()).AllX(ctx)
+	seen := make([]string, len(clean))
+	for i, c := range clean {
+		seen[i] = c.Name
+	}
+	require.Equal(t, []string{"a8m", "be", "el", "nati", "ta"}, seen)
 }
 
 // TestSchemaConfigFromAnnotations is the other half of what TestMySql covers.
