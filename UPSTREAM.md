@@ -46,7 +46,9 @@ Then, in this order:
    [Names](#2-names-rewrite-mechanically).
 5. **Read the behaviour deltas.** These are the only conflicts that need
    thought. See [Behaviour](#4-behaviour-read-before-resolving).
-6. **Verify.** See [Verifying](#verifying).
+6. **Take none of their workflow.** `.github/` is ours, and one of their jobs
+   cannot pass here whatever it is named. See [CI](#6-ci-ours-not-theirs).
+7. **Verify.** See [Verifying](#verifying).
 
 `git status --porcelain` after a merge sorts the work for you:
 
@@ -74,7 +76,7 @@ template blocks, delete the references.
 | **The acronym dictionary** | `4965c66b7` | `AddAcronym` survives as something a caller *says*; the built-in list is empty. |
 | **Inflection** | `43618422d`, `9a09df53e` | No pluralize/singularize/camelize anywhere. |
 | **all-contributors** | `ab917d4a1` | |
-| **Upstream CI and the doc site** | `20f781224` | Our `.github/workflows/ci.yml` is ours; do not merge theirs. `doc/md/` is kept as reference prose, not as a published site. |
+| **Upstream CI and the doc site** | `20f781224`, `fdd769d62` | See [CI](#6-ci-ours-not-theirs) -- one of their jobs cannot pass here by construction. `doc/md/` is kept as reference prose, not as a published site. |
 
 ## 2. Names: rewrite mechanically
 
@@ -201,6 +203,61 @@ git add -A
 
 If the regenerated output still differs from what the feature needs, the bug is
 in a template, not in the merge.
+
+## 6. CI: ours, not theirs
+
+`.github/workflows/ci.yml` is ours. Take none of upstream's, and in particular
+do not restore the job below on the strength of its name.
+
+### The `migration` job does not test migrations
+
+Upstream runs a job called `migration` on every pull request. It is not about
+`entc/integration/migrate` or the `schema` package. It brings up fourteen
+engines, checks out `origin/master`, runs the whole integration suite to leave
+schemas behind, checks out the PR, and **runs the same suite again against the
+same databases**. What it asserts is that upgrading ent does not break a schema
+an earlier ent created.
+
+That assertion is one this fork gave up on purpose. Table names are the
+snake_case entity name and are not pluralized (`43618422d`), so a schema
+`origin/master` creates and one this code creates do not agree about the name
+of a single table. The job cannot pass, and dropping it was the point rather
+than an oversight (`fdd769d62`).
+
+Same commit, separately: the engine matrix went from fourteen servers to six.
+MySQL 5.6 and 5.7, MariaDB 10.2 to 10.4 and PostgreSQL 10 to 12 are versions
+upstream itself no longer supports, and eight PostgreSQL versions were eight
+runs of one code path. Six is also a number a desk can run, which is what makes
+a failure something you find before pushing.
+
+`20f781224` removed two more: `atlas-ci-public.yaml`, which needs an Ariga
+Atlas Cloud token, and `dependabot.yml`.
+
+### The migration tests themselves are all still here
+
+Nothing about migration was dropped -- only the upgrade-compatibility job. Do
+not "restore" these; they already run.
+
+| Tests | Where they run |
+|---|---|
+| `entc/integration/migrate` -- `V1ToV2`, check constraints, DB-side defaults, time precision, `Versioned`, `ConsistentVersioned` | the `integration` job, via `go test ./...`; MySql 8/8.4 and Postgres 14/17 |
+| `dialect/sql/schema/integration` -- `TestMigrate_Diff`, `TestAtlas_StateReader`, `TestAtlas_ParallelCreate` | the `unit` job, SQLite |
+
+### One real gap
+
+`TestVersionedMigration` (`entc/integration/multischema/multischema_test.go`)
+skips when `CI` is set, and skips again when the `atlas` binary is not on
+`PATH`. So the versioned-migration path *through the Atlas CLI* is verified
+nowhere -- CI declines it and a checkout without the CLI cannot run it. The
+Go-level versioned migration code is covered by `Versioned` and
+`ConsistentVersioned` in `entc/integration/migrate`; it is the CLI that is not.
+
+`fdd769d62` only changed how it declines: it used to call `log.Fatal`, which
+took the test binary with it and stopped the rest of that package from running
+anywhere the CLI was absent.
+
+Closing it means installing the CLI in the `integration` job and dropping the
+`CI` guard. That is a decision nobody has made, not a bug.
 
 ## Verifying
 
