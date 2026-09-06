@@ -14,13 +14,16 @@ import (
 	"context"
 	dbsql "database/sql"
 	"fmt"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent"
 	"github.com/protobuf-orm/ent/entc/integration/ent/enttest"
+	"github.com/protobuf-orm/ent/entc/integration/ent/license"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
@@ -62,9 +65,18 @@ func TestSQLite(t *testing.T) {
 func TestMySql(t *testing.T) {
 	for version, port := range map[string]int{"8": 3308, "84": 3309} {
 		t.Run(version, func(t *testing.T) {
-			drv, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/test?parseTime=True", port))
+			ctx := context.Background()
+			root, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/", port))
+			require.NoError(t, err)
+			defer root.Close()
+			require.NoError(t, root.Exec(ctx, "DROP DATABASE IF EXISTS enttime", []any{}, new(sql.Result)))
+			require.NoError(t, root.Exec(ctx, "CREATE DATABASE enttime", []any{}, new(sql.Result)))
+			defer root.Exec(ctx, "DROP DATABASE IF EXISTS enttime", []any{}, new(sql.Result))
+
+			drv, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/enttime?parseTime=True", port))
 			require.NoError(t, err)
 			defer drv.Close()
+
 			// Both of MySql's time columns, because they differ in a way that
 			// matters here: a timestamp is converted through the session's
 			// time_zone and a datetime is not.
@@ -75,15 +87,57 @@ func TestMySql(t *testing.T) {
 			// A connection that reads in a zone of its own, which is what a
 			// DSN with `loc` set asks for. The column still answers in UTC.
 			t.Run("reads UTC", func(t *testing.T) {
-				local, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/test?parseTime=True&loc=Asia%%2FSeoul", port))
+				local, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/enttime?parseTime=True&loc=Asia%%2FSeoul", port))
 				require.NoError(t, err)
 				defer local.Close()
-				ctx := context.Background()
 				require.NoError(t, local.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result)))
 				require.NoError(t, local.Exec(ctx, "CREATE TABLE enttime_read (at datetime NOT NULL)", []any{}, new(sql.Result)))
 				defer local.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result))
 				require.NoError(t, local.Exec(ctx, "INSERT INTO enttime_read (at) VALUES (?)", []any{at}, new(sql.Result)))
 				readsUTC(t, ctx, local, "SELECT at FROM enttime_read")
+			})
+
+			// What column a time field actually gets, and what that buys.
+			//
+			// A MySql timestamp is not a column so much as a conversion: what
+			// is written to one is read in the session's `time_zone` and
+			// stored as UTC, and converted back on the way out. The setting
+			// is not in any schema, defaults to the server's own zone, and
+			// two connections need not share it -- so the same row read on
+			// two connections is two instants, and ent's UTC is taken for
+			// whatever the session says. A datetime stores what it is given.
+			t.Run("the session's time_zone is not the column's", func(t *testing.T) {
+				client := ent.NewClient(ent.Driver(drv))
+				require.NoError(t, client.Schema.Create(ctx))
+
+				rows := &sql.Rows{}
+				require.NoError(t, drv.Query(ctx,
+					"SELECT data_type FROM information_schema.columns WHERE table_schema = 'enttime' AND table_name = ? AND column_name = ?",
+					[]any{license.Table, license.FieldCreateTime}, rows))
+				typ, err := sql.ScanString(rows)
+				require.NoError(t, err)
+				require.NoError(t, rows.Close())
+				require.Equal(t, "datetime", typ)
+
+				// Written on a connection whose session sits in one zone and
+				// read on one in another. On a timestamp the two answers
+				// would be eighteen hours apart.
+				//
+				// The zone is set in the DSN rather than with sql.WithVar
+				// because that resets a MySql variable by setting it to NULL,
+				// which `time_zone` refuses.
+				zoned := func(zone string) *ent.Client {
+					t.Helper()
+					d, err := sql.Open(dialect.MySql, fmt.Sprintf(
+						"root:pass@tcp(localhost:%d)/enttime?parseTime=True&time_zone=%s",
+						port, url.QueryEscape("'"+zone+"'"),
+					))
+					require.NoError(t, err)
+					t.Cleanup(func() { d.Close() })
+					return ent.NewClient(ent.Driver(d))
+				}
+				l := zoned("+09:00").License.Create().SetId(1).SetCreateTime(at).SetUpdateTime(at).SaveX(ctx)
+				require.Equal(t, at, zoned("-09:00").License.GetX(ctx, l.Id).CreateTime)
 			})
 		})
 	}
@@ -92,7 +146,16 @@ func TestMySql(t *testing.T) {
 func TestPostgres(t *testing.T) {
 	for version, port := range map[string]int{"14": 5434, "17": 5437} {
 		t.Run(version, func(t *testing.T) {
-			drv, err := sql.Open(dialect.Postgres, fmt.Sprintf("host=localhost port=%d user=postgres password=pass dbname=test sslmode=disable", port))
+			ctx := context.Background()
+			dsn := fmt.Sprintf("host=localhost port=%d user=postgres password=pass sslmode=disable", port)
+			root, err := sql.Open(dialect.Postgres, dsn)
+			require.NoError(t, err)
+			defer root.Close()
+			require.NoError(t, root.Exec(ctx, "DROP DATABASE IF EXISTS enttime", []any{}, nil))
+			require.NoError(t, root.Exec(ctx, "CREATE DATABASE enttime", []any{}, nil))
+			defer root.Exec(ctx, "DROP DATABASE IF EXISTS enttime", []any{}, nil)
+
+			drv, err := sql.Open(dialect.Postgres, dsn+" dbname=enttime")
 			require.NoError(t, err)
 			defer drv.Close()
 			for _, col := range []string{"timestamptz", "timestamp"} {
@@ -104,7 +167,7 @@ func TestPostgres(t *testing.T) {
 			// timestamptz comes back with that offset on it; the column still
 			// answers in UTC.
 			t.Run("reads UTC", func(t *testing.T) {
-				ctx := sql.WithVar(context.Background(), "TimeZone", "Asia/Seoul")
+				ctx := sql.WithVar(ctx, "TimeZone", "Asia/Seoul")
 				require.NoError(t, drv.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result)))
 				require.NoError(t, drv.Exec(ctx, "CREATE TABLE enttime_read (at timestamptz NOT NULL)", []any{}, new(sql.Result)))
 				defer drv.Exec(context.Background(), "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result))

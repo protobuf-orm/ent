@@ -314,17 +314,34 @@ func (i Inet) Value() (driver.Value, error) {
 }
 ```
 
-#### How to customize time fields to type `DATETIME` in MySQL?
+#### What column does a time field get, and how do I change it?
 
-`Time` fields use the MySQL `TIMESTAMP` type in the schema creation by default, and this type
- has a range of '1970-01-01 00:00:01' UTC to '2038-01-19 03:14:07' UTC (see, [MySQL docs](https://dev.mysql.com/doc/refman/5.6/en/datetime.html)).
+`Time` fields use the MySQL `DATETIME` type, the PostgreSQL `TIMESTAMPTZ` type and the SQLite
+`DATETIME` type, each with six fractional-second digits.
 
-In order to customize time fields for a wider range, use the MySQL `DATETIME` as follows:
+`DATETIME` rather than `TIMESTAMP` on MySQL because a `TIMESTAMP` is read and written through the
+session's `time_zone`, which no schema states, which defaults to the server's own zone, and which
+two connections need not share -- and because a `TIMESTAMP` ends in 2038 (see, [MySQL docs](https://dev.mysql.com/doc/refman/5.6/en/datetime.html)).
+ent writes times in UTC, and a `DATETIME` stores what it is given.
+
+Six digits because it is the most MySQL and PostgreSQL both hold, so it is where the engines can be
+made to agree. To say otherwise, use `Precision`:
+```go
+field.Time("birth_date").
+	Optional().
+	Precision(0),
+```
+
+Note that on MySQL a column's default has to state the same digits the column keeps, so a DB-side
+`CURRENT_TIMESTAMP` on a six-digit column is refused with "Invalid default value". Write it
+`CURRENT_TIMESTAMP(6)` there and plainly elsewhere, with `entsql.Annotation`'s `DefaultExprs`.
+
+To name a type per dialect instead, `SchemaType` still wins wherever it is set:
 ```go
 field.Time("birth_date").
 	Optional().
 	SchemaType(map[string]string{
-		dialect.MySQL: "datetime",
+		dialect.MySQL: "timestamp",
 	}),
 ```
 

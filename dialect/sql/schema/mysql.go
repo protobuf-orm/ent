@@ -189,13 +189,25 @@ func (d *MySql) atTypeC(c1 *Column, c2 *schema.Column) error {
 	case field.TypeFloat32, field.TypeFloat64:
 		t = &schema.FloatType{T: c1.scanTypeOr(mysql.TypeDouble)}
 	case field.TypeTime:
+		// A datetime rather than a timestamp, because a timestamp is not a
+		// column so much as a conversion. MySql reads what is written to one
+		// in the session's `time_zone` and converts it to UTC, then converts
+		// it back on the way out -- so what the column holds depends on a
+		// setting no schema states, that defaults to `SYSTEM` (the server's
+		// own zone), and that two connections need not share. ent writes UTC,
+		// which such a session takes for its own zone and shifts. A datetime
+		// stores what it was given. It also has no end in 2038.
+		//
 		// MySql stops at six fractional-second digits, so an ask for more is
 		// an ask for what it has.
-		t = &schema.TimeType{T: c1.scanTypeOr(mysql.TypeTimestamp), Precision: c1.timePrecisionOr(6)}
+		typ := c1.scanTypeOr(mysql.TypeDateTime)
+		t = &schema.TimeType{T: typ, Precision: c1.timePrecisionOr(6)}
 		// In MariaDB or in MySql < v8.0.2, the TIMESTAMP column has both `DEFAULT CURRENT_TIMESTAMP`
 		// and `ON UPDATE CURRENT_TIMESTAMP` if neither is specified explicitly. this behavior is
 		// suppressed if the column is defined with a `DEFAULT` clause or with the `NULL` attribute.
-		if _, maria := d.mariadb(); maria || compareVersions(d.version, "8.0.2") == -1 && c1.Default == nil {
+		// A DATETIME never had it, so this is reached only by a column that
+		// says timestamp for itself.
+		if _, maria := d.mariadb(); typ == mysql.TypeTimestamp && (maria || compareVersions(d.version, "8.0.2") == -1 && c1.Default == nil) {
 			c2.SetNull(c1.Attr == "")
 		}
 	case field.TypeEnum:
