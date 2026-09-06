@@ -7,11 +7,9 @@ package multischema
 import (
 	"context"
 	"fmt"
-	"os"
 	"slices"
 	"testing"
 
-	"ariga.io/atlas-go-sdk/atlasexec"
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/schema"
@@ -22,6 +20,7 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/user"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned"
 	vgroup "github.com/protobuf-orm/ent/entc/integration/multischema/versioned/group"
+	vmigrate "github.com/protobuf-orm/ent/entc/integration/multischema/versioned/migrate"
 	vpet "github.com/protobuf-orm/ent/entc/integration/multischema/versioned/pet"
 	vuser "github.com/protobuf-orm/ent/entc/integration/multischema/versioned/user"
 
@@ -172,43 +171,68 @@ func TestMySql(t *testing.T) {
 	require.Equal(t, 1, got) // a8m was removed from GitHub above; only GitLab remains
 }
 
-func TestVersionedMigration(t *testing.T) {
-	if os.Getenv("CI") != "" {
-		t.Skip("skipping on CI")
-	}
-	// Skipped rather than fatal: log.Fatal takes the test binary with it, so
-	// a checkout without the CLI could not run the rest of this package
-	// either. CI skips this test outright, so absent is the ordinary case.
-	ac, err := atlasexec.NewClient(".", "atlas")
-	if err != nil {
-		t.Skipf("no atlas cli, and this test is one: %v", err)
-	}
-	// Registered after the skip, so a run that made no databases does not go
-	// looking for a server to drop them on.
+// TestSchemaConfigFromAnnotations is the other half of what TestMySql covers.
+//
+// There are two ways a client learns which schema a table sits in. TestMySql
+// uses the one passed at runtime -- ent.AlternateSchema(cfg) -- and this uses
+// the one written down at codegen: the `versioned` package declares
+// entsql.Schema on its own schemas, so the mapping arrives as
+// versioned.DefaultSchemaConfig and no caller has to say it. Everything below
+// the setup is the same assertions as TestMySql, run through that client.
+//
+// The databases are built with ent's own DDL rather than by the Atlas CLI,
+// which is what this test used to do. The CLI cannot read this fork's schemas
+// at all -- `atlas migrate diff --to ent://...` shells out to
+// `entgo.io/ent/cmd/ent`, a module path that is not ours -- so the checked-in
+// migration directory it applied could not be regenerated after the rename
+// pass, and had gone stale in four ways at once: `pets` for `pet`, `friend_id`
+// for `friends_id`, `friendship_user_id_friend_id` for
+// `friendship_user_id_friends_id`, `pets_users_pets` for `pet_user_pets`. It
+// was invisible because the test skipped everywhere.
+//
+// What ent does with a versioned migration -- planning, applying and recording
+// revisions, with no CLI in it -- is dialect/sql/schema/versioned.go, covered
+// by dialect/sql/schema/integration and by Versioned in entc/integration/migrate.
+func TestSchemaConfigFromAnnotations(t *testing.T) {
+	db, err := sql.Open("mysql", "root:pass@tcp(localhost:3308)/?parseTime=true&multiStatements=true")
+	require.NoError(t, err)
+	ctx := context.Background()
 	t.Cleanup(func() {
-		db, err := sql.Open("mysql", "root:pass@tcp(localhost:3308)/")
-		require.NoError(t, err)
-		defer db.Close()
-		for _, name := range []string{"db1", "db2", "db3", "atlas_schema_revisions"} {
-			_, err := db.ExecContext(context.Background(), fmt.Sprintf("DROP DATABASE IF EXISTS `%s`", name))
-			require.NoError(t, err, "drop database")
+		db.ExecContext(ctx, "SET foreign_key_checks = 0")
+		for _, name := range []string{"db1", "db2", "db3"} {
+			db.ExecContext(ctx, fmt.Sprintf("DROP DATABASE IF EXISTS `%s`", name))
 		}
+		db.ExecContext(ctx, "SET foreign_key_checks = 1")
+		db.Close()
 	})
-	// Run `atlas migrate apply` on a SQLite database under /tmp.
-	res, err := ac.MigrateApply(context.Background(), &atlasexec.MigrateApplyParams{
-		URL:        "mysql://root:pass@:3308/",
-		AllowDirty: true,
-	})
-	require.NoError(t, err, "apply migrations")
-	if len(res.Applied) > 0 {
-		t.Logf("Applied %d migrations", len(res.Applied))
+
+	// The generated migrate tables carry no schema of their own -- the
+	// annotation reaches the client, not the DDL -- so the placement is taken
+	// from the client's own answer rather than written a second time here.
+	cfg := versioned.DefaultSchemaConfig
+	for tbl, name := range map[*schema.Table]string{
+		vmigrate.FriendshipTable:    cfg.Friendship,
+		vmigrate.GroupTable:         cfg.Group,
+		vmigrate.GroupUsersTable:    cfg.GroupUsers,
+		vmigrate.PetTable:           cfg.Pet,
+		vmigrate.UserTable:          cfg.User,
+		vmigrate.UserFollowingTable: cfg.UserFollowing,
+	} {
+		require.NotEmpty(t, name, "table %q has no schema in DefaultSchemaConfig", tbl.Name)
+		tbl.Schema = name
 	}
+	pl, err := schema.Dump(ctx, dialect.MySql, "8.0.19", vmigrate.Tables)
+	require.NoError(t, err)
+	_, err = db.ExecContext(ctx, pl)
+	require.NoError(t, err)
+
+	// No default database on the connection: every table is qualified by the
+	// config, which is the point.
 	client, err := versioned.Open("mysql", "root:pass@tcp(localhost:3308)/?parseTime=true")
 	require.NoError(t, err)
 	defer client.Close()
 
 	// Copy of the test above.
-	ctx := context.Background()
 	pedro := client.Pet.Create().SetName("Pedro").SaveX(ctx)
 	groups := client.Group.CreateBulk(
 		client.Group.Create().SetName("GitHub"),
