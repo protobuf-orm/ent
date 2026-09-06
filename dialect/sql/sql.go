@@ -398,9 +398,9 @@ func OrderByRand() func(*Selector) {
 		s.OrderExprFunc(func(b *Builder) {
 			switch s.Dialect() {
 			case dialect.MySql:
-				b.WriteString("RAND()")
+				b.S("RAND()")
 			default:
-				b.WriteString("RANDOM()")
+				b.S("RANDOM()")
 			}
 		})
 	}
@@ -411,14 +411,14 @@ func OrderByRand() func(*Selector) {
 func (f *OrderFieldTerm) ToFunc() func(*Selector) {
 	return func(s *Selector) {
 		s.OrderExprFunc(func(b *Builder) {
-			b.WriteString(s.C(f.Field))
+			b.S(s.C(f.Field))
 			if f.Desc {
-				b.WriteString(" DESC")
+				b.S(" DESC")
 			}
 			if f.NullsFirst {
-				b.WriteString(" NULLS FIRST")
+				b.S(" NULLS FIRST")
 			} else if f.NullsLast {
-				b.WriteString(" NULLS LAST")
+				b.S(" NULLS LAST")
 			}
 		})
 	}

@@ -193,7 +193,7 @@ func NameGlob(pattern string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.P(func(b *sql.Builder) {
 			b.Ident(s.C(FieldName))
-			b.WriteString(" glob ")
+			b.S(" glob ")
 			b.Arg(pattern)
 		}))
 	})

@@ -666,7 +666,7 @@ func Select(t *testing.T, client *ent.Client) {
 	dlen := client.Pet.Query().
 		Modify(func(s *sql.Selector) {
 			s.SelectExpr(sql.ExprFunc(func(b *sql.Builder) {
-				b.WriteString("LENGTH(name)").WriteOp(sql.OpMul).Arg(2)
+				b.S("LENGTH(name)").WriteOp(sql.OpMul).Arg(2)
 			}))
 		}).
 		IntsX(ctx)

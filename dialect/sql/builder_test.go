@@ -165,7 +165,7 @@ func TestBuilder(t *testing.T) {
 			input: Dialect(dialect.Postgres).Update("users").
 				Set("active", false).
 				Where(P(func(b *Builder) {
-					b.Ident("name").WriteString(" SIMILAR TO ").Arg("(b|c)%")
+					b.Ident("name").S(" SIMILAR TO ").Arg("(b|c)%")
 				})),
 			wantQuery: `UPDATE "users" SET "active" = $1 WHERE "name" SIMILAR TO $2`,
 			wantArgs:  []any{false, "(b|c)%"},
@@ -1357,7 +1357,7 @@ func TestBuilder(t *testing.T) {
 				Select("*").
 				From(Table("test")).
 				Where(P(func(b *Builder) {
-					b.WriteString("nlevel(").Ident("path").WriteByte(')').WriteOp(OpGT).Arg(1)
+					b.S("nlevel(").Ident("path").B(')').WriteOp(OpGT).Arg(1)
 				})),
 			wantQuery: `SELECT * FROM "test" WHERE nlevel("path") > $1`,
 			wantArgs:  []any{1},
@@ -1367,7 +1367,7 @@ func TestBuilder(t *testing.T) {
 				Select("*").
 				From(Table("test")).
 				Where(P(func(b *Builder) {
-					b.WriteString("nlevel(").Ident("path").WriteByte(')').WriteOp(OpGT).Arg(1)
+					b.S("nlevel(").Ident("path").B(')').WriteOp(OpGT).Arg(1)
 				})),
 			wantQuery: `SELECT * FROM "test" WHERE nlevel("path") > $1`,
 			wantArgs:  []any{1},
@@ -1381,7 +1381,7 @@ func TestBuilder(t *testing.T) {
 			input: Select("id").
 				From(Table("users")).
 				Where(P(func(b *Builder) {
-					b.WriteString("DATE(").Ident("last_login_at").WriteString(") >= ").Arg("2022-05-03")
+					b.S("DATE(").Ident("last_login_at").S(") >= ").Arg("2022-05-03")
 				})),
 			wantQuery: "SELECT `id` FROM `users` WHERE DATE(`last_login_at`) >= ?",
 			wantArgs:  []any{"2022-05-03"},
@@ -1395,7 +1395,7 @@ func TestBuilder(t *testing.T) {
 			input: Select("id").
 				From(Table("events")).
 				Where(P(func(b *Builder) {
-					b.WriteString("DATE_ADD(date, INTERVAL duration MINUTE) BETWEEN ").Arg("2022-05-03").WriteString(" AND ").Arg("2022-05-04")
+					b.S("DATE_ADD(date, INTERVAL duration MINUTE) BETWEEN ").Arg("2022-05-03").S(" AND ").Arg("2022-05-04")
 				})),
 			wantQuery: "SELECT `id` FROM `events` WHERE DATE_ADD(date, INTERVAL duration MINUTE) BETWEEN ? AND ?",
 			wantArgs:  []any{"2022-05-03", "2022-05-04"},
@@ -1515,10 +1515,10 @@ func TestSelector_OrderByExpr(t *testing.T) {
 		Where(GT("age", 28)).
 		OrderBy("name").
 		OrderExpr(ExprFunc(func(b *Builder) {
-			b.WriteString("CASE")
-			b.WriteString(" WHEN ").Ident("id").WriteOp(OpEQ).Arg(1).WriteString(" THEN ").Ident("id")
-			b.WriteString(" WHEN ").Ident("id").WriteOp(OpEQ).Arg(2).WriteString(" THEN ").Ident("name")
-			b.WriteString(" END DESC")
+			b.S("CASE")
+			b.S(" WHEN ").Ident("id").WriteOp(OpEQ).Arg(1).S(" THEN ").Ident("id")
+			b.S(" WHEN ").Ident("id").WriteOp(OpEQ).Arg(2).S(" THEN ").Ident("name")
+			b.S(" END DESC")
 		})).
 		Query()
 	require.Equal(t, `SELECT * FROM "users" WHERE "age" > $1 ORDER BY "name", CASE WHEN "id" = $2 THEN "id" WHEN "id" = $3 THEN "name" END DESC`, query)
@@ -1543,7 +1543,7 @@ func TestSelector_SelectExpr(t *testing.T) {
 			b.Ident("first_name").WriteOp(OpAdd).Ident("last_name")
 		}),
 		ExprFunc(func(b *Builder) {
-			b.WriteString("COALESCE(").Ident("age").Comma().Arg(0).WriteByte(')')
+			b.S("COALESCE(").Ident("age").Comma().Arg(0).B(')')
 		}),
 		Expr("?", "b"),
 	).From(Table("users")).Query()
@@ -1556,11 +1556,11 @@ func TestSelector_SelectExpr(t *testing.T) {
 			Expr("age + $1", 1),
 			ExprFunc(func(b *Builder) {
 				b.Wrap(func(b *Builder) {
-					b.WriteString("similarity(").Ident("name").Comma().Arg("A").WriteByte(')')
+					b.S("similarity(").Ident("name").Comma().Arg("A").B(')')
 					b.WriteOp(OpAdd)
-					b.WriteString("similarity(").Ident("desc").Comma().Arg("D").WriteByte(')')
+					b.S("similarity(").Ident("desc").Comma().Arg("D").B(')')
 				})
-				b.WriteString(" AS s")
+				b.S(" AS s")
 			}),
 			Expr("rank + $4", 10),
 		).
@@ -1872,10 +1872,10 @@ func TestUpdateBuilder_SetExpr(t *testing.T) {
 		Set("active", Expr("NOT(active)")).
 		Set("age", Expr(excluded.C("age"))).
 		Set("x", ExprFunc(func(b *Builder) {
-			b.WriteString(excluded.C("x")).WriteString(" || ' (formerly ' || ").Ident("x").WriteString(" || ')'")
+			b.S(excluded.C("x")).S(" || ' (formerly ' || ").Ident("x").S(" || ')'")
 		})).
 		Set("y", ExprFunc(func(b *Builder) {
-			b.Arg("~").WriteOp(OpAdd).WriteString(excluded.C("y")).WriteOp(OpAdd).Arg("~")
+			b.Arg("~").WriteOp(OpAdd).S(excluded.C("y")).WriteOp(OpAdd).Arg("~")
 		})).
 		Query()
 	require.Equal(t, `UPDATE "users" SET "name" = $1, "active" = NOT(active), "age" = "excluded"."age", "x" = "excluded"."x" || ' (formerly ' || "x" || ')', "y" = $2 + "excluded"."y" + $3`, query)
@@ -2174,7 +2174,7 @@ func TestWindowFunction_Select(t *testing.T) {
 		AppendSelect("*").
 		AppendSelectExprAs(
 			Window(func(b *Builder) {
-				b.WriteString(Sum(posts.C("duration")))
+				b.S(Sum(posts.C("duration")))
 			}).PartitionBy("author_id").OrderBy("id"), "duration").
 		From(posts)
 
@@ -2211,7 +2211,7 @@ func TestUpdateBuilder_WithPrefix(t *testing.T) {
 	u := Dialect(dialect.MySql).
 		Update("users").
 		Prefix(ExprFunc(func(b *Builder) {
-			b.WriteString("SET @i = ").Arg(1).WriteByte(';')
+			b.S("SET @i = ").Arg(1).B(';')
 		})).
 		Set("id", Expr("(@i:=@i+1)")).
 		OrderBy("id")
@@ -2237,7 +2237,7 @@ func TestMultipleFrom(t *testing.T) {
 		From(Table("items")).
 		AppendFrom(Table("to_tsquery('neutrino|(dark & matter)')").As("search_query")).
 		Where(P(func(b *Builder) {
-			b.WriteString("search @@ search_query")
+			b.S("search @@ search_query")
 		})).
 		OrderBy(Desc("rank")).
 		Query()
@@ -2249,7 +2249,7 @@ func TestMultipleFrom(t *testing.T) {
 		From(Table("items")).
 		AppendFromExpr(Expr("to_tsquery($1) AS search_query", "neutrino|(dark & matter)")).
 		Where(P(func(b *Builder) {
-			b.WriteString("search @@ search_query")
+			b.S("search @@ search_query")
 		})).
 		Query()
 	require.Equal(t, []any{"neutrino|(dark & matter)"}, args)
@@ -2260,10 +2260,10 @@ func TestMultipleFrom(t *testing.T) {
 		From(Table("items")).
 		Where(EQ("value", 10)).
 		AppendFromExpr(ExprFunc(func(b *Builder) {
-			b.WriteString("to_tsquery(").Arg("neutrino|(dark & matter)").WriteString(") AS search_query")
+			b.S("to_tsquery(").Arg("neutrino|(dark & matter)").S(") AS search_query")
 		})).
 		Where(P(func(b *Builder) {
-			b.WriteString("search @@ search_query")
+			b.S("search @@ search_query")
 		})).
 		Query()
 	require.Equal(t, []any{"neutrino|(dark & matter)", 10}, args)
@@ -2273,9 +2273,9 @@ func TestMultipleFrom(t *testing.T) {
 func TestFormattedColumnFromSubQuery(t *testing.T) {
 	q := Select("*").From(Select("*").AppendSelectExprAs(P(func(b *Builder) {
 		b.SetDialect(dialect.Postgres)
-		b.WriteString("calculate_score")
+		b.S("calculate_score")
 		b.Wrap(func(bb *Builder) {
-			bb.WriteString(Table("table_name").C("field_name")).Comma().Args("test")
+			bb.S(Table("table_name").C("field_name")).Comma().Args("test")
 		})
 	}), "score").From(Table("table_name").As("table_name_alias")))
 	require.Equal(t, "`table_name_alias`.`score`", q.C("score"))

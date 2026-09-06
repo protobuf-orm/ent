@@ -678,7 +678,7 @@ func NicknameSearch(t *testing.T, client *entv2.Client) {
 	names := client.User.Query().
 		Where(func(s *sql.Selector) {
 			s.Where(sql.P(func(b *sql.Builder) {
-				b.WriteString("MATCH(").Ident(user.FieldNickname).WriteString(") AGAINST(").Arg("nick_bar | nick_foo").WriteString(")")
+				b.S("MATCH(").Ident(user.FieldNickname).S(") AGAINST(").Arg("nick_bar | nick_foo").S(")")
 			}))
 		}).
 		Unique(true).

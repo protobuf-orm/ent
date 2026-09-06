@@ -120,6 +120,7 @@ A name that is not ours keeps the spelling its own author chose. This covers:
 | `field.UUID`, `field.TypeUUID` | `field.Uuid`, `field.TypeUuid` |
 | `field.JSON`, `field.TypeJSON` | `field.Json`, `field.TypeJson` |
 | `entgo.io/ent` | `github.com/protobuf-orm/ent` (`6f0bc7e08`) |
+| `sql.Builder.WriteString`, `.WriteByte` | `.S`, `.B` -- both borrowed a standard interface's name without its signature (`io.StringWriter`, `io.ByteWriter`), so neither answered to the interface it was named for |
 
 `dialect.SQLite` and `dialect.Postgres` are unchanged.
 

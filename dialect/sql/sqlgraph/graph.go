@@ -477,7 +477,7 @@ func orderTerms(q, join *sql.Selector, ts []sql.OrderTerm) {
 			// Write the ORDER BY term.
 			switch {
 			case orderC != "":
-				b.WriteString(orderC)
+				b.S(orderC)
 			case orderX != nil:
 				b.Join(orderX(join))
 			}
@@ -485,16 +485,16 @@ func orderTerms(q, join *sql.Selector, ts []sql.OrderTerm) {
 			// we need to explicitly order NULLs first on ASC and last on DESC unless specified otherwise.
 			switch normalizePG := b.Dialect() == dialect.Postgres && !nullsfirst && !nullslast; {
 			case normalizePG && desc:
-				b.WriteString(" DESC NULLS LAST")
+				b.S(" DESC NULLS LAST")
 			case normalizePG:
-				b.WriteString(" NULLS FIRST")
+				b.S(" NULLS FIRST")
 			case desc:
-				b.WriteString(" DESC")
+				b.S(" DESC")
 			}
 			if nullsfirst {
-				b.WriteString(" NULLS FIRST")
+				b.S(" NULLS FIRST")
 			} else if nullslast {
-				b.WriteString(" NULLS LAST")
+				b.S(" NULLS LAST")
 			}
 		})
 	}

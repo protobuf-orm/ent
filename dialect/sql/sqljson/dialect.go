@@ -19,18 +19,18 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 	setCase(u, column, when{
 		Cond: func(b *sql.Builder) {
 			typ := func(b *sql.Builder) *sql.Builder {
-				return b.WriteString("Json_TYPE").Wrap(func(b *sql.Builder) {
+				return b.S("Json_TYPE").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
 				})
 			}
 			typ(b).WriteOp(sql.OpIsNull)
-			b.WriteString(" OR ")
-			typ(b).WriteOp(sql.OpEQ).WriteString("'null'")
+			b.S(" OR ")
+			typ(b).WriteOp(sql.OpEQ).S("'null'")
 		},
 		Then: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("Json_SET").Wrap(func(b *sql.Builder) {
+				b.S("Json_SET").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
 					b.Comma().Argf("Json(?)", marshalArg(elems))
@@ -40,11 +40,11 @@ func (d *sqlite) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 			}
 		},
 		Else: func(b *sql.Builder) {
-			b.WriteString("Json_INSERT").Wrap(func(b *sql.Builder) {
+			b.S("Json_INSERT").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				// If no path was provided the top-level value is
 				// a JSON array. i.e. Json_INSERT(c, '$[#]', ?).
-				path := func(b *sql.Builder) { b.WriteString("'$[#]'") }
+				path := func(b *sql.Builder) { b.S("'$[#]'") }
 				if len(opts) > 0 {
 					p := identPath(column, opts...)
 					p.Path = append(p.Path, "[#]")
@@ -79,28 +79,28 @@ func (d *mysql) Append(u *sql.UpdateBuilder, column string, elems []any, opts ..
 	setCase(u, column, when{
 		Cond: func(b *sql.Builder) {
 			typ := func(b *sql.Builder) *sql.Builder {
-				b.WriteString("Json_TYPE(Json_EXTRACT(")
+				b.S("Json_TYPE(Json_EXTRACT(")
 				b.Ident(column).Comma()
 				identPath(column, opts...).mysqlPath(b)
-				return b.WriteString("))")
+				return b.S("))")
 			}
 			typ(b).WriteOp(sql.OpIsNull)
-			b.WriteString(" OR ")
-			typ(b).WriteOp(sql.OpEQ).WriteString("'NULL'")
+			b.S(" OR ")
+			typ(b).WriteOp(sql.OpEQ).S("'NULL'")
 		},
 		Then: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("Json_SET").Wrap(func(b *sql.Builder) {
+				b.S("Json_SET").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).mysqlPath(b)
-					b.Comma().WriteString("Json_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
+					b.Comma().S("Json_ARRAY(").Args(d.marshalArgs(elems)...).B(')')
 				})
 			} else {
-				b.WriteString("Json_ARRAY(").Args(d.marshalArgs(elems)...).WriteByte(')')
+				b.S("Json_ARRAY(").Args(d.marshalArgs(elems)...).B(')')
 			}
 		},
 		Else: func(b *sql.Builder) {
-			b.WriteString("Json_ARRAY_APPEND").Wrap(func(b *sql.Builder) {
+			b.S("Json_ARRAY_APPEND").Wrap(func(b *sql.Builder) {
 				b.Ident(column).Comma()
 				for i, e := range elems {
 					if i > 0 {
@@ -143,17 +143,17 @@ func (*postgres) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 		Cond: func(b *sql.Builder) {
 			valuePath(b, column, append(opts, Cast("jsonb"))...)
 			b.WriteOp(sql.OpIsNull)
-			b.WriteString(" OR ")
+			b.S(" OR ")
 			valuePath(b, column, append(opts, Cast("jsonb"))...)
-			b.WriteOp(sql.OpEQ).WriteString("'null'::jsonb")
+			b.WriteOp(sql.OpEQ).S("'null'::jsonb")
 		},
 		Then: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("jsonb_set").Wrap(func(b *sql.Builder) {
+				b.S("jsonb_set").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).pgArrayPath(b)
 					b.Comma().Arg(marshalArg(elems))
-					b.Comma().WriteString("true")
+					b.Comma().S("true")
 				})
 			} else {
 				b.Arg(marshalArg(elems))
@@ -161,17 +161,17 @@ func (*postgres) Append(u *sql.UpdateBuilder, column string, elems []any, opts .
 		},
 		Else: func(b *sql.Builder) {
 			if len(opts) > 0 {
-				b.WriteString("jsonb_set").Wrap(func(b *sql.Builder) {
+				b.S("jsonb_set").Wrap(func(b *sql.Builder) {
 					b.Ident(column).Comma()
 					identPath(column, opts...).pgArrayPath(b)
 					b.Comma()
 					path := identPath(column, opts...)
 					path.value(b)
-					b.WriteString(" || ").Arg(marshalArg(elems))
-					b.Comma().WriteString("true")
+					b.S(" || ").Arg(marshalArg(elems))
+					b.Comma().S("true")
 				})
 			} else {
-				b.Ident(column).WriteString(" || ").Arg(marshalArg(elems))
+				b.Ident(column).S(" || ").Arg(marshalArg(elems))
 			}
 		},
 	})
@@ -202,14 +202,14 @@ type when struct{ Cond, Then, Else func(*sql.Builder) }
 // and 'f' defines the false (else).
 func setCase(u *sql.UpdateBuilder, column string, w when) {
 	u.Set(column, sql.ExprFunc(func(b *sql.Builder) {
-		b.WriteString("CASE WHEN ").Wrap(func(b *sql.Builder) {
+		b.S("CASE WHEN ").Wrap(func(b *sql.Builder) {
 			w.Cond(b)
 		})
-		b.WriteString(" THEN ")
+		b.S(" THEN ")
 		w.Then(b)
-		b.WriteString(" ELSE ")
+		b.S(" ELSE ")
 		w.Else(b)
-		b.WriteString(" END")
+		b.S(" END")
 	}))
 }
 

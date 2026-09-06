@@ -57,7 +57,7 @@ func (c *ColumnBuilder) Type(t string) *ColumnBuilder {
 func (c *ColumnBuilder) Query() (string, []any) {
 	c.Ident(c.name)
 	if c.typ != "" {
-		c.Pad().WriteString(c.typ)
+		c.Pad().S(c.typ)
 	}
 	return c.String(), c.args
 }
@@ -122,16 +122,16 @@ func (v *ViewBuilder) As(as Querier) *ViewBuilder {
 //
 //	(view definition)
 func (v *ViewBuilder) Query() (string, []any) {
-	v.WriteString("CREATE VIEW ")
+	v.S("CREATE VIEW ")
 	if v.exists {
-		v.WriteString("IF NOT EXISTS ")
+		v.S("IF NOT EXISTS ")
 	}
 	v.writeSchema(v.schema)
 	v.Ident(v.name)
 	if len(v.columns) > 0 {
 		v.Pad().Wrap(func(b *Builder) { b.JoinComma(v.columns...) })
 	}
-	v.WriteString(" AS ")
+	v.S(" AS ")
 	v.Join(v.as)
 	return v.String(), v.args
 }
@@ -423,7 +423,7 @@ func (u *UpdateSet) SetExcluded(name string) *UpdateSet {
 	switch u.UpdateBuilder.Dialect() {
 	case dialect.MySql:
 		u.UpdateBuilder.Set(name, ExprFunc(func(b *Builder) {
-			b.WriteString("VALUES(").Ident(name).WriteByte(')')
+			b.S("VALUES(").Ident(name).B(')')
 		}))
 	default:
 		t := Dialect(u.UpdateBuilder.dialect).Table("excluded")
@@ -442,19 +442,19 @@ func (i *InsertBuilder) Query() (string, []any) {
 // statement and any error occurred in building the statement.
 func (i *InsertBuilder) QueryErr() (string, []any, error) {
 	b := i.Builder.clone()
-	b.WriteString("INSERT INTO ")
+	b.S("INSERT INTO ")
 	b.writeSchema(i.schema)
 	b.Ident(i.table).Pad()
 	if i.defaults && len(i.columns) == 0 {
 		i.writeDefault(&b)
 	} else {
-		b.WriteByte('(').IdentComma(i.columns...).WriteByte(')')
-		b.WriteString(" VALUES ")
+		b.B('(').IdentComma(i.columns...).B(')')
+		b.S(" VALUES ")
 		for j, v := range i.values {
 			if j > 0 {
 				b.Comma()
 			}
-			b.WriteByte('(').Args(v...).WriteByte(')')
+			b.B('(').Args(v...).B(')')
 		}
 	}
 	if i.conflict != nil {
@@ -467,39 +467,39 @@ func (i *InsertBuilder) QueryErr() (string, []any, error) {
 func (i *InsertBuilder) writeDefault(b *Builder) {
 	switch i.Dialect() {
 	case dialect.MySql:
-		b.WriteString("VALUES ()")
+		b.S("VALUES ()")
 	case dialect.SQLite, dialect.Postgres:
-		b.WriteString("DEFAULT VALUES")
+		b.S("DEFAULT VALUES")
 	}
 }
 
 func (i *InsertBuilder) writeConflict(b *Builder) {
 	switch i.Dialect() {
 	case dialect.MySql:
-		b.WriteString(" ON DUPLICATE KEY UPDATE ")
+		b.S(" ON DUPLICATE KEY UPDATE ")
 		// Fallback to ResolveWithIgnore() as MySql
 		// does not support the "DO NOTHING" clause.
 		if i.conflict.action.nothing {
 			i.OnConflict(ResolveWithIgnore())
 		}
 	case dialect.SQLite, dialect.Postgres:
-		b.WriteString(" ON CONFLICT")
+		b.S(" ON CONFLICT")
 		switch t := i.conflict.target; {
 		case t.constraint != "" && len(t.columns) != 0:
 			b.AddError(fmt.Errorf("duplicate CONFLICT clauses: %q, %q", t.constraint, t.columns))
 		case t.constraint != "":
-			b.WriteString(" ON CONSTRAINT ").Ident(t.constraint)
+			b.S(" ON CONSTRAINT ").Ident(t.constraint)
 		case len(t.columns) != 0:
-			b.WriteString(" (").IdentComma(t.columns...).WriteByte(')')
+			b.S(" (").IdentComma(t.columns...).B(')')
 		}
 		if p := i.conflict.target.where; p != nil {
-			b.WriteString(" WHERE ").Join(p)
+			b.S(" WHERE ").Join(p)
 		}
 		if i.conflict.action.nothing {
-			b.WriteString(" DO NOTHING")
+			b.S(" DO NOTHING")
 			return
 		}
-		b.WriteString(" DO UPDATE SET ")
+		b.S(" DO UPDATE SET ")
 	}
 	if len(i.conflict.action.update) == 0 {
 		b.AddError(errors.New("missing action for 'DO UPDATE SET' clause"))
@@ -512,7 +512,7 @@ func (i *InsertBuilder) writeConflict(b *Builder) {
 	u.writeSetter(b)
 	if p := i.conflict.action.where; p != nil {
 		p.qualifier = i.table
-		b.WriteString(" WHERE ").Join(p)
+		b.S(" WHERE ").Join(p)
 	}
 }
 
@@ -561,11 +561,11 @@ func (u *UpdateBuilder) Set(column string, v any) *UpdateBuilder {
 func (u *UpdateBuilder) Add(column string, v any) *UpdateBuilder {
 	u.columns = append(u.columns, column)
 	u.values = append(u.values, ExprFunc(func(b *Builder) {
-		b.WriteString("COALESCE")
+		b.S("COALESCE")
 		b.Wrap(func(b *Builder) {
-			b.Ident(Table(u.table).C(column)).Comma().WriteByte('0')
+			b.Ident(Table(u.table).C(column)).Comma().B('0')
 		})
-		b.WriteString(" + ")
+		b.S(" + ")
 		b.Arg(v)
 	}))
 	return u
@@ -645,19 +645,19 @@ func (u *UpdateBuilder) Query() (string, []any) {
 		b.join(u.prefix, " ")
 		b.Pad()
 	}
-	b.WriteString("UPDATE ")
+	b.S("UPDATE ")
 	b.writeSchema(u.schema)
-	b.Ident(u.table).WriteString(" SET ")
+	b.Ident(u.table).S(" SET ")
 	u.writeSetter(&b)
 	if u.where != nil {
-		b.WriteString(" WHERE ")
+		b.S(" WHERE ")
 		b.Join(u.where)
 	}
 	joinReturning(u.returning, &b)
 	joinOrder(u.order, &b)
 	if u.limit != nil {
-		b.WriteString(" LIMIT ")
-		b.WriteString(strconv.Itoa(*u.limit))
+		b.S(" LIMIT ")
+		b.S(strconv.Itoa(*u.limit))
 	}
 	return b.String(), b.args
 }
@@ -668,7 +668,7 @@ func (u *UpdateBuilder) writeSetter(b *Builder) {
 		if i > 0 {
 			b.Comma()
 		}
-		b.Ident(c).WriteString(" = NULL")
+		b.Ident(c).S(" = NULL")
 	}
 	if len(u.nulls) > 0 && len(u.columns) > 0 {
 		b.Comma()
@@ -677,7 +677,7 @@ func (u *UpdateBuilder) writeSetter(b *Builder) {
 		if i > 0 {
 			b.Comma()
 		}
-		b.Ident(c).WriteString(" = ")
+		b.Ident(c).S(" = ")
 		switch v := u.values[i].(type) {
 		case Querier:
 			b.Join(v)
@@ -737,11 +737,11 @@ func (d *DeleteBuilder) FromSelect(s *Selector) *DeleteBuilder {
 
 // Query returns query representation of a `DELETE` statement.
 func (d *DeleteBuilder) Query() (string, []any) {
-	d.WriteString("DELETE FROM ")
+	d.S("DELETE FROM ")
 	d.writeSchema(d.schema)
 	d.Ident(d.table)
 	if d.where != nil {
-		d.WriteString(" WHERE ")
+		d.S(" WHERE ")
 		d.Join(d.where)
 	}
 	return d.String(), d.args
@@ -790,7 +790,7 @@ func False() *Predicate {
 // False appends FALSE to the predicate.
 func (p *Predicate) False() *Predicate {
 	return p.Append(func(b *Builder) {
-		b.WriteString("FALSE")
+		b.S("FALSE")
 	})
 }
 
@@ -808,7 +808,7 @@ func Not(pred *Predicate) *Predicate {
 // Not appends NOT to the predicate.
 func (p *Predicate) Not() *Predicate {
 	return p.Append(func(b *Builder) {
-		b.WriteString("NOT ")
+		b.S("NOT ")
 	})
 }
 
@@ -854,7 +854,7 @@ func IsFalse(col string) *Predicate {
 // IsFalse appends a predicate that checks if the column value is falsey.
 func (p *Predicate) IsFalse(col string) *Predicate {
 	return p.Append(func(b *Builder) {
-		b.WriteString("NOT ").Ident(col)
+		b.S("NOT ").Ident(col)
 	})
 }
 
@@ -1030,7 +1030,7 @@ func NotNull(col string) *Predicate {
 // NotNull appends the `IS NOT NULL` predicate.
 func (p *Predicate) NotNull(col string) *Predicate {
 	return p.Append(func(b *Builder) {
-		b.Ident(col).WriteString(" IS NOT NULL")
+		b.Ident(col).S(" IS NOT NULL")
 	})
 }
 
@@ -1042,7 +1042,7 @@ func IsNull(col string) *Predicate {
 // IsNull appends the `IS NULL` predicate.
 func (p *Predicate) IsNull(col string) *Predicate {
 	return p.Append(func(b *Builder) {
-		b.Ident(col).WriteString(" IS NULL")
+		b.Ident(col).S(" IS NULL")
 	})
 }
 
@@ -1130,7 +1130,7 @@ func Exists(query Querier) *Predicate {
 // Exists appends the `EXISTS` predicate with the given query.
 func (p *Predicate) Exists(query Querier) *Predicate {
 	return p.Append(func(b *Builder) {
-		b.WriteString("EXISTS ")
+		b.S("EXISTS ")
 		b.Wrap(func(b *Builder) {
 			b.Join(query)
 		})
@@ -1145,7 +1145,7 @@ func NotExists(query Querier) *Predicate {
 // NotExists appends the `NOT EXISTS` predicate with the given query.
 func (p *Predicate) NotExists(query Querier) *Predicate {
 	return p.Append(func(b *Builder) {
-		b.WriteString("NOT EXISTS ")
+		b.S("NOT EXISTS ")
 		b.Wrap(func(b *Builder) {
 			b.Join(query)
 		})
@@ -1196,7 +1196,7 @@ func (p *Predicate) escapedLike(col, left, right, word string) *Predicate {
 		b.Ident(col).WriteOp(OpLike)
 		b.Arg(left + w + right)
 		if p.dialect == dialect.SQLite && escaped {
-			p.WriteString(" ESCAPE ").Arg("\\")
+			p.S(" ESCAPE ").Arg("\\")
 		}
 	})
 }
@@ -1209,19 +1209,19 @@ func (p *Predicate) escapedLikeFold(col, left, substr, right string) *Predicate 
 		case dialect.MySql:
 			// We assume the CHARACTER SET is configured to utf8mb4,
 			// because this how it is defined in dialect/sql/schema.
-			b.Ident(col).WriteString(" COLLATE utf8mb4_general_ci LIKE ")
+			b.Ident(col).S(" COLLATE utf8mb4_general_ci LIKE ")
 			b.Arg(left + strings.ToLower(w) + right)
 		case dialect.Postgres:
-			b.Ident(col).WriteString(" ILIKE ")
+			b.Ident(col).S(" ILIKE ")
 			b.Arg(left + strings.ToLower(w) + right)
 		default: // SQLite.
 			var f Func
 			f.SetDialect(b.dialect)
 			f.Lower(col)
-			b.WriteString(f.String()).WriteString(" LIKE ")
+			b.S(f.String()).S(" LIKE ")
 			b.Arg(left + strings.ToLower(w) + right)
 			if escaped {
-				p.WriteString(" ESCAPE ").Arg("\\")
+				p.S(" ESCAPE ").Arg("\\")
 			}
 		}
 	})
@@ -1265,7 +1265,7 @@ func (p *Predicate) ColumnsHasPrefix(col, prefixC string) *Predicate {
 			b.WriteOp(OpLike)
 			b.S("(REPLACE(REPLACE(").Ident(prefixC).S(", '_', '\\_'), '%', '\\%') || '%')")
 			if p.dialect == dialect.SQLite {
-				p.WriteString(" ESCAPE ").Arg("\\")
+				p.S(" ESCAPE ").Arg("\\")
 			}
 		default:
 			b.AddError(fmt.Errorf("ColumnsHasPrefix: unsupported dialect: %q", p.dialect))
@@ -1301,15 +1301,15 @@ func (p *Predicate) EqualFold(col, sub string) *Predicate {
 		case dialect.MySql:
 			// We assume the CHARACTER SET is configured to utf8mb4,
 			// because this how it is defined in dialect/sql/schema.
-			b.Ident(col).WriteString(" COLLATE utf8mb4_general_ci = ")
+			b.Ident(col).S(" COLLATE utf8mb4_general_ci = ")
 			b.Arg(strings.ToLower(sub))
 		case dialect.Postgres:
-			b.Ident(col).WriteString(" ILIKE ")
+			b.Ident(col).S(" ILIKE ")
 			w, _ := escape(sub)
 			b.Arg(strings.ToLower(w))
 		default: // SQLite.
 			f.Lower(col)
-			b.WriteString(f.String())
+			b.S(f.String())
 			b.WriteOp(OpEQ)
 			b.Arg(strings.ToLower(sub))
 		}
@@ -1347,10 +1347,10 @@ func (p *Predicate) compositeP(operator string, columns []string, args ...any) *
 		b.Wrap(func(nb *Builder) {
 			nb.IdentComma(columns...)
 		})
-		b.WriteString(operator)
-		b.WriteString("(")
+		b.S(operator)
+		b.S("(")
 		b.Args(args...)
-		b.WriteString(")")
+		b.S(")")
 	})
 }
 
@@ -1411,15 +1411,15 @@ func (p *Predicate) mayWrap(preds []*Predicate, b *Builder, op string) {
 		b.Join(preds[0])
 		return
 	case n > 1 && p.depth != 0:
-		b.WriteByte('(')
-		defer b.WriteByte(')')
+		b.B('(')
+		defer b.B(')')
 	}
 	for i := range preds {
 		preds[i].depth = p.depth + 1
 		if i > 0 {
-			b.WriteByte(' ')
-			b.WriteString(op)
-			b.WriteByte(' ')
+			b.B(' ')
+			b.S(op)
+			b.B(' ')
 		}
 		if len(preds[i].fns) > 1 {
 			b.Wrap(func(b *Builder) {
@@ -1514,7 +1514,7 @@ func (f *Func) Avg(ident string) {
 // byName wraps an identifier with a function name.
 func (f *Func) byName(fn, ident string) {
 	f.Append(func(b *Builder) {
-		f.WriteString(fn)
+		f.S(fn)
 		f.Wrap(func(b *Builder) {
 			b.Ident(ident)
 		})
@@ -1540,7 +1540,7 @@ func (f *Func) String() string {
 func As(ident string, as string) string {
 	b := &Builder{}
 	b.fromIdent(ident)
-	b.Ident(ident).Pad().WriteString("AS")
+	b.Ident(ident).Pad().S("AS")
 	b.Pad().Ident(as)
 	return b.String()
 }
@@ -1551,7 +1551,7 @@ func Distinct(idents ...string) string {
 	if len(idents) > 0 {
 		b.fromIdent(idents[0])
 	}
-	b.WriteString("DISTINCT")
+	b.S("DISTINCT")
 	b.Pad().IdentComma(idents...)
 	return b.String()
 }
@@ -1615,7 +1615,7 @@ func (s *SelectTable) C(column string) string {
 	if s.as == "" {
 		b.writeSchema(s.schema)
 	}
-	b.Ident(name).WriteByte('.').Ident(column)
+	b.Ident(name).B('.').Ident(column)
 	return b.String()
 }
 
@@ -1645,7 +1645,7 @@ func (s *SelectTable) ref() string {
 	b.writeSchema(s.schema)
 	b.Ident(s.name)
 	if s.as != "" {
-		b.WriteString(" AS ")
+		b.S(" AS ")
 		b.Ident(s.as)
 	}
 	return b.String()
@@ -2247,7 +2247,7 @@ func (q *setOpQuerier) Query() (string, []any) {
 	sqlite := b.sqlite()
 	for i, s := range q.selectors {
 		if i > 0 {
-			b.WriteString(" " + q.op + " ")
+			b.S(" " + q.op + " ")
 		}
 		if sqlite {
 			// SQLite does not allow parenthesized compound-select branches and
@@ -2259,9 +2259,9 @@ func (q *setOpQuerier) Query() (string, []any) {
 			clone.offset = nil
 			b.Join(&clone)
 		} else {
-			b.WriteString("(")
+			b.S("(")
 			b.Join(s)
-			b.WriteString(")")
+			b.S(")")
 		}
 	}
 	return b.String(), b.args
@@ -2321,7 +2321,7 @@ func (s *Selector) C(column string) string {
 	if s.as != "" {
 		b := &Builder{dialect: s.dialect}
 		b.Ident(s.as)
-		b.WriteByte('.')
+		b.B('.')
 		b.Ident(column)
 		return b.String()
 	}
@@ -2501,14 +2501,14 @@ func (s *Selector) Clone() *Selector {
 // Asc adds the ASC suffix for the given column.
 func Asc(column string) string {
 	b := &Builder{}
-	b.Ident(column).WriteString(" ASC")
+	b.Ident(column).S(" ASC")
 	return b.String()
 }
 
 // Desc adds the DESC suffix for the given column.
 func Desc(column string) string {
 	b := &Builder{}
-	b.Ident(column).WriteString(" DESC")
+	b.Ident(column).S(" DESC")
 	return b.String()
 }
 
@@ -2516,7 +2516,7 @@ func Desc(column string) string {
 func DescExpr(x Querier) Querier {
 	return ExprFunc(func(b *Builder) {
 		b.Join(x)
-		b.WriteString(" DESC")
+		b.S(" DESC")
 	})
 }
 
@@ -2579,17 +2579,17 @@ func (s *Selector) Having(p *Predicate) *Selector {
 func (s *Selector) Query() (string, []any) {
 	b := s.Builder.clone()
 	s.joinPrefix(&b)
-	b.WriteString("SELECT ")
+	b.S("SELECT ")
 	if s.distinct {
-		b.WriteString("DISTINCT ")
+		b.S("DISTINCT ")
 	}
 	if len(s.selection) > 0 {
 		s.joinSelect(&b)
 	} else {
-		b.WriteString("*")
+		b.S("*")
 	}
 	if len(s.from) > 0 {
-		b.WriteString(" FROM ")
+		b.S(" FROM ")
 	}
 	for i, from := range s.from {
 		if i > 0 {
@@ -2598,14 +2598,14 @@ func (s *Selector) Query() (string, []any) {
 		switch t := from.(type) {
 		case *SelectTable:
 			t.SetDialect(s.dialect)
-			b.WriteString(t.ref())
+			b.S(t.ref())
 		case *Selector:
 			t.SetDialect(s.dialect)
 			b.Wrap(func(b *Builder) {
 				b.Join(t)
 			})
 			if t.as != "" {
-				b.WriteString(" AS ")
+				b.S(" AS ")
 				b.Ident(t.as)
 			}
 		case *WithBuilder:
@@ -2616,37 +2616,37 @@ func (s *Selector) Query() (string, []any) {
 		}
 	}
 	for _, join := range s.joins {
-		b.WriteString(" " + join.kind + " ")
+		b.S(" " + join.kind + " ")
 		switch view := join.table.(type) {
 		case *SelectTable:
 			view.SetDialect(s.dialect)
-			b.WriteString(view.ref())
+			b.S(view.ref())
 		case *Selector:
 			view.SetDialect(s.dialect)
 			b.Wrap(func(b *Builder) {
 				b.Join(view)
 			})
-			b.WriteString(" AS ")
+			b.S(" AS ")
 			b.Ident(view.as)
 		case *WithBuilder:
 			view.SetDialect(s.dialect)
 			b.Ident(view.Name())
 		}
 		if join.on != nil {
-			b.WriteString(" ON ")
+			b.S(" ON ")
 			b.Join(join.on)
 		}
 	}
 	if s.where != nil {
-		b.WriteString(" WHERE ")
+		b.S(" WHERE ")
 		b.Join(s.where)
 	}
 	if len(s.group) > 0 {
-		b.WriteString(" GROUP BY ")
+		b.S(" GROUP BY ")
 		b.IdentComma(s.group...)
 	}
 	if s.having != nil {
-		b.WriteString(" HAVING ")
+		b.S(" HAVING ")
 		b.Join(s.having)
 	}
 	if len(s.setOps) > 0 {
@@ -2654,12 +2654,12 @@ func (s *Selector) Query() (string, []any) {
 	}
 	joinOrder(s.order, &b)
 	if s.limit != nil {
-		b.WriteString(" LIMIT ")
-		b.WriteString(strconv.Itoa(*s.limit))
+		b.S(" LIMIT ")
+		b.S(strconv.Itoa(*s.limit))
 	}
 	if s.offset != nil {
-		b.WriteString(" OFFSET ")
-		b.WriteString(strconv.Itoa(*s.offset))
+		b.S(" OFFSET ")
+		b.S(strconv.Itoa(*s.offset))
 	}
 	s.joinLock(&b)
 	s.total = b.total
@@ -2680,33 +2680,33 @@ func (s *Selector) joinLock(b *Builder) {
 	}
 	b.Pad()
 	if s.lock.clause != "" {
-		b.WriteString(s.lock.clause)
+		b.S(s.lock.clause)
 		return
 	}
-	b.WriteString("FOR ").WriteString(string(s.lock.Strength))
+	b.S("FOR ").S(string(s.lock.Strength))
 	if len(s.lock.Tables) > 0 {
-		b.WriteString(" OF ").IdentComma(s.lock.Tables...)
+		b.S(" OF ").IdentComma(s.lock.Tables...)
 	}
 	if s.lock.Action != "" {
-		b.Pad().WriteString(string(s.lock.Action))
+		b.Pad().S(string(s.lock.Action))
 	}
 }
 
 func (s *Selector) joinSetOps(b *Builder) {
 	for _, op := range s.setOps {
-		b.WriteString(" " + string(op.Type) + " ")
+		b.S(" " + string(op.Type) + " ")
 		if op.All {
-			b.WriteString("ALL ")
+			b.S("ALL ")
 		}
 		switch view := op.TableView.(type) {
 		case *SelectTable:
 			view.SetDialect(s.dialect)
-			b.WriteString(view.ref())
+			b.S(view.ref())
 		case *Selector:
 			view.SetDialect(s.dialect)
 			b.Join(view)
 			if view.as != "" {
-				b.WriteString(" AS ")
+				b.S(" AS ")
 				b.Ident(view.as)
 			}
 		}
@@ -2717,7 +2717,7 @@ func joinOrder(order []any, b *Builder) {
 	if len(order) == 0 {
 		return
 	}
-	b.WriteString(" ORDER BY ")
+	b.S(" ORDER BY ")
 	for i := range order {
 		if i > 0 {
 			b.Comma()
@@ -2735,7 +2735,7 @@ func joinReturning(columns []string, b *Builder) {
 	if len(columns) == 0 || (!b.postgres() && !b.sqlite()) {
 		return
 	}
-	b.WriteString(" RETURNING ")
+	b.S(" RETURNING ")
 	b.IdentComma(columns...)
 }
 
@@ -2751,7 +2751,7 @@ func (s *Selector) joinSelect(b *Builder) {
 			b.Join(sc.x)
 		}
 		if sc.as != "" {
-			b.WriteString(" AS ")
+			b.S(" AS ")
 			b.Ident(sc.as)
 		}
 	}
@@ -2824,15 +2824,15 @@ func (w *WithBuilder) With(name string, columns ...string) *WithBuilder {
 // C returns a formatted string for the WITH column.
 func (w *WithBuilder) C(column string) string {
 	b := &Builder{dialect: w.dialect}
-	b.Ident(w.Name()).WriteByte('.').Ident(column)
+	b.Ident(w.Name()).B('.').Ident(column)
 	return b.String()
 }
 
 // Query returns query representation of a `WITH` clause.
 func (w *WithBuilder) Query() (string, []any) {
-	w.WriteString("WITH ")
+	w.S("WITH ")
 	if w.recursive {
-		w.WriteString("RECURSIVE ")
+		w.S("RECURSIVE ")
 	}
 	for i, cte := range w.ctes {
 		if i > 0 {
@@ -2840,11 +2840,11 @@ func (w *WithBuilder) Query() (string, []any) {
 		}
 		w.Ident(cte.name)
 		if len(cte.columns) > 0 {
-			w.WriteByte('(')
+			w.B('(')
 			w.IdentComma(cte.columns...)
-			w.WriteByte(')')
+			w.B(')')
 		}
-		w.WriteString(" AS ")
+		w.S(" AS ")
 		w.Wrap(func(b *Builder) {
 			b.Join(cte.s)
 		})
@@ -2870,7 +2870,7 @@ type WindowBuilder struct {
 // order defined by the ORDER BY clause in the window spec.
 func RowNumber() *WindowBuilder {
 	return Window(func(b *Builder) {
-		b.WriteString("ROW_NUMbER()")
+		b.S("ROW_NUMbER()")
 	})
 }
 
@@ -2878,7 +2878,7 @@ func RowNumber() *WindowBuilder {
 // for custom window functions.
 //
 //	Window(func(b *Builder) {
-//		b.WriteString(Sum(posts.C("duration")))
+//		b.S(Sum(posts.C("duration")))
 //	}).PartitionBy("author_id").OrderBy("id"), "duration").
 func Window(fn func(*Builder)) *WindowBuilder {
 	return &WindowBuilder{fn: fn}
@@ -2922,10 +2922,10 @@ func (w *WindowBuilder) OrderExpr(exprs ...Querier) *WindowBuilder {
 // Query returns query representation of the window function.
 func (w *WindowBuilder) Query() (string, []any) {
 	w.fn(&w.Builder)
-	w.WriteString(" OVER ")
+	w.S(" OVER ")
 	w.Wrap(func(b *Builder) {
 		if w.partition != nil {
-			b.WriteString("PARTITION BY ")
+			b.S("PARTITION BY ")
 			w.partition(b)
 		}
 		joinOrder(w.order, b)
@@ -3028,7 +3028,7 @@ func (n Queries) Query() (string, []any) {
 			b.Pad()
 		}
 		query, args := n[i].Query()
-		b.WriteString(query)
+		b.S(query)
 		b.args = append(b.args, args...)
 	}
 	return b.String(), b.args
@@ -3069,15 +3069,15 @@ func (b *Builder) Ident(s string) *Builder {
 	case len(s) == 0:
 	case !strings.HasSuffix(s, "*") && !b.isIdent(s) && !isFunc(s) && !isModifier(s) && !isAlias(s):
 		if b.qualifier != "" {
-			b.WriteString(b.Quote(b.qualifier)).WriteByte('.')
+			b.S(b.Quote(b.qualifier)).B('.')
 		}
-		b.WriteString(b.Quote(s))
+		b.S(b.Quote(s))
 	case (isFunc(s) || isModifier(s) || isAlias(s)) && b.postgres():
 		// Modifiers and aggregation functions that
 		// were called without dialect information.
-		b.WriteString(strings.ReplaceAll(s, "`", `"`))
+		b.S(strings.ReplaceAll(s, "`", `"`))
 	default:
-		b.WriteString(s)
+		b.S(s)
 	}
 	return b
 }
@@ -3101,8 +3101,12 @@ func (b *Builder) String() string {
 	return b.sb.String()
 }
 
-// WriteByte wraps the Buffer.WriteByte to make it chainable with other methods.
-func (b *Builder) WriteByte(c byte) *Builder {
+// B writes a byte and returns the Builder, so that it chains.
+//
+// Not WriteByte, which is io.ByteWriter's name for a method returning an
+// error. This one returns the Builder and answers to no interface, and a
+// method that borrows a name it does not honour is one a reader has to check.
+func (b *Builder) B(c byte) *Builder {
 	if b.sb == nil {
 		b.sb = &strings.Builder{}
 	}
@@ -3110,18 +3114,18 @@ func (b *Builder) WriteByte(c byte) *Builder {
 	return b
 }
 
-// WriteString wraps the Buffer.WriteString to make it chainable with other methods.
-func (b *Builder) WriteString(s string) *Builder {
+// S writes a string and returns the Builder, so that it chains.
+//
+// Not WriteString, for the reason given on [Builder.B]: io.StringWriter
+// spells that one `WriteString(string) (int, error)`. S was already the short
+// name for this, written where a chain grew long enough to want it; now it is
+// the only name.
+func (b *Builder) S(s string) *Builder {
 	if b.sb == nil {
 		b.sb = &strings.Builder{}
 	}
 	b.sb.WriteString(s)
 	return b
-}
-
-// S is a short version of WriteString.
-func (b *Builder) S(s string) *Builder {
-	return b.WriteString(s)
 }
 
 // Len returns the number of accumulated bytes.
@@ -3151,7 +3155,7 @@ func (b *Builder) AddError(err error) *Builder {
 
 func (b *Builder) writeSchema(schema string) {
 	if schema != "" && b.dialect != dialect.SQLite {
-		b.Ident(schema).WriteByte('.')
+		b.Ident(schema).B('.')
 	}
 }
 
@@ -3217,9 +3221,9 @@ var ops = [...]string{
 func (b *Builder) WriteOp(op Op) *Builder {
 	switch {
 	case op >= OpEQ && op <= OpLike || op >= OpAdd && op <= OpMod:
-		b.Pad().WriteString(ops[op]).Pad()
+		b.Pad().S(ops[op]).Pad()
 	case op == OpIsNull || op == OpNotNull:
-		b.Pad().WriteString(ops[op])
+		b.Pad().S(ops[op])
 	default:
 		panic(fmt.Sprintf("invalid op %d", op))
 	}
@@ -3247,10 +3251,10 @@ type (
 func (b *Builder) Arg(a any) *Builder {
 	switch v := a.(type) {
 	case nil:
-		b.WriteString("NULL")
+		b.S("NULL")
 		return b
 	case *raw:
-		b.WriteString(v.s)
+		b.S(v.s)
 		return b
 	case Querier:
 		b.Join(v)
@@ -3290,10 +3294,10 @@ func (b *Builder) Args(a ...any) *Builder {
 func (b *Builder) Argf(format string, a any) *Builder {
 	switch a := a.(type) {
 	case nil:
-		b.WriteString("NULL")
+		b.S("NULL")
 		return b
 	case *raw:
-		b.WriteString(a.s)
+		b.S(a.s)
 		return b
 	case Querier:
 		b.Join(a)
@@ -3301,18 +3305,18 @@ func (b *Builder) Argf(format string, a any) *Builder {
 	}
 	b.total++
 	b.args = append(b.args, a)
-	b.WriteString(format)
+	b.S(format)
 	return b
 }
 
 // Comma adds a comma to the query.
 func (b *Builder) Comma() *Builder {
-	return b.WriteString(", ")
+	return b.S(", ")
 }
 
 // Pad adds a space to the query.
 func (b *Builder) Pad() *Builder {
-	return b.WriteByte(' ')
+	return b.B(' ')
 }
 
 // Join joins a list of Queries to the builder.
@@ -3329,7 +3333,7 @@ func (b *Builder) JoinComma(qs ...Querier) *Builder {
 func (b *Builder) join(qs []Querier, sep string) *Builder {
 	for i, q := range qs {
 		if i > 0 {
-			b.WriteString(sep)
+			b.S(sep)
 		}
 		st, ok := q.(state)
 		if ok {
@@ -3337,7 +3341,7 @@ func (b *Builder) join(qs []Querier, sep string) *Builder {
 			st.SetTotal(b.total)
 		}
 		query, args := q.Query()
-		b.WriteString(query)
+		b.S(query)
 		b.args = append(b.args, args...)
 		b.total += len(args)
 		if qe, ok := q.(querierErr); ok {
@@ -3352,10 +3356,10 @@ func (b *Builder) join(qs []Querier, sep string) *Builder {
 // Wrap gets a callback, and wraps its result with parentheses.
 func (b *Builder) Wrap(f func(*Builder)) *Builder {
 	nb := &Builder{dialect: b.dialect, total: b.total, sb: &strings.Builder{}}
-	nb.WriteByte('(')
+	nb.B('(')
 	f(nb)
-	nb.WriteByte(')')
-	b.WriteString(nb.String())
+	nb.B(')')
+	b.S(nb.String())
 	b.args = append(b.args, nb.args...)
 	b.total = nb.total
 	return b
