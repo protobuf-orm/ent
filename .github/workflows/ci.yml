@@ -141,7 +141,7 @@ jobs:
         ports:
           - 4309:3306
         options: >-
-          --health-cmd "mysqladmin ping -ppass"
+          --health-cmd "mariadb-admin ping -ppass"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
@@ -154,7 +154,7 @@ jobs:
         ports:
           - 4310:3306
         options: >-
-          --health-cmd "mysqladmin ping -ppass"
+          --health-cmd "mariadb-admin ping -ppass"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
