@@ -265,10 +265,20 @@ Versioned migration without a CLI is `dialect/sql/schema/versioned.go` --
 path to extend, and it is the one covered by
 `dialect/sql/schema/integration/versioned_test.go`.
 
-`examples/viewschema`, `examples/compositetypes` and `examples/domaintypes`
-still call the CLI. They demonstrate Atlas features ent's own migrate does not
-implement -- views, composite types, domain types -- and they skip everywhere,
-CI included.
+Eight examples under `examples/` called the CLI and were removed with it:
+`compositetypes`, `domaintypes`, `enumtypes`, `functionalidx`, `rls`,
+`triggers`, `viewcomposite`, `viewschema`. Each composed `ent://ent/schema`
+with a hand-written `schema.sql` through an `atlas.hcl` and let `atlas schema
+apply` build the database -- a workflow that cannot run here. They were also
+red on any desk without the CLI, calling `log.Fatal` where a skip belonged,
+and green in CI only because a `CI` guard sat above it.
+
+Six of them declared no ent feature at all: the composite type, domain, enum,
+functional index, RLS policy or trigger came from the SQL file, and the ent
+schema was ordinary fields. The two that did -- `viewschema` and
+`viewcomposite`, which use `ent.View` -- are the reason
+[#2](https://github.com/protobuf-orm/ent/issues/2) is open. Nothing was lost
+in removing them, because neither had run in a long time.
 
 ## Verifying
 
