@@ -45,6 +45,7 @@ type Field struct {
 	ValueScanner     bool                    `json:"value_scanner,omitempty"`
 	Tag              string                  `json:"tag,omitempty"`
 	Size             *int64                  `json:"size,omitempty"`
+	Precision        *int                    `json:"precision,omitempty"`
 	Enums            []struct{ N, V string } `json:"enums,omitempty"`
 	Unique           bool                    `json:"unique,omitempty"`
 	Nillable         bool                    `json:"nillable,omitempty"`
@@ -154,6 +155,7 @@ func NewField(fd *field.Descriptor) (*Field, error) {
 	if size := int64(fd.Size); size != 0 {
 		sf.Size = &size
 	}
+	sf.Precision = fd.Precision
 	if sf.Default {
 		sf.DefaultKind = reflect.TypeOf(fd.Default).Kind()
 	}

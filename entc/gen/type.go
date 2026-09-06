@@ -1639,6 +1639,7 @@ func (f Field) Column() *schema.Column {
 	}
 	if f.def != nil {
 		c.SchemaType = f.def.SchemaType
+		c.Precision = f.def.Precision
 	}
 	return c
 }

@@ -137,7 +137,9 @@ func (d *Postgres) atTypeC(c1 *Column, c2 *schema.Column) error {
 			t = &schema.StringType{T: postgres.TypeText}
 		}
 	case field.TypeTime:
-		t = &schema.TimeType{T: c1.scanTypeOr(postgres.TypeTimestampWTZ)}
+		// Postgres stops at six fractional-second digits, so an ask for more
+		// is an ask for what it has.
+		t = &schema.TimeType{T: c1.scanTypeOr(postgres.TypeTimestampWTZ), Precision: c1.timePrecisionOr(6)}
 	case field.TypeEnum:
 		// Although atlas supports enum types, we keep backwards compatibility
 		// with previous versions of ent and use varchar (see cType).

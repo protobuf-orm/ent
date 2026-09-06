@@ -67,7 +67,7 @@ var (
 	CustomTypeColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "custom", Type: field.TypeString, Nullable: true, SchemaType: map[string]string{"postgres": "customtype"}},
-		{Name: "tz0", Type: field.TypeTime, Nullable: true, SchemaType: map[string]string{"mysql": "timestamp(0)", "postgres": "timestamptz(0)"}},
+		{Name: "tz0", Type: field.TypeTime, Nullable: true, Precision: func(i int) *int { return &i }(0)},
 		{Name: "tz3", Type: field.TypeTime, Nullable: true, SchemaType: map[string]string{"mysql": "timestamp(3)", "postgres": "timestamptz(3)"}},
 	}
 	// CustomTypeTable holds the schema information for the "custom_type" table.
@@ -162,7 +162,7 @@ var (
 		{Name: "roles", Type: field.TypeJson, Nullable: true, Default: "[]"},
 		{Name: "default_expr", Type: field.TypeString, Nullable: true, Default: schema.Expr("lower('hello')")},
 		{Name: "default_exprs", Type: field.TypeString, Nullable: true, Default: map[string]schema.Expr{"mysql": "TO_BASE64('ent')", "postgres": "md5('ent')", "sqlite3": "hex('ent')"}},
-		{Name: "created_at", Type: field.TypeTime, Default: "CURRENT_TIMESTAMP"},
+		{Name: "created_at", Type: field.TypeTime, Default: map[string]schema.Expr{"mysql": "CURRENT_TIMESTAMP(6)", "postgres": "CURRENT_TIMESTAMP", "sqlite3": "CURRENT_TIMESTAMP"}},
 		{Name: "drop_optional", Type: field.TypeString},
 		{Name: "blog_admins", Type: field.TypeInt, Nullable: true, SchemaType: map[string]string{"postgres": "serial"}},
 	}

@@ -23,12 +23,12 @@ func (CustomType) Fields() []ent.Field {
 			SchemaType(map[string]string{
 				dialect.Postgres: "customtype",
 			}),
+		// What a schema says about precision without naming a type per
+		// dialect. tz3 below is the other way of saying it, which still wins
+		// where it is set.
 		field.Time("tz0").
 			Optional().
-			SchemaType(map[string]string{
-				dialect.MySql:    "timestamp(0)",
-				dialect.Postgres: "timestamptz(0)",
-			}),
+			Precision(0),
 		field.Time("tz3").
 			Optional().
 			SchemaType(map[string]string{

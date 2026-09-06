@@ -707,18 +707,25 @@ func ContainsFold(t *testing.T, client *entv2.Client) {
 
 func TimePrecision(t *testing.T, drv *sql.Driver, query string) {
 	ctx := context.Background()
-	rows, err := drv.QueryContext(ctx, query, customtype.Table, customtype.FieldTz0)
-	require.NoError(t, err)
-	p, err := sql.ScanInt(rows)
-	require.NoError(t, err)
-	require.Zerof(t, p, "custom_types field %q", customtype.FieldTz0)
-	require.NoError(t, rows.Close())
-	rows, err = drv.QueryContext(ctx, query, customtype.Table, customtype.FieldTz3)
-	require.NoError(t, err)
-	p, err = sql.ScanInt(rows)
-	require.NoError(t, err)
-	require.Equalf(t, 3, p, "custom_types field %q", customtype.FieldTz3)
-	require.NoError(t, rows.Close())
+	precision := func(table, column string) int {
+		t.Helper()
+		rows, err := drv.QueryContext(ctx, query, table, column)
+		require.NoError(t, err)
+		p, err := sql.ScanInt(rows)
+		require.NoError(t, err)
+		require.NoError(t, rows.Close())
+		return p
+	}
+	// tz0 says its precision with Precision, tz3 by naming a type per
+	// dialect. Both are answered, and the second still wins where it is set.
+	require.Zerof(t, precision(customtype.Table, customtype.FieldTz0), "custom_types field %q", customtype.FieldTz0)
+	require.Equalf(t, 3, precision(customtype.Table, customtype.FieldTz3), "custom_types field %q", customtype.FieldTz3)
+
+	// And a column that says nothing keeps microseconds, which is the most
+	// MySql and Postgres both hold. Without a number here the two disagree
+	// silently: MySql's timestamp is whole seconds and Postgres's timestamptz
+	// is six digits, so one engine's answer is not the other's.
+	require.Equalf(t, schema.DefaultTimePrecision, precision(user.Table, user.FieldCreatedAt), "user field %q", user.FieldCreatedAt)
 }
 
 func JsonDefault(t *testing.T, drv *sql.Driver, query string) {

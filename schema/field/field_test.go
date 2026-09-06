@@ -1074,3 +1074,31 @@ func TestTimeDefaultUTC(t *testing.T) {
 		require.Equal(t, at.In(kst), fd.Default.(func() sql.NullTime)().Time)
 	})
 }
+
+func TestTimePrecision(t *testing.T) {
+	t.Run("said out loud", func(t *testing.T) {
+		fd := field.Time("created_at").Precision(3).Descriptor()
+		require.NoError(t, fd.Err)
+		require.NotNil(t, fd.Precision)
+		require.Equal(t, 3, *fd.Precision)
+	})
+
+	// Zero is a precision -- whole seconds -- and not the absence of one,
+	// which is why the descriptor holds a pointer.
+	t.Run("zero is a precision", func(t *testing.T) {
+		fd := field.Time("created_at").Precision(0).Descriptor()
+		require.NoError(t, fd.Err)
+		require.NotNil(t, fd.Precision)
+		require.Zero(t, *fd.Precision)
+	})
+
+	t.Run("said nothing", func(t *testing.T) {
+		require.Nil(t, field.Time("created_at").Descriptor().Precision)
+	})
+
+	for _, digits := range []int{-1, 10} {
+		t.Run(fmt.Sprintf("%d digits is not a precision", digits), func(t *testing.T) {
+			require.Error(t, field.Time("created_at").Precision(digits).Descriptor().Err)
+		})
+	}
+}

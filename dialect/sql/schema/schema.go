@@ -27,6 +27,11 @@ import (
 const (
 	// DefaultStringLen describes the default length for string/varchar types.
 	DefaultStringLen int64 = 255
+	// DefaultTimePrecision describes the fractional-second digits a time
+	// column keeps when the schema does not say. Six -- microseconds -- is
+	// where MySql and Postgres both stop, so it is the most the engines can
+	// be asked to agree on. See field.Time's Precision.
+	DefaultTimePrecision = 6
 	// Null is the string representation of NULL in SQL.
 	Null = "NULL"
 	// PrimaryKey is the string representation of PKs in Sql.
@@ -299,6 +304,7 @@ type Column struct {
 	SchemaType map[string]string // optional schema type per dialect.
 	Attr       string            // extra attributes.
 	Size       int64             // max size parameter for string, blob, etc.
+	Precision  *int              // fractional-second digits of a time column.
 	Key        string            // key definition (PRI, UNI or MUL).
 	Unique     bool              // column with unique constraint.
 	Increment  bool              // auto increment attribute.
@@ -427,6 +433,26 @@ func (c *Column) scanTypeOr(t string) string {
 		return strings.ToLower(c.typ)
 	}
 	return t
+}
+
+// timePrecisionOr returns the fractional-second digits a time column keeps,
+// capped at the most the dialect can hold.
+//
+// It answers nothing when the column's type was spelled out rather than
+// chosen. A `timestamp(3)` states its own precision, and a second one
+// appended to it is not a type.
+func (c *Column) timePrecisionOr(max int) *int {
+	if c.typ != "" {
+		return nil
+	}
+	p := DefaultTimePrecision
+	if c.Precision != nil {
+		p = *c.Precision
+	}
+	if p > max {
+		p = max
+	}
+	return &p
 }
 
 // ForeignKey definition for creation.

@@ -511,6 +511,48 @@ func utcTime(fn any) any {
 	}
 }
 
+// Precision sets how many fractional-second digits the column keeps. For
+// example:
+//
+//	field.Time("created_at").
+//		Precision(0)
+//
+// A time field is six digits -- microseconds -- unless it says otherwise,
+// which is the most the engines agree on: MySql and Postgres both stop there,
+// and SQLite's text has no limit to reach. Without a number said out loud the
+// three disagree, and disagree silently: a MySql timestamp is whole seconds,
+// so an instant written there and read back is not the instant SQLite
+// returned, and a test that compares one engine's answer to another's fails
+// over a digit rather than over anything it meant to check.
+//
+// It is the column that rounds, not ent. A time on its way to the database is
+// the time that was handed over, and what comes back is what the column kept
+// -- so a node returned by a Create holds more digits than the row does until
+// it is read again. Reading it back is the way to see what was stored, here as
+// everywhere.
+//
+// SchemaType wins where it is set, since a type written out already says its
+// own precision. SQLite ignores this: its datetime is text.
+//
+// One thing to know on MySql: a column's default has to state the same digits
+// the column keeps, so a DB-side `CURRENT_TIMESTAMP` on a six-digit column is
+// refused with "Invalid default value". It is written `CURRENT_TIMESTAMP(6)`
+// there and plainly everywhere else, which is what entsql.Annotation's
+// DefaultExprs is for.
+func (b *timeBuilder) Precision(digits int) *timeBuilder {
+	if digits < 0 || digits > maxTimePrecision {
+		b.desc.Err = fmt.Errorf("field %q: precision must be between 0 and %d, got %d", b.desc.Name, maxTimePrecision, digits)
+		return b
+	}
+	b.desc.Precision = &digits
+	return b
+}
+
+// maxTimePrecision is what a time column can be asked for. Nine digits is a
+// nanosecond, which is what a time.Time holds and what no engine here stores;
+// the number is a bound on the ask, not a promise about the column.
+const maxTimePrecision = 9
+
 // StorageKey sets the storage key of the field.
 // In SQL dialects it is the column name.
 func (b *timeBuilder) StorageKey(key string) *timeBuilder {
@@ -1500,6 +1542,7 @@ func (b *otherBuilder) Descriptor() *Descriptor {
 type Descriptor struct {
 	Tag              string                  // struct tag.
 	Size             int                     // varchar size.
+	Precision        *int                    // fractional-second digits of a time column.
 	Name             string                  // field name.
 	Info             *TypeInfo               // field type info.
 	ValueScanner     any                     // custom field codec.

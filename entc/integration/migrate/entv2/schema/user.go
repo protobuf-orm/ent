@@ -114,10 +114,20 @@ func (User) Fields() []ent.Field {
 				dialect.Postgres: "md5('ent')",
 			})),
 		// add a new column with generated values by the database.
+		//
+		// MySql requires a CURRENT_TIMESTAMP default to state the same
+		// fractional-second digits the column keeps, and a time column keeps
+		// six unless the schema says otherwise -- so a bare CURRENT_TIMESTAMP
+		// is refused there with "Invalid default value". The other two take
+		// the function as written.
 		field.Time("created_at").
 			Default(time.Now).
 			Annotations(&entsql.Annotation{
-				Default: "CURRENT_TIMESTAMP",
+				DefaultExprs: map[string]string{
+					dialect.MySql:    "CURRENT_TIMESTAMP(6)",
+					dialect.Postgres: "CURRENT_TIMESTAMP",
+					dialect.SQLite:   "CURRENT_TIMESTAMP",
+				},
 			}),
 		// nullable field was changed to non-nullable without a static
 		// default value, and it requires apply hook to fix this.

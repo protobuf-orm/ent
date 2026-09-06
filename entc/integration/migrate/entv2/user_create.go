@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
 	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/car"
 	"github.com/protobuf-orm/ent/entc/integration/migrate/entv2/pet"
@@ -458,8 +459,11 @@ func (_c *UserCreate) check() error {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`entv2: validator failed for field "User.status": %w`, err)}
 		}
 	}
-	if _, ok := _c.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "created_at", err: errors.New(`entv2: missing required field "User.created_at"`)}
+	switch _c.driver.Dialect() {
+	case dialect.SQLite:
+		if _, ok := _c.mutation.CreatedAt(); !ok {
+			return &ValidationError{Name: "created_at", err: errors.New(`entv2: missing required field "User.created_at"`)}
+		}
 	}
 	if _, ok := _c.mutation.DropOptional(); !ok {
 		return &ValidationError{Name: "drop_optional", err: errors.New(`entv2: missing required field "User.drop_optional"`)}
