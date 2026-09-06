@@ -163,3 +163,41 @@ func TestRowsScanTime(t *testing.T) {
 	require.Equal(t, at, nul)
 	require.Equal(t, NullTime{}, blank, "a NULL has no zone to move")
 }
+
+func TestMySqlUnset(t *testing.T) {
+	for name, want := range map[string]string{
+		"time_zone":           "DEFAULT",
+		"sql_mode":            "DEFAULT",
+		"@@SESSION.time_zone": "DEFAULT",
+		"@@time_zone":         "DEFAULT",
+		"@x":                  "NULL",
+		"@my_var":             "NULL",
+	} {
+		require.Equalf(t, want, mysqlUnset(name), "SET %s = ?", name)
+	}
+}
+
+// TestWithVarsMySql pins the statements a MySql session variable is set and
+// unset with, which the engine tests in entc/integration/entvar check an
+// engine agrees to.
+func TestWithVarsMySql(t *testing.T) {
+	for name, unset := range map[string]string{"time_zone": "DEFAULT", "@x": "NULL"} {
+		t.Run(name, func(t *testing.T) {
+			db, mock, err := sqlmock.New()
+			require.NoError(t, err)
+			defer db.Close()
+			db.SetMaxOpenConns(1)
+
+			mock.ExpectExec("SET " + name + " = 'v'").WillReturnResult(sqlmock.NewResult(0, 0))
+			mock.ExpectQuery("SELECT 1").WillReturnRows(sqlmock.NewRows([]string{"1"}).AddRow(1))
+			mock.ExpectExec("SET " + name + " = " + unset).WillReturnResult(sqlmock.NewResult(0, 0))
+
+			rows := &Rows{}
+			require.NoError(t, OpenDB(dialect.MySql, db).Query(
+				WithVar(context.Background(), name, "v"), "SELECT 1", []any{}, rows,
+			))
+			require.NoError(t, rows.Close())
+			require.NoError(t, mock.ExpectationsWereMet())
+		})
+	}
+}

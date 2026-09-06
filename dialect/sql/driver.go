@@ -273,6 +273,28 @@ func (c Conn) Query(ctx context.Context, query string, args, v any) error {
 	return nil
 }
 
+// mysqlUnset is what puts a MySql variable back the way it was found.
+//
+// The two kinds of variable disagree about it, and each refuses the other's
+// answer. A system variable goes back with DEFAULT, which is its global value;
+// NULL is refused outright -- `SET time_zone = NULL` is error 1231, "Variable
+// 'time_zone' can't be set to the value of 'NULL'". A user-defined variable,
+// the ones written with a single `@`, has no global value to go back to and is
+// unset with NULL; DEFAULT is a syntax error there. MySql 8.0 and 8.4 and
+// MariaDB 10.11 and 11.4 all answer the same way.
+//
+// Getting it wrong fails *after* the query rather than instead of it. The
+// reset runs on the way back to the pool, so the statement the caller asked
+// for succeeds and the error surfaces from somewhere the caller never named.
+func mysqlUnset(name string) string {
+	// `@@x` is a system variable spelled the long way; only a single `@` makes
+	// it one of the caller's own.
+	if strings.HasPrefix(name, "@") && !strings.HasPrefix(name, "@@") {
+		return "NULL"
+	}
+	return "DEFAULT"
+}
+
 // maySetVars sets the session variables before executing a query.
 func (c Conn) maySetVars(ctx context.Context) (ExecQuerier, func() error, error) {
 	sv, _ := ctx.Value(ctxVarsKey{}).(sessionVars)
@@ -301,7 +323,7 @@ func (c Conn) maySetVars(ctx context.Context) (ExecQuerier, func() error, error)
 			case dialect.Postgres:
 				reset = append(reset, fmt.Sprintf("RESET %s", s.k))
 			case dialect.MySql:
-				reset = append(reset, fmt.Sprintf("SET %s = NULL", s.k))
+				reset = append(reset, fmt.Sprintf("SET %s = %s", s.k, mysqlUnset(s.k)))
 			}
 			seen[s.k] = struct{}{}
 		}
