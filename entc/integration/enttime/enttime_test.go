@@ -12,6 +12,7 @@ package enttime
 
 import (
 	"context"
+	dbsql "database/sql"
 	"fmt"
 	"strings"
 	"testing"
@@ -36,10 +37,25 @@ var (
 )
 
 func TestSQLite(t *testing.T) {
-	drv, err := sql.Open(dialect.SQLite, "file:"+t.TempDir()+"/db.sqlite")
+	dsn := "file:" + t.TempDir() + "/db.sqlite"
+	drv, err := sql.Open(dialect.SQLite, dsn)
 	require.NoError(t, err)
 	defer drv.Close()
 	compares(t, drv, "datetime")
+
+	// A row SQLite holds with an offset on it, which is what a row written
+	// before this package moved times to UTC looks like, and what a row
+	// written by anything that is not ent looks like now.
+	t.Run("reads UTC", func(t *testing.T) {
+		ctx := context.Background()
+		require.NoError(t, drv.Exec(ctx, "CREATE TABLE enttime_read (at datetime NOT NULL)", []any{}, new(sql.Result)))
+		db, err := dbsql.Open("sqlite3", dsn)
+		require.NoError(t, err)
+		defer db.Close()
+		_, err = db.ExecContext(ctx, "INSERT INTO enttime_read (at) VALUES (?)", at.In(kst))
+		require.NoError(t, err)
+		readsUTC(t, ctx, drv, "SELECT at FROM enttime_read")
+	})
 }
 
 func TestMySql(t *testing.T) {
@@ -54,6 +70,20 @@ func TestMySql(t *testing.T) {
 			for _, col := range []string{"datetime", "timestamp"} {
 				t.Run(col, func(t *testing.T) { compares(t, drv, col) })
 			}
+
+			// A connection that reads in a zone of its own, which is what a
+			// DSN with `loc` set asks for. The column still answers in UTC.
+			t.Run("reads UTC", func(t *testing.T) {
+				local, err := sql.Open(dialect.MySql, fmt.Sprintf("root:pass@tcp(localhost:%d)/test?parseTime=True&loc=Asia%%2FSeoul", port))
+				require.NoError(t, err)
+				defer local.Close()
+				ctx := context.Background()
+				require.NoError(t, local.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result)))
+				require.NoError(t, local.Exec(ctx, "CREATE TABLE enttime_read (at datetime NOT NULL)", []any{}, new(sql.Result)))
+				defer local.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result))
+				require.NoError(t, local.Exec(ctx, "INSERT INTO enttime_read (at) VALUES (?)", []any{at}, new(sql.Result)))
+				readsUTC(t, ctx, local, "SELECT at FROM enttime_read")
+			})
 		})
 	}
 }
@@ -67,8 +97,44 @@ func TestPostgres(t *testing.T) {
 			for _, col := range []string{"timestamptz", "timestamp"} {
 				t.Run(col, func(t *testing.T) { compares(t, drv, col) })
 			}
+
+			// A session in a zone of its own, which is what a Postgres whose
+			// TimeZone was never set to UTC gives every connection. A
+			// timestamptz comes back with that offset on it; the column still
+			// answers in UTC.
+			t.Run("reads UTC", func(t *testing.T) {
+				ctx := sql.WithVar(context.Background(), "TimeZone", "Asia/Seoul")
+				require.NoError(t, drv.Exec(ctx, "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result)))
+				require.NoError(t, drv.Exec(ctx, "CREATE TABLE enttime_read (at timestamptz NOT NULL)", []any{}, new(sql.Result)))
+				defer drv.Exec(context.Background(), "DROP TABLE IF EXISTS enttime_read", []any{}, new(sql.Result))
+				require.NoError(t, drv.Exec(ctx, "INSERT INTO enttime_read (at) VALUES ($1)", []any{at}, new(sql.Result)))
+				readsUTC(t, ctx, drv, "SELECT at FROM enttime_read")
+			})
 		})
 	}
+}
+
+// readsUTC is what dialect/sql promises about a time it scans: the instant the
+// column holds, in one zone, whatever the engine answered in.
+//
+// Each caller arranges for the engine to answer in something else -- a session
+// TimeZone, a connection `loc`, an offset already written into the text -- so
+// that a plain pass-through would be visible here.
+func readsUTC(t *testing.T, ctx context.Context, drv *sql.Driver, query string) {
+	t.Helper()
+	rows := &sql.Rows{}
+	require.NoError(t, drv.Query(ctx, query, []any{}, rows))
+	defer rows.Close()
+	require.True(t, rows.Next())
+
+	var got time.Time
+	require.NoError(t, rows.Scan(&got))
+	require.Equal(t, time.UTC, got.Location(), "scanned %s", got)
+	require.True(t, at.Equal(got), "scanned %s, want %s", got, at)
+
+	// Which is the point: the value compares equal to a written-down one, and
+	// not merely to itself.
+	require.Equal(t, at, got)
 }
 
 // compares is the whole claim: rows written from different zones are one value

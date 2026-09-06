@@ -348,6 +348,48 @@ type (
 	TxOptions = sql.TxOptions
 )
 
+// Scan reads a row into dest, and answers a time in UTC.
+//
+// It is the other half of what bindArgs does to an argument, and it is here
+// for the same reason: the zone is the dialect's answer rather than the
+// column's. A Postgres timestamptz comes back in whatever the session's
+// TimeZone is, as a zone with no name; MySql's comes back in the connection's
+// `loc`; SQLite's comes back with whatever offset the text carried. The
+// instant is right in all three and the [time.Time.Location] is three
+// different answers, so a value read on one engine is not the value read on
+// another -- `==`, reflect.DeepEqual and every test helper built on them say
+// so, while [time.Time.Equal] says otherwise.
+//
+// This method exists rather than a change to the generated scan code because
+// it is one place. Rows embeds the interface it scans through, so naming Scan
+// here shadows the promoted one for every caller that holds a Rows: the node
+// query in dialect/sql/sqlgraph, and ScanOne and ScanSlice below.
+//
+// What it cannot reach is a destination that scans itself -- a field.GoType
+// with a Scan method of its own gets the driver's value and decides. That is
+// the same hole a custom driver.Valuer leaves on the way out.
+func (r Rows) Scan(dest ...any) error {
+	if err := r.ColumnScanner.Scan(dest...); err != nil {
+		return err
+	}
+	for _, d := range dest {
+		switch d := d.(type) {
+		case *time.Time:
+			*d = d.UTC()
+		case *sql.NullTime:
+			if d.Valid {
+				d.Time = d.Time.UTC()
+			}
+		case *any:
+			// What ScanSlice reads a column of unknown type through.
+			if t, ok := (*d).(time.Time); ok {
+				*d = t.UTC()
+			}
+		}
+	}
+	return nil
+}
+
 // NullScanner implements the sql.Scanner interface such that it
 // can be used as a scan destination, similar to the types above.
 type NullScanner struct {

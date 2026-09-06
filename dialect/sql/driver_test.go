@@ -132,3 +132,34 @@ func TestBindArgsUnchanged(t *testing.T) {
 	args := []any{1, "a", nil}
 	require.Equal(t, args, bindArgs(args))
 }
+
+// TestRowsScanTime covers the destinations the engine tests cannot reach: a
+// NullTime, and the `any` a column of unknown type is read through.
+func TestRowsScanTime(t *testing.T) {
+	db, mock, err := sqlmock.New()
+	require.NoError(t, err)
+	defer db.Close()
+
+	at := time.Date(2026, 9, 6, 0, 0, 0, 0, time.UTC)
+	local := at.In(time.FixedZone("KST", 9*60*60))
+	mock.ExpectQuery("SELECT").WillReturnRows(
+		sqlmock.NewRows([]string{"a", "b", "c", "d"}).AddRow(local, local, local, nil),
+	)
+
+	rows := &Rows{}
+	require.NoError(t, OpenDB(dialect.SQLite, db).Query(context.Background(), "SELECT", []any{}, rows))
+	defer rows.Close()
+	require.True(t, rows.Next())
+
+	var (
+		plain time.Time
+		valid NullTime
+		blank NullTime
+		nul   any
+	)
+	require.NoError(t, rows.Scan(&plain, &valid, &nul, &blank))
+	require.Equal(t, at, plain)
+	require.Equal(t, NullTime{Time: at, Valid: true}, valid)
+	require.Equal(t, at, nul)
+	require.Equal(t, NullTime{}, blank, "a NULL has no zone to move")
+}
