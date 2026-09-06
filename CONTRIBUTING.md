@@ -2,6 +2,11 @@
 We want to make contributing to this project as easy and transparent as
 possible.
 
+This is a fork of [ent/ent](https://github.com/ent/ent). Before merging,
+cherry-picking or hand-porting anything from upstream, read [UPSTREAM.md](UPSTREAM.md):
+it lists what this fork changed and what to drop, rewrite or regenerate when a
+patch does not apply.
+
 # Project structure
 
 - `dialect` - Contains the SQL code used by the generated code.
