@@ -159,6 +159,30 @@ var (
 		},
 	}
 
+	// FeatureNoClientSchema keeps the migration engine off the generated
+	// Client, so that a binary which never migrates does not link it.
+	//
+	// `Client.Schema` is a `*migrate.Schema`, and `NewClient` builds one. That
+	// is an import, and the linker follows imports: the generated package pulls
+	// in `dialect/sql/schema`, which pulls in Atlas -- its diff planner, all
+	// three of its SQL dialects, and the HCL parser those import for a schema
+	// language most programs never write. Measured on one app compiled to
+	// `GOOS=js GOARCH=wasm`, that was 10.5 MB of a 57 MB module, linked to
+	// answer a question the program does not ask.
+	//
+	// With this on, `Client` has no `Schema` field and the caller says it:
+	//
+	//	migrate.NewSchema(drv).Create(ctx)
+	//
+	// which needs the driver it already had to build the client. `migrate` is
+	// generated either way, so a program that does migrate is unaffected.
+	FeatureNoClientSchema = Feature{
+		Name:        "sql/no-client-schema",
+		Stage:       Experimental,
+		Default:     false,
+		Description: "Keeps the migration engine off the generated Client, so a binary that never migrates does not link it",
+	}
+
 	// AllFeatures holds a list of all feature-flags.
 	AllFeatures = []Feature{
 		FeaturePrivacy,
@@ -174,6 +198,7 @@ var (
 		FeatureUpsert,
 		FeatureVersionedMigration,
 		FeatureGlobalId,
+		FeatureNoClientSchema,
 	}
 	// allFeatures includes all public and private features.
 	allFeatures = append(AllFeatures, featureMultiSchema)
