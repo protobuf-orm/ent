@@ -1,10 +1,15 @@
 name: Continuous Integration
 on:
   push:
-    paths-ignore:
-      - 'doc/**'
+    # Both filters, because naming only one turns the other off: a push
+    # trigger with `tags-ignore` and no `branches` does not run for a branch
+    # push at all, which is every push that is not a release.
+    branches:
+      - '**'
     tags-ignore:
       - '*.*'
+    paths-ignore:
+      - 'doc/**'
   pull_request:
     paths-ignore:
       - 'doc/**'
