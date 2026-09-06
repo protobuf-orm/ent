@@ -307,14 +307,18 @@ func BytesId(t *testing.T, client *ent.Client) {
 // clearDefault clears the id's default for non-postgres dialects.
 func clearDefault(c schema.Creator) schema.Creator {
 	return schema.CreateFunc(func(ctx context.Context, tables ...*schema.Table) error {
-		// Drop DEFAULT clause for MySql without changing the tables.
-		ct := make([]*schema.Table, len(tables))
-		copy(ct, tables)
-		*ct[1] = *tables[1]
-		ct[1].Columns = append([]*schema.Column(nil), tables[1].Columns...)
-		*ct[1].Columns[0] = *tables[1].Columns[0]
-		ct[1].Columns[0].Default = nil
-		return c.Create(ctx, ct...)
+		// Cleared for the call and put back after, rather than copied.
+		//
+		// What was here copied the slice -- which copies pointers, so every
+		// entry was still the caller's own table -- and then assigned a Table
+		// over itself, which copies the mutex a Table holds. So it changed the
+		// tables it said it would not, and did it in a way `go vet` refuses.
+		c0 := tables[1].Columns[0]
+		def := c0.Default
+		c0.Default = nil
+		defer func() { c0.Default = def }()
+
+		return c.Create(ctx, tables...)
 	})
 }
 

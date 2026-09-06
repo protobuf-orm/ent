@@ -76,8 +76,20 @@ go generate ./... && go mod tidy \
 Never resolve a conflict in generated code by hand — regenerate. Anything under
 `*/ent/` or a `migrate/schema.go` is output.
 
-`go vet ./dialect/sql/` reports a pre-existing `WriteByte` signature complaint
-in `builder.go`. That one is expected.
+## Lint
+
+`gopls check`, through `.github/lint.sh`, which fails on anything not listed in
+`.github/lint-allow.txt`. Same rules an editor runs, so green on a desk is green
+in CI.
+
+```sh
+go install golang.org/x/tools/gopls@v0.23.0
+.github/lint.sh $(git ls-files '*.go')
+```
+
+An allowed finding needs a reason in that file. There is one today: `Builder`'s
+chainable `WriteByte`, which borrows `io.ByteWriter`'s name without its
+signature.
 
 ## Commit messages
 

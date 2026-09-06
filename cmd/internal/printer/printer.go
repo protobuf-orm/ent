@@ -48,7 +48,8 @@ func (p Config) node(t *gen.Type) {
 		b  strings.Builder
 		id []*gen.Field
 	)
-	b.WriteString(t.Name + ":\n")
+	b.WriteString(t.Name)
+	b.WriteString(":\n")
 	if t.Id != nil {
 		id = append(id, t.Id)
 	}

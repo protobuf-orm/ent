@@ -1,0 +1,11 @@
+# Findings .github/lint.sh is to pass over, matched as substrings of a line of
+# `gopls check` output. A line number would go stale, so match on the message,
+# which names the type it is about. Each entry needs a reason, and a reason
+# that is a decision rather than a shrug.
+
+# Builder's writers are chainable on purpose -- `b.S(x).WriteByte(',')` is the
+# whole shape of that API -- so WriteByte cannot have io.ByteWriter's signature.
+# It does not answer to that interface and nothing asks it to; what it borrows
+# is the name. Renaming it is a live option (188 call sites, all but eight
+# files regenerated) and would end this line.
+method WriteByte(c byte) *sql.Builder should have signature

@@ -33,8 +33,7 @@ func BenchmarkGraph_Gen(b *testing.B) {
 		},
 	})
 	require.NoError(b, err)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := graph.Gen()
 		require.NoError(b, err)
 	}

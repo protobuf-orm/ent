@@ -143,12 +143,19 @@ func (i IncrementStarts) WriteToDisk(target string) error {
 	if err != nil {
 		return err
 	}
+	// Closed rather than deferred, and the error kept: this is a write, and a
+	// close is where the last of it lands. A deferred close that drops its
+	// error reports a file written when what is on disk is the part that fit.
 	defer f.Close()
-	return templates.Lookup("internal/globalid").
+	if err := templates.Lookup("internal/globalid").
 		Execute(f, &Config{
 			Target:      target,
 			Annotations: Annotations{"IncrementStarts": i},
-		})
+		}); err != nil {
+		return err
+	}
+
+	return f.Close()
 }
 
 func IncrementStartsFilePath(dir string) string {

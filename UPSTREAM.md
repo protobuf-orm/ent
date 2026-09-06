@@ -333,8 +333,20 @@ Note the order: `go generate` runs `go run -mod=mod .../cmd/ent`, which *adds*
 entries to `entc/integration/go.sum` that `go mod tidy` then removes. Committing
 the intermediate state fails this gate. Commit the tidied files.
 
-**Lint.** `golangci-lint`. `go vet ./dialect/sql/` reports a pre-existing
-`WriteByte` signature complaint in `builder.go`; that one is expected.
+**Lint.** `gopls check` over every tracked Go file, through `.github/lint.sh`,
+which fails on anything not written down in `.github/lint-allow.txt`. Run it
+the same way locally:
+
+```sh
+go install golang.org/x/tools/gopls@v0.23.0
+.github/lint.sh $(git ls-files '*.go')
+```
+
+gopls rather than a linter of its own, so that what is green in an editor is
+green in CI. Upstream uses `golangci-lint` with a `.golangci.yml`; take neither.
+Its config here was v1-format against a v2 binary and would have failed to load
+before linting anything, and of the fifty-one findings its linter set produced
+over gopls's four, one was worth acting on.
 
 ## Where a new engine-level test goes
 

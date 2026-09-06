@@ -25,7 +25,7 @@ type Noder interface {
 
 // Node in the graph.
 type Node struct {
-	Id 	   {{ $.IdType }} `json:"id,omitemty"` // node id.
+	Id 	   {{ $.IdType }} `json:"id,omitempty"` // node id.
 	Type   string   `json:"type,omitempty"`   // node type.
 	Fields []*Field `json:"fields,omitempty"` // node fields.
 	Edges  []*Edge  `json:"edges,omitempty"`  // node edges.

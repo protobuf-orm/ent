@@ -13,10 +13,23 @@ import (
 )
 
 // CheckDir checks the given dir and reports if there are any VCS conflicts.
+//
+// One level only: a directory below the one asked about is skipped rather than
+// walked, and the directory itself is not a file to read.
 func CheckDir(dir string) error {
 	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		if info != nil && info.IsDir() && dir != path {
-			return filepath.SkipDir
+		if err != nil {
+			return err
+		}
+		if info.IsDir() {
+			if path != dir {
+				return filepath.SkipDir
+			}
+			// The root arrives here too, and opening a directory succeeds --
+			// it is reading one that does not. Until checkFile reported what
+			// its scanner said, that read failed on every call and the failure
+			// was the answer "no conflict".
+			return nil
 		}
 		return checkFile(path)
 	})
@@ -42,5 +55,9 @@ func checkFile(path string) error {
 			return fmt.Errorf("vcs conflict %s:%d", path, i+1)
 		}
 	}
-	return nil
+
+	// A scan loop ends the same way whether the file ran out or the read
+	// failed, so without this a file that could not be read reports no
+	// conflict rather than reporting a problem.
+	return scan.Err()
 }
