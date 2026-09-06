@@ -7,6 +7,7 @@ package sql
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/protobuf-orm/ent/dialect"
 
@@ -90,4 +91,44 @@ func TestWithVars(t *testing.T) {
 	require.NoError(t, err)
 	require.NoError(t, mock.ExpectationsWereMet())
 	// No rows are returned, so no need to close them.
+}
+
+// TestBindArgsTime is the whole of what dialect/sql promises about a time it is
+// handed: the instant survives and the way it is written does not vary.
+func TestBindArgsTime(t *testing.T) {
+	at := time.Date(2026, 9, 6, 0, 0, 0, 0, time.UTC)
+	kst := time.FixedZone("KST", 9*60*60)
+	local := at.In(kst)
+
+	nt := NullTime{Time: local, Valid: true}
+	null := NullTime{}
+	var nilp *time.Time
+
+	got := bindArgs([]any{local, &local, nt, &nt, null, nilp, "unchanged"})
+
+	// The instant is what is written; the zone it was written in is not.
+	require.Equal(t, at, got[0], "a time is bound as UTC")
+	require.Equal(t, at, got[1], "a pointer to a time is dereferenced, as a *uuid.UUID is")
+	require.Equal(t, NullTime{Time: at, Valid: true}, got[2])
+	require.Equal(t, NullTime{Time: at, Valid: true}, got[3])
+
+	// Nothing else is touched, and an absence stays an absence.
+	require.Equal(t, null, got[4], "a NULL has no zone to move")
+	require.Nil(t, got[5], "a nil is left as it was")
+	require.Equal(t, "unchanged", got[6])
+
+	// It is the same instant, not merely a comparable one.
+	require.True(t, local.Equal(got[0].(time.Time)))
+
+	// And the monotonic reading time.Now attaches is gone, which is what makes
+	// a bound time comparable to one that was read back.
+	now := bindArgs([]any{time.Now()})[0].(time.Time)
+	require.Equal(t, now, now.Round(0), "the monotonic reading is dropped")
+}
+
+// TestBindArgsUnchanged keeps the fast path honest: args with nothing to
+// convert are handed on as they came, not copied.
+func TestBindArgsUnchanged(t *testing.T) {
+	args := []any{1, "a", nil}
+	require.Equal(t, args, bindArgs(args))
 }

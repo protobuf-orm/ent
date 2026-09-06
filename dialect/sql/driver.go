@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 	"uuid"
 
 	"github.com/protobuf-orm/ent/dialect"
@@ -148,18 +149,57 @@ type Conn struct {
 // type of one's own that is sixteen bytes with a MarshalText, which is exactly
 // what a uuid.UUID is, is refused by every one of these converters and is
 // meant to be. See field.RType.DriverType.
+//
+// # Why a time is moved to UTC
+//
+// For the same reason and by a different mechanism. A time.Time carries the
+// zone it was read in, and what a column does with that zone is the dialect's
+// own business: a Postgres timestamptz and a MySQL timestamp parse the offset
+// and normalise, while a SQLite datetime is text and keeps whatever it was
+// handed. So one instant written by a process in KST and by one in a container
+// with no TZ set is two rows on SQLite that are equal as instants and equal to
+// nothing else -- not to `=`, not ordered by ORDER BY, not found by the `>` a
+// keyset cursor is built from. See dialect/sql/sqlpage.
+//
+// Moving to UTC discards no zone in any sense that matters. The instant is
+// untouched and the offset is still stated, as `Z`; what goes is the freedom
+// to state it more than one way. It also drops the monotonic reading time.Now
+// attaches, which means nothing in a column and nothing across processes.
+//
+// What it does not reach: a time inside a JSON value, which encoding/json has
+// already written with its offset by the time it arrives here, and anything
+// executed through Driver.DB rather than through this package.
 func bindArgs(args []any) []any {
 	var out []any
 	for i, v := range args {
-		var s string
+		// A pointer is dereferenced rather than rewritten, which is what
+		// database/sql's own converter does with one.
+		var b any
 		switch v := v.(type) {
 		case uuid.UUID:
-			s = v.String()
+			b = v.String()
 		case *uuid.UUID:
 			if v == nil {
 				continue
 			}
-			s = v.String()
+			b = v.String()
+		case time.Time:
+			b = v.UTC()
+		case *time.Time:
+			if v == nil {
+				continue
+			}
+			b = v.UTC()
+		case sql.NullTime:
+			if !v.Valid {
+				continue
+			}
+			b = sql.NullTime{Time: v.Time.UTC(), Valid: true}
+		case *sql.NullTime:
+			if v == nil || !v.Valid {
+				continue
+			}
+			b = sql.NullTime{Time: v.Time.UTC(), Valid: true}
 		default:
 			continue
 		}
@@ -167,7 +207,7 @@ func bindArgs(args []any) []any {
 			out = make([]any, len(args))
 			copy(out, args)
 		}
-		out[i] = s
+		out[i] = b
 	}
 	if out == nil {
 		return args
