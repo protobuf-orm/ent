@@ -344,9 +344,21 @@ go install golang.org/x/tools/gopls@v0.23.0
 
 gopls rather than a linter of its own, so that what is green in an editor is
 green in CI. Upstream uses `golangci-lint` with a `.golangci.yml`; take neither.
-Its config here was v1-format against a v2 binary and would have failed to load
-before linting anything, and of the fifty-one findings its linter set produced
-over gopls's four, one was worth acting on.
+
+Two reasons, and the first is the one that decides it. golangci-lint has to be
+built with a Go at least as new as the code it reads, and it trails Go by
+months: `golangci-lint-action@v5` installs v1.64.8, built with go1.24, and this
+module targets 1.27 --
+
+```
+can't load config: the Go language version (go1.24) used to build
+golangci-lint is lower than the targeted Go version (1.27)
+```
+
+-- so the job failed before reading a line of Go, and would again at every Go
+release until a golangci-lint caught up. gopls is built from x/tools and has no
+such gap. The second reason is smaller: of the fifty-one findings golangci-lint's
+configured set produced over gopls's four, one was worth acting on.
 
 ## Where a new engine-level test goes
 
