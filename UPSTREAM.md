@@ -217,7 +217,14 @@ go test ./...                                            # root module
 (cd entc/integration && go test -race -count=2 ./...)     # module, needs the six services below
 ```
 
-Engines, matching `.github/workflows/ci.yml` -- one old and one new of each:
+`compose.test.yaml` holds the same six services the `integration` job declares
+-- one old and one new of each engine -- on the ports the tests look for:
+
+```sh
+docker compose -f compose.test.yaml up -d --wait
+(cd entc/integration && go test -race -count=2 ./...)
+docker compose -f compose.test.yaml down
+```
 
 | Engine | Version | Port |
 |---|---|---|
@@ -228,16 +235,9 @@ Engines, matching `.github/workflows/ci.yml` -- one old and one new of each:
 | PostgreSQL | 14 | 5434 |
 | PostgreSQL | 17 | 5437 |
 
-SQLite runs in-process; it needs nothing.
-
-```sh
-docker run -d --rm -e MYSQL_DATABASE=test -e MYSQL_ROOT_PASSWORD=pass -p 3308:3306 mysql:8.0
-docker run -d --rm -e MYSQL_DATABASE=test -e MYSQL_ROOT_PASSWORD=pass -p 3309:3306 mysql:8.4
-docker run -d --rm -e MYSQL_DATABASE=test -e MYSQL_ROOT_PASSWORD=pass -p 4309:3306 mariadb:10.11
-docker run -d --rm -e MYSQL_DATABASE=test -e MYSQL_ROOT_PASSWORD=pass -p 4310:3306 mariadb:11.4
-docker run -d --rm -e POSTGRES_DB=test -e POSTGRES_PASSWORD=pass -p 5434:5432 postgres:14
-docker run -d --rm -e POSTGRES_DB=test -e POSTGRES_PASSWORD=pass -p 5437:5432 postgres:17
-```
+The ports are not configurable -- the tests hardcode `localhost:<port>`, so a
+Docker daemon that publishes somewhere other than this host needs the ports
+forwarded before any of this connects. SQLite runs in-process and needs nothing.
 
 ### The two CI gates that catch a bad merge
 
