@@ -551,7 +551,9 @@ func TestString(t *testing.T) {
 }
 
 func TestTime(t *testing.T) {
-	now := time.Now()
+	// UTC, because that is what a time field's default answers -- see the
+	// utcTime cases in TestTimeDefaultUTC below.
+	now := time.Now().UTC()
 	fd := field.Time("created_at").
 		Default(func() time.Time {
 			return now
@@ -1035,4 +1037,40 @@ func TestJsonValueScanner(t *testing.T) {
 	}
 	_, err := field.JsonValue(42)
 	require.ErrorContains(t, err, "must return the encoded value")
+}
+
+func TestTimeDefaultUTC(t *testing.T) {
+	kst := time.FixedZone("KST", 9*60*60)
+	at := time.Date(2026, 9, 6, 0, 0, 0, 0, time.UTC)
+
+	t.Run("a function answers in UTC", func(t *testing.T) {
+		fd := field.Time("created_at").
+			Default(func() time.Time { return at.In(kst) }).
+			UpdateDefault(func() time.Time { return at.In(kst) }).
+			Descriptor()
+		for name, fn := range map[string]any{"Default": fd.Default, "UpdateDefault": fd.UpdateDefault} {
+			got := fn.(func() time.Time)()
+			require.Equal(t, at, got, name)
+			require.Equal(t, time.UTC, got.Location(), name)
+		}
+	})
+
+	t.Run("a constant is stored in UTC", func(t *testing.T) {
+		fd := field.Time("created_at").Default(at.In(kst)).Descriptor()
+		require.Equal(t, at, fd.Default)
+	})
+
+	t.Run("time.Now loses its monotonic reading", func(t *testing.T) {
+		fd := field.Time("created_at").Default(time.Now).Descriptor()
+		got := fd.Default.(func() time.Time)()
+		require.Equal(t, got, got.Round(0))
+	})
+
+	// A GoType has its own zero and its own meaning, so it is handed back the
+	// way it came.
+	t.Run("another type is left alone", func(t *testing.T) {
+		fn := func() sql.NullTime { return sql.NullTime{Time: at.In(kst), Valid: true} }
+		fd := field.Time("deleted_at").GoType(sql.NullTime{}).Default(fn).Descriptor()
+		require.Equal(t, at.In(kst), fd.Default.(func() sql.NullTime)().Time)
+	})
 }

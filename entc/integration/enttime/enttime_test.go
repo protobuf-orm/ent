@@ -20,6 +20,7 @@ import (
 
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/entc/integration/ent/enttest"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
@@ -204,4 +205,33 @@ func compares(t *testing.T, drv *sql.Driver, col string) {
 	// The zone the argument was written in makes no difference to any of it.
 	require.Equal(t, []int{1, 2, 3}, ids("SELECT id FROM enttime WHERE at = ? ORDER BY id", at.In(kst)))
 	require.Equal(t, []int{4}, ids("SELECT id FROM enttime WHERE at > ? ORDER BY id", at.In(hst)))
+}
+
+// TestGeneratedClient is the same claim seen from where an app stands: what a
+// Create returns and what a Get reads back are one value, in one zone.
+//
+// It is worth asserting through generated code because the two halves are
+// reached differently. The default that fills create_time is the schema
+// descriptor's, which a generated runtime.go asks for at init; the value the
+// node carries never goes near a driver, since a Create builds its node from
+// the mutation rather than reading the row back.
+func TestGeneratedClient(t *testing.T) {
+	client := enttest.Open(t, dialect.SQLite, "file:enttime?mode=memory&cache=shared&_fk=1")
+	defer client.Close()
+	ctx := context.Background()
+
+	l := client.License.Create().SetId(1).SaveX(ctx)
+	require.Equal(t, time.UTC, l.CreateTime.Location(), "create_time is %s", l.CreateTime)
+	require.Equal(t, time.UTC, l.UpdateTime.Location(), "update_time is %s", l.UpdateTime)
+
+	// Not merely the same instant: the same value, which is what a test that
+	// compares a response to a row gets to say.
+	got := client.License.GetX(ctx, l.Id)
+	require.Equal(t, l.CreateTime, got.CreateTime)
+	require.Equal(t, l.UpdateTime, got.UpdateTime)
+
+	// An update takes the same route through UpdateDefault.
+	u := client.License.UpdateOne(l).SaveX(ctx)
+	require.Equal(t, time.UTC, u.UpdateTime.Location(), "update_time is %s", u.UpdateTime)
+	require.Equal(t, u.UpdateTime, client.License.GetX(ctx, l.Id).UpdateTime)
 }

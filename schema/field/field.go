@@ -460,8 +460,10 @@ func (b *timeBuilder) StructTag(s string) *timeBuilder {
 //
 //	field.Time("created_at").
 //		Default(time.Now)
+//
+// What it answers is stored in UTC. See [utcTime].
 func (b *timeBuilder) Default(fn any) *timeBuilder {
-	b.desc.Default = fn
+	b.desc.Default = utcTime(fn)
 	return b
 }
 
@@ -476,9 +478,37 @@ func (b *timeBuilder) Default(fn any) *timeBuilder {
 //		Optional().
 //		GoType(&sql.NullTime{}).
 //		UpdateDefault(NewNullTime),
+//
+// What it answers is stored in UTC. See [utcTime].
 func (b *timeBuilder) UpdateDefault(fn any) *timeBuilder {
-	b.desc.UpdateDefault = fn
+	b.desc.UpdateDefault = utcTime(fn)
 	return b
+}
+
+// utcTime is what a time field's default answers, which is the instant it was
+// given in the one zone ent stores.
+//
+// dialect/sql already moves a time to UTC on the way to a driver, so this
+// changes nothing about the column. What it changes is the value in hand: a
+// Create returns the node it built from the mutation rather than reading the
+// row back, so without this a create_time is UTC in the database and local in
+// the struct that reports it -- two spellings of one instant, which compare
+// unequal to everything except time.Time.Equal.
+//
+// It reaches an already generated client because a generated runtime.go asks
+// the schema for its descriptor at init rather than copying the default into
+// the file. A default of some other type is left alone: a field.GoType has its
+// own zero and its own meaning, and nothing here knows what UTC would be to
+// it.
+func utcTime(fn any) any {
+	switch fn := fn.(type) {
+	case func() time.Time:
+		return func() time.Time { return fn().UTC() }
+	case time.Time:
+		return fn.UTC()
+	default:
+		return fn
+	}
 }
 
 // StorageKey sets the storage key of the field.
