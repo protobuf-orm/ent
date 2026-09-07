@@ -12,8 +12,8 @@ go generate ./...
 #### Running the integration tests
 
 ```
-docker-compose up -d
-go test .
+docker compose -f ../../compose.test.yaml up -d --wait
+go test ./...
 ```
 
 Use the `-run` flag for running specific test or set of tests. For example:
