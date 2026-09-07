@@ -1,0 +1,12 @@
+protobuf-orm/ent
+Copyright 2026 Seunghyun Hwang
+
+This is a fork of ent (https://github.com/ent/ent).
+
+This product includes software developed at Facebook, Inc.
+Copyright 2019-present Facebook Inc.
+
+Files throughout this repository have been modified from the originals, and
+files that carry a copyright other than Facebook's were written for this fork.
+What changed and why is in the git history; UPSTREAM.md says which differences
+are deliberate.
