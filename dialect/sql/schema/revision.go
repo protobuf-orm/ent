@@ -9,6 +9,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"time"
 
 	"ariga.io/atlas/sql/migrate"
@@ -19,7 +20,20 @@ import (
 // RevisionTable is where a database records which migrations were applied to
 // it. It is not part of the ent schema; it belongs to the database, not to the
 // app.
+//
+// It is the ent directory's. A directory of its own beside it keeps its history
+// in another table -- see [Migrations.Revisions] -- and [ExtraRevisionTable] is
+// the one [Migrations.Extra] names.
 const RevisionTable = "schema_revisions"
+
+// ExtraRevisionTable is where the directory beside the ent one keeps its
+// history; see [Migrations.Extra].
+const ExtraRevisionTable = "schema_revisions_extra"
+
+// tableName is what a revision table may be called. It is written into SQL as
+// it is, so it is held to the one shape every database reads the same way
+// unquoted.
+var tableName = regexp.MustCompile(`^[a-z_][a-z0-9_]*$`)
 
 // revisionColumns is the order the columns are read and written in.
 var revisionColumns = []string{
@@ -40,7 +54,8 @@ var revisionColumns = []string{
 // revisionSchema holds no type that is spelled differently by the databases
 // this package migrates, so it is the same statement everywhere. Times are text
 // in RFC 3339 rather than a timestamp, which every database stores its own way.
-const revisionSchema = `CREATE TABLE IF NOT EXISTS ` + RevisionTable + ` (
+func revisionSchema(table string) string {
+	return `CREATE TABLE IF NOT EXISTS ` + table + ` (
 	version          TEXT NOT NULL PRIMARY KEY,
 	description      TEXT NOT NULL,
 	type             BIGINT NOT NULL,
@@ -54,6 +69,7 @@ const revisionSchema = `CREATE TABLE IF NOT EXISTS ` + RevisionTable + ` (
 	partial_hashes   TEXT NOT NULL,
 	operator_version TEXT NOT NULL
 )`
+}
 
 var _ migrate.RevisionReadWriter = (*Revisions)(nil)
 
@@ -63,6 +79,10 @@ type Revisions struct {
 	db      *sql.DB
 	dialect string
 
+	// table is where the history is kept: [RevisionTable] unless a directory
+	// said otherwise.
+	table string
+
 	// schema is where the table ended up, for the databases that have more
 	// than one place to put it.
 	schema string
@@ -71,7 +91,15 @@ type Revisions struct {
 // NewRevisions reads the history of `db`, creating it if this is the first
 // time the database is migrated.
 func NewRevisions(ctx context.Context, db *sql.DB, d string) (*Revisions, error) {
-	v := &Revisions{db: db, dialect: d}
+	return newRevisions(ctx, db, d, RevisionTable)
+}
+
+func newRevisions(ctx context.Context, db *sql.DB, d string, table string) (*Revisions, error) {
+	if !tableName.MatchString(table) {
+		return nil, fmt.Errorf("%q cannot name a revision table: it is written into SQL unquoted, so it is lowercase letters, digits and underscores", table)
+	}
+
+	v := &Revisions{db: db, dialect: d, table: table}
 
 	if d == dialect.Postgres {
 		// The table is created wherever the search path points. Atlas has to
@@ -86,21 +114,21 @@ func NewRevisions(ctx context.Context, db *sql.DB, d string) (*Revisions, error)
 		v.schema = s.String
 	}
 
-	if _, err := db.ExecContext(ctx, revisionSchema); err != nil {
-		return nil, fmt.Errorf("create %s: %w", RevisionTable, err)
+	if _, err := db.ExecContext(ctx, revisionSchema(table)); err != nil {
+		return nil, fmt.Errorf("create %s: %w", table, err)
 	}
 
 	return v, nil
 }
 
 func (r *Revisions) Ident() *migrate.TableIdent {
-	return &migrate.TableIdent{Name: RevisionTable, Schema: r.schema}
+	return &migrate.TableIdent{Name: r.table, Schema: r.schema}
 }
 
 func (r *Revisions) ReadRevisions(ctx context.Context) ([]*migrate.Revision, error) {
 	q, args := entsql.Dialect(r.dialect).
 		Select(revisionColumns...).
-		From(entsql.Table(RevisionTable)).
+		From(entsql.Table(r.table)).
 		OrderBy(entsql.Asc("version")).
 		Query()
 
@@ -129,7 +157,7 @@ func (r *Revisions) ReadRevisions(ctx context.Context) ([]*migrate.Revision, err
 func (r *Revisions) ReadRevision(ctx context.Context, version string) (*migrate.Revision, error) {
 	q, args := entsql.Dialect(r.dialect).
 		Select(revisionColumns...).
-		From(entsql.Table(RevisionTable)).
+		From(entsql.Table(r.table)).
 		Where(entsql.EQ("version", version)).
 		Query()
 
@@ -157,7 +185,7 @@ func (r *Revisions) WriteRevision(ctx context.Context, v *migrate.Revision) erro
 	}
 
 	q, args := entsql.Dialect(r.dialect).
-		Insert(RevisionTable).
+		Insert(r.table).
 		Columns(revisionColumns...).
 		Values(
 			v.Version,
@@ -190,7 +218,7 @@ func (r *Revisions) WriteRevision(ctx context.Context, v *migrate.Revision) erro
 
 func (r *Revisions) DeleteRevision(ctx context.Context, version string) error {
 	q, args := entsql.Dialect(r.dialect).
-		Delete(RevisionTable).
+		Delete(r.table).
 		Where(entsql.EQ("version", version)).
 		Query()
 
