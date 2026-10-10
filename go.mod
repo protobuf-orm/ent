@@ -7,8 +7,8 @@ require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/lesomnus/xli v0.0.0-20260717171524-bf8cac633057
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/sync v0.22.0
-	golang.org/x/tools v0.49.0
+	golang.org/x/sync v0.23.0
+	golang.org/x/tools v0.51.0
 )
 
 require (
@@ -26,7 +26,7 @@ require (
 	github.com/zclconf/go-cty v1.19.0 // indirect
 	github.com/zclconf/go-cty-yaml v1.2.0 // indirect
 	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67 // indirect
-	golang.org/x/mod v0.40.0 // indirect
+	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/text v0.41.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
