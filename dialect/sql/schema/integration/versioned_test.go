@@ -14,7 +14,8 @@ import (
 	"github.com/ncruces/go-sqlite3/driver"
 	"github.com/ncruces/go-sqlite3/vfs/memdb"
 	"github.com/protobuf-orm/ent/dialect"
-	entsql "github.com/protobuf-orm/ent/dialect/sql"
+	"github.com/protobuf-orm/ent/dialect/entsql"
+	entdialectsql "github.com/protobuf-orm/ent/dialect/sql"
 	entschema "github.com/protobuf-orm/ent/dialect/sql/schema"
 	"github.com/protobuf-orm/ent/schema/field"
 	"github.com/stretchr/testify/require"
@@ -366,7 +367,7 @@ func TestCheck(t *testing.T) {
 		t.Helper()
 
 		db := open(t)
-		m, err := entschema.NewMigrate(entsql.OpenDB(dialect.SQLite, db))
+		m, err := entschema.NewMigrate(entdialectsql.OpenDB(dialect.SQLite, db))
 		require.NoError(t, err)
 		require.NoError(t, m.Create(ctx, vs...))
 
@@ -409,6 +410,50 @@ func TestCheck(t *testing.T) {
 		// not a reason to refuse to serve -- and a guard that refused it would
 		// be one nobody could turn on.
 		x.NoError(entschema.Check(ctx, create(t, moved()), dialect.SQLite, testSchema()))
+	})
+
+	t.Run("a foreign key the database has and the code does not is left alone", func(t *testing.T) {
+		x := require.New(t)
+
+		// What a deployment adds beside the schema: a reference the schema
+		// does not state, carried as a constraint. The column it is on is
+		// left alone already; the constraint used to be read as drift, and a
+		// database stricter than the schema did not start.
+		extra := testSchema()
+		holders, tenants := extra[0], extra[1]
+		deputy := &entschema.Column{Name: "deputy_tenant", Type: field.TypeUuid, Nullable: true}
+		holders.Columns = append(holders.Columns, deputy)
+		holders.ForeignKeys = append(holders.ForeignKeys, &entschema.ForeignKey{
+			Symbol:     "holder_deputy_tenant",
+			Columns:    []*entschema.Column{deputy},
+			RefColumns: []*entschema.Column{tenants.Columns[0]},
+			RefTable:   tenants,
+			OnDelete:   entschema.NoAction,
+		})
+
+		x.NoError(entschema.Check(ctx, create(t, extra), dialect.SQLite, testSchema()))
+	})
+
+	t.Run("a check the database has and the code does not is left alone", func(t *testing.T) {
+		x := require.New(t)
+
+		extra := testSchema()
+		extra[1].Annotation = &entsql.Annotation{Checks: map[string]string{"tenant_alias_set": "alias <> ''"}}
+
+		x.NoError(entschema.Check(ctx, create(t, extra), dialect.SQLite, testSchema()))
+	})
+
+	t.Run("a foreign key the code has and the database does not is refused", func(t *testing.T) {
+		x := require.New(t)
+
+		// Leaving drops alone is not leaving foreign keys alone: one the
+		// schema declares is something to have, like a column.
+		bare := testSchema()
+		bare[0].ForeignKeys = nil
+
+		err := entschema.Check(ctx, create(t, bare), dialect.SQLite, testSchema())
+		x.ErrorIs(err, entschema.ErrDrift)
+		x.Contains(err.Error(), "holder_tenant_tenant")
 	})
 
 	t.Run("a table that is gone is refused", func(t *testing.T) {
