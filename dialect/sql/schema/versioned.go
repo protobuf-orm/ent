@@ -340,11 +340,16 @@ var ErrDrift = errors.New("the database is not the shape this binary's schema de
 //
 // # What it is not
 //
-// Not "the database equals the schema". A column, an index or a table the app
-// does not know about is left alone -- the diff is filtered to what would have
-// to be **added** or widened. Which is the right policy for a guard that runs
-// on every start: an operator's extra index is not a reason to refuse to serve,
-// and a missing column is.
+// Not "the database equals the schema". A column, an index, a foreign key, a
+// check or a table the app does not know about is left alone -- the diff is
+// filtered to what would have to be **added** or changed. Which is the right
+// policy for a guard that runs on every start: an operator's extra index is not
+// a reason to refuse to serve, and a missing column is.
+//
+// The foreign key and the check are there because they are what a deployment
+// adds that the ent schema cannot state -- a foreign key that carries the
+// tenant, so a reference cannot cross one -- and a guard that refused them made
+// a database stricter than the schema one that would not start.
 //
 // # What it does not do
 //
@@ -375,7 +380,11 @@ func Check(ctx context.Context, db *sql.DB, dialect string, tables []*Table) err
 		// only way to tell it apart from a plan that is empty for another
 		// reason.
 		WithErrNoPlan(true),
-		// Deliberately not `WithDropColumn` or `WithDropIndex`; see above.
+		// Every kind of drop, and nothing else; see above. Spelled out because
+		// this replaces the default rather than adding to it, and the default
+		// is only columns and indexes -- which is how a foreign key the schema
+		// does not declare came to be read as drift.
+		WithSkipChanges(DropSchema|DropTable|DropColumn|DropIndex|DropForeignKey|DropCheck),
 	)
 	if err != nil {
 		return fmt.Errorf("new migrate: %w", err)
