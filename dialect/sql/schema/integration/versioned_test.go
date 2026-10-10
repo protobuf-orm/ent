@@ -479,3 +479,136 @@ func TestCheck(t *testing.T) {
 		x.Empty(tableNames(ctx, t, db))
 	})
 }
+
+// TestExtra is the directory beside the ent one: what the schema cannot state,
+// written by hand, applied after the ent directory and with a history of its
+// own.
+//
+// The case it exists for is the second one. Sharing the ent directory's
+// history, a file written on one branch before a plan made on another is out of
+// order once that plan has run, however unrelated the two are. Kept apart, it
+// runs.
+func TestExtra(t *testing.T) {
+	ctx := t.Context()
+
+	dir, err := entschema.OpenDir(t.TempDir())
+	require.NoError(t, err)
+	m := entschema.Migrations{Dir: dir, Dialect: dialect.SQLite, Tables: testSchema()}
+
+	extraDir, err := entschema.OpenDir(t.TempDir())
+	require.NoError(t, err)
+	extra := m.Extra(extraDir)
+
+	db := open(t)
+	_, err = m.Plan(ctx, open(t), "init")
+	require.NoError(t, err)
+	_, err = m.Apply(ctx, db, dialect.SQLite)
+	require.NoError(t, err)
+
+	// A partial unique index the ent schema here does not declare, which is
+	// the kind of thing this directory is for and one SQLite can hold.
+	const index = "CREATE UNIQUE INDEX `holder_one_per_tenant` ON `holder` (`holder_tenant`) WHERE `holder_tenant` IS NOT NULL;\n"
+
+	versions := func(t *testing.T, table string) []string {
+		t.Helper()
+
+		rows, err := db.QueryContext(ctx, `SELECT version FROM `+table+` ORDER BY version`)
+		require.NoError(t, err)
+		defer rows.Close()
+
+		vs := []string{}
+		for rows.Next() {
+			var v string
+			require.NoError(t, rows.Scan(&v))
+			vs = append(vs, v)
+		}
+		require.NoError(t, rows.Err())
+
+		return vs
+	}
+
+	t.Run("a file written by hand is in the sum, so the directory opens", func(t *testing.T) {
+		x := require.New(t)
+
+		// Older than the file planned above: written before that plan, on a
+		// branch of its own.
+		f, err := extra.Write("20000101000000", "holder_one_per_tenant", []byte(index))
+		x.NoError(err)
+		x.Equal("20000101000000_holder_one_per_tenant.sql", f.Name())
+
+		_, err = entschema.OpenDir(extraDir.Path())
+		x.NoError(err)
+	})
+
+	t.Run("a version that is already there is refused", func(t *testing.T) {
+		x := require.New(t)
+
+		_, err := extra.Write("20000101000000", "again", []byte("SELECT 1;\n"))
+		x.ErrorContains(err, "cannot be ordered")
+	})
+
+	t.Run("it runs atop the ent schema, older than the plan though it is", func(t *testing.T) {
+		x := require.New(t)
+
+		fs, err := extra.Apply(ctx, db, dialect.SQLite)
+		x.NoError(err)
+		x.Len(fs, 1)
+
+		// Two histories, each holding only what it ran.
+		x.Len(versions(t, entschema.RevisionTable), 1)
+		x.Equal([]string{"20000101000000"}, versions(t, entschema.ExtraRevisionTable))
+
+		fs, err = m.Pending(ctx, db, dialect.SQLite)
+		x.NoError(err)
+		x.Empty(fs)
+		fs, err = extra.Pending(ctx, db, dialect.SQLite)
+		x.NoError(err)
+		x.Empty(fs)
+	})
+
+	t.Run("without Atop, a database that holds tables is refused", func(t *testing.T) {
+		x := require.New(t)
+
+		// Which is what keeps the ent directory from being applied over a
+		// database somebody built another way -- and why this one says Atop.
+		other := open(t)
+		_, err := m.Apply(ctx, other, dialect.SQLite)
+		x.NoError(err)
+
+		bare := extra
+		bare.Atop = false
+		_, err = bare.Apply(ctx, other, dialect.SQLite)
+		x.ErrorContains(err, "not clean")
+	})
+
+	t.Run("the next plan of the ent directory leaves what it made alone", func(t *testing.T) {
+		x := require.New(t)
+
+		nextSecond(t)
+
+		u := m
+		u.Tables = moved()
+		fs, err := u.Plan(ctx, open(t), "add_holder_email")
+		x.NoError(err)
+		x.Len(fs, 1)
+		x.NotContains(string(fs[0].Bytes()), "holder_one_per_tenant")
+	})
+
+	t.Run("and so does Check", func(t *testing.T) {
+		x := require.New(t)
+
+		x.NoError(entschema.Check(ctx, db, dialect.SQLite, testSchema()))
+	})
+
+	t.Run("there is nothing to plan it from", func(t *testing.T) {
+		x := require.New(t)
+
+		// Planned against no tables it would be a file that drops every one.
+		_, err := extra.Plan(ctx, open(t), "anything")
+		x.ErrorIs(err, entschema.ErrNoSchema)
+
+		fs, err := extraDir.Files()
+		x.NoError(err)
+		x.Len(fs, 1)
+	})
+}

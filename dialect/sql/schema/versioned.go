@@ -21,6 +21,22 @@
 // Applying to a database that speaks something else runs statements meant for
 // another dialect: at best it fails halfway through a schema change, at worst
 // it succeeds and means something different. Migrations refuses it.
+//
+// # And what the schema cannot state is a directory of its own
+//
+// Some of what a database holds is not something an ent schema can say: an
+// exclusion constraint over a time range, a foreign key that carries the tenant
+// so a reference cannot cross one. Written into the ent directory, it is what
+// the next [Migrations.Plan] proposes to drop, because planning is the
+// directory catching up with the schema. Written into a second directory that
+// shares the first one's history, it is ordered against the planned files by
+// version, so a file written on one branch is refused as out of order once a
+// plan made on another has run.
+//
+// So it is a second directory with a history of its own -- [Migrations.Extra]
+// -- applied after the ent one, written by hand ([Migrations.Write]) and never
+// planned. The order between the two is the order the app applies them in,
+// which is the one order there is: what stands on the schema comes after it.
 
 package schema
 
@@ -29,7 +45,9 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
+	"time"
 
 	"ariga.io/atlas/sql/migrate"
 	atpostgres "ariga.io/atlas/sql/postgres"
@@ -42,6 +60,11 @@ import (
 // writes and what a command falls back to when nothing said otherwise; this
 // package never reads it on its own.
 const DefaultDir = "migrations"
+
+// DefaultExtraDir is where the files the ent schema cannot state are kept,
+// beside the planned ones; see [Migrations.Extra]. Inside [DefaultDir] is
+// safe: a directory reads the files in it and not the directories.
+const DefaultExtraDir = "migrations/extra"
 
 // ErrDialect is what a database speaking something other than the migrations
 // are written in is refused with.
@@ -79,7 +102,51 @@ type Migrations struct {
 	// here that generated code owns, and this package does not know the name of
 	// the package it is generated into. Only [Migrations.Plan] reads it -- applying
 	// runs SQL that was already written and needs no schema.
+	//
+	// Empty for a directory written by hand, which there is nothing to plan
+	// from; [Migrations.Plan] refuses one rather than plan the database empty.
 	Tables []*Table
+
+	// Revisions is the table that records which of these files a database has
+	// run. Empty is [RevisionTable], the ent directory's.
+	//
+	// A directory beside the ent one keeps a table of its own, so the two are
+	// two histories: neither file is ordered against the other's, and each
+	// knows only what it ran. See the note on the package.
+	Revisions string
+
+	// Atop says these files are applied onto a database another directory has
+	// already built -- the ent schema -- so the first of them meets tables it
+	// did not create, and that is expected rather than a reason to refuse.
+	//
+	// Off, a database that holds anything is refused before the first file,
+	// which is what keeps the ent directory from being applied over a database
+	// somebody built some other way.
+	Atop bool
+}
+
+// Extra is the directory of what the ent schema cannot state, beside m: the
+// same dialect, a history of its own ([ExtraRevisionTable]), applied atop the
+// database m builds, and never planned.
+//
+//	ent   := entschema.Migrations{Dir: dir, Dialect: dialect.Postgres, Tables: entmigrate.Tables}
+//	extra := ent.Extra(extraDir)
+//
+//	ent.Apply(ctx, db, d)   // the schema first
+//	extra.Apply(ctx, db, d) // then what stands on it
+func (m Migrations) Extra(dir migrate.Dir) Migrations {
+	return Migrations{Dir: dir, Dialect: m.Dialect, Revisions: ExtraRevisionTable, Atop: true}
+}
+
+// ErrNoSchema is a directory with no schema asked to plan.
+var ErrNoSchema = errors.New("these migrations are written by hand: there is no schema to plan them from")
+
+func (m Migrations) revisions() string {
+	if m.Revisions == "" {
+		return RevisionTable
+	}
+
+	return m.Revisions
 }
 
 // OpenDir opens the directory of migration files at `path` and makes sure none
@@ -110,6 +177,13 @@ func OpenDir(path string) (*migrate.LocalDir, error) {
 // announces itself: the atlas driver of the dialect reads the catalog the way
 // that database keeps it, and the wrong database has no such catalog.
 func (m Migrations) Plan(ctx context.Context, dev *sql.DB, name string) ([]migrate.File, error) {
+	// Planning against no tables is planning a database with nothing in it --
+	// a file that drops every table. A directory written by hand has no schema,
+	// so it is refused here, before anything is written.
+	if len(m.Tables) == 0 {
+		return nil, ErrNoSchema
+	}
+
 	before, err := m.Dir.Files()
 	if err != nil {
 		return nil, fmt.Errorf("read the migration directory: %w", err)
@@ -246,12 +320,12 @@ func (m Migrations) executor(ctx context.Context, db *sql.DB, d string) (*migrat
 		return nil, err
 	}
 
-	rrw, err := NewRevisions(ctx, db, d)
+	rrw, err := newRevisions(ctx, db, d, m.revisions())
 	if err != nil {
 		return nil, err
 	}
 
-	v, err := migrate.NewExecutor(drv, m.Dir, rrw)
+	v, err := migrate.NewExecutor(drv, m.Dir, rrw, migrate.WithAllowDirty(m.Atop))
 	if err != nil {
 		return nil, fmt.Errorf("new executor: %w", err)
 	}
@@ -271,6 +345,79 @@ func atDriverFor(db *sql.DB, d string) (migrate.Driver, error) {
 	default:
 		return nil, fmt.Errorf("nothing here migrates a %q database yet", d)
 	}
+}
+
+// Version is a migration's version for a file written at `t`: the second, in
+// UTC, which is the version [Migrations.Plan] gives the files it writes.
+func Version(t time.Time) string {
+	return t.UTC().Format("20060102150405")
+}
+
+// fileName is what the name of a file written by hand may be.
+var fileName = regexp.MustCompile(`^[a-z0-9_]+$`)
+
+// Write puts a file written by hand into the directory -- `<version>_<name>.sql`
+// holding `stmts` -- and writes the directory's sum again, so that [OpenDir]
+// opens it.
+//
+// For the directory beside the ent one, which nothing plans; see
+// [Migrations.Extra]. A version that is already there is refused, for the reason
+// [Migrations.Plan] refuses one: two files of one version cannot be ordered.
+func (m Migrations) Write(version string, name string, stmts []byte) (migrate.File, error) {
+	if !fileName.MatchString(name) {
+		return nil, fmt.Errorf("%q cannot name a migration: lowercase letters, digits and underscores", name)
+	}
+	if _, err := time.Parse("20060102150405", version); err != nil {
+		return nil, fmt.Errorf("%q is not a version: it is a second, as Version writes one", version)
+	}
+
+	fs, err := m.Dir.Files()
+	if err != nil {
+		return nil, fmt.Errorf("read the migration directory: %w", err)
+	}
+	for _, f := range fs {
+		if f.Version() == version {
+			return nil, fmt.Errorf("%s is already version %s, and two migrations of one version cannot be ordered", f.Name(), version)
+		}
+	}
+
+	path := version + "_" + name + ".sql"
+	if err := m.Dir.WriteFile(path, stmts); err != nil {
+		return nil, fmt.Errorf("write %s: %w", path, err)
+	}
+	if err := m.Rehash(); err != nil {
+		return nil, err
+	}
+
+	fs, err = m.Dir.Files()
+	if err != nil {
+		return nil, fmt.Errorf("read the migration directory: %w", err)
+	}
+	for _, f := range fs {
+		if f.Name() == path {
+			return f, nil
+		}
+	}
+
+	return nil, fmt.Errorf("%s was written and is not in the directory", path)
+}
+
+// Rehash writes the directory's sum again from the files as they are now.
+//
+// It is for a file being written by hand, which is edited until it is right.
+// The sum is what stops a file being edited **after** a database ran it, so a
+// file that has been applied anywhere is never edited and rehashed: what fixes
+// it is a new file.
+func (m Migrations) Rehash() error {
+	sum, err := m.Dir.Checksum()
+	if err != nil {
+		return fmt.Errorf("hash the migration directory: %w", err)
+	}
+	if err := migrate.WriteSumFile(m.Dir, sum); err != nil {
+		return fmt.Errorf("write the sum: %w", err)
+	}
+
+	return nil
 }
 
 // ErrBehind is a database that has not run every migration the code ships
