@@ -10,5 +10,8 @@ import (
 	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
+// Item is the predicate function for item builders.
+type Item func(*sql.Selector)
+
 // Thing is the predicate function for thing builders.
 type Thing func(*sql.Selector)

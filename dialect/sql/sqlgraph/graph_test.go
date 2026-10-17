@@ -1578,6 +1578,27 @@ func TestCreateNodeReadsBackTheRow(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			// And a commit that fails takes it back too.
+			name:    "returning/commit-refused",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					&EdgeSpec{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectBegin()
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name", "id") VALUES ($1, $2, $3) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m", 1).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(1, 2).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				m.ExpectCommit().WillReturnError(errors.New("refused"))
+			},
+			wantErr: true,
+		},
+		{
 			// MySQL has no RETURNING: the row is a query of its own, by the
 			// Id the INSERT made.
 			name:    "read-back/mysql",
@@ -1663,6 +1684,244 @@ func TestCreateNodeReadsBackTheRow(t *testing.T) {
 			}
 			require.Equal(t, tt.wantUser, u)
 			require.Equal(t, tt.wantId, s.Id.Value)
+		})
+	}
+}
+
+// TestBatchCreateReadsBackTheRows: a batch whose nodes name columns to return
+// hands each node the row the database stored for it -- matched by its Id when
+// the caller gave the Ids, by its place when the database made them up -- and
+// only once the batch holds.
+func TestBatchCreateReadsBackTheRows(t *testing.T) {
+	type row struct {
+		age  int
+		name string
+	}
+	nodes := func(us []*user, ids []driver.Value, rows []row, ask []bool, edges ...*EdgeSpec) []*CreateSpec {
+		specs := make([]*CreateSpec, len(rows))
+		for i, r := range rows {
+			specs[i] = &CreateSpec{
+				Table: "users",
+				Id:    &FieldSpec{Column: "id", Type: field.TypeInt, Value: ids[i]},
+				Fields: []*FieldSpec{
+					{Column: "age", Type: field.TypeInt, Value: r.age},
+					{Column: "name", Type: field.TypeString, Value: r.name},
+				},
+				Edges: edges,
+			}
+			if ask[i] {
+				specs[i].Returning = []string{"id", "name", "age"}
+				specs[i].ScanValues = us[i].values
+				specs[i].Assign = us[i].assign
+			}
+		}
+		return specs
+	}
+	both := []bool{true, true}
+	pair := []row{{30, "a8m"}, {31, "nati"}}
+	tests := []struct {
+		name      string
+		dialect   string
+		spec      func(us []*user) *BatchCreateSpec
+		expect    func(sqlmock.Sqlmock)
+		wantErr   bool
+		wantUsers []*user
+		wantIds   []driver.Value
+	}{
+		{
+			// RETURNING does not promise the order of the VALUES, so a row
+			// the caller gave the Id of goes to the node with that Id.
+			name:    "returning/given-ids-out-of-order",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{1, 2}, pair, both)}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(2, 2, "NATI", 31).
+						AddRow(1, 1, "A8M", 30))
+			},
+			wantUsers: []*user{{id: 1, name: "A8M", age: 30}, {id: 2, name: "NATI", age: 31}},
+			wantIds:   []driver.Value{1, 2},
+		},
+		{
+			// Ids the database made up have nothing to match by: a row is the
+			// node at its place, as the Ids themselves are.
+			name:    "returning/made-up-ids",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{nil, nil}, pair, both)}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name") VALUES ($1, $2), ($3, $4) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m", 31, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(7, 7, "a8m", 30).
+						AddRow(8, 8, "nati", 31))
+			},
+			wantUsers: []*user{{id: 7, name: "a8m", age: 30}, {id: 8, name: "nati", age: 31}},
+			wantIds:   []driver.Value{int64(7), int64(8)},
+		},
+		{
+			// A node that did not ask is handed nothing, though its row is
+			// read with the others'.
+			name:    "returning/some-ask",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{1, 2}, pair, []bool{false, true})}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30).
+						AddRow(2, 2, "nati", 31))
+			},
+			wantUsers: []*user{{}, {id: 2, name: "nati", age: 31}},
+			wantIds:   []driver.Value{1, 2},
+		},
+		{
+			// MySQL has no RETURNING: one query on the Ids the INSERT made,
+			// matched by Id whatever order it answers in.
+			name:    "read-back/mysql",
+			dialect: dialect.MySql,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{nil, nil}, pair, both)}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectExec(escape("INSERT INTO `users` (`age`, `name`) VALUES (?, ?), (?, ?)")).
+					WithArgs(30, "a8m", 31, "nati").
+					WillReturnResult(sqlmock.NewResult(5, 2))
+				m.ExpectQuery(escape("SELECT `id`, `id`, `name`, `age` FROM `users` WHERE `id` IN (?, ?)")).
+					WithArgs(5, 6).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(6, 6, "nati", 31).
+						AddRow(5, 5, "a8m", 30))
+			},
+			wantUsers: []*user{{id: 5, name: "a8m", age: 30}, {id: 6, name: "nati", age: 31}},
+			wantIds:   []driver.Value{int64(5), int64(6)},
+		},
+		{
+			// A conflict clause may have written nothing, so the rows are the
+			// query's, by the Ids the INSERT answered with.
+			name:    "read-back/conflict",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{
+					Nodes:      nodes(us, []driver.Value{1, 2}, pair, both),
+					OnConflict: []sql.ConflictOption{sql.ConflictColumns("id"), sql.ResolveWithNewValues()},
+				}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) ON CONFLICT ("id") DO UPDATE SET "age" = "excluded"."age", "id" = "excluded"."id", "name" = "excluded"."name" RETURNING "id"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(1).AddRow(2))
+				m.ExpectQuery(escape(`SELECT "id", "id", "name", "age" FROM "users" WHERE "id" IN ($1, $2)`)).
+					WithArgs(1, 2).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30).
+						AddRow(2, 2, "nati", 31))
+			},
+			wantUsers: []*user{{id: 1, name: "a8m", age: 30}, {id: 2, name: "nati", age: 31}},
+		},
+		{
+			// The rows are read by the INSERT, but they are not the callers'
+			// until the batch holds: an edge that could not be written takes
+			// them back, and nothing was handed over.
+			name:    "returning/edges-refused",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{1, 2}, pair, both,
+					&EdgeSpec{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}})}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectBegin()
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30).
+						AddRow(2, 2, "nati", 31))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(1, 3).
+					WillReturnError(errors.New("refused"))
+				m.ExpectRollback()
+			},
+			wantErr: true,
+		},
+		{
+			// And a commit that fails takes them back too.
+			name:    "returning/commit-refused",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{1, 2}, pair, both,
+					&EdgeSpec{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{3}, IdSpec: &FieldSpec{Column: "id"}}})}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectBegin()
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30).
+						AddRow(2, 2, "nati", 31))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(1, 3).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(2, 3).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				m.ExpectCommit().WillReturnError(errors.New("refused"))
+			},
+			wantErr: true,
+		},
+		{
+			name:    "a-row-none-of-the-batch",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				return &BatchCreateSpec{Nodes: nodes(us, []driver.Value{1, 2}, pair, both)}
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "id", "name") VALUES ($1, $2, $3), ($4, $5, $6) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, 1, "a8m", 31, 2, "nati").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(9, 9, "who", 99))
+			},
+			wantErr: true,
+		},
+		{
+			// Every node is a row of one table, so every one that asks asks
+			// for the same columns; anything else is refused before anything
+			// is sent.
+			name:    "different-columns",
+			dialect: dialect.Postgres,
+			spec: func(us []*user) *BatchCreateSpec {
+				specs := nodes(us, []driver.Value{1, 2}, pair, both)
+				specs[1].Returning = []string{"id", "age"}
+				return &BatchCreateSpec{Nodes: specs}
+			},
+			expect:  func(sqlmock.Sqlmock) {},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			db, mock, err := sqlmock.New()
+			require.NoError(t, err)
+			tt.expect(mock)
+			us := []*user{{}, {}}
+			spec := tt.spec(us)
+			err = BatchCreate(context.Background(), sql.OpenDB(tt.dialect, db), spec)
+			require.Equal(t, tt.wantErr, err != nil, err)
+			require.NoError(t, mock.ExpectationsWereMet())
+			if tt.wantErr {
+				require.Equal(t, []*user{{}, {}}, us, "a row was handed over by a batch that did not hold")
+				return
+			}
+			require.Equal(t, tt.wantUsers, us)
+			for i, id := range tt.wantIds {
+				require.Equal(t, id, spec.Nodes[i].Id.Value)
+			}
 		})
 	}
 }

@@ -16,6 +16,7 @@ import (
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
+	"github.com/protobuf-orm/ent/entc/integration/returning/ent/item"
 	"github.com/protobuf-orm/ent/entc/integration/returning/ent/thing"
 )
 
@@ -77,6 +78,7 @@ var (
 func checkColumn(t, c string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
+			item.Table:  item.ValidColumn,
 			thing.Table: thing.ValidColumn,
 		})
 	})

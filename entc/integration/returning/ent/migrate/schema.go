@@ -12,6 +12,18 @@ import (
 )
 
 var (
+	// ItemColumns holds the columns for the "item" table.
+	ItemColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUuid},
+		{Name: "name", Type: field.TypeString, Unique: true},
+		{Name: "motto", Type: field.TypeString, Nullable: true, Default: "cave"},
+	}
+	// ItemTable holds the schema information for the "item" table.
+	ItemTable = &schema.Table{
+		Name:       "item",
+		Columns:    ItemColumns,
+		PrimaryKey: []*schema.Column{ItemColumns[0]},
+	}
 	// ThingColumns holds the columns for the "thing" table.
 	ThingColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -28,6 +40,7 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		ItemTable,
 		ThingTable,
 	}
 )
