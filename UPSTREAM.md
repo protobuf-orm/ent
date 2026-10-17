@@ -174,7 +174,7 @@ touches the same area may be assuming the behaviour we replaced.
 | **UUID field type** | `field.Uuid(name)` takes the Go type *optionally* -- a UUID field is `uuid.UUID` unless it says otherwise. | `661fec4c6`, `1c09a6cb7` |
 | **JSON columns** | A JSON field accepts an external `ValueScanner`. Upstream refuses one. | `fc2386a28` |
 | **Client surface** | Generated clients expose `Dialect()`, `Driver()`, `WithDriver(drv)`, `InTx()`. | `d7f47a8b8` |
-| **Transactions** | `dialect.Tx` is public enough that several clients can share one transaction; there is a single answer to "am I in a transaction" that sees through a `DebugDriver`. | `78a935fbe`, `855799324` |
+| **Transactions** | `dialect.Tx` is public enough that several clients can share one transaction; there is a single answer to "am I in a transaction" that sees through a `DebugDriver`. A transaction `dialect.BeginTx` began keeps values and work for its commit (`dialect.Keep`), shared by every transaction begun inside it; upstream's only commit hooks are on a generated `Tx`. | `78a935fbe`, `855799324`, #8 |
 | **Paging** | `dialect/sql/sqlpage` -- keyset cursors -- is ours. | `7714d7267` |
 | **Time: zone** | Every `time.Time` is UTC at both edges. `bindArgs` moves an argument to UTC; `Rows.Scan` moves a scanned value to UTC; `field.Time`'s `Default`/`UpdateDefault` answer in UTC. | `7d10ad284`, `c6003ab94`, `1d1a9d88b` |
 | **Time: precision** | Time columns keep six fractional-second digits by default; `field.Time().Precision(n)` says otherwise. | `cede1c296` |

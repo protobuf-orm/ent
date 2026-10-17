@@ -108,13 +108,26 @@ func InTx(drv Driver) bool {
 // that wrapped it, and report success for it.
 //
 // The driver is not safe for concurrent use, because a transaction is not.
+//
+// And it keeps what the transaction holds for the rest of itself -- see
+// [Keep] -- which a transaction begun inside another shares with it, the
+// same way it shares the transaction. The one this begins does the kept work
+// when its caller commits it.
 func BeginTx(ctx context.Context, drv Driver) (Driver, Tx, error) {
 	tx, err := drv.Tx(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return &txDriver{drv: drv, tx: tx}, tx, nil
+	// Inside another transaction this one is that one, and so is what it
+	// keeps; the commit handed back is the nop that cannot end it, and the
+	// outer one's does the work.
+	if k, ok := KeepOf(drv); ok {
+		return &txDriver{drv: drv, tx: tx, keep: k}, tx, nil
+	}
+
+	k := &Keep{}
+	return &txDriver{drv: drv, tx: tx, keep: k}, &keptTx{Tx: tx, ctx: ctx, keep: k}, nil
 }
 
 // txDriver is a transaction wearing a driver's clothes.
@@ -126,6 +139,9 @@ type txDriver struct {
 	// tx is the transaction. Only the caller of BeginTx holds it as one; from
 	// here it is only ever read and written through.
 	tx Tx
+	// keep is what the transaction holds for the rest of itself, shared by
+	// every driver BeginTx answered with inside it.
+	keep *Keep
 }
 
 var _ InTxDriver = (*txDriver)(nil)
