@@ -121,13 +121,14 @@ func BeginTx(ctx context.Context, drv Driver) (Driver, Tx, error) {
 
 	// Inside another transaction this one is that one, and so is what it
 	// keeps; the commit handed back is the nop that cannot end it, and the
-	// outer one's does the work.
+	// outer one's does the work. Every statement sent through this one is
+	// sent through the outer one too, which is where it is asked about.
 	if k, ok := KeepOf(drv); ok {
 		return &txDriver{drv: drv, tx: tx, keep: k}, tx, nil
 	}
 
 	k := &Keep{}
-	return &txDriver{drv: drv, tx: tx, keep: k}, &keptTx{Tx: tx, ctx: ctx, keep: k}, nil
+	return &txDriver{drv: drv, tx: tx, keep: k, owns: true}, &keptTx{Tx: tx, ctx: ctx, keep: k}, nil
 }
 
 // txDriver is a transaction wearing a driver's clothes.
@@ -142,6 +143,10 @@ type txDriver struct {
 	// keep is what the transaction holds for the rest of itself, shared by
 	// every driver BeginTx answered with inside it.
 	keep *Keep
+	// owns is this driver being the one BeginTx began the transaction on,
+	// which every statement in the transaction passes through: the one that
+	// asks the keep about each before it is sent.
+	owns bool
 }
 
 var _ InTxDriver = (*txDriver)(nil)
@@ -160,10 +165,22 @@ func (d *txDriver) Dialect() string { return d.drv.Dialect() }
 func (*txDriver) Close() error { return nil }
 
 func (d *txDriver) Exec(ctx context.Context, query string, args, v any) error {
+	if d.owns {
+		if err := d.keep.statement(ctx, query); err != nil {
+			return err
+		}
+	}
+
 	return d.tx.Exec(ctx, query, args, v)
 }
 
 func (d *txDriver) Query(ctx context.Context, query string, args, v any) error {
+	if d.owns {
+		if err := d.keep.statement(ctx, query); err != nil {
+			return err
+		}
+	}
+
 	return d.tx.Query(ctx, query, args, v)
 }
 

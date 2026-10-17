@@ -7,6 +7,7 @@ package dialect_test
 import (
 	"context"
 	"errors"
+	"strings"
 	"testing"
 
 	"github.com/protobuf-orm/ent/dialect"
@@ -465,6 +466,131 @@ func TestKeep(t *testing.T) {
 		}
 		if _, ok := dialect.KeepOf(dialect.Debug(&recDriver{dialect: dialect.SQLite})); ok {
 			t.Error("a driver in no transaction, under a DebugDriver, keeps something")
+		}
+	})
+}
+
+func TestKeepAhead(t *testing.T) {
+	ctx := context.Background()
+	about := func(q string) bool { return strings.Contains(q, "trail") }
+
+	t.Run("work kept for a statement is done before it, and only before one it is about", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+		d, _, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+
+		before := -1
+		k.BeforeStatement(about, func(context.Context) error {
+			before = drv.tx.execs + drv.tx.queries
+			return nil
+		})
+
+		if err := d.Query(ctx, "SELECT 1", []any{}, nil); err != nil {
+			t.Fatalf("query: %s", err)
+		}
+		if before != -1 {
+			t.Fatal("work kept for the trail ran before a statement about something else")
+		}
+		if err := d.Exec(ctx, "UPDATE trail SET value = ''", []any{}, nil); err != nil {
+			t.Fatalf("exec: %s", err)
+		}
+		if before != 1 {
+			t.Errorf("the work saw %d statements sent, want 1: it did not run before the one about it", before)
+		}
+	})
+
+	t.Run("what it sends itself is not asked about", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+		d, _, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+
+		ran := 0
+		k.BeforeStatement(about, func(ctx context.Context) error {
+			ran++
+			return d.Exec(ctx, "INSERT INTO trail", []any{}, nil)
+		})
+
+		if err := d.Exec(ctx, "DELETE FROM trail", []any{}, nil); err != nil {
+			t.Fatalf("exec: %s", err)
+		}
+		if ran != 1 {
+			t.Errorf("ran = %d, want 1: the work's own statement asked for it again", ran)
+		}
+		if drv.tx.execs != 2 {
+			t.Errorf("execs = %d, want 2: the work's statement and the one it ran before", drv.tx.execs)
+		}
+	})
+
+	t.Run("a statement sent through a transaction begun inside is asked about once", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+		d, _, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		inner, _, err := dialect.BeginTx(ctx, d)
+		if err != nil {
+			t.Fatalf("begin inside: %s", err)
+		}
+		k, _ := dialect.KeepOf(inner)
+
+		ran := 0
+		k.BeforeStatement(about, func(context.Context) error {
+			ran++
+			return nil
+		})
+		if err := inner.Exec(ctx, "UPDATE trail SET value = ''", []any{}, nil); err != nil {
+			t.Fatalf("exec: %s", err)
+		}
+		if ran != 1 {
+			t.Errorf("ran = %d, want 1", ran)
+		}
+	})
+
+	t.Run("what the work before the commit sends is not asked about", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+
+		ran := 0
+		k.BeforeStatement(about, func(context.Context) error {
+			ran++
+			return nil
+		})
+		k.BeforeCommit(func(ctx context.Context) error { return d.Exec(ctx, "INSERT INTO trail", []any{}, nil) })
+
+		if err := tx.Commit(); err != nil {
+			t.Fatalf("commit: %s", err)
+		}
+		if ran != 0 {
+			t.Errorf("ran = %d, want 0: the commit's own work asked for work kept for a statement", ran)
+		}
+	})
+
+	t.Run("a refusal from it is the statement's, which is not sent", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+		d, _, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+
+		refused := errors.New("refused")
+		k.BeforeStatement(about, func(context.Context) error { return refused })
+
+		if err := d.Exec(ctx, "UPDATE trail SET value = ''", []any{}, nil); !errors.Is(err, refused) {
+			t.Fatalf("exec = %v, want the work's refusal", err)
+		}
+		if drv.tx.execs != 0 {
+			t.Errorf("execs = %d, want 0: a statement whose work was refused was sent", drv.tx.execs)
 		}
 	})
 }

@@ -15,6 +15,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/protobuf-orm/ent/dialect"
@@ -146,6 +147,36 @@ func keeps(t *testing.T, drv *sql.Driver) {
 
 		require.ErrorIs(t, tx.Commit(), refused)
 		require.Equal(t, 0, count(t), "a write before a refused commit held")
+	})
+
+	// What a statement about the kept rows finds, inside the transaction:
+	// them, since the work kept for it is done first.
+	t.Run("work kept for a statement is done before it", func(t *testing.T) {
+		empty(t)
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		require.NoError(t, err)
+		defer tx.Rollback()
+
+		k, _ := dialect.KeepOf(d)
+		kept := true
+		k.BeforeStatement(func(q string) bool { return strings.Contains(q, "keep_row") }, func(context.Context) error {
+			if !kept {
+				return nil
+			}
+			kept = false
+			return exec(d, "INSERT INTO keep_row (n) VALUES (1)")
+		})
+
+		rows := &sql.Rows{}
+		require.NoError(t, d.Query(ctx, "SELECT COUNT(*) FROM keep_row", []any{}, rows))
+		require.True(t, rows.Next())
+		var n int
+		require.NoError(t, rows.Scan(&n))
+		require.NoError(t, rows.Close())
+		require.Equal(t, 1, n, "a count inside the transaction missed what it kept")
+
+		require.NoError(t, tx.Commit())
+		require.Equal(t, 1, count(t))
 	})
 
 	t.Run("work kept inside is done by the commit around it", func(t *testing.T) {

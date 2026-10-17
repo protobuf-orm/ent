@@ -9,8 +9,8 @@ import (
 	"sync"
 )
 
-// Keep is what a transaction holds for the rest of itself: values by key, and
-// work to do before it commits.
+// Keep is what a transaction holds for the rest of itself: values by key, work
+// to do before it commits, and work to do before a statement it runs.
 //
 // It is for a write that has more to say than is worth saying at once. A
 // record of every write is a row each, so a transaction that writes a thousand
@@ -24,6 +24,13 @@ import (
 // transaction: one begun inside another is that one ([BeginTx]), and so is what
 // it keeps, while one begun afresh keeps its own.
 //
+// And what is kept for the commit can be needed sooner. A row kept to be
+// written is a row a statement in the same transaction does not find --
+// counted, updated, erased -- until it is written, and then the statement
+// answers about a table that is missing some of what the transaction did.
+// [Keep.BeforeStatement] is for that: the kept rows are written first, ahead
+// of any statement that says it is about them.
+//
 // Only a transaction begun with [BeginTx] keeps anything. One a generated
 // client began itself -- `Client.Tx`, a single write that needs a transaction
 // of its own -- keeps nothing, and [KeepOf] says so: what such a write has to
@@ -32,6 +39,18 @@ type Keep struct {
 	mu     sync.Mutex
 	values map[any]any
 	before []func(context.Context) error
+	ahead  []ahead
+
+	// busy is kept work running, whose own statements are not asked about:
+	// work that writes what it kept would otherwise be asked to write it
+	// again, by the statement that writes it.
+	busy bool
+}
+
+// ahead is work to do before the statements match says yes to.
+type ahead struct {
+	match func(query string) bool
+	fn    func(context.Context) error
 }
 
 // KeepOf answers with what the transaction drv runs in keeps, looking through
@@ -92,13 +111,75 @@ func (k *Keep) BeforeCommit(fn func(context.Context) error) {
 	k.before = append(k.before, fn)
 }
 
+// BeforeStatement adds fn to what the transaction does before a statement it
+// runs, for every statement match says yes to -- and before the statement,
+// so that it finds what fn wrote.
+//
+// match is handed the statement as it is sent. What fn sends itself is not
+// asked about, and neither is what the work before the commit sends: both are
+// kept work being done, and asking would have it done again from inside
+// itself.
+//
+// An error from fn is the statement's: it is not sent, and the caller is told
+// why.
+func (k *Keep) BeforeStatement(match func(query string) bool, fn func(context.Context) error) {
+	k.mu.Lock()
+	defer k.mu.Unlock()
+
+	k.ahead = append(k.ahead, ahead{match, fn})
+}
+
+// statement does the work kept for a statement about to be sent.
+func (k *Keep) statement(ctx context.Context, query string) error {
+	k.mu.Lock()
+	if k.busy || len(k.ahead) == 0 {
+		k.mu.Unlock()
+
+		return nil
+	}
+	todo := []func(context.Context) error{}
+	for _, v := range k.ahead {
+		if v.match(query) {
+			todo = append(todo, v.fn)
+		}
+	}
+	if len(todo) == 0 {
+		k.mu.Unlock()
+
+		return nil
+	}
+	k.busy = true
+	k.mu.Unlock()
+
+	defer k.idle()
+	for _, fn := range todo {
+		if err := fn(ctx); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (k *Keep) idle() {
+	k.mu.Lock()
+	defer k.mu.Unlock()
+
+	k.busy = false
+}
+
 // finish does what is to be done before the commit, including whatever that
 // adds on the way, and empties the keep.
 func (k *Keep) finish(ctx context.Context) error {
+	k.mu.Lock()
+	k.busy = true
+	k.mu.Unlock()
+	defer k.idle()
+
 	for i := 0; ; i++ {
 		k.mu.Lock()
 		if i == len(k.before) {
-			k.before, k.values = nil, nil
+			k.before, k.ahead, k.values = nil, nil, nil
 			k.mu.Unlock()
 
 			return nil
@@ -117,7 +198,7 @@ func (k *Keep) discard() {
 	k.mu.Lock()
 	defer k.mu.Unlock()
 
-	k.before, k.values = nil, nil
+	k.before, k.ahead, k.values = nil, nil, nil
 }
 
 // keptTx is the transaction [BeginTx] answers its caller with, when it began
