@@ -1468,6 +1468,205 @@ func TestCreateNode(t *testing.T) {
 	}
 }
 
+// TestCreateNodeReadsBackTheRow: a spec that names columns to return is handed
+// the row as the database stored it -- by the INSERT itself where the dialect
+// has RETURNING, and by a query of its own after it where it has not.
+func TestCreateNodeReadsBackTheRow(t *testing.T) {
+	spec := func(u *user, id *FieldSpec, edges ...*EdgeSpec) *CreateSpec {
+		return &CreateSpec{
+			Table: "users",
+			Id:    id,
+			Fields: []*FieldSpec{
+				{Column: "age", Type: field.TypeInt, Value: 30},
+				{Column: "name", Type: field.TypeString, Value: "a8m"},
+			},
+			Edges:      edges,
+			Returning:  []string{"id", "name", "age"},
+			ScanValues: u.values,
+			Assign:     u.assign,
+		}
+	}
+	tests := []struct {
+		name     string
+		dialect  string
+		spec     func(*user) *CreateSpec
+		expect   func(sqlmock.Sqlmock)
+		wantErr  bool
+		wantUser *user
+		wantId   driver.Value
+	}{
+		{
+			// The column the database made up is the one the node is given,
+			// and it is read once for the spec and once for the caller.
+			name:    "returning/made-up-id",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name") VALUES ($1, $2) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m").
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(7, 7, "A8M", 30))
+			},
+			// The name as the database answered with it, not as it was given.
+			wantUser: &user{id: 7, name: "A8M", age: 30},
+			wantId:   int64(7),
+		},
+		{
+			// An Id the caller gave is kept as the caller gave it, in its own
+			// type, whatever the INSERT answers with.
+			name:    "returning/user-defined-id",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name", "id") VALUES ($1, $2, $3) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m", 1).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30))
+			},
+			wantUser: &user{id: 1, name: "a8m", age: 30},
+			wantId:   1,
+		},
+		{
+			// With an edge kept in another table, the INSERT and the edge are
+			// one transaction, and the row is read by the INSERT -- before the
+			// edge, which does not change it.
+			name:    "returning/edges",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					&EdgeSpec{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectBegin()
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name", "id") VALUES ($1, $2, $3) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m", 1).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(1, 2).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				m.ExpectCommit()
+			},
+			wantUser: &user{id: 1, name: "a8m", age: 30},
+			wantId:   1,
+		},
+		{
+			// The row is read by the INSERT, but it is not the caller's until
+			// the create holds: an edge that could not be written takes the
+			// row back, and nothing was handed over.
+			name:    "returning/edges-refused",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+					&EdgeSpec{Rel: O2M, Table: "pets", Columns: []string{"owner_id"}, Target: &EdgeTarget{Nodes: []driver.Value{2}, IdSpec: &FieldSpec{Column: "id"}}})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectBegin()
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name", "id") VALUES ($1, $2, $3) RETURNING "id", "id", "name", "age"`)).
+					WithArgs(30, "a8m", 1).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "id", "name", "age"}).
+						AddRow(1, 1, "a8m", 30))
+				m.ExpectExec(escape(`UPDATE "pets" SET "owner_id" = $1 WHERE "id" = $2 AND "owner_id" IS NULL`)).
+					WithArgs(1, 2).
+					WillReturnError(errors.New("refused"))
+				m.ExpectRollback()
+			},
+			wantErr: true,
+		},
+		{
+			// MySQL has no RETURNING: the row is a query of its own, by the
+			// Id the INSERT made.
+			name:    "read-back/mysql",
+			dialect: dialect.MySql,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectExec(escape("INSERT INTO `users` (`age`, `name`) VALUES (?, ?)")).
+					WithArgs(30, "a8m").
+					WillReturnResult(sqlmock.NewResult(5, 1))
+				m.ExpectQuery(escape("SELECT `id`, `name`, `age` FROM `users` WHERE `id` = ?")).
+					WithArgs(5).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}).
+						AddRow(5, "a8m", 30))
+			},
+			wantUser: &user{id: 5, name: "a8m", age: 30},
+			wantId:   int64(5),
+		},
+		{
+			// A conflict clause may have written nothing, so the INSERT
+			// answers with the Id alone and the row is the query's.
+			name:    "read-back/conflict",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				s := spec(u, &FieldSpec{Column: "id", Type: field.TypeInt})
+				s.OnConflict = []sql.ConflictOption{sql.ConflictColumns("name"), sql.ResolveWithNewValues()}
+				return s
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectQuery(escape(`INSERT INTO "users" ("age", "name") VALUES ($1, $2) ON CONFLICT ("name") DO UPDATE SET "age" = "excluded"."age", "name" = "excluded"."name" RETURNING "id"`)).
+					WithArgs(30, "a8m").
+					WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(3))
+				m.ExpectQuery(escape(`SELECT "id", "name", "age" FROM "users" WHERE "id" = $1`)).
+					WithArgs(3).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}).
+						AddRow(3, "a8m", 30))
+			},
+			wantUser: &user{id: 3, name: "a8m", age: 30},
+			wantId:   int64(3),
+		},
+		{
+			name:    "read-back/gone",
+			dialect: dialect.MySql,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, &FieldSpec{Column: "id", Type: field.TypeInt})
+			},
+			expect: func(m sqlmock.Sqlmock) {
+				m.ExpectExec(escape("INSERT INTO `users` (`age`, `name`) VALUES (?, ?)")).
+					WithArgs(30, "a8m").
+					WillReturnResult(sqlmock.NewResult(5, 1))
+				m.ExpectQuery(escape("SELECT `id`, `name`, `age` FROM `users` WHERE `id` = ?")).
+					WithArgs(5).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}))
+			},
+			wantErr: true,
+		},
+		{
+			// An edge schema's row has no Id to read it back by, and is not
+			// written as though it had been read.
+			name:    "composite-id",
+			dialect: dialect.Postgres,
+			spec: func(u *user) *CreateSpec {
+				return spec(u, nil)
+			},
+			expect:  func(sqlmock.Sqlmock) {},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			db, mock, err := sqlmock.New()
+			require.NoError(t, err)
+			tt.expect(mock)
+			u := &user{}
+			s := tt.spec(u)
+			err = CreateNode(context.Background(), sql.OpenDB(tt.dialect, db), s)
+			require.Equal(t, tt.wantErr, err != nil, err)
+			require.NoError(t, mock.ExpectationsWereMet())
+			if tt.wantErr {
+				require.Equal(t, &user{}, u, "a row was handed over by a create that did not hold")
+				return
+			}
+			require.Equal(t, tt.wantUser, u)
+			require.Equal(t, tt.wantId, s.Id.Value)
+		})
+	}
+}
+
 func TestBatchCreate(t *testing.T) {
 	tests := []struct {
 		name    string
