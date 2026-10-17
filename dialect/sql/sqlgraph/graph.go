@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"slices"
 	"sort"
 
 	"github.com/protobuf-orm/ent/dialect"
@@ -733,6 +734,14 @@ type (
 
 	// BatchCreateSpec holds the information for creating
 	// multiple nodes in the graph.
+	//
+	// A node's Returning is honoured as it is for one: the rows are read back
+	// by the INSERT where the dialect has RETURNING, and by one query on their
+	// Ids after it on MySQL or with a conflict clause. A row the INSERT answers
+	// with is matched to its node by its Id when the caller gave the Ids, and
+	// by its place when the database made them up, as the Ids themselves are.
+	// Every node that asks must ask for the same columns, and Assign is told
+	// about a node only once the whole batch holds.
 	BatchCreateSpec struct {
 		Nodes []*CreateSpec
 
@@ -1545,6 +1554,11 @@ func (c *creator) ensureLastInsertId(insert *sql.InsertBuilder) {
 type batchCreator struct {
 	graph
 	*BatchCreateSpec
+
+	// read is each node's row read back, by the node's place in the batch,
+	// held until the batch holds; nil for a node that did not ask, and nil
+	// altogether until something was read.
+	read [][]any
 }
 
 func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
@@ -1556,11 +1570,6 @@ func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
 	for i, node := range c.Nodes {
 		if i > 0 && node.Table != c.Nodes[i-1].Table {
 			return fmt.Errorf("more than 1 table for batch insert: %q != %q", node.Table, c.Nodes[i-1].Table)
-		}
-		if len(node.Returning) > 0 {
-			// Refused rather than skipped, as a row with no Id is: the
-			// caller would be left holding a row nothing was read into.
-			return fmt.Errorf("sqlgraph: a batch insert into %s does not read its rows back", node.Table)
 		}
 		values[i] = make(map[string]driver.Value)
 		if node.Id != nil && node.Id.Value != nil {
@@ -1599,6 +1608,15 @@ func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
 		}
 		insert.Values(vs...)
 	}
+	ret, scanner, err := c.returning()
+	if err != nil {
+		return err
+	}
+	if len(ret) > 0 && c.Nodes[0].Id == nil {
+		// Refused rather than skipped: the caller would be left holding rows
+		// nothing was read into.
+		return fmt.Errorf("sqlgraph: a row of %s has no Id to be read back by", c.Nodes[0].Table)
+	}
 	tx, err := c.mayTx(ctx, drv)
 	if err != nil {
 		return err
@@ -1612,7 +1630,11 @@ func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
 			query, args := insert.Query()
 			return tx.Exec(ctx, query, args, nil)
 		}
-		if err := c.batchInsert(ctx, tx, insert); err != nil {
+		if len(ret) > 0 && len(c.OnConflict) == 0 && insert.Dialect() != dialect.MySql {
+			if err := c.batchInsertReturning(ctx, tx, insert, ret, scanner); err != nil {
+				return fmt.Errorf("insert nodes to table %q: %w", c.Nodes[0].Table, err)
+			}
+		} else if err := c.batchInsert(ctx, tx, insert); err != nil {
 			return fmt.Errorf("insert nodes to table %q: %w", c.Nodes[0].Table, err)
 		}
 		if err := c.batchAddM2M(ctx, c.BatchCreateSpec); err != nil {
@@ -1626,11 +1648,203 @@ func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
 				return err
 			}
 		}
+		if len(ret) > 0 && c.read == nil {
+			return c.readBack(ctx, tx, ret, scanner)
+		}
 		return nil
 	}(); err != nil {
 		return rollback(tx, err)
 	}
-	return tx.Commit()
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+	return c.assign(ret)
+}
+
+// returning is the columns the batch reads back, and a node that asked for
+// them, whose ScanValues makes the places each row is read into: every node is
+// a row of one table, so the places are the same whichever node makes them.
+// Nil when no node asked.
+func (c *batchCreator) returning() ([]string, *CreateSpec, error) {
+	var first *CreateSpec
+	for _, node := range c.Nodes {
+		switch {
+		case len(node.Returning) == 0:
+		case first == nil:
+			first = node
+		case !slices.Equal(first.Returning, node.Returning):
+			return nil, nil, fmt.Errorf("sqlgraph: the rows of a batch insert into %s ask for different columns back", node.Table)
+		}
+	}
+	if first == nil {
+		return nil, nil, nil
+	}
+	return first.Returning, first, nil
+}
+
+// batchInsertReturning is the INSERT that reads back the rows it stored: each
+// row's Id at the front, then the columns asked for.
+//
+// A row is the node with its Id when the caller gave the Ids. RETURNING does
+// not promise the order of the VALUES -- SQLite says the order is arbitrary --
+// and a row put against the wrong node is the wrong row handed to its caller,
+// so the Id decides. When the database made the Ids up there is nothing to
+// match them by, and a row is the node at its place, as insertLastIds assumes
+// for the Ids themselves.
+func (c *batchCreator) batchInsertReturning(ctx context.Context, tx dialect.ExecQuerier, insert *sql.InsertBuilder, ret []string, scanner *CreateSpec) error {
+	query, args, err := insert.Returning(append([]string{c.Nodes[0].Id.Column}, ret...)...).QueryErr()
+	if err != nil {
+		return err
+	}
+	rows := &sql.Rows{}
+	if err := tx.Query(ctx, query, args, rows); err != nil {
+		return err
+	}
+	defer rows.Close()
+	given := c.Nodes[0].Id.Value != nil
+	read := make([][]any, len(c.Nodes))
+	for i := 0; rows.Next(); i++ {
+		values, err := scanner.ScanValues(ret)
+		if err != nil {
+			return err
+		}
+		for k, v := range values {
+			if _, ok := v.(*sql.UnknownType); ok {
+				values[k] = sql.ScanTypeOf(rows, k+1)
+			}
+		}
+		var id any
+		switch {
+		case given:
+			id = new(any)
+		case c.Nodes[0].Id.Type.Numeric():
+			id = new(int64)
+		default:
+			id = new(any)
+		}
+		if err := rows.Scan(append([]any{id}, values...)...); err != nil {
+			return fmt.Errorf("failed scanning rows: %w", err)
+		}
+		j := i
+		if given {
+			if j, err = c.nodeOf(*id.(*any)); err != nil {
+				return err
+			}
+		} else {
+			if i >= len(c.Nodes) {
+				return fmt.Errorf("sqlgraph: the INSERT into %s answered with more rows than it was given", c.Nodes[0].Table)
+			}
+			switch v := id.(type) {
+			case *int64:
+				c.Nodes[i].Id.Value = *v
+			case *any:
+				c.Nodes[i].Id.Value = *v
+			}
+		}
+		read[j] = values
+	}
+	if err := rows.Err(); err != nil {
+		return err
+	}
+	c.read = read
+	return nil
+}
+
+// readBack reads, by their Ids, the rows an INSERT could not answer with:
+// MySQL's has no RETURNING, and one with a conflict clause may have written
+// nothing -- and then a row is the one the conflict was with.
+func (c *batchCreator) readBack(ctx context.Context, tx dialect.ExecQuerier, ret []string, scanner *CreateSpec) error {
+	node := c.Nodes[0]
+	ids := make([]any, len(c.Nodes))
+	for i, n := range c.Nodes {
+		ids[i] = n.Id.Value
+	}
+	query, args := c.builder.Select(append([]string{node.Id.Column}, ret...)...).
+		From(c.builder.Table(node.Table).Schema(node.Schema)).
+		Where(sql.In(node.Id.Column, ids...)).
+		Query()
+	rows := &sql.Rows{}
+	if err := tx.Query(ctx, query, args, rows); err != nil {
+		return err
+	}
+	defer rows.Close()
+	read := make([][]any, len(c.Nodes))
+	for rows.Next() {
+		values, err := scanner.ScanValues(ret)
+		if err != nil {
+			return err
+		}
+		for k, v := range values {
+			if _, ok := v.(*sql.UnknownType); ok {
+				values[k] = sql.ScanTypeOf(rows, k+1)
+			}
+		}
+		id := new(any)
+		if err := rows.Scan(append([]any{id}, values...)...); err != nil {
+			return fmt.Errorf("failed scanning rows: %w", err)
+		}
+		j, err := c.nodeOf(*id)
+		if err != nil {
+			return err
+		}
+		read[j] = values
+	}
+	if err := rows.Err(); err != nil {
+		return err
+	}
+	c.read = read
+	return nil
+}
+
+// nodeOf is the place in the batch of the node whose Id is `id`.
+func (c *batchCreator) nodeOf(id any) (int, error) {
+	k := idKey(id)
+	for i, node := range c.Nodes {
+		if idKey(node.Id.Value) == k {
+			return i, nil
+		}
+	}
+	return 0, fmt.Errorf("sqlgraph: %s answered with a row of Id %v, which is none of the batch's", c.Nodes[0].Table, id)
+}
+
+// idKey is an Id as text, so that the Id a node was given and the one the
+// database answers with compare: a driver hands an Id back in a type of its
+// own -- text as bytes, a UUID as its string -- and the caller's is a Go type
+// that may need to be asked for its value first.
+func idKey(v any) string {
+	if vv, ok := v.(driver.Valuer); ok {
+		if dv, err := vv.Value(); err == nil {
+			v = dv
+		}
+	}
+	switch v := v.(type) {
+	case []byte:
+		return string(v)
+	case string:
+		return v
+	default:
+		return fmt.Sprint(v)
+	}
+}
+
+// assign tells each node that asked about the row read back for it, now that
+// the batch holds.
+func (c *batchCreator) assign(ret []string) error {
+	if len(ret) == 0 {
+		return nil
+	}
+	for i, node := range c.Nodes {
+		if len(node.Returning) == 0 {
+			continue
+		}
+		if c.read == nil || c.read[i] == nil {
+			return &NotFoundError{table: node.Table, id: node.Id.Value}
+		}
+		if err := node.Assign(ret, c.read[i]); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // mayTx opens a new transaction if the create operation spans across multiple statements.
