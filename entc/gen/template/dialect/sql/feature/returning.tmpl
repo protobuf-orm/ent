@@ -1,0 +1,67 @@
+{{/*
+Copyright 2026 Seunghyun Hwang. All rights reserved.
+This source code is licensed under the Apache 2.0 license found
+in the LICENSE file in the root directory of this source tree.
+*/}}
+
+{{/* gotype: github.com/protobuf-orm/ent/entc/gen.Type */}}
+
+{{/* Templates used by the "sql/returning" feature-flag, which has a create
+ builder read back the row its INSERT stored. */}}
+
+{{/* Where Stored is told to put the row. */}}
+{{ define "dialect/sql/create/fields/additional/returning" -}}
+	{{- if and ($.FeatureEnabled "sql/returning") $.HasOneFieldId }}
+		stored **{{ $.Name }}
+	{{- end }}
+{{- end -}}
+
+{{/* The columns to read, and what reads them: the scanning a query of this
+ type does, into an entity of its own rather than the one Save answers with. */}}
+{{- define "dialect/sql/create/spec/returning" }}
+	{{- if and ($.FeatureEnabled "sql/returning") $.HasOneFieldId }}
+		{{- $receiver := $.Scope.Receiver }}
+		if {{ $receiver }}.stored != nil {
+			_stored := &{{ $.Name }}{config: {{ $receiver }}.config}
+			{{- with $.UnexportedForeignKeys }}
+				_spec.Returning = append(append([]string{}, {{ $.Package }}.Columns...), {{ $.Package }}.ForeignKeys...)
+			{{- else }}
+				_spec.Returning = {{ $.Package }}.Columns
+			{{- end }}
+			_spec.ScanValues = _stored.scanValues
+			_spec.Assign = func(columns []string, values []any) error {
+				if err := _stored.assignValues(columns, values); err != nil {
+					return err
+				}
+				*{{ $receiver }}.stored = _stored
+				return nil
+			}
+		}
+	{{- end }}
+{{- end }}
+
+{{ define "dialect/sql/create/additional/returning" }}
+	{{- if and ($.FeatureEnabled "sql/returning") $.HasOneFieldId }}
+		{{- $builder := pascal $.Scope.Builder }}
+		{{- $receiver := $.Scope.Receiver }}
+
+// Stored has Save read the {{ $.Name }} back, into `v`, as the database stored
+// it: at the precision of its columns, with the defaults the database filled
+// in and what a trigger before the write made of it. Save itself answers with
+// the {{ $.Name }} as this builder had it.
+//
+// The INSERT reads it, with RETURNING, where the dialect has it, so that the
+// row and the reading of it are one statement. MySQL has none, and an INSERT
+// with a conflict clause may have written nothing, so for those it is a query
+// by the Id just after the INSERT. Either way it is read on the driver the
+// INSERT ran on, so inside a transaction it is that transaction's row. Its
+// edges are not loaded.
+//
+// `v` is written only by a Save that wrote the row: one that failed, or that a
+// hook answered without writing, leaves it as it was.
+func ({{ $receiver }} *{{ $builder }}) Stored(v **{{ $.Name }}) *{{ $builder }} {
+	{{ $receiver }}.stored = v
+	return {{ $receiver }}
+}
+	{{- end }}
+{{ end }}

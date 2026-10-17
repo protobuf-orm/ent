@@ -183,6 +183,26 @@ var (
 		Description: "Keeps the migration engine off the generated Client, so a binary that never migrates does not link it",
 	}
 
+	// FeatureReturning has a create builder read back the row its INSERT
+	// stored.
+	//
+	// What Save answers with is the entity as the builder had it: the values
+	// it was given and the defaults it filled in itself. The row can differ --
+	// a time stored at its column's precision, a default the database filled
+	// in, a value a trigger before the write changed -- and a caller that must
+	// hold the row itself, as one that records what was written does, would
+	// read it again after the INSERT: two statements for every row.
+	//
+	// With this on, a create builder has Stored, and the INSERT reads the row
+	// back itself with RETURNING where the dialect has it. MySQL has none, and
+	// there it is still a query after the INSERT.
+	FeatureReturning = Feature{
+		Name:        "sql/returning",
+		Stage:       Experimental,
+		Default:     false,
+		Description: "Allows create builders to read back the row an INSERT stored, by the INSERT itself where the dialect has RETURNING",
+	}
+
 	// AllFeatures holds a list of all feature-flags.
 	AllFeatures = []Feature{
 		FeaturePrivacy,
@@ -199,6 +219,7 @@ var (
 		FeatureVersionedMigration,
 		FeatureGlobalId,
 		FeatureNoClientSchema,
+		FeatureReturning,
 	}
 	// allFeatures includes all public and private features.
 	allFeatures = append(AllFeatures, featureMultiSchema)

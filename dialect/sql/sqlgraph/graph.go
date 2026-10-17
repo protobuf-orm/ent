@@ -711,6 +711,24 @@ type (
 		//	}
 		//
 		OnConflict []sql.ConflictOption
+
+		// Returning names the columns of the row to read back once it is
+		// written, and ScanValues and Assign read them, as they do for an
+		// UpdateSpec. What they are handed is the row as the database stored
+		// it -- its own precision, the defaults it filled in, what a trigger
+		// before the write made of it -- rather than the values the INSERT
+		// was given.
+		//
+		// The INSERT reads it itself where it can, with RETURNING, so that a
+		// row and the reading of it are one statement. MySQL has no RETURNING,
+		// and an INSERT with a conflict clause may have written nothing, so
+		// for those it is a query of its own after the INSERT, by the Id.
+		//
+		// Only a node with an Id is read back. Nothing is read when Returning
+		// is empty.
+		Returning  []string
+		ScanValues func(columns []string) ([]any, error)
+		Assign     func(columns []string, values []any) error
 	}
 
 	// BatchCreateSpec holds the information for creating
@@ -1398,6 +1416,10 @@ func (u *updater) ensureExists(ctx context.Context) error {
 type creator struct {
 	graph
 	*CreateSpec
+
+	// read is the row read back, held until the create holds: Assign is
+	// told about a row only once nothing can undo the writing of it here.
+	read []any
 }
 
 func (c *creator) node(ctx context.Context, drv dialect.Driver) error {
@@ -1416,6 +1438,11 @@ func (c *creator) node(ctx context.Context, drv dialect.Driver) error {
 		// In case the spec does not contain an Id field, we assume
 		// we interact with an edge-schema with composite primary key.
 		if c.Id == nil {
+			if len(c.Returning) > 0 {
+				// Refused rather than skipped: the caller would be left
+				// holding a row nothing was read into.
+				return fmt.Errorf("sqlgraph: a row of %s has no Id to be read back by", c.Table)
+			}
 			c.ensureConflict(insert)
 			query, args, err := insert.QueryErr()
 			if err != nil {
@@ -1429,11 +1456,23 @@ func (c *creator) node(ctx context.Context, drv dialect.Driver) error {
 		if err := c.graph.addM2MEdges(ctx, []driver.Value{c.Id.Value}, edges[M2M]); err != nil {
 			return err
 		}
-		return c.graph.addFKEdges(ctx, []driver.Value{c.Id.Value}, append(edges[O2M], edges[O2O]...))
+		if err := c.graph.addFKEdges(ctx, []driver.Value{c.Id.Value}, append(edges[O2M], edges[O2O]...)); err != nil {
+			return err
+		}
+		if len(c.Returning) > 0 && c.read == nil {
+			return c.readBack(ctx)
+		}
+		return nil
 	}(); err != nil {
 		return rollback(tx, err)
 	}
-	return tx.Commit()
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+	if c.read == nil {
+		return nil
+	}
+	return c.Assign(c.Returning, c.read)
 }
 
 // mayTx opens a new transaction if the create operation spans across multiple statements.
@@ -1460,6 +1499,9 @@ func (c *creator) setTableColumns(insert *sql.InsertBuilder, edges map[Rel][]*Ed
 // insert a node to its table and sets its Id if it was not provided by the user.
 func (c *creator) insert(ctx context.Context, insert *sql.InsertBuilder) error {
 	c.ensureConflict(insert)
+	if len(c.Returning) > 0 && len(c.OnConflict) == 0 && insert.Dialect() != dialect.MySql {
+		return c.insertReturning(ctx, insert)
+	}
 	// If the id field was provided by the user.
 	if c.Id.Value != nil {
 		insert.Set(c.Id.Column, c.Id.Value)
@@ -1514,6 +1556,11 @@ func (c *batchCreator) nodes(ctx context.Context, drv dialect.Driver) error {
 	for i, node := range c.Nodes {
 		if i > 0 && node.Table != c.Nodes[i-1].Table {
 			return fmt.Errorf("more than 1 table for batch insert: %q != %q", node.Table, c.Nodes[i-1].Table)
+		}
+		if len(node.Returning) > 0 {
+			// Refused rather than skipped, as a row with no Id is: the
+			// caller would be left holding a row nothing was read into.
+			return fmt.Errorf("sqlgraph: a batch insert into %s does not read its rows back", node.Table)
 		}
 		values[i] = make(map[string]driver.Value)
 		if node.Id != nil && node.Id.Value != nil {
@@ -1946,6 +1993,99 @@ func (c *creator) insertLastId(ctx context.Context, insert *sql.InsertBuilder) e
 		}
 		c.Id.Value = id
 	}
+	return nil
+}
+
+// insertReturning is the INSERT that reads back the row it stored: the Id, as
+// insertLastId reads it, and then the columns the spec asked for.
+//
+// The Id is a column of its own at the front, whatever Returning names. It is
+// what the edges are written with, and the spec has to hold it in the type the
+// rest of this file expects -- an int64, for a numeric one -- which a column
+// scanned for the caller is not.
+func (c *creator) insertReturning(ctx context.Context, insert *sql.InsertBuilder) error {
+	given := c.Id.Value != nil
+	if given {
+		insert.Set(c.Id.Column, c.Id.Value)
+	}
+	query, args, err := insert.Returning(append([]string{c.Id.Column}, c.Returning...)...).QueryErr()
+	if err != nil {
+		return err
+	}
+	rows := &sql.Rows{}
+	if err := c.tx.Query(ctx, query, args, rows); err != nil {
+		return err
+	}
+	defer rows.Close()
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return err
+		}
+		return fmt.Errorf("sqlgraph: the INSERT into %s answered with no row", c.Table)
+	}
+	values, err := c.ScanValues(c.Returning)
+	if err != nil {
+		return err
+	}
+	for i, v := range values {
+		if _, ok := v.(*sql.UnknownType); ok {
+			values[i] = sql.ScanTypeOf(rows, i+1)
+		}
+	}
+	var id any
+	switch {
+	case given:
+		// The Id the INSERT was given is the one it stored, so the one it
+		// answers with is read past rather than over the caller's own.
+		id = new(any)
+	case c.Id.Type.Numeric():
+		// Normalized to int64, as insertLastId does.
+		id = new(int64)
+	default:
+		id = &c.Id.Value
+	}
+	if err := rows.Scan(append([]any{id}, values...)...); err != nil {
+		return fmt.Errorf("failed scanning rows: %w", err)
+	}
+	if v, ok := id.(*int64); ok {
+		c.Id.Value = *v
+	}
+	c.read = values
+	return nil
+}
+
+// readBack reads, by its Id, the row an INSERT could not answer with: MySQL's
+// has no RETURNING, and one with a conflict clause may have written nothing --
+// and then the row is the one the conflict was with.
+func (c *creator) readBack(ctx context.Context) error {
+	query, args := c.builder.Select(c.Returning...).
+		From(c.builder.Table(c.Table).Schema(c.Schema)).
+		Where(sql.EQ(c.Id.Column, c.Id.Value)).
+		Query()
+	rows := &sql.Rows{}
+	if err := c.tx.Query(ctx, query, args, rows); err != nil {
+		return err
+	}
+	defer rows.Close()
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return err
+		}
+		return &NotFoundError{table: c.Table, id: c.Id.Value}
+	}
+	values, err := c.ScanValues(c.Returning)
+	if err != nil {
+		return err
+	}
+	for i, v := range values {
+		if _, ok := v.(*sql.UnknownType); ok {
+			values[i] = sql.ScanTypeOf(rows, i)
+		}
+	}
+	if err := rows.Scan(values...); err != nil {
+		return fmt.Errorf("failed scanning rows: %w", err)
+	}
+	c.read = values
 	return nil
 }
 
