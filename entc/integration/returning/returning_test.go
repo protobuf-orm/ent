@@ -19,6 +19,7 @@ import (
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/entc/integration/returning/ent"
+	"github.com/protobuf-orm/ent/entc/integration/returning/ent/item"
 	"github.com/protobuf-orm/ent/entc/integration/returning/ent/thing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -177,14 +178,79 @@ func reads(t *testing.T, drv *sql.Driver, returning bool) {
 		require.Same(t, stored, v)
 	})
 
-	// A batch is one INSERT for every row and reads none of them back, so
-	// asking it to is refused rather than answered with nothing.
-	t.Run("a batch refuses to be asked", func(t *testing.T) {
-		var stored *ent.Thing
-		_, err := client.Thing.CreateBulk(
-			client.Thing.Create().SetName("batched").SetAt(at).Stored(&stored),
+	// A batch is one INSERT for all of its rows, and reads every one of them
+	// back with it: an Item by the Id the caller made up, whatever order the
+	// INSERT answers in, and a Thing by its place, since the database made
+	// its Id up.
+	t.Run("a batch reads back every row, one statement where it can", func(t *testing.T) {
+		n.Store(0)
+		// No row sets the motto, so the column is left out of the INSERT and
+		// the database's default is every row's. A column some rows of a
+		// batch set is NULL for the others, as a batch always was: the
+		// default is for a column the INSERT does not name.
+		stored := make([]*ent.Item, 3)
+		made, err := client.Item.CreateBulk(
+			client.Item.Create().SetName("first").Stored(&stored[0]),
+			client.Item.Create().SetName("second").Stored(&stored[1]),
+			client.Item.Create().SetName("third").Stored(&stored[2]),
+		).Save(ctx)
+		require.NoError(t, err)
+
+		want := int64(1)
+		if !returning {
+			want = 2
+		}
+		require.Equal(t, want, n.Load())
+
+		for i, v := range stored {
+			require.NotNil(t, v, "item %d", i)
+			require.Equal(t, made[i].Id, v.Id, "item %d was handed another's row", i)
+			require.Equal(t, made[i].Name, v.Name, "item %d was handed another's row", i)
+			got := client.Item.GetX(ctx, v.Id)
+			require.Equal(t, got.Name, v.Name)
+			require.Equal(t, got.Motto, v.Motto)
+			require.Empty(t, made[i].Motto)
+			require.Equal(t, "cave", v.Motto)
+		}
+	})
+
+	t.Run("and a batch the database makes the Ids of, by place", func(t *testing.T) {
+		stored := make([]*ent.Thing, 2)
+		made, err := client.Thing.CreateBulk(
+			client.Thing.Create().SetName("placed-1").SetAt(at).Stored(&stored[0]),
+			client.Thing.Create().SetName("placed-2").SetAt(at).Stored(&stored[1]),
+		).Save(ctx)
+		require.NoError(t, err)
+		for i, v := range stored {
+			require.NotNil(t, v, "thing %d", i)
+			require.Equal(t, made[i].Id, v.Id)
+			require.Equal(t, made[i].Name, v.Name)
+			require.Equal(t, "cave", v.Motto)
+		}
+	})
+
+	t.Run("and hands nothing to a row that did not ask", func(t *testing.T) {
+		var stored *ent.Item
+		_, err := client.Item.CreateBulk(
+			client.Item.Create().SetName("unasked-1"),
+			client.Item.Create().SetName("asked-2").Stored(&stored),
+		).Save(ctx)
+		require.NoError(t, err)
+		require.NotNil(t, stored)
+		require.Equal(t, "asked-2", stored.Name)
+	})
+
+	t.Run("and none of it when the batch fails", func(t *testing.T) {
+		first := &ent.Item{Name: "as it was"}
+		v := first
+		// A name the table has already, which the column refuses: the
+		// INSERT fails, and no row of it was written.
+		_, err := client.Item.CreateBulk(
+			client.Item.Create().SetName("fresh").Stored(&v),
+			client.Item.Create().SetName("first"),
 		).Save(ctx)
 		require.Error(t, err)
-		require.Nil(t, stored)
+		require.Same(t, first, v)
+		require.Zero(t, client.Item.Query().Where(item.Name("fresh")).CountX(ctx))
 	})
 }

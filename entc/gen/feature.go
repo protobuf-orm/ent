@@ -195,7 +195,9 @@ var (
 	//
 	// With this on, a create builder has Stored, and the INSERT reads the row
 	// back itself with RETURNING where the dialect has it. MySQL has none, and
-	// there it is still a query after the INSERT.
+	// there it is still a query after the INSERT. A CreateBulk honours the
+	// Stored of each of its builders, and reads all of their rows back with
+	// its one INSERT.
 	FeatureReturning = Feature{
 		Name:        "sql/returning",
 		Stage:       Experimental,

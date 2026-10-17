@@ -6,8 +6,21 @@
 
 package ent
 
+import (
+	"uuid"
+
+	"github.com/protobuf-orm/ent/entc/integration/returning/ent/item"
+	"github.com/protobuf-orm/ent/entc/integration/returning/ent/schema"
+)
+
 // The init function reads all schema descriptors with runtime code
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	itemFields := schema.Item{}.Fields()
+	_ = itemFields
+	// itemDescId is the schema descriptor for id field.
+	itemDescId := itemFields[0].Descriptor()
+	// item.DefaultId holds the default value on creation for the id field.
+	item.DefaultId = itemDescId.Default.(func() uuid.UUID)
 }
