@@ -123,6 +123,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Version(); ok {
 		_spec.SetField(user.FieldVersion, field.TypeInt64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldVersion); ok {
+		_spec.SetField(user.FieldVersion, field.TypeInt64, e)
+	}
 	if value, ok := _u.mutation.AddedVersion(); ok {
 		_spec.AddField(user.FieldVersion, field.TypeInt64, value)
 	}
@@ -270,6 +273,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Version(); ok {
 		_spec.SetField(user.FieldVersion, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldVersion); ok {
+		_spec.SetField(user.FieldVersion, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedVersion(); ok {
 		_spec.AddField(user.FieldVersion, field.TypeInt64, value)

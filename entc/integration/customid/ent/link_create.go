@@ -84,8 +84,10 @@ func (_c *LinkCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *LinkCreate) defaults() {
 	if _, ok := _c.mutation.LinkInformation(); !ok {
-		v := link.DefaultLinkInformation
-		_c.mutation.SetLinkInformation(v)
+		if _, ok := _c.mutation.FieldExpr(link.FieldLinkInformation); !ok {
+			v := link.DefaultLinkInformation
+			_c.mutation.SetLinkInformation(v)
+		}
 	}
 	if _, ok := _c.mutation.Id(); !ok {
 		v := link.DefaultId()
@@ -95,6 +97,9 @@ func (_c *LinkCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *LinkCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Link.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.LinkInformation(); !ok {
 		return &ValidationError{Name: "link_information", err: errors.New(`ent: missing required field "Link.link_information"`)}
 	}

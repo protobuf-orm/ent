@@ -628,7 +628,9 @@ type (
 	FieldSpec struct {
 		Column string
 		Type   field.Type
-		Value  driver.Value // value to be stored.
+		// Value is the value to be stored. A sql.Querier is written as the
+		// SQL it renders, and is not encoded even for a JSON column.
+		Value driver.Value
 	}
 
 	// EdgeTarget holds the information for the target nodes
@@ -2140,7 +2142,9 @@ func isExternalEdge(e *EdgeSpec) bool {
 func setTableColumns(fields []*FieldSpec, edges map[Rel][]*EdgeSpec, set func(string, driver.Value)) (err error) {
 	for _, fi := range fields {
 		value := fi.Value
-		if fi.Type == field.TypeJson {
+		// An expression is SQL for the database to evaluate, and encoding it
+		// would write whatever encoding/json makes of the Go value instead.
+		if _, ok := value.(sql.Querier); !ok && fi.Type == field.TypeJson {
 			buf, err := json.Marshal(value)
 			if err != nil {
 				return fmt.Errorf("marshal value for column %s: %w", fi.Column, err)

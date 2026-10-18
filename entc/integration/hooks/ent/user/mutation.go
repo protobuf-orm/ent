@@ -27,6 +27,7 @@ type Mutation struct {
 	password           *string
 	active             *bool
 	clearedFields      map[string]struct{}
+	exprs              map[string]sql.Querier
 	cards              map[int]struct{}
 	removedcards       map[int]struct{}
 	clearedcards       bool
@@ -59,6 +60,7 @@ func (m *Mutation) Predicates() []predicate.User {
 func (m *Mutation) SetVersion(i int) {
 	m.version = &i
 	m.addversion = nil
+	delete(m.exprs, FieldVersion)
 }
 
 // Version returns the value of the "version" field in the mutation.
@@ -92,11 +94,13 @@ func (m *Mutation) AddedVersion() (r int, exists bool) {
 func (m *Mutation) ResetVersion() {
 	m.version = nil
 	m.addversion = nil
+	delete(m.exprs, FieldVersion)
 }
 
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.exprs, FieldName)
 }
 
 // Name returns the value of the "name" field in the mutation.
@@ -111,12 +115,14 @@ func (m *Mutation) Name() (r string, exists bool) {
 // ResetName resets all changes to the "name" field.
 func (m *Mutation) ResetName() {
 	m.name = nil
+	delete(m.exprs, FieldName)
 }
 
 // SetWorth sets the "worth" field.
 func (m *Mutation) SetWorth(u uint) {
 	m.worth = &u
 	m.addworth = nil
+	delete(m.exprs, FieldWorth)
 }
 
 // Worth returns the value of the "worth" field in the mutation.
@@ -150,6 +156,7 @@ func (m *Mutation) AddedWorth() (r int, exists bool) {
 func (m *Mutation) ClearWorth() {
 	m.worth = nil
 	m.addworth = nil
+	delete(m.exprs, FieldWorth)
 	m.clearedFields[FieldWorth] = struct{}{}
 }
 
@@ -164,11 +171,13 @@ func (m *Mutation) ResetWorth() {
 	m.worth = nil
 	m.addworth = nil
 	delete(m.clearedFields, FieldWorth)
+	delete(m.exprs, FieldWorth)
 }
 
 // SetPassword sets the "password" field.
 func (m *Mutation) SetPassword(s string) {
 	m.password = &s
+	delete(m.exprs, FieldPassword)
 }
 
 // Password returns the value of the "password" field in the mutation.
@@ -183,6 +192,7 @@ func (m *Mutation) Password() (r string, exists bool) {
 // ClearPassword clears the value of the "password" field.
 func (m *Mutation) ClearPassword() {
 	m.password = nil
+	delete(m.exprs, FieldPassword)
 	m.clearedFields[FieldPassword] = struct{}{}
 }
 
@@ -196,11 +206,13 @@ func (m *Mutation) PasswordCleared() bool {
 func (m *Mutation) ResetPassword() {
 	m.password = nil
 	delete(m.clearedFields, FieldPassword)
+	delete(m.exprs, FieldPassword)
 }
 
 // SetActive sets the "active" field.
 func (m *Mutation) SetActive(b bool) {
 	m.active = &b
+	delete(m.exprs, FieldActive)
 }
 
 // Active returns the value of the "active" field in the mutation.
@@ -215,6 +227,7 @@ func (m *Mutation) Active() (r bool, exists bool) {
 // ResetActive resets all changes to the "active" field.
 func (m *Mutation) ResetActive() {
 	m.active = nil
+	delete(m.exprs, FieldActive)
 }
 
 // AddCardsIds adds the "cards" edge to the Card entity by ids.
@@ -453,19 +466,19 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 5)
-	if m.version != nil {
+	if m.version != nil || m.exprs[FieldVersion] != nil {
 		fields = append(fields, FieldVersion)
 	}
-	if m.name != nil {
+	if m.name != nil || m.exprs[FieldName] != nil {
 		fields = append(fields, FieldName)
 	}
-	if m.worth != nil {
+	if m.worth != nil || m.exprs[FieldWorth] != nil {
 		fields = append(fields, FieldWorth)
 	}
-	if m.password != nil {
+	if m.password != nil || m.exprs[FieldPassword] != nil {
 		fields = append(fields, FieldPassword)
 	}
-	if m.active != nil {
+	if m.active != nil || m.exprs[FieldActive] != nil {
 		fields = append(fields, FieldActive)
 	}
 	return fields
@@ -474,7 +487,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldVersion:
 		return m.Version()
@@ -500,11 +519,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldVersion:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetVersion(v)
@@ -512,6 +537,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldName:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
@@ -519,6 +547,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldWorth:
 		v, ok := value.(uint)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetWorth(v)
@@ -526,6 +557,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPassword:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPassword(v)
@@ -533,12 +567,82 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldActive:
 		v, ok := value.(bool)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetActive(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldVersion:
+		m.ResetVersion()
+	case FieldName:
+		m.ResetName()
+	case FieldWorth:
+		m.ResetWorth()
+	case FieldPassword:
+		m.ResetPassword()
+	case FieldActive:
+		m.ResetActive()
+	default:
+		return fmt.Errorf("unknown User field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldVersion]; ok {
+		fields = append(fields, FieldVersion)
+	}
+	if _, ok := m.exprs[FieldName]; ok {
+		fields = append(fields, FieldName)
+	}
+	if _, ok := m.exprs[FieldWorth]; ok {
+		fields = append(fields, FieldWorth)
+	}
+	if _, ok := m.exprs[FieldPassword]; ok {
+		fields = append(fields, FieldPassword)
+	}
+	if _, ok := m.exprs[FieldActive]; ok {
+		fields = append(fields, FieldActive)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

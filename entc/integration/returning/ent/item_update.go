@@ -109,8 +109,14 @@ func (_u *ItemUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(item.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(item.FieldName); ok {
+		_spec.SetField(item.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Motto(); ok {
 		_spec.SetField(item.FieldMotto, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(item.FieldMotto); ok {
+		_spec.SetField(item.FieldMotto, field.TypeString, e)
 	}
 	if _u.mutation.MottoCleared() {
 		_spec.ClearField(item.FieldMotto, field.TypeString)
@@ -243,8 +249,14 @@ func (_u *ItemUpdateOne) sqlSave(ctx context.Context) (_node *Item, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(item.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(item.FieldName); ok {
+		_spec.SetField(item.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Motto(); ok {
 		_spec.SetField(item.FieldMotto, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(item.FieldMotto); ok {
+		_spec.SetField(item.FieldMotto, field.TypeString, e)
 	}
 	if _u.mutation.MottoCleared() {
 		_spec.ClearField(item.FieldMotto, field.TypeString)

@@ -156,6 +156,9 @@ func (_u *RoleUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(roleuser.FieldCreatedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(roleuser.FieldCreatedAt); ok {
+		_spec.SetField(roleuser.FieldCreatedAt, field.TypeTime, e)
+	}
 	if _u.mutation.RoleCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -387,6 +390,9 @@ func (_u *RoleUserUpdateOne) sqlSave(ctx context.Context) (_node *RoleUser, err 
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(roleuser.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(roleuser.FieldCreatedAt); ok {
+		_spec.SetField(roleuser.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.RoleCleared() {
 		edge := &sqlgraph.EdgeSpec{

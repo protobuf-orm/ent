@@ -93,8 +93,14 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Data(); ok {
 		_spec.SetField(blob.FieldData, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldData); ok {
+		_spec.SetField(blob.FieldData, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.Note(); ok {
 		_spec.SetField(blob.FieldNote, field.TypeBytes, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldNote); ok {
+		_spec.SetField(blob.FieldNote, field.TypeBytes, e)
 	}
 	if _u.mutation.NoteCleared() {
 		_spec.ClearField(blob.FieldNote, field.TypeBytes)
@@ -211,8 +217,14 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 	if value, ok := _u.mutation.Data(); ok {
 		_spec.SetField(blob.FieldData, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldData); ok {
+		_spec.SetField(blob.FieldData, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.Note(); ok {
 		_spec.SetField(blob.FieldNote, field.TypeBytes, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldNote); ok {
+		_spec.SetField(blob.FieldNote, field.TypeBytes, e)
 	}
 	if _u.mutation.NoteCleared() {
 		_spec.ClearField(blob.FieldNote, field.TypeBytes)

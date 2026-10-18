@@ -115,6 +115,9 @@ func (_u *InfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Content(); ok {
 		_spec.SetField(info.FieldContent, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(info.FieldContent); ok {
+		_spec.SetField(info.FieldContent, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedContent(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, info.FieldContent, value)
@@ -279,6 +282,9 @@ func (_u *InfoUpdateOne) sqlSave(ctx context.Context) (_node *Info, err error) {
 	}
 	if value, ok := _u.mutation.Content(); ok {
 		_spec.SetField(info.FieldContent, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(info.FieldContent); ok {
+		_spec.SetField(info.FieldContent, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedContent(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {

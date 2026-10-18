@@ -30,6 +30,7 @@ type Mutation struct {
 	dir             *schemadir.Dir
 	client          *string
 	clearedFields   map[string]struct{}
+	exprs           map[string]sql.Querier
 	predicates      []predicate.Comment
 }
 
@@ -51,6 +52,7 @@ func (m *Mutation) Predicates() []predicate.Comment {
 func (m *Mutation) SetUniqueInt(i int) {
 	m.unique_int = &i
 	m.addunique_int = nil
+	delete(m.exprs, FieldUniqueInt)
 }
 
 // UniqueInt returns the value of the "unique_int" field in the mutation.
@@ -84,12 +86,14 @@ func (m *Mutation) AddedUniqueInt() (r int, exists bool) {
 func (m *Mutation) ResetUniqueInt() {
 	m.unique_int = nil
 	m.addunique_int = nil
+	delete(m.exprs, FieldUniqueInt)
 }
 
 // SetUniqueFloat sets the "unique_float" field.
 func (m *Mutation) SetUniqueFloat(f float64) {
 	m.unique_float = &f
 	m.addunique_float = nil
+	delete(m.exprs, FieldUniqueFloat)
 }
 
 // UniqueFloat returns the value of the "unique_float" field in the mutation.
@@ -123,12 +127,14 @@ func (m *Mutation) AddedUniqueFloat() (r float64, exists bool) {
 func (m *Mutation) ResetUniqueFloat() {
 	m.unique_float = nil
 	m.addunique_float = nil
+	delete(m.exprs, FieldUniqueFloat)
 }
 
 // SetNillableInt sets the "nillable_int" field.
 func (m *Mutation) SetNillableInt(i int) {
 	m.nillable_int = &i
 	m.addnillable_int = nil
+	delete(m.exprs, FieldNillableInt)
 }
 
 // NillableInt returns the value of the "nillable_int" field in the mutation.
@@ -162,6 +168,7 @@ func (m *Mutation) AddedNillableInt() (r int, exists bool) {
 func (m *Mutation) ClearNillableInt() {
 	m.nillable_int = nil
 	m.addnillable_int = nil
+	delete(m.exprs, FieldNillableInt)
 	m.clearedFields[FieldNillableInt] = struct{}{}
 }
 
@@ -176,11 +183,13 @@ func (m *Mutation) ResetNillableInt() {
 	m.nillable_int = nil
 	m.addnillable_int = nil
 	delete(m.clearedFields, FieldNillableInt)
+	delete(m.exprs, FieldNillableInt)
 }
 
 // SetTable sets the "table" field.
 func (m *Mutation) SetTable(s string) {
 	m.table = &s
+	delete(m.exprs, FieldTable)
 }
 
 // Table returns the value of the "table" field in the mutation.
@@ -195,6 +204,7 @@ func (m *Mutation) Table() (r string, exists bool) {
 // ClearTable clears the value of the "table" field.
 func (m *Mutation) ClearTable() {
 	m.table = nil
+	delete(m.exprs, FieldTable)
 	m.clearedFields[FieldTable] = struct{}{}
 }
 
@@ -208,11 +218,13 @@ func (m *Mutation) TableCleared() bool {
 func (m *Mutation) ResetTable() {
 	m.table = nil
 	delete(m.clearedFields, FieldTable)
+	delete(m.exprs, FieldTable)
 }
 
 // SetDir sets the "dir" field.
 func (m *Mutation) SetDir(s schemadir.Dir) {
 	m.dir = &s
+	delete(m.exprs, FieldDir)
 }
 
 // Dir returns the value of the "dir" field in the mutation.
@@ -227,6 +239,7 @@ func (m *Mutation) Dir() (r schemadir.Dir, exists bool) {
 // ClearDir clears the value of the "dir" field.
 func (m *Mutation) ClearDir() {
 	m.dir = nil
+	delete(m.exprs, FieldDir)
 	m.clearedFields[FieldDir] = struct{}{}
 }
 
@@ -240,11 +253,13 @@ func (m *Mutation) DirCleared() bool {
 func (m *Mutation) ResetDir() {
 	m.dir = nil
 	delete(m.clearedFields, FieldDir)
+	delete(m.exprs, FieldDir)
 }
 
 // SetClient sets the "client" field.
 func (m *Mutation) SetClient(s string) {
 	m.client = &s
+	delete(m.exprs, FieldClient)
 }
 
 // GetClient returns the value of the "client" field in the mutation.
@@ -259,6 +274,7 @@ func (m *Mutation) GetClient() (r string, exists bool) {
 // ClearClient clears the value of the "client" field.
 func (m *Mutation) ClearClient() {
 	m.client = nil
+	delete(m.exprs, FieldClient)
 	m.clearedFields[FieldClient] = struct{}{}
 }
 
@@ -272,6 +288,7 @@ func (m *Mutation) ClientCleared() bool {
 func (m *Mutation) ResetClient() {
 	m.client = nil
 	delete(m.clearedFields, FieldClient)
+	delete(m.exprs, FieldClient)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -309,22 +326,22 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 6)
-	if m.unique_int != nil {
+	if m.unique_int != nil || m.exprs[FieldUniqueInt] != nil {
 		fields = append(fields, FieldUniqueInt)
 	}
-	if m.unique_float != nil {
+	if m.unique_float != nil || m.exprs[FieldUniqueFloat] != nil {
 		fields = append(fields, FieldUniqueFloat)
 	}
-	if m.nillable_int != nil {
+	if m.nillable_int != nil || m.exprs[FieldNillableInt] != nil {
 		fields = append(fields, FieldNillableInt)
 	}
-	if m.table != nil {
+	if m.table != nil || m.exprs[FieldTable] != nil {
 		fields = append(fields, FieldTable)
 	}
-	if m.dir != nil {
+	if m.dir != nil || m.exprs[FieldDir] != nil {
 		fields = append(fields, FieldDir)
 	}
-	if m.client != nil {
+	if m.client != nil || m.exprs[FieldClient] != nil {
 		fields = append(fields, FieldClient)
 	}
 	return fields
@@ -333,7 +350,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldUniqueInt:
 		return m.UniqueInt()
@@ -361,11 +384,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldUniqueInt:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUniqueInt(v)
@@ -373,6 +402,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUniqueFloat:
 		v, ok := value.(float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUniqueFloat(v)
@@ -380,6 +412,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt(v)
@@ -387,6 +422,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldTable:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTable(v)
@@ -394,6 +432,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDir:
 		v, ok := value.(schemadir.Dir)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDir(v)
@@ -401,12 +442,87 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldClient:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetClient(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Comment field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldUniqueInt:
+		m.ResetUniqueInt()
+	case FieldUniqueFloat:
+		m.ResetUniqueFloat()
+	case FieldNillableInt:
+		m.ResetNillableInt()
+	case FieldTable:
+		m.ResetTable()
+	case FieldDir:
+		m.ResetDir()
+	case FieldClient:
+		m.ResetClient()
+	default:
+		return fmt.Errorf("unknown Comment field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldUniqueInt]; ok {
+		fields = append(fields, FieldUniqueInt)
+	}
+	if _, ok := m.exprs[FieldUniqueFloat]; ok {
+		fields = append(fields, FieldUniqueFloat)
+	}
+	if _, ok := m.exprs[FieldNillableInt]; ok {
+		fields = append(fields, FieldNillableInt)
+	}
+	if _, ok := m.exprs[FieldTable]; ok {
+		fields = append(fields, FieldTable)
+	}
+	if _, ok := m.exprs[FieldDir]; ok {
+		fields = append(fields, FieldDir)
+	}
+	if _, ok := m.exprs[FieldClient]; ok {
+		fields = append(fields, FieldClient)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

@@ -90,6 +90,9 @@ func (_c *CardCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *CardCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Card.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	return nil
 }
 

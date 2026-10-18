@@ -89,6 +89,9 @@ func (_u *ValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(valuescan.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(valuescan.FieldName); ok {
+		_spec.SetField(valuescan.FieldName, field.TypeString, e)
+	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{valuescan.Label}
@@ -200,6 +203,9 @@ func (_u *ValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ValueScan, er
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(valuescan.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(valuescan.FieldName); ok {
+		_spec.SetField(valuescan.FieldName, field.TypeString, e)
 	}
 	_node = &ValueScan{config: _u.config}
 	_spec.Assign = _node.assignValues

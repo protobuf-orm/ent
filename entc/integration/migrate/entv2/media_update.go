@@ -135,17 +135,26 @@ func (_u *MediaUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Source(); ok {
 		_spec.SetField(media.FieldSource, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldSource); ok {
+		_spec.SetField(media.FieldSource, field.TypeString, e)
+	}
 	if _u.mutation.SourceCleared() {
 		_spec.ClearField(media.FieldSource, field.TypeString)
 	}
 	if value, ok := _u.mutation.SourceUri(); ok {
 		_spec.SetField(media.FieldSourceUri, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldSourceUri); ok {
+		_spec.SetField(media.FieldSourceUri, field.TypeString, e)
+	}
 	if _u.mutation.SourceUriCleared() {
 		_spec.ClearField(media.FieldSourceUri, field.TypeString)
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(media.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldText); ok {
+		_spec.SetField(media.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(media.FieldText, field.TypeString)
@@ -304,17 +313,26 @@ func (_u *MediaUpdateOne) sqlSave(ctx context.Context) (_node *Media, err error)
 	if value, ok := _u.mutation.Source(); ok {
 		_spec.SetField(media.FieldSource, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldSource); ok {
+		_spec.SetField(media.FieldSource, field.TypeString, e)
+	}
 	if _u.mutation.SourceCleared() {
 		_spec.ClearField(media.FieldSource, field.TypeString)
 	}
 	if value, ok := _u.mutation.SourceUri(); ok {
 		_spec.SetField(media.FieldSourceUri, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldSourceUri); ok {
+		_spec.SetField(media.FieldSourceUri, field.TypeString, e)
+	}
 	if _u.mutation.SourceUriCleared() {
 		_spec.ClearField(media.FieldSourceUri, field.TypeString)
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(media.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(media.FieldText); ok {
+		_spec.SetField(media.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(media.FieldText, field.TypeString)

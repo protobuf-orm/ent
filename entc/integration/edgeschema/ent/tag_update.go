@@ -238,6 +238,9 @@ func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(tag.FieldValue, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(tag.FieldValue); ok {
+		_spec.SetField(tag.FieldValue, field.TypeString, e)
+	}
 	if _u.mutation.TweetsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
@@ -690,6 +693,9 @@ func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 	}
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(tag.FieldValue, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(tag.FieldValue); ok {
+		_spec.SetField(tag.FieldValue, field.TypeString, e)
 	}
 	if _u.mutation.TweetsCleared() {
 		edge := &sqlgraph.EdgeSpec{

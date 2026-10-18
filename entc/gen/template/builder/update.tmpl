@@ -234,6 +234,10 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 		{{- range $f := $.Fields }}
 			{{- if $f.UpdateDefault }}
 				if _, ok := {{ $mutation }}.{{ $f.MutationGet }}(); !ok {{ if $f.Optional }} && !{{ $mutation }}.{{ $f.StructField }}Cleared() {{ end }} {
+					{{- /* An expression is what the field was set to, and setting the default would replace it. */}}
+					{{- if $f.SupportsMutationExpr }}
+						if _, ok := {{ $mutation }}.FieldExpr({{ $.Package }}.{{ $f.Constant }}); !ok {
+					{{- end }}
 					{{- if $runtimeRequired }}
 						if {{ $.Package }}.{{ $f.UpdateDefaultName }} == nil {
 							return fmt.Errorf("{{ $pkg }}: uninitialized {{ $.Package }}.{{ $f.UpdateDefaultName }} (forgotten import {{ $pkg }}/runtime?)")
@@ -241,6 +245,9 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 					{{- end }}
 					v := {{ $.Package }}.{{ $f.UpdateDefaultName }}()
 					{{ $mutation }}.{{ $f.MutationSet }}(v)
+					{{- if $f.SupportsMutationExpr }}
+						}
+					{{- end }}
 				}
 			{{- end }}
 		{{- end }}

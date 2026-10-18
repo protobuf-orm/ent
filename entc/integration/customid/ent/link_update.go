@@ -82,6 +82,9 @@ func (_u *LinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.LinkInformation(); ok {
 		_spec.SetField(link.FieldLinkInformation, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(link.FieldLinkInformation); ok {
+		_spec.SetField(link.FieldLinkInformation, field.TypeJson, e)
+	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{link.Label}
@@ -181,6 +184,9 @@ func (_u *LinkUpdateOne) sqlSave(ctx context.Context) (_node *Link, err error) {
 	}
 	if value, ok := _u.mutation.LinkInformation(); ok {
 		_spec.SetField(link.FieldLinkInformation, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(link.FieldLinkInformation); ok {
+		_spec.SetField(link.FieldLinkInformation, field.TypeJson, e)
 	}
 	_node = &Link{config: _u.config}
 	_spec.Assign = _node.assignValues

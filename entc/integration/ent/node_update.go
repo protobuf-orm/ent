@@ -158,8 +158,10 @@ func (_u *NodeUpdate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *NodeUpdate) defaults() {
 	if _, ok := _u.mutation.UpdatedAt(); !ok && !_u.mutation.UpdatedAtCleared() {
-		v := node.UpdateDefaultUpdatedAt()
-		_u.mutation.SetUpdatedAt(v)
+		if _, ok := _u.mutation.FieldExpr(node.FieldUpdatedAt); !ok {
+			v := node.UpdateDefaultUpdatedAt()
+			_u.mutation.SetUpdatedAt(v)
+		}
 	}
 }
 
@@ -181,6 +183,9 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(node.FieldValue, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldValue); ok {
+		_spec.SetField(node.FieldValue, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedValue(); ok {
 		_spec.AddField(node.FieldValue, field.TypeInt, value)
 	}
@@ -189,6 +194,9 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(node.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldUpdatedAt); ok {
+		_spec.SetField(node.FieldUpdatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UpdatedAtCleared() {
 		_spec.ClearField(node.FieldUpdatedAt, field.TypeTime)
@@ -411,8 +419,10 @@ func (_u *NodeUpdateOne) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *NodeUpdateOne) defaults() {
 	if _, ok := _u.mutation.UpdatedAt(); !ok && !_u.mutation.UpdatedAtCleared() {
-		v := node.UpdateDefaultUpdatedAt()
-		_u.mutation.SetUpdatedAt(v)
+		if _, ok := _u.mutation.FieldExpr(node.FieldUpdatedAt); !ok {
+			v := node.UpdateDefaultUpdatedAt()
+			_u.mutation.SetUpdatedAt(v)
+		}
 	}
 }
 
@@ -451,6 +461,9 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(node.FieldValue, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldValue); ok {
+		_spec.SetField(node.FieldValue, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedValue(); ok {
 		_spec.AddField(node.FieldValue, field.TypeInt, value)
 	}
@@ -459,6 +472,9 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(node.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldUpdatedAt); ok {
+		_spec.SetField(node.FieldUpdatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UpdatedAtCleared() {
 		_spec.ClearField(node.FieldUpdatedAt, field.TypeTime)

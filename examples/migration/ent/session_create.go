@@ -150,8 +150,10 @@ func (_c *SessionCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *SessionCreate) defaults() {
 	if _, ok := _c.mutation.Active(); !ok {
-		v := session.DefaultActive
-		_c.mutation.SetActive(v)
+		if _, ok := _c.mutation.FieldExpr(session.FieldActive); !ok {
+			v := session.DefaultActive
+			_c.mutation.SetActive(v)
+		}
 	}
 	if _, ok := _c.mutation.Id(); !ok {
 		v := session.DefaultId()
@@ -161,6 +163,9 @@ func (_c *SessionCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *SessionCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Session.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Active(); !ok {
 		return &ValidationError{Name: "active", err: errors.New(`ent: missing required field "Session.active"`)}
 	}

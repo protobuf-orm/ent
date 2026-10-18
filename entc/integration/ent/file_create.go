@@ -229,6 +229,9 @@ func (_c *FileCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *FileCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "File.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if v, ok := _c.mutation.SetId(); ok {
 		if err := file.SetIdValidator(v); err != nil {
 			return &ValidationError{Name: "set_id", err: fmt.Errorf(`ent: validator failed for field "File.set_id": %w`, err)}

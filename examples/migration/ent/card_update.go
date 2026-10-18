@@ -212,14 +212,26 @@ func (_u *CardUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(card.FieldType, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldType); ok {
+		_spec.SetField(card.FieldType, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.NumberHash(); ok {
 		_spec.SetField(card.FieldNumberHash, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumberHash); ok {
+		_spec.SetField(card.FieldNumberHash, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.CvvHash(); ok {
 		_spec.SetField(card.FieldCvvHash, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldCvvHash); ok {
+		_spec.SetField(card.FieldCvvHash, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.ExpiresAt(); ok {
 		_spec.SetField(card.FieldExpiresAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldExpiresAt); ok {
+		_spec.SetField(card.FieldExpiresAt, field.TypeTime, e)
 	}
 	if _u.mutation.ExpiresAtCleared() {
 		_spec.ClearField(card.FieldExpiresAt, field.TypeTime)
@@ -526,14 +538,26 @@ func (_u *CardUpdateOne) sqlSave(ctx context.Context) (_node *Card, err error) {
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(card.FieldType, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldType); ok {
+		_spec.SetField(card.FieldType, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.NumberHash(); ok {
 		_spec.SetField(card.FieldNumberHash, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumberHash); ok {
+		_spec.SetField(card.FieldNumberHash, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.CvvHash(); ok {
 		_spec.SetField(card.FieldCvvHash, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldCvvHash); ok {
+		_spec.SetField(card.FieldCvvHash, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.ExpiresAt(); ok {
 		_spec.SetField(card.FieldExpiresAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldExpiresAt); ok {
+		_spec.SetField(card.FieldExpiresAt, field.TypeTime, e)
 	}
 	if _u.mutation.ExpiresAtCleared() {
 		_spec.ClearField(card.FieldExpiresAt, field.TypeTime)

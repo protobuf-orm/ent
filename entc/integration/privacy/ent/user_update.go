@@ -176,6 +176,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeUint, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeUint, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeUint, value)
 	}
@@ -464,6 +467,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeUint, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeUint, e)
 	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeUint, value)

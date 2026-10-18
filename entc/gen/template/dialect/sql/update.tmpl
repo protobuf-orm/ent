@@ -116,6 +116,12 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 						_spec.SetField({{ $.Package }}.{{ $f.Constant }}, field.{{ $f.Type.ConstName }}, value)
 					{{- end }}
 				}
+				{{- if $f.SupportsMutationExpr }}
+					{{- /* The expression is SQL already: no value scanner converts it and no JSON encodes it. */}}
+					if e, ok := {{ $mutation }}.FieldExpr({{ $.Package }}.{{ $f.Constant }}); ok {
+						_spec.SetField({{ $.Package }}.{{ $f.Constant }}, field.{{ $f.Type.ConstName }}, e)
+					}
+				{{- end }}
 				{{- if $f.SupportsMutationAdd }}
 					if value, ok := {{ $mutation }}.{{ $f.MutationAdded }}(); ok {
 						{{- if $f.HasValueScanner }}

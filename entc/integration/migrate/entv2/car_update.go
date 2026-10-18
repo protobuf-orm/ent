@@ -124,6 +124,9 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(car.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldName); ok {
+		_spec.SetField(car.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(car.FieldName, field.TypeString)
 	}
@@ -297,6 +300,9 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(car.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldName); ok {
+		_spec.SetField(car.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(car.FieldName, field.TypeString)

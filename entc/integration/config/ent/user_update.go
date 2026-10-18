@@ -115,11 +115,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(user.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Label(); ok {
 		_spec.SetField(user.FieldLabel, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLabel); ok {
+		_spec.SetField(user.FieldLabel, field.TypeString, e)
 	}
 	if _u.mutation.LabelCleared() {
 		_spec.ClearField(user.FieldLabel, field.TypeString)
@@ -258,11 +264,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(user.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Label(); ok {
 		_spec.SetField(user.FieldLabel, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLabel); ok {
+		_spec.SetField(user.FieldLabel, field.TypeString, e)
 	}
 	if _u.mutation.LabelCleared() {
 		_spec.ClearField(user.FieldLabel, field.TypeString)

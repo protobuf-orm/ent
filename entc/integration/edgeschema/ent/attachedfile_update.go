@@ -162,6 +162,9 @@ func (_u *AttachedFileUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if value, ok := _u.mutation.AttachTime(); ok {
 		_spec.SetField(attachedfile.FieldAttachTime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(attachedfile.FieldAttachTime); ok {
+		_spec.SetField(attachedfile.FieldAttachTime, field.TypeTime, e)
+	}
 	if _u.mutation.FiCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -397,6 +400,9 @@ func (_u *AttachedFileUpdateOne) sqlSave(ctx context.Context) (_node *AttachedFi
 	}
 	if value, ok := _u.mutation.AttachTime(); ok {
 		_spec.SetField(attachedfile.FieldAttachTime, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(attachedfile.FieldAttachTime); ok {
+		_spec.SetField(attachedfile.FieldAttachTime, field.TypeTime, e)
 	}
 	if _u.mutation.FiCleared() {
 		edge := &sqlgraph.EdgeSpec{

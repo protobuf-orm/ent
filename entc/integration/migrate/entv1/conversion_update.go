@@ -311,11 +311,17 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(conversion.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldName); ok {
+		_spec.SetField(conversion.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(conversion.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Int8ToString(); ok {
 		_spec.SetField(conversion.FieldInt8ToString, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt8ToString); ok {
+		_spec.SetField(conversion.FieldInt8ToString, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedInt8ToString(); ok {
 		_spec.AddField(conversion.FieldInt8ToString, field.TypeInt8, value)
@@ -326,6 +332,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Uint8ToString(); ok {
 		_spec.SetField(conversion.FieldUint8ToString, field.TypeUint8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint8ToString); ok {
+		_spec.SetField(conversion.FieldUint8ToString, field.TypeUint8, e)
+	}
 	if value, ok := _u.mutation.AddedUint8ToString(); ok {
 		_spec.AddField(conversion.FieldUint8ToString, field.TypeUint8, value)
 	}
@@ -334,6 +343,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	}
 	if value, ok := _u.mutation.Int16ToString(); ok {
 		_spec.SetField(conversion.FieldInt16ToString, field.TypeInt16, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt16ToString); ok {
+		_spec.SetField(conversion.FieldInt16ToString, field.TypeInt16, e)
 	}
 	if value, ok := _u.mutation.AddedInt16ToString(); ok {
 		_spec.AddField(conversion.FieldInt16ToString, field.TypeInt16, value)
@@ -344,6 +356,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Uint16ToString(); ok {
 		_spec.SetField(conversion.FieldUint16ToString, field.TypeUint16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint16ToString); ok {
+		_spec.SetField(conversion.FieldUint16ToString, field.TypeUint16, e)
+	}
 	if value, ok := _u.mutation.AddedUint16ToString(); ok {
 		_spec.AddField(conversion.FieldUint16ToString, field.TypeUint16, value)
 	}
@@ -352,6 +367,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	}
 	if value, ok := _u.mutation.Int32ToString(); ok {
 		_spec.SetField(conversion.FieldInt32ToString, field.TypeInt32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt32ToString); ok {
+		_spec.SetField(conversion.FieldInt32ToString, field.TypeInt32, e)
 	}
 	if value, ok := _u.mutation.AddedInt32ToString(); ok {
 		_spec.AddField(conversion.FieldInt32ToString, field.TypeInt32, value)
@@ -362,6 +380,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Uint32ToString(); ok {
 		_spec.SetField(conversion.FieldUint32ToString, field.TypeUint32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint32ToString); ok {
+		_spec.SetField(conversion.FieldUint32ToString, field.TypeUint32, e)
+	}
 	if value, ok := _u.mutation.AddedUint32ToString(); ok {
 		_spec.AddField(conversion.FieldUint32ToString, field.TypeUint32, value)
 	}
@@ -371,6 +392,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Int64ToString(); ok {
 		_spec.SetField(conversion.FieldInt64ToString, field.TypeInt64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt64ToString); ok {
+		_spec.SetField(conversion.FieldInt64ToString, field.TypeInt64, e)
+	}
 	if value, ok := _u.mutation.AddedInt64ToString(); ok {
 		_spec.AddField(conversion.FieldInt64ToString, field.TypeInt64, value)
 	}
@@ -379,6 +403,9 @@ func (_u *ConversionUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	}
 	if value, ok := _u.mutation.Uint64ToString(); ok {
 		_spec.SetField(conversion.FieldUint64ToString, field.TypeUint64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint64ToString); ok {
+		_spec.SetField(conversion.FieldUint64ToString, field.TypeUint64, e)
 	}
 	if value, ok := _u.mutation.AddedUint64ToString(); ok {
 		_spec.AddField(conversion.FieldUint64ToString, field.TypeUint64, value)
@@ -716,11 +743,17 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(conversion.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldName); ok {
+		_spec.SetField(conversion.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(conversion.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Int8ToString(); ok {
 		_spec.SetField(conversion.FieldInt8ToString, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt8ToString); ok {
+		_spec.SetField(conversion.FieldInt8ToString, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedInt8ToString(); ok {
 		_spec.AddField(conversion.FieldInt8ToString, field.TypeInt8, value)
@@ -731,6 +764,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	if value, ok := _u.mutation.Uint8ToString(); ok {
 		_spec.SetField(conversion.FieldUint8ToString, field.TypeUint8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint8ToString); ok {
+		_spec.SetField(conversion.FieldUint8ToString, field.TypeUint8, e)
+	}
 	if value, ok := _u.mutation.AddedUint8ToString(); ok {
 		_spec.AddField(conversion.FieldUint8ToString, field.TypeUint8, value)
 	}
@@ -739,6 +775,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	}
 	if value, ok := _u.mutation.Int16ToString(); ok {
 		_spec.SetField(conversion.FieldInt16ToString, field.TypeInt16, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt16ToString); ok {
+		_spec.SetField(conversion.FieldInt16ToString, field.TypeInt16, e)
 	}
 	if value, ok := _u.mutation.AddedInt16ToString(); ok {
 		_spec.AddField(conversion.FieldInt16ToString, field.TypeInt16, value)
@@ -749,6 +788,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	if value, ok := _u.mutation.Uint16ToString(); ok {
 		_spec.SetField(conversion.FieldUint16ToString, field.TypeUint16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint16ToString); ok {
+		_spec.SetField(conversion.FieldUint16ToString, field.TypeUint16, e)
+	}
 	if value, ok := _u.mutation.AddedUint16ToString(); ok {
 		_spec.AddField(conversion.FieldUint16ToString, field.TypeUint16, value)
 	}
@@ -757,6 +799,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	}
 	if value, ok := _u.mutation.Int32ToString(); ok {
 		_spec.SetField(conversion.FieldInt32ToString, field.TypeInt32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt32ToString); ok {
+		_spec.SetField(conversion.FieldInt32ToString, field.TypeInt32, e)
 	}
 	if value, ok := _u.mutation.AddedInt32ToString(); ok {
 		_spec.AddField(conversion.FieldInt32ToString, field.TypeInt32, value)
@@ -767,6 +812,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	if value, ok := _u.mutation.Uint32ToString(); ok {
 		_spec.SetField(conversion.FieldUint32ToString, field.TypeUint32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint32ToString); ok {
+		_spec.SetField(conversion.FieldUint32ToString, field.TypeUint32, e)
+	}
 	if value, ok := _u.mutation.AddedUint32ToString(); ok {
 		_spec.AddField(conversion.FieldUint32ToString, field.TypeUint32, value)
 	}
@@ -776,6 +824,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	if value, ok := _u.mutation.Int64ToString(); ok {
 		_spec.SetField(conversion.FieldInt64ToString, field.TypeInt64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldInt64ToString); ok {
+		_spec.SetField(conversion.FieldInt64ToString, field.TypeInt64, e)
+	}
 	if value, ok := _u.mutation.AddedInt64ToString(); ok {
 		_spec.AddField(conversion.FieldInt64ToString, field.TypeInt64, value)
 	}
@@ -784,6 +835,9 @@ func (_u *ConversionUpdateOne) sqlSave(ctx context.Context) (_node *Conversion, 
 	}
 	if value, ok := _u.mutation.Uint64ToString(); ok {
 		_spec.SetField(conversion.FieldUint64ToString, field.TypeUint64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(conversion.FieldUint64ToString); ok {
+		_spec.SetField(conversion.FieldUint64ToString, field.TypeUint64, e)
 	}
 	if value, ok := _u.mutation.AddedUint64ToString(); ok {
 		_spec.AddField(conversion.FieldUint64ToString, field.TypeUint64, value)

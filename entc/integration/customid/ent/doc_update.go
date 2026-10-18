@@ -193,6 +193,9 @@ func (_u *DocUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(doc.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(doc.FieldText); ok {
+		_spec.SetField(doc.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(doc.FieldText, field.TypeString)
 	}
@@ -525,6 +528,9 @@ func (_u *DocUpdateOne) sqlSave(ctx context.Context) (_node *Doc, err error) {
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(doc.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(doc.FieldText); ok {
+		_spec.SetField(doc.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(doc.FieldText, field.TypeString)

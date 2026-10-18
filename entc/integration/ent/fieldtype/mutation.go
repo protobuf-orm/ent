@@ -123,6 +123,7 @@ type Mutation struct {
 	addbig_int                 *schema.BigInt
 	password_other             *schema.Password
 	clearedFields              map[string]struct{}
+	exprs                      map[string]sql.Querier
 	predicates                 []predicate.FieldType
 }
 
@@ -144,6 +145,7 @@ func (m *Mutation) Predicates() []predicate.FieldType {
 func (m *Mutation) SetInt(i int) {
 	m.int = &i
 	m.addint = nil
+	delete(m.exprs, FieldInt)
 }
 
 // Int returns the value of the "int" field in the mutation.
@@ -177,12 +179,14 @@ func (m *Mutation) AddedInt() (r int, exists bool) {
 func (m *Mutation) ResetInt() {
 	m.int = nil
 	m.addint = nil
+	delete(m.exprs, FieldInt)
 }
 
 // SetInt8 sets the "int8" field.
 func (m *Mutation) SetInt8(i int8) {
 	m.int8 = &i
 	m.addint8 = nil
+	delete(m.exprs, FieldInt8)
 }
 
 // Int8 returns the value of the "int8" field in the mutation.
@@ -216,12 +220,14 @@ func (m *Mutation) AddedInt8() (r int8, exists bool) {
 func (m *Mutation) ResetInt8() {
 	m.int8 = nil
 	m.addint8 = nil
+	delete(m.exprs, FieldInt8)
 }
 
 // SetInt16 sets the "int16" field.
 func (m *Mutation) SetInt16(i int16) {
 	m.int16 = &i
 	m.addint16 = nil
+	delete(m.exprs, FieldInt16)
 }
 
 // Int16 returns the value of the "int16" field in the mutation.
@@ -255,12 +261,14 @@ func (m *Mutation) AddedInt16() (r int16, exists bool) {
 func (m *Mutation) ResetInt16() {
 	m.int16 = nil
 	m.addint16 = nil
+	delete(m.exprs, FieldInt16)
 }
 
 // SetInt32 sets the "int32" field.
 func (m *Mutation) SetInt32(i int32) {
 	m.int32 = &i
 	m.addint32 = nil
+	delete(m.exprs, FieldInt32)
 }
 
 // Int32 returns the value of the "int32" field in the mutation.
@@ -294,12 +302,14 @@ func (m *Mutation) AddedInt32() (r int32, exists bool) {
 func (m *Mutation) ResetInt32() {
 	m.int32 = nil
 	m.addint32 = nil
+	delete(m.exprs, FieldInt32)
 }
 
 // SetInt64 sets the "int64" field.
 func (m *Mutation) SetInt64(i int64) {
 	m.int64 = &i
 	m.addint64 = nil
+	delete(m.exprs, FieldInt64)
 }
 
 // Int64 returns the value of the "int64" field in the mutation.
@@ -333,12 +343,14 @@ func (m *Mutation) AddedInt64() (r int64, exists bool) {
 func (m *Mutation) ResetInt64() {
 	m.int64 = nil
 	m.addint64 = nil
+	delete(m.exprs, FieldInt64)
 }
 
 // SetOptionalInt sets the "optional_int" field.
 func (m *Mutation) SetOptionalInt(i int) {
 	m.optional_int = &i
 	m.addoptional_int = nil
+	delete(m.exprs, FieldOptionalInt)
 }
 
 // OptionalInt returns the value of the "optional_int" field in the mutation.
@@ -372,6 +384,7 @@ func (m *Mutation) AddedOptionalInt() (r int, exists bool) {
 func (m *Mutation) ClearOptionalInt() {
 	m.optional_int = nil
 	m.addoptional_int = nil
+	delete(m.exprs, FieldOptionalInt)
 	m.clearedFields[FieldOptionalInt] = struct{}{}
 }
 
@@ -386,12 +399,14 @@ func (m *Mutation) ResetOptionalInt() {
 	m.optional_int = nil
 	m.addoptional_int = nil
 	delete(m.clearedFields, FieldOptionalInt)
+	delete(m.exprs, FieldOptionalInt)
 }
 
 // SetOptionalInt8 sets the "optional_int8" field.
 func (m *Mutation) SetOptionalInt8(i int8) {
 	m.optional_int8 = &i
 	m.addoptional_int8 = nil
+	delete(m.exprs, FieldOptionalInt8)
 }
 
 // OptionalInt8 returns the value of the "optional_int8" field in the mutation.
@@ -425,6 +440,7 @@ func (m *Mutation) AddedOptionalInt8() (r int8, exists bool) {
 func (m *Mutation) ClearOptionalInt8() {
 	m.optional_int8 = nil
 	m.addoptional_int8 = nil
+	delete(m.exprs, FieldOptionalInt8)
 	m.clearedFields[FieldOptionalInt8] = struct{}{}
 }
 
@@ -439,12 +455,14 @@ func (m *Mutation) ResetOptionalInt8() {
 	m.optional_int8 = nil
 	m.addoptional_int8 = nil
 	delete(m.clearedFields, FieldOptionalInt8)
+	delete(m.exprs, FieldOptionalInt8)
 }
 
 // SetOptionalInt16 sets the "optional_int16" field.
 func (m *Mutation) SetOptionalInt16(i int16) {
 	m.optional_int16 = &i
 	m.addoptional_int16 = nil
+	delete(m.exprs, FieldOptionalInt16)
 }
 
 // OptionalInt16 returns the value of the "optional_int16" field in the mutation.
@@ -478,6 +496,7 @@ func (m *Mutation) AddedOptionalInt16() (r int16, exists bool) {
 func (m *Mutation) ClearOptionalInt16() {
 	m.optional_int16 = nil
 	m.addoptional_int16 = nil
+	delete(m.exprs, FieldOptionalInt16)
 	m.clearedFields[FieldOptionalInt16] = struct{}{}
 }
 
@@ -492,12 +511,14 @@ func (m *Mutation) ResetOptionalInt16() {
 	m.optional_int16 = nil
 	m.addoptional_int16 = nil
 	delete(m.clearedFields, FieldOptionalInt16)
+	delete(m.exprs, FieldOptionalInt16)
 }
 
 // SetOptionalInt32 sets the "optional_int32" field.
 func (m *Mutation) SetOptionalInt32(i int32) {
 	m.optional_int32 = &i
 	m.addoptional_int32 = nil
+	delete(m.exprs, FieldOptionalInt32)
 }
 
 // OptionalInt32 returns the value of the "optional_int32" field in the mutation.
@@ -531,6 +552,7 @@ func (m *Mutation) AddedOptionalInt32() (r int32, exists bool) {
 func (m *Mutation) ClearOptionalInt32() {
 	m.optional_int32 = nil
 	m.addoptional_int32 = nil
+	delete(m.exprs, FieldOptionalInt32)
 	m.clearedFields[FieldOptionalInt32] = struct{}{}
 }
 
@@ -545,12 +567,14 @@ func (m *Mutation) ResetOptionalInt32() {
 	m.optional_int32 = nil
 	m.addoptional_int32 = nil
 	delete(m.clearedFields, FieldOptionalInt32)
+	delete(m.exprs, FieldOptionalInt32)
 }
 
 // SetOptionalInt64 sets the "optional_int64" field.
 func (m *Mutation) SetOptionalInt64(i int64) {
 	m.optional_int64 = &i
 	m.addoptional_int64 = nil
+	delete(m.exprs, FieldOptionalInt64)
 }
 
 // OptionalInt64 returns the value of the "optional_int64" field in the mutation.
@@ -584,6 +608,7 @@ func (m *Mutation) AddedOptionalInt64() (r int64, exists bool) {
 func (m *Mutation) ClearOptionalInt64() {
 	m.optional_int64 = nil
 	m.addoptional_int64 = nil
+	delete(m.exprs, FieldOptionalInt64)
 	m.clearedFields[FieldOptionalInt64] = struct{}{}
 }
 
@@ -598,12 +623,14 @@ func (m *Mutation) ResetOptionalInt64() {
 	m.optional_int64 = nil
 	m.addoptional_int64 = nil
 	delete(m.clearedFields, FieldOptionalInt64)
+	delete(m.exprs, FieldOptionalInt64)
 }
 
 // SetNillableInt sets the "nillable_int" field.
 func (m *Mutation) SetNillableInt(i int) {
 	m.nillable_int = &i
 	m.addnillable_int = nil
+	delete(m.exprs, FieldNillableInt)
 }
 
 // NillableInt returns the value of the "nillable_int" field in the mutation.
@@ -637,6 +664,7 @@ func (m *Mutation) AddedNillableInt() (r int, exists bool) {
 func (m *Mutation) ClearNillableInt() {
 	m.nillable_int = nil
 	m.addnillable_int = nil
+	delete(m.exprs, FieldNillableInt)
 	m.clearedFields[FieldNillableInt] = struct{}{}
 }
 
@@ -651,12 +679,14 @@ func (m *Mutation) ResetNillableInt() {
 	m.nillable_int = nil
 	m.addnillable_int = nil
 	delete(m.clearedFields, FieldNillableInt)
+	delete(m.exprs, FieldNillableInt)
 }
 
 // SetNillableInt8 sets the "nillable_int8" field.
 func (m *Mutation) SetNillableInt8(i int8) {
 	m.nillable_int8 = &i
 	m.addnillable_int8 = nil
+	delete(m.exprs, FieldNillableInt8)
 }
 
 // NillableInt8 returns the value of the "nillable_int8" field in the mutation.
@@ -690,6 +720,7 @@ func (m *Mutation) AddedNillableInt8() (r int8, exists bool) {
 func (m *Mutation) ClearNillableInt8() {
 	m.nillable_int8 = nil
 	m.addnillable_int8 = nil
+	delete(m.exprs, FieldNillableInt8)
 	m.clearedFields[FieldNillableInt8] = struct{}{}
 }
 
@@ -704,12 +735,14 @@ func (m *Mutation) ResetNillableInt8() {
 	m.nillable_int8 = nil
 	m.addnillable_int8 = nil
 	delete(m.clearedFields, FieldNillableInt8)
+	delete(m.exprs, FieldNillableInt8)
 }
 
 // SetNillableInt16 sets the "nillable_int16" field.
 func (m *Mutation) SetNillableInt16(i int16) {
 	m.nillable_int16 = &i
 	m.addnillable_int16 = nil
+	delete(m.exprs, FieldNillableInt16)
 }
 
 // NillableInt16 returns the value of the "nillable_int16" field in the mutation.
@@ -743,6 +776,7 @@ func (m *Mutation) AddedNillableInt16() (r int16, exists bool) {
 func (m *Mutation) ClearNillableInt16() {
 	m.nillable_int16 = nil
 	m.addnillable_int16 = nil
+	delete(m.exprs, FieldNillableInt16)
 	m.clearedFields[FieldNillableInt16] = struct{}{}
 }
 
@@ -757,12 +791,14 @@ func (m *Mutation) ResetNillableInt16() {
 	m.nillable_int16 = nil
 	m.addnillable_int16 = nil
 	delete(m.clearedFields, FieldNillableInt16)
+	delete(m.exprs, FieldNillableInt16)
 }
 
 // SetNillableInt32 sets the "nillable_int32" field.
 func (m *Mutation) SetNillableInt32(i int32) {
 	m.nillable_int32 = &i
 	m.addnillable_int32 = nil
+	delete(m.exprs, FieldNillableInt32)
 }
 
 // NillableInt32 returns the value of the "nillable_int32" field in the mutation.
@@ -796,6 +832,7 @@ func (m *Mutation) AddedNillableInt32() (r int32, exists bool) {
 func (m *Mutation) ClearNillableInt32() {
 	m.nillable_int32 = nil
 	m.addnillable_int32 = nil
+	delete(m.exprs, FieldNillableInt32)
 	m.clearedFields[FieldNillableInt32] = struct{}{}
 }
 
@@ -810,12 +847,14 @@ func (m *Mutation) ResetNillableInt32() {
 	m.nillable_int32 = nil
 	m.addnillable_int32 = nil
 	delete(m.clearedFields, FieldNillableInt32)
+	delete(m.exprs, FieldNillableInt32)
 }
 
 // SetNillableInt64 sets the "nillable_int64" field.
 func (m *Mutation) SetNillableInt64(i int64) {
 	m.nillable_int64 = &i
 	m.addnillable_int64 = nil
+	delete(m.exprs, FieldNillableInt64)
 }
 
 // NillableInt64 returns the value of the "nillable_int64" field in the mutation.
@@ -849,6 +888,7 @@ func (m *Mutation) AddedNillableInt64() (r int64, exists bool) {
 func (m *Mutation) ClearNillableInt64() {
 	m.nillable_int64 = nil
 	m.addnillable_int64 = nil
+	delete(m.exprs, FieldNillableInt64)
 	m.clearedFields[FieldNillableInt64] = struct{}{}
 }
 
@@ -863,6 +903,7 @@ func (m *Mutation) ResetNillableInt64() {
 	m.nillable_int64 = nil
 	m.addnillable_int64 = nil
 	delete(m.clearedFields, FieldNillableInt64)
+	delete(m.exprs, FieldNillableInt64)
 }
 
 // SetValidateOptionalInt32 sets the "validate_optional_int32" field.
@@ -922,6 +963,7 @@ func (m *Mutation) ResetValidateOptionalInt32() {
 func (m *Mutation) SetOptionalUint(u uint) {
 	m.optional_uint = &u
 	m.addoptional_uint = nil
+	delete(m.exprs, FieldOptionalUint)
 }
 
 // OptionalUint returns the value of the "optional_uint" field in the mutation.
@@ -955,6 +997,7 @@ func (m *Mutation) AddedOptionalUint() (r int, exists bool) {
 func (m *Mutation) ClearOptionalUint() {
 	m.optional_uint = nil
 	m.addoptional_uint = nil
+	delete(m.exprs, FieldOptionalUint)
 	m.clearedFields[FieldOptionalUint] = struct{}{}
 }
 
@@ -969,12 +1012,14 @@ func (m *Mutation) ResetOptionalUint() {
 	m.optional_uint = nil
 	m.addoptional_uint = nil
 	delete(m.clearedFields, FieldOptionalUint)
+	delete(m.exprs, FieldOptionalUint)
 }
 
 // SetOptionalUint8 sets the "optional_uint8" field.
 func (m *Mutation) SetOptionalUint8(u uint8) {
 	m.optional_uint8 = &u
 	m.addoptional_uint8 = nil
+	delete(m.exprs, FieldOptionalUint8)
 }
 
 // OptionalUint8 returns the value of the "optional_uint8" field in the mutation.
@@ -1008,6 +1053,7 @@ func (m *Mutation) AddedOptionalUint8() (r int8, exists bool) {
 func (m *Mutation) ClearOptionalUint8() {
 	m.optional_uint8 = nil
 	m.addoptional_uint8 = nil
+	delete(m.exprs, FieldOptionalUint8)
 	m.clearedFields[FieldOptionalUint8] = struct{}{}
 }
 
@@ -1022,12 +1068,14 @@ func (m *Mutation) ResetOptionalUint8() {
 	m.optional_uint8 = nil
 	m.addoptional_uint8 = nil
 	delete(m.clearedFields, FieldOptionalUint8)
+	delete(m.exprs, FieldOptionalUint8)
 }
 
 // SetOptionalUint16 sets the "optional_uint16" field.
 func (m *Mutation) SetOptionalUint16(u uint16) {
 	m.optional_uint16 = &u
 	m.addoptional_uint16 = nil
+	delete(m.exprs, FieldOptionalUint16)
 }
 
 // OptionalUint16 returns the value of the "optional_uint16" field in the mutation.
@@ -1061,6 +1109,7 @@ func (m *Mutation) AddedOptionalUint16() (r int16, exists bool) {
 func (m *Mutation) ClearOptionalUint16() {
 	m.optional_uint16 = nil
 	m.addoptional_uint16 = nil
+	delete(m.exprs, FieldOptionalUint16)
 	m.clearedFields[FieldOptionalUint16] = struct{}{}
 }
 
@@ -1075,12 +1124,14 @@ func (m *Mutation) ResetOptionalUint16() {
 	m.optional_uint16 = nil
 	m.addoptional_uint16 = nil
 	delete(m.clearedFields, FieldOptionalUint16)
+	delete(m.exprs, FieldOptionalUint16)
 }
 
 // SetOptionalUint32 sets the "optional_uint32" field.
 func (m *Mutation) SetOptionalUint32(u uint32) {
 	m.optional_uint32 = &u
 	m.addoptional_uint32 = nil
+	delete(m.exprs, FieldOptionalUint32)
 }
 
 // OptionalUint32 returns the value of the "optional_uint32" field in the mutation.
@@ -1114,6 +1165,7 @@ func (m *Mutation) AddedOptionalUint32() (r int32, exists bool) {
 func (m *Mutation) ClearOptionalUint32() {
 	m.optional_uint32 = nil
 	m.addoptional_uint32 = nil
+	delete(m.exprs, FieldOptionalUint32)
 	m.clearedFields[FieldOptionalUint32] = struct{}{}
 }
 
@@ -1128,12 +1180,14 @@ func (m *Mutation) ResetOptionalUint32() {
 	m.optional_uint32 = nil
 	m.addoptional_uint32 = nil
 	delete(m.clearedFields, FieldOptionalUint32)
+	delete(m.exprs, FieldOptionalUint32)
 }
 
 // SetOptionalUint64 sets the "optional_uint64" field.
 func (m *Mutation) SetOptionalUint64(u uint64) {
 	m.optional_uint64 = &u
 	m.addoptional_uint64 = nil
+	delete(m.exprs, FieldOptionalUint64)
 }
 
 // OptionalUint64 returns the value of the "optional_uint64" field in the mutation.
@@ -1167,6 +1221,7 @@ func (m *Mutation) AddedOptionalUint64() (r int64, exists bool) {
 func (m *Mutation) ClearOptionalUint64() {
 	m.optional_uint64 = nil
 	m.addoptional_uint64 = nil
+	delete(m.exprs, FieldOptionalUint64)
 	m.clearedFields[FieldOptionalUint64] = struct{}{}
 }
 
@@ -1181,6 +1236,7 @@ func (m *Mutation) ResetOptionalUint64() {
 	m.optional_uint64 = nil
 	m.addoptional_uint64 = nil
 	delete(m.clearedFields, FieldOptionalUint64)
+	delete(m.exprs, FieldOptionalUint64)
 }
 
 // SetState sets the "state" field.
@@ -1219,6 +1275,7 @@ func (m *Mutation) ResetState() {
 func (m *Mutation) SetOptionalFloat(f float64) {
 	m.optional_float = &f
 	m.addoptional_float = nil
+	delete(m.exprs, FieldOptionalFloat)
 }
 
 // OptionalFloat returns the value of the "optional_float" field in the mutation.
@@ -1252,6 +1309,7 @@ func (m *Mutation) AddedOptionalFloat() (r float64, exists bool) {
 func (m *Mutation) ClearOptionalFloat() {
 	m.optional_float = nil
 	m.addoptional_float = nil
+	delete(m.exprs, FieldOptionalFloat)
 	m.clearedFields[FieldOptionalFloat] = struct{}{}
 }
 
@@ -1266,12 +1324,14 @@ func (m *Mutation) ResetOptionalFloat() {
 	m.optional_float = nil
 	m.addoptional_float = nil
 	delete(m.clearedFields, FieldOptionalFloat)
+	delete(m.exprs, FieldOptionalFloat)
 }
 
 // SetOptionalFloat32 sets the "optional_float32" field.
 func (m *Mutation) SetOptionalFloat32(f float32) {
 	m.optional_float32 = &f
 	m.addoptional_float32 = nil
+	delete(m.exprs, FieldOptionalFloat32)
 }
 
 // OptionalFloat32 returns the value of the "optional_float32" field in the mutation.
@@ -1305,6 +1365,7 @@ func (m *Mutation) AddedOptionalFloat32() (r float32, exists bool) {
 func (m *Mutation) ClearOptionalFloat32() {
 	m.optional_float32 = nil
 	m.addoptional_float32 = nil
+	delete(m.exprs, FieldOptionalFloat32)
 	m.clearedFields[FieldOptionalFloat32] = struct{}{}
 }
 
@@ -1319,11 +1380,13 @@ func (m *Mutation) ResetOptionalFloat32() {
 	m.optional_float32 = nil
 	m.addoptional_float32 = nil
 	delete(m.clearedFields, FieldOptionalFloat32)
+	delete(m.exprs, FieldOptionalFloat32)
 }
 
 // SetText sets the "text" field.
 func (m *Mutation) SetText(s string) {
 	m.text = &s
+	delete(m.exprs, FieldText)
 }
 
 // Text returns the value of the "text" field in the mutation.
@@ -1338,6 +1401,7 @@ func (m *Mutation) Text() (r string, exists bool) {
 // ClearText clears the value of the "text" field.
 func (m *Mutation) ClearText() {
 	m.text = nil
+	delete(m.exprs, FieldText)
 	m.clearedFields[FieldText] = struct{}{}
 }
 
@@ -1351,11 +1415,13 @@ func (m *Mutation) TextCleared() bool {
 func (m *Mutation) ResetText() {
 	m.text = nil
 	delete(m.clearedFields, FieldText)
+	delete(m.exprs, FieldText)
 }
 
 // SetDatetime sets the "datetime" field.
 func (m *Mutation) SetDatetime(t time.Time) {
 	m.datetime = &t
+	delete(m.exprs, FieldDatetime)
 }
 
 // Datetime returns the value of the "datetime" field in the mutation.
@@ -1370,6 +1436,7 @@ func (m *Mutation) Datetime() (r time.Time, exists bool) {
 // ClearDatetime clears the value of the "datetime" field.
 func (m *Mutation) ClearDatetime() {
 	m.datetime = nil
+	delete(m.exprs, FieldDatetime)
 	m.clearedFields[FieldDatetime] = struct{}{}
 }
 
@@ -1383,12 +1450,14 @@ func (m *Mutation) DatetimeCleared() bool {
 func (m *Mutation) ResetDatetime() {
 	m.datetime = nil
 	delete(m.clearedFields, FieldDatetime)
+	delete(m.exprs, FieldDatetime)
 }
 
 // SetDecimal sets the "decimal" field.
 func (m *Mutation) SetDecimal(f float64) {
 	m.decimal = &f
 	m.adddecimal = nil
+	delete(m.exprs, FieldDecimal)
 }
 
 // Decimal returns the value of the "decimal" field in the mutation.
@@ -1422,6 +1491,7 @@ func (m *Mutation) AddedDecimal() (r float64, exists bool) {
 func (m *Mutation) ClearDecimal() {
 	m.decimal = nil
 	m.adddecimal = nil
+	delete(m.exprs, FieldDecimal)
 	m.clearedFields[FieldDecimal] = struct{}{}
 }
 
@@ -1436,11 +1506,13 @@ func (m *Mutation) ResetDecimal() {
 	m.decimal = nil
 	m.adddecimal = nil
 	delete(m.clearedFields, FieldDecimal)
+	delete(m.exprs, FieldDecimal)
 }
 
 // SetLinkOther sets the "link_other" field.
 func (m *Mutation) SetLinkOther(s *schema.Link) {
 	m.link_other = &s
+	delete(m.exprs, FieldLinkOther)
 }
 
 // LinkOther returns the value of the "link_other" field in the mutation.
@@ -1455,6 +1527,7 @@ func (m *Mutation) LinkOther() (r *schema.Link, exists bool) {
 // ClearLinkOther clears the value of the "link_other" field.
 func (m *Mutation) ClearLinkOther() {
 	m.link_other = nil
+	delete(m.exprs, FieldLinkOther)
 	m.clearedFields[FieldLinkOther] = struct{}{}
 }
 
@@ -1468,11 +1541,13 @@ func (m *Mutation) LinkOtherCleared() bool {
 func (m *Mutation) ResetLinkOther() {
 	m.link_other = nil
 	delete(m.clearedFields, FieldLinkOther)
+	delete(m.exprs, FieldLinkOther)
 }
 
 // SetLinkOtherFunc sets the "link_other_func" field.
 func (m *Mutation) SetLinkOtherFunc(s *schema.Link) {
 	m.link_other_func = &s
+	delete(m.exprs, FieldLinkOtherFunc)
 }
 
 // LinkOtherFunc returns the value of the "link_other_func" field in the mutation.
@@ -1487,6 +1562,7 @@ func (m *Mutation) LinkOtherFunc() (r *schema.Link, exists bool) {
 // ClearLinkOtherFunc clears the value of the "link_other_func" field.
 func (m *Mutation) ClearLinkOtherFunc() {
 	m.link_other_func = nil
+	delete(m.exprs, FieldLinkOtherFunc)
 	m.clearedFields[FieldLinkOtherFunc] = struct{}{}
 }
 
@@ -1500,6 +1576,7 @@ func (m *Mutation) LinkOtherFuncCleared() bool {
 func (m *Mutation) ResetLinkOtherFunc() {
 	m.link_other_func = nil
 	delete(m.clearedFields, FieldLinkOtherFunc)
+	delete(m.exprs, FieldLinkOtherFunc)
 }
 
 // SetMac sets the "mac" field.
@@ -1537,6 +1614,7 @@ func (m *Mutation) ResetMac() {
 // SetStringArray sets the "string_array" field.
 func (m *Mutation) SetStringArray(s schema.Strings) {
 	m.string_array = &s
+	delete(m.exprs, FieldStringArray)
 }
 
 // StringArray returns the value of the "string_array" field in the mutation.
@@ -1551,6 +1629,7 @@ func (m *Mutation) StringArray() (r schema.Strings, exists bool) {
 // ClearStringArray clears the value of the "string_array" field.
 func (m *Mutation) ClearStringArray() {
 	m.string_array = nil
+	delete(m.exprs, FieldStringArray)
 	m.clearedFields[FieldStringArray] = struct{}{}
 }
 
@@ -1564,11 +1643,13 @@ func (m *Mutation) StringArrayCleared() bool {
 func (m *Mutation) ResetStringArray() {
 	m.string_array = nil
 	delete(m.clearedFields, FieldStringArray)
+	delete(m.exprs, FieldStringArray)
 }
 
 // SetPassword sets the "password" field.
 func (m *Mutation) SetPassword(s string) {
 	m.password = &s
+	delete(m.exprs, FieldPassword)
 }
 
 // Password returns the value of the "password" field in the mutation.
@@ -1583,6 +1664,7 @@ func (m *Mutation) Password() (r string, exists bool) {
 // ClearPassword clears the value of the "password" field.
 func (m *Mutation) ClearPassword() {
 	m.password = nil
+	delete(m.exprs, FieldPassword)
 	m.clearedFields[FieldPassword] = struct{}{}
 }
 
@@ -1596,11 +1678,13 @@ func (m *Mutation) PasswordCleared() bool {
 func (m *Mutation) ResetPassword() {
 	m.password = nil
 	delete(m.clearedFields, FieldPassword)
+	delete(m.exprs, FieldPassword)
 }
 
 // SetStringScanner sets the "string_scanner" field.
 func (m *Mutation) SetStringScanner(ss schema.StringScanner) {
 	m.string_scanner = &ss
+	delete(m.exprs, FieldStringScanner)
 }
 
 // StringScanner returns the value of the "string_scanner" field in the mutation.
@@ -1615,6 +1699,7 @@ func (m *Mutation) StringScanner() (r schema.StringScanner, exists bool) {
 // ClearStringScanner clears the value of the "string_scanner" field.
 func (m *Mutation) ClearStringScanner() {
 	m.string_scanner = nil
+	delete(m.exprs, FieldStringScanner)
 	m.clearedFields[FieldStringScanner] = struct{}{}
 }
 
@@ -1628,12 +1713,14 @@ func (m *Mutation) StringScannerCleared() bool {
 func (m *Mutation) ResetStringScanner() {
 	m.string_scanner = nil
 	delete(m.clearedFields, FieldStringScanner)
+	delete(m.exprs, FieldStringScanner)
 }
 
 // SetDuration sets the "duration" field.
 func (m *Mutation) SetDuration(t time.Duration) {
 	m.duration = &t
 	m.addduration = nil
+	delete(m.exprs, FieldDuration)
 }
 
 // Duration returns the value of the "duration" field in the mutation.
@@ -1667,6 +1754,7 @@ func (m *Mutation) AddedDuration() (r time.Duration, exists bool) {
 func (m *Mutation) ClearDuration() {
 	m.duration = nil
 	m.addduration = nil
+	delete(m.exprs, FieldDuration)
 	m.clearedFields[FieldDuration] = struct{}{}
 }
 
@@ -1681,11 +1769,13 @@ func (m *Mutation) ResetDuration() {
 	m.duration = nil
 	m.addduration = nil
 	delete(m.clearedFields, FieldDuration)
+	delete(m.exprs, FieldDuration)
 }
 
 // SetDir sets the "dir" field.
 func (m *Mutation) SetDir(h http.Dir) {
 	m.dir = &h
+	delete(m.exprs, FieldDir)
 }
 
 // Dir returns the value of the "dir" field in the mutation.
@@ -1700,6 +1790,7 @@ func (m *Mutation) Dir() (r http.Dir, exists bool) {
 // ResetDir resets all changes to the "dir" field.
 func (m *Mutation) ResetDir() {
 	m.dir = nil
+	delete(m.exprs, FieldDir)
 }
 
 // SetNdir sets the "ndir" field.
@@ -1737,6 +1828,7 @@ func (m *Mutation) ResetNdir() {
 // SetStr sets the "str" field.
 func (m *Mutation) SetStr(ss sql.NullString) {
 	m.str = &ss
+	delete(m.exprs, FieldStr)
 }
 
 // Str returns the value of the "str" field in the mutation.
@@ -1751,6 +1843,7 @@ func (m *Mutation) Str() (r sql.NullString, exists bool) {
 // ClearStr clears the value of the "str" field.
 func (m *Mutation) ClearStr() {
 	m.str = nil
+	delete(m.exprs, FieldStr)
 	m.clearedFields[FieldStr] = struct{}{}
 }
 
@@ -1764,11 +1857,13 @@ func (m *Mutation) StrCleared() bool {
 func (m *Mutation) ResetStr() {
 	m.str = nil
 	delete(m.clearedFields, FieldStr)
+	delete(m.exprs, FieldStr)
 }
 
 // SetNullStr sets the "null_str" field.
 func (m *Mutation) SetNullStr(ss *sql.NullString) {
 	m.null_str = &ss
+	delete(m.exprs, FieldNullStr)
 }
 
 // NullStr returns the value of the "null_str" field in the mutation.
@@ -1783,6 +1878,7 @@ func (m *Mutation) NullStr() (r *sql.NullString, exists bool) {
 // ClearNullStr clears the value of the "null_str" field.
 func (m *Mutation) ClearNullStr() {
 	m.null_str = nil
+	delete(m.exprs, FieldNullStr)
 	m.clearedFields[FieldNullStr] = struct{}{}
 }
 
@@ -1796,6 +1892,7 @@ func (m *Mutation) NullStrCleared() bool {
 func (m *Mutation) ResetNullStr() {
 	m.null_str = nil
 	delete(m.clearedFields, FieldNullStr)
+	delete(m.exprs, FieldNullStr)
 }
 
 // SetLink sets the "link" field.
@@ -1833,6 +1930,7 @@ func (m *Mutation) ResetLink() {
 // SetNullLink sets the "null_link" field.
 func (m *Mutation) SetNullLink(s *schema.Link) {
 	m.null_link = &s
+	delete(m.exprs, FieldNullLink)
 }
 
 // NullLink returns the value of the "null_link" field in the mutation.
@@ -1847,6 +1945,7 @@ func (m *Mutation) NullLink() (r *schema.Link, exists bool) {
 // ClearNullLink clears the value of the "null_link" field.
 func (m *Mutation) ClearNullLink() {
 	m.null_link = nil
+	delete(m.exprs, FieldNullLink)
 	m.clearedFields[FieldNullLink] = struct{}{}
 }
 
@@ -1860,11 +1959,13 @@ func (m *Mutation) NullLinkCleared() bool {
 func (m *Mutation) ResetNullLink() {
 	m.null_link = nil
 	delete(m.clearedFields, FieldNullLink)
+	delete(m.exprs, FieldNullLink)
 }
 
 // SetActive sets the "active" field.
 func (m *Mutation) SetActive(s schema.Status) {
 	m.active = &s
+	delete(m.exprs, FieldActive)
 }
 
 // Active returns the value of the "active" field in the mutation.
@@ -1879,6 +1980,7 @@ func (m *Mutation) Active() (r schema.Status, exists bool) {
 // ClearActive clears the value of the "active" field.
 func (m *Mutation) ClearActive() {
 	m.active = nil
+	delete(m.exprs, FieldActive)
 	m.clearedFields[FieldActive] = struct{}{}
 }
 
@@ -1892,11 +1994,13 @@ func (m *Mutation) ActiveCleared() bool {
 func (m *Mutation) ResetActive() {
 	m.active = nil
 	delete(m.clearedFields, FieldActive)
+	delete(m.exprs, FieldActive)
 }
 
 // SetNullActive sets the "null_active" field.
 func (m *Mutation) SetNullActive(s schema.Status) {
 	m.null_active = &s
+	delete(m.exprs, FieldNullActive)
 }
 
 // NullActive returns the value of the "null_active" field in the mutation.
@@ -1911,6 +2015,7 @@ func (m *Mutation) NullActive() (r schema.Status, exists bool) {
 // ClearNullActive clears the value of the "null_active" field.
 func (m *Mutation) ClearNullActive() {
 	m.null_active = nil
+	delete(m.exprs, FieldNullActive)
 	m.clearedFields[FieldNullActive] = struct{}{}
 }
 
@@ -1924,11 +2029,13 @@ func (m *Mutation) NullActiveCleared() bool {
 func (m *Mutation) ResetNullActive() {
 	m.null_active = nil
 	delete(m.clearedFields, FieldNullActive)
+	delete(m.exprs, FieldNullActive)
 }
 
 // SetDeleted sets the "deleted" field.
 func (m *Mutation) SetDeleted(sb *sql.NullBool) {
 	m.deleted = &sb
+	delete(m.exprs, FieldDeleted)
 }
 
 // Deleted returns the value of the "deleted" field in the mutation.
@@ -1943,6 +2050,7 @@ func (m *Mutation) Deleted() (r *sql.NullBool, exists bool) {
 // ClearDeleted clears the value of the "deleted" field.
 func (m *Mutation) ClearDeleted() {
 	m.deleted = nil
+	delete(m.exprs, FieldDeleted)
 	m.clearedFields[FieldDeleted] = struct{}{}
 }
 
@@ -1956,11 +2064,13 @@ func (m *Mutation) DeletedCleared() bool {
 func (m *Mutation) ResetDeleted() {
 	m.deleted = nil
 	delete(m.clearedFields, FieldDeleted)
+	delete(m.exprs, FieldDeleted)
 }
 
 // SetDeletedAt sets the "deleted_at" field.
 func (m *Mutation) SetDeletedAt(st *sql.NullTime) {
 	m.deleted_at = &st
+	delete(m.exprs, FieldDeletedAt)
 }
 
 // DeletedAt returns the value of the "deleted_at" field in the mutation.
@@ -1975,6 +2085,7 @@ func (m *Mutation) DeletedAt() (r *sql.NullTime, exists bool) {
 // ClearDeletedAt clears the value of the "deleted_at" field.
 func (m *Mutation) ClearDeletedAt() {
 	m.deleted_at = nil
+	delete(m.exprs, FieldDeletedAt)
 	m.clearedFields[FieldDeletedAt] = struct{}{}
 }
 
@@ -1988,6 +2099,7 @@ func (m *Mutation) DeletedAtCleared() bool {
 func (m *Mutation) ResetDeletedAt() {
 	m.deleted_at = nil
 	delete(m.clearedFields, FieldDeletedAt)
+	delete(m.exprs, FieldDeletedAt)
 }
 
 // SetRawData sets the "raw_data" field.
@@ -2025,6 +2137,7 @@ func (m *Mutation) ResetRawData() {
 // SetSensitive sets the "sensitive" field.
 func (m *Mutation) SetSensitive(b []byte) {
 	m.sensitive = &b
+	delete(m.exprs, FieldSensitive)
 }
 
 // Sensitive returns the value of the "sensitive" field in the mutation.
@@ -2039,6 +2152,7 @@ func (m *Mutation) Sensitive() (r []byte, exists bool) {
 // ClearSensitive clears the value of the "sensitive" field.
 func (m *Mutation) ClearSensitive() {
 	m.sensitive = nil
+	delete(m.exprs, FieldSensitive)
 	m.clearedFields[FieldSensitive] = struct{}{}
 }
 
@@ -2052,6 +2166,7 @@ func (m *Mutation) SensitiveCleared() bool {
 func (m *Mutation) ResetSensitive() {
 	m.sensitive = nil
 	delete(m.clearedFields, FieldSensitive)
+	delete(m.exprs, FieldSensitive)
 }
 
 // SetIp sets the "ip" field.
@@ -2089,6 +2204,7 @@ func (m *Mutation) ResetIp() {
 // SetNullInt64 sets the "null_int64" field.
 func (m *Mutation) SetNullInt64(si *sql.NullInt64) {
 	m.null_int64 = &si
+	delete(m.exprs, FieldNullInt64)
 }
 
 // NullInt64 returns the value of the "null_int64" field in the mutation.
@@ -2103,6 +2219,7 @@ func (m *Mutation) NullInt64() (r *sql.NullInt64, exists bool) {
 // ClearNullInt64 clears the value of the "null_int64" field.
 func (m *Mutation) ClearNullInt64() {
 	m.null_int64 = nil
+	delete(m.exprs, FieldNullInt64)
 	m.clearedFields[FieldNullInt64] = struct{}{}
 }
 
@@ -2116,12 +2233,14 @@ func (m *Mutation) NullInt64Cleared() bool {
 func (m *Mutation) ResetNullInt64() {
 	m.null_int64 = nil
 	delete(m.clearedFields, FieldNullInt64)
+	delete(m.exprs, FieldNullInt64)
 }
 
 // SetSchemaInt sets the "schema_int" field.
 func (m *Mutation) SetSchemaInt(s schema.Int) {
 	m.schema_int = &s
 	m.addschema_int = nil
+	delete(m.exprs, FieldSchemaInt)
 }
 
 // SchemaInt returns the value of the "schema_int" field in the mutation.
@@ -2155,6 +2274,7 @@ func (m *Mutation) AddedSchemaInt() (r schema.Int, exists bool) {
 func (m *Mutation) ClearSchemaInt() {
 	m.schema_int = nil
 	m.addschema_int = nil
+	delete(m.exprs, FieldSchemaInt)
 	m.clearedFields[FieldSchemaInt] = struct{}{}
 }
 
@@ -2169,12 +2289,14 @@ func (m *Mutation) ResetSchemaInt() {
 	m.schema_int = nil
 	m.addschema_int = nil
 	delete(m.clearedFields, FieldSchemaInt)
+	delete(m.exprs, FieldSchemaInt)
 }
 
 // SetSchemaInt8 sets the "schema_int8" field.
 func (m *Mutation) SetSchemaInt8(s schema.Int8) {
 	m.schema_int8 = &s
 	m.addschema_int8 = nil
+	delete(m.exprs, FieldSchemaInt8)
 }
 
 // SchemaInt8 returns the value of the "schema_int8" field in the mutation.
@@ -2208,6 +2330,7 @@ func (m *Mutation) AddedSchemaInt8() (r schema.Int8, exists bool) {
 func (m *Mutation) ClearSchemaInt8() {
 	m.schema_int8 = nil
 	m.addschema_int8 = nil
+	delete(m.exprs, FieldSchemaInt8)
 	m.clearedFields[FieldSchemaInt8] = struct{}{}
 }
 
@@ -2222,12 +2345,14 @@ func (m *Mutation) ResetSchemaInt8() {
 	m.schema_int8 = nil
 	m.addschema_int8 = nil
 	delete(m.clearedFields, FieldSchemaInt8)
+	delete(m.exprs, FieldSchemaInt8)
 }
 
 // SetSchemaInt64 sets the "schema_int64" field.
 func (m *Mutation) SetSchemaInt64(s schema.Int64) {
 	m.schema_int64 = &s
 	m.addschema_int64 = nil
+	delete(m.exprs, FieldSchemaInt64)
 }
 
 // SchemaInt64 returns the value of the "schema_int64" field in the mutation.
@@ -2261,6 +2386,7 @@ func (m *Mutation) AddedSchemaInt64() (r schema.Int64, exists bool) {
 func (m *Mutation) ClearSchemaInt64() {
 	m.schema_int64 = nil
 	m.addschema_int64 = nil
+	delete(m.exprs, FieldSchemaInt64)
 	m.clearedFields[FieldSchemaInt64] = struct{}{}
 }
 
@@ -2275,12 +2401,14 @@ func (m *Mutation) ResetSchemaInt64() {
 	m.schema_int64 = nil
 	m.addschema_int64 = nil
 	delete(m.clearedFields, FieldSchemaInt64)
+	delete(m.exprs, FieldSchemaInt64)
 }
 
 // SetSchemaFloat sets the "schema_float" field.
 func (m *Mutation) SetSchemaFloat(s schema.Float64) {
 	m.schema_float = &s
 	m.addschema_float = nil
+	delete(m.exprs, FieldSchemaFloat)
 }
 
 // SchemaFloat returns the value of the "schema_float" field in the mutation.
@@ -2314,6 +2442,7 @@ func (m *Mutation) AddedSchemaFloat() (r schema.Float64, exists bool) {
 func (m *Mutation) ClearSchemaFloat() {
 	m.schema_float = nil
 	m.addschema_float = nil
+	delete(m.exprs, FieldSchemaFloat)
 	m.clearedFields[FieldSchemaFloat] = struct{}{}
 }
 
@@ -2328,12 +2457,14 @@ func (m *Mutation) ResetSchemaFloat() {
 	m.schema_float = nil
 	m.addschema_float = nil
 	delete(m.clearedFields, FieldSchemaFloat)
+	delete(m.exprs, FieldSchemaFloat)
 }
 
 // SetSchemaFloat32 sets the "schema_float32" field.
 func (m *Mutation) SetSchemaFloat32(s schema.Float32) {
 	m.schema_float32 = &s
 	m.addschema_float32 = nil
+	delete(m.exprs, FieldSchemaFloat32)
 }
 
 // SchemaFloat32 returns the value of the "schema_float32" field in the mutation.
@@ -2367,6 +2498,7 @@ func (m *Mutation) AddedSchemaFloat32() (r schema.Float32, exists bool) {
 func (m *Mutation) ClearSchemaFloat32() {
 	m.schema_float32 = nil
 	m.addschema_float32 = nil
+	delete(m.exprs, FieldSchemaFloat32)
 	m.clearedFields[FieldSchemaFloat32] = struct{}{}
 }
 
@@ -2381,11 +2513,13 @@ func (m *Mutation) ResetSchemaFloat32() {
 	m.schema_float32 = nil
 	m.addschema_float32 = nil
 	delete(m.clearedFields, FieldSchemaFloat32)
+	delete(m.exprs, FieldSchemaFloat32)
 }
 
 // SetNullFloat sets the "null_float" field.
 func (m *Mutation) SetNullFloat(sf *sql.NullFloat64) {
 	m.null_float = &sf
+	delete(m.exprs, FieldNullFloat)
 }
 
 // NullFloat returns the value of the "null_float" field in the mutation.
@@ -2400,6 +2534,7 @@ func (m *Mutation) NullFloat() (r *sql.NullFloat64, exists bool) {
 // ClearNullFloat clears the value of the "null_float" field.
 func (m *Mutation) ClearNullFloat() {
 	m.null_float = nil
+	delete(m.exprs, FieldNullFloat)
 	m.clearedFields[FieldNullFloat] = struct{}{}
 }
 
@@ -2413,6 +2548,7 @@ func (m *Mutation) NullFloatCleared() bool {
 func (m *Mutation) ResetNullFloat() {
 	m.null_float = nil
 	delete(m.clearedFields, FieldNullFloat)
+	delete(m.exprs, FieldNullFloat)
 }
 
 // SetRole sets the "role" field.
@@ -2469,6 +2605,7 @@ func (m *Mutation) ResetPriority() {
 // SetOptionalUuid sets the "optional_uuid" field.
 func (m *Mutation) SetOptionalUuid(u uuid.UUID) {
 	m.optional_uuid = &u
+	delete(m.exprs, FieldOptionalUuid)
 }
 
 // OptionalUuid returns the value of the "optional_uuid" field in the mutation.
@@ -2483,6 +2620,7 @@ func (m *Mutation) OptionalUuid() (r uuid.UUID, exists bool) {
 // ClearOptionalUuid clears the value of the "optional_uuid" field.
 func (m *Mutation) ClearOptionalUuid() {
 	m.optional_uuid = nil
+	delete(m.exprs, FieldOptionalUuid)
 	m.clearedFields[FieldOptionalUuid] = struct{}{}
 }
 
@@ -2496,11 +2634,13 @@ func (m *Mutation) OptionalUuidCleared() bool {
 func (m *Mutation) ResetOptionalUuid() {
 	m.optional_uuid = nil
 	delete(m.clearedFields, FieldOptionalUuid)
+	delete(m.exprs, FieldOptionalUuid)
 }
 
 // SetNillableUuid sets the "nillable_uuid" field.
 func (m *Mutation) SetNillableUuid(u uuid.UUID) {
 	m.nillable_uuid = &u
+	delete(m.exprs, FieldNillableUuid)
 }
 
 // NillableUuid returns the value of the "nillable_uuid" field in the mutation.
@@ -2515,6 +2655,7 @@ func (m *Mutation) NillableUuid() (r uuid.UUID, exists bool) {
 // ClearNillableUuid clears the value of the "nillable_uuid" field.
 func (m *Mutation) ClearNillableUuid() {
 	m.nillable_uuid = nil
+	delete(m.exprs, FieldNillableUuid)
 	m.clearedFields[FieldNillableUuid] = struct{}{}
 }
 
@@ -2528,12 +2669,14 @@ func (m *Mutation) NillableUuidCleared() bool {
 func (m *Mutation) ResetNillableUuid() {
 	m.nillable_uuid = nil
 	delete(m.clearedFields, FieldNillableUuid)
+	delete(m.exprs, FieldNillableUuid)
 }
 
 // SetStrings sets the "strings" field.
 func (m *Mutation) SetStrings(s []string) {
 	m.strings = &s
 	m.appendstrings = nil
+	delete(m.exprs, FieldStrings)
 }
 
 // Strings returns the value of the "strings" field in the mutation.
@@ -2562,6 +2705,7 @@ func (m *Mutation) AppendedStrings() ([]string, bool) {
 func (m *Mutation) ClearStrings() {
 	m.strings = nil
 	m.appendstrings = nil
+	delete(m.exprs, FieldStrings)
 	m.clearedFields[FieldStrings] = struct{}{}
 }
 
@@ -2576,11 +2720,13 @@ func (m *Mutation) ResetStrings() {
 	m.strings = nil
 	m.appendstrings = nil
 	delete(m.clearedFields, FieldStrings)
+	delete(m.exprs, FieldStrings)
 }
 
 // SetPair sets the "pair" field.
 func (m *Mutation) SetPair(s schema.Pair) {
 	m.pair = &s
+	delete(m.exprs, FieldPair)
 }
 
 // Pair returns the value of the "pair" field in the mutation.
@@ -2595,11 +2741,13 @@ func (m *Mutation) Pair() (r schema.Pair, exists bool) {
 // ResetPair resets all changes to the "pair" field.
 func (m *Mutation) ResetPair() {
 	m.pair = nil
+	delete(m.exprs, FieldPair)
 }
 
 // SetNilPair sets the "nil_pair" field.
 func (m *Mutation) SetNilPair(s *schema.Pair) {
 	m.nil_pair = &s
+	delete(m.exprs, FieldNilPair)
 }
 
 // NilPair returns the value of the "nil_pair" field in the mutation.
@@ -2614,6 +2762,7 @@ func (m *Mutation) NilPair() (r *schema.Pair, exists bool) {
 // ClearNilPair clears the value of the "nil_pair" field.
 func (m *Mutation) ClearNilPair() {
 	m.nil_pair = nil
+	delete(m.exprs, FieldNilPair)
 	m.clearedFields[FieldNilPair] = struct{}{}
 }
 
@@ -2627,11 +2776,13 @@ func (m *Mutation) NilPairCleared() bool {
 func (m *Mutation) ResetNilPair() {
 	m.nil_pair = nil
 	delete(m.clearedFields, FieldNilPair)
+	delete(m.exprs, FieldNilPair)
 }
 
 // SetVstring sets the "vstring" field.
 func (m *Mutation) SetVstring(ss schema.VString) {
 	m.vstring = &ss
+	delete(m.exprs, FieldVstring)
 }
 
 // Vstring returns the value of the "vstring" field in the mutation.
@@ -2646,11 +2797,13 @@ func (m *Mutation) Vstring() (r schema.VString, exists bool) {
 // ResetVstring resets all changes to the "vstring" field.
 func (m *Mutation) ResetVstring() {
 	m.vstring = nil
+	delete(m.exprs, FieldVstring)
 }
 
 // SetTriple sets the "triple" field.
 func (m *Mutation) SetTriple(s schema.Triple) {
 	m.triple = &s
+	delete(m.exprs, FieldTriple)
 }
 
 // Triple returns the value of the "triple" field in the mutation.
@@ -2665,12 +2818,14 @@ func (m *Mutation) Triple() (r schema.Triple, exists bool) {
 // ResetTriple resets all changes to the "triple" field.
 func (m *Mutation) ResetTriple() {
 	m.triple = nil
+	delete(m.exprs, FieldTriple)
 }
 
 // SetBigInt sets the "big_int" field.
 func (m *Mutation) SetBigInt(si schema.BigInt) {
 	m.big_int = &si
 	m.addbig_int = nil
+	delete(m.exprs, FieldBigInt)
 }
 
 // BigInt returns the value of the "big_int" field in the mutation.
@@ -2704,6 +2859,7 @@ func (m *Mutation) AddedBigInt() (r schema.BigInt, exists bool) {
 func (m *Mutation) ClearBigInt() {
 	m.big_int = nil
 	m.addbig_int = nil
+	delete(m.exprs, FieldBigInt)
 	m.clearedFields[FieldBigInt] = struct{}{}
 }
 
@@ -2718,11 +2874,13 @@ func (m *Mutation) ResetBigInt() {
 	m.big_int = nil
 	m.addbig_int = nil
 	delete(m.clearedFields, FieldBigInt)
+	delete(m.exprs, FieldBigInt)
 }
 
 // SetPasswordOther sets the "password_other" field.
 func (m *Mutation) SetPasswordOther(s schema.Password) {
 	m.password_other = &s
+	delete(m.exprs, FieldPasswordOther)
 }
 
 // PasswordOther returns the value of the "password_other" field in the mutation.
@@ -2737,6 +2895,7 @@ func (m *Mutation) PasswordOther() (r schema.Password, exists bool) {
 // ClearPasswordOther clears the value of the "password_other" field.
 func (m *Mutation) ClearPasswordOther() {
 	m.password_other = nil
+	delete(m.exprs, FieldPasswordOther)
 	m.clearedFields[FieldPasswordOther] = struct{}{}
 }
 
@@ -2750,6 +2909,7 @@ func (m *Mutation) PasswordOtherCleared() bool {
 func (m *Mutation) ResetPasswordOther() {
 	m.password_other = nil
 	delete(m.clearedFields, FieldPasswordOther)
+	delete(m.exprs, FieldPasswordOther)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -2787,166 +2947,166 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 65)
-	if m.int != nil {
+	if m.int != nil || m.exprs[FieldInt] != nil {
 		fields = append(fields, FieldInt)
 	}
-	if m.int8 != nil {
+	if m.int8 != nil || m.exprs[FieldInt8] != nil {
 		fields = append(fields, FieldInt8)
 	}
-	if m.int16 != nil {
+	if m.int16 != nil || m.exprs[FieldInt16] != nil {
 		fields = append(fields, FieldInt16)
 	}
-	if m.int32 != nil {
+	if m.int32 != nil || m.exprs[FieldInt32] != nil {
 		fields = append(fields, FieldInt32)
 	}
-	if m.int64 != nil {
+	if m.int64 != nil || m.exprs[FieldInt64] != nil {
 		fields = append(fields, FieldInt64)
 	}
-	if m.optional_int != nil {
+	if m.optional_int != nil || m.exprs[FieldOptionalInt] != nil {
 		fields = append(fields, FieldOptionalInt)
 	}
-	if m.optional_int8 != nil {
+	if m.optional_int8 != nil || m.exprs[FieldOptionalInt8] != nil {
 		fields = append(fields, FieldOptionalInt8)
 	}
-	if m.optional_int16 != nil {
+	if m.optional_int16 != nil || m.exprs[FieldOptionalInt16] != nil {
 		fields = append(fields, FieldOptionalInt16)
 	}
-	if m.optional_int32 != nil {
+	if m.optional_int32 != nil || m.exprs[FieldOptionalInt32] != nil {
 		fields = append(fields, FieldOptionalInt32)
 	}
-	if m.optional_int64 != nil {
+	if m.optional_int64 != nil || m.exprs[FieldOptionalInt64] != nil {
 		fields = append(fields, FieldOptionalInt64)
 	}
-	if m.nillable_int != nil {
+	if m.nillable_int != nil || m.exprs[FieldNillableInt] != nil {
 		fields = append(fields, FieldNillableInt)
 	}
-	if m.nillable_int8 != nil {
+	if m.nillable_int8 != nil || m.exprs[FieldNillableInt8] != nil {
 		fields = append(fields, FieldNillableInt8)
 	}
-	if m.nillable_int16 != nil {
+	if m.nillable_int16 != nil || m.exprs[FieldNillableInt16] != nil {
 		fields = append(fields, FieldNillableInt16)
 	}
-	if m.nillable_int32 != nil {
+	if m.nillable_int32 != nil || m.exprs[FieldNillableInt32] != nil {
 		fields = append(fields, FieldNillableInt32)
 	}
-	if m.nillable_int64 != nil {
+	if m.nillable_int64 != nil || m.exprs[FieldNillableInt64] != nil {
 		fields = append(fields, FieldNillableInt64)
 	}
 	if m.validate_optional_int32 != nil {
 		fields = append(fields, FieldValidateOptionalInt32)
 	}
-	if m.optional_uint != nil {
+	if m.optional_uint != nil || m.exprs[FieldOptionalUint] != nil {
 		fields = append(fields, FieldOptionalUint)
 	}
-	if m.optional_uint8 != nil {
+	if m.optional_uint8 != nil || m.exprs[FieldOptionalUint8] != nil {
 		fields = append(fields, FieldOptionalUint8)
 	}
-	if m.optional_uint16 != nil {
+	if m.optional_uint16 != nil || m.exprs[FieldOptionalUint16] != nil {
 		fields = append(fields, FieldOptionalUint16)
 	}
-	if m.optional_uint32 != nil {
+	if m.optional_uint32 != nil || m.exprs[FieldOptionalUint32] != nil {
 		fields = append(fields, FieldOptionalUint32)
 	}
-	if m.optional_uint64 != nil {
+	if m.optional_uint64 != nil || m.exprs[FieldOptionalUint64] != nil {
 		fields = append(fields, FieldOptionalUint64)
 	}
 	if m.state != nil {
 		fields = append(fields, FieldState)
 	}
-	if m.optional_float != nil {
+	if m.optional_float != nil || m.exprs[FieldOptionalFloat] != nil {
 		fields = append(fields, FieldOptionalFloat)
 	}
-	if m.optional_float32 != nil {
+	if m.optional_float32 != nil || m.exprs[FieldOptionalFloat32] != nil {
 		fields = append(fields, FieldOptionalFloat32)
 	}
-	if m.text != nil {
+	if m.text != nil || m.exprs[FieldText] != nil {
 		fields = append(fields, FieldText)
 	}
-	if m.datetime != nil {
+	if m.datetime != nil || m.exprs[FieldDatetime] != nil {
 		fields = append(fields, FieldDatetime)
 	}
-	if m.decimal != nil {
+	if m.decimal != nil || m.exprs[FieldDecimal] != nil {
 		fields = append(fields, FieldDecimal)
 	}
-	if m.link_other != nil {
+	if m.link_other != nil || m.exprs[FieldLinkOther] != nil {
 		fields = append(fields, FieldLinkOther)
 	}
-	if m.link_other_func != nil {
+	if m.link_other_func != nil || m.exprs[FieldLinkOtherFunc] != nil {
 		fields = append(fields, FieldLinkOtherFunc)
 	}
 	if m.mac != nil {
 		fields = append(fields, FieldMac)
 	}
-	if m.string_array != nil {
+	if m.string_array != nil || m.exprs[FieldStringArray] != nil {
 		fields = append(fields, FieldStringArray)
 	}
-	if m.password != nil {
+	if m.password != nil || m.exprs[FieldPassword] != nil {
 		fields = append(fields, FieldPassword)
 	}
-	if m.string_scanner != nil {
+	if m.string_scanner != nil || m.exprs[FieldStringScanner] != nil {
 		fields = append(fields, FieldStringScanner)
 	}
-	if m.duration != nil {
+	if m.duration != nil || m.exprs[FieldDuration] != nil {
 		fields = append(fields, FieldDuration)
 	}
-	if m.dir != nil {
+	if m.dir != nil || m.exprs[FieldDir] != nil {
 		fields = append(fields, FieldDir)
 	}
 	if m.ndir != nil {
 		fields = append(fields, FieldNdir)
 	}
-	if m.str != nil {
+	if m.str != nil || m.exprs[FieldStr] != nil {
 		fields = append(fields, FieldStr)
 	}
-	if m.null_str != nil {
+	if m.null_str != nil || m.exprs[FieldNullStr] != nil {
 		fields = append(fields, FieldNullStr)
 	}
 	if m.link != nil {
 		fields = append(fields, FieldLink)
 	}
-	if m.null_link != nil {
+	if m.null_link != nil || m.exprs[FieldNullLink] != nil {
 		fields = append(fields, FieldNullLink)
 	}
-	if m.active != nil {
+	if m.active != nil || m.exprs[FieldActive] != nil {
 		fields = append(fields, FieldActive)
 	}
-	if m.null_active != nil {
+	if m.null_active != nil || m.exprs[FieldNullActive] != nil {
 		fields = append(fields, FieldNullActive)
 	}
-	if m.deleted != nil {
+	if m.deleted != nil || m.exprs[FieldDeleted] != nil {
 		fields = append(fields, FieldDeleted)
 	}
-	if m.deleted_at != nil {
+	if m.deleted_at != nil || m.exprs[FieldDeletedAt] != nil {
 		fields = append(fields, FieldDeletedAt)
 	}
 	if m.raw_data != nil {
 		fields = append(fields, FieldRawData)
 	}
-	if m.sensitive != nil {
+	if m.sensitive != nil || m.exprs[FieldSensitive] != nil {
 		fields = append(fields, FieldSensitive)
 	}
 	if m.ip != nil {
 		fields = append(fields, FieldIp)
 	}
-	if m.null_int64 != nil {
+	if m.null_int64 != nil || m.exprs[FieldNullInt64] != nil {
 		fields = append(fields, FieldNullInt64)
 	}
-	if m.schema_int != nil {
+	if m.schema_int != nil || m.exprs[FieldSchemaInt] != nil {
 		fields = append(fields, FieldSchemaInt)
 	}
-	if m.schema_int8 != nil {
+	if m.schema_int8 != nil || m.exprs[FieldSchemaInt8] != nil {
 		fields = append(fields, FieldSchemaInt8)
 	}
-	if m.schema_int64 != nil {
+	if m.schema_int64 != nil || m.exprs[FieldSchemaInt64] != nil {
 		fields = append(fields, FieldSchemaInt64)
 	}
-	if m.schema_float != nil {
+	if m.schema_float != nil || m.exprs[FieldSchemaFloat] != nil {
 		fields = append(fields, FieldSchemaFloat)
 	}
-	if m.schema_float32 != nil {
+	if m.schema_float32 != nil || m.exprs[FieldSchemaFloat32] != nil {
 		fields = append(fields, FieldSchemaFloat32)
 	}
-	if m.null_float != nil {
+	if m.null_float != nil || m.exprs[FieldNullFloat] != nil {
 		fields = append(fields, FieldNullFloat)
 	}
 	if m.role != nil {
@@ -2955,31 +3115,31 @@ func (m *Mutation) Fields() []string {
 	if m.priority != nil {
 		fields = append(fields, FieldPriority)
 	}
-	if m.optional_uuid != nil {
+	if m.optional_uuid != nil || m.exprs[FieldOptionalUuid] != nil {
 		fields = append(fields, FieldOptionalUuid)
 	}
-	if m.nillable_uuid != nil {
+	if m.nillable_uuid != nil || m.exprs[FieldNillableUuid] != nil {
 		fields = append(fields, FieldNillableUuid)
 	}
-	if m.strings != nil {
+	if m.strings != nil || m.exprs[FieldStrings] != nil {
 		fields = append(fields, FieldStrings)
 	}
-	if m.pair != nil {
+	if m.pair != nil || m.exprs[FieldPair] != nil {
 		fields = append(fields, FieldPair)
 	}
-	if m.nil_pair != nil {
+	if m.nil_pair != nil || m.exprs[FieldNilPair] != nil {
 		fields = append(fields, FieldNilPair)
 	}
-	if m.vstring != nil {
+	if m.vstring != nil || m.exprs[FieldVstring] != nil {
 		fields = append(fields, FieldVstring)
 	}
-	if m.triple != nil {
+	if m.triple != nil || m.exprs[FieldTriple] != nil {
 		fields = append(fields, FieldTriple)
 	}
-	if m.big_int != nil {
+	if m.big_int != nil || m.exprs[FieldBigInt] != nil {
 		fields = append(fields, FieldBigInt)
 	}
-	if m.password_other != nil {
+	if m.password_other != nil || m.exprs[FieldPasswordOther] != nil {
 		fields = append(fields, FieldPasswordOther)
 	}
 	return fields
@@ -2988,7 +3148,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldInt:
 		return m.Int()
@@ -3134,11 +3300,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldInt:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt(v)
@@ -3146,6 +3318,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt8:
 		v, ok := value.(int8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt8(v)
@@ -3153,6 +3328,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt16:
 		v, ok := value.(int16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt16(v)
@@ -3160,6 +3338,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt32:
 		v, ok := value.(int32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt32(v)
@@ -3167,6 +3348,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt64:
 		v, ok := value.(int64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt64(v)
@@ -3174,6 +3358,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalInt:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalInt(v)
@@ -3181,6 +3368,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalInt8:
 		v, ok := value.(int8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalInt8(v)
@@ -3188,6 +3378,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalInt16:
 		v, ok := value.(int16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalInt16(v)
@@ -3195,6 +3388,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalInt32:
 		v, ok := value.(int32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalInt32(v)
@@ -3202,6 +3398,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalInt64:
 		v, ok := value.(int64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalInt64(v)
@@ -3209,6 +3408,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt(v)
@@ -3216,6 +3418,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt8:
 		v, ok := value.(int8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt8(v)
@@ -3223,6 +3428,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt16:
 		v, ok := value.(int16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt16(v)
@@ -3230,6 +3438,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt32:
 		v, ok := value.(int32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt32(v)
@@ -3237,6 +3448,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableInt64:
 		v, ok := value.(int64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableInt64(v)
@@ -3244,6 +3458,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldValidateOptionalInt32:
 		v, ok := value.(int32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetValidateOptionalInt32(v)
@@ -3251,6 +3468,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUint:
 		v, ok := value.(uint)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUint(v)
@@ -3258,6 +3478,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUint8:
 		v, ok := value.(uint8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUint8(v)
@@ -3265,6 +3488,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUint16:
 		v, ok := value.(uint16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUint16(v)
@@ -3272,6 +3498,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUint32:
 		v, ok := value.(uint32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUint32(v)
@@ -3279,6 +3508,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUint64:
 		v, ok := value.(uint64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUint64(v)
@@ -3286,6 +3518,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldState:
 		v, ok := value.(State)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetState(v)
@@ -3293,6 +3528,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalFloat:
 		v, ok := value.(float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalFloat(v)
@@ -3300,6 +3538,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalFloat32:
 		v, ok := value.(float32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalFloat32(v)
@@ -3307,6 +3548,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldText:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetText(v)
@@ -3314,6 +3558,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDatetime:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDatetime(v)
@@ -3321,6 +3568,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDecimal:
 		v, ok := value.(float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDecimal(v)
@@ -3328,6 +3578,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldLinkOther:
 		v, ok := value.(*schema.Link)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLinkOther(v)
@@ -3335,6 +3588,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldLinkOtherFunc:
 		v, ok := value.(*schema.Link)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLinkOtherFunc(v)
@@ -3342,6 +3598,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldMac:
 		v, ok := value.(schema.Mac)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetMac(v)
@@ -3349,6 +3608,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStringArray:
 		v, ok := value.(schema.Strings)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStringArray(v)
@@ -3356,6 +3618,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPassword:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPassword(v)
@@ -3363,6 +3628,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStringScanner:
 		v, ok := value.(schema.StringScanner)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStringScanner(v)
@@ -3370,6 +3638,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDuration:
 		v, ok := value.(time.Duration)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDuration(v)
@@ -3377,6 +3648,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDir:
 		v, ok := value.(http.Dir)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDir(v)
@@ -3384,6 +3658,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNdir:
 		v, ok := value.(http.Dir)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNdir(v)
@@ -3391,6 +3668,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStr:
 		v, ok := value.(sql.NullString)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStr(v)
@@ -3398,6 +3678,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNullStr:
 		v, ok := value.(*sql.NullString)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNullStr(v)
@@ -3405,6 +3688,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldLink:
 		v, ok := value.(schema.Link)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLink(v)
@@ -3412,6 +3698,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNullLink:
 		v, ok := value.(*schema.Link)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNullLink(v)
@@ -3419,6 +3708,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldActive:
 		v, ok := value.(schema.Status)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetActive(v)
@@ -3426,6 +3718,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNullActive:
 		v, ok := value.(schema.Status)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNullActive(v)
@@ -3433,6 +3728,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDeleted:
 		v, ok := value.(*sql.NullBool)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDeleted(v)
@@ -3440,6 +3738,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDeletedAt:
 		v, ok := value.(*sql.NullTime)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDeletedAt(v)
@@ -3447,6 +3748,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldRawData:
 		v, ok := value.([]byte)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRawData(v)
@@ -3454,6 +3758,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSensitive:
 		v, ok := value.([]byte)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSensitive(v)
@@ -3461,6 +3768,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldIp:
 		v, ok := value.(net.IP)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetIp(v)
@@ -3468,6 +3778,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNullInt64:
 		v, ok := value.(*sql.NullInt64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNullInt64(v)
@@ -3475,6 +3788,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSchemaInt:
 		v, ok := value.(schema.Int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSchemaInt(v)
@@ -3482,6 +3798,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSchemaInt8:
 		v, ok := value.(schema.Int8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSchemaInt8(v)
@@ -3489,6 +3808,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSchemaInt64:
 		v, ok := value.(schema.Int64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSchemaInt64(v)
@@ -3496,6 +3818,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSchemaFloat:
 		v, ok := value.(schema.Float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSchemaFloat(v)
@@ -3503,6 +3828,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldSchemaFloat32:
 		v, ok := value.(schema.Float32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSchemaFloat32(v)
@@ -3510,6 +3838,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNullFloat:
 		v, ok := value.(*sql.NullFloat64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNullFloat(v)
@@ -3517,6 +3848,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldRole:
 		v, ok := value.(role.Role)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRole(v)
@@ -3524,6 +3858,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPriority:
 		v, ok := value.(role.Priority)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPriority(v)
@@ -3531,6 +3868,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalUuid(v)
@@ -3538,6 +3878,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNillableUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNillableUuid(v)
@@ -3545,6 +3888,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStrings:
 		v, ok := value.([]string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStrings(v)
@@ -3552,6 +3898,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPair:
 		v, ok := value.(schema.Pair)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPair(v)
@@ -3559,6 +3908,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNilPair:
 		v, ok := value.(*schema.Pair)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNilPair(v)
@@ -3566,6 +3918,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldVstring:
 		v, ok := value.(schema.VString)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetVstring(v)
@@ -3573,6 +3928,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldTriple:
 		v, ok := value.(schema.Triple)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTriple(v)
@@ -3580,6 +3938,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldBigInt:
 		v, ok := value.(schema.BigInt)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBigInt(v)
@@ -3587,12 +3948,355 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPasswordOther:
 		v, ok := value.(schema.Password)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPasswordOther(v)
 		return nil
 	}
 	return fmt.Errorf("unknown FieldType field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldInt:
+		m.ResetInt()
+	case FieldInt8:
+		m.ResetInt8()
+	case FieldInt16:
+		m.ResetInt16()
+	case FieldInt32:
+		m.ResetInt32()
+	case FieldInt64:
+		m.ResetInt64()
+	case FieldOptionalInt:
+		m.ResetOptionalInt()
+	case FieldOptionalInt8:
+		m.ResetOptionalInt8()
+	case FieldOptionalInt16:
+		m.ResetOptionalInt16()
+	case FieldOptionalInt32:
+		m.ResetOptionalInt32()
+	case FieldOptionalInt64:
+		m.ResetOptionalInt64()
+	case FieldNillableInt:
+		m.ResetNillableInt()
+	case FieldNillableInt8:
+		m.ResetNillableInt8()
+	case FieldNillableInt16:
+		m.ResetNillableInt16()
+	case FieldNillableInt32:
+		m.ResetNillableInt32()
+	case FieldNillableInt64:
+		m.ResetNillableInt64()
+	case FieldValidateOptionalInt32:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldOptionalUint:
+		m.ResetOptionalUint()
+	case FieldOptionalUint8:
+		m.ResetOptionalUint8()
+	case FieldOptionalUint16:
+		m.ResetOptionalUint16()
+	case FieldOptionalUint32:
+		m.ResetOptionalUint32()
+	case FieldOptionalUint64:
+		m.ResetOptionalUint64()
+	case FieldState:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldOptionalFloat:
+		m.ResetOptionalFloat()
+	case FieldOptionalFloat32:
+		m.ResetOptionalFloat32()
+	case FieldText:
+		m.ResetText()
+	case FieldDatetime:
+		m.ResetDatetime()
+	case FieldDecimal:
+		m.ResetDecimal()
+	case FieldLinkOther:
+		m.ResetLinkOther()
+	case FieldLinkOtherFunc:
+		m.ResetLinkOtherFunc()
+	case FieldMac:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldStringArray:
+		m.ResetStringArray()
+	case FieldPassword:
+		m.ResetPassword()
+	case FieldStringScanner:
+		m.ResetStringScanner()
+	case FieldDuration:
+		m.ResetDuration()
+	case FieldDir:
+		m.ResetDir()
+	case FieldNdir:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldStr:
+		m.ResetStr()
+	case FieldNullStr:
+		m.ResetNullStr()
+	case FieldLink:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldNullLink:
+		m.ResetNullLink()
+	case FieldActive:
+		m.ResetActive()
+	case FieldNullActive:
+		m.ResetNullActive()
+	case FieldDeleted:
+		m.ResetDeleted()
+	case FieldDeletedAt:
+		m.ResetDeletedAt()
+	case FieldRawData:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldSensitive:
+		m.ResetSensitive()
+	case FieldIp:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldNullInt64:
+		m.ResetNullInt64()
+	case FieldSchemaInt:
+		m.ResetSchemaInt()
+	case FieldSchemaInt8:
+		m.ResetSchemaInt8()
+	case FieldSchemaInt64:
+		m.ResetSchemaInt64()
+	case FieldSchemaFloat:
+		m.ResetSchemaFloat()
+	case FieldSchemaFloat32:
+		m.ResetSchemaFloat32()
+	case FieldNullFloat:
+		m.ResetNullFloat()
+	case FieldRole:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldPriority:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldOptionalUuid:
+		m.ResetOptionalUuid()
+	case FieldNillableUuid:
+		m.ResetNillableUuid()
+	case FieldStrings:
+		m.ResetStrings()
+	case FieldPair:
+		m.ResetPair()
+	case FieldNilPair:
+		m.ResetNilPair()
+	case FieldVstring:
+		m.ResetVstring()
+	case FieldTriple:
+		m.ResetTriple()
+	case FieldBigInt:
+		m.ResetBigInt()
+	case FieldPasswordOther:
+		m.ResetPasswordOther()
+	default:
+		return fmt.Errorf("unknown FieldType field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldInt]; ok {
+		fields = append(fields, FieldInt)
+	}
+	if _, ok := m.exprs[FieldInt8]; ok {
+		fields = append(fields, FieldInt8)
+	}
+	if _, ok := m.exprs[FieldInt16]; ok {
+		fields = append(fields, FieldInt16)
+	}
+	if _, ok := m.exprs[FieldInt32]; ok {
+		fields = append(fields, FieldInt32)
+	}
+	if _, ok := m.exprs[FieldInt64]; ok {
+		fields = append(fields, FieldInt64)
+	}
+	if _, ok := m.exprs[FieldOptionalInt]; ok {
+		fields = append(fields, FieldOptionalInt)
+	}
+	if _, ok := m.exprs[FieldOptionalInt8]; ok {
+		fields = append(fields, FieldOptionalInt8)
+	}
+	if _, ok := m.exprs[FieldOptionalInt16]; ok {
+		fields = append(fields, FieldOptionalInt16)
+	}
+	if _, ok := m.exprs[FieldOptionalInt32]; ok {
+		fields = append(fields, FieldOptionalInt32)
+	}
+	if _, ok := m.exprs[FieldOptionalInt64]; ok {
+		fields = append(fields, FieldOptionalInt64)
+	}
+	if _, ok := m.exprs[FieldNillableInt]; ok {
+		fields = append(fields, FieldNillableInt)
+	}
+	if _, ok := m.exprs[FieldNillableInt8]; ok {
+		fields = append(fields, FieldNillableInt8)
+	}
+	if _, ok := m.exprs[FieldNillableInt16]; ok {
+		fields = append(fields, FieldNillableInt16)
+	}
+	if _, ok := m.exprs[FieldNillableInt32]; ok {
+		fields = append(fields, FieldNillableInt32)
+	}
+	if _, ok := m.exprs[FieldNillableInt64]; ok {
+		fields = append(fields, FieldNillableInt64)
+	}
+	if _, ok := m.exprs[FieldOptionalUint]; ok {
+		fields = append(fields, FieldOptionalUint)
+	}
+	if _, ok := m.exprs[FieldOptionalUint8]; ok {
+		fields = append(fields, FieldOptionalUint8)
+	}
+	if _, ok := m.exprs[FieldOptionalUint16]; ok {
+		fields = append(fields, FieldOptionalUint16)
+	}
+	if _, ok := m.exprs[FieldOptionalUint32]; ok {
+		fields = append(fields, FieldOptionalUint32)
+	}
+	if _, ok := m.exprs[FieldOptionalUint64]; ok {
+		fields = append(fields, FieldOptionalUint64)
+	}
+	if _, ok := m.exprs[FieldOptionalFloat]; ok {
+		fields = append(fields, FieldOptionalFloat)
+	}
+	if _, ok := m.exprs[FieldOptionalFloat32]; ok {
+		fields = append(fields, FieldOptionalFloat32)
+	}
+	if _, ok := m.exprs[FieldText]; ok {
+		fields = append(fields, FieldText)
+	}
+	if _, ok := m.exprs[FieldDatetime]; ok {
+		fields = append(fields, FieldDatetime)
+	}
+	if _, ok := m.exprs[FieldDecimal]; ok {
+		fields = append(fields, FieldDecimal)
+	}
+	if _, ok := m.exprs[FieldLinkOther]; ok {
+		fields = append(fields, FieldLinkOther)
+	}
+	if _, ok := m.exprs[FieldLinkOtherFunc]; ok {
+		fields = append(fields, FieldLinkOtherFunc)
+	}
+	if _, ok := m.exprs[FieldStringArray]; ok {
+		fields = append(fields, FieldStringArray)
+	}
+	if _, ok := m.exprs[FieldPassword]; ok {
+		fields = append(fields, FieldPassword)
+	}
+	if _, ok := m.exprs[FieldStringScanner]; ok {
+		fields = append(fields, FieldStringScanner)
+	}
+	if _, ok := m.exprs[FieldDuration]; ok {
+		fields = append(fields, FieldDuration)
+	}
+	if _, ok := m.exprs[FieldDir]; ok {
+		fields = append(fields, FieldDir)
+	}
+	if _, ok := m.exprs[FieldStr]; ok {
+		fields = append(fields, FieldStr)
+	}
+	if _, ok := m.exprs[FieldNullStr]; ok {
+		fields = append(fields, FieldNullStr)
+	}
+	if _, ok := m.exprs[FieldNullLink]; ok {
+		fields = append(fields, FieldNullLink)
+	}
+	if _, ok := m.exprs[FieldActive]; ok {
+		fields = append(fields, FieldActive)
+	}
+	if _, ok := m.exprs[FieldNullActive]; ok {
+		fields = append(fields, FieldNullActive)
+	}
+	if _, ok := m.exprs[FieldDeleted]; ok {
+		fields = append(fields, FieldDeleted)
+	}
+	if _, ok := m.exprs[FieldDeletedAt]; ok {
+		fields = append(fields, FieldDeletedAt)
+	}
+	if _, ok := m.exprs[FieldSensitive]; ok {
+		fields = append(fields, FieldSensitive)
+	}
+	if _, ok := m.exprs[FieldNullInt64]; ok {
+		fields = append(fields, FieldNullInt64)
+	}
+	if _, ok := m.exprs[FieldSchemaInt]; ok {
+		fields = append(fields, FieldSchemaInt)
+	}
+	if _, ok := m.exprs[FieldSchemaInt8]; ok {
+		fields = append(fields, FieldSchemaInt8)
+	}
+	if _, ok := m.exprs[FieldSchemaInt64]; ok {
+		fields = append(fields, FieldSchemaInt64)
+	}
+	if _, ok := m.exprs[FieldSchemaFloat]; ok {
+		fields = append(fields, FieldSchemaFloat)
+	}
+	if _, ok := m.exprs[FieldSchemaFloat32]; ok {
+		fields = append(fields, FieldSchemaFloat32)
+	}
+	if _, ok := m.exprs[FieldNullFloat]; ok {
+		fields = append(fields, FieldNullFloat)
+	}
+	if _, ok := m.exprs[FieldOptionalUuid]; ok {
+		fields = append(fields, FieldOptionalUuid)
+	}
+	if _, ok := m.exprs[FieldNillableUuid]; ok {
+		fields = append(fields, FieldNillableUuid)
+	}
+	if _, ok := m.exprs[FieldStrings]; ok {
+		fields = append(fields, FieldStrings)
+	}
+	if _, ok := m.exprs[FieldPair]; ok {
+		fields = append(fields, FieldPair)
+	}
+	if _, ok := m.exprs[FieldNilPair]; ok {
+		fields = append(fields, FieldNilPair)
+	}
+	if _, ok := m.exprs[FieldVstring]; ok {
+		fields = append(fields, FieldVstring)
+	}
+	if _, ok := m.exprs[FieldTriple]; ok {
+		fields = append(fields, FieldTriple)
+	}
+	if _, ok := m.exprs[FieldBigInt]; ok {
+		fields = append(fields, FieldBigInt)
+	}
+	if _, ok := m.exprs[FieldPasswordOther]; ok {
+		fields = append(fields, FieldPasswordOther)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

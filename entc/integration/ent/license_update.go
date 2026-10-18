@@ -75,8 +75,10 @@ func (_u *LicenseUpdate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *LicenseUpdate) defaults() {
 	if _, ok := _u.mutation.UpdateTime(); !ok {
-		v := license.UpdateDefaultUpdateTime()
-		_u.mutation.SetUpdateTime(v)
+		if _, ok := _u.mutation.FieldExpr(license.FieldUpdateTime); !ok {
+			v := license.UpdateDefaultUpdateTime()
+			_u.mutation.SetUpdateTime(v)
+		}
 	}
 }
 
@@ -97,6 +99,9 @@ func (_u *LicenseUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.UpdateTime(); ok {
 		_spec.SetField(license.FieldUpdateTime, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(license.FieldUpdateTime); ok {
+		_spec.SetField(license.FieldUpdateTime, field.TypeTime, e)
 	}
 	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
@@ -175,8 +180,10 @@ func (_u *LicenseUpdateOne) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *LicenseUpdateOne) defaults() {
 	if _, ok := _u.mutation.UpdateTime(); !ok {
-		v := license.UpdateDefaultUpdateTime()
-		_u.mutation.SetUpdateTime(v)
+		if _, ok := _u.mutation.FieldExpr(license.FieldUpdateTime); !ok {
+			v := license.UpdateDefaultUpdateTime()
+			_u.mutation.SetUpdateTime(v)
+		}
 	}
 }
 
@@ -214,6 +221,9 @@ func (_u *LicenseUpdateOne) sqlSave(ctx context.Context) (_node *License, err er
 	}
 	if value, ok := _u.mutation.UpdateTime(); ok {
 		_spec.SetField(license.FieldUpdateTime, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(license.FieldUpdateTime); ok {
+		_spec.SetField(license.FieldUpdateTime, field.TypeTime, e)
 	}
 	_spec.AddModifiers(_u.modifiers...)
 	_node = &License{config: _u.config}

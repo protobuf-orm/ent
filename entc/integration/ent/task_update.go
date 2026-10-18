@@ -248,11 +248,17 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Priorities(); ok {
 		_spec.SetField(enttask.FieldPriorities, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldPriorities); ok {
+		_spec.SetField(enttask.FieldPriorities, field.TypeJson, e)
+	}
 	if _u.mutation.PrioritiesCleared() {
 		_spec.ClearField(enttask.FieldPriorities, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(enttask.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldName); ok {
+		_spec.SetField(enttask.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(enttask.FieldName, field.TypeString)
@@ -260,11 +266,17 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Owner(); ok {
 		_spec.SetField(enttask.FieldOwner, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOwner); ok {
+		_spec.SetField(enttask.FieldOwner, field.TypeString, e)
+	}
 	if _u.mutation.OwnerCleared() {
 		_spec.ClearField(enttask.FieldOwner, field.TypeString)
 	}
 	if value, ok := _u.mutation.Order(); ok {
 		_spec.SetField(enttask.FieldOrder, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOrder); ok {
+		_spec.SetField(enttask.FieldOrder, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOrder(); ok {
 		_spec.AddField(enttask.FieldOrder, field.TypeInt, value)
@@ -274,6 +286,9 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OrderOption(); ok {
 		_spec.SetField(enttask.FieldOrderOption, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOrderOption); ok {
+		_spec.SetField(enttask.FieldOrderOption, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOrderOption(); ok {
 		_spec.AddField(enttask.FieldOrderOption, field.TypeInt, value)
@@ -551,11 +566,17 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if value, ok := _u.mutation.Priorities(); ok {
 		_spec.SetField(enttask.FieldPriorities, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldPriorities); ok {
+		_spec.SetField(enttask.FieldPriorities, field.TypeJson, e)
+	}
 	if _u.mutation.PrioritiesCleared() {
 		_spec.ClearField(enttask.FieldPriorities, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(enttask.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldName); ok {
+		_spec.SetField(enttask.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(enttask.FieldName, field.TypeString)
@@ -563,11 +584,17 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if value, ok := _u.mutation.Owner(); ok {
 		_spec.SetField(enttask.FieldOwner, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOwner); ok {
+		_spec.SetField(enttask.FieldOwner, field.TypeString, e)
+	}
 	if _u.mutation.OwnerCleared() {
 		_spec.ClearField(enttask.FieldOwner, field.TypeString)
 	}
 	if value, ok := _u.mutation.Order(); ok {
 		_spec.SetField(enttask.FieldOrder, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOrder); ok {
+		_spec.SetField(enttask.FieldOrder, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOrder(); ok {
 		_spec.AddField(enttask.FieldOrder, field.TypeInt, value)
@@ -577,6 +604,9 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	}
 	if value, ok := _u.mutation.OrderOption(); ok {
 		_spec.SetField(enttask.FieldOrderOption, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(enttask.FieldOrderOption); ok {
+		_spec.SetField(enttask.FieldOrderOption, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOrderOption(); ok {
 		_spec.AddField(enttask.FieldOrderOption, field.TypeInt, value)

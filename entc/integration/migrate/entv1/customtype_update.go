@@ -95,6 +95,9 @@ func (_u *CustomTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Custom(); ok {
 		_spec.SetField(customtype.FieldCustom, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldCustom); ok {
+		_spec.SetField(customtype.FieldCustom, field.TypeString, e)
+	}
 	if _u.mutation.CustomCleared() {
 		_spec.ClearField(customtype.FieldCustom, field.TypeString)
 	}
@@ -211,6 +214,9 @@ func (_u *CustomTypeUpdateOne) sqlSave(ctx context.Context) (_node *CustomType, 
 	}
 	if value, ok := _u.mutation.Custom(); ok {
 		_spec.SetField(customtype.FieldCustom, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldCustom); ok {
+		_spec.SetField(customtype.FieldCustom, field.TypeString, e)
 	}
 	if _u.mutation.CustomCleared() {
 		_spec.ClearField(customtype.FieldCustom, field.TypeString)

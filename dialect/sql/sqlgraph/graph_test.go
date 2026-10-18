@@ -2216,6 +2216,36 @@ func TestUpdateNode(t *testing.T) {
 			wantUser: &user{name: "Ariel", age: 30, id: 1},
 		},
 		{
+			// An expression in the spec is written as SQL, and a JSON column
+			// does not encode it the way it would a value.
+			name: "fields/set_expr",
+			spec: &UpdateSpec{
+				Node: &NodeSpec{
+					Table:   "users",
+					Columns: []string{"id", "name", "age"},
+					Id:      &FieldSpec{Column: "id", Type: field.TypeInt, Value: 1},
+				},
+				Fields: FieldMut{
+					Set: []*FieldSpec{
+						{Column: "name", Type: field.TypeString, Value: sql.Expr(sql.Lower("name"))},
+						{Column: "doc", Type: field.TypeJson, Value: sql.Expr("JSON_SET(`doc`, ?, ?)", "$.a", 1)},
+					},
+				},
+			},
+			prepare: func(mock sqlmock.Sqlmock) {
+				mock.ExpectBegin()
+				mock.ExpectExec(escape("UPDATE `users` SET `name` = LOWER(`name`), `doc` = JSON_SET(`doc`, ?, ?) WHERE `id` = ?")).
+					WithArgs("$.a", 1, 1).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				mock.ExpectQuery(escape("SELECT `id`, `name`, `age` FROM `users` WHERE `id` = ?")).
+					WithArgs(1).
+					WillReturnRows(sqlmock.NewRows([]string{"id", "age", "name"}).
+						AddRow(1, 30, "ariel"))
+				mock.ExpectCommit()
+			},
+			wantUser: &user{name: "ariel", age: 30, id: 1},
+		},
+		{
 			name: "fields/set_modifier",
 			spec: &UpdateSpec{
 				Node: &NodeSpec{

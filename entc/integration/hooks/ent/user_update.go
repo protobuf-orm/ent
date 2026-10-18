@@ -306,14 +306,23 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Version(); ok {
 		_spec.SetField(user.FieldVersion, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldVersion); ok {
+		_spec.SetField(user.FieldVersion, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedVersion(); ok {
 		_spec.AddField(user.FieldVersion, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Worth(); ok {
 		_spec.SetField(user.FieldWorth, field.TypeUint, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldWorth); ok {
+		_spec.SetField(user.FieldWorth, field.TypeUint, e)
 	}
 	if value, ok := _u.mutation.AddedWorth(); ok {
 		_spec.AddField(user.FieldWorth, field.TypeUint, value)
@@ -324,11 +333,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(user.FieldPassword, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPassword); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, e)
+	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(user.FieldPassword, field.TypeString)
 	}
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(user.FieldActive, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldActive); ok {
+		_spec.SetField(user.FieldActive, field.TypeBool, e)
 	}
 	if _u.mutation.CardsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -817,14 +832,23 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Version(); ok {
 		_spec.SetField(user.FieldVersion, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldVersion); ok {
+		_spec.SetField(user.FieldVersion, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedVersion(); ok {
 		_spec.AddField(user.FieldVersion, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Worth(); ok {
 		_spec.SetField(user.FieldWorth, field.TypeUint, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldWorth); ok {
+		_spec.SetField(user.FieldWorth, field.TypeUint, e)
 	}
 	if value, ok := _u.mutation.AddedWorth(); ok {
 		_spec.AddField(user.FieldWorth, field.TypeUint, value)
@@ -835,11 +859,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(user.FieldPassword, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPassword); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, e)
+	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(user.FieldPassword, field.TypeString)
 	}
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(user.FieldActive, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldActive); ok {
+		_spec.SetField(user.FieldActive, field.TypeBool, e)
 	}
 	if _u.mutation.CardsCleared() {
 		edge := &sqlgraph.EdgeSpec{

@@ -205,6 +205,9 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldModel); ok {
+		_spec.SetField(car.FieldModel, field.TypeString, e)
+	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -456,6 +459,9 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 	}
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldModel); ok {
+		_spec.SetField(car.FieldModel, field.TypeString, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{

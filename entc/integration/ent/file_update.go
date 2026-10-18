@@ -374,8 +374,14 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldName); ok {
+		_spec.SetField(file.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.User(); ok {
 		_spec.SetField(file.FieldUser, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldUser); ok {
+		_spec.SetField(file.FieldUser, field.TypeString, e)
 	}
 	if _u.mutation.UserCleared() {
 		_spec.ClearField(file.FieldUser, field.TypeString)
@@ -383,17 +389,26 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Group(); ok {
 		_spec.SetField(file.FieldGroup, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldGroup); ok {
+		_spec.SetField(file.FieldGroup, field.TypeString, e)
+	}
 	if _u.mutation.GroupCleared() {
 		_spec.ClearField(file.FieldGroup, field.TypeString)
 	}
 	if value, ok := _u.mutation.GetOp(); ok {
 		_spec.SetField(file.FieldOp, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldOp); ok {
+		_spec.SetField(file.FieldOp, field.TypeBool, e)
+	}
 	if _u.mutation.OpCleared() {
 		_spec.ClearField(file.FieldOp, field.TypeBool)
 	}
 	if value, ok := _u.mutation.FieldId(); ok {
 		_spec.SetField(file.FieldFieldId, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldFieldId); ok {
+		_spec.SetField(file.FieldFieldId, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedFieldId(); ok {
 		_spec.AddField(file.FieldFieldId, field.TypeInt, value)
@@ -403,6 +418,9 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.CreateTime(); ok {
 		_spec.SetField(file.FieldCreateTime, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldCreateTime); ok {
+		_spec.SetField(file.FieldCreateTime, field.TypeTime, e)
 	}
 	if _u.mutation.CreateTimeCleared() {
 		_spec.ClearField(file.FieldCreateTime, field.TypeTime)
@@ -900,8 +918,14 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldName); ok {
+		_spec.SetField(file.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.User(); ok {
 		_spec.SetField(file.FieldUser, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldUser); ok {
+		_spec.SetField(file.FieldUser, field.TypeString, e)
 	}
 	if _u.mutation.UserCleared() {
 		_spec.ClearField(file.FieldUser, field.TypeString)
@@ -909,17 +933,26 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	if value, ok := _u.mutation.Group(); ok {
 		_spec.SetField(file.FieldGroup, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldGroup); ok {
+		_spec.SetField(file.FieldGroup, field.TypeString, e)
+	}
 	if _u.mutation.GroupCleared() {
 		_spec.ClearField(file.FieldGroup, field.TypeString)
 	}
 	if value, ok := _u.mutation.GetOp(); ok {
 		_spec.SetField(file.FieldOp, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldOp); ok {
+		_spec.SetField(file.FieldOp, field.TypeBool, e)
+	}
 	if _u.mutation.OpCleared() {
 		_spec.ClearField(file.FieldOp, field.TypeBool)
 	}
 	if value, ok := _u.mutation.FieldId(); ok {
 		_spec.SetField(file.FieldFieldId, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldFieldId); ok {
+		_spec.SetField(file.FieldFieldId, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedFieldId(); ok {
 		_spec.AddField(file.FieldFieldId, field.TypeInt, value)
@@ -929,6 +962,9 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	}
 	if value, ok := _u.mutation.CreateTime(); ok {
 		_spec.SetField(file.FieldCreateTime, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldCreateTime); ok {
+		_spec.SetField(file.FieldCreateTime, field.TypeTime, e)
 	}
 	if _u.mutation.CreateTimeCleared() {
 		_spec.ClearField(file.FieldCreateTime, field.TypeTime)

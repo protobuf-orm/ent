@@ -100,13 +100,18 @@ func (_c *UserGroupCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserGroupCreate) defaults() {
 	if _, ok := _c.mutation.JoinedAt(); !ok {
-		v := usergroup.DefaultJoinedAt()
-		_c.mutation.SetJoinedAt(v)
+		if _, ok := _c.mutation.FieldExpr(usergroup.FieldJoinedAt); !ok {
+			v := usergroup.DefaultJoinedAt()
+			_c.mutation.SetJoinedAt(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserGroupCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "UserGroup.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.JoinedAt(); !ok {
 		return &ValidationError{Name: "joined_at", err: errors.New(`ent: missing required field "UserGroup.joined_at"`)}
 	}

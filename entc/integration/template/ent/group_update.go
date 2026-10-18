@@ -96,6 +96,9 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.MaxUsers(); ok {
 		_spec.SetField(group.FieldMaxUsers, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldMaxUsers); ok {
+		_spec.SetField(group.FieldMaxUsers, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedMaxUsers(); ok {
 		_spec.AddField(group.FieldMaxUsers, field.TypeInt, value)
 	}
@@ -213,6 +216,9 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 	}
 	if value, ok := _u.mutation.MaxUsers(); ok {
 		_spec.SetField(group.FieldMaxUsers, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldMaxUsers); ok {
+		_spec.SetField(group.FieldMaxUsers, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedMaxUsers(); ok {
 		_spec.AddField(group.FieldMaxUsers, field.TypeInt, value)

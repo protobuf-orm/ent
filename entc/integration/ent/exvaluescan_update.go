@@ -178,6 +178,9 @@ func (_u *ExValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error)
 		}
 		_spec.SetField(exvaluescan.FieldBinary, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinary); ok {
+		_spec.SetField(exvaluescan.FieldBinary, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.BinaryBytes(); ok {
 		vv, err := exvaluescan.ValueScanner.BinaryBytes.Value(value)
 		if err != nil {
@@ -185,12 +188,18 @@ func (_u *ExValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error)
 		}
 		_spec.SetField(exvaluescan.FieldBinaryBytes, field.TypeBytes, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinaryBytes); ok {
+		_spec.SetField(exvaluescan.FieldBinaryBytes, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.BinaryOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.BinaryOptional.Value(value)
 		if err != nil {
 			return 0, err
 		}
 		_spec.SetField(exvaluescan.FieldBinaryOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinaryOptional); ok {
+		_spec.SetField(exvaluescan.FieldBinaryOptional, field.TypeString, e)
 	}
 	if _u.mutation.BinaryOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldBinaryOptional, field.TypeString)
@@ -202,12 +211,18 @@ func (_u *ExValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error)
 		}
 		_spec.SetField(exvaluescan.FieldText, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldText); ok {
+		_spec.SetField(exvaluescan.FieldText, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.TextOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.TextOptional.Value(value)
 		if err != nil {
 			return 0, err
 		}
 		_spec.SetField(exvaluescan.FieldTextOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldTextOptional); ok {
+		_spec.SetField(exvaluescan.FieldTextOptional, field.TypeString, e)
 	}
 	if _u.mutation.TextOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldTextOptional, field.TypeString)
@@ -219,6 +234,9 @@ func (_u *ExValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error)
 		}
 		_spec.SetField(exvaluescan.FieldBase64, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBase64); ok {
+		_spec.SetField(exvaluescan.FieldBase64, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Custom(); ok {
 		vv, err := exvaluescan.ValueScanner.Custom.Value(value)
 		if err != nil {
@@ -226,12 +244,18 @@ func (_u *ExValueScanUpdate) sqlSave(ctx context.Context) (_node int, err error)
 		}
 		_spec.SetField(exvaluescan.FieldCustom, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldCustom); ok {
+		_spec.SetField(exvaluescan.FieldCustom, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.CustomOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.CustomOptional.Value(value)
 		if err != nil {
 			return 0, err
 		}
 		_spec.SetField(exvaluescan.FieldCustomOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldCustomOptional); ok {
+		_spec.SetField(exvaluescan.FieldCustomOptional, field.TypeString, e)
 	}
 	if _u.mutation.CustomOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldCustomOptional, field.TypeString)
@@ -432,6 +456,9 @@ func (_u *ExValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ExValueScan
 		}
 		_spec.SetField(exvaluescan.FieldBinary, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinary); ok {
+		_spec.SetField(exvaluescan.FieldBinary, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.BinaryBytes(); ok {
 		vv, err := exvaluescan.ValueScanner.BinaryBytes.Value(value)
 		if err != nil {
@@ -439,12 +466,18 @@ func (_u *ExValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ExValueScan
 		}
 		_spec.SetField(exvaluescan.FieldBinaryBytes, field.TypeBytes, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinaryBytes); ok {
+		_spec.SetField(exvaluescan.FieldBinaryBytes, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.BinaryOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.BinaryOptional.Value(value)
 		if err != nil {
 			return nil, err
 		}
 		_spec.SetField(exvaluescan.FieldBinaryOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBinaryOptional); ok {
+		_spec.SetField(exvaluescan.FieldBinaryOptional, field.TypeString, e)
 	}
 	if _u.mutation.BinaryOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldBinaryOptional, field.TypeString)
@@ -456,12 +489,18 @@ func (_u *ExValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ExValueScan
 		}
 		_spec.SetField(exvaluescan.FieldText, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldText); ok {
+		_spec.SetField(exvaluescan.FieldText, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.TextOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.TextOptional.Value(value)
 		if err != nil {
 			return nil, err
 		}
 		_spec.SetField(exvaluescan.FieldTextOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldTextOptional); ok {
+		_spec.SetField(exvaluescan.FieldTextOptional, field.TypeString, e)
 	}
 	if _u.mutation.TextOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldTextOptional, field.TypeString)
@@ -473,6 +512,9 @@ func (_u *ExValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ExValueScan
 		}
 		_spec.SetField(exvaluescan.FieldBase64, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldBase64); ok {
+		_spec.SetField(exvaluescan.FieldBase64, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Custom(); ok {
 		vv, err := exvaluescan.ValueScanner.Custom.Value(value)
 		if err != nil {
@@ -480,12 +522,18 @@ func (_u *ExValueScanUpdateOne) sqlSave(ctx context.Context) (_node *ExValueScan
 		}
 		_spec.SetField(exvaluescan.FieldCustom, field.TypeString, vv)
 	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldCustom); ok {
+		_spec.SetField(exvaluescan.FieldCustom, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.CustomOptional(); ok {
 		vv, err := exvaluescan.ValueScanner.CustomOptional.Value(value)
 		if err != nil {
 			return nil, err
 		}
 		_spec.SetField(exvaluescan.FieldCustomOptional, field.TypeString, vv)
+	}
+	if e, ok := _u.mutation.FieldExpr(exvaluescan.FieldCustomOptional); ok {
+		_spec.SetField(exvaluescan.FieldCustomOptional, field.TypeString, e)
 	}
 	if _u.mutation.CustomOptionalCleared() {
 		_spec.ClearField(exvaluescan.FieldCustomOptional, field.TypeString)

@@ -156,6 +156,9 @@ func (_u *TweetLikeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.LikedAt(); ok {
 		_spec.SetField(tweetlike.FieldLikedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(tweetlike.FieldLikedAt); ok {
+		_spec.SetField(tweetlike.FieldLikedAt, field.TypeTime, e)
+	}
 	if _u.mutation.TweetCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -387,6 +390,9 @@ func (_u *TweetLikeUpdateOne) sqlSave(ctx context.Context) (_node *TweetLike, er
 	}
 	if value, ok := _u.mutation.LikedAt(); ok {
 		_spec.SetField(tweetlike.FieldLikedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(tweetlike.FieldLikedAt); ok {
+		_spec.SetField(tweetlike.FieldLikedAt, field.TypeTime, e)
 	}
 	if _u.mutation.TweetCleared() {
 		edge := &sqlgraph.EdgeSpec{

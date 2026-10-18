@@ -126,14 +126,19 @@ func (_c *RelationshipCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *RelationshipCreate) defaults() error {
 	if _, ok := _c.mutation.Weight(); !ok {
-		v := relationship.DefaultWeight
-		_c.mutation.SetWeight(v)
+		if _, ok := _c.mutation.FieldExpr(relationship.FieldWeight); !ok {
+			v := relationship.DefaultWeight
+			_c.mutation.SetWeight(v)
+		}
 	}
 	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *RelationshipCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Relationship.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Weight(); !ok {
 		return &ValidationError{Name: "weight", err: errors.New(`ent: missing required field "Relationship.weight"`)}
 	}

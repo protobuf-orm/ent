@@ -106,13 +106,18 @@ func (_c *BlobLinkCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *BlobLinkCreate) defaults() {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
-		v := bloblink.DefaultCreatedAt()
-		_c.mutation.SetCreatedAt(v)
+		if _, ok := _c.mutation.FieldExpr(bloblink.FieldCreatedAt); !ok {
+			v := bloblink.DefaultCreatedAt()
+			_c.mutation.SetCreatedAt(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *BlobLinkCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "BlobLink.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "BlobLink.created_at"`)}
 	}

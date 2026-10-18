@@ -701,17 +701,29 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Last(); ok {
 		_spec.SetField(user.FieldLast, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLast); ok {
+		_spec.SetField(user.FieldLast, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
 	}
 	if _u.mutation.NicknameCleared() {
 		_spec.ClearField(user.FieldNickname, field.TypeString)
@@ -719,17 +731,26 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
+	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)
 	}
 	if value, ok := _u.mutation.Phone(); ok {
 		_spec.SetField(user.FieldPhone, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPhone); ok {
+		_spec.SetField(user.FieldPhone, field.TypeString, e)
+	}
 	if _u.mutation.PhoneCleared() {
 		_spec.ClearField(user.FieldPhone, field.TypeString)
 	}
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(user.FieldPassword, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPassword); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, e)
 	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(user.FieldPassword, field.TypeString)
@@ -743,11 +764,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.SsoCert(); ok {
 		_spec.SetField(user.FieldSsoCert, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldSsoCert); ok {
+		_spec.SetField(user.FieldSsoCert, field.TypeString, e)
+	}
 	if _u.mutation.SsoCertCleared() {
 		_spec.ClearField(user.FieldSsoCert, field.TypeString)
 	}
 	if value, ok := _u.mutation.FilesCount(); ok {
 		_spec.SetField(user.FieldFilesCount, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFilesCount); ok {
+		_spec.SetField(user.FieldFilesCount, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedFilesCount(); ok {
 		_spec.AddField(user.FieldFilesCount, field.TypeInt, value)
@@ -1903,17 +1930,29 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Last(); ok {
 		_spec.SetField(user.FieldLast, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLast); ok {
+		_spec.SetField(user.FieldLast, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
 	}
 	if _u.mutation.NicknameCleared() {
 		_spec.ClearField(user.FieldNickname, field.TypeString)
@@ -1921,17 +1960,26 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
+	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)
 	}
 	if value, ok := _u.mutation.Phone(); ok {
 		_spec.SetField(user.FieldPhone, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPhone); ok {
+		_spec.SetField(user.FieldPhone, field.TypeString, e)
+	}
 	if _u.mutation.PhoneCleared() {
 		_spec.ClearField(user.FieldPhone, field.TypeString)
 	}
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(user.FieldPassword, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldPassword); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, e)
 	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(user.FieldPassword, field.TypeString)
@@ -1945,11 +1993,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.SsoCert(); ok {
 		_spec.SetField(user.FieldSsoCert, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldSsoCert); ok {
+		_spec.SetField(user.FieldSsoCert, field.TypeString, e)
+	}
 	if _u.mutation.SsoCertCleared() {
 		_spec.ClearField(user.FieldSsoCert, field.TypeString)
 	}
 	if value, ok := _u.mutation.FilesCount(); ok {
 		_spec.SetField(user.FieldFilesCount, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFilesCount); ok {
+		_spec.SetField(user.FieldFilesCount, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedFilesCount(); ok {
 		_spec.AddField(user.FieldFilesCount, field.TypeInt, value)

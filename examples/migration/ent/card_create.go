@@ -136,8 +136,10 @@ func (_c *CardCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *CardCreate) defaults() {
 	if _, ok := _c.mutation.GetType(); !ok {
-		v := card.DefaultType
-		_c.mutation.SetType(v)
+		if _, ok := _c.mutation.FieldExpr(card.FieldType); !ok {
+			v := card.DefaultType
+			_c.mutation.SetType(v)
+		}
 	}
 	if _, ok := _c.mutation.OwnerId(); !ok {
 		v := card.DefaultOwnerId
@@ -147,6 +149,9 @@ func (_c *CardCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *CardCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Card.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.GetType(); !ok {
 		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Card.type"`)}
 	}

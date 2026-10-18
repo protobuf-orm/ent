@@ -222,8 +222,14 @@ func (_u *SessionDeviceUpdate) sqlSave(ctx context.Context) (_node int, err erro
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(sessiondevice.FieldCreatedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(sessiondevice.FieldCreatedAt); ok {
+		_spec.SetField(sessiondevice.FieldCreatedAt, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(sessiondevice.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(sessiondevice.FieldUpdatedAt); ok {
+		_spec.SetField(sessiondevice.FieldUpdatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UpdatedAtCleared() {
 		_spec.ClearField(sessiondevice.FieldUpdatedAt, field.TypeTime)
@@ -511,8 +517,14 @@ func (_u *SessionDeviceUpdateOne) sqlSave(ctx context.Context) (_node *SessionDe
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(sessiondevice.FieldCreatedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(sessiondevice.FieldCreatedAt); ok {
+		_spec.SetField(sessiondevice.FieldCreatedAt, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(sessiondevice.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(sessiondevice.FieldUpdatedAt); ok {
+		_spec.SetField(sessiondevice.FieldUpdatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UpdatedAtCleared() {
 		_spec.ClearField(sessiondevice.FieldUpdatedAt, field.TypeTime)

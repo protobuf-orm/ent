@@ -148,17 +148,22 @@ func (_c *CardCreate) defaults() error {
 		_c.mutation.SetNumber(v)
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
-		if card.DefaultCreatedAt == nil {
-			return fmt.Errorf("ent: uninitialized card.DefaultCreatedAt (forgotten import ent/runtime?)")
+		if _, ok := _c.mutation.FieldExpr(card.FieldCreatedAt); !ok {
+			if card.DefaultCreatedAt == nil {
+				return fmt.Errorf("ent: uninitialized card.DefaultCreatedAt (forgotten import ent/runtime?)")
+			}
+			v := card.DefaultCreatedAt()
+			_c.mutation.SetCreatedAt(v)
 		}
-		v := card.DefaultCreatedAt()
-		_c.mutation.SetCreatedAt(v)
 	}
 	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *CardCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Card.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Number(); !ok {
 		return &ValidationError{Name: "number", err: errors.New(`ent: missing required field "Card.number"`)}
 	}

@@ -104,6 +104,9 @@ func (_u *RentalUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Date(); ok {
 		_spec.SetField(rental.FieldDate, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(rental.FieldDate); ok {
+		_spec.SetField(rental.FieldDate, field.TypeTime, e)
+	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{rental.Label}
@@ -225,6 +228,9 @@ func (_u *RentalUpdateOne) sqlSave(ctx context.Context) (_node *Rental, err erro
 	}
 	if value, ok := _u.mutation.Date(); ok {
 		_spec.SetField(rental.FieldDate, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(rental.FieldDate); ok {
+		_spec.SetField(rental.FieldDate, field.TypeTime, e)
 	}
 	_node = &Rental{config: _u.config}
 	_spec.Assign = _node.assignValues

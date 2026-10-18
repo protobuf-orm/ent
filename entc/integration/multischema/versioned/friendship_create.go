@@ -117,17 +117,24 @@ func (_c *FriendshipCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *FriendshipCreate) defaults() {
 	if _, ok := _c.mutation.Weight(); !ok {
-		v := friendship.DefaultWeight
-		_c.mutation.SetWeight(v)
+		if _, ok := _c.mutation.FieldExpr(friendship.FieldWeight); !ok {
+			v := friendship.DefaultWeight
+			_c.mutation.SetWeight(v)
+		}
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
-		v := friendship.DefaultCreatedAt()
-		_c.mutation.SetCreatedAt(v)
+		if _, ok := _c.mutation.FieldExpr(friendship.FieldCreatedAt); !ok {
+			v := friendship.DefaultCreatedAt()
+			_c.mutation.SetCreatedAt(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *FriendshipCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`versioned: field "Friendship.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Weight(); !ok {
 		return &ValidationError{Name: "weight", err: errors.New(`versioned: missing required field "Friendship.weight"`)}
 	}

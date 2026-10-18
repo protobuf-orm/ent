@@ -121,6 +121,9 @@ func (_u *PostUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(post.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(post.FieldText); ok {
+		_spec.SetField(post.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.AuthorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -288,6 +291,9 @@ func (_u *PostUpdateOne) sqlSave(ctx context.Context) (_node *Post, err error) {
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(post.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(post.FieldText); ok {
+		_spec.SetField(post.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.AuthorCleared() {
 		edge := &sqlgraph.EdgeSpec{

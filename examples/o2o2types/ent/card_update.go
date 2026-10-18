@@ -133,8 +133,14 @@ func (_u *CardUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Expired(); ok {
 		_spec.SetField(card.FieldExpired, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldExpired); ok {
+		_spec.SetField(card.FieldExpired, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumber); ok {
+		_spec.SetField(card.FieldNumber, field.TypeString, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -315,8 +321,14 @@ func (_u *CardUpdateOne) sqlSave(ctx context.Context) (_node *Card, err error) {
 	if value, ok := _u.mutation.Expired(); ok {
 		_spec.SetField(card.FieldExpired, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldExpired); ok {
+		_spec.SetField(card.FieldExpired, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumber); ok {
+		_spec.SetField(card.FieldNumber, field.TypeString, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{

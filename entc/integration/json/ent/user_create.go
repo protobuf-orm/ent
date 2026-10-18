@@ -149,17 +149,24 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() {
 	if _, ok := _c.mutation.Dirs(); !ok {
-		v := user.DefaultDirs()
-		_c.mutation.SetDirs(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldDirs); !ok {
+			v := user.DefaultDirs()
+			_c.mutation.SetDirs(v)
+		}
 	}
 	if _, ok := _c.mutation.Ints(); !ok {
-		v := user.DefaultInts
-		_c.mutation.SetInts(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldInts); !ok {
+			v := user.DefaultInts
+			_c.mutation.SetInts(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "User.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Dirs(); !ok {
 		return &ValidationError{Name: "dirs", err: errors.New(`ent: missing required field "User.dirs"`)}
 	}

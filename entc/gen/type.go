@@ -568,6 +568,17 @@ func (t Type) MutationFields() []*Field {
 	return fields
 }
 
+// HasMutationExpr reports if the mutation can assign any of the fields a SQL
+// expression.
+func (t Type) HasMutationExpr() bool {
+	for _, f := range t.Fields {
+		if f.SupportsMutationExpr() {
+			return true
+		}
+	}
+	return false
+}
+
 // EnumFields returns the enum fields of the schema, if any.
 func (t Type) EnumFields() []*Field {
 	var fields []*Field
@@ -1813,6 +1824,35 @@ func rtypeEqual(t1, t2 *field.RType) bool {
 // SupportsMutationAppend reports if the field supports the mutation append operation.
 func (f Field) SupportsMutationAppend() bool {
 	return f.IsJson() && f.Type.RType != nil && f.Type.RType.Kind == reflect.Slice
+}
+
+// MutationExprRefusal is why the mutation refuses to assign the field a SQL
+// expression, or "" when it does not.
+//
+// Each refusal is a guarantee an expression would pass by without a word. A
+// validator is handed the value a field is set to, and an expression has none
+// until the database evaluates it. An expression is written only by an update,
+// which leaves an immutable field out, and the id is what picks the row. And
+// an edge's field is the edge's, which is written from the edge rather than
+// from the field.
+func (f Field) MutationExprRefusal() string {
+	switch {
+	case f.typ != nil && f.typ.Id != nil && f.typ.Id.Name == f.Name:
+		return "it is the id, which identifies the row an expression is written to"
+	case f.IsEdgeField():
+		return "it holds an edge, which is set through the edge"
+	case f.Immutable:
+		return "it is immutable, and an expression is written only by an update"
+	case f.Validators > 0 || f.IsEnum() || f.HasGoType() && f.Type.Validator():
+		return "it is validated, and an expression has no value to validate"
+	}
+	return ""
+}
+
+// SupportsMutationExpr reports if the mutation can assign the field a SQL
+// expression. See MutationExprRefusal for when it cannot.
+func (f Field) SupportsMutationExpr() bool {
+	return f.MutationExprRefusal() == ""
 }
 
 var (

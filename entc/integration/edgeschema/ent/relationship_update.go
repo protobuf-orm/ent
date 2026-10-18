@@ -199,6 +199,9 @@ func (_u *RelationshipUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if value, ok := _u.mutation.Weight(); ok {
 		_spec.SetField(relationship.FieldWeight, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(relationship.FieldWeight); ok {
+		_spec.SetField(relationship.FieldWeight, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedWeight(); ok {
 		_spec.AddField(relationship.FieldWeight, field.TypeInt, value)
 	}
@@ -506,6 +509,9 @@ func (_u *RelationshipUpdateOne) sqlSave(ctx context.Context) (_node *Relationsh
 	}
 	if value, ok := _u.mutation.Weight(); ok {
 		_spec.SetField(relationship.FieldWeight, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(relationship.FieldWeight); ok {
+		_spec.SetField(relationship.FieldWeight, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedWeight(); ok {
 		_spec.AddField(relationship.FieldWeight, field.TypeInt, value)

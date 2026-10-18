@@ -89,6 +89,9 @@ func (_u *RelationshipInfoUpdate) sqlSave(ctx context.Context) (_node int, err e
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(relationshipinfo.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(relationshipinfo.FieldText); ok {
+		_spec.SetField(relationshipinfo.FieldText, field.TypeString, e)
+	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{relationshipinfo.Label}
@@ -196,6 +199,9 @@ func (_u *RelationshipInfoUpdateOne) sqlSave(ctx context.Context) (_node *Relati
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(relationshipinfo.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(relationshipinfo.FieldText); ok {
+		_spec.SetField(relationshipinfo.FieldText, field.TypeString, e)
 	}
 	_node = &RelationshipInfo{config: _u.config}
 	_spec.Assign = _node.assignValues

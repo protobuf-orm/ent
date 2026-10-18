@@ -24,6 +24,7 @@ type Mutation struct {
 	addweight     *int
 	created_at    *time.Time
 	clearedFields map[string]struct{}
+	exprs         map[string]sql.Querier
 	user          *int
 	cleareduser   bool
 	friend        *int
@@ -49,6 +50,7 @@ func (m *Mutation) Predicates() []predicate.Friendship {
 func (m *Mutation) SetWeight(i int) {
 	m.weight = &i
 	m.addweight = nil
+	delete(m.exprs, FieldWeight)
 }
 
 // Weight returns the value of the "weight" field in the mutation.
@@ -82,11 +84,13 @@ func (m *Mutation) AddedWeight() (r int, exists bool) {
 func (m *Mutation) ResetWeight() {
 	m.weight = nil
 	m.addweight = nil
+	delete(m.exprs, FieldWeight)
 }
 
 // SetCreatedAt sets the "created_at" field.
 func (m *Mutation) SetCreatedAt(t time.Time) {
 	m.created_at = &t
+	delete(m.exprs, FieldCreatedAt)
 }
 
 // CreatedAt returns the value of the "created_at" field in the mutation.
@@ -101,6 +105,7 @@ func (m *Mutation) CreatedAt() (r time.Time, exists bool) {
 // ResetCreatedAt resets all changes to the "created_at" field.
 func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
+	delete(m.exprs, FieldCreatedAt)
 }
 
 // SetUserId sets the "user_id" field.
@@ -243,10 +248,10 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 4)
-	if m.weight != nil {
+	if m.weight != nil || m.exprs[FieldWeight] != nil {
 		fields = append(fields, FieldWeight)
 	}
-	if m.created_at != nil {
+	if m.created_at != nil || m.exprs[FieldCreatedAt] != nil {
 		fields = append(fields, FieldCreatedAt)
 	}
 	if m.user != nil {
@@ -261,7 +266,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldWeight:
 		return m.Weight()
@@ -285,11 +296,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldWeight:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetWeight(v)
@@ -297,6 +314,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldCreatedAt:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCreatedAt(v)
@@ -304,6 +324,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUserId:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUserId(v)
@@ -311,12 +334,71 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldFriendsId:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFriendsId(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Friendship field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldWeight:
+		m.ResetWeight()
+	case FieldCreatedAt:
+		m.ResetCreatedAt()
+	case FieldUserId:
+		return fmt.Errorf("field %s cannot be assigned an expression: it holds an edge, which is set through the edge", name)
+	case FieldFriendsId:
+		return fmt.Errorf("field %s cannot be assigned an expression: it holds an edge, which is set through the edge", name)
+	default:
+		return fmt.Errorf("unknown Friendship field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldWeight]; ok {
+		fields = append(fields, FieldWeight)
+	}
+	if _, ok := m.exprs[FieldCreatedAt]; ok {
+		fields = append(fields, FieldCreatedAt)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

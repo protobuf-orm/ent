@@ -212,17 +212,26 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.UniqueInt(); ok {
 		_spec.SetField(comment.FieldUniqueInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldUniqueInt); ok {
+		_spec.SetField(comment.FieldUniqueInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedUniqueInt(); ok {
 		_spec.AddField(comment.FieldUniqueInt, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.UniqueFloat(); ok {
 		_spec.SetField(comment.FieldUniqueFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldUniqueFloat); ok {
+		_spec.SetField(comment.FieldUniqueFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedUniqueFloat(); ok {
 		_spec.AddField(comment.FieldUniqueFloat, field.TypeFloat64, value)
 	}
 	if value, ok := _u.mutation.NillableInt(); ok {
 		_spec.SetField(comment.FieldNillableInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldNillableInt); ok {
+		_spec.SetField(comment.FieldNillableInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt(); ok {
 		_spec.AddField(comment.FieldNillableInt, field.TypeInt, value)
@@ -233,17 +242,26 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Table(); ok {
 		_spec.SetField(comment.FieldTable, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldTable); ok {
+		_spec.SetField(comment.FieldTable, field.TypeString, e)
+	}
 	if _u.mutation.TableCleared() {
 		_spec.ClearField(comment.FieldTable, field.TypeString)
 	}
 	if value, ok := _u.mutation.Dir(); ok {
 		_spec.SetField(comment.FieldDir, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldDir); ok {
+		_spec.SetField(comment.FieldDir, field.TypeJson, e)
+	}
 	if _u.mutation.DirCleared() {
 		_spec.ClearField(comment.FieldDir, field.TypeJson)
 	}
 	if value, ok := _u.mutation.GetClient(); ok {
 		_spec.SetField(comment.FieldClient, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldClient); ok {
+		_spec.SetField(comment.FieldClient, field.TypeString, e)
 	}
 	if _u.mutation.ClientCleared() {
 		_spec.ClearField(comment.FieldClient, field.TypeString)
@@ -479,17 +497,26 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 	if value, ok := _u.mutation.UniqueInt(); ok {
 		_spec.SetField(comment.FieldUniqueInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldUniqueInt); ok {
+		_spec.SetField(comment.FieldUniqueInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedUniqueInt(); ok {
 		_spec.AddField(comment.FieldUniqueInt, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.UniqueFloat(); ok {
 		_spec.SetField(comment.FieldUniqueFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldUniqueFloat); ok {
+		_spec.SetField(comment.FieldUniqueFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedUniqueFloat(); ok {
 		_spec.AddField(comment.FieldUniqueFloat, field.TypeFloat64, value)
 	}
 	if value, ok := _u.mutation.NillableInt(); ok {
 		_spec.SetField(comment.FieldNillableInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldNillableInt); ok {
+		_spec.SetField(comment.FieldNillableInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt(); ok {
 		_spec.AddField(comment.FieldNillableInt, field.TypeInt, value)
@@ -500,17 +527,26 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 	if value, ok := _u.mutation.Table(); ok {
 		_spec.SetField(comment.FieldTable, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldTable); ok {
+		_spec.SetField(comment.FieldTable, field.TypeString, e)
+	}
 	if _u.mutation.TableCleared() {
 		_spec.ClearField(comment.FieldTable, field.TypeString)
 	}
 	if value, ok := _u.mutation.Dir(); ok {
 		_spec.SetField(comment.FieldDir, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldDir); ok {
+		_spec.SetField(comment.FieldDir, field.TypeJson, e)
+	}
 	if _u.mutation.DirCleared() {
 		_spec.ClearField(comment.FieldDir, field.TypeJson)
 	}
 	if value, ok := _u.mutation.GetClient(); ok {
 		_spec.SetField(comment.FieldClient, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldClient); ok {
+		_spec.SetField(comment.FieldClient, field.TypeString, e)
 	}
 	if _u.mutation.ClientCleared() {
 		_spec.ClearField(comment.FieldClient, field.TypeString)

@@ -46,6 +46,7 @@ type Mutation struct {
 	addr                   *schema.Addr
 	unknown                *any
 	clearedFields          map[string]struct{}
+	exprs                  map[string]sql.Querier
 	predicates             []predicate.User
 }
 
@@ -66,6 +67,7 @@ func (m *Mutation) Predicates() []predicate.User {
 // SetT sets the "t" field.
 func (m *Mutation) SetT(s *schema.T) {
 	m.t = &s
+	delete(m.exprs, FieldT)
 }
 
 // T returns the value of the "t" field in the mutation.
@@ -80,6 +82,7 @@ func (m *Mutation) T() (r *schema.T, exists bool) {
 // ClearT clears the value of the "t" field.
 func (m *Mutation) ClearT() {
 	m.t = nil
+	delete(m.exprs, FieldT)
 	m.clearedFields[FieldT] = struct{}{}
 }
 
@@ -93,11 +96,13 @@ func (m *Mutation) TCleared() bool {
 func (m *Mutation) ResetT() {
 	m.t = nil
 	delete(m.clearedFields, FieldT)
+	delete(m.exprs, FieldT)
 }
 
 // SetUrl sets the "url" field.
 func (m *Mutation) SetUrl(u *url.URL) {
 	m.url = &u
+	delete(m.exprs, FieldUrl)
 }
 
 // Url returns the value of the "url" field in the mutation.
@@ -112,6 +117,7 @@ func (m *Mutation) Url() (r *url.URL, exists bool) {
 // ClearUrl clears the value of the "url" field.
 func (m *Mutation) ClearUrl() {
 	m.url = nil
+	delete(m.exprs, FieldUrl)
 	m.clearedFields[FieldUrl] = struct{}{}
 }
 
@@ -125,12 +131,14 @@ func (m *Mutation) UrlCleared() bool {
 func (m *Mutation) ResetUrl() {
 	m.url = nil
 	delete(m.clearedFields, FieldUrl)
+	delete(m.exprs, FieldUrl)
 }
 
 // SetUrls sets the "Urls" field.
 func (m *Mutation) SetUrls(u []*url.URL) {
 	m._Urls = &u
 	m.append_Urls = nil
+	delete(m.exprs, FieldUrls)
 }
 
 // Urls returns the value of the "Urls" field in the mutation.
@@ -159,6 +167,7 @@ func (m *Mutation) AppendedUrls() ([]*url.URL, bool) {
 func (m *Mutation) ClearUrls() {
 	m._Urls = nil
 	m.append_Urls = nil
+	delete(m.exprs, FieldUrls)
 	m.clearedFields[FieldUrls] = struct{}{}
 }
 
@@ -173,12 +182,14 @@ func (m *Mutation) ResetUrls() {
 	m._Urls = nil
 	m.append_Urls = nil
 	delete(m.clearedFields, FieldUrls)
+	delete(m.exprs, FieldUrls)
 }
 
 // SetRaw sets the "raw" field.
 func (m *Mutation) SetRaw(j jsontext.Value) {
 	m.raw = &j
 	m.appendraw = nil
+	delete(m.exprs, FieldRaw)
 }
 
 // Raw returns the value of the "raw" field in the mutation.
@@ -207,6 +218,7 @@ func (m *Mutation) AppendedRaw() (jsontext.Value, bool) {
 func (m *Mutation) ClearRaw() {
 	m.raw = nil
 	m.appendraw = nil
+	delete(m.exprs, FieldRaw)
 	m.clearedFields[FieldRaw] = struct{}{}
 }
 
@@ -221,12 +233,14 @@ func (m *Mutation) ResetRaw() {
 	m.raw = nil
 	m.appendraw = nil
 	delete(m.clearedFields, FieldRaw)
+	delete(m.exprs, FieldRaw)
 }
 
 // SetDirs sets the "dirs" field.
 func (m *Mutation) SetDirs(h []http.Dir) {
 	m.dirs = &h
 	m.appenddirs = nil
+	delete(m.exprs, FieldDirs)
 }
 
 // Dirs returns the value of the "dirs" field in the mutation.
@@ -255,12 +269,14 @@ func (m *Mutation) AppendedDirs() ([]http.Dir, bool) {
 func (m *Mutation) ResetDirs() {
 	m.dirs = nil
 	m.appenddirs = nil
+	delete(m.exprs, FieldDirs)
 }
 
 // SetInts sets the "ints" field.
 func (m *Mutation) SetInts(i []int) {
 	m.ints = &i
 	m.appendints = nil
+	delete(m.exprs, FieldInts)
 }
 
 // Ints returns the value of the "ints" field in the mutation.
@@ -289,6 +305,7 @@ func (m *Mutation) AppendedInts() ([]int, bool) {
 func (m *Mutation) ClearInts() {
 	m.ints = nil
 	m.appendints = nil
+	delete(m.exprs, FieldInts)
 	m.clearedFields[FieldInts] = struct{}{}
 }
 
@@ -303,12 +320,14 @@ func (m *Mutation) ResetInts() {
 	m.ints = nil
 	m.appendints = nil
 	delete(m.clearedFields, FieldInts)
+	delete(m.exprs, FieldInts)
 }
 
 // SetFloats sets the "floats" field.
 func (m *Mutation) SetFloats(f []float64) {
 	m.floats = &f
 	m.appendfloats = nil
+	delete(m.exprs, FieldFloats)
 }
 
 // Floats returns the value of the "floats" field in the mutation.
@@ -337,6 +356,7 @@ func (m *Mutation) AppendedFloats() ([]float64, bool) {
 func (m *Mutation) ClearFloats() {
 	m.floats = nil
 	m.appendfloats = nil
+	delete(m.exprs, FieldFloats)
 	m.clearedFields[FieldFloats] = struct{}{}
 }
 
@@ -351,12 +371,14 @@ func (m *Mutation) ResetFloats() {
 	m.floats = nil
 	m.appendfloats = nil
 	delete(m.clearedFields, FieldFloats)
+	delete(m.exprs, FieldFloats)
 }
 
 // SetStrings sets the "strings" field.
 func (m *Mutation) SetStrings(s []string) {
 	m.strings = &s
 	m.appendstrings = nil
+	delete(m.exprs, FieldStrings)
 }
 
 // Strings returns the value of the "strings" field in the mutation.
@@ -385,6 +407,7 @@ func (m *Mutation) AppendedStrings() ([]string, bool) {
 func (m *Mutation) ClearStrings() {
 	m.strings = nil
 	m.appendstrings = nil
+	delete(m.exprs, FieldStrings)
 	m.clearedFields[FieldStrings] = struct{}{}
 }
 
@@ -399,6 +422,7 @@ func (m *Mutation) ResetStrings() {
 	m.strings = nil
 	m.appendstrings = nil
 	delete(m.clearedFields, FieldStrings)
+	delete(m.exprs, FieldStrings)
 }
 
 // SetIntsValidate sets the "ints_validate" field.
@@ -548,6 +572,7 @@ func (m *Mutation) ResetStringsValidate() {
 // SetAddr sets the "addr" field.
 func (m *Mutation) SetAddr(s schema.Addr) {
 	m.addr = &s
+	delete(m.exprs, FieldAddr)
 }
 
 // Addr returns the value of the "addr" field in the mutation.
@@ -562,6 +587,7 @@ func (m *Mutation) Addr() (r schema.Addr, exists bool) {
 // ClearAddr clears the value of the "addr" field.
 func (m *Mutation) ClearAddr() {
 	m.addr = nil
+	delete(m.exprs, FieldAddr)
 	m.clearedFields[FieldAddr] = struct{}{}
 }
 
@@ -575,11 +601,13 @@ func (m *Mutation) AddrCleared() bool {
 func (m *Mutation) ResetAddr() {
 	m.addr = nil
 	delete(m.clearedFields, FieldAddr)
+	delete(m.exprs, FieldAddr)
 }
 
 // SetUnknown sets the "unknown" field.
 func (m *Mutation) SetUnknown(a any) {
 	m.unknown = &a
+	delete(m.exprs, FieldUnknown)
 }
 
 // Unknown returns the value of the "unknown" field in the mutation.
@@ -594,6 +622,7 @@ func (m *Mutation) Unknown() (r any, exists bool) {
 // ClearUnknown clears the value of the "unknown" field.
 func (m *Mutation) ClearUnknown() {
 	m.unknown = nil
+	delete(m.exprs, FieldUnknown)
 	m.clearedFields[FieldUnknown] = struct{}{}
 }
 
@@ -607,6 +636,7 @@ func (m *Mutation) UnknownCleared() bool {
 func (m *Mutation) ResetUnknown() {
 	m.unknown = nil
 	delete(m.clearedFields, FieldUnknown)
+	delete(m.exprs, FieldUnknown)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -644,28 +674,28 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 13)
-	if m.t != nil {
+	if m.t != nil || m.exprs[FieldT] != nil {
 		fields = append(fields, FieldT)
 	}
-	if m.url != nil {
+	if m.url != nil || m.exprs[FieldUrl] != nil {
 		fields = append(fields, FieldUrl)
 	}
-	if m._Urls != nil {
+	if m._Urls != nil || m.exprs[FieldUrls] != nil {
 		fields = append(fields, FieldUrls)
 	}
-	if m.raw != nil {
+	if m.raw != nil || m.exprs[FieldRaw] != nil {
 		fields = append(fields, FieldRaw)
 	}
-	if m.dirs != nil {
+	if m.dirs != nil || m.exprs[FieldDirs] != nil {
 		fields = append(fields, FieldDirs)
 	}
-	if m.ints != nil {
+	if m.ints != nil || m.exprs[FieldInts] != nil {
 		fields = append(fields, FieldInts)
 	}
-	if m.floats != nil {
+	if m.floats != nil || m.exprs[FieldFloats] != nil {
 		fields = append(fields, FieldFloats)
 	}
-	if m.strings != nil {
+	if m.strings != nil || m.exprs[FieldStrings] != nil {
 		fields = append(fields, FieldStrings)
 	}
 	if m.ints_validate != nil {
@@ -677,10 +707,10 @@ func (m *Mutation) Fields() []string {
 	if m.strings_validate != nil {
 		fields = append(fields, FieldStringsValidate)
 	}
-	if m.addr != nil {
+	if m.addr != nil || m.exprs[FieldAddr] != nil {
 		fields = append(fields, FieldAddr)
 	}
-	if m.unknown != nil {
+	if m.unknown != nil || m.exprs[FieldUnknown] != nil {
 		fields = append(fields, FieldUnknown)
 	}
 	return fields
@@ -689,7 +719,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldT:
 		return m.T()
@@ -731,11 +767,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldT:
 		v, ok := value.(*schema.T)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetT(v)
@@ -743,6 +785,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUrl:
 		v, ok := value.(*url.URL)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUrl(v)
@@ -750,6 +795,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUrls:
 		v, ok := value.([]*url.URL)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUrls(v)
@@ -757,6 +805,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldRaw:
 		v, ok := value.(jsontext.Value)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRaw(v)
@@ -764,6 +815,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldDirs:
 		v, ok := value.([]http.Dir)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDirs(v)
@@ -771,6 +825,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInts:
 		v, ok := value.([]int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInts(v)
@@ -778,6 +835,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldFloats:
 		v, ok := value.([]float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFloats(v)
@@ -785,6 +845,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStrings:
 		v, ok := value.([]string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStrings(v)
@@ -792,6 +855,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldIntsValidate:
 		v, ok := value.([]int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetIntsValidate(v)
@@ -799,6 +865,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldFloatsValidate:
 		v, ok := value.([]float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFloatsValidate(v)
@@ -806,6 +875,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldStringsValidate:
 		v, ok := value.([]string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStringsValidate(v)
@@ -813,6 +885,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldAddr:
 		v, ok := value.(schema.Addr)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAddr(v)
@@ -820,12 +895,113 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUnknown:
 		v, ok := value.(any)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUnknown(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldT:
+		m.ResetT()
+	case FieldUrl:
+		m.ResetUrl()
+	case FieldUrls:
+		m.ResetUrls()
+	case FieldRaw:
+		m.ResetRaw()
+	case FieldDirs:
+		m.ResetDirs()
+	case FieldInts:
+		m.ResetInts()
+	case FieldFloats:
+		m.ResetFloats()
+	case FieldStrings:
+		m.ResetStrings()
+	case FieldIntsValidate:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldFloatsValidate:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldStringsValidate:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldAddr:
+		m.ResetAddr()
+	case FieldUnknown:
+		m.ResetUnknown()
+	default:
+		return fmt.Errorf("unknown User field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldT]; ok {
+		fields = append(fields, FieldT)
+	}
+	if _, ok := m.exprs[FieldUrl]; ok {
+		fields = append(fields, FieldUrl)
+	}
+	if _, ok := m.exprs[FieldUrls]; ok {
+		fields = append(fields, FieldUrls)
+	}
+	if _, ok := m.exprs[FieldRaw]; ok {
+		fields = append(fields, FieldRaw)
+	}
+	if _, ok := m.exprs[FieldDirs]; ok {
+		fields = append(fields, FieldDirs)
+	}
+	if _, ok := m.exprs[FieldInts]; ok {
+		fields = append(fields, FieldInts)
+	}
+	if _, ok := m.exprs[FieldFloats]; ok {
+		fields = append(fields, FieldFloats)
+	}
+	if _, ok := m.exprs[FieldStrings]; ok {
+		fields = append(fields, FieldStrings)
+	}
+	if _, ok := m.exprs[FieldAddr]; ok {
+		fields = append(fields, FieldAddr)
+	}
+	if _, ok := m.exprs[FieldUnknown]; ok {
+		fields = append(fields, FieldUnknown)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

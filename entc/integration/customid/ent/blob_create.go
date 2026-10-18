@@ -139,12 +139,16 @@ func (_c *BlobCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *BlobCreate) defaults() {
 	if _, ok := _c.mutation.Uuid(); !ok {
-		v := blob.DefaultUuid()
-		_c.mutation.SetUuid(v)
+		if _, ok := _c.mutation.FieldExpr(blob.FieldUuid); !ok {
+			v := blob.DefaultUuid()
+			_c.mutation.SetUuid(v)
+		}
 	}
 	if _, ok := _c.mutation.Count(); !ok {
-		v := blob.DefaultCount
-		_c.mutation.SetCount(v)
+		if _, ok := _c.mutation.FieldExpr(blob.FieldCount); !ok {
+			v := blob.DefaultCount
+			_c.mutation.SetCount(v)
+		}
 	}
 	if _, ok := _c.mutation.Id(); !ok {
 		v := blob.DefaultId()
@@ -154,6 +158,9 @@ func (_c *BlobCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *BlobCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Blob.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Uuid(); !ok {
 		return &ValidationError{Name: "uuid", err: errors.New(`ent: missing required field "Blob.uuid"`)}
 	}
