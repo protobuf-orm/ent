@@ -22,6 +22,7 @@ type Mutation struct {
 	typ              string
 	link_information *map[string]schema.LinkInformation
 	clearedFields    map[string]struct{}
+	exprs            map[string]sql.Querier
 	predicates       []predicate.Link
 }
 
@@ -42,6 +43,7 @@ func (m *Mutation) Predicates() []predicate.Link {
 // SetLinkInformation sets the "link_information" field.
 func (m *Mutation) SetLinkInformation(mi map[string]schema.LinkInformation) {
 	m.link_information = &mi
+	delete(m.exprs, FieldLinkInformation)
 }
 
 // LinkInformation returns the value of the "link_information" field in the mutation.
@@ -56,6 +58,7 @@ func (m *Mutation) LinkInformation() (r map[string]schema.LinkInformation, exist
 // ResetLinkInformation resets all changes to the "link_information" field.
 func (m *Mutation) ResetLinkInformation() {
 	m.link_information = nil
+	delete(m.exprs, FieldLinkInformation)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -93,7 +96,7 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 1)
-	if m.link_information != nil {
+	if m.link_information != nil || m.exprs[FieldLinkInformation] != nil {
 		fields = append(fields, FieldLinkInformation)
 	}
 	return fields
@@ -102,7 +105,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldLinkInformation:
 		return m.LinkInformation()
@@ -120,17 +129,70 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldLinkInformation:
 		v, ok := value.(map[string]schema.LinkInformation)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLinkInformation(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Link field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldLinkInformation:
+		m.ResetLinkInformation()
+	default:
+		return fmt.Errorf("unknown Link field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldLinkInformation]; ok {
+		fields = append(fields, FieldLinkInformation)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

@@ -33,6 +33,7 @@ type Mutation struct {
 	addorder_option *int
 	_op             *string
 	clearedFields   map[string]struct{}
+	exprs           map[string]sql.Querier
 	predicates      []predicate.Task
 }
 
@@ -92,6 +93,7 @@ func (m *Mutation) ResetPriority() {
 // SetPriorities sets the "priorities" field.
 func (m *Mutation) SetPriorities(value map[string]task.Priority) {
 	m.priorities = &value
+	delete(m.exprs, FieldPriorities)
 }
 
 // Priorities returns the value of the "priorities" field in the mutation.
@@ -106,6 +108,7 @@ func (m *Mutation) Priorities() (r map[string]task.Priority, exists bool) {
 // ClearPriorities clears the value of the "priorities" field.
 func (m *Mutation) ClearPriorities() {
 	m.priorities = nil
+	delete(m.exprs, FieldPriorities)
 	m.clearedFields[FieldPriorities] = struct{}{}
 }
 
@@ -119,6 +122,7 @@ func (m *Mutation) PrioritiesCleared() bool {
 func (m *Mutation) ResetPriorities() {
 	m.priorities = nil
 	delete(m.clearedFields, FieldPriorities)
+	delete(m.exprs, FieldPriorities)
 }
 
 // SetCreatedAt sets the "created_at" field.
@@ -143,6 +147,7 @@ func (m *Mutation) ResetCreatedAt() {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.exprs, FieldName)
 }
 
 // Name returns the value of the "name" field in the mutation.
@@ -157,6 +162,7 @@ func (m *Mutation) Name() (r string, exists bool) {
 // ClearName clears the value of the "name" field.
 func (m *Mutation) ClearName() {
 	m.name = nil
+	delete(m.exprs, FieldName)
 	m.clearedFields[FieldName] = struct{}{}
 }
 
@@ -170,11 +176,13 @@ func (m *Mutation) NameCleared() bool {
 func (m *Mutation) ResetName() {
 	m.name = nil
 	delete(m.clearedFields, FieldName)
+	delete(m.exprs, FieldName)
 }
 
 // SetOwner sets the "owner" field.
 func (m *Mutation) SetOwner(s string) {
 	m.owner = &s
+	delete(m.exprs, FieldOwner)
 }
 
 // Owner returns the value of the "owner" field in the mutation.
@@ -189,6 +197,7 @@ func (m *Mutation) Owner() (r string, exists bool) {
 // ClearOwner clears the value of the "owner" field.
 func (m *Mutation) ClearOwner() {
 	m.owner = nil
+	delete(m.exprs, FieldOwner)
 	m.clearedFields[FieldOwner] = struct{}{}
 }
 
@@ -202,12 +211,14 @@ func (m *Mutation) OwnerCleared() bool {
 func (m *Mutation) ResetOwner() {
 	m.owner = nil
 	delete(m.clearedFields, FieldOwner)
+	delete(m.exprs, FieldOwner)
 }
 
 // SetOrder sets the "order" field.
 func (m *Mutation) SetOrder(i int) {
 	m._order = &i
 	m.add_order = nil
+	delete(m.exprs, FieldOrder)
 }
 
 // Order returns the value of the "order" field in the mutation.
@@ -241,6 +252,7 @@ func (m *Mutation) AddedOrder() (r int, exists bool) {
 func (m *Mutation) ClearOrder() {
 	m._order = nil
 	m.add_order = nil
+	delete(m.exprs, FieldOrder)
 	m.clearedFields[FieldOrder] = struct{}{}
 }
 
@@ -255,12 +267,14 @@ func (m *Mutation) ResetOrder() {
 	m._order = nil
 	m.add_order = nil
 	delete(m.clearedFields, FieldOrder)
+	delete(m.exprs, FieldOrder)
 }
 
 // SetOrderOption sets the "order_option" field.
 func (m *Mutation) SetOrderOption(i int) {
 	m.order_option = &i
 	m.addorder_option = nil
+	delete(m.exprs, FieldOrderOption)
 }
 
 // OrderOption returns the value of the "order_option" field in the mutation.
@@ -294,6 +308,7 @@ func (m *Mutation) AddedOrderOption() (r int, exists bool) {
 func (m *Mutation) ClearOrderOption() {
 	m.order_option = nil
 	m.addorder_option = nil
+	delete(m.exprs, FieldOrderOption)
 	m.clearedFields[FieldOrderOption] = struct{}{}
 }
 
@@ -308,6 +323,7 @@ func (m *Mutation) ResetOrderOption() {
 	m.order_option = nil
 	m.addorder_option = nil
 	delete(m.clearedFields, FieldOrderOption)
+	delete(m.exprs, FieldOrderOption)
 }
 
 // SetOpField sets the "op" field.
@@ -367,22 +383,22 @@ func (m *Mutation) Fields() []string {
 	if m.priority != nil {
 		fields = append(fields, FieldPriority)
 	}
-	if m.priorities != nil {
+	if m.priorities != nil || m.exprs[FieldPriorities] != nil {
 		fields = append(fields, FieldPriorities)
 	}
 	if m.created_at != nil {
 		fields = append(fields, FieldCreatedAt)
 	}
-	if m.name != nil {
+	if m.name != nil || m.exprs[FieldName] != nil {
 		fields = append(fields, FieldName)
 	}
-	if m.owner != nil {
+	if m.owner != nil || m.exprs[FieldOwner] != nil {
 		fields = append(fields, FieldOwner)
 	}
-	if m._order != nil {
+	if m._order != nil || m.exprs[FieldOrder] != nil {
 		fields = append(fields, FieldOrder)
 	}
-	if m.order_option != nil {
+	if m.order_option != nil || m.exprs[FieldOrderOption] != nil {
 		fields = append(fields, FieldOrderOption)
 	}
 	if m._op != nil {
@@ -394,7 +410,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldPriority:
 		return m.Priority()
@@ -426,11 +448,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldPriority:
 		v, ok := value.(task.Priority)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPriority(v)
@@ -438,6 +466,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldPriorities:
 		v, ok := value.(map[string]task.Priority)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPriorities(v)
@@ -445,6 +476,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldCreatedAt:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCreatedAt(v)
@@ -452,6 +486,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldName:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
@@ -459,6 +496,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOwner:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOwner(v)
@@ -466,6 +506,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOrder:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOrder(v)
@@ -473,6 +516,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOrderOption:
 		v, ok := value.(int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOrderOption(v)
@@ -480,12 +526,88 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOp:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOpField(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Task field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldPriority:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	case FieldPriorities:
+		m.ResetPriorities()
+	case FieldCreatedAt:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is immutable, and an expression is written only by an update", name)
+	case FieldName:
+		m.ResetName()
+	case FieldOwner:
+		m.ResetOwner()
+	case FieldOrder:
+		m.ResetOrder()
+	case FieldOrderOption:
+		m.ResetOrderOption()
+	case FieldOp:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is validated, and an expression has no value to validate", name)
+	default:
+		return fmt.Errorf("unknown Task field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldPriorities]; ok {
+		fields = append(fields, FieldPriorities)
+	}
+	if _, ok := m.exprs[FieldName]; ok {
+		fields = append(fields, FieldName)
+	}
+	if _, ok := m.exprs[FieldOwner]; ok {
+		fields = append(fields, FieldOwner)
+	}
+	if _, ok := m.exprs[FieldOrder]; ok {
+		fields = append(fields, FieldOrder)
+	}
+	if _, ok := m.exprs[FieldOrderOption]; ok {
+		fields = append(fields, FieldOrderOption)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

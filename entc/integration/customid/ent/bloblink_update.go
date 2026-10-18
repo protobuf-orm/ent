@@ -162,6 +162,9 @@ func (_u *BlobLinkUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(bloblink.FieldCreatedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(bloblink.FieldCreatedAt); ok {
+		_spec.SetField(bloblink.FieldCreatedAt, field.TypeTime, e)
+	}
 	if _u.mutation.BlobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -399,6 +402,9 @@ func (_u *BlobLinkUpdateOne) sqlSave(ctx context.Context) (_node *BlobLink, err 
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(bloblink.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(bloblink.FieldCreatedAt); ok {
+		_spec.SetField(bloblink.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.BlobCleared() {
 		edge := &sqlgraph.EdgeSpec{

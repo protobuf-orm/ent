@@ -164,17 +164,24 @@ func (_c *CardCreate) defaults() {
 		_c.mutation.SetCreateTime(v)
 	}
 	if _, ok := _c.mutation.UpdateTime(); !ok {
-		v := card.DefaultUpdateTime()
-		_c.mutation.SetUpdateTime(v)
+		if _, ok := _c.mutation.FieldExpr(card.FieldUpdateTime); !ok {
+			v := card.DefaultUpdateTime()
+			_c.mutation.SetUpdateTime(v)
+		}
 	}
 	if _, ok := _c.mutation.Balance(); !ok {
-		v := card.DefaultBalance
-		_c.mutation.SetBalance(v)
+		if _, ok := _c.mutation.FieldExpr(card.FieldBalance); !ok {
+			v := card.DefaultBalance
+			_c.mutation.SetBalance(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *CardCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Card.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.CreateTime(); !ok {
 		return &ValidationError{Name: "create_time", err: errors.New(`ent: missing required field "Card.create_time"`)}
 	}

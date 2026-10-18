@@ -825,28 +825,40 @@ func (_c *FieldTypeCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *FieldTypeCreate) defaults() {
 	if _, ok := _c.mutation.LinkOther(); !ok {
-		v := fieldtype.DefaultLinkOther
-		_c.mutation.SetLinkOther(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldLinkOther); !ok {
+			v := fieldtype.DefaultLinkOther
+			_c.mutation.SetLinkOther(v)
+		}
 	}
 	if _, ok := _c.mutation.LinkOtherFunc(); !ok {
-		v := fieldtype.DefaultLinkOtherFunc()
-		_c.mutation.SetLinkOtherFunc(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldLinkOtherFunc); !ok {
+			v := fieldtype.DefaultLinkOtherFunc()
+			_c.mutation.SetLinkOtherFunc(v)
+		}
 	}
 	if _, ok := _c.mutation.Dir(); !ok {
-		v := fieldtype.DefaultDir()
-		_c.mutation.SetDir(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldDir); !ok {
+			v := fieldtype.DefaultDir()
+			_c.mutation.SetDir(v)
+		}
 	}
 	if _, ok := _c.mutation.Str(); !ok {
-		v := fieldtype.DefaultStr()
-		_c.mutation.SetStr(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldStr); !ok {
+			v := fieldtype.DefaultStr()
+			_c.mutation.SetStr(v)
+		}
 	}
 	if _, ok := _c.mutation.NullStr(); !ok {
-		v := fieldtype.DefaultNullStr()
-		_c.mutation.SetNullStr(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldNullStr); !ok {
+			v := fieldtype.DefaultNullStr()
+			_c.mutation.SetNullStr(v)
+		}
 	}
 	if _, ok := _c.mutation.DeletedAt(); !ok {
-		v := fieldtype.DefaultDeletedAt()
-		_c.mutation.SetDeletedAt(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldDeletedAt); !ok {
+			v := fieldtype.DefaultDeletedAt()
+			_c.mutation.SetDeletedAt(v)
+		}
 	}
 	if _, ok := _c.mutation.Ip(); !ok {
 		v := fieldtype.DefaultIp()
@@ -857,21 +869,30 @@ func (_c *FieldTypeCreate) defaults() {
 		_c.mutation.SetRole(v)
 	}
 	if _, ok := _c.mutation.Pair(); !ok {
-		v := fieldtype.DefaultPair()
-		_c.mutation.SetPair(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldPair); !ok {
+			v := fieldtype.DefaultPair()
+			_c.mutation.SetPair(v)
+		}
 	}
 	if _, ok := _c.mutation.Vstring(); !ok {
-		v := fieldtype.DefaultVstring()
-		_c.mutation.SetVstring(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldVstring); !ok {
+			v := fieldtype.DefaultVstring()
+			_c.mutation.SetVstring(v)
+		}
 	}
 	if _, ok := _c.mutation.Triple(); !ok {
-		v := fieldtype.DefaultTriple()
-		_c.mutation.SetTriple(v)
+		if _, ok := _c.mutation.FieldExpr(fieldtype.FieldTriple); !ok {
+			v := fieldtype.DefaultTriple()
+			_c.mutation.SetTriple(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *FieldTypeCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "FieldType.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Int(); !ok {
 		return &ValidationError{Name: "int", err: errors.New(`ent: missing required field "FieldType.int"`)}
 	}

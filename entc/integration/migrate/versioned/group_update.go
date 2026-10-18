@@ -89,6 +89,9 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(group.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldName); ok {
+		_spec.SetField(group.FieldName, field.TypeString, e)
+	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{group.Label}
@@ -196,6 +199,9 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(group.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldName); ok {
+		_spec.SetField(group.FieldName, field.TypeString, e)
 	}
 	_node = &Group{config: _u.config}
 	_spec.Assign = _node.assignValues

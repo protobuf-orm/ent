@@ -156,8 +156,14 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Foods(); ok {
 		_spec.SetField(user.FieldFoods, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFoods); ok {
+		_spec.SetField(user.FieldFoods, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedFoods(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -385,8 +391,14 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Foods(); ok {
 		_spec.SetField(user.FieldFoods, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFoods); ok {
+		_spec.SetField(user.FieldFoods, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedFoods(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {

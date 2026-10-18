@@ -100,13 +100,18 @@ func (_c *UserTweetCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserTweetCreate) defaults() {
 	if _, ok := _c.mutation.CreatedAt(); !ok {
-		v := usertweet.DefaultCreatedAt()
-		_c.mutation.SetCreatedAt(v)
+		if _, ok := _c.mutation.FieldExpr(usertweet.FieldCreatedAt); !ok {
+			v := usertweet.DefaultCreatedAt()
+			_c.mutation.SetCreatedAt(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserTweetCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "UserTweet.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "UserTweet.created_at"`)}
 	}

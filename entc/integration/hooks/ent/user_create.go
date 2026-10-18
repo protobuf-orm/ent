@@ -189,18 +189,25 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() error {
 	if _, ok := _c.mutation.Version(); !ok {
-		v := user.DefaultVersion
-		_c.mutation.SetVersion(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldVersion); !ok {
+			v := user.DefaultVersion
+			_c.mutation.SetVersion(v)
+		}
 	}
 	if _, ok := _c.mutation.Active(); !ok {
-		v := user.DefaultActive
-		_c.mutation.SetActive(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldActive); !ok {
+			v := user.DefaultActive
+			_c.mutation.SetActive(v)
+		}
 	}
 	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "User.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Version(); !ok {
 		return &ValidationError{Name: "version", err: errors.New(`ent: missing required field "User.version"`)}
 	}

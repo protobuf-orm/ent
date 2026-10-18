@@ -79,6 +79,10 @@ func ({{ $receiver }} *{{ $builder }}) ExecX(ctx context.Context) {
 		{{- range $f := $fields }}
 			{{- if $f.Default }}
 				if _, ok := {{ $mutation }}.{{ $f.MutationGet }}(); !ok {
+					{{- /* Setting the default would replace the expression, and check would no longer see it to refuse. */}}
+					{{- if $f.SupportsMutationExpr }}
+						if _, ok := {{ $mutation }}.FieldExpr({{ $.Package }}.{{ $f.Constant }}); !ok {
+					{{- end }}
 					{{- if and $runtimeRequired $f.DefaultFunc }}
 						if {{ $.Package }}.{{ $f.DefaultName }} == nil {
 							return fmt.Errorf("{{ $pkg }}: uninitialized {{ $.Package }}.{{ $f.DefaultName }} (forgotten import {{ $pkg }}/runtime?)")
@@ -86,6 +90,9 @@ func ({{ $receiver }} *{{ $builder }}) ExecX(ctx context.Context) {
 					{{- end }}
 					v := {{ $.Package }}.{{ $f.DefaultName }}{{ if $f.DefaultFunc }}(){{ end }}
 					{{ $mutation }}.{{ $f.MutationSet }}(v)
+					{{- if $f.SupportsMutationExpr }}
+						}
+					{{- end }}
 				}
 			{{- end }}
 		{{- end }}
@@ -97,6 +104,12 @@ func ({{ $receiver }} *{{ $builder }}) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func ({{ $receiver }} *{{ $builder }}) check() error {
+	{{- if $.HasMutationExpr }}
+		{{- /* SetFieldExpr refuses a create's mutation, but SetOp can make one of an update's. */}}
+		if fs := {{ $mutation }}.ExprFields(); len(fs) > 0 {
+			return &ValidationError{Name: fs[0], err: fmt.Errorf(`{{ $pkg }}: field "{{ $.Name }}.%s" was assigned an expression, which only an update writes`, fs[0])}
+		}
+	{{- end }}
 	{{- range $f := $fields }}
 		{{- $skip := false }}{{ if $.HasOneFieldId }}{{ if eq $f.Name $.Id.Name }}{{ $skip = true }}{{ end }}{{ end }}
 		{{- if and (not $f.Optional) (not $skip) }}

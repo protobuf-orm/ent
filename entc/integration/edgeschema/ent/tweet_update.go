@@ -274,6 +274,9 @@ func (_u *TweetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(tweet.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(tweet.FieldText); ok {
+		_spec.SetField(tweet.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.LikedUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
@@ -831,6 +834,9 @@ func (_u *TweetUpdateOne) sqlSave(ctx context.Context) (_node *Tweet, err error)
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(tweet.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(tweet.FieldText); ok {
+		_spec.SetField(tweet.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.LikedUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{

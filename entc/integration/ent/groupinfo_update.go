@@ -154,8 +154,14 @@ func (_u *GroupInfoUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Desc(); ok {
 		_spec.SetField(groupinfo.FieldDesc, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(groupinfo.FieldDesc); ok {
+		_spec.SetField(groupinfo.FieldDesc, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.MaxUsers(); ok {
 		_spec.SetField(groupinfo.FieldMaxUsers, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(groupinfo.FieldMaxUsers); ok {
+		_spec.SetField(groupinfo.FieldMaxUsers, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedMaxUsers(); ok {
 		_spec.AddField(groupinfo.FieldMaxUsers, field.TypeInt, value)
@@ -378,8 +384,14 @@ func (_u *GroupInfoUpdateOne) sqlSave(ctx context.Context) (_node *GroupInfo, er
 	if value, ok := _u.mutation.Desc(); ok {
 		_spec.SetField(groupinfo.FieldDesc, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(groupinfo.FieldDesc); ok {
+		_spec.SetField(groupinfo.FieldDesc, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.MaxUsers(); ok {
 		_spec.SetField(groupinfo.FieldMaxUsers, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(groupinfo.FieldMaxUsers); ok {
+		_spec.SetField(groupinfo.FieldMaxUsers, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedMaxUsers(); ok {
 		_spec.AddField(groupinfo.FieldMaxUsers, field.TypeInt, value)

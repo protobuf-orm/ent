@@ -126,6 +126,9 @@ func (_u *CommentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(comment.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldText); ok {
+		_spec.SetField(comment.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.PostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -298,6 +301,9 @@ func (_u *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err er
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(comment.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(comment.FieldText); ok {
+		_spec.SetField(comment.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.PostCleared() {
 		edge := &sqlgraph.EdgeSpec{

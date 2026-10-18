@@ -111,6 +111,9 @@ func (_u *ParentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.ByAdoption(); ok {
 		_spec.SetField(parent.FieldByAdoption, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(parent.FieldByAdoption); ok {
+		_spec.SetField(parent.FieldByAdoption, field.TypeBool, e)
+	}
 	_spec.Node.Schema = _u.schemaConfig.Parent
 	ctx = internal.NewSchemaConfigContext(ctx, _u.schemaConfig)
 	_spec.AddModifiers(_u.modifiers...)
@@ -242,6 +245,9 @@ func (_u *ParentUpdateOne) sqlSave(ctx context.Context) (_node *Parent, err erro
 	}
 	if value, ok := _u.mutation.ByAdoption(); ok {
 		_spec.SetField(parent.FieldByAdoption, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(parent.FieldByAdoption); ok {
+		_spec.SetField(parent.FieldByAdoption, field.TypeBool, e)
 	}
 	_spec.Node.Schema = _u.schemaConfig.Parent
 	ctx = internal.NewSchemaConfigContext(ctx, _u.schemaConfig)

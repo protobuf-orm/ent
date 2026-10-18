@@ -277,6 +277,39 @@ func TestField_DefaultName(t *testing.T) {
 	}
 }
 
+func TestField_MutationExprRefusal(t *testing.T) {
+	typ := &Type{Id: &Field{Name: "id", Type: &field.TypeInfo{Type: field.TypeInt}}}
+	typ.Id.typ = typ
+	tests := []struct {
+		name    string
+		field   *Field
+		refused string
+	}{
+		{"free", &Field{Name: "free", Type: &field.TypeInfo{Type: field.TypeString}}, ""},
+		{"json", &Field{Name: "json", Type: &field.TypeInfo{Type: field.TypeJson}}, ""},
+		{"id", typ.Id, "id"},
+		{"validated", &Field{Name: "validated", Type: &field.TypeInfo{Type: field.TypeString}, Validators: 1}, "validated"},
+		{"enum", &Field{Name: "enum", Type: &field.TypeInfo{Type: field.TypeEnum}}, "validated"},
+		{"immutable", &Field{Name: "immutable", Type: &field.TypeInfo{Type: field.TypeString}, Immutable: true}, "immutable"},
+		{"edge", &Field{Name: "edge", Type: &field.TypeInfo{Type: field.TypeInt}, fk: &ForeignKey{}}, "edge"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.field.typ == nil {
+				tt.field.typ = typ
+			}
+			got := tt.field.MutationExprRefusal()
+			if tt.refused == "" {
+				require.Empty(t, got)
+				require.True(t, tt.field.SupportsMutationExpr())
+				return
+			}
+			require.Contains(t, got, tt.refused)
+			require.False(t, tt.field.SupportsMutationExpr())
+		})
+	}
+}
+
 func TestField_incremental(t *testing.T) {
 	tests := []struct {
 		annotations map[string]any

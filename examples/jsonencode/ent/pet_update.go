@@ -147,11 +147,17 @@ func (_u *PetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(pet.FieldAge, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(pet.FieldAge); ok {
+		_spec.SetField(pet.FieldAge, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(pet.FieldAge, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(pet.FieldName); ok {
+		_spec.SetField(pet.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -347,11 +353,17 @@ func (_u *PetUpdateOne) sqlSave(ctx context.Context) (_node *Pet, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(pet.FieldAge, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(pet.FieldAge); ok {
+		_spec.SetField(pet.FieldAge, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(pet.FieldAge, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(pet.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(pet.FieldName); ok {
+		_spec.SetField(pet.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{

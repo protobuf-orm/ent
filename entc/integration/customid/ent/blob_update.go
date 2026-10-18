@@ -172,8 +172,14 @@ func (_u *BlobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Uuid(); ok {
 		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldUuid); ok {
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, e)
+	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldCount); ok {
+		_spec.SetField(blob.FieldCount, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedCount(); ok {
 		_spec.AddField(blob.FieldCount, field.TypeInt, value)
@@ -454,8 +460,14 @@ func (_u *BlobUpdateOne) sqlSave(ctx context.Context) (_node *Blob, err error) {
 	if value, ok := _u.mutation.Uuid(); ok {
 		_spec.SetField(blob.FieldUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldUuid); ok {
+		_spec.SetField(blob.FieldUuid, field.TypeUuid, e)
+	}
 	if value, ok := _u.mutation.Count(); ok {
 		_spec.SetField(blob.FieldCount, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(blob.FieldCount); ok {
+		_spec.SetField(blob.FieldCount, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedCount(); ok {
 		_spec.AddField(blob.FieldCount, field.TypeInt, value)

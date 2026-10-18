@@ -103,8 +103,14 @@ func (_u *MixinIdUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.SomeField(); ok {
 		_spec.SetField(mixinid.FieldSomeField, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(mixinid.FieldSomeField); ok {
+		_spec.SetField(mixinid.FieldSomeField, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.MixinField(); ok {
 		_spec.SetField(mixinid.FieldMixinField, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(mixinid.FieldMixinField); ok {
+		_spec.SetField(mixinid.FieldMixinField, field.TypeString, e)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -228,8 +234,14 @@ func (_u *MixinIdUpdateOne) sqlSave(ctx context.Context) (_node *MixinId, err er
 	if value, ok := _u.mutation.SomeField(); ok {
 		_spec.SetField(mixinid.FieldSomeField, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(mixinid.FieldSomeField); ok {
+		_spec.SetField(mixinid.FieldSomeField, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.MixinField(); ok {
 		_spec.SetField(mixinid.FieldMixinField, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(mixinid.FieldMixinField); ok {
+		_spec.SetField(mixinid.FieldMixinField, field.TypeString, e)
 	}
 	_node = &MixinId{config: _u.config}
 	_spec.Assign = _node.assignValues

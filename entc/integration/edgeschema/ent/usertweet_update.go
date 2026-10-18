@@ -156,6 +156,9 @@ func (_u *UserTweetUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(usertweet.FieldCreatedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(usertweet.FieldCreatedAt); ok {
+		_spec.SetField(usertweet.FieldCreatedAt, field.TypeTime, e)
+	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -385,6 +388,9 @@ func (_u *UserTweetUpdateOne) sqlSave(ctx context.Context) (_node *UserTweet, er
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(usertweet.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(usertweet.FieldCreatedAt); ok {
+		_spec.SetField(usertweet.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{

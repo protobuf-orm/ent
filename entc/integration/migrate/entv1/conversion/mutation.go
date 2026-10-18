@@ -37,6 +37,7 @@ type Mutation struct {
 	uint64_to_string    *uint64
 	adduint64_to_string *int64
 	clearedFields       map[string]struct{}
+	exprs               map[string]sql.Querier
 	predicates          []predicate.Conversion
 }
 
@@ -57,6 +58,7 @@ func (m *Mutation) Predicates() []predicate.Conversion {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.exprs, FieldName)
 }
 
 // Name returns the value of the "name" field in the mutation.
@@ -71,6 +73,7 @@ func (m *Mutation) Name() (r string, exists bool) {
 // ClearName clears the value of the "name" field.
 func (m *Mutation) ClearName() {
 	m.name = nil
+	delete(m.exprs, FieldName)
 	m.clearedFields[FieldName] = struct{}{}
 }
 
@@ -84,12 +87,14 @@ func (m *Mutation) NameCleared() bool {
 func (m *Mutation) ResetName() {
 	m.name = nil
 	delete(m.clearedFields, FieldName)
+	delete(m.exprs, FieldName)
 }
 
 // SetInt8ToString sets the "int8_to_string" field.
 func (m *Mutation) SetInt8ToString(i int8) {
 	m.int8_to_string = &i
 	m.addint8_to_string = nil
+	delete(m.exprs, FieldInt8ToString)
 }
 
 // Int8ToString returns the value of the "int8_to_string" field in the mutation.
@@ -123,6 +128,7 @@ func (m *Mutation) AddedInt8ToString() (r int8, exists bool) {
 func (m *Mutation) ClearInt8ToString() {
 	m.int8_to_string = nil
 	m.addint8_to_string = nil
+	delete(m.exprs, FieldInt8ToString)
 	m.clearedFields[FieldInt8ToString] = struct{}{}
 }
 
@@ -137,12 +143,14 @@ func (m *Mutation) ResetInt8ToString() {
 	m.int8_to_string = nil
 	m.addint8_to_string = nil
 	delete(m.clearedFields, FieldInt8ToString)
+	delete(m.exprs, FieldInt8ToString)
 }
 
 // SetUint8ToString sets the "uint8_to_string" field.
 func (m *Mutation) SetUint8ToString(u uint8) {
 	m.uint8_to_string = &u
 	m.adduint8_to_string = nil
+	delete(m.exprs, FieldUint8ToString)
 }
 
 // Uint8ToString returns the value of the "uint8_to_string" field in the mutation.
@@ -176,6 +184,7 @@ func (m *Mutation) AddedUint8ToString() (r int8, exists bool) {
 func (m *Mutation) ClearUint8ToString() {
 	m.uint8_to_string = nil
 	m.adduint8_to_string = nil
+	delete(m.exprs, FieldUint8ToString)
 	m.clearedFields[FieldUint8ToString] = struct{}{}
 }
 
@@ -190,12 +199,14 @@ func (m *Mutation) ResetUint8ToString() {
 	m.uint8_to_string = nil
 	m.adduint8_to_string = nil
 	delete(m.clearedFields, FieldUint8ToString)
+	delete(m.exprs, FieldUint8ToString)
 }
 
 // SetInt16ToString sets the "int16_to_string" field.
 func (m *Mutation) SetInt16ToString(i int16) {
 	m.int16_to_string = &i
 	m.addint16_to_string = nil
+	delete(m.exprs, FieldInt16ToString)
 }
 
 // Int16ToString returns the value of the "int16_to_string" field in the mutation.
@@ -229,6 +240,7 @@ func (m *Mutation) AddedInt16ToString() (r int16, exists bool) {
 func (m *Mutation) ClearInt16ToString() {
 	m.int16_to_string = nil
 	m.addint16_to_string = nil
+	delete(m.exprs, FieldInt16ToString)
 	m.clearedFields[FieldInt16ToString] = struct{}{}
 }
 
@@ -243,12 +255,14 @@ func (m *Mutation) ResetInt16ToString() {
 	m.int16_to_string = nil
 	m.addint16_to_string = nil
 	delete(m.clearedFields, FieldInt16ToString)
+	delete(m.exprs, FieldInt16ToString)
 }
 
 // SetUint16ToString sets the "uint16_to_string" field.
 func (m *Mutation) SetUint16ToString(u uint16) {
 	m.uint16_to_string = &u
 	m.adduint16_to_string = nil
+	delete(m.exprs, FieldUint16ToString)
 }
 
 // Uint16ToString returns the value of the "uint16_to_string" field in the mutation.
@@ -282,6 +296,7 @@ func (m *Mutation) AddedUint16ToString() (r int16, exists bool) {
 func (m *Mutation) ClearUint16ToString() {
 	m.uint16_to_string = nil
 	m.adduint16_to_string = nil
+	delete(m.exprs, FieldUint16ToString)
 	m.clearedFields[FieldUint16ToString] = struct{}{}
 }
 
@@ -296,12 +311,14 @@ func (m *Mutation) ResetUint16ToString() {
 	m.uint16_to_string = nil
 	m.adduint16_to_string = nil
 	delete(m.clearedFields, FieldUint16ToString)
+	delete(m.exprs, FieldUint16ToString)
 }
 
 // SetInt32ToString sets the "int32_to_string" field.
 func (m *Mutation) SetInt32ToString(i int32) {
 	m.int32_to_string = &i
 	m.addint32_to_string = nil
+	delete(m.exprs, FieldInt32ToString)
 }
 
 // Int32ToString returns the value of the "int32_to_string" field in the mutation.
@@ -335,6 +352,7 @@ func (m *Mutation) AddedInt32ToString() (r int32, exists bool) {
 func (m *Mutation) ClearInt32ToString() {
 	m.int32_to_string = nil
 	m.addint32_to_string = nil
+	delete(m.exprs, FieldInt32ToString)
 	m.clearedFields[FieldInt32ToString] = struct{}{}
 }
 
@@ -349,12 +367,14 @@ func (m *Mutation) ResetInt32ToString() {
 	m.int32_to_string = nil
 	m.addint32_to_string = nil
 	delete(m.clearedFields, FieldInt32ToString)
+	delete(m.exprs, FieldInt32ToString)
 }
 
 // SetUint32ToString sets the "uint32_to_string" field.
 func (m *Mutation) SetUint32ToString(u uint32) {
 	m.uint32_to_string = &u
 	m.adduint32_to_string = nil
+	delete(m.exprs, FieldUint32ToString)
 }
 
 // Uint32ToString returns the value of the "uint32_to_string" field in the mutation.
@@ -388,6 +408,7 @@ func (m *Mutation) AddedUint32ToString() (r int32, exists bool) {
 func (m *Mutation) ClearUint32ToString() {
 	m.uint32_to_string = nil
 	m.adduint32_to_string = nil
+	delete(m.exprs, FieldUint32ToString)
 	m.clearedFields[FieldUint32ToString] = struct{}{}
 }
 
@@ -402,12 +423,14 @@ func (m *Mutation) ResetUint32ToString() {
 	m.uint32_to_string = nil
 	m.adduint32_to_string = nil
 	delete(m.clearedFields, FieldUint32ToString)
+	delete(m.exprs, FieldUint32ToString)
 }
 
 // SetInt64ToString sets the "int64_to_string" field.
 func (m *Mutation) SetInt64ToString(i int64) {
 	m.int64_to_string = &i
 	m.addint64_to_string = nil
+	delete(m.exprs, FieldInt64ToString)
 }
 
 // Int64ToString returns the value of the "int64_to_string" field in the mutation.
@@ -441,6 +464,7 @@ func (m *Mutation) AddedInt64ToString() (r int64, exists bool) {
 func (m *Mutation) ClearInt64ToString() {
 	m.int64_to_string = nil
 	m.addint64_to_string = nil
+	delete(m.exprs, FieldInt64ToString)
 	m.clearedFields[FieldInt64ToString] = struct{}{}
 }
 
@@ -455,12 +479,14 @@ func (m *Mutation) ResetInt64ToString() {
 	m.int64_to_string = nil
 	m.addint64_to_string = nil
 	delete(m.clearedFields, FieldInt64ToString)
+	delete(m.exprs, FieldInt64ToString)
 }
 
 // SetUint64ToString sets the "uint64_to_string" field.
 func (m *Mutation) SetUint64ToString(u uint64) {
 	m.uint64_to_string = &u
 	m.adduint64_to_string = nil
+	delete(m.exprs, FieldUint64ToString)
 }
 
 // Uint64ToString returns the value of the "uint64_to_string" field in the mutation.
@@ -494,6 +520,7 @@ func (m *Mutation) AddedUint64ToString() (r int64, exists bool) {
 func (m *Mutation) ClearUint64ToString() {
 	m.uint64_to_string = nil
 	m.adduint64_to_string = nil
+	delete(m.exprs, FieldUint64ToString)
 	m.clearedFields[FieldUint64ToString] = struct{}{}
 }
 
@@ -508,6 +535,7 @@ func (m *Mutation) ResetUint64ToString() {
 	m.uint64_to_string = nil
 	m.adduint64_to_string = nil
 	delete(m.clearedFields, FieldUint64ToString)
+	delete(m.exprs, FieldUint64ToString)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -545,31 +573,31 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 9)
-	if m.name != nil {
+	if m.name != nil || m.exprs[FieldName] != nil {
 		fields = append(fields, FieldName)
 	}
-	if m.int8_to_string != nil {
+	if m.int8_to_string != nil || m.exprs[FieldInt8ToString] != nil {
 		fields = append(fields, FieldInt8ToString)
 	}
-	if m.uint8_to_string != nil {
+	if m.uint8_to_string != nil || m.exprs[FieldUint8ToString] != nil {
 		fields = append(fields, FieldUint8ToString)
 	}
-	if m.int16_to_string != nil {
+	if m.int16_to_string != nil || m.exprs[FieldInt16ToString] != nil {
 		fields = append(fields, FieldInt16ToString)
 	}
-	if m.uint16_to_string != nil {
+	if m.uint16_to_string != nil || m.exprs[FieldUint16ToString] != nil {
 		fields = append(fields, FieldUint16ToString)
 	}
-	if m.int32_to_string != nil {
+	if m.int32_to_string != nil || m.exprs[FieldInt32ToString] != nil {
 		fields = append(fields, FieldInt32ToString)
 	}
-	if m.uint32_to_string != nil {
+	if m.uint32_to_string != nil || m.exprs[FieldUint32ToString] != nil {
 		fields = append(fields, FieldUint32ToString)
 	}
-	if m.int64_to_string != nil {
+	if m.int64_to_string != nil || m.exprs[FieldInt64ToString] != nil {
 		fields = append(fields, FieldInt64ToString)
 	}
-	if m.uint64_to_string != nil {
+	if m.uint64_to_string != nil || m.exprs[FieldUint64ToString] != nil {
 		fields = append(fields, FieldUint64ToString)
 	}
 	return fields
@@ -578,7 +606,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldName:
 		return m.Name()
@@ -612,11 +646,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldName:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
@@ -624,6 +664,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt8ToString:
 		v, ok := value.(int8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt8ToString(v)
@@ -631,6 +674,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUint8ToString:
 		v, ok := value.(uint8)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUint8ToString(v)
@@ -638,6 +684,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt16ToString:
 		v, ok := value.(int16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt16ToString(v)
@@ -645,6 +694,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUint16ToString:
 		v, ok := value.(uint16)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUint16ToString(v)
@@ -652,6 +704,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt32ToString:
 		v, ok := value.(int32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt32ToString(v)
@@ -659,6 +714,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUint32ToString:
 		v, ok := value.(uint32)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUint32ToString(v)
@@ -666,6 +724,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInt64ToString:
 		v, ok := value.(int64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInt64ToString(v)
@@ -673,12 +734,102 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUint64ToString:
 		v, ok := value.(uint64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUint64ToString(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Conversion field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldName:
+		m.ResetName()
+	case FieldInt8ToString:
+		m.ResetInt8ToString()
+	case FieldUint8ToString:
+		m.ResetUint8ToString()
+	case FieldInt16ToString:
+		m.ResetInt16ToString()
+	case FieldUint16ToString:
+		m.ResetUint16ToString()
+	case FieldInt32ToString:
+		m.ResetInt32ToString()
+	case FieldUint32ToString:
+		m.ResetUint32ToString()
+	case FieldInt64ToString:
+		m.ResetInt64ToString()
+	case FieldUint64ToString:
+		m.ResetUint64ToString()
+	default:
+		return fmt.Errorf("unknown Conversion field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldName]; ok {
+		fields = append(fields, FieldName)
+	}
+	if _, ok := m.exprs[FieldInt8ToString]; ok {
+		fields = append(fields, FieldInt8ToString)
+	}
+	if _, ok := m.exprs[FieldUint8ToString]; ok {
+		fields = append(fields, FieldUint8ToString)
+	}
+	if _, ok := m.exprs[FieldInt16ToString]; ok {
+		fields = append(fields, FieldInt16ToString)
+	}
+	if _, ok := m.exprs[FieldUint16ToString]; ok {
+		fields = append(fields, FieldUint16ToString)
+	}
+	if _, ok := m.exprs[FieldInt32ToString]; ok {
+		fields = append(fields, FieldInt32ToString)
+	}
+	if _, ok := m.exprs[FieldUint32ToString]; ok {
+		fields = append(fields, FieldUint32ToString)
+	}
+	if _, ok := m.exprs[FieldInt64ToString]; ok {
+		fields = append(fields, FieldInt64ToString)
+	}
+	if _, ok := m.exprs[FieldUint64ToString]; ok {
+		fields = append(fields, FieldUint64ToString)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

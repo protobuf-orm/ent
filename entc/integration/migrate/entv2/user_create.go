@@ -364,49 +364,68 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() {
 	if _, ok := _c.mutation.MixedString(); !ok {
-		v := user.DefaultMixedString
-		_c.mutation.SetMixedString(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldMixedString); !ok {
+			v := user.DefaultMixedString
+			_c.mutation.SetMixedString(v)
+		}
 	}
 	if _, ok := _c.mutation.MixedEnum(); !ok {
 		v := user.DefaultMixedEnum
 		_c.mutation.SetMixedEnum(v)
 	}
 	if _, ok := _c.mutation.Active(); !ok {
-		v := user.DefaultActive
-		_c.mutation.SetActive(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldActive); !ok {
+			v := user.DefaultActive
+			_c.mutation.SetActive(v)
+		}
 	}
 	if _, ok := _c.mutation.Phone(); !ok {
-		v := user.DefaultPhone
-		_c.mutation.SetPhone(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldPhone); !ok {
+			v := user.DefaultPhone
+			_c.mutation.SetPhone(v)
+		}
 	}
 	if _, ok := _c.mutation.Buffer(); !ok {
-		v := user.DefaultBuffer()
-		_c.mutation.SetBuffer(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldBuffer); !ok {
+			v := user.DefaultBuffer()
+			_c.mutation.SetBuffer(v)
+		}
 	}
 	if _, ok := _c.mutation.Title(); !ok {
-		v := user.DefaultTitle
-		_c.mutation.SetTitle(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldTitle); !ok {
+			v := user.DefaultTitle
+			_c.mutation.SetTitle(v)
+		}
 	}
 	if _, ok := _c.mutation.NewToken(); !ok {
-		v := user.DefaultNewToken()
-		_c.mutation.SetNewToken(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldNewToken); !ok {
+			v := user.DefaultNewToken()
+			_c.mutation.SetNewToken(v)
+		}
 	}
 	if _, ok := _c.mutation.State(); !ok {
 		v := user.DefaultState
 		_c.mutation.SetState(v)
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
-		v := user.DefaultCreatedAt()
-		_c.mutation.SetCreatedAt(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldCreatedAt); !ok {
+			v := user.DefaultCreatedAt()
+			_c.mutation.SetCreatedAt(v)
+		}
 	}
 	if _, ok := _c.mutation.DropOptional(); !ok {
-		v := user.DefaultDropOptional()
-		_c.mutation.SetDropOptional(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldDropOptional); !ok {
+			v := user.DefaultDropOptional()
+			_c.mutation.SetDropOptional(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`entv2: field "User.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.MixedString(); !ok {
 		return &ValidationError{Name: "mixed_string", err: errors.New(`entv2: missing required field "User.mixed_string"`)}
 	}

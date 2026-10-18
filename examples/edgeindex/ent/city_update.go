@@ -126,6 +126,9 @@ func (_u *CityUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(city.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(city.FieldName); ok {
+		_spec.SetField(city.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.StreetsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -314,6 +317,9 @@ func (_u *CityUpdateOne) sqlSave(ctx context.Context) (_node *City, err error) {
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(city.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(city.FieldName); ok {
+		_spec.SetField(city.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.StreetsCleared() {
 		edge := &sqlgraph.EdgeSpec{

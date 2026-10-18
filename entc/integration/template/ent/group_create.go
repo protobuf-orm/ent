@@ -63,6 +63,9 @@ func (_c *GroupCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *GroupCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "Group.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.MaxUsers(); !ok {
 		return &ValidationError{Name: "max_users", err: errors.New(`ent: missing required field "Group.max_users"`)}
 	}

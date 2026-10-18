@@ -130,8 +130,14 @@ func (_u *CarUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldModel); ok {
+		_spec.SetField(car.FieldModel, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.RegisteredAt(); ok {
 		_spec.SetField(car.FieldRegisteredAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldRegisteredAt); ok {
+		_spec.SetField(car.FieldRegisteredAt, field.TypeTime, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -309,8 +315,14 @@ func (_u *CarUpdateOne) sqlSave(ctx context.Context) (_node *Car, err error) {
 	if value, ok := _u.mutation.Model(); ok {
 		_spec.SetField(car.FieldModel, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldModel); ok {
+		_spec.SetField(car.FieldModel, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.RegisteredAt(); ok {
 		_spec.SetField(car.FieldRegisteredAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(car.FieldRegisteredAt); ok {
+		_spec.SetField(car.FieldRegisteredAt, field.TypeTime, e)
 	}
 	if _u.mutation.OwnerCleared() {
 		edge := &sqlgraph.EdgeSpec{

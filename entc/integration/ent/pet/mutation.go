@@ -29,6 +29,7 @@ type Mutation struct {
 	trained       *bool
 	optional_time *time.Time
 	clearedFields map[string]struct{}
+	exprs         map[string]sql.Querier
 	team          *int
 	clearedteam   bool
 	owner         *int
@@ -54,6 +55,7 @@ func (m *Mutation) Predicates() []predicate.Pet {
 func (m *Mutation) SetAge(f float64) {
 	m.age = &f
 	m.addage = nil
+	delete(m.exprs, FieldAge)
 }
 
 // Age returns the value of the "age" field in the mutation.
@@ -87,11 +89,13 @@ func (m *Mutation) AddedAge() (r float64, exists bool) {
 func (m *Mutation) ResetAge() {
 	m.age = nil
 	m.addage = nil
+	delete(m.exprs, FieldAge)
 }
 
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.exprs, FieldName)
 }
 
 // Name returns the value of the "name" field in the mutation.
@@ -106,11 +110,13 @@ func (m *Mutation) Name() (r string, exists bool) {
 // ResetName resets all changes to the "name" field.
 func (m *Mutation) ResetName() {
 	m.name = nil
+	delete(m.exprs, FieldName)
 }
 
 // SetUuid sets the "uuid" field.
 func (m *Mutation) SetUuid(u uuid.UUID) {
 	m.uuid = &u
+	delete(m.exprs, FieldUuid)
 }
 
 // Uuid returns the value of the "uuid" field in the mutation.
@@ -125,6 +131,7 @@ func (m *Mutation) Uuid() (r uuid.UUID, exists bool) {
 // ClearUuid clears the value of the "uuid" field.
 func (m *Mutation) ClearUuid() {
 	m.uuid = nil
+	delete(m.exprs, FieldUuid)
 	m.clearedFields[FieldUuid] = struct{}{}
 }
 
@@ -138,11 +145,13 @@ func (m *Mutation) UuidCleared() bool {
 func (m *Mutation) ResetUuid() {
 	m.uuid = nil
 	delete(m.clearedFields, FieldUuid)
+	delete(m.exprs, FieldUuid)
 }
 
 // SetNickname sets the "nickname" field.
 func (m *Mutation) SetNickname(s string) {
 	m.nickname = &s
+	delete(m.exprs, FieldNickname)
 }
 
 // Nickname returns the value of the "nickname" field in the mutation.
@@ -157,6 +166,7 @@ func (m *Mutation) Nickname() (r string, exists bool) {
 // ClearNickname clears the value of the "nickname" field.
 func (m *Mutation) ClearNickname() {
 	m.nickname = nil
+	delete(m.exprs, FieldNickname)
 	m.clearedFields[FieldNickname] = struct{}{}
 }
 
@@ -170,11 +180,13 @@ func (m *Mutation) NicknameCleared() bool {
 func (m *Mutation) ResetNickname() {
 	m.nickname = nil
 	delete(m.clearedFields, FieldNickname)
+	delete(m.exprs, FieldNickname)
 }
 
 // SetTrained sets the "trained" field.
 func (m *Mutation) SetTrained(b bool) {
 	m.trained = &b
+	delete(m.exprs, FieldTrained)
 }
 
 // Trained returns the value of the "trained" field in the mutation.
@@ -189,11 +201,13 @@ func (m *Mutation) Trained() (r bool, exists bool) {
 // ResetTrained resets all changes to the "trained" field.
 func (m *Mutation) ResetTrained() {
 	m.trained = nil
+	delete(m.exprs, FieldTrained)
 }
 
 // SetOptionalTime sets the "optional_time" field.
 func (m *Mutation) SetOptionalTime(t time.Time) {
 	m.optional_time = &t
+	delete(m.exprs, FieldOptionalTime)
 }
 
 // OptionalTime returns the value of the "optional_time" field in the mutation.
@@ -208,6 +222,7 @@ func (m *Mutation) OptionalTime() (r time.Time, exists bool) {
 // ClearOptionalTime clears the value of the "optional_time" field.
 func (m *Mutation) ClearOptionalTime() {
 	m.optional_time = nil
+	delete(m.exprs, FieldOptionalTime)
 	m.clearedFields[FieldOptionalTime] = struct{}{}
 }
 
@@ -221,6 +236,7 @@ func (m *Mutation) OptionalTimeCleared() bool {
 func (m *Mutation) ResetOptionalTime() {
 	m.optional_time = nil
 	delete(m.clearedFields, FieldOptionalTime)
+	delete(m.exprs, FieldOptionalTime)
 }
 
 // SetTeamId sets the "team" edge to the User entity by id.
@@ -336,22 +352,22 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 6)
-	if m.age != nil {
+	if m.age != nil || m.exprs[FieldAge] != nil {
 		fields = append(fields, FieldAge)
 	}
-	if m.name != nil {
+	if m.name != nil || m.exprs[FieldName] != nil {
 		fields = append(fields, FieldName)
 	}
-	if m.uuid != nil {
+	if m.uuid != nil || m.exprs[FieldUuid] != nil {
 		fields = append(fields, FieldUuid)
 	}
-	if m.nickname != nil {
+	if m.nickname != nil || m.exprs[FieldNickname] != nil {
 		fields = append(fields, FieldNickname)
 	}
-	if m.trained != nil {
+	if m.trained != nil || m.exprs[FieldTrained] != nil {
 		fields = append(fields, FieldTrained)
 	}
-	if m.optional_time != nil {
+	if m.optional_time != nil || m.exprs[FieldOptionalTime] != nil {
 		fields = append(fields, FieldOptionalTime)
 	}
 	return fields
@@ -360,7 +376,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldAge:
 		return m.Age()
@@ -388,11 +410,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldAge:
 		v, ok := value.(float64)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAge(v)
@@ -400,6 +428,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldName:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
@@ -407,6 +438,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldUuid:
 		v, ok := value.(uuid.UUID)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUuid(v)
@@ -414,6 +448,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldNickname:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNickname(v)
@@ -421,6 +458,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldTrained:
 		v, ok := value.(bool)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTrained(v)
@@ -428,12 +468,87 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldOptionalTime:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetOptionalTime(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Pet field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldAge:
+		m.ResetAge()
+	case FieldName:
+		m.ResetName()
+	case FieldUuid:
+		m.ResetUuid()
+	case FieldNickname:
+		m.ResetNickname()
+	case FieldTrained:
+		m.ResetTrained()
+	case FieldOptionalTime:
+		m.ResetOptionalTime()
+	default:
+		return fmt.Errorf("unknown Pet field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldAge]; ok {
+		fields = append(fields, FieldAge)
+	}
+	if _, ok := m.exprs[FieldName]; ok {
+		fields = append(fields, FieldName)
+	}
+	if _, ok := m.exprs[FieldUuid]; ok {
+		fields = append(fields, FieldUuid)
+	}
+	if _, ok := m.exprs[FieldNickname]; ok {
+		fields = append(fields, FieldNickname)
+	}
+	if _, ok := m.exprs[FieldTrained]; ok {
+		fields = append(fields, FieldTrained)
+	}
+	if _, ok := m.exprs[FieldOptionalTime]; ok {
+		fields = append(fields, FieldOptionalTime)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

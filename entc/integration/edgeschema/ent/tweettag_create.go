@@ -116,8 +116,10 @@ func (_c *TweetTagCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *TweetTagCreate) defaults() {
 	if _, ok := _c.mutation.AddedAt(); !ok {
-		v := tweettag.DefaultAddedAt()
-		_c.mutation.SetAddedAt(v)
+		if _, ok := _c.mutation.FieldExpr(tweettag.FieldAddedAt); !ok {
+			v := tweettag.DefaultAddedAt()
+			_c.mutation.SetAddedAt(v)
+		}
 	}
 	if _, ok := _c.mutation.Id(); !ok {
 		v := tweettag.DefaultId()
@@ -127,6 +129,9 @@ func (_c *TweetTagCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *TweetTagCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "TweetTag.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.AddedAt(); !ok {
 		return &ValidationError{Name: "added_at", err: errors.New(`ent: missing required field "TweetTag.added_at"`)}
 	}

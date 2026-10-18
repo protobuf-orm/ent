@@ -170,8 +170,14 @@ func (_u *FileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldName); ok {
+		_spec.SetField(file.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Deleted(); ok {
 		_spec.SetField(file.FieldDeleted, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldDeleted); ok {
+		_spec.SetField(file.FieldDeleted, field.TypeBool, e)
 	}
 	if _u.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -436,8 +442,14 @@ func (_u *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(file.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldName); ok {
+		_spec.SetField(file.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Deleted(); ok {
 		_spec.SetField(file.FieldDeleted, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(file.FieldDeleted); ok {
+		_spec.SetField(file.FieldDeleted, field.TypeBool, e)
 	}
 	if _u.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{

@@ -30,6 +30,7 @@ type Mutation struct {
 	custom          *string
 	custom_optional *string
 	clearedFields   map[string]struct{}
+	exprs           map[string]sql.Querier
 	predicates      []predicate.ExValueScan
 }
 
@@ -50,6 +51,7 @@ func (m *Mutation) Predicates() []predicate.ExValueScan {
 // SetBinary sets the "binary" field.
 func (m *Mutation) SetBinary(u *url.URL) {
 	m.binary = &u
+	delete(m.exprs, FieldBinary)
 }
 
 // Binary returns the value of the "binary" field in the mutation.
@@ -64,11 +66,13 @@ func (m *Mutation) Binary() (r *url.URL, exists bool) {
 // ResetBinary resets all changes to the "binary" field.
 func (m *Mutation) ResetBinary() {
 	m.binary = nil
+	delete(m.exprs, FieldBinary)
 }
 
 // SetBinaryBytes sets the "binary_bytes" field.
 func (m *Mutation) SetBinaryBytes(u *url.URL) {
 	m.binary_bytes = &u
+	delete(m.exprs, FieldBinaryBytes)
 }
 
 // BinaryBytes returns the value of the "binary_bytes" field in the mutation.
@@ -83,11 +87,13 @@ func (m *Mutation) BinaryBytes() (r *url.URL, exists bool) {
 // ResetBinaryBytes resets all changes to the "binary_bytes" field.
 func (m *Mutation) ResetBinaryBytes() {
 	m.binary_bytes = nil
+	delete(m.exprs, FieldBinaryBytes)
 }
 
 // SetBinaryOptional sets the "binary_optional" field.
 func (m *Mutation) SetBinaryOptional(u *url.URL) {
 	m.binary_optional = &u
+	delete(m.exprs, FieldBinaryOptional)
 }
 
 // BinaryOptional returns the value of the "binary_optional" field in the mutation.
@@ -102,6 +108,7 @@ func (m *Mutation) BinaryOptional() (r *url.URL, exists bool) {
 // ClearBinaryOptional clears the value of the "binary_optional" field.
 func (m *Mutation) ClearBinaryOptional() {
 	m.binary_optional = nil
+	delete(m.exprs, FieldBinaryOptional)
 	m.clearedFields[FieldBinaryOptional] = struct{}{}
 }
 
@@ -115,11 +122,13 @@ func (m *Mutation) BinaryOptionalCleared() bool {
 func (m *Mutation) ResetBinaryOptional() {
 	m.binary_optional = nil
 	delete(m.clearedFields, FieldBinaryOptional)
+	delete(m.exprs, FieldBinaryOptional)
 }
 
 // SetText sets the "text" field.
 func (m *Mutation) SetText(b *big.Int) {
 	m.text = &b
+	delete(m.exprs, FieldText)
 }
 
 // Text returns the value of the "text" field in the mutation.
@@ -134,11 +143,13 @@ func (m *Mutation) Text() (r *big.Int, exists bool) {
 // ResetText resets all changes to the "text" field.
 func (m *Mutation) ResetText() {
 	m.text = nil
+	delete(m.exprs, FieldText)
 }
 
 // SetTextOptional sets the "text_optional" field.
 func (m *Mutation) SetTextOptional(b *big.Int) {
 	m.text_optional = &b
+	delete(m.exprs, FieldTextOptional)
 }
 
 // TextOptional returns the value of the "text_optional" field in the mutation.
@@ -153,6 +164,7 @@ func (m *Mutation) TextOptional() (r *big.Int, exists bool) {
 // ClearTextOptional clears the value of the "text_optional" field.
 func (m *Mutation) ClearTextOptional() {
 	m.text_optional = nil
+	delete(m.exprs, FieldTextOptional)
 	m.clearedFields[FieldTextOptional] = struct{}{}
 }
 
@@ -166,11 +178,13 @@ func (m *Mutation) TextOptionalCleared() bool {
 func (m *Mutation) ResetTextOptional() {
 	m.text_optional = nil
 	delete(m.clearedFields, FieldTextOptional)
+	delete(m.exprs, FieldTextOptional)
 }
 
 // SetBase64 sets the "base64" field.
 func (m *Mutation) SetBase64(s string) {
 	m.base64 = &s
+	delete(m.exprs, FieldBase64)
 }
 
 // Base64 returns the value of the "base64" field in the mutation.
@@ -185,11 +199,13 @@ func (m *Mutation) Base64() (r string, exists bool) {
 // ResetBase64 resets all changes to the "base64" field.
 func (m *Mutation) ResetBase64() {
 	m.base64 = nil
+	delete(m.exprs, FieldBase64)
 }
 
 // SetCustom sets the "custom" field.
 func (m *Mutation) SetCustom(s string) {
 	m.custom = &s
+	delete(m.exprs, FieldCustom)
 }
 
 // Custom returns the value of the "custom" field in the mutation.
@@ -204,11 +220,13 @@ func (m *Mutation) Custom() (r string, exists bool) {
 // ResetCustom resets all changes to the "custom" field.
 func (m *Mutation) ResetCustom() {
 	m.custom = nil
+	delete(m.exprs, FieldCustom)
 }
 
 // SetCustomOptional sets the "custom_optional" field.
 func (m *Mutation) SetCustomOptional(s string) {
 	m.custom_optional = &s
+	delete(m.exprs, FieldCustomOptional)
 }
 
 // CustomOptional returns the value of the "custom_optional" field in the mutation.
@@ -223,6 +241,7 @@ func (m *Mutation) CustomOptional() (r string, exists bool) {
 // ClearCustomOptional clears the value of the "custom_optional" field.
 func (m *Mutation) ClearCustomOptional() {
 	m.custom_optional = nil
+	delete(m.exprs, FieldCustomOptional)
 	m.clearedFields[FieldCustomOptional] = struct{}{}
 }
 
@@ -236,6 +255,7 @@ func (m *Mutation) CustomOptionalCleared() bool {
 func (m *Mutation) ResetCustomOptional() {
 	m.custom_optional = nil
 	delete(m.clearedFields, FieldCustomOptional)
+	delete(m.exprs, FieldCustomOptional)
 }
 
 // Where appends a list predicates to the Mutation builder.
@@ -273,28 +293,28 @@ func (m *Mutation) Type() string {
 // AddedFields().
 func (m *Mutation) Fields() []string {
 	fields := make([]string, 0, 8)
-	if m.binary != nil {
+	if m.binary != nil || m.exprs[FieldBinary] != nil {
 		fields = append(fields, FieldBinary)
 	}
-	if m.binary_bytes != nil {
+	if m.binary_bytes != nil || m.exprs[FieldBinaryBytes] != nil {
 		fields = append(fields, FieldBinaryBytes)
 	}
-	if m.binary_optional != nil {
+	if m.binary_optional != nil || m.exprs[FieldBinaryOptional] != nil {
 		fields = append(fields, FieldBinaryOptional)
 	}
-	if m.text != nil {
+	if m.text != nil || m.exprs[FieldText] != nil {
 		fields = append(fields, FieldText)
 	}
-	if m.text_optional != nil {
+	if m.text_optional != nil || m.exprs[FieldTextOptional] != nil {
 		fields = append(fields, FieldTextOptional)
 	}
-	if m.base64 != nil {
+	if m.base64 != nil || m.exprs[FieldBase64] != nil {
 		fields = append(fields, FieldBase64)
 	}
-	if m.custom != nil {
+	if m.custom != nil || m.exprs[FieldCustom] != nil {
 		fields = append(fields, FieldCustom)
 	}
-	if m.custom_optional != nil {
+	if m.custom_optional != nil || m.exprs[FieldCustomOptional] != nil {
 		fields = append(fields, FieldCustomOptional)
 	}
 	return fields
@@ -303,7 +323,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldBinary:
 		return m.Binary()
@@ -335,11 +361,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldBinary:
 		v, ok := value.(*url.URL)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBinary(v)
@@ -347,6 +379,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldBinaryBytes:
 		v, ok := value.(*url.URL)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBinaryBytes(v)
@@ -354,6 +389,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldBinaryOptional:
 		v, ok := value.(*url.URL)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBinaryOptional(v)
@@ -361,6 +399,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldText:
 		v, ok := value.(*big.Int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetText(v)
@@ -368,6 +409,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldTextOptional:
 		v, ok := value.(*big.Int)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTextOptional(v)
@@ -375,6 +419,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldBase64:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBase64(v)
@@ -382,6 +429,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldCustom:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCustom(v)
@@ -389,12 +439,97 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldCustomOptional:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCustomOptional(v)
 		return nil
 	}
 	return fmt.Errorf("unknown ExValueScan field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldBinary:
+		m.ResetBinary()
+	case FieldBinaryBytes:
+		m.ResetBinaryBytes()
+	case FieldBinaryOptional:
+		m.ResetBinaryOptional()
+	case FieldText:
+		m.ResetText()
+	case FieldTextOptional:
+		m.ResetTextOptional()
+	case FieldBase64:
+		m.ResetBase64()
+	case FieldCustom:
+		m.ResetCustom()
+	case FieldCustomOptional:
+		m.ResetCustomOptional()
+	default:
+		return fmt.Errorf("unknown ExValueScan field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldBinary]; ok {
+		fields = append(fields, FieldBinary)
+	}
+	if _, ok := m.exprs[FieldBinaryBytes]; ok {
+		fields = append(fields, FieldBinaryBytes)
+	}
+	if _, ok := m.exprs[FieldBinaryOptional]; ok {
+		fields = append(fields, FieldBinaryOptional)
+	}
+	if _, ok := m.exprs[FieldText]; ok {
+		fields = append(fields, FieldText)
+	}
+	if _, ok := m.exprs[FieldTextOptional]; ok {
+		fields = append(fields, FieldTextOptional)
+	}
+	if _, ok := m.exprs[FieldBase64]; ok {
+		fields = append(fields, FieldBase64)
+	}
+	if _, ok := m.exprs[FieldCustom]; ok {
+		fields = append(fields, FieldCustom)
+	}
+	if _, ok := m.exprs[FieldCustomOptional]; ok {
+		fields = append(fields, FieldCustomOptional)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

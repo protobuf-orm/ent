@@ -1378,16 +1378,22 @@ func (_u *FieldTypeUpdate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *FieldTypeUpdate) defaults() {
 	if _, ok := _u.mutation.Int64(); !ok {
-		v := fieldtype.UpdateDefaultInt64()
-		_u.mutation.SetInt64(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldInt64); !ok {
+			v := fieldtype.UpdateDefaultInt64()
+			_u.mutation.SetInt64(v)
+		}
 	}
 	if _, ok := _u.mutation.Duration(); !ok && !_u.mutation.DurationCleared() {
-		v := fieldtype.UpdateDefaultDuration()
-		_u.mutation.SetDuration(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldDuration); !ok {
+			v := fieldtype.UpdateDefaultDuration()
+			_u.mutation.SetDuration(v)
+		}
 	}
 	if _, ok := _u.mutation.DeletedAt(); !ok && !_u.mutation.DeletedAtCleared() {
-		v := fieldtype.UpdateDefaultDeletedAt()
-		_u.mutation.SetDeletedAt(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldDeletedAt); !ok {
+			v := fieldtype.UpdateDefaultDeletedAt()
+			_u.mutation.SetDeletedAt(v)
+		}
 	}
 }
 
@@ -1462,11 +1468,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Int(); ok {
 		_spec.SetField(fieldtype.FieldInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt); ok {
+		_spec.SetField(fieldtype.FieldInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedInt(); ok {
 		_spec.AddField(fieldtype.FieldInt, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Int8(); ok {
 		_spec.SetField(fieldtype.FieldInt8, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt8); ok {
+		_spec.SetField(fieldtype.FieldInt8, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedInt8(); ok {
 		_spec.AddField(fieldtype.FieldInt8, field.TypeInt8, value)
@@ -1474,11 +1486,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Int16(); ok {
 		_spec.SetField(fieldtype.FieldInt16, field.TypeInt16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt16); ok {
+		_spec.SetField(fieldtype.FieldInt16, field.TypeInt16, e)
+	}
 	if value, ok := _u.mutation.AddedInt16(); ok {
 		_spec.AddField(fieldtype.FieldInt16, field.TypeInt16, value)
 	}
 	if value, ok := _u.mutation.Int32(); ok {
 		_spec.SetField(fieldtype.FieldInt32, field.TypeInt32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt32); ok {
+		_spec.SetField(fieldtype.FieldInt32, field.TypeInt32, e)
 	}
 	if value, ok := _u.mutation.AddedInt32(); ok {
 		_spec.AddField(fieldtype.FieldInt32, field.TypeInt32, value)
@@ -1486,11 +1504,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Int64(); ok {
 		_spec.SetField(fieldtype.FieldInt64, field.TypeInt64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt64); ok {
+		_spec.SetField(fieldtype.FieldInt64, field.TypeInt64, e)
+	}
 	if value, ok := _u.mutation.AddedInt64(); ok {
 		_spec.AddField(fieldtype.FieldInt64, field.TypeInt64, value)
 	}
 	if value, ok := _u.mutation.OptionalInt(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt, field.TypeInt, value)
@@ -1501,6 +1525,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalInt8(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt8, field.TypeInt8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt8); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt8, field.TypeInt8, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalInt8(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt8, field.TypeInt8, value)
 	}
@@ -1509,6 +1536,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OptionalInt16(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt16, field.TypeInt16, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt16); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt16, field.TypeInt16, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt16(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt16, field.TypeInt16, value)
@@ -1519,6 +1549,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalInt32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt32, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt32); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt32, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalInt32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt32, field.TypeInt32, value)
 	}
@@ -1527,6 +1560,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OptionalInt64(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt64); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt64(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt64, field.TypeInt64, value)
@@ -1537,6 +1573,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NillableInt(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt); ok {
+		_spec.SetField(fieldtype.FieldNillableInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt, field.TypeInt, value)
 	}
@@ -1545,6 +1584,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.NillableInt8(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt8, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt8); ok {
+		_spec.SetField(fieldtype.FieldNillableInt8, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt8(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt8, field.TypeInt8, value)
@@ -1555,6 +1597,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NillableInt16(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt16, field.TypeInt16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt16); ok {
+		_spec.SetField(fieldtype.FieldNillableInt16, field.TypeInt16, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt16(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt16, field.TypeInt16, value)
 	}
@@ -1564,6 +1609,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NillableInt32(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt32, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt32); ok {
+		_spec.SetField(fieldtype.FieldNillableInt32, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt32(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt32, field.TypeInt32, value)
 	}
@@ -1572,6 +1620,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.NillableInt64(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt64); ok {
+		_spec.SetField(fieldtype.FieldNillableInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt64(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt64, field.TypeInt64, value)
@@ -1591,6 +1642,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalUint(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint, field.TypeUint, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint, field.TypeUint, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint, field.TypeUint, value)
 	}
@@ -1599,6 +1653,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OptionalUint8(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint8, field.TypeUint8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint8); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint8, field.TypeUint8, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalUint8(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint8, field.TypeUint8, value)
@@ -1609,6 +1666,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalUint16(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint16, field.TypeUint16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint16); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint16, field.TypeUint16, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint16(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint16, field.TypeUint16, value)
 	}
@@ -1618,6 +1678,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalUint32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint32, field.TypeUint32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint32); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint32, field.TypeUint32, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint32, field.TypeUint32, value)
 	}
@@ -1626,6 +1689,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OptionalUint64(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint64, field.TypeUint64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint64); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint64, field.TypeUint64, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalUint64(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint64, field.TypeUint64, value)
@@ -1642,6 +1708,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalFloat(); ok {
 		_spec.SetField(fieldtype.FieldOptionalFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalFloat); ok {
+		_spec.SetField(fieldtype.FieldOptionalFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalFloat(); ok {
 		_spec.AddField(fieldtype.FieldOptionalFloat, field.TypeFloat64, value)
 	}
@@ -1650,6 +1719,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.OptionalFloat32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalFloat32); ok {
+		_spec.SetField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalFloat32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, value)
@@ -1660,17 +1732,26 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(fieldtype.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldText); ok {
+		_spec.SetField(fieldtype.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(fieldtype.FieldText, field.TypeString)
 	}
 	if value, ok := _u.mutation.Datetime(); ok {
 		_spec.SetField(fieldtype.FieldDatetime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDatetime); ok {
+		_spec.SetField(fieldtype.FieldDatetime, field.TypeTime, e)
+	}
 	if _u.mutation.DatetimeCleared() {
 		_spec.ClearField(fieldtype.FieldDatetime, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Decimal(); ok {
 		_spec.SetField(fieldtype.FieldDecimal, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDecimal); ok {
+		_spec.SetField(fieldtype.FieldDecimal, field.TypeFloat64, e)
 	}
 	if value, ok := _u.mutation.AddedDecimal(); ok {
 		_spec.AddField(fieldtype.FieldDecimal, field.TypeFloat64, value)
@@ -1681,11 +1762,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.LinkOther(); ok {
 		_spec.SetField(fieldtype.FieldLinkOther, field.TypeOther, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldLinkOther); ok {
+		_spec.SetField(fieldtype.FieldLinkOther, field.TypeOther, e)
+	}
 	if _u.mutation.LinkOtherCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOther, field.TypeOther)
 	}
 	if value, ok := _u.mutation.LinkOtherFunc(); ok {
 		_spec.SetField(fieldtype.FieldLinkOtherFunc, field.TypeOther, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldLinkOtherFunc); ok {
+		_spec.SetField(fieldtype.FieldLinkOtherFunc, field.TypeOther, e)
 	}
 	if _u.mutation.LinkOtherFuncCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOtherFunc, field.TypeOther)
@@ -1699,11 +1786,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.StringArray(); ok {
 		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStringArray); ok {
+		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, e)
+	}
 	if _u.mutation.StringArrayCleared() {
 		_spec.ClearField(fieldtype.FieldStringArray, field.TypeOther)
 	}
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(fieldtype.FieldPassword, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPassword); ok {
+		_spec.SetField(fieldtype.FieldPassword, field.TypeString, e)
 	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(fieldtype.FieldPassword, field.TypeString)
@@ -1711,11 +1804,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.StringScanner(); ok {
 		_spec.SetField(fieldtype.FieldStringScanner, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStringScanner); ok {
+		_spec.SetField(fieldtype.FieldStringScanner, field.TypeString, e)
+	}
 	if _u.mutation.StringScannerCleared() {
 		_spec.ClearField(fieldtype.FieldStringScanner, field.TypeString)
 	}
 	if value, ok := _u.mutation.Duration(); ok {
 		_spec.SetField(fieldtype.FieldDuration, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDuration); ok {
+		_spec.SetField(fieldtype.FieldDuration, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedDuration(); ok {
 		_spec.AddField(fieldtype.FieldDuration, field.TypeInt64, value)
@@ -1726,6 +1825,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Dir(); ok {
 		_spec.SetField(fieldtype.FieldDir, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDir); ok {
+		_spec.SetField(fieldtype.FieldDir, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Ndir(); ok {
 		_spec.SetField(fieldtype.FieldNdir, field.TypeString, value)
 	}
@@ -1735,11 +1837,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Str(); ok {
 		_spec.SetField(fieldtype.FieldStr, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStr); ok {
+		_spec.SetField(fieldtype.FieldStr, field.TypeString, e)
+	}
 	if _u.mutation.StrCleared() {
 		_spec.ClearField(fieldtype.FieldStr, field.TypeString)
 	}
 	if value, ok := _u.mutation.NullStr(); ok {
 		_spec.SetField(fieldtype.FieldNullStr, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullStr); ok {
+		_spec.SetField(fieldtype.FieldNullStr, field.TypeString, e)
 	}
 	if _u.mutation.NullStrCleared() {
 		_spec.ClearField(fieldtype.FieldNullStr, field.TypeString)
@@ -1753,11 +1861,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NullLink(); ok {
 		_spec.SetField(fieldtype.FieldNullLink, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullLink); ok {
+		_spec.SetField(fieldtype.FieldNullLink, field.TypeString, e)
+	}
 	if _u.mutation.NullLinkCleared() {
 		_spec.ClearField(fieldtype.FieldNullLink, field.TypeString)
 	}
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(fieldtype.FieldActive, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldActive); ok {
+		_spec.SetField(fieldtype.FieldActive, field.TypeBool, e)
 	}
 	if _u.mutation.ActiveCleared() {
 		_spec.ClearField(fieldtype.FieldActive, field.TypeBool)
@@ -1765,17 +1879,26 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NullActive(); ok {
 		_spec.SetField(fieldtype.FieldNullActive, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullActive); ok {
+		_spec.SetField(fieldtype.FieldNullActive, field.TypeBool, e)
+	}
 	if _u.mutation.NullActiveCleared() {
 		_spec.ClearField(fieldtype.FieldNullActive, field.TypeBool)
 	}
 	if value, ok := _u.mutation.Deleted(); ok {
 		_spec.SetField(fieldtype.FieldDeleted, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDeleted); ok {
+		_spec.SetField(fieldtype.FieldDeleted, field.TypeBool, e)
+	}
 	if _u.mutation.DeletedCleared() {
 		_spec.ClearField(fieldtype.FieldDeleted, field.TypeBool)
 	}
 	if value, ok := _u.mutation.DeletedAt(); ok {
 		_spec.SetField(fieldtype.FieldDeletedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDeletedAt); ok {
+		_spec.SetField(fieldtype.FieldDeletedAt, field.TypeTime, e)
 	}
 	if _u.mutation.DeletedAtCleared() {
 		_spec.ClearField(fieldtype.FieldDeletedAt, field.TypeTime)
@@ -1789,6 +1912,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Sensitive(); ok {
 		_spec.SetField(fieldtype.FieldSensitive, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSensitive); ok {
+		_spec.SetField(fieldtype.FieldSensitive, field.TypeBytes, e)
+	}
 	if _u.mutation.SensitiveCleared() {
 		_spec.ClearField(fieldtype.FieldSensitive, field.TypeBytes)
 	}
@@ -1801,11 +1927,17 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.NullInt64(); ok {
 		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullInt64); ok {
+		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, e)
+	}
 	if _u.mutation.NullInt64Cleared() {
 		_spec.ClearField(fieldtype.FieldNullInt64, field.TypeInt)
 	}
 	if value, ok := _u.mutation.SchemaInt(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedSchemaInt(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt, field.TypeInt, value)
@@ -1816,6 +1948,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.SchemaInt8(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt8, field.TypeInt8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt8); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt8, field.TypeInt8, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaInt8(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt8, field.TypeInt8, value)
 	}
@@ -1824,6 +1959,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.SchemaInt64(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt64); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedSchemaInt64(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt64, field.TypeInt64, value)
@@ -1834,6 +1972,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.SchemaFloat(); ok {
 		_spec.SetField(fieldtype.FieldSchemaFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaFloat); ok {
+		_spec.SetField(fieldtype.FieldSchemaFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaFloat(); ok {
 		_spec.AddField(fieldtype.FieldSchemaFloat, field.TypeFloat64, value)
 	}
@@ -1843,6 +1984,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.SchemaFloat32(); ok {
 		_spec.SetField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaFloat32); ok {
+		_spec.SetField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaFloat32(); ok {
 		_spec.AddField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, value)
 	}
@@ -1851,6 +1995,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.NullFloat(); ok {
 		_spec.SetField(fieldtype.FieldNullFloat, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullFloat); ok {
+		_spec.SetField(fieldtype.FieldNullFloat, field.TypeFloat64, e)
 	}
 	if _u.mutation.NullFloatCleared() {
 		_spec.ClearField(fieldtype.FieldNullFloat, field.TypeFloat64)
@@ -1867,17 +2014,26 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.OptionalUuid(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUuid); ok {
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, e)
+	}
 	if _u.mutation.OptionalUuidCleared() {
 		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.NillableUuid(); ok {
 		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableUuid); ok {
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, e)
+	}
 	if _u.mutation.NillableUuidCleared() {
 		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.Strings(); ok {
 		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStrings); ok {
+		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -1890,8 +2046,14 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Pair(); ok {
 		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPair); ok {
+		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.NilPair(); ok {
 		_spec.SetField(fieldtype.FieldNilPair, field.TypeBytes, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNilPair); ok {
+		_spec.SetField(fieldtype.FieldNilPair, field.TypeBytes, e)
 	}
 	if _u.mutation.NilPairCleared() {
 		_spec.ClearField(fieldtype.FieldNilPair, field.TypeBytes)
@@ -1899,11 +2061,20 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Vstring(); ok {
 		_spec.SetField(fieldtype.FieldVstring, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldVstring); ok {
+		_spec.SetField(fieldtype.FieldVstring, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Triple(); ok {
 		_spec.SetField(fieldtype.FieldTriple, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldTriple); ok {
+		_spec.SetField(fieldtype.FieldTriple, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.BigInt(); ok {
 		_spec.SetField(fieldtype.FieldBigInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldBigInt); ok {
+		_spec.SetField(fieldtype.FieldBigInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedBigInt(); ok {
 		_spec.AddField(fieldtype.FieldBigInt, field.TypeInt, value)
@@ -1913,6 +2084,9 @@ func (_u *FieldTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.PasswordOther(); ok {
 		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPasswordOther); ok {
+		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, e)
 	}
 	if _u.mutation.PasswordOtherCleared() {
 		_spec.ClearField(fieldtype.FieldPasswordOther, field.TypeOther)
@@ -3291,16 +3465,22 @@ func (_u *FieldTypeUpdateOne) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *FieldTypeUpdateOne) defaults() {
 	if _, ok := _u.mutation.Int64(); !ok {
-		v := fieldtype.UpdateDefaultInt64()
-		_u.mutation.SetInt64(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldInt64); !ok {
+			v := fieldtype.UpdateDefaultInt64()
+			_u.mutation.SetInt64(v)
+		}
 	}
 	if _, ok := _u.mutation.Duration(); !ok && !_u.mutation.DurationCleared() {
-		v := fieldtype.UpdateDefaultDuration()
-		_u.mutation.SetDuration(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldDuration); !ok {
+			v := fieldtype.UpdateDefaultDuration()
+			_u.mutation.SetDuration(v)
+		}
 	}
 	if _, ok := _u.mutation.DeletedAt(); !ok && !_u.mutation.DeletedAtCleared() {
-		v := fieldtype.UpdateDefaultDeletedAt()
-		_u.mutation.SetDeletedAt(v)
+		if _, ok := _u.mutation.FieldExpr(fieldtype.FieldDeletedAt); !ok {
+			v := fieldtype.UpdateDefaultDeletedAt()
+			_u.mutation.SetDeletedAt(v)
+		}
 	}
 }
 
@@ -3392,11 +3572,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Int(); ok {
 		_spec.SetField(fieldtype.FieldInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt); ok {
+		_spec.SetField(fieldtype.FieldInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedInt(); ok {
 		_spec.AddField(fieldtype.FieldInt, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.Int8(); ok {
 		_spec.SetField(fieldtype.FieldInt8, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt8); ok {
+		_spec.SetField(fieldtype.FieldInt8, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedInt8(); ok {
 		_spec.AddField(fieldtype.FieldInt8, field.TypeInt8, value)
@@ -3404,11 +3590,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Int16(); ok {
 		_spec.SetField(fieldtype.FieldInt16, field.TypeInt16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt16); ok {
+		_spec.SetField(fieldtype.FieldInt16, field.TypeInt16, e)
+	}
 	if value, ok := _u.mutation.AddedInt16(); ok {
 		_spec.AddField(fieldtype.FieldInt16, field.TypeInt16, value)
 	}
 	if value, ok := _u.mutation.Int32(); ok {
 		_spec.SetField(fieldtype.FieldInt32, field.TypeInt32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt32); ok {
+		_spec.SetField(fieldtype.FieldInt32, field.TypeInt32, e)
 	}
 	if value, ok := _u.mutation.AddedInt32(); ok {
 		_spec.AddField(fieldtype.FieldInt32, field.TypeInt32, value)
@@ -3416,11 +3608,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Int64(); ok {
 		_spec.SetField(fieldtype.FieldInt64, field.TypeInt64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldInt64); ok {
+		_spec.SetField(fieldtype.FieldInt64, field.TypeInt64, e)
+	}
 	if value, ok := _u.mutation.AddedInt64(); ok {
 		_spec.AddField(fieldtype.FieldInt64, field.TypeInt64, value)
 	}
 	if value, ok := _u.mutation.OptionalInt(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt, field.TypeInt, value)
@@ -3431,6 +3629,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalInt8(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt8, field.TypeInt8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt8); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt8, field.TypeInt8, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalInt8(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt8, field.TypeInt8, value)
 	}
@@ -3439,6 +3640,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.OptionalInt16(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt16, field.TypeInt16, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt16); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt16, field.TypeInt16, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt16(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt16, field.TypeInt16, value)
@@ -3449,6 +3653,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalInt32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt32, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt32); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt32, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalInt32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt32, field.TypeInt32, value)
 	}
@@ -3457,6 +3664,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.OptionalInt64(); ok {
 		_spec.SetField(fieldtype.FieldOptionalInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalInt64); ok {
+		_spec.SetField(fieldtype.FieldOptionalInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalInt64(); ok {
 		_spec.AddField(fieldtype.FieldOptionalInt64, field.TypeInt64, value)
@@ -3467,6 +3677,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NillableInt(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt); ok {
+		_spec.SetField(fieldtype.FieldNillableInt, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt, field.TypeInt, value)
 	}
@@ -3475,6 +3688,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.NillableInt8(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt8, field.TypeInt8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt8); ok {
+		_spec.SetField(fieldtype.FieldNillableInt8, field.TypeInt8, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt8(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt8, field.TypeInt8, value)
@@ -3485,6 +3701,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NillableInt16(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt16, field.TypeInt16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt16); ok {
+		_spec.SetField(fieldtype.FieldNillableInt16, field.TypeInt16, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt16(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt16, field.TypeInt16, value)
 	}
@@ -3494,6 +3713,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NillableInt32(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt32, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt32); ok {
+		_spec.SetField(fieldtype.FieldNillableInt32, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedNillableInt32(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt32, field.TypeInt32, value)
 	}
@@ -3502,6 +3724,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.NillableInt64(); ok {
 		_spec.SetField(fieldtype.FieldNillableInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableInt64); ok {
+		_spec.SetField(fieldtype.FieldNillableInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedNillableInt64(); ok {
 		_spec.AddField(fieldtype.FieldNillableInt64, field.TypeInt64, value)
@@ -3521,6 +3746,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalUint(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint, field.TypeUint, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint, field.TypeUint, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint, field.TypeUint, value)
 	}
@@ -3529,6 +3757,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.OptionalUint8(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint8, field.TypeUint8, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint8); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint8, field.TypeUint8, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalUint8(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint8, field.TypeUint8, value)
@@ -3539,6 +3770,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalUint16(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint16, field.TypeUint16, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint16); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint16, field.TypeUint16, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint16(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint16, field.TypeUint16, value)
 	}
@@ -3548,6 +3782,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalUint32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint32, field.TypeUint32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint32); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint32, field.TypeUint32, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalUint32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint32, field.TypeUint32, value)
 	}
@@ -3556,6 +3793,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.OptionalUint64(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUint64, field.TypeUint64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUint64); ok {
+		_spec.SetField(fieldtype.FieldOptionalUint64, field.TypeUint64, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalUint64(); ok {
 		_spec.AddField(fieldtype.FieldOptionalUint64, field.TypeUint64, value)
@@ -3572,6 +3812,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalFloat(); ok {
 		_spec.SetField(fieldtype.FieldOptionalFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalFloat); ok {
+		_spec.SetField(fieldtype.FieldOptionalFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedOptionalFloat(); ok {
 		_spec.AddField(fieldtype.FieldOptionalFloat, field.TypeFloat64, value)
 	}
@@ -3580,6 +3823,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.OptionalFloat32(); ok {
 		_spec.SetField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalFloat32); ok {
+		_spec.SetField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, e)
 	}
 	if value, ok := _u.mutation.AddedOptionalFloat32(); ok {
 		_spec.AddField(fieldtype.FieldOptionalFloat32, field.TypeFloat32, value)
@@ -3590,17 +3836,26 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(fieldtype.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldText); ok {
+		_spec.SetField(fieldtype.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(fieldtype.FieldText, field.TypeString)
 	}
 	if value, ok := _u.mutation.Datetime(); ok {
 		_spec.SetField(fieldtype.FieldDatetime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDatetime); ok {
+		_spec.SetField(fieldtype.FieldDatetime, field.TypeTime, e)
+	}
 	if _u.mutation.DatetimeCleared() {
 		_spec.ClearField(fieldtype.FieldDatetime, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Decimal(); ok {
 		_spec.SetField(fieldtype.FieldDecimal, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDecimal); ok {
+		_spec.SetField(fieldtype.FieldDecimal, field.TypeFloat64, e)
 	}
 	if value, ok := _u.mutation.AddedDecimal(); ok {
 		_spec.AddField(fieldtype.FieldDecimal, field.TypeFloat64, value)
@@ -3611,11 +3866,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.LinkOther(); ok {
 		_spec.SetField(fieldtype.FieldLinkOther, field.TypeOther, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldLinkOther); ok {
+		_spec.SetField(fieldtype.FieldLinkOther, field.TypeOther, e)
+	}
 	if _u.mutation.LinkOtherCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOther, field.TypeOther)
 	}
 	if value, ok := _u.mutation.LinkOtherFunc(); ok {
 		_spec.SetField(fieldtype.FieldLinkOtherFunc, field.TypeOther, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldLinkOtherFunc); ok {
+		_spec.SetField(fieldtype.FieldLinkOtherFunc, field.TypeOther, e)
 	}
 	if _u.mutation.LinkOtherFuncCleared() {
 		_spec.ClearField(fieldtype.FieldLinkOtherFunc, field.TypeOther)
@@ -3629,11 +3890,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.StringArray(); ok {
 		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStringArray); ok {
+		_spec.SetField(fieldtype.FieldStringArray, field.TypeOther, e)
+	}
 	if _u.mutation.StringArrayCleared() {
 		_spec.ClearField(fieldtype.FieldStringArray, field.TypeOther)
 	}
 	if value, ok := _u.mutation.Password(); ok {
 		_spec.SetField(fieldtype.FieldPassword, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPassword); ok {
+		_spec.SetField(fieldtype.FieldPassword, field.TypeString, e)
 	}
 	if _u.mutation.PasswordCleared() {
 		_spec.ClearField(fieldtype.FieldPassword, field.TypeString)
@@ -3641,11 +3908,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.StringScanner(); ok {
 		_spec.SetField(fieldtype.FieldStringScanner, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStringScanner); ok {
+		_spec.SetField(fieldtype.FieldStringScanner, field.TypeString, e)
+	}
 	if _u.mutation.StringScannerCleared() {
 		_spec.ClearField(fieldtype.FieldStringScanner, field.TypeString)
 	}
 	if value, ok := _u.mutation.Duration(); ok {
 		_spec.SetField(fieldtype.FieldDuration, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDuration); ok {
+		_spec.SetField(fieldtype.FieldDuration, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedDuration(); ok {
 		_spec.AddField(fieldtype.FieldDuration, field.TypeInt64, value)
@@ -3656,6 +3929,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Dir(); ok {
 		_spec.SetField(fieldtype.FieldDir, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDir); ok {
+		_spec.SetField(fieldtype.FieldDir, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Ndir(); ok {
 		_spec.SetField(fieldtype.FieldNdir, field.TypeString, value)
 	}
@@ -3665,11 +3941,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Str(); ok {
 		_spec.SetField(fieldtype.FieldStr, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStr); ok {
+		_spec.SetField(fieldtype.FieldStr, field.TypeString, e)
+	}
 	if _u.mutation.StrCleared() {
 		_spec.ClearField(fieldtype.FieldStr, field.TypeString)
 	}
 	if value, ok := _u.mutation.NullStr(); ok {
 		_spec.SetField(fieldtype.FieldNullStr, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullStr); ok {
+		_spec.SetField(fieldtype.FieldNullStr, field.TypeString, e)
 	}
 	if _u.mutation.NullStrCleared() {
 		_spec.ClearField(fieldtype.FieldNullStr, field.TypeString)
@@ -3683,11 +3965,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NullLink(); ok {
 		_spec.SetField(fieldtype.FieldNullLink, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullLink); ok {
+		_spec.SetField(fieldtype.FieldNullLink, field.TypeString, e)
+	}
 	if _u.mutation.NullLinkCleared() {
 		_spec.ClearField(fieldtype.FieldNullLink, field.TypeString)
 	}
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(fieldtype.FieldActive, field.TypeBool, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldActive); ok {
+		_spec.SetField(fieldtype.FieldActive, field.TypeBool, e)
 	}
 	if _u.mutation.ActiveCleared() {
 		_spec.ClearField(fieldtype.FieldActive, field.TypeBool)
@@ -3695,17 +3983,26 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NullActive(); ok {
 		_spec.SetField(fieldtype.FieldNullActive, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullActive); ok {
+		_spec.SetField(fieldtype.FieldNullActive, field.TypeBool, e)
+	}
 	if _u.mutation.NullActiveCleared() {
 		_spec.ClearField(fieldtype.FieldNullActive, field.TypeBool)
 	}
 	if value, ok := _u.mutation.Deleted(); ok {
 		_spec.SetField(fieldtype.FieldDeleted, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDeleted); ok {
+		_spec.SetField(fieldtype.FieldDeleted, field.TypeBool, e)
+	}
 	if _u.mutation.DeletedCleared() {
 		_spec.ClearField(fieldtype.FieldDeleted, field.TypeBool)
 	}
 	if value, ok := _u.mutation.DeletedAt(); ok {
 		_spec.SetField(fieldtype.FieldDeletedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldDeletedAt); ok {
+		_spec.SetField(fieldtype.FieldDeletedAt, field.TypeTime, e)
 	}
 	if _u.mutation.DeletedAtCleared() {
 		_spec.ClearField(fieldtype.FieldDeletedAt, field.TypeTime)
@@ -3719,6 +4016,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Sensitive(); ok {
 		_spec.SetField(fieldtype.FieldSensitive, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSensitive); ok {
+		_spec.SetField(fieldtype.FieldSensitive, field.TypeBytes, e)
+	}
 	if _u.mutation.SensitiveCleared() {
 		_spec.ClearField(fieldtype.FieldSensitive, field.TypeBytes)
 	}
@@ -3731,11 +4031,17 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.NullInt64(); ok {
 		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullInt64); ok {
+		_spec.SetField(fieldtype.FieldNullInt64, field.TypeInt, e)
+	}
 	if _u.mutation.NullInt64Cleared() {
 		_spec.ClearField(fieldtype.FieldNullInt64, field.TypeInt)
 	}
 	if value, ok := _u.mutation.SchemaInt(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedSchemaInt(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt, field.TypeInt, value)
@@ -3746,6 +4052,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.SchemaInt8(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt8, field.TypeInt8, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt8); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt8, field.TypeInt8, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaInt8(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt8, field.TypeInt8, value)
 	}
@@ -3754,6 +4063,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.SchemaInt64(); ok {
 		_spec.SetField(fieldtype.FieldSchemaInt64, field.TypeInt64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaInt64); ok {
+		_spec.SetField(fieldtype.FieldSchemaInt64, field.TypeInt64, e)
 	}
 	if value, ok := _u.mutation.AddedSchemaInt64(); ok {
 		_spec.AddField(fieldtype.FieldSchemaInt64, field.TypeInt64, value)
@@ -3764,6 +4076,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.SchemaFloat(); ok {
 		_spec.SetField(fieldtype.FieldSchemaFloat, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaFloat); ok {
+		_spec.SetField(fieldtype.FieldSchemaFloat, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaFloat(); ok {
 		_spec.AddField(fieldtype.FieldSchemaFloat, field.TypeFloat64, value)
 	}
@@ -3773,6 +4088,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.SchemaFloat32(); ok {
 		_spec.SetField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldSchemaFloat32); ok {
+		_spec.SetField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, e)
+	}
 	if value, ok := _u.mutation.AddedSchemaFloat32(); ok {
 		_spec.AddField(fieldtype.FieldSchemaFloat32, field.TypeFloat32, value)
 	}
@@ -3781,6 +4099,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.NullFloat(); ok {
 		_spec.SetField(fieldtype.FieldNullFloat, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNullFloat); ok {
+		_spec.SetField(fieldtype.FieldNullFloat, field.TypeFloat64, e)
 	}
 	if _u.mutation.NullFloatCleared() {
 		_spec.ClearField(fieldtype.FieldNullFloat, field.TypeFloat64)
@@ -3797,17 +4118,26 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.OptionalUuid(); ok {
 		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldOptionalUuid); ok {
+		_spec.SetField(fieldtype.FieldOptionalUuid, field.TypeUuid, e)
+	}
 	if _u.mutation.OptionalUuidCleared() {
 		_spec.ClearField(fieldtype.FieldOptionalUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.NillableUuid(); ok {
 		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNillableUuid); ok {
+		_spec.SetField(fieldtype.FieldNillableUuid, field.TypeUuid, e)
+	}
 	if _u.mutation.NillableUuidCleared() {
 		_spec.ClearField(fieldtype.FieldNillableUuid, field.TypeUuid)
 	}
 	if value, ok := _u.mutation.Strings(); ok {
 		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldStrings); ok {
+		_spec.SetField(fieldtype.FieldStrings, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -3820,8 +4150,14 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Pair(); ok {
 		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPair); ok {
+		_spec.SetField(fieldtype.FieldPair, field.TypeBytes, e)
+	}
 	if value, ok := _u.mutation.NilPair(); ok {
 		_spec.SetField(fieldtype.FieldNilPair, field.TypeBytes, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldNilPair); ok {
+		_spec.SetField(fieldtype.FieldNilPair, field.TypeBytes, e)
 	}
 	if _u.mutation.NilPairCleared() {
 		_spec.ClearField(fieldtype.FieldNilPair, field.TypeBytes)
@@ -3829,11 +4165,20 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	if value, ok := _u.mutation.Vstring(); ok {
 		_spec.SetField(fieldtype.FieldVstring, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldVstring); ok {
+		_spec.SetField(fieldtype.FieldVstring, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Triple(); ok {
 		_spec.SetField(fieldtype.FieldTriple, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldTriple); ok {
+		_spec.SetField(fieldtype.FieldTriple, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.BigInt(); ok {
 		_spec.SetField(fieldtype.FieldBigInt, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldBigInt); ok {
+		_spec.SetField(fieldtype.FieldBigInt, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedBigInt(); ok {
 		_spec.AddField(fieldtype.FieldBigInt, field.TypeInt, value)
@@ -3843,6 +4188,9 @@ func (_u *FieldTypeUpdateOne) sqlSave(ctx context.Context) (_node *FieldType, er
 	}
 	if value, ok := _u.mutation.PasswordOther(); ok {
 		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(fieldtype.FieldPasswordOther); ok {
+		_spec.SetField(fieldtype.FieldPasswordOther, field.TypeOther, e)
 	}
 	if _u.mutation.PasswordOtherCleared() {
 		_spec.ClearField(fieldtype.FieldPasswordOther, field.TypeOther)

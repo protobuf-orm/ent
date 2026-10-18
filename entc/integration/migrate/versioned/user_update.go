@@ -143,6 +143,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt32, value)
 	}
@@ -151,6 +154,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
 	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)
@@ -317,6 +323,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt32, value)
 	}
@@ -325,6 +334,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
 	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)

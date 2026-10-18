@@ -166,13 +166,18 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() {
 	if _, ok := _c.mutation.Name(); !ok {
-		v := user.DefaultName
-		_c.mutation.SetName(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldName); !ok {
+			v := user.DefaultName
+			_c.mutation.SetName(v)
+		}
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`versioned: field "User.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`versioned: missing required field "User.name"`)}
 	}

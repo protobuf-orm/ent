@@ -189,6 +189,9 @@ func (_u *MetadataUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(metadata.FieldAge, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(metadata.FieldAge); ok {
+		_spec.SetField(metadata.FieldAge, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(metadata.FieldAge, field.TypeInt, value)
 	}
@@ -501,6 +504,9 @@ func (_u *MetadataUpdateOne) sqlSave(ctx context.Context) (_node *Metadata, err 
 	}
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(metadata.FieldAge, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(metadata.FieldAge); ok {
+		_spec.SetField(metadata.FieldAge, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(metadata.FieldAge, field.TypeInt, value)

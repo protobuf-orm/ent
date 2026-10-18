@@ -133,6 +133,9 @@ func (_u *BlogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Oid(); ok {
 		_spec.SetField(blog.FieldOid, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(blog.FieldOid); ok {
+		_spec.SetField(blog.FieldOid, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedOid(); ok {
 		_spec.AddField(blog.FieldOid, field.TypeInt, value)
 	}
@@ -331,6 +334,9 @@ func (_u *BlogUpdateOne) sqlSave(ctx context.Context) (_node *Blog, err error) {
 	}
 	if value, ok := _u.mutation.Oid(); ok {
 		_spec.SetField(blog.FieldOid, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(blog.FieldOid); ok {
+		_spec.SetField(blog.FieldOid, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedOid(); ok {
 		_spec.AddField(blog.FieldOid, field.TypeInt, value)

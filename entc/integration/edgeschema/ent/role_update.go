@@ -141,8 +141,14 @@ func (_u *RoleUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(role.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(role.FieldName); ok {
+		_spec.SetField(role.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(role.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(role.FieldCreatedAt); ok {
+		_spec.SetField(role.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -359,8 +365,14 @@ func (_u *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(role.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(role.FieldName); ok {
+		_spec.SetField(role.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(role.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(role.FieldCreatedAt); ok {
+		_spec.SetField(role.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{

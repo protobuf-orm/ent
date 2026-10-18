@@ -326,8 +326,14 @@ func (_u *GroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(group.FieldActive, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldActive); ok {
+		_spec.SetField(group.FieldActive, field.TypeBool, e)
+	}
 	if value, ok := _u.mutation.Expire(); ok {
 		_spec.SetField(group.FieldExpire, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldExpire); ok {
+		_spec.SetField(group.FieldExpire, field.TypeTime, e)
 	}
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(group.FieldType, field.TypeString, value)
@@ -853,8 +859,14 @@ func (_u *GroupUpdateOne) sqlSave(ctx context.Context) (_node *Group, err error)
 	if value, ok := _u.mutation.Active(); ok {
 		_spec.SetField(group.FieldActive, field.TypeBool, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldActive); ok {
+		_spec.SetField(group.FieldActive, field.TypeBool, e)
+	}
 	if value, ok := _u.mutation.Expire(); ok {
 		_spec.SetField(group.FieldExpire, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(group.FieldExpire); ok {
+		_spec.SetField(group.FieldExpire, field.TypeTime, e)
 	}
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(group.FieldType, field.TypeString, value)

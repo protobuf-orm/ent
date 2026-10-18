@@ -125,11 +125,17 @@ func (_u *FriendshipUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Weight(); ok {
 		_spec.SetField(friendship.FieldWeight, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(friendship.FieldWeight); ok {
+		_spec.SetField(friendship.FieldWeight, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedWeight(); ok {
 		_spec.AddField(friendship.FieldWeight, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(friendship.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(friendship.FieldCreatedAt); ok {
+		_spec.SetField(friendship.FieldCreatedAt, field.TypeTime, e)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -274,11 +280,17 @@ func (_u *FriendshipUpdateOne) sqlSave(ctx context.Context) (_node *Friendship, 
 	if value, ok := _u.mutation.Weight(); ok {
 		_spec.SetField(friendship.FieldWeight, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(friendship.FieldWeight); ok {
+		_spec.SetField(friendship.FieldWeight, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedWeight(); ok {
 		_spec.AddField(friendship.FieldWeight, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(friendship.FieldCreatedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(friendship.FieldCreatedAt); ok {
+		_spec.SetField(friendship.FieldCreatedAt, field.TypeTime, e)
 	}
 	_node = &Friendship{config: _u.config}
 	_spec.Assign = _node.assignValues

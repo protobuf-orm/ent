@@ -228,6 +228,9 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(task.FieldDescription, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(task.FieldDescription); ok {
+		_spec.SetField(task.FieldDescription, field.TypeString, e)
+	}
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(task.FieldDescription, field.TypeString)
 	}
@@ -236,6 +239,9 @@ func (_u *TaskUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
 		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(task.FieldUuid); ok {
+		_spec.SetField(task.FieldUuid, field.TypeUuid, e)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)
@@ -558,6 +564,9 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(task.FieldDescription, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(task.FieldDescription); ok {
+		_spec.SetField(task.FieldDescription, field.TypeString, e)
+	}
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(task.FieldDescription, field.TypeString)
 	}
@@ -566,6 +575,9 @@ func (_u *TaskUpdateOne) sqlSave(ctx context.Context) (_node *Task, err error) {
 	}
 	if value, ok := _u.mutation.Uuid(); ok {
 		_spec.SetField(task.FieldUuid, field.TypeUuid, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(task.FieldUuid); ok {
+		_spec.SetField(task.FieldUuid, field.TypeUuid, e)
 	}
 	if _u.mutation.UuidCleared() {
 		_spec.ClearField(task.FieldUuid, field.TypeUuid)

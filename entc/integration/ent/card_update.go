@@ -179,8 +179,10 @@ func (_u *CardUpdate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *CardUpdate) defaults() {
 	if _, ok := _u.mutation.UpdateTime(); !ok {
-		v := card.UpdateDefaultUpdateTime()
-		_u.mutation.SetUpdateTime(v)
+		if _, ok := _u.mutation.FieldExpr(card.FieldUpdateTime); !ok {
+			v := card.UpdateDefaultUpdateTime()
+			_u.mutation.SetUpdateTime(v)
+		}
 	}
 }
 
@@ -215,8 +217,14 @@ func (_u *CardUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.UpdateTime(); ok {
 		_spec.SetField(card.FieldUpdateTime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldUpdateTime); ok {
+		_spec.SetField(card.FieldUpdateTime, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Balance(); ok {
 		_spec.SetField(card.FieldBalance, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldBalance); ok {
+		_spec.SetField(card.FieldBalance, field.TypeFloat64, e)
 	}
 	if value, ok := _u.mutation.AddedBalance(); ok {
 		_spec.AddField(card.FieldBalance, field.TypeFloat64, value)
@@ -480,8 +488,10 @@ func (_u *CardUpdateOne) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_u *CardUpdateOne) defaults() {
 	if _, ok := _u.mutation.UpdateTime(); !ok {
-		v := card.UpdateDefaultUpdateTime()
-		_u.mutation.SetUpdateTime(v)
+		if _, ok := _u.mutation.FieldExpr(card.FieldUpdateTime); !ok {
+			v := card.UpdateDefaultUpdateTime()
+			_u.mutation.SetUpdateTime(v)
+		}
 	}
 }
 
@@ -533,8 +543,14 @@ func (_u *CardUpdateOne) sqlSave(ctx context.Context) (_node *Card, err error) {
 	if value, ok := _u.mutation.UpdateTime(); ok {
 		_spec.SetField(card.FieldUpdateTime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldUpdateTime); ok {
+		_spec.SetField(card.FieldUpdateTime, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Balance(); ok {
 		_spec.SetField(card.FieldBalance, field.TypeFloat64, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldBalance); ok {
+		_spec.SetField(card.FieldBalance, field.TypeFloat64, e)
 	}
 	if value, ok := _u.mutation.AddedBalance(); ok {
 		_spec.AddField(card.FieldBalance, field.TypeFloat64, value)

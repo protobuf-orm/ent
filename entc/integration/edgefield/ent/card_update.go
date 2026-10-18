@@ -127,6 +127,9 @@ func (_u *CardUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumber); ok {
+		_spec.SetField(card.FieldNumber, field.TypeString, e)
+	}
 	if _u.mutation.NumberCleared() {
 		_spec.ClearField(card.FieldNumber, field.TypeString)
 	}
@@ -303,6 +306,9 @@ func (_u *CardUpdateOne) sqlSave(ctx context.Context) (_node *Card, err error) {
 	}
 	if value, ok := _u.mutation.Number(); ok {
 		_spec.SetField(card.FieldNumber, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(card.FieldNumber); ok {
+		_spec.SetField(card.FieldNumber, field.TypeString, e)
 	}
 	if _u.mutation.NumberCleared() {
 		_spec.ClearField(card.FieldNumber, field.TypeString)

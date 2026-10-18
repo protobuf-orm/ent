@@ -353,6 +353,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.PetsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -1082,6 +1085,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
 	}
 	if _u.mutation.PetsCleared() {
 		edge := &sqlgraph.EdgeSpec{

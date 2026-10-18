@@ -157,6 +157,9 @@ func (_u *NoteUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(note.FieldText, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(note.FieldText); ok {
+		_spec.SetField(note.FieldText, field.TypeString, e)
+	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(note.FieldText, field.TypeString)
 	}
@@ -408,6 +411,9 @@ func (_u *NoteUpdateOne) sqlSave(ctx context.Context) (_node *Note, err error) {
 	}
 	if value, ok := _u.mutation.Text(); ok {
 		_spec.SetField(note.FieldText, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(note.FieldText); ok {
+		_spec.SetField(note.FieldText, field.TypeString, e)
 	}
 	if _u.mutation.TextCleared() {
 		_spec.ClearField(note.FieldText, field.TypeString)

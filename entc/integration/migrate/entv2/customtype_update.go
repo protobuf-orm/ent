@@ -136,17 +136,26 @@ func (_u *CustomTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	if value, ok := _u.mutation.Custom(); ok {
 		_spec.SetField(customtype.FieldCustom, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldCustom); ok {
+		_spec.SetField(customtype.FieldCustom, field.TypeString, e)
+	}
 	if _u.mutation.CustomCleared() {
 		_spec.ClearField(customtype.FieldCustom, field.TypeString)
 	}
 	if value, ok := _u.mutation.Tz0(); ok {
 		_spec.SetField(customtype.FieldTz0, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldTz0); ok {
+		_spec.SetField(customtype.FieldTz0, field.TypeTime, e)
+	}
 	if _u.mutation.Tz0Cleared() {
 		_spec.ClearField(customtype.FieldTz0, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Tz3(); ok {
 		_spec.SetField(customtype.FieldTz3, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldTz3); ok {
+		_spec.SetField(customtype.FieldTz3, field.TypeTime, e)
 	}
 	if _u.mutation.Tz3Cleared() {
 		_spec.ClearField(customtype.FieldTz3, field.TypeTime)
@@ -305,17 +314,26 @@ func (_u *CustomTypeUpdateOne) sqlSave(ctx context.Context) (_node *CustomType, 
 	if value, ok := _u.mutation.Custom(); ok {
 		_spec.SetField(customtype.FieldCustom, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldCustom); ok {
+		_spec.SetField(customtype.FieldCustom, field.TypeString, e)
+	}
 	if _u.mutation.CustomCleared() {
 		_spec.ClearField(customtype.FieldCustom, field.TypeString)
 	}
 	if value, ok := _u.mutation.Tz0(); ok {
 		_spec.SetField(customtype.FieldTz0, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldTz0); ok {
+		_spec.SetField(customtype.FieldTz0, field.TypeTime, e)
+	}
 	if _u.mutation.Tz0Cleared() {
 		_spec.ClearField(customtype.FieldTz0, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Tz3(); ok {
 		_spec.SetField(customtype.FieldTz3, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(customtype.FieldTz3); ok {
+		_spec.SetField(customtype.FieldTz3, field.TypeTime, e)
 	}
 	if _u.mutation.Tz3Cleared() {
 		_spec.ClearField(customtype.FieldTz3, field.TypeTime)

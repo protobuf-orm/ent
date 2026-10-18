@@ -180,17 +180,29 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeFloat64, value)
 	}
 	if value, ok := _u.mutation.FirstName(); ok {
 		_spec.SetField(user.FieldFirstName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFirstName); ok {
+		_spec.SetField(user.FieldFirstName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLastName); ok {
+		_spec.SetField(user.FieldLastName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Tags(); ok {
 		_spec.SetField(user.FieldTags, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldTags); ok {
+		_spec.SetField(user.FieldTags, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedTags(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -442,17 +454,29 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeFloat64, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeFloat64, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeFloat64, value)
 	}
 	if value, ok := _u.mutation.FirstName(); ok {
 		_spec.SetField(user.FieldFirstName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFirstName); ok {
+		_spec.SetField(user.FieldFirstName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldLastName); ok {
+		_spec.SetField(user.FieldLastName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Tags(); ok {
 		_spec.SetField(user.FieldTags, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldTags); ok {
+		_spec.SetField(user.FieldTags, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedTags(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {

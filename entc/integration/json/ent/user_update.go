@@ -322,17 +322,26 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.T(); ok {
 		_spec.SetField(user.FieldT, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldT); ok {
+		_spec.SetField(user.FieldT, field.TypeJson, e)
+	}
 	if _u.mutation.TCleared() {
 		_spec.ClearField(user.FieldT, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Url(); ok {
 		_spec.SetField(user.FieldUrl, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUrl); ok {
+		_spec.SetField(user.FieldUrl, field.TypeJson, e)
+	}
 	if _u.mutation.UrlCleared() {
 		_spec.ClearField(user.FieldUrl, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Urls(); ok {
 		_spec.SetField(user.FieldUrls, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUrls); ok {
+		_spec.SetField(user.FieldUrls, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedUrls(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -345,6 +354,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Raw(); ok {
 		_spec.SetField(user.FieldRaw, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldRaw); ok {
+		_spec.SetField(user.FieldRaw, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedRaw(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldRaw, value)
@@ -356,6 +368,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Dirs(); ok {
 		_spec.SetField(user.FieldDirs, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDirs); ok {
+		_spec.SetField(user.FieldDirs, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedDirs(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldDirs, value)
@@ -363,6 +378,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.Ints(); ok {
 		_spec.SetField(user.FieldInts, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldInts); ok {
+		_spec.SetField(user.FieldInts, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedInts(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -375,6 +393,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Floats(); ok {
 		_spec.SetField(user.FieldFloats, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFloats); ok {
+		_spec.SetField(user.FieldFloats, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedFloats(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldFloats, value)
@@ -385,6 +406,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.Strings(); ok {
 		_spec.SetField(user.FieldStrings, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldStrings); ok {
+		_spec.SetField(user.FieldStrings, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -430,11 +454,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(user.FieldAddr, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddr); ok {
+		_spec.SetField(user.FieldAddr, field.TypeJson, e)
+	}
 	if _u.mutation.AddrCleared() {
 		_spec.ClearField(user.FieldAddr, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Unknown(); ok {
 		_spec.SetField(user.FieldUnknown, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUnknown); ok {
+		_spec.SetField(user.FieldUnknown, field.TypeJson, e)
 	}
 	if _u.mutation.UnknownCleared() {
 		_spec.ClearField(user.FieldUnknown, field.TypeJson)
@@ -776,17 +806,26 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.T(); ok {
 		_spec.SetField(user.FieldT, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldT); ok {
+		_spec.SetField(user.FieldT, field.TypeJson, e)
+	}
 	if _u.mutation.TCleared() {
 		_spec.ClearField(user.FieldT, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Url(); ok {
 		_spec.SetField(user.FieldUrl, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUrl); ok {
+		_spec.SetField(user.FieldUrl, field.TypeJson, e)
+	}
 	if _u.mutation.UrlCleared() {
 		_spec.ClearField(user.FieldUrl, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Urls(); ok {
 		_spec.SetField(user.FieldUrls, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUrls); ok {
+		_spec.SetField(user.FieldUrls, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedUrls(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -799,6 +838,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Raw(); ok {
 		_spec.SetField(user.FieldRaw, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldRaw); ok {
+		_spec.SetField(user.FieldRaw, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedRaw(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldRaw, value)
@@ -810,6 +852,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Dirs(); ok {
 		_spec.SetField(user.FieldDirs, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDirs); ok {
+		_spec.SetField(user.FieldDirs, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedDirs(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldDirs, value)
@@ -817,6 +862,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Ints(); ok {
 		_spec.SetField(user.FieldInts, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldInts); ok {
+		_spec.SetField(user.FieldInts, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedInts(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -829,6 +877,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Floats(); ok {
 		_spec.SetField(user.FieldFloats, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldFloats); ok {
+		_spec.SetField(user.FieldFloats, field.TypeJson, e)
+	}
 	if value, ok := _u.mutation.AppendedFloats(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, user.FieldFloats, value)
@@ -839,6 +890,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.Strings(); ok {
 		_spec.SetField(user.FieldStrings, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldStrings); ok {
+		_spec.SetField(user.FieldStrings, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedStrings(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -884,11 +938,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(user.FieldAddr, field.TypeJson, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddr); ok {
+		_spec.SetField(user.FieldAddr, field.TypeJson, e)
+	}
 	if _u.mutation.AddrCleared() {
 		_spec.ClearField(user.FieldAddr, field.TypeJson)
 	}
 	if value, ok := _u.mutation.Unknown(); ok {
 		_spec.SetField(user.FieldUnknown, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldUnknown); ok {
+		_spec.SetField(user.FieldUnknown, field.TypeJson, e)
 	}
 	if _u.mutation.UnknownCleared() {
 		_spec.ClearField(user.FieldUnknown, field.TypeJson)

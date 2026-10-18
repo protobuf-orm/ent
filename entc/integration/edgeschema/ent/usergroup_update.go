@@ -156,6 +156,9 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.JoinedAt(); ok {
 		_spec.SetField(usergroup.FieldJoinedAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(usergroup.FieldJoinedAt); ok {
+		_spec.SetField(usergroup.FieldJoinedAt, field.TypeTime, e)
+	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -385,6 +388,9 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 	}
 	if value, ok := _u.mutation.JoinedAt(); ok {
 		_spec.SetField(usergroup.FieldJoinedAt, field.TypeTime, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(usergroup.FieldJoinedAt); ok {
+		_spec.SetField(usergroup.FieldJoinedAt, field.TypeTime, e)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{

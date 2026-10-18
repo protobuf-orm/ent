@@ -109,11 +109,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(user.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -243,11 +249,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(user.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldName); ok {
+		_spec.SetField(user.FieldName, field.TypeString, e)
+	}
 	if _u.mutation.NameCleared() {
 		_spec.ClearField(user.FieldName, field.TypeString)
 	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
 	}
 	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues

@@ -214,8 +214,14 @@ func (_u *PaymentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Time(); ok {
 		_spec.SetField(payment.FieldTime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(payment.FieldTime); ok {
+		_spec.SetField(payment.FieldTime, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(payment.FieldDescription, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(payment.FieldDescription); ok {
+		_spec.SetField(payment.FieldDescription, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(payment.FieldStatus, field.TypeEnum, value)
@@ -480,8 +486,14 @@ func (_u *PaymentUpdateOne) sqlSave(ctx context.Context) (_node *Payment, err er
 	if value, ok := _u.mutation.Time(); ok {
 		_spec.SetField(payment.FieldTime, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(payment.FieldTime); ok {
+		_spec.SetField(payment.FieldTime, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(payment.FieldDescription, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(payment.FieldDescription); ok {
+		_spec.SetField(payment.FieldDescription, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(payment.FieldStatus, field.TypeEnum, value)

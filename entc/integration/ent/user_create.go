@@ -398,12 +398,16 @@ func (_c *UserCreate) ExecX(ctx context.Context) {
 // defaults sets the default values of the builder before save.
 func (_c *UserCreate) defaults() {
 	if _, ok := _c.mutation.Last(); !ok {
-		v := user.DefaultLast
-		_c.mutation.SetLast(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldLast); !ok {
+			v := user.DefaultLast
+			_c.mutation.SetLast(v)
+		}
 	}
 	if _, ok := _c.mutation.Address(); !ok {
-		v := user.DefaultAddress()
-		_c.mutation.SetAddress(v)
+		if _, ok := _c.mutation.FieldExpr(user.FieldAddress); !ok {
+			v := user.DefaultAddress()
+			_c.mutation.SetAddress(v)
+		}
 	}
 	if _, ok := _c.mutation.Role(); !ok {
 		v := user.DefaultRole
@@ -417,6 +421,9 @@ func (_c *UserCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserCreate) check() error {
+	if fs := _c.mutation.ExprFields(); len(fs) > 0 {
+		return &ValidationError{Name: fs[0], err: fmt.Errorf(`ent: field "User.%s" was assigned an expression, which only an update writes`, fs[0])}
+	}
 	if v, ok := _c.mutation.OptionalInt(); ok {
 		if err := user.OptionalIntValidator(v); err != nil {
 			return &ValidationError{Name: "optional_int", err: fmt.Errorf(`ent: validator failed for field "User.optional_int": %w`, err)}

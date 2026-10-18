@@ -26,6 +26,7 @@ type Mutation struct {
 	in_hook       *string
 	expired_at    *time.Time
 	clearedFields map[string]struct{}
+	exprs         map[string]sql.Querier
 	owner         *int
 	clearedowner  bool
 	predicates    []predicate.Card
@@ -67,6 +68,7 @@ func (m *Mutation) ResetNumber() {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.exprs, FieldName)
 }
 
 // Name returns the value of the "name" field in the mutation.
@@ -81,6 +83,7 @@ func (m *Mutation) Name() (r string, exists bool) {
 // ClearName clears the value of the "name" field.
 func (m *Mutation) ClearName() {
 	m.name = nil
+	delete(m.exprs, FieldName)
 	m.clearedFields[FieldName] = struct{}{}
 }
 
@@ -94,11 +97,13 @@ func (m *Mutation) NameCleared() bool {
 func (m *Mutation) ResetName() {
 	m.name = nil
 	delete(m.clearedFields, FieldName)
+	delete(m.exprs, FieldName)
 }
 
 // SetCreatedAt sets the "created_at" field.
 func (m *Mutation) SetCreatedAt(t time.Time) {
 	m.created_at = &t
+	delete(m.exprs, FieldCreatedAt)
 }
 
 // CreatedAt returns the value of the "created_at" field in the mutation.
@@ -113,11 +118,13 @@ func (m *Mutation) CreatedAt() (r time.Time, exists bool) {
 // ResetCreatedAt resets all changes to the "created_at" field.
 func (m *Mutation) ResetCreatedAt() {
 	m.created_at = nil
+	delete(m.exprs, FieldCreatedAt)
 }
 
 // SetInHook sets the "in_hook" field.
 func (m *Mutation) SetInHook(s string) {
 	m.in_hook = &s
+	delete(m.exprs, FieldInHook)
 }
 
 // InHook returns the value of the "in_hook" field in the mutation.
@@ -132,11 +139,13 @@ func (m *Mutation) InHook() (r string, exists bool) {
 // ResetInHook resets all changes to the "in_hook" field.
 func (m *Mutation) ResetInHook() {
 	m.in_hook = nil
+	delete(m.exprs, FieldInHook)
 }
 
 // SetExpiredAt sets the "expired_at" field.
 func (m *Mutation) SetExpiredAt(t time.Time) {
 	m.expired_at = &t
+	delete(m.exprs, FieldExpiredAt)
 }
 
 // ExpiredAt returns the value of the "expired_at" field in the mutation.
@@ -151,6 +160,7 @@ func (m *Mutation) ExpiredAt() (r time.Time, exists bool) {
 // ClearExpiredAt clears the value of the "expired_at" field.
 func (m *Mutation) ClearExpiredAt() {
 	m.expired_at = nil
+	delete(m.exprs, FieldExpiredAt)
 	m.clearedFields[FieldExpiredAt] = struct{}{}
 }
 
@@ -164,6 +174,7 @@ func (m *Mutation) ExpiredAtCleared() bool {
 func (m *Mutation) ResetExpiredAt() {
 	m.expired_at = nil
 	delete(m.clearedFields, FieldExpiredAt)
+	delete(m.exprs, FieldExpiredAt)
 }
 
 // SetOwnerId sets the "owner" edge to the User entity by id.
@@ -243,16 +254,16 @@ func (m *Mutation) Fields() []string {
 	if m.number != nil {
 		fields = append(fields, FieldNumber)
 	}
-	if m.name != nil {
+	if m.name != nil || m.exprs[FieldName] != nil {
 		fields = append(fields, FieldName)
 	}
-	if m.created_at != nil {
+	if m.created_at != nil || m.exprs[FieldCreatedAt] != nil {
 		fields = append(fields, FieldCreatedAt)
 	}
-	if m.in_hook != nil {
+	if m.in_hook != nil || m.exprs[FieldInHook] != nil {
 		fields = append(fields, FieldInHook)
 	}
-	if m.expired_at != nil {
+	if m.expired_at != nil || m.exprs[FieldExpiredAt] != nil {
 		fields = append(fields, FieldExpiredAt)
 	}
 	return fields
@@ -261,7 +272,13 @@ func (m *Mutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
+//
+// A field assigned an expression with SetFieldExpr returns that expression, a
+// sql.Querier, since the value it stands for is the database's to compute.
 func (m *Mutation) Field(name string) (ent.Value, bool) {
+	if e, ok := m.exprs[name]; ok {
+		return e, true
+	}
 	switch name {
 	case FieldNumber:
 		return m.Number()
@@ -287,11 +304,17 @@ func (m *Mutation) OldField(ctx context.Context, name string) (ent.Value, error)
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
+//
+// A sql.Querier that is not of the field's type is handed to SetFieldExpr, so
+// that what Field returns for a field can be set back on it.
 func (m *Mutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case FieldNumber:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetNumber(v)
@@ -299,6 +322,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldName:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
@@ -306,6 +332,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldCreatedAt:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCreatedAt(v)
@@ -313,6 +342,9 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldInHook:
 		v, ok := value.(string)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInHook(v)
@@ -320,12 +352,79 @@ func (m *Mutation) SetField(name string, value ent.Value) error {
 	case FieldExpiredAt:
 		v, ok := value.(time.Time)
 		if !ok {
+			if e, ok := value.(sql.Querier); ok {
+				return m.SetFieldExpr(name, e)
+			}
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetExpiredAt(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Card field %s", name)
+}
+
+// SetFieldExpr assigns the field with the given name a SQL expression, which
+// the database evaluates as the UPDATE writes the row. It replaces any value
+// the field was set, added, appended or cleared with, as setting it again
+// would, and so the column is assigned once.
+//
+// The field is listed by Fields and Field returns the expression, so a hook
+// sees it as it sees any other. What it does not have is a value: a field
+// with a validator is refused, since there is nothing for the validator to
+// check, and so is one that only a create could write. A create refuses a
+// mutation holding an expression at all.
+func (m *Mutation) SetFieldExpr(name string, expr sql.Querier) error {
+	if expr == nil {
+		return fmt.Errorf("no expression for field %s", name)
+	}
+	if m.op.Is(ent.OpCreate) {
+		return fmt.Errorf("field %s cannot be assigned an expression: a create writes values, and an expression is written only by an update", name)
+	}
+	switch name {
+	case FieldNumber:
+		return fmt.Errorf("field %s cannot be assigned an expression: it is immutable, and an expression is written only by an update", name)
+	case FieldName:
+		m.ResetName()
+	case FieldCreatedAt:
+		m.ResetCreatedAt()
+	case FieldInHook:
+		m.ResetInHook()
+	case FieldExpiredAt:
+		m.ResetExpiredAt()
+	default:
+		return fmt.Errorf("unknown Card field %s", name)
+	}
+	if m.exprs == nil {
+		m.exprs = make(map[string]sql.Querier)
+	}
+	m.exprs[name] = expr
+	return nil
+}
+
+// FieldExpr returns the expression the field with the given name was assigned
+// by SetFieldExpr. The second return value reports whether it was.
+func (m *Mutation) FieldExpr(name string) (sql.Querier, bool) {
+	e, ok := m.exprs[name]
+	return e, ok
+}
+
+// ExprFields returns the fields that were assigned an expression by
+// SetFieldExpr.
+func (m *Mutation) ExprFields() []string {
+	var fields []string
+	if _, ok := m.exprs[FieldName]; ok {
+		fields = append(fields, FieldName)
+	}
+	if _, ok := m.exprs[FieldCreatedAt]; ok {
+		fields = append(fields, FieldCreatedAt)
+	}
+	if _, ok := m.exprs[FieldInHook]; ok {
+		fields = append(fields, FieldInHook)
+	}
+	if _, ok := m.exprs[FieldExpiredAt]; ok {
+		fields = append(fields, FieldExpiredAt)
+	}
+	return fields
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during

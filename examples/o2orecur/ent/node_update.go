@@ -152,6 +152,9 @@ func (_u *NodeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(node.FieldValue, field.TypeInt, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldValue); ok {
+		_spec.SetField(node.FieldValue, field.TypeInt, e)
+	}
 	if value, ok := _u.mutation.AddedValue(); ok {
 		_spec.AddField(node.FieldValue, field.TypeInt, value)
 	}
@@ -383,6 +386,9 @@ func (_u *NodeUpdateOne) sqlSave(ctx context.Context) (_node *Node, err error) {
 	}
 	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(node.FieldValue, field.TypeInt, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(node.FieldValue); ok {
+		_spec.SetField(node.FieldValue, field.TypeInt, e)
 	}
 	if value, ok := _u.mutation.AddedValue(); ok {
 		_spec.AddField(node.FieldValue, field.TypeInt, value)

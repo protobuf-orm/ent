@@ -430,6 +430,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt32, value)
 	}
@@ -439,14 +442,23 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(user.FieldDescription, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDescription); ok {
+		_spec.SetField(user.FieldDescription, field.TypeString, e)
+	}
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(user.FieldDescription, field.TypeString)
 	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
 	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)
@@ -454,11 +466,17 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Renamed(); ok {
 		_spec.SetField(user.FieldRenamed, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldRenamed); ok {
+		_spec.SetField(user.FieldRenamed, field.TypeString, e)
+	}
 	if _u.mutation.RenamedCleared() {
 		_spec.ClearField(user.FieldRenamed, field.TypeString)
 	}
 	if value, ok := _u.mutation.OldToken(); ok {
 		_spec.SetField(user.FieldOldToken, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldOldToken); ok {
+		_spec.SetField(user.FieldOldToken, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.Blob(); ok {
 		_spec.SetField(user.FieldBlob, field.TypeBytes, value)
@@ -475,6 +493,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(user.FieldStatus, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldStatus); ok {
+		_spec.SetField(user.FieldStatus, field.TypeString, e)
+	}
 	if _u.mutation.StatusCleared() {
 		_spec.ClearField(user.FieldStatus, field.TypeString)
 	}
@@ -486,6 +507,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.DropOptional(); ok {
 		_spec.SetField(user.FieldDropOptional, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDropOptional); ok {
+		_spec.SetField(user.FieldDropOptional, field.TypeString, e)
 	}
 	if _u.mutation.DropOptionalCleared() {
 		_spec.ClearField(user.FieldDropOptional, field.TypeString)
@@ -1070,6 +1094,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Age(); ok {
 		_spec.SetField(user.FieldAge, field.TypeInt32, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAge); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt32, e)
+	}
 	if value, ok := _u.mutation.AddedAge(); ok {
 		_spec.AddField(user.FieldAge, field.TypeInt32, value)
 	}
@@ -1079,14 +1106,23 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(user.FieldDescription, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDescription); ok {
+		_spec.SetField(user.FieldDescription, field.TypeString, e)
+	}
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(user.FieldDescription, field.TypeString)
 	}
 	if value, ok := _u.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldNickname); ok {
+		_spec.SetField(user.FieldNickname, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(user.FieldAddress, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldAddress); ok {
+		_spec.SetField(user.FieldAddress, field.TypeString, e)
 	}
 	if _u.mutation.AddressCleared() {
 		_spec.ClearField(user.FieldAddress, field.TypeString)
@@ -1094,11 +1130,17 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Renamed(); ok {
 		_spec.SetField(user.FieldRenamed, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldRenamed); ok {
+		_spec.SetField(user.FieldRenamed, field.TypeString, e)
+	}
 	if _u.mutation.RenamedCleared() {
 		_spec.ClearField(user.FieldRenamed, field.TypeString)
 	}
 	if value, ok := _u.mutation.OldToken(); ok {
 		_spec.SetField(user.FieldOldToken, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldOldToken); ok {
+		_spec.SetField(user.FieldOldToken, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.Blob(); ok {
 		_spec.SetField(user.FieldBlob, field.TypeBytes, value)
@@ -1115,6 +1157,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(user.FieldStatus, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldStatus); ok {
+		_spec.SetField(user.FieldStatus, field.TypeString, e)
+	}
 	if _u.mutation.StatusCleared() {
 		_spec.ClearField(user.FieldStatus, field.TypeString)
 	}
@@ -1126,6 +1171,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.DropOptional(); ok {
 		_spec.SetField(user.FieldDropOptional, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(user.FieldDropOptional); ok {
+		_spec.SetField(user.FieldDropOptional, field.TypeString, e)
 	}
 	if _u.mutation.DropOptionalCleared() {
 		_spec.ClearField(user.FieldDropOptional, field.TypeString)

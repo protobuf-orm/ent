@@ -144,17 +144,29 @@ func (_u *ThingUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(thing.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldName); ok {
+		_spec.SetField(thing.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.At(); ok {
 		_spec.SetField(thing.FieldAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldAt); ok {
+		_spec.SetField(thing.FieldAt, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Motto(); ok {
 		_spec.SetField(thing.FieldMotto, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldMotto); ok {
+		_spec.SetField(thing.FieldMotto, field.TypeString, e)
 	}
 	if _u.mutation.MottoCleared() {
 		_spec.ClearField(thing.FieldMotto, field.TypeString)
 	}
 	if value, ok := _u.mutation.Doc(); ok {
 		_spec.SetField(thing.FieldDoc, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldDoc); ok {
+		_spec.SetField(thing.FieldDoc, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedDoc(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
@@ -324,17 +336,29 @@ func (_u *ThingUpdateOne) sqlSave(ctx context.Context) (_node *Thing, err error)
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(thing.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldName); ok {
+		_spec.SetField(thing.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.At(); ok {
 		_spec.SetField(thing.FieldAt, field.TypeTime, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldAt); ok {
+		_spec.SetField(thing.FieldAt, field.TypeTime, e)
+	}
 	if value, ok := _u.mutation.Motto(); ok {
 		_spec.SetField(thing.FieldMotto, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldMotto); ok {
+		_spec.SetField(thing.FieldMotto, field.TypeString, e)
 	}
 	if _u.mutation.MottoCleared() {
 		_spec.ClearField(thing.FieldMotto, field.TypeString)
 	}
 	if value, ok := _u.mutation.Doc(); ok {
 		_spec.SetField(thing.FieldDoc, field.TypeJson, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(thing.FieldDoc); ok {
+		_spec.SetField(thing.FieldDoc, field.TypeJson, e)
 	}
 	if value, ok := _u.mutation.AppendedDoc(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {

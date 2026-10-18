@@ -179,6 +179,9 @@ func (_u *FileTypeUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(filetype.FieldName, field.TypeString, value)
 	}
+	if e, ok := _u.mutation.FieldExpr(filetype.FieldName); ok {
+		_spec.SetField(filetype.FieldName, field.TypeString, e)
+	}
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(filetype.FieldType, field.TypeEnum, value)
 	}
@@ -427,6 +430,9 @@ func (_u *FileTypeUpdateOne) sqlSave(ctx context.Context) (_node *FileType, err 
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(filetype.FieldName, field.TypeString, value)
+	}
+	if e, ok := _u.mutation.FieldExpr(filetype.FieldName); ok {
+		_spec.SetField(filetype.FieldName, field.TypeString, e)
 	}
 	if value, ok := _u.mutation.GetType(); ok {
 		_spec.SetField(filetype.FieldType, field.TypeEnum, value)
