@@ -12,7 +12,6 @@ import (
 
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/entsql"
-	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/schema/field"
 
 	"github.com/stretchr/testify/require"
@@ -206,31 +205,13 @@ func TestDDL(t *testing.T) {
 			RefColumns: users.Columns[:1],
 			OnDelete:   SetDefault,
 		})
-		petsWithoutFur := &Table{
-			Name:       "pets_without_fur",
-			Pos:        "pets.go:30",
-			View:       true,
-			Columns:    append(pets.Columns[:2], pets.Columns[3]),
-			Annotation: entsql.View("SELECT id, name, owner_id FROM pets"),
-		}
-		petNames := &Table{
-			Name:    "pet_names",
-			Pos:     "pets.go:45",
-			View:    true,
-			Columns: pets.Columns[1:1],
-			Annotation: entsql.ViewFor(dialect.Postgres, func(s *sql.Selector) {
-				s.Select("name").From(sql.Table("pets"))
-			}),
-		}
-		return []*Table{users, pets, petsWithoutFur, petNames}
+		return []*Table{users, pets}
 	}
 	my := func(length int, idx string) string {
 		return fmt.Sprintf(strings.ReplaceAll(`-- Add new schema named "s1"
 CREATE DATABASE $s1$;
 -- Add new schema named "s2"
 CREATE DATABASE $s2$;
--- Add new schema named "s3"
-CREATE DATABASE $s3$;
 -- Create "users" table
 CREATE TABLE $s1$.$users$ (
   $id$ bigint NOT NULL,
@@ -244,13 +225,11 @@ CREATE TABLE $s1$.$users$ (
 CREATE TABLE $s2$.$pets$ (
   $id$ bigint NOT NULL,
   $name$ varchar(%d) NOT NULL,
-  $owner_id$ bigint NOT NULL,
+  $fur_color$ enum('black','white') NOT NULL,
   $owner_id$ bigint NOT NULL,
   UNIQUE INDEX $%s$ ($name$ DESC),
   FOREIGN KEY ($owner_id$) REFERENCES $s1$.$users$ ($id$) ON DELETE SET DEFAULT
 ) CHARSET utf8mb4 COLLATE utf8mb4_bin;
--- Add "pets_without_fur" view
-CREATE VIEW $s3$.$pets_without_fur$ ($id$, $name$, $owner_id$) AS SELECT id, name, owner_id FROM pets;
 `, "$", "`"), length, length, idx)
 	}
 
@@ -259,8 +238,6 @@ CREATE VIEW $s3$.$pets_without_fur$ ($id$, $name$, $owner_id$) AS SELECT id, nam
 CREATE SCHEMA "s1";
 -- Add new schema named "s2"
 CREATE SCHEMA "s2";
--- Add new schema named "s3"
-CREATE SCHEMA "s3";
 -- Create "users" table
 CREATE TABLE "s1"."users" (
   "id" bigint NOT NULL,
@@ -275,16 +252,12 @@ CREATE INDEX "name" ON "s1"."users" ("name");
 CREATE TABLE "s2"."pets" (
   "id" bigint NOT NULL,
   "name" character varying NOT NULL,
-  "owner_id" bigint NOT NULL,
+  "fur_color" character varying NOT NULL,
   "owner_id" bigint NOT NULL,
   FOREIGN KEY ("owner_id") REFERENCES "s1"."users" ("id") ON DELETE SET DEFAULT
 );
 -- Create index "%s" to table: "pets"
 CREATE UNIQUE INDEX "%s" ON "s2"."pets" ("name" DESC);
--- Add "pets_without_fur" view
-CREATE VIEW "s3"."pets_without_fur" ("id", "name", "owner_id") AS SELECT id, name, owner_id FROM pets;
--- Add "pet_names" view
-CREATE VIEW "s3"."pet_names" AS SELECT "name" FROM "pets";
 `, idx, idx)
 	}
 
@@ -308,14 +281,12 @@ CREATE INDEX $name$ ON $users$ ($name$);
 CREATE TABLE $pets$ (
   $id$ integer NOT NULL,
   $name$ text NOT NULL,
-  $owner_id$ integer NOT NULL,
+  $fur_color$ text NOT NULL,
   $owner_id$ integer NOT NULL,
   FOREIGN KEY ($owner_id$) REFERENCES $users$ ($id$) ON DELETE SET DEFAULT
 );
 -- Create index "%s" to table: "pets"
 CREATE UNIQUE INDEX $%s$ ON $pets$ ($name$ DESC);
--- Add "pets_without_fur" view
-CREATE VIEW $pets_without_fur$ ($id$, $name$, $owner_id$) AS SELECT id, name, owner_id FROM pets;
 `, "$", "`"), idx, idx), false,
 		},
 		{dialect.MySql, "5.6", my(255, idx), false},
@@ -333,20 +304,14 @@ CREATE VIEW $pets_without_fur$ ($id$, $name$, $owner_id$) AS SELECT id, name, ow
 		}
 		pos := `-- atlas:pos users[type=table] users.go:15
 -- atlas:pos pets[type=table] pets.go:15
--- atlas:pos pets_without_fur[type=view] pets.go:30
--- atlas:pos pet_names[type=view] pets.go:45
 
 `
 		tables := tbls()
 		if tt.dialect != dialect.SQLite {
 			tables[0].Schema = "s1"
 			tables[1].Schema = "s2"
-			tables[2].Schema = "s3"
-			tables[3].Schema = "s3"
 			pos = `-- atlas:pos s1[type=schema].users[type=table] users.go:15
 -- atlas:pos s2[type=schema].pets[type=table] pets.go:15
--- atlas:pos s3[type=schema].pets_without_fur[type=view] pets.go:30
--- atlas:pos s3[type=schema].pet_names[type=view] pets.go:45
 
 `
 		}

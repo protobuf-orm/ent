@@ -33,8 +33,6 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// CleanUser is the client for interacting with the CleanUser builders.
-	CleanUser *CleanUserClient
 	// Friendship is the client for interacting with the Friendship builders.
 	Friendship *FriendshipClient
 	// Group is the client for interacting with the Group builders.
@@ -56,7 +54,6 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.CleanUser = NewCleanUserClient(c.config)
 	c.Friendship = NewFriendshipClient(c.config)
 	c.Group = NewGroupClient(c.config)
 	c.Parent = NewParentClient(c.config)
@@ -157,7 +154,6 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:        ctx,
 		config:     cfg,
-		CleanUser:  NewCleanUserClient(cfg),
 		Friendship: NewFriendshipClient(cfg),
 		Group:      NewGroupClient(cfg),
 		Parent:     NewParentClient(cfg),
@@ -182,7 +178,6 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:        ctx,
 		config:     cfg,
-		CleanUser:  NewCleanUserClient(cfg),
 		Friendship: NewFriendshipClient(cfg),
 		Group:      NewGroupClient(cfg),
 		Parent:     NewParentClient(cfg),
@@ -194,7 +189,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		CleanUser.
+//		Friendship.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -262,21 +257,21 @@ func (c *Client) InTx() bool {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	for _, n := range []interface{ Use(...Hook) }{
-		c.Friendship, c.Group, c.Parent, c.Pet, c.User,
-	} {
-		n.Use(hooks...)
-	}
+	c.Friendship.Use(hooks...)
+	c.Group.Use(hooks...)
+	c.Parent.Use(hooks...)
+	c.Pet.Use(hooks...)
+	c.User.Use(hooks...)
 }
 
 // Intercept adds the query interceptors to all the entity clients.
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
-	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.CleanUser, c.Friendship, c.Group, c.Parent, c.Pet, c.User,
-	} {
-		n.Intercept(interceptors...)
-	}
+	c.Friendship.Intercept(interceptors...)
+	c.Group.Intercept(interceptors...)
+	c.Parent.Intercept(interceptors...)
+	c.Pet.Intercept(interceptors...)
+	c.User.Intercept(interceptors...)
 }
 
 // Mutate implements the ent.Mutator interface.
@@ -295,36 +290,6 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	default:
 		return nil, fmt.Errorf("ent: unknown mutation type %T", m)
 	}
-}
-
-// CleanUserClient is a client for the CleanUser schema.
-type CleanUserClient struct {
-	config
-}
-
-// NewCleanUserClient returns a client for the CleanUser from the given config.
-func NewCleanUserClient(c config) *CleanUserClient {
-	return &CleanUserClient{config: c}
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `cleanuser.Intercept(f(g(h())))`.
-func (c *CleanUserClient) Intercept(interceptors ...Interceptor) {
-	c.inters.CleanUser = append(c.inters.CleanUser, interceptors...)
-}
-
-// Query returns a query builder for CleanUser.
-func (c *CleanUserClient) Query() *CleanUserQuery {
-	return &CleanUserQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeCleanUser},
-		inters: c.Interceptors(),
-	}
-}
-
-// Interceptors returns the client interceptors.
-func (c *CleanUserClient) Interceptors() []Interceptor {
-	return c.inters.CleanUser
 }
 
 // FriendshipClient is a client for the Friendship schema.
@@ -1245,7 +1210,7 @@ type (
 		Friendship, Group, Parent, Pet, User []ent.Hook
 	}
 	inters struct {
-		CleanUser, Friendship, Group, Parent, Pet, User []ent.Interceptor
+		Friendship, Group, Parent, Pet, User []ent.Interceptor
 	}
 )
 
@@ -1258,7 +1223,6 @@ func SchemaConfigFromContext(ctx context.Context) SchemaConfig {
 var (
 	// DefaultSchemaConfig represents the default schema names for all tables as defined in ent/schema.
 	DefaultSchemaConfig = SchemaConfig{
-		CleanUser:  tableSchemas[0],
 		Friendship: tableSchemas[1],
 		Group:      tableSchemas[1],
 		GroupUsers: tableSchemas[1],

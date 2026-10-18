@@ -52,7 +52,6 @@ type Table struct {
 	ForeignKeys []*ForeignKey
 	Annotation  *entsql.Annotation
 	Comment     string
-	View        bool   // Indicate the table is a view.
 	Pos         string // filename:line of the ent schema definition.
 }
 
@@ -62,13 +61,6 @@ func NewTable(name string) *Table {
 		Name:    name,
 		columns: make(map[string]*Column),
 	}
-}
-
-// NewView returns a new view with the given name.
-func NewView(name string) *Table {
-	t := NewTable(name)
-	t.View = true
-	return t
 }
 
 // SetComment sets the table comment.
@@ -657,13 +649,6 @@ func DDL(ctx context.Context, args DDLArgs) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	// Since the Atlas version bundled with Ent does not support view management,
-	// simply spit out the definition instead of letting Atlas plan them.
-	var vs []*schema.View
-	for _, s := range r.Schemas {
-		vs = append(vs, s.Views...)
-		s.Views = nil
-	}
 	var c schema.Changes
 	if slices.ContainsFunc(args.Tables, func(t *Table) bool { return t.Schema != "" }) {
 		c, err = d.RealmDiff(&schema.Realm{}, r)
@@ -677,26 +662,9 @@ func DDL(ctx context.Context, args DDLArgs) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	for _, v := range vs {
-		q, _ := sql.Dialect(args.Dialect).
-			CreateView(v.Name).
-			Schema(v.Schema.Name).
-			Columns(func(cols []*schema.Column) (bs []*sql.ColumnBuilder) {
-				for _, c := range cols {
-					bs = append(bs, sql.Dialect(args.Dialect).Column(c.Name).Type(c.Type.Raw))
-				}
-				return
-			}(v.Columns)...).
-			As(sql.Raw(v.Def)).
-			Query()
-		p.Changes = append(p.Changes, &migrate.Change{
-			Cmd:     q,
-			Comment: fmt.Sprintf("Add %q view", v.Name),
-		})
-	}
 	for _, t := range args.Tables {
 		p.Directives = append(p.Directives, fmt.Sprintf(
-			"-- atlas:pos %s%s[type=%s] %s",
+			"-- atlas:pos %s%s[type=table] %s",
 			func() string {
 				if t.Schema != "" {
 					return t.Schema + "[type=schema]."
@@ -704,12 +672,6 @@ func DDL(ctx context.Context, args DDLArgs) (string, error) {
 				return ""
 			}(),
 			t.Name,
-			func() string {
-				if t.View {
-					return "view"
-				}
-				return "table"
-			}(),
 			t.Pos,
 		))
 	}

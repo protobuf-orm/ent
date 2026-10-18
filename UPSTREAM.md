@@ -76,6 +76,7 @@ template blocks, delete the references.
 | **The acronym dictionary** | `4965c66b7` | `AddAcronym` survives as something a caller *says*; the built-in list is empty. |
 | **Inflection** | `43618422d`, `9a09df53e` | No pluralize/singularize/camelize anywhere. |
 | **all-contributors** | `ab917d4a1` | |
+| **Views** | #3 | `ent.View`, `entsql.View`/`ViewFor`, `Graph.Views`, `MutableNodes`, `schema.NewView`, the `CREATE VIEW` in `schema.DDL`, `doc/md/schema-view.mdx`. Nothing created a declared view: the bundled Atlas plans no view changes and ent inspects tables only. A change that adds an `IsView` branch, or ranges `MutableNodes`, keeps the table half -- `Nodes` -- and drops the rest. `sql.CreateView` stays; it is the builder's, not ent's. |
 | **Upstream CI and the doc site** | `20f781224`, `fdd769d62` | See [CI](#6-ci-ours-not-theirs) -- one of their jobs cannot pass here by construction. `doc/md/` is kept as reference prose, not as a published site. |
 
 ## 2. Names: rewrite mechanically
@@ -280,9 +281,9 @@ and green in CI only because a `CI` guard sat above it.
 Six of them declared no ent feature at all: the composite type, domain, enum,
 functional index, RLS policy or trigger came from the SQL file, and the ent
 schema was ordinary fields. The two that did -- `viewschema` and
-`viewcomposite`, which use `ent.View` -- are the reason
-[#2](https://github.com/protobuf-orm/ent/issues/2) is open. Nothing was lost
-in removing them, because neither had run in a long time.
+`viewcomposite`, which use `ent.View` -- were what led to removing views
+altogether (#2, #3). Nothing was lost in removing them, because neither had
+run in a long time.
 
 ## Verifying
 

@@ -856,24 +856,6 @@ func (a *Atlas) realm(tables []*Table) (*schema.Realm, error) {
 			sm[et.Schema] = schema.New(et.Schema)
 		}
 		s := sm[et.Schema]
-		if et.View {
-			if et.Annotation == nil || et.Annotation.ViewAs == "" && et.Annotation.ViewFor[a.dialect] == "" {
-				continue // defined externally
-			}
-			def := et.Annotation.ViewFor[a.dialect]
-			if def == "" {
-				def = et.Annotation.ViewAs
-			}
-			av := schema.NewView(et.Name, def)
-			if et.Comment != "" {
-				av.SetComment(et.Comment)
-			}
-			if err := a.aVColumns(et, av); err != nil {
-				return nil, err
-			}
-			s.AddViews(av)
-			continue
-		}
 		at := schema.NewTable(et.Name)
 		if et.Comment != "" {
 			at.SetComment(et.Comment)
@@ -903,9 +885,6 @@ func (a *Atlas) realm(tables []*Table) (*schema.Realm, error) {
 		byT[et] = at
 	}
 	for _, t1 := range tables {
-		if t1.View {
-			continue
-		}
 		t2 := byT[t1]
 		for _, fk1 := range t1.ForeignKeys {
 			fk2 := schema.NewForeignKey(fk1.Symbol).
@@ -980,27 +959,6 @@ func (a *Atlas) aColumns(et *Table, at *schema.Table) error {
 		}
 		if c1.Increment {
 			a.sqlDialect.atIncrementC(at, c2)
-		}
-		at.AddColumns(c2)
-	}
-	return nil
-}
-
-func (a *Atlas) aVColumns(et *Table, at *schema.View) error {
-	for _, c1 := range et.Columns {
-		c2 := schema.NewColumn(c1.Name).
-			SetNull(c1.Nullable)
-		if c1.Collation != "" {
-			c2.SetCollation(c1.Collation)
-		}
-		if c1.Comment != "" {
-			c2.SetComment(c1.Comment)
-		}
-		if err := a.sqlDialect.atTypeC(c1, c2); err != nil {
-			return err
-		}
-		if err := a.atDefault(c1, c2); err != nil {
-			return err
 		}
 		at.AddColumns(c2)
 	}

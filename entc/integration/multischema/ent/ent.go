@@ -16,7 +16,6 @@ import (
 	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
-	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/cleanuser"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/friendship"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/group"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/ent/parent"
@@ -82,7 +81,6 @@ var (
 func checkColumn(t, c string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
-			cleanuser.Table:  cleanuser.ValidColumn,
 			friendship.Table: friendship.ValidColumn,
 			group.Table:      group.ValidColumn,
 			parent.Table:     parent.ValidColumn,

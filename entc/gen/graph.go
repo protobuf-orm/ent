@@ -190,17 +190,6 @@ func NewGraph(c *Config, schemas ...*load.Schema) (g *Graph, err error) {
 	return
 }
 
-// MutableNodes returns the list of nodes that are mutable. i.e., not views.
-func (g *Graph) MutableNodes() []*Type {
-	nodes := make([]*Type, 0, len(g.Nodes))
-	for _, n := range g.Nodes {
-		if !n.IsView() {
-			nodes = append(nodes, n)
-		}
-	}
-	return nodes
-}
-
 // defaultIdType holds the default value for IdType.
 var defaultIdType = &field.TypeInfo{Type: field.TypeInt}
 
@@ -637,7 +626,7 @@ func (g *Graph) edgeSchemas() error {
 // Tables returns the schema definitions of Sql tables for the graph.
 func (g *Graph) Tables() (all []*schema.Table, err error) {
 	tables := make(map[string]*schema.Table)
-	for _, n := range g.MutableNodes() {
+	for _, n := range g.Nodes {
 		table := schema.NewTable(n.Table()).
 			SetComment(n.sqlComment()).
 			SetPos(n.Pos())
@@ -783,33 +772,6 @@ func (g *Graph) Tables() (all []*schema.Table, err error) {
 	}
 	if err := ensureUniqueFKs(tables); err != nil {
 		return nil, err
-	}
-	return
-}
-
-// Views returns all schema views
-func (g *Graph) Views() (views []*schema.Table, err error) {
-	for _, n := range g.Nodes {
-		if !n.IsView() {
-			continue
-		}
-		view := schema.NewView(n.Table()).
-			SetComment(n.sqlComment()).
-			SetPos(n.Pos())
-		switch ant := n.EntSql(); {
-		case ant == nil:
-		case ant.Skip:
-			continue
-		default:
-			view.SetAnnotation(ant).SetSchema(ant.Schema)
-		}
-		for _, f := range n.Fields {
-			if a := f.EntSql(); a != nil && a.Skip {
-				continue
-			}
-			view.AddColumn(f.Column())
-		}
-		views = append(views, view)
 	}
 	return
 }

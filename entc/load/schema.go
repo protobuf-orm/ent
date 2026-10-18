@@ -20,7 +20,6 @@ import (
 type Schema struct {
 	Name         string         `json:"name,omitempty"`
 	Pos          string         `json:"-"`
-	View         bool           `json:"view,omitempty"`
 	Config       ent.Config     `json:"config,omitempty"`
 	Edges        []*Edge        `json:"edges,omitempty"`
 	Fields       []*Field       `json:"fields,omitempty"`
@@ -190,7 +189,6 @@ func MarshalSchema(schema ent.Interface) (b []byte, err error) {
 		Name:        indirect(reflect.TypeOf(schema)).Name(),
 		Annotations: make(map[string]any),
 	}
-	_, s.View = schema.(ent.Viewer)
 	if err := s.loadMixin(schema); err != nil {
 		return nil, fmt.Errorf("schema %q: %w", s.Name, err)
 	}
