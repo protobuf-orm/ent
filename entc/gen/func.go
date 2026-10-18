@@ -53,6 +53,7 @@ var (
 		"trim":          strings.Trim,
 		"hasField":      hasField,
 		"hasImport":     hasImport,
+		"importPath":    importPath,
 		"indirect":      indirect,
 		"hasPrefix":     strings.HasPrefix,
 		"hasSuffix":     strings.HasSuffix,
@@ -435,6 +436,12 @@ func hasField(v any, name string) bool {
 func hasImport(name string) bool {
 	_, ok := importPkg[name]
 	return ok
+}
+
+// importPath returns the path of the predefined import package with the given
+// name, or "" if there is none.
+func importPath(name string) string {
+	return importPkg[name]
 }
 
 // trimPackage trims the package name from the given identifier.

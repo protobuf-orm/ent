@@ -12,14 +12,12 @@ import (
 	"fmt"
 	"log"
 	"reflect"
+
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/migrate"
+
 	"uuid"
 
 	"github.com/protobuf-orm/ent"
-	"github.com/protobuf-orm/ent/entc/integration/customid/ent/migrate"
-	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
-	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
-	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
-
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
@@ -37,10 +35,13 @@ import (
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/other"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/pet"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/revision"
+	"github.com/protobuf-orm/ent/entc/integration/customid/ent/schema"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/session"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/token"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/user"
 	"github.com/protobuf-orm/ent/entc/integration/customid/ent/valuescan"
+	"github.com/protobuf-orm/ent/entc/integration/customid/sid"
+	uuidc "github.com/protobuf-orm/ent/entc/integration/customid/uuidcompatible"
 )
 
 // Client is the client that holds all ent builders.

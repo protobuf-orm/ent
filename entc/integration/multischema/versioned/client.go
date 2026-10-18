@@ -13,9 +13,9 @@ import (
 	"log"
 	"reflect"
 
-	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/entc/integration/multischema/versioned/migrate"
 
+	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"

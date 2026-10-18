@@ -10,6 +10,10 @@
 {{ $pkg := base $.Config.Package }}
 {{ template "header" $ }}
 
+{{/* Import what the file uses: a package left out is found by goimports,
+     which takes any package of that name it comes across. */}}
+import "github.com/protobuf-orm/ent/dialect"
+
 {{/* Loop over all nodes and add option the "Debug()" method. */}}
 {{ range $n := $.Nodes }}
 	{{ $client := print $n.Name "Client" }}

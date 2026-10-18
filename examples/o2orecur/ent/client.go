@@ -13,9 +13,9 @@ import (
 	"log"
 	"reflect"
 
-	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/examples/o2orecur/ent/migrate"
 
+	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/protobuf-orm/ent/dialect/sql/sqlgraph"
