@@ -134,6 +134,7 @@ func (m *Mutation) ResetLastName() {
 func (m *Mutation) SetTags(s []string) {
 	m.tags = &s
 	m.appendtags = nil
+	delete(m.clearedFields, FieldTags)
 	delete(m.exprs, FieldTags)
 }
 

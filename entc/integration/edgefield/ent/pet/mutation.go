@@ -42,6 +42,7 @@ func (m *Mutation) Predicates() []predicate.Pet {
 // SetOwnerId sets the "owner_id" field.
 func (m *Mutation) SetOwnerId(i int) {
 	m.owner = &i
+	delete(m.clearedFields, FieldOwnerId)
 }
 
 // OwnerId returns the value of the "owner_id" field in the mutation.

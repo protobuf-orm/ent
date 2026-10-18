@@ -70,6 +70,7 @@ func (m *Mutation) ResetName() {
 func (m *Mutation) SetAge(u uint) {
 	m.age = &u
 	m.addage = nil
+	delete(m.clearedFields, FieldAge)
 	delete(m.exprs, FieldAge)
 }
 

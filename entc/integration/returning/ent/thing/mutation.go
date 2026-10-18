@@ -90,6 +90,7 @@ func (m *Mutation) ResetAt() {
 // SetMotto sets the "motto" field.
 func (m *Mutation) SetMotto(s string) {
 	m.motto = &s
+	delete(m.clearedFields, FieldMotto)
 	delete(m.exprs, FieldMotto)
 }
 
@@ -126,6 +127,7 @@ func (m *Mutation) ResetMotto() {
 func (m *Mutation) SetDoc(j jsontext.Value) {
 	m.doc = &j
 	m.appenddoc = nil
+	delete(m.clearedFields, FieldDoc)
 	delete(m.exprs, FieldDoc)
 }
 

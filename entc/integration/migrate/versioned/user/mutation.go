@@ -105,6 +105,7 @@ func (m *Mutation) ResetName() {
 // SetAddress sets the "address" field.
 func (m *Mutation) SetAddress(s string) {
 	m.address = &s
+	delete(m.clearedFields, FieldAddress)
 	delete(m.exprs, FieldAddress)
 }
 

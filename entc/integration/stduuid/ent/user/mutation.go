@@ -67,6 +67,7 @@ func (m *Mutation) ResetName() {
 // SetRef sets the "ref" field.
 func (m *Mutation) SetRef(u uuid.UUID) {
 	m.ref = &u
+	delete(m.clearedFields, FieldRef)
 	delete(m.exprs, FieldRef)
 }
 

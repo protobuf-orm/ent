@@ -50,6 +50,7 @@ func (m *Mutation) Predicates() []predicate.Conversion {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.clearedFields, FieldName)
 	delete(m.exprs, FieldName)
 }
 
@@ -85,6 +86,7 @@ func (m *Mutation) ResetName() {
 // SetInt8ToString sets the "int8_to_string" field.
 func (m *Mutation) SetInt8ToString(s string) {
 	m.int8_to_string = &s
+	delete(m.clearedFields, FieldInt8ToString)
 	delete(m.exprs, FieldInt8ToString)
 }
 
@@ -120,6 +122,7 @@ func (m *Mutation) ResetInt8ToString() {
 // SetUint8ToString sets the "uint8_to_string" field.
 func (m *Mutation) SetUint8ToString(s string) {
 	m.uint8_to_string = &s
+	delete(m.clearedFields, FieldUint8ToString)
 	delete(m.exprs, FieldUint8ToString)
 }
 
@@ -155,6 +158,7 @@ func (m *Mutation) ResetUint8ToString() {
 // SetInt16ToString sets the "int16_to_string" field.
 func (m *Mutation) SetInt16ToString(s string) {
 	m.int16_to_string = &s
+	delete(m.clearedFields, FieldInt16ToString)
 	delete(m.exprs, FieldInt16ToString)
 }
 
@@ -190,6 +194,7 @@ func (m *Mutation) ResetInt16ToString() {
 // SetUint16ToString sets the "uint16_to_string" field.
 func (m *Mutation) SetUint16ToString(s string) {
 	m.uint16_to_string = &s
+	delete(m.clearedFields, FieldUint16ToString)
 	delete(m.exprs, FieldUint16ToString)
 }
 
@@ -225,6 +230,7 @@ func (m *Mutation) ResetUint16ToString() {
 // SetInt32ToString sets the "int32_to_string" field.
 func (m *Mutation) SetInt32ToString(s string) {
 	m.int32_to_string = &s
+	delete(m.clearedFields, FieldInt32ToString)
 	delete(m.exprs, FieldInt32ToString)
 }
 
@@ -260,6 +266,7 @@ func (m *Mutation) ResetInt32ToString() {
 // SetUint32ToString sets the "uint32_to_string" field.
 func (m *Mutation) SetUint32ToString(s string) {
 	m.uint32_to_string = &s
+	delete(m.clearedFields, FieldUint32ToString)
 	delete(m.exprs, FieldUint32ToString)
 }
 
@@ -295,6 +302,7 @@ func (m *Mutation) ResetUint32ToString() {
 // SetInt64ToString sets the "int64_to_string" field.
 func (m *Mutation) SetInt64ToString(s string) {
 	m.int64_to_string = &s
+	delete(m.clearedFields, FieldInt64ToString)
 	delete(m.exprs, FieldInt64ToString)
 }
 
@@ -330,6 +338,7 @@ func (m *Mutation) ResetInt64ToString() {
 // SetUint64ToString sets the "uint64_to_string" field.
 func (m *Mutation) SetUint64ToString(s string) {
 	m.uint64_to_string = &s
+	delete(m.clearedFields, FieldUint64ToString)
 	delete(m.exprs, FieldUint64ToString)
 }
 

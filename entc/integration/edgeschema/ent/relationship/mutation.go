@@ -129,6 +129,7 @@ func (m *Mutation) ResetRelativesId() {
 // SetInfoId sets the "info_id" field.
 func (m *Mutation) SetInfoId(i int) {
 	m.info = &i
+	delete(m.clearedFields, FieldInfoId)
 }
 
 // InfoId returns the value of the "info_id" field in the mutation.

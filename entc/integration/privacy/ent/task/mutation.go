@@ -70,6 +70,7 @@ func (m *Mutation) ResetTitle() {
 // SetDescription sets the "description" field.
 func (m *Mutation) SetDescription(s string) {
 	m.description = &s
+	delete(m.clearedFields, FieldDescription)
 	delete(m.exprs, FieldDescription)
 }
 
@@ -124,6 +125,7 @@ func (m *Mutation) ResetStatus() {
 // SetUuid sets the "uuid" field.
 func (m *Mutation) SetUuid(u uuid.UUID) {
 	m.uuid = &u
+	delete(m.clearedFields, FieldUuid)
 	delete(m.exprs, FieldUuid)
 }
 

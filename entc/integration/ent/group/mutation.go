@@ -101,6 +101,7 @@ func (m *Mutation) ResetExpire() {
 // SetType sets the "type" field.
 func (m *Mutation) SetType(s string) {
 	m._type = &s
+	delete(m.clearedFields, FieldType)
 }
 
 // GetType returns the value of the "type" field in the mutation.
@@ -134,6 +135,7 @@ func (m *Mutation) ResetType() {
 func (m *Mutation) SetMaxUsers(i int) {
 	m.max_users = &i
 	m.addmax_users = nil
+	delete(m.clearedFields, FieldMaxUsers)
 }
 
 // MaxUsers returns the value of the "max_users" field in the mutation.

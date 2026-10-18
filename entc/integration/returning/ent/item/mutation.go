@@ -64,6 +64,7 @@ func (m *Mutation) ResetName() {
 // SetMotto sets the "motto" field.
 func (m *Mutation) SetMotto(s string) {
 	m.motto = &s
+	delete(m.clearedFields, FieldMotto)
 	delete(m.exprs, FieldMotto)
 }
 

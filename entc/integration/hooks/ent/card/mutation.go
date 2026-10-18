@@ -68,6 +68,7 @@ func (m *Mutation) ResetNumber() {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.clearedFields, FieldName)
 	delete(m.exprs, FieldName)
 }
 
@@ -145,6 +146,7 @@ func (m *Mutation) ResetInHook() {
 // SetExpiredAt sets the "expired_at" field.
 func (m *Mutation) SetExpiredAt(t time.Time) {
 	m.expired_at = &t
+	delete(m.clearedFields, FieldExpiredAt)
 	delete(m.exprs, FieldExpiredAt)
 }
 

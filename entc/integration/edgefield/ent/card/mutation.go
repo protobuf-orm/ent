@@ -44,6 +44,7 @@ func (m *Mutation) Predicates() []predicate.Card {
 // SetNumber sets the "number" field.
 func (m *Mutation) SetNumber(s string) {
 	m.number = &s
+	delete(m.clearedFields, FieldNumber)
 	delete(m.exprs, FieldNumber)
 }
 
@@ -79,6 +80,7 @@ func (m *Mutation) ResetNumber() {
 // SetOwnerId sets the "owner_id" field.
 func (m *Mutation) SetOwnerId(i int) {
 	m.owner = &i
+	delete(m.clearedFields, FieldOwnerId)
 }
 
 // OwnerId returns the value of the "owner_id" field in the mutation.

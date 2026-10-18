@@ -43,6 +43,7 @@ func (m *Mutation) Predicates() []predicate.User {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.clearedFields, FieldName)
 	delete(m.exprs, FieldName)
 }
 
@@ -78,6 +79,7 @@ func (m *Mutation) ResetName() {
 // SetLabel sets the "label" field.
 func (m *Mutation) SetLabel(s string) {
 	m.label = &s
+	delete(m.clearedFields, FieldLabel)
 	delete(m.exprs, FieldLabel)
 }
 
