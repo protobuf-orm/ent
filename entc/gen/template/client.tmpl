@@ -60,10 +60,16 @@ import (
 	{{- end }}
 	{{ range $n := $.Nodes }}
 		{{ $n.PackageAlias }} "{{ $n.Config.Package }}/{{ $n.PackageDir }}"
+		{{- /* An Id is spelled in its own type throughout the client. */}}
+		{{- template "import/types" $n }}
 	{{- end }}
 	{{- range $dep := $deps }}
 		{{ $dep.Type.PkgName }} "{{ $dep.Type.PkgPath }}"
 	{{- end }}
+	{{- /* Every generated package exports Hook and Interceptor as aliases of
+	     these, so leaving the root package to goimports lets it settle on any
+	     of them. */}}
+	"github.com/protobuf-orm/ent"
 	"github.com/protobuf-orm/ent/dialect"
 	{{ range $import := $.Storage.Imports -}}
 		"{{ $import }}"

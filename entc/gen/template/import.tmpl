@@ -44,25 +44,28 @@ import (
 )
 {{ end }}
 
-{{/* A template for importing fields with custom types */}}
+{{/* A template for importing fields with custom types.
+
+     A package whose name is one of the predefined imports (e.g. "sql") is not
+     imported itself: the predefined package of that name is, as the "import"
+     template does, and it is imported here too so that a file with an import
+     block of its own does not leave the name for goimports to resolve. */}}
 {{ define "import/types" -}}
 	{{- $seen := dict }}
 	{{- $selfPkg := "" }}{{ if ne $.Config.Package $.Package }}{{ $selfPkg = print $.Config.Package "/" $.PackageDir }}{{ end }}
-	{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ if $.Id.UserDefined }}{{ $fields = append $fields $.Id }}{{ end }}{{ end }}
-	{{- range $f := $fields }}
-		{{- $pkg := $f.Type.PkgPath }}
-		{{- if and $pkg (not (hasImport (base $pkg))) (not (hasKey $seen $pkg)) (ne $pkg $selfPkg) }}
-			{{- $name := $f.Type.PkgName }}
-			{{ if ne $name (base $pkg) }}{{ $name }} {{ end}}"{{ $pkg }}"
-			{{- $seen = set $seen $pkg true }}
-		{{- end }}
-	{{- end }}
+	{{- $fields := $.Fields }}{{ if $.HasOneFieldId }}{{ $fields = append $fields $.Id }}{{ end }}
+	{{- $types := list }}
+	{{- range $f := $fields }}{{ $types = append $types $f.Type }}{{ end }}
 	{{- /* Import packages for edge target Id types referenced in mutation fields. */}}
-	{{- range $e := $.EdgesWithId }}
-		{{- $pkg := $e.Type.Id.Type.PkgPath }}
-		{{- if and $pkg (not (hasImport (base $pkg))) (not (hasKey $seen $pkg)) (ne $pkg $selfPkg) }}
-			{{- $name := $e.Type.Id.Type.PkgName }}
-			{{ if ne $name (base $pkg) }}{{ $name }} {{ end}}"{{ $pkg }}"
+	{{- range $e := $.EdgesWithId }}{{ $types = append $types $e.Type.Id.Type }}{{ end }}
+	{{- range $t := $types }}
+		{{- $pkg := $t.PkgPath }}
+		{{- if and $pkg (hasImport (base $pkg)) }}
+			{{- $pkg = importPath (base $pkg) }}
+		{{- end }}
+		{{- if and $pkg (not (hasKey $seen $pkg)) (ne $pkg $selfPkg) }}
+			{{- $name := $t.PkgName }}
+			{{ if and (ne $name (base $pkg)) (not (hasImport (base $pkg))) }}{{ $name }} {{ end}}"{{ $pkg }}"
 			{{- $seen = set $seen $pkg true }}
 		{{- end }}
 	{{- end }}

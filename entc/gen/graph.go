@@ -18,6 +18,7 @@ import (
 	"runtime/debug"
 	"strconv"
 	"strings"
+	"sync"
 	"text/template/parse"
 
 	"github.com/protobuf-orm/ent/dialect/sql/schema"
@@ -1157,24 +1158,48 @@ func (a assets) write() error {
 	return nil
 }
 
+// formatted, when set, is handed each asset before and after goimports, so
+// that a test can see what goimports had to add.
+var formatted func(path string, src, out []byte)
+
 // format runs "goimports" on all assets.
+//
+// goimports resolves a name a file uses but does not import by what the
+// files beside it import, which it reads from disk. So every file is
+// formatted before any is written back: a file written while another is
+// being formatted could be read half written, and the name resolved by
+// whatever else goimports finds.
 func (a assets) format() error {
-	var wg errgroup.Group
+	var (
+		mu  sync.Mutex
+		out = make(map[string][]byte, len(a.files))
+		wg  errgroup.Group
+	)
 	wg.SetLimit(runtime.GOMAXPROCS(0))
 	for path, content := range a.files {
-		path, content := path, content
 		wg.Go(func() error {
 			src, err := imports.Process(path, content, nil)
 			if err != nil {
 				return fmt.Errorf("format file %s: %w", path, err)
 			}
-			if err := os.WriteFile(path, src, 0644); err != nil {
-				return fmt.Errorf("write file %s: %w", path, err)
+			if formatted != nil {
+				formatted(path, content, src)
 			}
+			mu.Lock()
+			out[path] = src
+			mu.Unlock()
 			return nil
 		})
 	}
-	return wg.Wait()
+	if err := wg.Wait(); err != nil {
+		return err
+	}
+	for path, src := range out {
+		if err := os.WriteFile(path, src, 0644); err != nil {
+			return fmt.Errorf("write file %s: %w", path, err)
+		}
+	}
+	return nil
 }
 
 // expect panics if the condition is false.
