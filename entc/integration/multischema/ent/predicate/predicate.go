@@ -10,9 +10,6 @@ import (
 	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
-// CleanUser is the predicate function for cleanuser builders.
-type CleanUser func(*sql.Selector)
-
 // Friendship is the predicate function for friendship builders.
 type Friendship func(*sql.Selector)
 

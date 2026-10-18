@@ -221,17 +221,15 @@ func NewType(c *Config, schema *load.Schema) (*Type, error) {
 		fields:      make(map[string]*Field, len(schema.Fields)),
 		foreignKeys: make(map[string]struct{}),
 	}
-	if !typ.IsView() {
-		typ.Id = &Field{
-			cfg:  c,
-			typ:  typ,
+	typ.Id = &Field{
+		cfg:  c,
+		typ:  typ,
+		Name: "id",
+		def: &load.Field{
 			Name: "id",
-			def: &load.Field{
-				Name: "id",
-			},
-			Type:      idType,
-			StructTag: structTag("id", ""),
-		}
+		},
+		Type:      idType,
+		StructTag: structTag("id", ""),
 	}
 	if err := ValidSchemaName(typ.Name); err != nil {
 		return nil, err
@@ -259,7 +257,7 @@ func NewType(c *Config, schema *load.Schema) (*Type, error) {
 			return nil, err
 		}
 		// User defined id field.
-		if typ.Id != nil && tf.Name == typ.Id.Name {
+		if tf.Name == typ.Id.Name {
 			if tf.Optional {
 				return nil, errors.New("id field cannot be optional")
 			}
@@ -270,11 +268,6 @@ func NewType(c *Config, schema *load.Schema) (*Type, error) {
 		}
 	}
 	return typ, nil
-}
-
-// IsView indicates if the type (schema) is a view.
-func (t Type) IsView() bool {
-	return t.schema != nil && t.schema.View
 }
 
 // IsEdgeSchema indicates if the type (schema) is used as an edge-schema.

@@ -48,7 +48,6 @@ var (
 	Templates = []TypeTemplate{
 		{
 			Name:   "create",
-			Cond:   notView,
 			Format: pkgf("%s_create.go"),
 			ExtendPatterns: []string{
 				"dialect/*/create/fields/additional/*",
@@ -57,12 +56,10 @@ var (
 		},
 		{
 			Name:   "update",
-			Cond:   notView,
 			Format: pkgf("%s_update.go"),
 		},
 		{
 			Name:   "delete",
-			Cond:   notView,
 			Format: pkgf("%s_delete.go"),
 		},
 		{
@@ -94,7 +91,6 @@ var (
 		},
 		{
 			Name: "mutation",
-			Cond: notView,
 			Format: func(t *Type) string {
 				return fmt.Sprintf("%s/mutation.go", t.PackageDir())
 			},
@@ -237,9 +233,6 @@ var (
 		"field":   "github.com/protobuf-orm/ent/schema/field",
 	}
 )
-
-// notView reports if the given type is not a view.
-func notView(t *Type) bool { return !t.IsView() }
 
 func initTemplates() {
 	templates = MustParse(NewTemplate("templates").

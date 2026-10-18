@@ -6,8 +6,6 @@ package schema
 
 import (
 	"github.com/protobuf-orm/ent"
-	"github.com/protobuf-orm/ent/dialect/entsql"
-	"github.com/protobuf-orm/ent/schema"
 	"github.com/protobuf-orm/ent/schema/edge"
 	"github.com/protobuf-orm/ent/schema/field"
 )
@@ -36,25 +34,5 @@ func (User) Edges() []ent.Edge {
 		edge.To("children", User.Type).
 			Through("parent_hood", Parent.Type).
 			From("parents"),
-	}
-}
-
-// CleanUser represents a user without its PII field.
-type CleanUser struct {
-	ent.View
-}
-
-// Annotations of the CleanUser.
-func (CleanUser) Annotations() []schema.Annotation {
-	return []schema.Annotation{
-		entsql.View("SELECT name FROM `user`"),
-		entsql.Schema("db1"),
-	}
-}
-
-// Fields of the CleanUser.
-func (CleanUser) Fields() []ent.Field {
-	return []ent.Field{
-		field.String("name"),
 	}
 }

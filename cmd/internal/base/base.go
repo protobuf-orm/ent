@@ -253,17 +253,13 @@ func SchemaCmd() *xli.Command {
 			if err != nil {
 				return err
 			}
-			v, err := g.Views()
-			if err != nil {
-				return err
-			}
 			version, _ := flg.Get[string](cmd, "version")
 			hashSymbols, _ := flg.Get[bool](cmd, "hash-symbols")
 			ddl, err := schema.DDL(ctx, schema.DDLArgs{
 				Dialect:     flg.MustGet[string](cmd, "dialect"),
 				Version:     version,
 				HashSymbols: hashSymbols,
-				Tables:      append(t, v...),
+				Tables:      t,
 			})
 			if err != nil {
 				return err

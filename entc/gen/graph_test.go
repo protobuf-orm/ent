@@ -403,12 +403,6 @@ func TestPosition(t *testing.T) {
 			},
 			Annotations: antFn("two"),
 		}
-		petView = &load.Schema{
-			View:        true,
-			Name:        "PetView",
-			Pos:         "pet_view.go:10",
-			Annotations: antFn("two"),
-		}
 		car = &load.Schema{
 			Name: "Car",
 			Pos:  "car.go:100",
@@ -431,7 +425,7 @@ func TestPosition(t *testing.T) {
 			Annotations: antFn("two"),
 		}
 	)
-	g, err := NewGraph(&Config{Package: "entc/gen", Storage: drivers[0]}, user, pet, petView, car, carOwner)
+	g, err := NewGraph(&Config{Package: "entc/gen", Storage: drivers[0]}, user, pet, car, carOwner)
 	require.NoError(t, err)
 	ts, err := g.Tables()
 	require.NoError(t, err)
@@ -441,10 +435,6 @@ func TestPosition(t *testing.T) {
 	require.Equal(t, ts[2].Pos, "car.go:100")
 	require.Equal(t, ts[3].Pos, "car_owner.go:1000") // edge schema has its own position
 	require.Equal(t, ts[4].Pos, "user.go:1")         // user owns the pet edge -> user position
-	vs, err := g.Views()
-	require.NoError(t, err)
-	require.Len(t, vs, 1)
-	require.Equal(t, vs[0].Pos, "pet_view.go:10")
 }
 
 func TestMultiSchemaAnnotation(t *testing.T) {
