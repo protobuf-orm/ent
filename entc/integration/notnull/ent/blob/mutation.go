@@ -64,6 +64,7 @@ func (m *Mutation) ResetData() {
 // SetNote sets the "note" field.
 func (m *Mutation) SetNote(b []byte) {
 	m.note = &b
+	delete(m.clearedFields, FieldNote)
 	delete(m.exprs, FieldNote)
 }
 

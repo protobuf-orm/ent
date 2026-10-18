@@ -61,6 +61,7 @@ func (m *Mutation) Predicates() []predicate.File {
 func (m *Mutation) SetSetId(i int) {
 	m.set_id = &i
 	m.addset_id = nil
+	delete(m.clearedFields, FieldSetId)
 }
 
 // SetId returns the value of the "set_id" field in the mutation.
@@ -173,6 +174,7 @@ func (m *Mutation) ResetName() {
 // SetUser sets the "user" field.
 func (m *Mutation) SetUser(s string) {
 	m.user = &s
+	delete(m.clearedFields, FieldUser)
 	delete(m.exprs, FieldUser)
 }
 
@@ -208,6 +210,7 @@ func (m *Mutation) ResetUser() {
 // SetGroup sets the "group" field.
 func (m *Mutation) SetGroup(s string) {
 	m.group = &s
+	delete(m.clearedFields, FieldGroup)
 	delete(m.exprs, FieldGroup)
 }
 
@@ -243,6 +246,7 @@ func (m *Mutation) ResetGroup() {
 // SetOpField sets the "op" field.
 func (m *Mutation) SetOpField(b bool) {
 	m._op = &b
+	delete(m.clearedFields, FieldOp)
 	delete(m.exprs, FieldOp)
 }
 
@@ -279,6 +283,7 @@ func (m *Mutation) ResetOp() {
 func (m *Mutation) SetFieldId(i int) {
 	m.field_id = &i
 	m.addfield_id = nil
+	delete(m.clearedFields, FieldFieldId)
 	delete(m.exprs, FieldFieldId)
 }
 
@@ -334,6 +339,7 @@ func (m *Mutation) ResetFieldId() {
 // SetCreateTime sets the "create_time" field.
 func (m *Mutation) SetCreateTime(t time.Time) {
 	m.create_time = &t
+	delete(m.clearedFields, FieldCreateTime)
 	delete(m.exprs, FieldCreateTime)
 }
 

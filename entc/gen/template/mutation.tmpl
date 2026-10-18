@@ -84,6 +84,10 @@ func (m *Mutation) Predicates() []predicate.{{ $.Name }} {
 		{{- if $f.SupportsMutationAppend }}
 			m.append{{ $f.BuilderField }} = nil
 		{{- end }}
+		{{- /* Setting overrides a previous call to Clear, as Clear overrides a previous call to Set. */}}
+		{{- if $f.Optional }}
+			delete(m.clearedFields, {{ $const }})
+		{{- end }}
 		{{- if $f.SupportsMutationExpr }}
 			delete(m.exprs, {{ $const }})
 		{{- end }}

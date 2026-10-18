@@ -116,6 +116,7 @@ func (m *Mutation) ResetName() {
 // SetUuid sets the "uuid" field.
 func (m *Mutation) SetUuid(u uuid.UUID) {
 	m.uuid = &u
+	delete(m.clearedFields, FieldUuid)
 	delete(m.exprs, FieldUuid)
 }
 
@@ -151,6 +152,7 @@ func (m *Mutation) ResetUuid() {
 // SetNickname sets the "nickname" field.
 func (m *Mutation) SetNickname(s string) {
 	m.nickname = &s
+	delete(m.clearedFields, FieldNickname)
 	delete(m.exprs, FieldNickname)
 }
 
@@ -207,6 +209,7 @@ func (m *Mutation) ResetTrained() {
 // SetOptionalTime sets the "optional_time" field.
 func (m *Mutation) SetOptionalTime(t time.Time) {
 	m.optional_time = &t
+	delete(m.clearedFields, FieldOptionalTime)
 	delete(m.exprs, FieldOptionalTime)
 }
 

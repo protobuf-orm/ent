@@ -44,6 +44,7 @@ func (m *Mutation) Predicates() []predicate.Pet {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.clearedFields, FieldName)
 	delete(m.exprs, FieldName)
 }
 

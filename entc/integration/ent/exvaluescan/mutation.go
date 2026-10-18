@@ -93,6 +93,7 @@ func (m *Mutation) ResetBinaryBytes() {
 // SetBinaryOptional sets the "binary_optional" field.
 func (m *Mutation) SetBinaryOptional(u *url.URL) {
 	m.binary_optional = &u
+	delete(m.clearedFields, FieldBinaryOptional)
 	delete(m.exprs, FieldBinaryOptional)
 }
 
@@ -149,6 +150,7 @@ func (m *Mutation) ResetText() {
 // SetTextOptional sets the "text_optional" field.
 func (m *Mutation) SetTextOptional(b *big.Int) {
 	m.text_optional = &b
+	delete(m.clearedFields, FieldTextOptional)
 	delete(m.exprs, FieldTextOptional)
 }
 
@@ -226,6 +228,7 @@ func (m *Mutation) ResetCustom() {
 // SetCustomOptional sets the "custom_optional" field.
 func (m *Mutation) SetCustomOptional(s string) {
 	m.custom_optional = &s
+	delete(m.clearedFields, FieldCustomOptional)
 	delete(m.exprs, FieldCustomOptional)
 }
 

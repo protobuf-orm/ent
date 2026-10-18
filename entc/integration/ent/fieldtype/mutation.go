@@ -350,6 +350,7 @@ func (m *Mutation) ResetInt64() {
 func (m *Mutation) SetOptionalInt(i int) {
 	m.optional_int = &i
 	m.addoptional_int = nil
+	delete(m.clearedFields, FieldOptionalInt)
 	delete(m.exprs, FieldOptionalInt)
 }
 
@@ -406,6 +407,7 @@ func (m *Mutation) ResetOptionalInt() {
 func (m *Mutation) SetOptionalInt8(i int8) {
 	m.optional_int8 = &i
 	m.addoptional_int8 = nil
+	delete(m.clearedFields, FieldOptionalInt8)
 	delete(m.exprs, FieldOptionalInt8)
 }
 
@@ -462,6 +464,7 @@ func (m *Mutation) ResetOptionalInt8() {
 func (m *Mutation) SetOptionalInt16(i int16) {
 	m.optional_int16 = &i
 	m.addoptional_int16 = nil
+	delete(m.clearedFields, FieldOptionalInt16)
 	delete(m.exprs, FieldOptionalInt16)
 }
 
@@ -518,6 +521,7 @@ func (m *Mutation) ResetOptionalInt16() {
 func (m *Mutation) SetOptionalInt32(i int32) {
 	m.optional_int32 = &i
 	m.addoptional_int32 = nil
+	delete(m.clearedFields, FieldOptionalInt32)
 	delete(m.exprs, FieldOptionalInt32)
 }
 
@@ -574,6 +578,7 @@ func (m *Mutation) ResetOptionalInt32() {
 func (m *Mutation) SetOptionalInt64(i int64) {
 	m.optional_int64 = &i
 	m.addoptional_int64 = nil
+	delete(m.clearedFields, FieldOptionalInt64)
 	delete(m.exprs, FieldOptionalInt64)
 }
 
@@ -630,6 +635,7 @@ func (m *Mutation) ResetOptionalInt64() {
 func (m *Mutation) SetNillableInt(i int) {
 	m.nillable_int = &i
 	m.addnillable_int = nil
+	delete(m.clearedFields, FieldNillableInt)
 	delete(m.exprs, FieldNillableInt)
 }
 
@@ -686,6 +692,7 @@ func (m *Mutation) ResetNillableInt() {
 func (m *Mutation) SetNillableInt8(i int8) {
 	m.nillable_int8 = &i
 	m.addnillable_int8 = nil
+	delete(m.clearedFields, FieldNillableInt8)
 	delete(m.exprs, FieldNillableInt8)
 }
 
@@ -742,6 +749,7 @@ func (m *Mutation) ResetNillableInt8() {
 func (m *Mutation) SetNillableInt16(i int16) {
 	m.nillable_int16 = &i
 	m.addnillable_int16 = nil
+	delete(m.clearedFields, FieldNillableInt16)
 	delete(m.exprs, FieldNillableInt16)
 }
 
@@ -798,6 +806,7 @@ func (m *Mutation) ResetNillableInt16() {
 func (m *Mutation) SetNillableInt32(i int32) {
 	m.nillable_int32 = &i
 	m.addnillable_int32 = nil
+	delete(m.clearedFields, FieldNillableInt32)
 	delete(m.exprs, FieldNillableInt32)
 }
 
@@ -854,6 +863,7 @@ func (m *Mutation) ResetNillableInt32() {
 func (m *Mutation) SetNillableInt64(i int64) {
 	m.nillable_int64 = &i
 	m.addnillable_int64 = nil
+	delete(m.clearedFields, FieldNillableInt64)
 	delete(m.exprs, FieldNillableInt64)
 }
 
@@ -910,6 +920,7 @@ func (m *Mutation) ResetNillableInt64() {
 func (m *Mutation) SetValidateOptionalInt32(i int32) {
 	m.validate_optional_int32 = &i
 	m.addvalidate_optional_int32 = nil
+	delete(m.clearedFields, FieldValidateOptionalInt32)
 }
 
 // ValidateOptionalInt32 returns the value of the "validate_optional_int32" field in the mutation.
@@ -963,6 +974,7 @@ func (m *Mutation) ResetValidateOptionalInt32() {
 func (m *Mutation) SetOptionalUint(u uint) {
 	m.optional_uint = &u
 	m.addoptional_uint = nil
+	delete(m.clearedFields, FieldOptionalUint)
 	delete(m.exprs, FieldOptionalUint)
 }
 
@@ -1019,6 +1031,7 @@ func (m *Mutation) ResetOptionalUint() {
 func (m *Mutation) SetOptionalUint8(u uint8) {
 	m.optional_uint8 = &u
 	m.addoptional_uint8 = nil
+	delete(m.clearedFields, FieldOptionalUint8)
 	delete(m.exprs, FieldOptionalUint8)
 }
 
@@ -1075,6 +1088,7 @@ func (m *Mutation) ResetOptionalUint8() {
 func (m *Mutation) SetOptionalUint16(u uint16) {
 	m.optional_uint16 = &u
 	m.addoptional_uint16 = nil
+	delete(m.clearedFields, FieldOptionalUint16)
 	delete(m.exprs, FieldOptionalUint16)
 }
 
@@ -1131,6 +1145,7 @@ func (m *Mutation) ResetOptionalUint16() {
 func (m *Mutation) SetOptionalUint32(u uint32) {
 	m.optional_uint32 = &u
 	m.addoptional_uint32 = nil
+	delete(m.clearedFields, FieldOptionalUint32)
 	delete(m.exprs, FieldOptionalUint32)
 }
 
@@ -1187,6 +1202,7 @@ func (m *Mutation) ResetOptionalUint32() {
 func (m *Mutation) SetOptionalUint64(u uint64) {
 	m.optional_uint64 = &u
 	m.addoptional_uint64 = nil
+	delete(m.clearedFields, FieldOptionalUint64)
 	delete(m.exprs, FieldOptionalUint64)
 }
 
@@ -1242,6 +1258,7 @@ func (m *Mutation) ResetOptionalUint64() {
 // SetState sets the "state" field.
 func (m *Mutation) SetState(f State) {
 	m.state = &f
+	delete(m.clearedFields, FieldState)
 }
 
 // State returns the value of the "state" field in the mutation.
@@ -1275,6 +1292,7 @@ func (m *Mutation) ResetState() {
 func (m *Mutation) SetOptionalFloat(f float64) {
 	m.optional_float = &f
 	m.addoptional_float = nil
+	delete(m.clearedFields, FieldOptionalFloat)
 	delete(m.exprs, FieldOptionalFloat)
 }
 
@@ -1331,6 +1349,7 @@ func (m *Mutation) ResetOptionalFloat() {
 func (m *Mutation) SetOptionalFloat32(f float32) {
 	m.optional_float32 = &f
 	m.addoptional_float32 = nil
+	delete(m.clearedFields, FieldOptionalFloat32)
 	delete(m.exprs, FieldOptionalFloat32)
 }
 
@@ -1386,6 +1405,7 @@ func (m *Mutation) ResetOptionalFloat32() {
 // SetText sets the "text" field.
 func (m *Mutation) SetText(s string) {
 	m.text = &s
+	delete(m.clearedFields, FieldText)
 	delete(m.exprs, FieldText)
 }
 
@@ -1421,6 +1441,7 @@ func (m *Mutation) ResetText() {
 // SetDatetime sets the "datetime" field.
 func (m *Mutation) SetDatetime(t time.Time) {
 	m.datetime = &t
+	delete(m.clearedFields, FieldDatetime)
 	delete(m.exprs, FieldDatetime)
 }
 
@@ -1457,6 +1478,7 @@ func (m *Mutation) ResetDatetime() {
 func (m *Mutation) SetDecimal(f float64) {
 	m.decimal = &f
 	m.adddecimal = nil
+	delete(m.clearedFields, FieldDecimal)
 	delete(m.exprs, FieldDecimal)
 }
 
@@ -1512,6 +1534,7 @@ func (m *Mutation) ResetDecimal() {
 // SetLinkOther sets the "link_other" field.
 func (m *Mutation) SetLinkOther(s *schema.Link) {
 	m.link_other = &s
+	delete(m.clearedFields, FieldLinkOther)
 	delete(m.exprs, FieldLinkOther)
 }
 
@@ -1547,6 +1570,7 @@ func (m *Mutation) ResetLinkOther() {
 // SetLinkOtherFunc sets the "link_other_func" field.
 func (m *Mutation) SetLinkOtherFunc(s *schema.Link) {
 	m.link_other_func = &s
+	delete(m.clearedFields, FieldLinkOtherFunc)
 	delete(m.exprs, FieldLinkOtherFunc)
 }
 
@@ -1582,6 +1606,7 @@ func (m *Mutation) ResetLinkOtherFunc() {
 // SetMac sets the "mac" field.
 func (m *Mutation) SetMac(s schema.Mac) {
 	m.mac = &s
+	delete(m.clearedFields, FieldMac)
 }
 
 // Mac returns the value of the "mac" field in the mutation.
@@ -1614,6 +1639,7 @@ func (m *Mutation) ResetMac() {
 // SetStringArray sets the "string_array" field.
 func (m *Mutation) SetStringArray(s schema.Strings) {
 	m.string_array = &s
+	delete(m.clearedFields, FieldStringArray)
 	delete(m.exprs, FieldStringArray)
 }
 
@@ -1649,6 +1675,7 @@ func (m *Mutation) ResetStringArray() {
 // SetPassword sets the "password" field.
 func (m *Mutation) SetPassword(s string) {
 	m.password = &s
+	delete(m.clearedFields, FieldPassword)
 	delete(m.exprs, FieldPassword)
 }
 
@@ -1684,6 +1711,7 @@ func (m *Mutation) ResetPassword() {
 // SetStringScanner sets the "string_scanner" field.
 func (m *Mutation) SetStringScanner(ss schema.StringScanner) {
 	m.string_scanner = &ss
+	delete(m.clearedFields, FieldStringScanner)
 	delete(m.exprs, FieldStringScanner)
 }
 
@@ -1720,6 +1748,7 @@ func (m *Mutation) ResetStringScanner() {
 func (m *Mutation) SetDuration(t time.Duration) {
 	m.duration = &t
 	m.addduration = nil
+	delete(m.clearedFields, FieldDuration)
 	delete(m.exprs, FieldDuration)
 }
 
@@ -1796,6 +1825,7 @@ func (m *Mutation) ResetDir() {
 // SetNdir sets the "ndir" field.
 func (m *Mutation) SetNdir(h http.Dir) {
 	m.ndir = &h
+	delete(m.clearedFields, FieldNdir)
 }
 
 // Ndir returns the value of the "ndir" field in the mutation.
@@ -1828,6 +1858,7 @@ func (m *Mutation) ResetNdir() {
 // SetStr sets the "str" field.
 func (m *Mutation) SetStr(ss sql.NullString) {
 	m.str = &ss
+	delete(m.clearedFields, FieldStr)
 	delete(m.exprs, FieldStr)
 }
 
@@ -1863,6 +1894,7 @@ func (m *Mutation) ResetStr() {
 // SetNullStr sets the "null_str" field.
 func (m *Mutation) SetNullStr(ss *sql.NullString) {
 	m.null_str = &ss
+	delete(m.clearedFields, FieldNullStr)
 	delete(m.exprs, FieldNullStr)
 }
 
@@ -1898,6 +1930,7 @@ func (m *Mutation) ResetNullStr() {
 // SetLink sets the "link" field.
 func (m *Mutation) SetLink(s schema.Link) {
 	m.link = &s
+	delete(m.clearedFields, FieldLink)
 }
 
 // Link returns the value of the "link" field in the mutation.
@@ -1930,6 +1963,7 @@ func (m *Mutation) ResetLink() {
 // SetNullLink sets the "null_link" field.
 func (m *Mutation) SetNullLink(s *schema.Link) {
 	m.null_link = &s
+	delete(m.clearedFields, FieldNullLink)
 	delete(m.exprs, FieldNullLink)
 }
 
@@ -1965,6 +1999,7 @@ func (m *Mutation) ResetNullLink() {
 // SetActive sets the "active" field.
 func (m *Mutation) SetActive(s schema.Status) {
 	m.active = &s
+	delete(m.clearedFields, FieldActive)
 	delete(m.exprs, FieldActive)
 }
 
@@ -2000,6 +2035,7 @@ func (m *Mutation) ResetActive() {
 // SetNullActive sets the "null_active" field.
 func (m *Mutation) SetNullActive(s schema.Status) {
 	m.null_active = &s
+	delete(m.clearedFields, FieldNullActive)
 	delete(m.exprs, FieldNullActive)
 }
 
@@ -2035,6 +2071,7 @@ func (m *Mutation) ResetNullActive() {
 // SetDeleted sets the "deleted" field.
 func (m *Mutation) SetDeleted(sb *sql.NullBool) {
 	m.deleted = &sb
+	delete(m.clearedFields, FieldDeleted)
 	delete(m.exprs, FieldDeleted)
 }
 
@@ -2070,6 +2107,7 @@ func (m *Mutation) ResetDeleted() {
 // SetDeletedAt sets the "deleted_at" field.
 func (m *Mutation) SetDeletedAt(st *sql.NullTime) {
 	m.deleted_at = &st
+	delete(m.clearedFields, FieldDeletedAt)
 	delete(m.exprs, FieldDeletedAt)
 }
 
@@ -2105,6 +2143,7 @@ func (m *Mutation) ResetDeletedAt() {
 // SetRawData sets the "raw_data" field.
 func (m *Mutation) SetRawData(b []byte) {
 	m.raw_data = &b
+	delete(m.clearedFields, FieldRawData)
 }
 
 // RawData returns the value of the "raw_data" field in the mutation.
@@ -2137,6 +2176,7 @@ func (m *Mutation) ResetRawData() {
 // SetSensitive sets the "sensitive" field.
 func (m *Mutation) SetSensitive(b []byte) {
 	m.sensitive = &b
+	delete(m.clearedFields, FieldSensitive)
 	delete(m.exprs, FieldSensitive)
 }
 
@@ -2172,6 +2212,7 @@ func (m *Mutation) ResetSensitive() {
 // SetIp sets the "ip" field.
 func (m *Mutation) SetIp(n net.IP) {
 	m.ip = &n
+	delete(m.clearedFields, FieldIp)
 }
 
 // Ip returns the value of the "ip" field in the mutation.
@@ -2204,6 +2245,7 @@ func (m *Mutation) ResetIp() {
 // SetNullInt64 sets the "null_int64" field.
 func (m *Mutation) SetNullInt64(si *sql.NullInt64) {
 	m.null_int64 = &si
+	delete(m.clearedFields, FieldNullInt64)
 	delete(m.exprs, FieldNullInt64)
 }
 
@@ -2240,6 +2282,7 @@ func (m *Mutation) ResetNullInt64() {
 func (m *Mutation) SetSchemaInt(s schema.Int) {
 	m.schema_int = &s
 	m.addschema_int = nil
+	delete(m.clearedFields, FieldSchemaInt)
 	delete(m.exprs, FieldSchemaInt)
 }
 
@@ -2296,6 +2339,7 @@ func (m *Mutation) ResetSchemaInt() {
 func (m *Mutation) SetSchemaInt8(s schema.Int8) {
 	m.schema_int8 = &s
 	m.addschema_int8 = nil
+	delete(m.clearedFields, FieldSchemaInt8)
 	delete(m.exprs, FieldSchemaInt8)
 }
 
@@ -2352,6 +2396,7 @@ func (m *Mutation) ResetSchemaInt8() {
 func (m *Mutation) SetSchemaInt64(s schema.Int64) {
 	m.schema_int64 = &s
 	m.addschema_int64 = nil
+	delete(m.clearedFields, FieldSchemaInt64)
 	delete(m.exprs, FieldSchemaInt64)
 }
 
@@ -2408,6 +2453,7 @@ func (m *Mutation) ResetSchemaInt64() {
 func (m *Mutation) SetSchemaFloat(s schema.Float64) {
 	m.schema_float = &s
 	m.addschema_float = nil
+	delete(m.clearedFields, FieldSchemaFloat)
 	delete(m.exprs, FieldSchemaFloat)
 }
 
@@ -2464,6 +2510,7 @@ func (m *Mutation) ResetSchemaFloat() {
 func (m *Mutation) SetSchemaFloat32(s schema.Float32) {
 	m.schema_float32 = &s
 	m.addschema_float32 = nil
+	delete(m.clearedFields, FieldSchemaFloat32)
 	delete(m.exprs, FieldSchemaFloat32)
 }
 
@@ -2519,6 +2566,7 @@ func (m *Mutation) ResetSchemaFloat32() {
 // SetNullFloat sets the "null_float" field.
 func (m *Mutation) SetNullFloat(sf *sql.NullFloat64) {
 	m.null_float = &sf
+	delete(m.clearedFields, FieldNullFloat)
 	delete(m.exprs, FieldNullFloat)
 }
 
@@ -2573,6 +2621,7 @@ func (m *Mutation) ResetRole() {
 // SetPriority sets the "priority" field.
 func (m *Mutation) SetPriority(r role.Priority) {
 	m.priority = &r
+	delete(m.clearedFields, FieldPriority)
 }
 
 // Priority returns the value of the "priority" field in the mutation.
@@ -2605,6 +2654,7 @@ func (m *Mutation) ResetPriority() {
 // SetOptionalUuid sets the "optional_uuid" field.
 func (m *Mutation) SetOptionalUuid(u uuid.UUID) {
 	m.optional_uuid = &u
+	delete(m.clearedFields, FieldOptionalUuid)
 	delete(m.exprs, FieldOptionalUuid)
 }
 
@@ -2640,6 +2690,7 @@ func (m *Mutation) ResetOptionalUuid() {
 // SetNillableUuid sets the "nillable_uuid" field.
 func (m *Mutation) SetNillableUuid(u uuid.UUID) {
 	m.nillable_uuid = &u
+	delete(m.clearedFields, FieldNillableUuid)
 	delete(m.exprs, FieldNillableUuid)
 }
 
@@ -2676,6 +2727,7 @@ func (m *Mutation) ResetNillableUuid() {
 func (m *Mutation) SetStrings(s []string) {
 	m.strings = &s
 	m.appendstrings = nil
+	delete(m.clearedFields, FieldStrings)
 	delete(m.exprs, FieldStrings)
 }
 
@@ -2747,6 +2799,7 @@ func (m *Mutation) ResetPair() {
 // SetNilPair sets the "nil_pair" field.
 func (m *Mutation) SetNilPair(s *schema.Pair) {
 	m.nil_pair = &s
+	delete(m.clearedFields, FieldNilPair)
 	delete(m.exprs, FieldNilPair)
 }
 
@@ -2825,6 +2878,7 @@ func (m *Mutation) ResetTriple() {
 func (m *Mutation) SetBigInt(si schema.BigInt) {
 	m.big_int = &si
 	m.addbig_int = nil
+	delete(m.clearedFields, FieldBigInt)
 	delete(m.exprs, FieldBigInt)
 }
 
@@ -2880,6 +2934,7 @@ func (m *Mutation) ResetBigInt() {
 // SetPasswordOther sets the "password_other" field.
 func (m *Mutation) SetPasswordOther(s schema.Password) {
 	m.password_other = &s
+	delete(m.clearedFields, FieldPasswordOther)
 	delete(m.exprs, FieldPasswordOther)
 }
 

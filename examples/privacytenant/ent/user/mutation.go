@@ -90,6 +90,7 @@ func (m *Mutation) ResetName() {
 func (m *Mutation) SetFoods(s []string) {
 	m.foods = &s
 	m.appendfoods = nil
+	delete(m.clearedFields, FieldFoods)
 	delete(m.exprs, FieldFoods)
 }
 

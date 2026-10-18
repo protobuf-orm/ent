@@ -86,6 +86,7 @@ func (m *Mutation) Predicates() []predicate.User {
 func (m *Mutation) SetOptionalInt(i int) {
 	m.optional_int = &i
 	m.addoptional_int = nil
+	delete(m.clearedFields, FieldOptionalInt)
 }
 
 // OptionalInt returns the value of the "optional_int" field in the mutation.
@@ -221,6 +222,7 @@ func (m *Mutation) ResetLast() {
 // SetNickname sets the "nickname" field.
 func (m *Mutation) SetNickname(s string) {
 	m.nickname = &s
+	delete(m.clearedFields, FieldNickname)
 	delete(m.exprs, FieldNickname)
 }
 
@@ -256,6 +258,7 @@ func (m *Mutation) ResetNickname() {
 // SetAddress sets the "address" field.
 func (m *Mutation) SetAddress(s string) {
 	m.address = &s
+	delete(m.clearedFields, FieldAddress)
 	delete(m.exprs, FieldAddress)
 }
 
@@ -291,6 +294,7 @@ func (m *Mutation) ResetAddress() {
 // SetPhone sets the "phone" field.
 func (m *Mutation) SetPhone(s string) {
 	m.phone = &s
+	delete(m.clearedFields, FieldPhone)
 	delete(m.exprs, FieldPhone)
 }
 
@@ -326,6 +330,7 @@ func (m *Mutation) ResetPhone() {
 // SetPassword sets the "password" field.
 func (m *Mutation) SetPassword(s string) {
 	m.password = &s
+	delete(m.clearedFields, FieldPassword)
 	delete(m.exprs, FieldPassword)
 }
 
@@ -399,6 +404,7 @@ func (m *Mutation) ResetEmployment() {
 // SetSsoCert sets the "SsoCert" field.
 func (m *Mutation) SetSsoCert(s string) {
 	m._SsoCert = &s
+	delete(m.clearedFields, FieldSsoCert)
 	delete(m.exprs, FieldSsoCert)
 }
 
@@ -435,6 +441,7 @@ func (m *Mutation) ResetSsoCert() {
 func (m *Mutation) SetFilesCount(i int) {
 	m.files_count = &i
 	m.addfiles_count = nil
+	delete(m.clearedFields, FieldFilesCount)
 	delete(m.exprs, FieldFilesCount)
 }
 

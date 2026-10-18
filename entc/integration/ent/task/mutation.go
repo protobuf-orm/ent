@@ -93,6 +93,7 @@ func (m *Mutation) ResetPriority() {
 // SetPriorities sets the "priorities" field.
 func (m *Mutation) SetPriorities(value map[string]task.Priority) {
 	m.priorities = &value
+	delete(m.clearedFields, FieldPriorities)
 	delete(m.exprs, FieldPriorities)
 }
 
@@ -147,6 +148,7 @@ func (m *Mutation) ResetCreatedAt() {
 // SetName sets the "name" field.
 func (m *Mutation) SetName(s string) {
 	m.name = &s
+	delete(m.clearedFields, FieldName)
 	delete(m.exprs, FieldName)
 }
 
@@ -182,6 +184,7 @@ func (m *Mutation) ResetName() {
 // SetOwner sets the "owner" field.
 func (m *Mutation) SetOwner(s string) {
 	m.owner = &s
+	delete(m.clearedFields, FieldOwner)
 	delete(m.exprs, FieldOwner)
 }
 
@@ -218,6 +221,7 @@ func (m *Mutation) ResetOwner() {
 func (m *Mutation) SetOrder(i int) {
 	m._order = &i
 	m.add_order = nil
+	delete(m.clearedFields, FieldOrder)
 	delete(m.exprs, FieldOrder)
 }
 
@@ -274,6 +278,7 @@ func (m *Mutation) ResetOrder() {
 func (m *Mutation) SetOrderOption(i int) {
 	m.order_option = &i
 	m.addorder_option = nil
+	delete(m.clearedFields, FieldOrderOption)
 	delete(m.exprs, FieldOrderOption)
 }
 

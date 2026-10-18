@@ -108,6 +108,7 @@ func (m *Mutation) ResetLabel() {
 // SetNote sets the "note" field.
 func (m *Mutation) SetNote(s string) {
 	m.note = &s
+	delete(m.clearedFields, FieldNote)
 	delete(m.exprs, FieldNote)
 }
 
@@ -144,6 +145,7 @@ func (m *Mutation) ResetNote() {
 func (m *Mutation) SetTags(s []string) {
 	m.tags = &s
 	m.appendtags = nil
+	delete(m.clearedFields, FieldTags)
 	delete(m.exprs, FieldTags)
 }
 

@@ -114,6 +114,7 @@ func (m *Mutation) ResetCvvHash() {
 // SetExpiresAt sets the "expires_at" field.
 func (m *Mutation) SetExpiresAt(t time.Time) {
 	m.expires_at = &t
+	delete(m.clearedFields, FieldExpiresAt)
 	delete(m.exprs, FieldExpiresAt)
 }
 

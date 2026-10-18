@@ -92,6 +92,7 @@ func (m *Mutation) ResetIssuedAt() {
 // SetExpiresAt sets the "expires_at" field.
 func (m *Mutation) SetExpiresAt(t time.Time) {
 	m.expires_at = &t
+	delete(m.clearedFields, FieldExpiresAt)
 	delete(m.exprs, FieldExpiresAt)
 }
 
@@ -127,6 +128,7 @@ func (m *Mutation) ResetExpiresAt() {
 // SetToken sets the "token" field.
 func (m *Mutation) SetToken(s string) {
 	m.token = &s
+	delete(m.clearedFields, FieldToken)
 	delete(m.exprs, FieldToken)
 }
 
@@ -162,6 +164,7 @@ func (m *Mutation) ResetToken() {
 // SetMethod sets the "method" field.
 func (m *Mutation) SetMethod(value map[string]interface{}) {
 	m.method = &value
+	delete(m.clearedFields, FieldMethod)
 	delete(m.exprs, FieldMethod)
 }
 
@@ -197,6 +200,7 @@ func (m *Mutation) ResetMethod() {
 // SetDeviceId sets the "device_id" field.
 func (m *Mutation) SetDeviceId(u uuid.UUID) {
 	m.device = &u
+	delete(m.clearedFields, FieldDeviceId)
 }
 
 // DeviceId returns the value of the "device_id" field in the mutation.

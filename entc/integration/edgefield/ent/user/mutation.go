@@ -60,6 +60,7 @@ func (m *Mutation) Predicates() []predicate.User {
 // SetParentId sets the "parent_id" field.
 func (m *Mutation) SetParentId(i int) {
 	m.parent = &i
+	delete(m.clearedFields, FieldParentId)
 }
 
 // ParentId returns the value of the "parent_id" field in the mutation.
@@ -92,6 +93,7 @@ func (m *Mutation) ResetParentId() {
 // SetSpouseId sets the "spouse_id" field.
 func (m *Mutation) SetSpouseId(i int) {
 	m.spouse = &i
+	delete(m.clearedFields, FieldSpouseId)
 }
 
 // SpouseId returns the value of the "spouse_id" field in the mutation.

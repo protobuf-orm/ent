@@ -196,6 +196,7 @@ func (m *Mutation) ResetName() {
 // SetDescription sets the "description" field.
 func (m *Mutation) SetDescription(s string) {
 	m.description = &s
+	delete(m.clearedFields, FieldDescription)
 	delete(m.exprs, FieldDescription)
 }
 
@@ -271,6 +272,7 @@ func (m *Mutation) ResetPhone() {
 // SetBuffer sets the "buffer" field.
 func (m *Mutation) SetBuffer(b []byte) {
 	m.buffer = &b
+	delete(m.clearedFields, FieldBuffer)
 	delete(m.exprs, FieldBuffer)
 }
 
@@ -327,6 +329,7 @@ func (m *Mutation) ResetTitle() {
 // SetNewName sets the "new_name" field.
 func (m *Mutation) SetNewName(s string) {
 	m.new_name = &s
+	delete(m.clearedFields, FieldNewName)
 	delete(m.exprs, FieldNewName)
 }
 
@@ -383,6 +386,7 @@ func (m *Mutation) ResetNewToken() {
 // SetBlob sets the "blob" field.
 func (m *Mutation) SetBlob(b []byte) {
 	m.blob = &b
+	delete(m.clearedFields, FieldBlob)
 }
 
 // Blob returns the value of the "blob" field in the mutation.
@@ -415,6 +419,7 @@ func (m *Mutation) ResetBlob() {
 // SetState sets the "state" field.
 func (m *Mutation) SetState(u State) {
 	m.state = &u
+	delete(m.clearedFields, FieldState)
 }
 
 // State returns the value of the "state" field in the mutation.
@@ -447,6 +452,7 @@ func (m *Mutation) ResetState() {
 // SetStatus sets the "status" field.
 func (m *Mutation) SetStatus(u Status) {
 	m.status = &u
+	delete(m.clearedFields, FieldStatus)
 }
 
 // Status returns the value of the "status" field in the mutation.
@@ -479,6 +485,7 @@ func (m *Mutation) ResetStatus() {
 // SetWorkplace sets the "workplace" field.
 func (m *Mutation) SetWorkplace(s string) {
 	m.workplace = &s
+	delete(m.clearedFields, FieldWorkplace)
 	delete(m.exprs, FieldWorkplace)
 }
 
@@ -515,6 +522,7 @@ func (m *Mutation) ResetWorkplace() {
 func (m *Mutation) SetRoles(s []string) {
 	m.roles = &s
 	m.appendroles = nil
+	delete(m.clearedFields, FieldRoles)
 	delete(m.exprs, FieldRoles)
 }
 
@@ -565,6 +573,7 @@ func (m *Mutation) ResetRoles() {
 // SetDefaultExpr sets the "default_expr" field.
 func (m *Mutation) SetDefaultExpr(s string) {
 	m.default_expr = &s
+	delete(m.clearedFields, FieldDefaultExpr)
 	delete(m.exprs, FieldDefaultExpr)
 }
 
@@ -600,6 +609,7 @@ func (m *Mutation) ResetDefaultExpr() {
 // SetDefaultExprs sets the "default_exprs" field.
 func (m *Mutation) SetDefaultExprs(s string) {
 	m.default_exprs = &s
+	delete(m.clearedFields, FieldDefaultExprs)
 	delete(m.exprs, FieldDefaultExprs)
 }
 

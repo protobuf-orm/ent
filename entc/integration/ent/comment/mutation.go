@@ -134,6 +134,7 @@ func (m *Mutation) ResetUniqueFloat() {
 func (m *Mutation) SetNillableInt(i int) {
 	m.nillable_int = &i
 	m.addnillable_int = nil
+	delete(m.clearedFields, FieldNillableInt)
 	delete(m.exprs, FieldNillableInt)
 }
 
@@ -189,6 +190,7 @@ func (m *Mutation) ResetNillableInt() {
 // SetTable sets the "table" field.
 func (m *Mutation) SetTable(s string) {
 	m.table = &s
+	delete(m.clearedFields, FieldTable)
 	delete(m.exprs, FieldTable)
 }
 
@@ -224,6 +226,7 @@ func (m *Mutation) ResetTable() {
 // SetDir sets the "dir" field.
 func (m *Mutation) SetDir(s schemadir.Dir) {
 	m.dir = &s
+	delete(m.clearedFields, FieldDir)
 	delete(m.exprs, FieldDir)
 }
 
@@ -259,6 +262,7 @@ func (m *Mutation) ResetDir() {
 // SetClient sets the "client" field.
 func (m *Mutation) SetClient(s string) {
 	m.client = &s
+	delete(m.clearedFields, FieldClient)
 	delete(m.exprs, FieldClient)
 }
 
