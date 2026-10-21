@@ -612,3 +612,63 @@ func TestExtra(t *testing.T) {
 		x.Len(fs, 1)
 	})
 }
+
+// TestEdited: a file a database ran is not run again, so editing one -- and
+// writing the sum again, which is what lets the directory open -- changes
+// nothing in that database and everything in the next one migrated, and
+// nothing said the two differ. The history holds the hash the file had when it
+// ran, and a directory that no longer agrees with it is refused.
+func TestEdited(t *testing.T) {
+	ctx := t.Context()
+
+	dir, err := entschema.OpenDir(t.TempDir())
+	require.NoError(t, err)
+	m := entschema.Migrations{Dir: dir, Dialect: dialect.SQLite}
+
+	db := open(t)
+	f, err := m.Write("20260101000000", "one", []byte("CREATE TABLE `one` (`id` integer NOT NULL);\n"))
+	require.NoError(t, err)
+	_, err = m.Apply(ctx, db, dialect.SQLite)
+	require.NoError(t, err)
+
+	t.Run("a file added after the ones it ran is not an edit", func(t *testing.T) {
+		x := require.New(t)
+
+		_, err := m.Write("20260102000000", "two", []byte("CREATE TABLE `two` (`id` integer NOT NULL);\n"))
+		x.NoError(err)
+
+		fs, err := m.Pending(ctx, db, dialect.SQLite)
+		x.NoError(err)
+		x.Len(fs, 1)
+
+		_, err = m.Apply(ctx, db, dialect.SQLite)
+		x.NoError(err)
+		x.NoError(m.Current(ctx, db, dialect.SQLite))
+	})
+
+	t.Run("a file it ran and somebody edited is refused", func(t *testing.T) {
+		x := require.New(t)
+
+		x.NoError(dir.WriteFile(f.Name(), []byte("CREATE TABLE `one` (`id` integer NOT NULL, `name` text);\n")))
+		x.NoError(m.Rehash())
+		_, err := entschema.OpenDir(dir.Path())
+		x.NoError(err, "the sum agrees with the files, which is what an edit and a rehash leave")
+
+		_, err = m.Pending(ctx, db, dialect.SQLite)
+		x.ErrorIs(err, entschema.ErrEdited)
+		x.ErrorContains(err, f.Name())
+
+		_, err = m.Apply(ctx, db, dialect.SQLite)
+		x.ErrorIs(err, entschema.ErrEdited)
+		x.ErrorIs(m.Current(ctx, db, dialect.SQLite), entschema.ErrEdited)
+	})
+
+	t.Run("and a database that ran none of it is not", func(t *testing.T) {
+		x := require.New(t)
+
+		// It has nothing to disagree with: it runs the files as they are.
+		fs, err := m.Apply(ctx, open(t), dialect.SQLite)
+		x.NoError(err)
+		x.Len(fs, 2)
+	})
+}

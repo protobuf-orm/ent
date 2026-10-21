@@ -32,6 +32,21 @@ jobs:
     strategy:
       matrix:
         go: ['1.27']
+    # For the schema migration tests that need several sessions at once, which
+    # SQLite cannot have; they make a database of their own on it and drop it.
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: pass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -52,6 +67,8 @@ jobs:
       - name: Run schema migration tests against a real engine
         run: go test -race ./...
         working-directory: dialect/sql/schema/integration
+        env:
+          ENT_SCHEMA_POSTGRES: postgres://postgres:pass@127.0.0.1:5432/test?sslmode=disable
       - name: Run schema tests
         run: go test -race ./...
         working-directory: schema

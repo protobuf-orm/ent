@@ -37,14 +37,31 @@
 // -- applied after the ent one, written by hand ([Migrations.Write]) and never
 // planned. The order between the two is the order the app applies them in,
 // which is the one order there is: what stands on the schema comes after it.
+//
+// # And it stands on files, not on Schema.Create
+//
+// A database migrated by [Schema.Create] -- ent's migration with no files --
+// is not one to keep this directory for. Create drops a foreign key or a check
+// the schema does not declare, which is how it retires one the schema stopped
+// declaring: an edge pointed at another table is a foreign key of a new name,
+// and the old one, left, would refuse every row the new one allows. It cannot
+// tell those from one this directory made, so it drops both -- and the history
+// says the file ran, so nothing makes it again. (SQLite rebuilds a table for
+// most changes, from the schema, which drops them as well.)
+//
+// An app that migrates with Create says what the schema cannot in statements
+// it runs after every Create, each safe to run again, rather than in a
+// directory that runs a file once.
 
 package schema
 
 import (
 	"context"
 	"database/sql"
+	sqldriver "database/sql/driver"
 	"errors"
 	"fmt"
+	"hash/fnv"
 	"regexp"
 	"strings"
 	"time"
@@ -128,6 +145,10 @@ type Migrations struct {
 // Extra is the directory of what the ent schema cannot state, beside m: the
 // same dialect, a history of its own ([ExtraRevisionTable]), applied atop the
 // database m builds, and never planned.
+//
+// m builds that database from its files. One [Schema.Create] keeps in step
+// loses this directory's foreign keys and checks the next time it runs; see
+// the note on the package.
 //
 //	ent   := entschema.Migrations{Dir: dir, Dialect: dialect.Postgres, Tables: entmigrate.Tables}
 //	extra := ent.Extra(extraDir)
@@ -260,24 +281,48 @@ func written(before, after []migrate.File) ([]migrate.File, error) {
 
 // Pending returns the migration files `db` did not run yet, in the order they
 // are to be applied.
+//
+// A file this database ran that the directory now holds otherwise is refused
+// with [ErrEdited], as [Migrations.Apply] refuses it.
 func (m Migrations) Pending(ctx context.Context, db *sql.DB, dialect string) ([]migrate.File, error) {
-	ex, err := m.executor(ctx, db, dialect)
+	ex, rrw, err := m.executor(ctx, db, dialect)
 	if err != nil {
 		return nil, err
 	}
 
-	return pending(ctx, ex)
+	return m.pending(ctx, ex, rrw)
 }
 
 // Apply runs every migration file `db` did not run yet and returns them. A file
 // is recorded as applied only once every statement in it has run.
-func (m Migrations) Apply(ctx context.Context, db *sql.DB, dialect string) ([]migrate.File, error) {
-	ex, err := m.executor(ctx, db, dialect)
+//
+// One process at a time, on a database more than one can migrate: a
+// deployment applies on every start, and so does each replica of it. Two that
+// ran one file at once would each run its statements, and the one whose
+// statement failed for being second -- a constraint already there -- would
+// record the file it lost the race to as failed, over the record of the one
+// that ran it: from then on every start runs that file again, fails the same
+// way, and does not start. See [Migrations.lock].
+func (m Migrations) Apply(ctx context.Context, db *sql.DB, dialect string) (_ []migrate.File, err error) {
+	if dialect != m.Dialect {
+		return nil, fmt.Errorf("%w: they are %s and it is %s", ErrDialect, m.Dialect, dialect)
+	}
+
+	// Before the history table is made as well: two sessions making it at
+	// once are refused by PostgreSQL for a duplicate catalog row, however
+	// `IF NOT EXISTS` it was asked.
+	unlock, err := m.lock(ctx, db, dialect)
+	if err != nil {
+		return nil, err
+	}
+	defer unlock()
+
+	ex, rrw, err := m.executor(ctx, db, dialect)
 	if err != nil {
 		return nil, err
 	}
 
-	fs, err := pending(ctx, ex)
+	fs, err := m.pending(ctx, ex, rrw)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +339,20 @@ func (m Migrations) Apply(ctx context.Context, db *sql.DB, dialect string) ([]mi
 	return fs, nil
 }
 
-func pending(ctx context.Context, ex *migrate.Executor) ([]migrate.File, error) {
+// ErrEdited is a database that ran a migration file the directory no longer
+// holds as it was.
+//
+// A file is run once, so a change to one a database has run is a change that
+// database never sees: it goes on holding what the file said, while one
+// migrated afterwards holds what it says now, and nothing says the two differ.
+// What changes what a file did is a new file.
+var ErrEdited = errors.New("a migration this database ran is not what the directory holds")
+
+func (m Migrations) pending(ctx context.Context, ex *migrate.Executor, rrw migrate.RevisionReadWriter) ([]migrate.File, error) {
+	if err := m.unedited(ctx, rrw); err != nil {
+		return nil, err
+	}
+
 	fs, err := ex.Pending(ctx)
 	if err != nil {
 		// Having nothing left to run is the state a database that is up to date
@@ -310,27 +368,141 @@ func pending(ctx context.Context, ex *migrate.Executor) ([]migrate.File, error) 
 	return fs, nil
 }
 
-func (m Migrations) executor(ctx context.Context, db *sql.DB, d string) (*migrate.Executor, error) {
+// unedited refuses a database whose history holds a file run as it no longer
+// is, with [ErrEdited].
+//
+// What a database keeps of a file it ran is the file's hash as the directory
+// had it then, and atlas compares it with nothing once the file has run to its
+// end: it checks the statements of a file left halfway, and `atlas.sum`, which
+// [Migrations.Rehash] writes again from the files as they are. So a file
+// edited and rehashed was simply not run again, here or anywhere it had run.
+//
+// The hash is atlas's, and it is of the directory up to and including the
+// file, not of the file alone -- so a file edited, added or removed before one
+// this database ran changes that one's too. All three are a history rewritten
+// under a database that ran it; adding an older file is refused by atlas
+// anyway, for being out of order.
+func (m Migrations) unedited(ctx context.Context, rrw migrate.RevisionReadWriter) error {
+	revs, err := rrw.ReadRevisions(ctx)
+	if err != nil {
+		return fmt.Errorf("read the history: %w", err)
+	}
+	if len(revs) == 0 {
+		return nil
+	}
+
+	fs, err := m.Dir.Files()
+	if err != nil {
+		return fmt.Errorf("read the migration directory: %w", err)
+	}
+	sum, err := migrate.NewHashFile(fs)
+	if err != nil {
+		return fmt.Errorf("hash the migration directory: %w", err)
+	}
+	names := make(map[string]string, len(fs))
+	for _, f := range fs {
+		names[f.Version()] = f.Name()
+	}
+
+	edited := []string{}
+	for _, r := range revs {
+		// A baseline was never run here, and a file left halfway is one atlas
+		// compares statement by statement before it carries on.
+		if r.Hash == "" || r.Applied != r.Total {
+			continue
+		}
+		// And one the directory has no longer is not this check's to find:
+		// atlas reads the history against the files, and says so.
+		name, ok := names[r.Version]
+		if !ok {
+			continue
+		}
+
+		h, err := sum.SumByName(name)
+		if err != nil {
+			return fmt.Errorf("hash %s: %w", name, err)
+		}
+		if h != r.Hash {
+			edited = append(edited, name)
+		}
+	}
+	if len(edited) > 0 {
+		return fmt.Errorf("%w: %s; what changes what a file did is a new file", ErrEdited, strings.Join(edited, ", "))
+	}
+
+	return nil
+}
+
+// lock holds this directory's migrations, on this database, for one process
+// at a time, and answers with what lets them go.
+//
+// On PostgreSQL that is an advisory lock, and it is the session's: a process
+// that dies holding it lets it go with its connection, and one waiting for it
+// waits for as long as `ctx` lets it. It is keyed by the schema and the table
+// the history is kept in, so the two directories of one database, or two
+// deployments of one in two schemas, do not wait on each other.
+//
+// A SQLite database is written by one connection at a time, and a file shared
+// by processes that each migrate it is not something this was built for, so
+// it is not locked.
+func (m Migrations) lock(ctx context.Context, db *sql.DB, d string) (func(), error) {
+	if d != dialect.Postgres {
+		return func() {}, nil
+	}
+
+	conn, err := db.Conn(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("a connection to hold the migration lock: %w", err)
+	}
+
+	var at sql.NullString
+	if err := conn.QueryRowContext(ctx, "SELECT current_schema()").Scan(&at); err != nil {
+		conn.Close()
+		return nil, fmt.Errorf("read the current schema: %w", err)
+	}
+
+	h := fnv.New64a()
+	h.Write([]byte("protobuf-orm/ent migrate " + at.String + "." + m.revisions()))
+	key := int64(h.Sum64())
+
+	if _, err := conn.ExecContext(ctx, "SELECT pg_advisory_lock($1)", key); err != nil {
+		conn.Close()
+		return nil, fmt.Errorf("wait for the migration lock: %w", err)
+	}
+
+	return func() {
+		// Whatever became of `ctx`: the lock has to go either way.
+		if _, err := conn.ExecContext(context.WithoutCancel(ctx), "SELECT pg_advisory_unlock($1)", key); err != nil {
+			// A session left holding it would hold it for as long as the
+			// pool kept the connection, so the connection goes instead,
+			// and the lock with it.
+			conn.Raw(func(any) error { return sqldriver.ErrBadConn })
+		}
+		conn.Close()
+	}, nil
+}
+
+func (m Migrations) executor(ctx context.Context, db *sql.DB, d string) (*migrate.Executor, migrate.RevisionReadWriter, error) {
 	if d != m.Dialect {
-		return nil, fmt.Errorf("%w: they are %s and it is %s", ErrDialect, m.Dialect, d)
+		return nil, nil, fmt.Errorf("%w: they are %s and it is %s", ErrDialect, m.Dialect, d)
 	}
 
 	drv, err := atDriverFor(db, d)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	rrw, err := newRevisions(ctx, db, d, m.revisions())
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	v, err := migrate.NewExecutor(drv, m.Dir, rrw, migrate.WithAllowDirty(m.Atop))
 	if err != nil {
-		return nil, fmt.Errorf("new executor: %w", err)
+		return nil, nil, fmt.Errorf("new executor: %w", err)
 	}
 
-	return v, nil
+	return v, rrw, nil
 }
 
 // driver adapts a connection to the atlas driver of the dialect it speaks. Add
