@@ -34,7 +34,9 @@ import (
 // Only a transaction begun with [BeginTx] keeps anything. One a generated
 // client began itself -- `Client.Tx`, a single write that needs a transaction
 // of its own -- keeps nothing, and [KeepOf] says so: what such a write has to
-// say, it says at once.
+// say, it says at once. Nor does BeginTx begin one inside it
+// ([ErrForeignTx]): what that one kept would answer to a commit that is not
+// the transaction's.
 type Keep struct {
 	mu     sync.Mutex
 	values map[any]any
@@ -201,10 +203,16 @@ func (k *Keep) discard() {
 	k.before, k.ahead, k.values = nil, nil, nil
 }
 
-// keptTx is the transaction [BeginTx] answers its caller with, when it began
-// one: the driver's, doing what its [Keep] holds before it commits.
+// keptTx is what [BeginTx] answers its caller with when it began a
+// transaction: the end of it, which does what its [Keep] holds before it
+// commits.
+//
+// It ends the transaction and does nothing else. A statement goes through the
+// driver BeginTx answered with, which asks the keep about it first
+// ([Keep.BeforeStatement]); one sent through this would be asked nothing, so
+// this has no way to send one.
 type keptTx struct {
-	Tx
+	tx Tx
 
 	// ctx is the one the transaction was begun with, which is what the work
 	// before the commit runs under: database/sql gives Commit none of its own.
@@ -213,22 +221,30 @@ type keptTx struct {
 }
 
 // Commit does the kept work and then commits, and rolls back instead when the
-// work fails: a transaction whose commit was refused is over either way, and
-// leaving it open would hold its connection until somebody noticed.
+// work fails: a transaction whose commit was refused is over either way, and leaving it open would hold its connection until
+// somebody noticed.
 func (t *keptTx) Commit() error {
 	if err := t.keep.finish(t.ctx); err != nil {
-		_ = t.Tx.Rollback()
+		_ = t.tx.Rollback()
 		t.keep.discard()
 
 		return err
 	}
 
-	return t.Tx.Commit()
+	return t.tx.Commit()
 }
 
 // Rollback rolls back, and drops the kept work unrun.
 func (t *keptTx) Rollback() error {
 	t.keep.discard()
 
-	return t.Tx.Rollback()
+	return t.tx.Rollback()
 }
+
+// inside is what [BeginTx] answers with inside a transaction it began before:
+// the end of a transaction that is not this caller's to end, so ending it does
+// nothing. The outer one's commit does what is kept, and its rollback drops it.
+type inside struct{}
+
+func (inside) Commit() error   { return nil }
+func (inside) Rollback() error { return nil }

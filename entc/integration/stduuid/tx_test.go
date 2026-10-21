@@ -77,6 +77,28 @@ func TestInTx(t *testing.T) {
 	})
 }
 
+// A generated client's own transaction keeps nothing, and one begun inside it
+// would keep for a commit that is not the transaction's.
+func TestBeginTxInAClientsTx(t *testing.T) {
+	client, ctx := open(t)
+
+	etx, err := client.Tx(ctx)
+	require.NoError(t, err)
+	defer etx.Rollback()
+
+	for name, drv := range map[string]dialect.Driver{
+		"as it is":            etx.Client().Driver(),
+		"under a DebugDriver": dialect.Debug(etx.Client().Driver(), func(...any) {}),
+	} {
+		t.Run(name, func(t *testing.T) {
+			d, end, err := dialect.BeginTx(ctx, drv)
+			require.ErrorIs(t, err, dialect.ErrForeignTx)
+			require.Nil(t, d)
+			require.Nil(t, end)
+		})
+	}
+}
+
 // TestBeginTx is the transaction a stack shares: several clients on one driver,
 // one commit, and no inner call able to end it early.
 func TestBeginTx(t *testing.T) {

@@ -58,6 +58,13 @@ func (d *recDriver) Query(context.Context, string, any, any) error { d.queries++
 var _ dialect.Driver = (*recDriver)(nil)
 var _ dialect.Tx = (*recTx)(nil)
 
+// foreignDriver is a driver inside a transaction BeginTx did not begin, which
+// is what a generated client's `Client.Tx` hands its client: it says it is a
+// transaction, and keeps nothing.
+type foreignDriver struct{ recDriver }
+
+func (*foreignDriver) InTx() bool { return true }
+
 func TestBegin(t *testing.T) {
 	ctx := context.Background()
 
@@ -205,6 +212,53 @@ func TestBegin(t *testing.T) {
 		}
 		if err := d.Close(); err != nil {
 			t.Errorf("close: %s", err)
+		}
+	})
+
+	// One begun inside it would keep its own, and answer to a commit that is
+	// not the transaction's: its commit would write what it kept into a
+	// transaction it does not end, and its rollback would drop it while the
+	// writes it was about stayed.
+	t.Run("inside a transaction it did not begin, it begins nothing", func(t *testing.T) {
+		for name, drv := range map[string]func(*foreignDriver) dialect.Driver{
+			"as it is":            func(d *foreignDriver) dialect.Driver { return d },
+			"under a DebugDriver": func(d *foreignDriver) dialect.Driver { return dialect.Debug(d, func(...any) {}) },
+		} {
+			t.Run(name, func(t *testing.T) {
+				foreign := &foreignDriver{recDriver{dialect: dialect.SQLite}}
+
+				d, tx, err := dialect.BeginTx(ctx, drv(foreign))
+				if !errors.Is(err, dialect.ErrForeignTx) {
+					t.Fatalf("err = %v, want ErrForeignTx", err)
+				}
+				if d != nil || tx != nil {
+					t.Error("got a driver or a transaction along with the refusal")
+				}
+				if foreign.began != 0 {
+					t.Errorf("began = %d, want 0", foreign.began)
+				}
+			})
+		}
+	})
+
+	// A statement is sent through the driver, which asks the keep about it
+	// first. What ends the transaction has no way to send one past that.
+	t.Run("what it hands back ends the transaction, and sends nothing", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		_, inner, err := dialect.BeginTx(ctx, d)
+		if err != nil {
+			t.Fatalf("begin inside: %s", err)
+		}
+
+		for name, v := range map[string]any{"begun": tx, "begun inside": inner} {
+			if _, ok := v.(dialect.ExecQuerier); ok {
+				t.Errorf("the transaction %s is one a statement can be sent through, past the driver", name)
+			}
 		}
 	})
 
