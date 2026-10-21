@@ -8,6 +8,7 @@ import (
 	"context"
 	"database/sql"
 	"database/sql/driver"
+	"errors"
 	"fmt"
 	"log"
 	"uuid"
@@ -94,7 +95,7 @@ func InTx(drv Driver) bool {
 }
 
 // BeginTx starts a transaction on drv and answers with a driver that runs
-// through it, and with the transaction itself.
+// through it, and with what ends it.
 //
 // It is how several clients come to share one transaction: build each of them
 // on the driver this answers with -- see the WithDriver method of a generated
@@ -107,29 +108,66 @@ func InTx(drv Driver) bool {
 // would let any inner call's deferred Rollback throw away the work of the call
 // that wrapped it, and report success for it.
 //
+// What the caller is handed ends the transaction and does nothing else. A
+// statement is sent through the driver, which is what asks the transaction's
+// [Keep] about it first ([Keep.BeforeStatement]); a transaction that could be
+// written through as well would be a second road to the same connection, and
+// the one that asks nothing.
+//
 // The driver is not safe for concurrent use, because a transaction is not.
 //
 // And it keeps what the transaction holds for the rest of itself -- see
 // [Keep] -- which a transaction begun inside another shares with it, the
 // same way it shares the transaction. The one this begins does the kept work
 // when its caller commits it.
-func BeginTx(ctx context.Context, drv Driver) (Driver, Tx, error) {
+//
+// Inside a transaction this did not begin -- one a generated client's
+// `Client.Tx` began -- it begins nothing, and answers [ErrForeignTx].
+func BeginTx(ctx context.Context, drv Driver) (Driver, driver.Tx, error) {
+	// Inside another transaction this one is that one, and so is what it
+	// keeps; what is handed back cannot end it, and the outer one's commit
+	// does the work. Every statement sent through this one is sent through
+	// the outer one too, which is where it is asked about.
+	if k, ok := KeepOf(drv); ok {
+		tx, err := drv.Tx(ctx)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		return &txDriver{drv: drv, tx: tx, keep: k}, inside{}, nil
+	}
+
+	// Inside one that keeps nothing, there is nothing to share and nothing
+	// to begin; see [ErrForeignTx].
+	if InTx(drv) {
+		return nil, nil, ErrForeignTx
+	}
+
 	tx, err := drv.Tx(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	// Inside another transaction this one is that one, and so is what it
-	// keeps; the commit handed back is the nop that cannot end it, and the
-	// outer one's does the work. Every statement sent through this one is
-	// sent through the outer one too, which is where it is asked about.
-	if k, ok := KeepOf(drv); ok {
-		return &txDriver{drv: drv, tx: tx, keep: k}, tx, nil
-	}
-
 	k := &Keep{}
-	return &txDriver{drv: drv, tx: tx, keep: k, owns: true}, &keptTx{Tx: tx, ctx: ctx, keep: k}, nil
+	return &txDriver{drv: drv, tx: tx, keep: k, owns: true}, &keptTx{tx: tx, ctx: ctx, keep: k}, nil
 }
+
+// ErrForeignTx is [BeginTx] asked to begin inside a transaction it did not
+// begin: one the driver says it is in ([InTx]) and that keeps nothing
+// ([KeepOf]), which is a generated client's `Client.Tx`.
+//
+// Refused rather than begun, because there is no right thing to begin. The
+// transaction keeps nothing to share, and one begun inside it keeping its own
+// would answer to the wrong end: its commit would write what it kept into a
+// transaction it does not end, and its rollback would drop what it kept while
+// the writes it was about stayed, for whoever does end the transaction to
+// commit without it. Kept work is what makes the rest of a transaction
+// acceptable -- a trail, say -- and a write committed without it is one the
+// record does not have.
+//
+// A transaction is begun with BeginTx, and a generated client is put on it
+// with WithDriver; then a stack inside it joins that one.
+var ErrForeignTx = errors.New("dialect: the driver is inside a transaction BeginTx did not begin, and a transaction begun inside it would keep its work for a commit that is not the transaction's")
 
 // txDriver is a transaction wearing a driver's clothes.
 type txDriver struct {

@@ -77,6 +77,28 @@ func TestInTx(t *testing.T) {
 	})
 }
 
+// A generated client's own transaction keeps nothing, and one begun inside it
+// would keep for a commit that is not the transaction's.
+func TestBeginTxInAClientsTx(t *testing.T) {
+	client, ctx := open(t)
+
+	etx, err := client.Tx(ctx)
+	require.NoError(t, err)
+	defer etx.Rollback()
+
+	for name, drv := range map[string]dialect.Driver{
+		"as it is":            etx.Client().Driver(),
+		"under a DebugDriver": dialect.Debug(etx.Client().Driver(), func(...any) {}),
+	} {
+		t.Run(name, func(t *testing.T) {
+			d, end, err := dialect.BeginTx(ctx, drv)
+			require.ErrorIs(t, err, dialect.ErrForeignTx)
+			require.Nil(t, d)
+			require.Nil(t, end)
+		})
+	}
+}
+
 // TestBeginTx is the transaction a stack shares: several clients on one driver,
 // one commit, and no inner call able to end it early.
 func TestBeginTx(t *testing.T) {
@@ -151,6 +173,29 @@ func TestJoinTx(t *testing.T) {
 		// there was no transaction, so the write was never provisional.
 		j.Close()
 		require.Equal(t, 1, client.User.Query().CountX(ctx))
+	})
+
+	// It cannot take back what it wrote in a transaction it joined -- that one
+	// is not its to end -- so when it fails partway, the transaction is the
+	// one that is told: its commit is refused, and what was written goes.
+	t.Run("work that failed partway in one it joined refuses its commit", func(t *testing.T) {
+		client, ctx := open(t)
+
+		drv, tx, err := dialect.BeginTx(ctx, client.Driver())
+		require.NoError(t, err)
+		defer tx.Rollback()
+		in := client.WithDriver(drv)
+		in.User.Create().SetName("before").SaveX(ctx)
+
+		j, err := entgo.JoinTx[*ent.Client, *ent.Tx](ctx, in, true)
+		require.NoError(t, err)
+		j.Writing()
+		j.Db.User.Create().SetName("a").SaveX(ctx)
+		// And then it failed, before it said the work holds.
+		j.Close()
+
+		require.ErrorIs(t, tx.Commit(), entgo.ErrPartial)
+		require.Equal(t, 0, client.User.Query().CountX(ctx), "a write that failed partway held")
 	})
 
 	t.Run("joins one somebody else began, and does not end it", func(t *testing.T) {

@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/protobuf-orm/ent"
+	"github.com/protobuf-orm/ent/dialect"
 )
 
 // The doubles stand in for a generated ent client and its transaction. What
@@ -20,11 +21,17 @@ type recClient struct {
 	inTx bool
 	err  error
 
+	// drv is what the client runs through, which is a kept transaction's
+	// when the test puts it on one.
+	drv dialect.Driver
+
 	tx    recClientTx
 	began int
 }
 
 func (c *recClient) InTx() bool { return c.inTx }
+
+func (c *recClient) Driver() dialect.Driver { return c.drv }
 
 func (c *recClient) Tx(context.Context) (*recClientTx, error) {
 	c.began++
@@ -159,4 +166,129 @@ func TestJoinReportsWhatItCouldNotStart(t *testing.T) {
 	if !errors.Is(err, want) {
 		t.Fatalf("err = %v, want %v", err, want)
 	}
+}
+
+// conn is a connection that answers nothing, for a transaction to be begun on
+// with dialect.BeginTx: what is under test is what that transaction is told.
+type conn struct{ tx connTx }
+
+type connTx struct{ commits, rollbacks int }
+
+func (c *conn) Exec(context.Context, string, any, any) error  { return nil }
+func (c *conn) Query(context.Context, string, any, any) error { return nil }
+func (c *conn) Tx(context.Context) (dialect.Tx, error)        { return &c.tx, nil }
+func (c *conn) Close() error                                  { return nil }
+func (c *conn) Dialect() string                               { return dialect.SQLite }
+
+func (t *connTx) Exec(context.Context, string, any, any) error  { return nil }
+func (t *connTx) Query(context.Context, string, any, any) error { return nil }
+func (t *connTx) Commit() error                                 { t.commits++; return nil }
+func (t *connTx) Rollback() error                               { t.rollbacks++; return nil }
+
+// Work that joined a transaction somebody else began cannot take back what it
+// wrote, since ending that transaction is not its to do. When it fails after it
+// began writing, the transaction is told it cannot be committed with part of
+// it -- and that is all it is told.
+func TestJoinRefusesWhatFailedPartway(t *testing.T) {
+	ctx := context.Background()
+
+	// A kept transaction, begun as a stack's is, and a client on it.
+	kept := func(t *testing.T) (*conn, *recClient, interface{ Commit() error }) {
+		t.Helper()
+
+		c := &conn{}
+		drv, tx, err := dialect.BeginTx(ctx, c)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+
+		return c, &recClient{inTx: true, drv: drv}, tx
+	}
+
+	t.Run("work that failed after it began writing refuses the commit", func(t *testing.T) {
+		c, db, tx := kept(t)
+
+		v := join(t, db, true)
+		v.Writing()
+		v.Close()
+
+		if err := tx.Commit(); !errors.Is(err, ent.ErrPartial) {
+			t.Fatalf("commit = %v, want ErrPartial", err)
+		}
+		if c.tx.commits != 0 || c.tx.rollbacks != 1 {
+			t.Errorf("commits = %d and rollbacks = %d, want 0 and 1: part of a failed write was committed", c.tx.commits, c.tx.rollbacks)
+		}
+	})
+
+	t.Run("and work that failed before it wrote does not", func(t *testing.T) {
+		c, db, tx := kept(t)
+
+		v := join(t, db, true)
+		v.Close()
+
+		if err := tx.Commit(); err != nil {
+			t.Fatalf("commit: %s", err)
+		}
+		if c.tx.commits != 1 {
+			t.Errorf("commits = %d, want 1", c.tx.commits)
+		}
+	})
+
+	t.Run("nor does work that held", func(t *testing.T) {
+		c, db, tx := kept(t)
+
+		v := join(t, db, true)
+		v.Writing()
+		if err := v.Commit(); err != nil {
+			t.Fatalf("join commit: %s", err)
+		}
+		v.Close()
+
+		if err := tx.Commit(); err != nil {
+			t.Fatalf("commit: %s", err)
+		}
+		if c.tx.commits != 1 {
+			t.Errorf("commits = %d, want 1", c.tx.commits)
+		}
+	})
+
+	t.Run("and the work that wanted no transaction is told the same", func(t *testing.T) {
+		_, db, tx := kept(t)
+
+		v := join(t, db, false)
+		v.Writing()
+		v.Close()
+
+		if err := tx.Commit(); !errors.Is(err, ent.ErrPartial) {
+			t.Fatalf("commit = %v, want ErrPartial", err)
+		}
+	})
+
+	// A transaction that keeps nothing -- a generated Client.Tx -- has nothing
+	// to be told with, and its owner is the one who answers for it.
+	t.Run("a transaction that keeps nothing is not told", func(t *testing.T) {
+		db := &recClient{inTx: true, drv: &conn{}}
+
+		v := join(t, db, true)
+		v.Writing()
+		v.Close()
+
+		if db.tx.commits != 0 || db.tx.rollbacks != 0 {
+			t.Errorf("commits = %d and rollbacks = %d, want 0 and 0", db.tx.commits, db.tx.rollbacks)
+		}
+	})
+
+	// Work that began its own takes it back, as it always has, and tells
+	// nobody: there is nobody else's transaction to tell.
+	t.Run("work in its own transaction is taken back by it", func(t *testing.T) {
+		db := &recClient{}
+
+		v := join(t, db, true)
+		v.Writing()
+		v.Close()
+
+		if db.tx.rollbacks != 1 {
+			t.Errorf("rollbacks = %d, want 1", db.tx.rollbacks)
+		}
+	})
 }

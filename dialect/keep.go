@@ -34,7 +34,13 @@ import (
 // Only a transaction begun with [BeginTx] keeps anything. One a generated
 // client began itself -- `Client.Tx`, a single write that needs a transaction
 // of its own -- keeps nothing, and [KeepOf] says so: what such a write has to
-// say, it says at once.
+// say, it says at once. Nor does BeginTx begin one inside it
+// ([ErrForeignTx]): what that one kept would answer to a commit that is not
+// the transaction's.
+//
+// And work that cannot take back what it did says the transaction may not
+// commit ([Keep.Refuse]): a write that failed partway, in a transaction it did
+// not begin, leaves the part it wrote for that transaction's commit.
 type Keep struct {
 	mu     sync.Mutex
 	values map[any]any
@@ -45,6 +51,10 @@ type Keep struct {
 	// work that writes what it kept would otherwise be asked to write it
 	// again, by the statement that writes it.
 	busy bool
+
+	// refused is why the transaction may not commit, said by [Keep.Refuse];
+	// nil while nothing has said so.
+	refused error
 }
 
 // ahead is work to do before the statements match says yes to.
@@ -129,6 +139,30 @@ func (k *Keep) BeforeStatement(match func(query string) bool, fn func(context.Co
 	k.ahead = append(k.ahead, ahead{match, fn})
 }
 
+// Refuse says the transaction may not commit, and why: its commit answers err
+// and rolls back instead, and the work kept for it is not done. The first
+// refusal is the one answered, and a nil err says nothing.
+//
+// It is for work that cannot take back what it did. A write in a transaction
+// somebody else began does not end that transaction -- it is not the write's
+// to end -- so when it fails partway, what it wrote before failing stays in
+// the transaction, and a caller that went on and committed would commit part
+// of a write it was told had failed. PostgreSQL answers a failed statement
+// that way already, by taking the transaction with it; this is that answer on
+// every engine, and for a failure that was not a statement's.
+func (k *Keep) Refuse(err error) {
+	if err == nil {
+		return
+	}
+
+	k.mu.Lock()
+	defer k.mu.Unlock()
+
+	if k.refused == nil {
+		k.refused = err
+	}
+}
+
 // statement does the work kept for a statement about to be sent.
 func (k *Keep) statement(ctx context.Context, query string) error {
 	k.mu.Lock()
@@ -169,15 +203,27 @@ func (k *Keep) idle() {
 }
 
 // finish does what is to be done before the commit, including whatever that
-// adds on the way, and empties the keep.
+// adds on the way, and empties the keep -- or answers why the transaction may
+// not commit, when something said so ([Keep.Refuse]), and does none of it.
 func (k *Keep) finish(ctx context.Context) error {
 	k.mu.Lock()
+	if err := k.refused; err != nil {
+		k.mu.Unlock()
+
+		return err
+	}
 	k.busy = true
 	k.mu.Unlock()
 	defer k.idle()
 
 	for i := 0; ; i++ {
 		k.mu.Lock()
+		if err := k.refused; err != nil {
+			// Said by the work itself, or by something it did.
+			k.mu.Unlock()
+
+			return err
+		}
 		if i == len(k.before) {
 			k.before, k.ahead, k.values = nil, nil, nil
 			k.mu.Unlock()
@@ -198,13 +244,19 @@ func (k *Keep) discard() {
 	k.mu.Lock()
 	defer k.mu.Unlock()
 
-	k.before, k.ahead, k.values = nil, nil, nil
+	k.before, k.ahead, k.values, k.refused = nil, nil, nil, nil
 }
 
-// keptTx is the transaction [BeginTx] answers its caller with, when it began
-// one: the driver's, doing what its [Keep] holds before it commits.
+// keptTx is what [BeginTx] answers its caller with when it began a
+// transaction: the end of it, which does what its [Keep] holds before it
+// commits.
+//
+// It ends the transaction and does nothing else. A statement goes through the
+// driver BeginTx answered with, which asks the keep about it first
+// ([Keep.BeforeStatement]); one sent through this would be asked nothing, so
+// this has no way to send one.
 type keptTx struct {
-	Tx
+	tx Tx
 
 	// ctx is the one the transaction was begun with, which is what the work
 	// before the commit runs under: database/sql gives Commit none of its own.
@@ -213,22 +265,31 @@ type keptTx struct {
 }
 
 // Commit does the kept work and then commits, and rolls back instead when the
-// work fails: a transaction whose commit was refused is over either way, and
-// leaving it open would hold its connection until somebody noticed.
+// work fails or the commit was refused: a transaction whose commit was refused
+// is over either way, and leaving it open would hold its connection until
+// somebody noticed.
 func (t *keptTx) Commit() error {
 	if err := t.keep.finish(t.ctx); err != nil {
-		_ = t.Tx.Rollback()
+		_ = t.tx.Rollback()
 		t.keep.discard()
 
 		return err
 	}
 
-	return t.Tx.Commit()
+	return t.tx.Commit()
 }
 
 // Rollback rolls back, and drops the kept work unrun.
 func (t *keptTx) Rollback() error {
 	t.keep.discard()
 
-	return t.Tx.Rollback()
+	return t.tx.Rollback()
 }
+
+// inside is what [BeginTx] answers with inside a transaction it began before:
+// the end of a transaction that is not this caller's to end, so ending it does
+// nothing. The outer one's commit does what is kept, and its rollback drops it.
+type inside struct{}
+
+func (inside) Commit() error   { return nil }
+func (inside) Rollback() error { return nil }

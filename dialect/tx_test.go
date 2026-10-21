@@ -58,6 +58,13 @@ func (d *recDriver) Query(context.Context, string, any, any) error { d.queries++
 var _ dialect.Driver = (*recDriver)(nil)
 var _ dialect.Tx = (*recTx)(nil)
 
+// foreignDriver is a driver inside a transaction BeginTx did not begin, which
+// is what a generated client's `Client.Tx` hands its client: it says it is a
+// transaction, and keeps nothing.
+type foreignDriver struct{ recDriver }
+
+func (*foreignDriver) InTx() bool { return true }
+
 func TestBegin(t *testing.T) {
 	ctx := context.Background()
 
@@ -208,6 +215,53 @@ func TestBegin(t *testing.T) {
 		}
 	})
 
+	// One begun inside it would keep its own, and answer to a commit that is
+	// not the transaction's: its commit would write what it kept into a
+	// transaction it does not end, and its rollback would drop it while the
+	// writes it was about stayed.
+	t.Run("inside a transaction it did not begin, it begins nothing", func(t *testing.T) {
+		for name, drv := range map[string]func(*foreignDriver) dialect.Driver{
+			"as it is":            func(d *foreignDriver) dialect.Driver { return d },
+			"under a DebugDriver": func(d *foreignDriver) dialect.Driver { return dialect.Debug(d, func(...any) {}) },
+		} {
+			t.Run(name, func(t *testing.T) {
+				foreign := &foreignDriver{recDriver{dialect: dialect.SQLite}}
+
+				d, tx, err := dialect.BeginTx(ctx, drv(foreign))
+				if !errors.Is(err, dialect.ErrForeignTx) {
+					t.Fatalf("err = %v, want ErrForeignTx", err)
+				}
+				if d != nil || tx != nil {
+					t.Error("got a driver or a transaction along with the refusal")
+				}
+				if foreign.began != 0 {
+					t.Errorf("began = %d, want 0", foreign.began)
+				}
+			})
+		}
+	})
+
+	// A statement is sent through the driver, which asks the keep about it
+	// first. What ends the transaction has no way to send one past that.
+	t.Run("what it hands back ends the transaction, and sends nothing", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		_, inner, err := dialect.BeginTx(ctx, d)
+		if err != nil {
+			t.Fatalf("begin inside: %s", err)
+		}
+
+		for name, v := range map[string]any{"begun": tx, "begun inside": inner} {
+			if _, ok := v.(dialect.ExecQuerier); ok {
+				t.Errorf("the transaction %s is one a statement can be sent through, past the driver", name)
+			}
+		}
+	})
+
 	t.Run("a transaction that cannot be begun is reported", func(t *testing.T) {
 		want := errors.New("no")
 		drv := &recDriver{dialect: dialect.SQLite, err: want}
@@ -337,6 +391,100 @@ func TestKeep(t *testing.T) {
 		}
 		if drv.tx.rollbacks != 1 {
 			t.Errorf("rollbacks = %d, want 1: a refused commit left its transaction open", drv.tx.rollbacks)
+		}
+	})
+
+	t.Run("a refusal said to it is the commit's, and the kept work is not done", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+		k.BeforeCommit(func(ctx context.Context) error { return d.Exec(ctx, "INSERT", []any{}, nil) })
+
+		refused, later := errors.New("refused"), errors.New("refused later")
+		k.Refuse(nil)
+		k.Refuse(refused)
+		k.Refuse(later)
+
+		if err := tx.Commit(); !errors.Is(err, refused) {
+			t.Fatalf("commit = %v, want the first refusal", err)
+		}
+		if drv.tx.commits != 0 || drv.tx.rollbacks != 1 {
+			t.Errorf("commits = %d and rollbacks = %d, want 0 and 1: a refused transaction was committed", drv.tx.commits, drv.tx.rollbacks)
+		}
+		if drv.tx.execs != 0 {
+			t.Errorf("execs = %d, want 0: the work kept for a refused commit was done", drv.tx.execs)
+		}
+	})
+
+	t.Run("and nothing is refused by nil", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+		k.Refuse(nil)
+
+		if err := tx.Commit(); err != nil {
+			t.Fatalf("commit: %s", err)
+		}
+		if drv.tx.commits != 1 {
+			t.Errorf("commits = %d, want 1", drv.tx.commits)
+		}
+	})
+
+	// The kept work is itself a thing that can find it cannot be done -- or do
+	// something that finds so.
+	t.Run("a refusal said while the work is done is the commit's", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		k, _ := dialect.KeepOf(d)
+		refused := errors.New("refused")
+		k.BeforeCommit(func(context.Context) error {
+			k.Refuse(refused)
+			return nil
+		})
+
+		if err := tx.Commit(); !errors.Is(err, refused) {
+			t.Fatalf("commit = %v, want the refusal", err)
+		}
+		if drv.tx.commits != 0 {
+			t.Errorf("commits = %d, want 0", drv.tx.commits)
+		}
+	})
+
+	t.Run("a refusal said inside is the commit around it's", func(t *testing.T) {
+		drv := &recDriver{dialect: dialect.SQLite}
+
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		if err != nil {
+			t.Fatalf("begin: %s", err)
+		}
+		inner, innerTx, err := dialect.BeginTx(ctx, d)
+		if err != nil {
+			t.Fatalf("begin inside: %s", err)
+		}
+		k, _ := dialect.KeepOf(inner)
+		refused := errors.New("refused")
+		k.Refuse(refused)
+
+		if err := innerTx.Commit(); err != nil {
+			t.Fatalf("inner commit: %s", err)
+		}
+		if err := tx.Commit(); !errors.Is(err, refused) {
+			t.Fatalf("commit = %v, want the refusal said inside", err)
+		}
+		if drv.tx.commits != 0 {
+			t.Errorf("commits = %d, want 0", drv.tx.commits)
 		}
 	})
 
