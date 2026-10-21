@@ -149,6 +149,25 @@ func keeps(t *testing.T, drv *sql.Driver) {
 		require.Equal(t, 0, count(t), "a write before a refused commit held")
 	})
 
+	// Work that cannot take back what it did -- a write that failed partway in
+	// a transaction it did not begin -- says the transaction may not commit,
+	// and what it wrote goes with the transaction.
+	t.Run("a refusal said to it takes the transaction back", func(t *testing.T) {
+		empty(t)
+		d, tx, err := dialect.BeginTx(ctx, drv)
+		require.NoError(t, err)
+		defer tx.Rollback()
+
+		k, _ := dialect.KeepOf(d)
+		require.NoError(t, exec(d, "INSERT INTO keep_row (n) VALUES (1)"))
+		refused := errors.New("refused")
+		k.Refuse(refused)
+		require.NoError(t, exec(d, "INSERT INTO keep_row (n) VALUES (2)"))
+
+		require.ErrorIs(t, tx.Commit(), refused)
+		require.Equal(t, 0, count(t), "a write in a refused transaction held")
+	})
+
 	// What a statement about the kept rows finds, inside the transaction:
 	// them, since the work kept for it is done first.
 	t.Run("work kept for a statement is done before it", func(t *testing.T) {
