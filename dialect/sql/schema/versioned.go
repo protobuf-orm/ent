@@ -37,6 +37,21 @@
 // -- applied after the ent one, written by hand ([Migrations.Write]) and never
 // planned. The order between the two is the order the app applies them in,
 // which is the one order there is: what stands on the schema comes after it.
+//
+// # And it stands on files, not on Schema.Create
+//
+// A database migrated by [Schema.Create] -- ent's migration with no files --
+// is not one to keep this directory for. Create drops a foreign key or a check
+// the schema does not declare, which is how it retires one the schema stopped
+// declaring: an edge pointed at another table is a foreign key of a new name,
+// and the old one, left, would refuse every row the new one allows. It cannot
+// tell those from one this directory made, so it drops both -- and the history
+// says the file ran, so nothing makes it again. (SQLite rebuilds a table for
+// most changes, from the schema, which drops them as well.)
+//
+// An app that migrates with Create says what the schema cannot in statements
+// it runs after every Create, each safe to run again, rather than in a
+// directory that runs a file once.
 
 package schema
 
@@ -130,6 +145,10 @@ type Migrations struct {
 // Extra is the directory of what the ent schema cannot state, beside m: the
 // same dialect, a history of its own ([ExtraRevisionTable]), applied atop the
 // database m builds, and never planned.
+//
+// m builds that database from its files. One [Schema.Create] keeps in step
+// loses this directory's foreign keys and checks the next time it runs; see
+// the note on the package.
 //
 //	ent   := entschema.Migrations{Dir: dir, Dialect: dialect.Postgres, Tables: entmigrate.Tables}
 //	extra := ent.Extra(extraDir)
