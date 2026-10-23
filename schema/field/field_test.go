@@ -935,11 +935,45 @@ func TestRType_Implements(t *testing.T) {
 		field.Other("scalar", Scalar{}),
 	} {
 		fd := f.Descriptor()
-		assert.True(t, fd.Info.RType.Implements(codecType))
-		assert.True(t, fd.Info.RType.Implements(marshalType))
-		assert.True(t, fd.Info.RType.Implements(unmarshalType))
+
+		// A descriptor records its type and not the type's methods, which
+		// are the loader's to list, and is asked of the type itself.
+		assert.Nil(t, fd.Info.RType.Methods)
+		assert.True(t, field.Implements(fd.Info.RType, codecType))
+		assert.True(t, field.Implements(fd.Info.RType, marshalType))
+		assert.True(t, field.Implements(fd.Info.RType, unmarshalType))
+
+		// And loaded, then decoded as entc has it, of the methods recorded.
+		fd.Info.RType.LoadMethods()
+		b, err := json.Marshal(fd.Info.RType)
+		require.NoError(t, err)
+		var loaded field.RType
+		require.NoError(t, json.Unmarshal(b, &loaded))
+		assert.True(t, field.Implements(&loaded, codecType))
+		assert.True(t, field.Implements(&loaded, marshalType))
+		assert.True(t, field.Implements(&loaded, unmarshalType))
+		assert.False(t, field.Implements(&loaded, reflect.TypeFor[io.Reader]()))
 	}
+
+	// A type with no methods has none, which is a set and not nothing: the
+	// loaded schema says `{}` for it, as it did when they were listed with
+	// the descriptor.
+	fd := field.String("name").GoType(Name("")).Descriptor()
+	fd.Info.RType.LoadMethods()
+	assert.NotNil(t, fd.Info.RType.Methods)
+	assert.Empty(t, fd.Info.RType.Methods)
+
+	// And an RType made from no type is left as it is.
+	var none *field.RType
+	none.LoadMethods()
+	assert.Nil(t, none)
+	decoded := &field.RType{Name: "x"}
+	decoded.LoadMethods()
+	assert.Nil(t, decoded.Methods)
 }
+
+// Name is a string type with no methods.
+type Name string
 
 func TestTypeString(t *testing.T) {
 	typ := field.TypeBool

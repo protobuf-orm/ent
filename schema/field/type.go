@@ -120,7 +120,7 @@ func (t TypeInfo) ConstName() string {
 
 // ValueScanner indicates if this type implements the ValueScanner interface.
 func (t TypeInfo) ValueScanner() bool {
-	return t.RType.Implements(valueScannerType) || t.RType.DriverType()
+	return t.RType.implements(valueScannerType) || t.RType.DriverType()
 }
 
 // DriverType indicates if database/sql reads and writes values of this type
@@ -131,13 +131,13 @@ func (t TypeInfo) DriverType() bool {
 
 // Validator indicates if this type implements the Validator interface.
 func (t TypeInfo) Validator() bool {
-	return t.RType.Implements(validatorType)
+	return t.RType.implements(validatorType)
 }
 
 // Valuer indicates if this type can be handed to a driver as it is, either
 // because it implements driver.Valuer or because database/sql converts it.
 func (t TypeInfo) Valuer() bool {
-	return t.RType.Implements(valuerType) || t.RType.DriverType()
+	return t.RType.implements(valuerType) || t.RType.DriverType()
 }
 
 // Comparable reports whether values of this type are comparable.
@@ -159,7 +159,7 @@ var stringerType = reflect.TypeOf((*fmt.Stringer)(nil)).Elem()
 
 // Stringer indicates if this type implements the Stringer interface.
 func (t TypeInfo) Stringer() bool {
-	return t.RType.Implements(stringerType)
+	return t.RType.implements(stringerType)
 }
 
 var (
@@ -203,9 +203,60 @@ type RType struct {
 	Ident   string // reflect.Type.String
 	Kind    reflect.Kind
 	PkgPath string
+
+	// Methods is the method set of the type -- of *T, for a T -- which is how
+	// entc knows what a GoType implements. A descriptor leaves it nil, and
+	// entc's loader fills it in: see LoadMethods.
 	Methods map[string]struct{ In, Out []*RType }
+
 	// Used only for in-package checks.
 	rtype reflect.Type
+}
+
+// LoadMethods records the methods of the type in Methods. entc's loader calls
+// it on every field before it encodes the schema for codegen, which is what
+// reads them. It does nothing to an RType made from no type.
+//
+// Upstream records them as a descriptor is made. They are a step of their own
+// here because a running program makes descriptors too: a generated client
+// whose schema has a default, a validator or a value scanner calls the
+// schema's Fields at init (runtime.go), and so builds every field of it.
+// Listing a type's methods is reflect.Type.Method with an index the compiler
+// cannot see, and in a program that can reach such a call the linker has to
+// assume that any exported method of any type converted to an interface may
+// be called by name -- so it keeps every one of them, used or not, in the
+// whole program. In lesomnus/payday's app compiled to WebAssembly, the module
+// a browser downloads, that was 24 MB of 63.
+func (r *RType) LoadMethods() {
+	if r == nil || r.rtype == nil {
+		return
+	}
+	t := methodSet(r.rtype)
+	n := t.NumMethod()
+	r.Methods = make(map[string]struct{ In, Out []*RType }, n)
+	for i := 0; i < n; i++ {
+		m := t.Method(i)
+		in := make([]*RType, m.Type.NumIn()-1)
+		for j := range in {
+			arg := m.Type.In(j + 1)
+			in[j] = &RType{Name: arg.Name(), Ident: arg.String(), Kind: arg.Kind(), PkgPath: arg.PkgPath()}
+		}
+		out := make([]*RType, m.Type.NumOut())
+		for j := range out {
+			ret := m.Type.Out(j)
+			out[j] = &RType{Name: ret.Name(), Ident: ret.String(), Kind: ret.Kind(), PkgPath: ret.PkgPath()}
+		}
+		r.Methods[m.Name] = struct{ In, Out []*RType }{in, out}
+	}
+}
+
+// methodSet is the type whose methods an RType holds for t: *T for a T, so that
+// a method with a pointer receiver counts, and a pointer as it is.
+func methodSet(t reflect.Type) reflect.Type {
+	if t.Kind() != reflect.Ptr {
+		return reflect.PtrTo(t)
+	}
+	return t
 }
 
 // DriverType reports whether database/sql reads and writes values of this type
@@ -240,10 +291,25 @@ func (r *RType) IsPtr() bool {
 	return r != nil && r.Kind == reflect.Ptr
 }
 
-// Implements reports whether the RType ~implements the given interface type.
-func (r *RType) Implements(typ reflect.Type) bool {
-	if r == nil {
+// implements reports whether the RType ~implements the given interface type.
+// One made from a type, as a descriptor's is, is asked through reflect, which
+// lists no methods to answer; one decoded from a loaded schema, as entc has
+// it, by the methods recorded in Methods. TypeInfo's ValueScanner, Validator,
+// Valuer and Stringer are what entc asks.
+//
+// It is RType.Implements upstream, and is not exported here for that name and
+// signature: they are reflect.Type's own Implements, which a program calls
+// through the interface (encoding/json does), and the linker keeps a method
+// of that name and type on any type converted to an interface -- which an
+// RType is, behind each field's builder. The loop below is reflect.Type.Method
+// with an index, so this is not for a running program to reach either: a
+// check a descriptor makes of its own type asks methodSet(t).Implements.
+func (r *RType) implements(typ reflect.Type) bool {
+	switch {
+	case r == nil:
 		return false
+	case r.rtype != nil:
+		return methodSet(r.rtype).Implements(typ)
 	}
 	n := typ.NumMethod()
 	for i := 0; i < n; i++ {

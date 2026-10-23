@@ -151,6 +151,9 @@ func NewField(fd *field.Descriptor) (*Field, error) {
 	if sf.Info == nil {
 		return nil, fmt.Errorf("missing type info for field %q", sf.Name)
 	}
+	// What codegen reads of a GoType and a running program never asks, so the
+	// descriptor leaves it to here: see field.RType.LoadMethods.
+	sf.Info.RType.LoadMethods()
 	if size := int64(fd.Size); size != 0 {
 		sf.Size = &size
 	}
