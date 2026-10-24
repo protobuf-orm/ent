@@ -144,7 +144,7 @@ func ({{ $receiver }} *{{ $builder }}) sqlSave(ctx context.Context) (_node {{ if
 				{{- end }}
 			{{- end }}
 			{{- if $f.Optional }}
-				if {{ $mutation }}.{{ $f.StructField }}Cleared() {
+				if {{ $mutation }}.{{ $f.MutationCleared }}() {
 					_spec.ClearField({{ $.Package }}.{{ $f.Constant }}, field.{{ $f.Type.ConstName }})
 				}
 			{{- end }}

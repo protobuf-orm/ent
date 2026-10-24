@@ -1175,9 +1175,18 @@ func (f Field) EntSql() *entsql.Annotation {
 	return sqlAnnotate(f.Annotations)
 }
 
-// mutMethods returns the method names of mutation interface.
+// mutMethods holds the method names of the mutation interface, and of the
+// methods every generated mutation has beside them. A field's own method of
+// one of these names would be declared twice, or shadowed by the ent
+// package's mutation, which embeds the entity package's. Ids is one: upstream
+// spells it IDs, and spelled by this fork's rule it is also the getter of a
+// field named "ids".
 var mutMethods = func() map[string]bool {
-	names := map[string]bool{"Client": true, "Tx": true, "Where": true, "SetOp": true}
+	names := map[string]bool{
+		"Client": true, "Tx": true, "Ids": true,
+		"Where": true, "WhereP": true, "Predicates": true, "SetOp": true,
+		"SetFieldExpr": true, "FieldExpr": true, "ExprFields": true,
+	}
 	t := reflect.TypeOf(new(ent.Mutation)).Elem()
 	for i := 0; i < t.NumMethod(); i++ {
 		names[t.Method(i).Name] = true
@@ -1228,14 +1237,26 @@ func (f Field) MutationSet() string {
 }
 
 // MutationClear returns the method name for clearing the field value.
+// The default name is "Clear<FieldName>". If the method conflicts with
+// the mutation methods, suffix the method with "Field".
 func (f Field) MutationClear() string {
-	return "Clear" + f.StructField()
+	name := "Clear" + f.StructField()
+	if mutMethods[name] {
+		name += "Field"
+	}
+	return name
 }
 
 // MutationCleared returns the method name for indicating if the field
-// was cleared in the mutation.
+// was cleared in the mutation. The default name is "<FieldName>Cleared".
+// If the method conflicts with the mutation methods, add "Field" after
+// the field name, as an edge's adds "Edge".
 func (f Field) MutationCleared() string {
-	return f.StructField() + "Cleared"
+	name := f.StructField() + "Cleared"
+	if mutMethods[name] {
+		return f.StructField() + "FieldCleared"
+	}
+	return name
 }
 
 // MutationAdd returns the method name for adding a value to the field.
