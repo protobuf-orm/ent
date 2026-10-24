@@ -185,6 +185,7 @@ touches the same area may be assuming the behaviour we replaced.
 | **Time: MySql column** | A time field is a `datetime`, not a `timestamp` -- no session `time_zone` conversion, no 2038. | `5d232985b` |
 | **Session variables** | A MySql system variable is reset with `DEFAULT`, a user-defined one with `NULL`. | `f3f5b8f55` |
 | **SQLite** | `sqlite_sequence` is quoted as a string and the rewrite is narrowed. | `14f94eda3`, `e540949fe` |
+| **A field's GoType** | A descriptor records the type and not its methods: the loader lists them (`RType.LoadMethods`, called by `entc/load`'s `NewField`) before it encodes the schema. Upstream's `RType.Implements` is the package's own `implements`, and asks reflect of a type a descriptor holds; the enum builder's Stringer check asks reflect directly. A running program makes descriptors too -- a generated `runtime.go` calls `Fields` at init for defaults, validators and value scanners -- and a program that can reach `reflect.Type.Method` by index keeps every exported method of every type converted to an interface. `Implements` has `reflect.Type`'s name and signature, so the linker kept it, and its loop, on every `RType`. An upstream change that lists methods in `goType` again, or checks a descriptor through `TypeInfo`'s predicates, undoes this; `TestMakingFieldsLetsTheLinkerPruneMethods` fails for either. | #20 |
 
 Two of these bite hardest when merging a feature that adds a field type:
 

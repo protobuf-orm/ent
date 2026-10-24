@@ -1270,10 +1270,13 @@ func (b *enumBuilder) Deprecated(reason ...string) *enumBuilder {
 
 // Descriptor implements the ent.Field interface by returning its descriptor.
 func (b *enumBuilder) Descriptor() *Descriptor {
-	if b.desc.Info.RType != nil {
+	if r := b.desc.Info.RType; r != nil {
 		// If an error already exists, let that be returned instead.
 		// Otherwise, check that the underlying type is either a string or implements Stringer.
-		if b.desc.Err == nil && b.desc.Info.RType.rtype.Kind() != reflect.String && !b.desc.Info.Stringer() {
+		//
+		// Asked of the type itself and not of TypeInfo.Stringer, which a
+		// running program must not reach: see RType.implements.
+		if b.desc.Err == nil && r.rtype.Kind() != reflect.String && !methodSet(r.rtype).Implements(stringerType) {
 			b.desc.Err = errors.New("enum values which implement ValueScanner must also implement Stringer")
 		}
 		b.desc.checkGoType(stringType)
@@ -1564,6 +1567,9 @@ type Descriptor struct {
 	Err              error
 }
 
+// goType records the Go type a field holds. It records the type and not its
+// methods, which the loader adds for codegen (RType.LoadMethods): a running
+// program makes descriptors too, and must not pay for them.
 func (d *Descriptor) goType(typ any) {
 	t := reflect.TypeOf(typ)
 	tv := indirect(t)
@@ -1578,10 +1584,8 @@ func (d *Descriptor) goType(typ any) {
 			Name:    tv.Name(),
 			Ident:   tv.String(),
 			PkgPath: tv.PkgPath(),
-			Methods: make(map[string]struct{ In, Out []*RType }, t.NumMethod()),
 		},
 	}
-	methods(t, info.RType)
 	switch t.Kind() {
 	case reflect.Slice, reflect.Ptr, reflect.Map:
 		info.Nillable = true
@@ -1632,29 +1636,6 @@ func pkgName(ident string) string {
 		s = s[i+1:]
 	}
 	return s
-}
-
-func methods(t reflect.Type, rtype *RType) {
-	// For type T, add methods with
-	// pointer receiver as well (*T).
-	if t.Kind() != reflect.Ptr {
-		t = reflect.PtrTo(t)
-	}
-	n := t.NumMethod()
-	for i := 0; i < n; i++ {
-		m := t.Method(i)
-		in := make([]*RType, m.Type.NumIn()-1)
-		for j := range in {
-			arg := m.Type.In(j + 1)
-			in[j] = &RType{Name: arg.Name(), Ident: arg.String(), Kind: arg.Kind(), PkgPath: arg.PkgPath()}
-		}
-		out := make([]*RType, m.Type.NumOut())
-		for j := range out {
-			ret := m.Type.Out(j)
-			out[j] = &RType{Name: ret.Name(), Ident: ret.String(), Kind: ret.Kind(), PkgPath: ret.PkgPath()}
-		}
-		rtype.Methods[m.Name] = struct{ In, Out []*RType }{in, out}
-	}
 }
 
 func (d *Descriptor) checkDefaultFunc(expectType reflect.Type) {
