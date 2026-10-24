@@ -6,72 +6,107 @@ package sqlpage_test
 
 import (
 	"errors"
+	"strings"
 	"testing"
 	"time"
 	"uuid"
 
+	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 	"github.com/stretchr/testify/require"
 
 	"github.com/protobuf-orm/ent/dialect/sql/sqlpage"
 )
 
-// where renders what After adds to a query, which is the thing under test:
-// these are predicates and the only way to read one is to build the statement.
-func where(t *testing.T, by []sqlpage.Order, at []any) (string, []any) {
+// where renders what After adds to a query on an engine, which is the thing
+// under test: these are predicates and the only way to read one is to build
+// the statement.
+func where(t *testing.T, engine string, by []sqlpage.Order, at []any) (string, []any) {
 	t.Helper()
 
 	p, err := sqlpage.After(by, at)
 	require.NoError(t, err)
 
-	s := sql.Select("*").From(sql.Table("user"))
+	s := sql.Dialect(engine).Select("*").From(sql.Table("user"))
 	p(s)
 
 	q, args := s.Query()
-	return q, args
+	_, w, _ := strings.Cut(q, " WHERE ")
+	return w, args
 }
 
 func TestAfter(t *testing.T) {
 	t.Run("one column reads as one comparison", func(t *testing.T) {
 		x := require.New(t)
 
-		q, args := where(t, []sqlpage.Order{{Column: "id"}}, []any{7})
-		x.Contains(q, "`user`.`id` > ?")
+		w, args := where(t, dialect.MySql, []sqlpage.Order{{Column: "id"}}, []any{7})
+		x.Equal("`user`.`id` > ?", w)
 		x.Equal([]any{7}, args)
+
+		w, _ = where(t, dialect.Postgres, []sqlpage.Order{{Column: "id"}}, []any{7})
+		x.Equal(`"user"."id" > $1`, w)
 	})
 
 	t.Run("descending turns the comparison round", func(t *testing.T) {
 		x := require.New(t)
 
-		q, _ := where(t, []sqlpage.Order{{Column: "id", Desc: true}}, []any{7})
-		x.Contains(q, "`user`.`id` < ?")
+		w, _ := where(t, dialect.SQLite, []sqlpage.Order{{Column: "id", Desc: true}}, []any{7})
+		x.Equal("`user`.`id` < ?", w)
 	})
 
-	t.Run("a tiebreaker only applies where the first column ties", func(t *testing.T) {
+	t.Run("one way, an engine that seeks on a row value is given one", func(t *testing.T) {
 		x := require.New(t)
 
 		// The whole of keyset paging: rows strictly past the first column, and
 		// where it is equal, rows strictly past the tiebreaker. Anything
-		// looser repeats a row and anything tighter skips one.
-		q, args := where(t,
-			[]sqlpage.Order{{Column: "date_created", Desc: true}, {Column: "id", Desc: true}},
-			[]any{"t", 7})
+		// looser repeats a row and anything tighter skips one -- and a row
+		// value is exactly that, in a form the index can start at.
+		by := []sqlpage.Order{{Column: "date_created", Desc: true}, {Column: "id", Desc: true}}
+		w, args := where(t, dialect.Postgres, by, []any{"t", 7})
+		x.Equal(`("user"."date_created", "user"."id") < ($1, $2)`, w)
+		x.Equal([]any{"t", 7}, args)
 
-		x.Contains(q, "`user`.`date_created` < ?")
-		x.Contains(q, "OR")
-		x.Contains(q, "`user`.`date_created` = ?")
-		x.Contains(q, "`user`.`id` < ?")
-		x.Equal([]any{"t", "t", 7}, args)
+		w, _ = where(t, dialect.SQLite, []sqlpage.Order{{Column: "date_created"}, {Column: "id"}}, []any{"t", 7})
+		x.Equal("(`user`.`date_created`, `user`.`id`) > (?, ?)", w)
 	})
 
-	t.Run("mixed directions are each their own", func(t *testing.T) {
+	t.Run("one way, MySQL is given the OR its ranges are made of", func(t *testing.T) {
 		x := require.New(t)
 
-		q, _ := where(t,
-			[]sqlpage.Order{{Column: "name"}, {Column: "id", Desc: true}},
-			[]any{"a", 7})
-		x.Contains(q, "`user`.`name` > ?")
-		x.Contains(q, "`user`.`id` < ?")
+		by := []sqlpage.Order{{Column: "date_created", Desc: true}, {Column: "id", Desc: true}}
+		w, args := where(t, dialect.MySql, by, []any{"t", 7})
+		x.Equal("`user`.`date_created` <= ? AND (`user`.`date_created` < ? OR (`user`.`date_created` = ? AND `user`.`id` < ?))", w)
+		x.Equal([]any{"t", "t", "t", 7}, args)
+	})
+
+	t.Run("mixed directions are each their own, behind a bound on the first", func(t *testing.T) {
+		x := require.New(t)
+
+		// A row value compares every column one way, which is wrong here; the
+		// bound is what the OR implies, and where the index starts.
+		by := []sqlpage.Order{{Column: "name", Desc: true}, {Column: "id"}}
+		for engine, want := range map[string]string{
+			dialect.Postgres: `"user"."name" <= $1 AND ("user"."name" < $2 OR ("user"."name" = $3 AND "user"."id" > $4))`,
+			dialect.SQLite:   "`user`.`name` <= ? AND (`user`.`name` < ? OR (`user`.`name` = ? AND `user`.`id` > ?))",
+			dialect.MySql:    "`user`.`name` <= ? AND (`user`.`name` < ? OR (`user`.`name` = ? AND `user`.`id` > ?))",
+		} {
+			w, args := where(t, engine, by, []any{"a", 7})
+			x.Equal(want, w, engine)
+			x.Equal([]any{"a", "a", "a", 7}, args, engine)
+		}
+	})
+
+	t.Run("mixed directions, the columns that lead one way bound it together", func(t *testing.T) {
+		x := require.New(t)
+
+		by := []sqlpage.Order{{Column: "kind"}, {Column: "name"}, {Column: "id", Desc: true}}
+		w, args := where(t, dialect.Postgres, by, []any{"k", "a", 7})
+		x.Equal(`("user"."kind", "user"."name") >= ($1, $2) AND ("user"."kind" > $3 OR ("user"."kind" = $4 AND ("user"."name" > $5 OR ("user"."name" = $6 AND "user"."id" < $7))))`, w)
+		x.Equal([]any{"k", "a", "k", "k", "a", "a", 7}, args)
+
+		// MySQL takes no row value, so its bound is the first column's.
+		w, _ = where(t, dialect.MySql, by, []any{"k", "a", 7})
+		x.True(strings.HasPrefix(w, "`user`.`kind` >= ? AND (`user`.`kind` > ? OR"), w)
 	})
 
 	t.Run("nothing to order by narrows nothing", func(t *testing.T) {
