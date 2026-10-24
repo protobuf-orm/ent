@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/protobuf-orm/ent/dialect"
 	"github.com/protobuf-orm/ent/dialect/sql"
 )
 
@@ -46,16 +47,42 @@ type Order struct {
 // `by` describes, where `at` is the value of each of those columns in the last
 // row of the page before.
 //
-// Written out rather than as a row-value comparison -- `c1 < v1 OR (c1 = v1 AND
-// c2 < v2)` rather than `(c1, c2) < (v1, v2)` -- because the second is not
-// spelled the same everywhere and is missing outright in older engines. The
-// first is what every one of them takes.
-//
 // This is a keyset and not an offset, which is the whole reason to bother. An
 // offset counts rows from the start every time, so a row inserted ahead of the
 // page shifts everything by one and a caller reading through a list sees a row
 // twice or not at all; and the count itself gets slower the further in the
 // caller reads.
+//
+// A keyset is only faster if the database starts reading at it, and how to say
+// "after" so that it does is not the same on every engine. The rows after a
+// cursor are
+//
+//	c1 > a1 OR (c1 = a1 AND c2 > a2)
+//
+// and MySQL and MariaDB read that OR as ranges of an index on (c1, c2), the
+// first of them beginning at the cursor. PostgreSQL does not: it uses the index
+// for the rest of the query and applies the OR to each row from the first, so
+// every page reads the rows before it, and a walk through a table costs the
+// square of its size. What it starts at is a row value,
+//
+//	(c1, c2) > (a1, a2)
+//
+// which SQLite starts at too (it has row values from 3.15) -- and which MySQL
+// and MariaDB do not: they look up what comes before the row value in the
+// index, and filter by it. So:
+//
+//   - On PostgreSQL and SQLite, when every column of the order runs one way,
+//     the row value, `<` when they descend. It is the whole bound.
+//   - Otherwise the OR, behind an inclusive bound on the columns that lead it
+//     in one direction: `c1 >= a1`, or `(c1, c2) >= (a1, a2)` where the
+//     engine takes a row value. A row value is wrong across a change of
+//     direction, but the bound is implied by the OR either way and gives the
+//     index somewhere to start. What the read passes over are the rows equal
+//     to the cursor in those columns -- a cost an order of mixed directions
+//     has, and MySQL does not pay: it reads the OR as ranges, and the bound as
+//     the same range.
+//
+// One column is one comparison everywhere.
 func After(by []Order, at []any) (func(*sql.Selector), error) {
 	if len(by) != len(at) {
 		return nil, fmt.Errorf("%w: it names %d columns and the order has %d", ErrCursor, len(at), len(by))
@@ -65,15 +92,18 @@ func After(by []Order, at []any) (func(*sql.Selector), error) {
 	}
 
 	return func(s *sql.Selector) {
+		cs := make([]string, len(by))
+		for i, o := range by {
+			cs[i] = s.C(o.Column)
+		}
+
 		// Built from the last column back, so that each step wraps what came
 		// after it: c1 <> v1 OR (c1 = v1 AND <the rest>).
 		var p *sql.Predicate
 		for i := len(by) - 1; i >= 0; i-- {
-			c := s.C(by[i].Column)
-
-			cmp := sql.GT(c, at[i])
+			cmp := sql.GT(cs[i], at[i])
 			if by[i].Desc {
-				cmp = sql.LT(c, at[i])
+				cmp = sql.LT(cs[i], at[i])
 			}
 
 			if p == nil {
@@ -81,11 +111,49 @@ func After(by []Order, at []any) (func(*sql.Selector), error) {
 				continue
 			}
 
-			p = sql.Or(cmp, sql.And(sql.EQ(c, at[i]), p))
+			p = sql.Or(cmp, sql.And(sql.EQ(cs[i], at[i]), p))
+		}
+		if len(by) == 1 {
+			s.Where(p)
+			return
 		}
 
-		s.Where(p)
+		// How many columns lead the order in the first one's direction.
+		run := 1
+		for run < len(by) && by[run].Desc == by[0].Desc {
+			run++
+		}
+
+		past, from := ">", ">="
+		if by[0].Desc {
+			past, from = "<", "<="
+		}
+
+		rows := s.Dialect() == dialect.Postgres || s.Dialect() == dialect.SQLite
+		switch {
+		case rows && run == len(by):
+			s.Where(compare(cs, past, at))
+		case rows && run > 1:
+			s.Where(sql.And(compare(cs[:run], from, at[:run]), p))
+		default:
+			s.Where(sql.And(compare(cs[:1], from, at[:1]), p))
+		}
 	}, nil
+}
+
+// compare is `c op v`, and `(c1, c2) op (v1, v2)` for more than one column.
+func compare(cs []string, op string, vs []any) *sql.Predicate {
+	if len(cs) == 1 {
+		return sql.P(func(b *sql.Builder) {
+			b.Ident(cs[0]).S(" " + op + " ").Arg(vs[0])
+		})
+	}
+
+	return sql.P(func(b *sql.Builder) {
+		b.Wrap(func(b *sql.Builder) { b.IdentComma(cs...) })
+		b.S(" " + op + " ")
+		b.Wrap(func(b *sql.Builder) { b.Args(vs...) })
+	})
 }
 
 // Encode answers with the cursor that names the row the given values came from,
