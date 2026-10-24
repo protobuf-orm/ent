@@ -479,7 +479,7 @@ func (m *Mutation) AddedField(name string) (ent.Value, bool) {
 		{{- range $f := $.Fields }}
 			{{- if $f.SupportsMutationAdd }}
 				case {{ $f.Constant }}:
-					return m.Added{{ $f.StructField }}()
+					return m.{{ $f.MutationAdded }}()
 			{{- end }}
 		{{- end }}
 		}
@@ -501,7 +501,7 @@ func (m *Mutation) AddField(name string, value ent.Value) error {
 					if !ok {
 						return fmt.Errorf("unexpected type %T for field %s", value, name)
 					}
-					m.Add{{ $f.StructField }}(v)
+					m.{{ $f.MutationAdd }}(v)
 					return nil
 			{{- end }}
 		{{- end }}
@@ -543,7 +543,7 @@ func (m *Mutation) ClearField(name string) error {
 		{{- range $f := $.Fields }}
 			{{- if $f.Optional }}
 				case {{ $f.Constant }}:
-					m.Clear{{ $f.StructField }}()
+					m.{{ $f.MutationClear }}()
 					return nil
 			{{- end }}
 		{{- end }}

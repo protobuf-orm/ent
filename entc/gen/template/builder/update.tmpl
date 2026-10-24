@@ -233,7 +233,7 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 	func ({{ $receiver }} *{{ $builder }}) defaults() {{ if $runtimeRequired }}error{{ end }}{
 		{{- range $f := $.Fields }}
 			{{- if $f.UpdateDefault }}
-				if _, ok := {{ $mutation }}.{{ $f.MutationGet }}(); !ok {{ if $f.Optional }} && !{{ $mutation }}.{{ $f.StructField }}Cleared() {{ end }} {
+				if _, ok := {{ $mutation }}.{{ $f.MutationGet }}(); !ok {{ if $f.Optional }} && !{{ $mutation }}.{{ $f.MutationCleared }}() {{ end }} {
 					{{- /* An expression is what the field was set to, and setting the default would replace it. */}}
 					{{- if $f.SupportsMutationExpr }}
 						if _, ok := {{ $mutation }}.FieldExpr({{ $.Package }}.{{ $f.Constant }}); !ok {
@@ -272,7 +272,7 @@ func ({{ $receiver }} *{{ $onebuilder }}) ExecX(ctx context.Context) {
 		{{- end }}
 		{{- range $e := $.Edges }}
 			{{- if and $e.Unique (not $e.Optional) }}
-				if {{ $mutation }}.{{ $e.StructField }}Cleared() && len({{ $mutation }}.{{ $e.StructField }}Ids()) > 0 {
+				if {{ $mutation }}.{{ $e.MutationCleared }}() && len({{ $mutation }}.{{ $e.StructField }}Ids()) > 0 {
 					return errors.New(`{{ $pkg }}: clearing a required unique edge "{{ $.Name }}.{{ $e.Name }}"`)
 				}
 			{{- end }}
